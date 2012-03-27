@@ -1,0 +1,331 @@
+/**
+ * 
+ */
+package gr.ekt.cerif.entities.second;
+
+
+import gr.ekt.cerif.entities.link.person.Person_Funding;
+import gr.ekt.cerif.entities.link.project.Project_Funding;
+import gr.ekt.cerif.entities.link.result.ResultPatent_Funding;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
+import gr.ekt.cerif.entities.link.result.ResultPublication_Funding;
+import gr.ekt.cerif.features.multilingual.FundingDescription;
+import gr.ekt.cerif.features.multilingual.FundingKeyword;
+import gr.ekt.cerif.features.multilingual.FundingName;
+
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+
+/**
+ * Represents an funding second level entity.
+ * 
+ */
+@Entity
+@Table(name="cfFund")
+public class Funding implements CerifSecondLevelEntity {
+	
+	/**
+	 * Serialization version.
+	 */
+	private static final long serialVersionUID = -4656355686071155891L;
+	
+
+	/**
+	 * The funding unique identifier.
+	 */
+	@Id
+	@Column(name="cfFundId")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+
+	/**
+	 * The currency code.
+	 */
+	@ManyToOne
+	@JoinColumn(name="cfCurrCode")
+	private Currency currency;
+	
+	/**
+	 * The start date.
+	 */
+	@Column (name="cfStartDate")
+	private Date startDate;
+	
+	/**
+	 * The end date.
+	 */
+	@Column (name="cfEndDate")
+	private Date endDate;
+	
+	/**
+	 * The acronym.
+	 */
+	@Column(name="cfAcro")
+	@Field(index=Index.TOKENIZED)
+	private String acronym;
+	
+	/**
+	 * The amount.
+	 */
+	private Double amount;
+	
+	/**
+	 * The URI.
+	 */
+	@Column(name="cfURI")
+	private String uri;
+	
+	/**
+	 * The link entities of projects and fundings.
+	 */
+	@OneToMany(mappedBy="funding")
+	private Set<Project_Funding> projects_fundings;
+	
+	@OneToMany(mappedBy="funding", fetch=FetchType.EAGER)
+	private Set<FundingName> names;
+	
+	@OneToMany(mappedBy="funding", fetch=FetchType.EAGER)
+	private Set<FundingKeyword> keywords;
+	
+	@OneToMany(mappedBy="funding", fetch=FetchType.EAGER)
+	private Set<FundingDescription> descriptions;
+
+	@OneToMany(mappedBy="funding")
+	private Set<Person_Funding> persons_fundings;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<ResultPatent_Funding> resultPatents_fundings;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<ResultProduct_Funding> resultProducts_fundings;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<ResultPublication_Funding> resultPublications_fundings;
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the currency
+	 */
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	/**
+	 * @param currency the currency to set
+	 */
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
+
+	/**
+	 * @return the startDate
+	 */
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	/**
+	 * @param startDate the startDate to set
+	 */
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	/**
+	 * @return the endDate
+	 */
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	/**
+	 * @return the acronym
+	 */
+	public String getAcronym() {
+		return acronym;
+	}
+
+	/**
+	 * @param acronym the acronym to set
+	 */
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
+	}
+
+	/**
+	 * @return the amount
+	 */
+	public Double getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	/**
+	 * @return the uri
+	 */
+	public String getUri() {
+		return uri;
+	}
+
+	/**
+	 * @param uri the uri to set
+	 */
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+	/**
+	 * @return the projects_fundings
+	 */
+	public Set<Project_Funding> getProjects_fundings() {
+		return projects_fundings;
+	}
+
+	/**
+	 * @param projects_fundings the projects_fundings to set
+	 */
+	public void setProjects_fundings(Set<Project_Funding> projects_fundings) {
+		this.projects_fundings = projects_fundings;
+	}
+
+	/**
+	 * @return the names
+	 */
+	public Set<FundingName> getNames() {
+		return names;
+	}
+
+	/**
+	 * @param names the names to set
+	 */
+	public void setNames(Set<FundingName> names) {
+		this.names = names;
+	}
+
+	/**
+	 * @return the keywords
+	 */
+	public Set<FundingKeyword> getKeywords() {
+		return keywords;
+	}
+
+	/**
+	 * @param keywords the keywords to set
+	 */
+	public void setKeywords(Set<FundingKeyword> keywords) {
+		this.keywords = keywords;
+	}
+
+	/**
+	 * @return the descriptions
+	 */
+	public Set<FundingDescription> getDescriptions() {
+		return descriptions;
+	}
+
+	/**
+	 * @param descriptions the descriptions to set
+	 */
+	public void setDescriptions(Set<FundingDescription> descriptions) {
+		this.descriptions = descriptions;
+	}
+	
+	/**
+	 * @return the persons_fundings
+	 */
+	public Set<Person_Funding> getPersons_fundings() {
+		return persons_fundings;
+	}
+	
+	/**
+	 * @param persons_fundings the persons_fundings to set
+	 */
+	public void setPersons_fundings(Set<Person_Funding> persons_fundings) {
+		this.persons_fundings = persons_fundings;
+	}
+	
+	/**
+	 * @return the resultPatents_fundings
+	 */
+	public Set<ResultPatent_Funding> getResultPatents_fundings() {
+		return resultPatents_fundings;
+	}
+	
+	/**
+	 * @param resultPatents_fundings the resultPatents_fundings to set
+	 */
+	public void setResultPatents_fundings(
+			Set<ResultPatent_Funding> resultPatents_fundings) {
+		this.resultPatents_fundings = resultPatents_fundings;
+	}
+	
+	/**
+	 * @return the resultProducts_fundings
+	 */
+	public Set<ResultProduct_Funding> getResultProducts_fundings() {
+		return resultProducts_fundings;
+	}
+	
+	/**
+	 * @param resultProducts_fundings the resultProducts_fundings to set
+	 */
+	public void setResultProducts_fundings(
+			Set<ResultProduct_Funding> resultProducts_fundings) {
+		this.resultProducts_fundings = resultProducts_fundings;
+	}
+	
+	/**
+	 * @return the resultPublications_fundings
+	 */
+	public Set<ResultPublication_Funding> getResultPublications_fundings() {
+		return resultPublications_fundings;
+	}
+	
+	/**
+	 * @param resultPublications_fundings the resultPublications_fundings to set
+	 */
+	public void setResultPublications_fundings(
+			Set<ResultPublication_Funding> resultPublications_fundings) {
+		this.resultPublications_fundings = resultPublications_fundings;
+	}
+}
