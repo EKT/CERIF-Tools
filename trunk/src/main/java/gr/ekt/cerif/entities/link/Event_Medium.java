@@ -6,24 +6,25 @@ package gr.ekt.cerif.entities.link;
 import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Event_MediumId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfEvent_Medium")
-@IdClass(Event_MediumId.class)
+@Table(name="cfEvent_Medium", uniqueConstraints=@UniqueConstraint(columnNames={"cfEventId", "cfMediumId", "cfClassId", "cfStartDate","cfEndDate"}))
 public class Event_Medium implements CerifLinkEntity {
 
 	/**
@@ -32,40 +33,44 @@ public class Event_Medium implements CerifLinkEntity {
 	private static final long serialVersionUID = 1215668785269962964L;
 	
 	/**
-	 * The event. 
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The event. 
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfEventId")
 	private Event event;
 	
 	/**
 	 * The Medium.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMediumId")
 	private Medium medium;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +79,32 @@ public class Event_Medium implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Event_Medium() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param event
+	 * @param medium
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Event_Medium(Event event, Medium medium, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.event = event;
+		this.medium = medium;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the event
@@ -157,6 +188,20 @@ public class Event_Medium implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.result.ResultPublicationTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual subtitle of a publication result entity.
  * 
  */
 @Entity
-@Table(name="cfResPublSubtitle")
-@IdClass(ResultPublicationTranslationId.class)
+@Table(name="cfResPublSubtitle", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfLangCode","cfTrans"}))
 public class ResultPublicationSubtitle implements ResultPublicationTranslation {
 
 	/**
@@ -32,9 +33,16 @@ public class ResultPublicationSubtitle implements ResultPublicationTranslation {
 	private static final long serialVersionUID = 1830637508197874842L;
 
 	/**
-	 * The translation.
+	 * 
 	 */
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The translation.
+	 */
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation = Translation.MACHINE;
@@ -42,16 +50,14 @@ public class ResultPublicationSubtitle implements ResultPublicationTranslation {
 	/**
 	 * The publication.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
@@ -60,6 +66,29 @@ public class ResultPublicationSubtitle implements ResultPublicationTranslation {
 	 */
 	@Column(name="cfSubtitle")
 	private String subtitle;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublicationSubtitle() { 
+		
+	}
+	
+	/**
+	 * 
+	 * @param translation
+	 * @param resultPublication
+	 * @param language
+	 * @param subtitle
+	 */
+	public ResultPublicationSubtitle(Translation translation,
+			ResultPublication resultPublication, Language language,
+			String subtitle) {
+		this.translation = translation;
+		this.resultPublication = resultPublication;
+		this.language = language;
+		this.subtitle = subtitle;
+	}
 
 	/**
 	 * Returns the translation.
@@ -133,6 +162,20 @@ public class ResultPublicationSubtitle implements ResultPublicationTranslation {
 		return String
 				.format("ResultPublicationSubtitle [translation=%s, resultPublication=%s, language=%s, subtitle=%s]",
 						translation, resultPublication, language, subtitle);
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

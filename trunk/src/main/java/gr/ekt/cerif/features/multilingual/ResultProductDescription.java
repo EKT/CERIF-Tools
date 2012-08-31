@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.result.ResultProductTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual description of a ResultProduct entity.
  * 
  */
 @Entity
-@Table(name="cfResProdDescr")
-@IdClass(ResultProductTranslationId.class)
+@Table(name="cfResProdDescr", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId","cfLangCode","cfTrans"}))
 public class ResultProductDescription implements ResultProductTranslation, Comparable<ResultProductDescription> {
 
 	/**
@@ -32,25 +33,30 @@ public class ResultProductDescription implements ResultProductTranslation, Compa
 	private static final long serialVersionUID = 3060075846940873942L;
 	
 	/**
-	 * The result product.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The result product.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResProdId")
 	private ResultProduct resultProduct;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -60,6 +66,28 @@ public class ResultProductDescription implements ResultProductTranslation, Compa
 	 */
 	@Column(name="cfDescr")
 	private String description;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultProductDescription() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param resultProduct
+	 * @param language
+	 * @param translation
+	 * @param description
+	 */
+	public ResultProductDescription(ResultProduct resultProduct,
+			Language language, Translation translation, String description) {
+		this.resultProduct = resultProduct;
+		this.language = language;
+		this.translation = translation;
+		this.description = description;
+	}
 
 	/**
 	 * @return the resultProduct
@@ -123,6 +151,20 @@ public class ResultProductDescription implements ResultProductTranslation, Compa
 	@Override
 	public int compareTo(ResultProductDescription o) {
 		return language.compareTo(o.language);
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
 

@@ -7,24 +7,23 @@ import gr.ekt.cerif.entities.link.person.Person_DublinCore;
 import java.util.Set;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_DublinCore;
-import gr.ekt.cerif.pk.DublinCoreId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Represents a DublinCore entity.
  * 
  */
 @Entity
-@Table(name="cfDC")
-@IdClass(DublinCoreId.class)
+@Table(name="cfDC", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme"}))
 public class DublinCore implements CerifAdditionalFeature {
 	
 	/**
@@ -43,7 +42,7 @@ public class DublinCore implements CerifAdditionalFeature {
 	/**
 	 * The dc scheme.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCScheme")
 	private String scheme;
 	
@@ -58,6 +57,29 @@ public class DublinCore implements CerifAdditionalFeature {
 	
 	@OneToMany(mappedBy="dublinCore")
 	private Set<ResultPublication_DublinCore> resultPublications_dublinCores;
+
+	/**
+	 * Default Constructor
+	 */
+	public DublinCore() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param scheme
+	 * @param schemeURI
+	 * @param persons_dublinCores
+	 * @param resultPublications_dublinCores
+	 */
+	public DublinCore(String scheme, String schemeURI,
+			Set<Person_DublinCore> persons_dublinCores,
+			Set<ResultPublication_DublinCore> resultPublications_dublinCores) {
+		this.scheme = scheme;
+		this.schemeURI = schemeURI;
+		this.persons_dublinCores = persons_dublinCores;
+		this.resultPublications_dublinCores = resultPublications_dublinCores;
+	}
 
 	/**
 	 * @return the id

@@ -6,25 +6,26 @@ package gr.ekt.cerif.features.multilingual;
 import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.features.semantics.ClassScheme;
-import gr.ekt.cerif.pk.ClassTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual term of a class entity.
  * 
  */
 @Entity
-@Table(name="cfClassTerm")
-@IdClass(ClassTranslationId.class)
+@Table(name="cfClassTerm", uniqueConstraints=@UniqueConstraint(columnNames={"cfClassId","cfClassSchemeId","cfLangCode","cfTrans"}))
 public class ClassTerm implements ClassTranslation {
 	
 	/**
@@ -33,33 +34,37 @@ public class ClassTerm implements ClassTranslation {
 	private static final long serialVersionUID = 782213354305473362L;	
 	
 	/**
-	 * The class.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The class.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
 	/**
 	 * The class scheme.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassSchemeId")
 	private ClassScheme classScheme;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;	
@@ -67,7 +72,7 @@ public class ClassTerm implements ClassTranslation {
 	/**
 	 * The class term.
 	 */
-	@Column(name="cfTerm")
+	@Column(name="cfTerm", columnDefinition="LONGTEXT")
 	private String term;
 	
 	/**
@@ -87,6 +92,37 @@ public class ClassTerm implements ClassTranslation {
 	 */
 	@Column(name="cfTermSrc")
 	private String termSrc;
+
+	/**
+	 * Default Constructor
+	 */
+	public ClassTerm(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param theClass
+	 * @param classScheme
+	 * @param language
+	 * @param translation
+	 * @param term
+	 * @param roleExpr
+	 * @param roleExprOpp
+	 * @param termSrc
+	 */
+	public ClassTerm(Class theClass, ClassScheme classScheme,
+			Language language, Translation translation, String term,
+			String roleExpr, String roleExprOpp, String termSrc) {
+		this.theClass = theClass;
+		this.classScheme = classScheme;
+		this.language = language;
+		this.translation = translation;
+		this.term = term;
+		this.roleExpr = roleExpr;
+		this.roleExprOpp = roleExprOpp;
+		this.termSrc = termSrc;
+	}
 
 
 	/**
@@ -195,5 +231,19 @@ public class ClassTerm implements ClassTranslation {
 
 	public void setTermSrc(String termSrc) {
 		this.termSrc = termSrc;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

@@ -5,21 +5,22 @@ package gr.ekt.cerif.features.additional;
 
 import java.util.Date;
 
-import gr.ekt.cerif.pk.DublinCoreRelationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Represents a DublinCoreRelation entity.
  * 
  */
 @Entity
-@Table(name="cfDCRelation")
-@IdClass(DublinCoreRelationId.class)
+@Table(name="cfDCRelation", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCId2","cfDCScheme1","cfDCScheme2","cfDCLangTag","cfDCTrans","cfDCStartDate","cfDCEndDate"}))
 public class DublinCoreRelation implements CerifAdditionalFeature {
 	
 	/**
@@ -27,6 +28,14 @@ public class DublinCoreRelation implements CerifAdditionalFeature {
 	 */
 	private static final long serialVersionUID = -6244475539548543386L;	
 
+	/**
+	 * The id.
+	 */
+	@Id
+	@Column(name="cfDCId")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The id1.
 	 */
@@ -36,49 +45,49 @@ public class DublinCoreRelation implements CerifAdditionalFeature {
 	/**
 	 * The id2.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCId2")
 	private Long id2;	
 
 	/**
 	 * The dc scheme1.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCScheme1")
 	private String scheme1;
 	
 	/**
 	 * The dc scheme2.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCScheme2")
 	private String scheme2;
 	
 	/**
 	 * The dc language.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCLangTag", length=5)
 	private String language;
 	
 	/**
 	 * The dc translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCTrans", length=1)
 	private String translation;
 	
 	/**
 	 * The dc dateBegin.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCStartDate")
 	private Date startDate;
 	
 	/**
 	 * The dc dateEnd.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCEndDate")
 	private Date endDate;
 	
@@ -93,6 +102,41 @@ public class DublinCoreRelation implements CerifAdditionalFeature {
 	 */
 	@Column(name="cfDCValue")
 	private String value;	
+
+	/**
+	 * Default Constructor
+	 */
+	public DublinCoreRelation() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param id1
+	 * @param id2
+	 * @param scheme1
+	 * @param scheme2
+	 * @param language
+	 * @param translation
+	 * @param startDate
+	 * @param endDate
+	 * @param type
+	 * @param value
+	 */
+	public DublinCoreRelation(Long id1, Long id2, String scheme1,
+			String scheme2, String language, String translation,
+			Date startDate, Date endDate, String type, String value) {
+		this.id1 = id1;
+		this.id2 = id2;
+		this.scheme1 = scheme1;
+		this.scheme2 = scheme2;
+		this.language = language;
+		this.translation = translation;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.type = type;
+		this.value = value;
+	}
 
 	/**
 	 * @return the id1
@@ -208,6 +252,20 @@ public class DublinCoreRelation implements CerifAdditionalFeature {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	

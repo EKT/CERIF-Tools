@@ -7,24 +7,25 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.result.ResultPatent_MediumId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfResPat_Medium")
-@IdClass(ResultPatent_MediumId.class)
+@Table(name="cfResPat_Medium", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPatId","cfMediumId","cfClassId","cfStartDate","cfEndDate"}))
 public class ResultPatent_Medium implements CerifLinkEntity {
 
 	/**
@@ -33,40 +34,44 @@ public class ResultPatent_Medium implements CerifLinkEntity {
 	private static final long serialVersionUID = -1194152302754275398L;
 
 	/**
-	 * The result patent.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The result patent.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPatId")
 	private ResultPatent resultPatent;
 	
 	/**
 	 * The Medium.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMediumId")
 	private Medium medium;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -75,6 +80,32 @@ public class ResultPatent_Medium implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultPatent_Medium() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param resultPatent
+	 * @param medium
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public ResultPatent_Medium(ResultPatent resultPatent, Medium medium,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.resultPatent = resultPatent;
+		this.medium = medium;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the resultPatent
@@ -158,6 +189,20 @@ public class ResultPatent_Medium implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

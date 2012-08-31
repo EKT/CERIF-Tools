@@ -3,6 +3,7 @@
  */
 package gr.ekt.cerif.entities.result;
 
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_ResultPublication;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Citation;
@@ -14,6 +15,7 @@ import gr.ekt.cerif.entities.link.result.ResultPublication_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Funding;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Measurement;
+import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Metrics;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
@@ -135,34 +137,34 @@ public class ResultPublication implements CerifResultEntity {
 	/**
 	 * The publication Titles.
 	 */
-	@OneToMany(mappedBy="resultPublication", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationTitle> resultPublicationTitles;
 	
 	/**
 	 * The publication Subtitles.
 	 */
-	@OneToMany(mappedBy="resultPublication", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationSubtitle> resultPublicationSubtitles;
 	
 	/**
 	 * The publication Abstracts.
 	 */
-	@OneToMany(mappedBy="resultPublication", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationAbstract> resultPublicationAbstracts;
 	
 	/**
 	 * The publication Keywords.
 	 */
-	@OneToMany(mappedBy="resultPublication", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationKeyword> resultPublicationKeywords;
 	
-	@OneToMany(mappedBy="resultPublication", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationBibliographicNote> resultPublicationBibliographicNotes;
 	
-	@OneToMany(mappedBy="resultPublication", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationNameAbbreviation> resultPublicationNameAbbreviations;
 	
-	@OneToMany(mappedBy="resultPublication", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationVersionInfo> resultPublicationVersionInfos;
 	
 	/**
@@ -179,6 +181,9 @@ public class ResultPublication implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultPublication")
 	private Set<Person_ResultPublication> persons_resultPublications;
+	
+	@OneToMany(mappedBy="resultPublication")
+	private Set<OrganisationUnit_ResultPublication> organisationUnit_resultPublications;
 	
 	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublication_Citation> resultPublications_citations;
@@ -211,6 +216,9 @@ public class ResultPublication implements CerifResultEntity {
 	private Set<ResultPublication_Metrics> resultPublications_metrics;
 	
 	@OneToMany(mappedBy="resultPublication")
+	private Set<ResultPublication_Medium> resultPublications_medium;
+	
+	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublication_ResultPatent> resultPublications_resultPatents;
 	
 	@OneToMany(mappedBy="resultPublication1")
@@ -219,6 +227,77 @@ public class ResultPublication implements CerifResultEntity {
 	@OneToMany(mappedBy="resultPublication2")
 	private Set<ResultPublication_ResultPublication> resultPublications2_resultPublications;
     
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublication(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param date
+	 * @param num
+	 * @param vol
+	 * @param edition
+	 * @param series
+	 * @param issue
+	 * @param startPage
+	 * @param endPage
+	 * @param totalPages
+	 * @param isbn
+	 * @param issn
+	 * @param uri
+	 * @param resultPublicationTitles
+	 * @param resultPublicationSubtitles
+	 * @param resultPublicationAbstracts
+	 * @param resultPublicationKeywords
+	 * @param resultPublicationBibliographicNotes
+	 * @param resultPublicationNameAbbreviations
+	 * @param resultPublicationVersionInfos
+	 */
+	public ResultPublication(
+			Date date,
+			String num,
+			String vol,
+			String edition,
+			String series,
+			String issue,
+			String startPage,
+			String endPage,
+			String totalPages,
+			String isbn,
+			String issn,
+			String uri,
+			Set<ResultPublicationTitle> resultPublicationTitles,
+			Set<ResultPublicationSubtitle> resultPublicationSubtitles,
+			Set<ResultPublicationAbstract> resultPublicationAbstracts,
+			Set<ResultPublicationKeyword> resultPublicationKeywords,
+			Set<ResultPublicationBibliographicNote> resultPublicationBibliographicNotes,
+			Set<ResultPublicationNameAbbreviation> resultPublicationNameAbbreviations,
+			Set<ResultPublicationVersionInfo> resultPublicationVersionInfos
+			) {
+		this.date = date;
+		this.num = num;
+		this.vol = vol;
+		this.edition = edition;
+		this.series = series;
+		this.issue = issue;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.totalPages = totalPages;
+		this.isbn = isbn;
+		this.issn = issn;
+		this.uri = uri;
+		this.resultPublicationTitles = resultPublicationTitles;
+		this.resultPublicationSubtitles = resultPublicationSubtitles;
+		this.resultPublicationAbstracts = resultPublicationAbstracts;
+		this.resultPublicationKeywords = resultPublicationKeywords;
+		this.resultPublicationBibliographicNotes = resultPublicationBibliographicNotes;
+		this.resultPublicationNameAbbreviations = resultPublicationNameAbbreviations;
+		this.resultPublicationVersionInfos = resultPublicationVersionInfos;
+	}
+
 	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.
@@ -535,6 +614,21 @@ public class ResultPublication implements CerifResultEntity {
 	}
 
 	/**
+	 * @return the organisationUnit_resultPublications
+	 */
+	public Set<OrganisationUnit_ResultPublication> getOrganisationUnit_ResultPublication() {
+		return organisationUnit_resultPublications;
+	}
+
+	/**
+	 * @param organisationUnit_resultPublications the organisationUnit_resultPublications to set
+	 */
+	public void setOrganisationUnit_ResultPublication(
+			Set<OrganisationUnit_ResultPublication> organisationUnit_resultPublications) {
+		this.organisationUnit_resultPublications = organisationUnit_resultPublications;
+	}
+
+	/**
 	 * @return the resultPublications_citations
 	 */
 	public Set<ResultPublication_Citation> getResultPublications_citations() {
@@ -682,6 +776,21 @@ public class ResultPublication implements CerifResultEntity {
 	public void setResultPublications_metrics(
 			Set<ResultPublication_Metrics> resultPublications_metrics) {
 		this.resultPublications_metrics = resultPublications_metrics;
+	}
+	
+	/**
+	 * @return the resultPublications_medium
+	 */
+	public Set<ResultPublication_Medium> getResultPublications_medium() {
+		return resultPublications_medium;
+	}
+
+	/**
+	 * @param resultPublications_medium the resultPublications_medium to set
+	 */
+	public void setResultPublications_medium(
+			Set<ResultPublication_Medium> resultPublications_medium) {
+		this.resultPublications_medium = resultPublications_medium;
 	}
 
 	/**

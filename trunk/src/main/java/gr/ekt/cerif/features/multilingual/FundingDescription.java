@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.FundingTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual description of a funding entity.
  * 
  */
 @Entity
-@Table(name="cfFundDescr")
-@IdClass(FundingTranslationId.class)
+@Table(name="cfFundDescr", uniqueConstraints=@UniqueConstraint(columnNames={"cfFundId","cfLangCode","cfTrans"}))
 public class FundingDescription implements FundingTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class FundingDescription implements FundingTranslation {
 	private static final long serialVersionUID = 84038477976007588L;
 
 	/**
-	 * The funding.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The funding.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFundId")
 	private Funding funding;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +67,28 @@ public class FundingDescription implements FundingTranslation {
 	@Column(name="cfDescr")
 	private String description;
 	
+	/**
+	 * Default Constructor
+	 */
+	public FundingDescription() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param funding
+	 * @param language
+	 * @param translation
+	 * @param description
+	 */
+	public FundingDescription(Funding funding, Language language,
+			Translation translation, String description) {
+		this.funding = funding;
+		this.language = language;
+		this.translation = translation;
+		this.description = description;
+	}
+
 	/**
 	 * @return the funding
 	 */
@@ -118,6 +146,20 @@ public class FundingDescription implements FundingTranslation {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

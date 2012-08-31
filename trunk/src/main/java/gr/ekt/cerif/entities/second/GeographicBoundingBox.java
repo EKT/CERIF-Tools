@@ -108,6 +108,51 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="geographicBoundingBox")
 	private Set<GeographicBoundingBoxKeyword> geographicBoundingBoxKeywords;
 
+	/**
+	 * Default Constructor
+	 */
+	public GeographicBoundingBox() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param wBLong
+	 * @param eBLong
+	 * @param sBLat
+	 * @param nBLat
+	 * @param minElev
+	 * @param maxElev
+	 * @param uri
+	 * @param resultProduct
+	 * @param geographicBoundingBoxNames
+	 * @param geographicBoundingBoxDescriptions
+	 * @param geographicBoundingBoxKeywords
+	 */
+	public GeographicBoundingBox(
+			String wBLong,
+			String eBLong,
+			String sBLat,
+			String nBLat,
+			String minElev,
+			String maxElev,
+			String uri,
+			Set<ResultProduct_GeographicBoundingBox> resultProduct,
+			Set<GeographicBoundingBoxName> geographicBoundingBoxNames,
+			Set<GeographicBoundingBoxDescription> geographicBoundingBoxDescriptions,
+			Set<GeographicBoundingBoxKeyword> geographicBoundingBoxKeywords) {
+		WBLong = wBLong;
+		EBLong = eBLong;
+		SBLat = sBLat;
+		NBLat = nBLat;
+		MinElev = minElev;
+		MaxElev = maxElev;
+		this.uri = uri;
+		this.resultProduct = resultProduct;
+		this.geographicBoundingBoxNames = geographicBoundingBoxNames;
+		this.geographicBoundingBoxDescriptions = geographicBoundingBoxDescriptions;
+		this.geographicBoundingBoxKeywords = geographicBoundingBoxKeywords;
+	}
 
 	/**
 	 * Returns the unique identifier.

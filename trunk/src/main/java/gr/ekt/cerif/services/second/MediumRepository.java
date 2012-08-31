@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for mediums.
  * 
  */
-public interface MediumRepository extends CrudRepository<Medium, String> {
-
+public interface MediumRepository extends CrudRepository<Medium, Long> {
+	Medium findByUri(String uri);	
 }

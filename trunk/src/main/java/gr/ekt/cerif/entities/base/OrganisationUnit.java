@@ -4,10 +4,14 @@
 package gr.ekt.cerif.entities.base;
 
 
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
+import gr.ekt.cerif.entities.link.person.Person_Class;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.second.Currency;
@@ -40,7 +44,6 @@ import org.springframework.util.StringUtils;
  */
 @Entity
 @Table(name="cfOrgUnit")
-@Indexed
 public class OrganisationUnit implements CerifBaseEntity {
 	
 	/**
@@ -67,7 +70,6 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
-	@Field(index=Index.TOKENIZED)
 	private String acronym;
 
 	/**
@@ -93,6 +95,12 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 */
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnit_ResultProduct> resultProducts;
+	
+	/**
+	 * The resultPublications.
+	 */
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_ResultPublication> resultPublications;
 
 	/**
 	 * The projects.
@@ -127,24 +135,70 @@ public class OrganisationUnit implements CerifBaseEntity {
 	/**
 	 * The organisation unit names.
 	 */
-	@OneToMany(mappedBy="organisationUnit", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnitName> organisationUnitNames;
 	
 	/**
 	 * The organisation unit research activities.
 	 */
-	@OneToMany(mappedBy="organisationUnit", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnitResearchActivity> organisationUnitResearchActivities;
 	
 	/**
 	 * The organisation unit keywords.
 	 */
-	@OneToMany(mappedBy="organisationUnit", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnitKeyword> organisationUnitKeywords;
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<Person_OrganisationUnit> persons_organisationUnits;
 	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_Facility> organisationUnits_facilities;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_Class> classes;
+	
+	/**
+	 * Default Constructor
+	 */
+	public OrganisationUnit(){
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param id
+	 * @param currency
+	 * @param acronym
+	 * @param headCount
+	 * @param turn
+	 * @param uri
+	 * @param organisationUnitNames
+	 * @param organisationUnitResearchActivities
+	 * @param organisationUnitKeywords
+	 */
+	public OrganisationUnit(
+			Long id,
+			Currency currency,
+			String acronym,
+			Integer headCount,
+			Double turn,
+			String uri,
+			Set<OrganisationUnitName> organisationUnitNames,
+			Set<OrganisationUnitResearchActivity> organisationUnitResearchActivities,
+			Set<OrganisationUnitKeyword> organisationUnitKeywords) {
+		this.id = id;
+		this.currency = currency;
+		this.acronym = acronym;
+		this.headCount = headCount;
+		this.turn = turn;
+		this.uri = uri;
+		this.organisationUnitNames = organisationUnitNames;
+		this.organisationUnitResearchActivities = organisationUnitResearchActivities;
+		this.organisationUnitKeywords = organisationUnitKeywords;
+	}
+
 	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.
@@ -255,6 +309,20 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 */
 	public void setResultProducts(Set<OrganisationUnit_ResultProduct> resultProducts) {
 		this.resultProducts = resultProducts;
+	}
+
+	/**
+	 * @return the resultPublications
+	 */
+	public Set<OrganisationUnit_ResultPublication> getResultPublications() {
+		return resultPublications;
+	}
+
+	/**
+	 * @param resultPublications the resultPublications to set
+	 */
+	public void setResultPublications(Set<OrganisationUnit_ResultPublication> resultPublications) {
+		this.resultPublications = resultPublications;
 	}
 
 	/**
@@ -486,6 +554,29 @@ public class OrganisationUnit implements CerifBaseEntity {
 		return result;
 	}
 	
+	public Set<OrganisationUnit_Facility> getOrganisationUnits_facilities() {
+		return organisationUnits_facilities;
+	}
+
+	public void setOrganisationUnits_facilities(
+			Set<OrganisationUnit_Facility> organisationUnits_facilities) {
+		this.organisationUnits_facilities = organisationUnits_facilities;
+	}
+
+	/**
+	 * @return the classes
+	 */
+	public Set<OrganisationUnit_Class> getClasses() {
+		return classes;
+	}
+
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<OrganisationUnit_Class> classes) {
+		this.classes = classes;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

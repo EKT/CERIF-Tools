@@ -3,23 +3,22 @@
  */
 package gr.ekt.cerif.features.additional;
 
-import gr.ekt.cerif.pk.DublinCoreBasicId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Represents a DublinCoreCoverageSpatial entity.
  * 
  */
 @Entity
-@Table(name="cfDCCoverageSpatial")
-@IdClass(DublinCoreBasicId.class)
+@Table(name="cfDCCoverageSpatial", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreCoverageSpatial implements CerifAdditionalFeature {
 	
 	/**
@@ -38,21 +37,21 @@ public class DublinCoreCoverageSpatial implements CerifAdditionalFeature {
 	/**
 	 * The dc scheme.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCScheme")
 	private String scheme;
 	
 	/**
 	 * The dc language.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCLangTag")
 	private String language;
 	
 	/**
 	 * The dc translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCTrans")
 	private String translation;
 	
@@ -86,6 +85,36 @@ public class DublinCoreCoverageSpatial implements CerifAdditionalFeature {
 	@Column(name="cfFDCPrecision")
 	private Double precision;
 		
+	/**
+	 * Default Constructor
+	 */
+	public DublinCoreCoverageSpatial() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param scheme
+	 * @param language
+	 * @param translation
+	 * @param value
+	 * @param xCoordinate
+	 * @param yCoordinate
+	 * @param zCoordinate
+	 * @param precision
+	 */
+	public DublinCoreCoverageSpatial(String scheme, String language,
+			String translation, String value, String xCoordinate,
+			String yCoordinate, String zCoordinate, Double precision) {
+		this.scheme = scheme;
+		this.language = language;
+		this.translation = translation;
+		this.value = value;
+		this.xCoordinate = xCoordinate;
+		this.yCoordinate = yCoordinate;
+		this.zCoordinate = zCoordinate;
+		this.precision = precision;
+	}
 
 	/**
 	 * @return the id

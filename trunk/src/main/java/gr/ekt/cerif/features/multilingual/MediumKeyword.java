@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.MediumTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual keyword of a medium entity.
  * 
  */
 @Entity
-@Table(name="cfMediumKeyw")
-@IdClass(MediumTranslationId.class)
+@Table(name="cfMediumKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfMediumId","cfLangCode","cfTrans"}))
 public class MediumKeyword implements MediumTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class MediumKeyword implements MediumTranslation {
 	private static final long serialVersionUID = -4017737031264833569L;
 
 	/**
-	 * The medium.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The medium.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMediumId")
 	private Medium medium;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +67,28 @@ public class MediumKeyword implements MediumTranslation {
 	@Column(name="cfKeyw")
 	private String keyword;
 	
+	/**
+	 * Default Constructor
+	 */
+	public MediumKeyword() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param medium
+	 * @param language
+	 * @param translation
+	 * @param keyword
+	 */
+	public MediumKeyword(Medium medium, Language language,
+			Translation translation, String keyword) {
+		this.medium = medium;
+		this.language = language;
+		this.translation = translation;
+		this.keyword = keyword;
+	}
+
 	/**
 	 * @return the medium
 	 */
@@ -118,6 +146,20 @@ public class MediumKeyword implements MediumTranslation {
 	 */
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

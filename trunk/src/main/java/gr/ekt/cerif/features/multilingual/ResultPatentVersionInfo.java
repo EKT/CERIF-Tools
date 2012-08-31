@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.result.ResultPatentTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual versionInfo of a ResultPatent entity.
  * 
  */
 @Entity
-@Table(name="cfResPatVersInfo")
-@IdClass(ResultPatentTranslationId.class)
+@Table(name="cfResPatVersInfo", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPatId","cfLangCode","cfTrans"}))
 public class ResultPatentVersionInfo implements ResultPatentTranslation {
 
 	/**
@@ -32,25 +33,31 @@ public class ResultPatentVersionInfo implements ResultPatentTranslation {
 	private static final long serialVersionUID = 2547099866085664341L;
 
 	/**
-	 * The result patent.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	
+	/**
+	 * The result patent.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPatId")
 	private ResultPatent resultPatent;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -60,6 +67,28 @@ public class ResultPatentVersionInfo implements ResultPatentTranslation {
 	 */
 	@Column(name="cfVersInfo")
 	private String versionInfo;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultPatentVersionInfo() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param resultPatent
+	 * @param language
+	 * @param translation
+	 * @param versionInfo
+	 */
+	public ResultPatentVersionInfo(ResultPatent resultPatent,
+			Language language, Translation translation, String versionInfo) {
+		this.resultPatent = resultPatent;
+		this.language = language;
+		this.translation = translation;
+		this.versionInfo = versionInfo;
+	}
 
 	/**
 	 * @return the resultPatent
@@ -115,6 +144,20 @@ public class ResultPatentVersionInfo implements ResultPatentTranslation {
 	 */
 	public void setVersionInfo(String versionInfo) {
 		this.versionInfo = versionInfo;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
 

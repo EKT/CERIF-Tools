@@ -6,24 +6,25 @@ package gr.ekt.cerif.entities.link;
 import gr.ekt.cerif.entities.second.Citation;
 import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Citation_MediumId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfCite_Medium")
-@IdClass(Citation_MediumId.class)
+@Table(name="cfCite_Medium", uniqueConstraints=@UniqueConstraint(columnNames={"cfCiteId", "cfMediumId", "cfClassId", "cfStartDate", "cfEndDate"}))
 public class Citation_Medium implements CerifLinkEntity {
 
 	/**
@@ -32,40 +33,44 @@ public class Citation_Medium implements CerifLinkEntity {
 	private static final long serialVersionUID = 7981125284663908967L;
 	
 	/**
-	 * The citation.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The citation.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfCiteId")
 	private Citation citation;
 	
 	/**
 	 * The medium.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfMediumId")
 	private Medium medium;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +79,32 @@ public class Citation_Medium implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Citation_Medium() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param citation
+	 * @param medium
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Citation_Medium(Citation citation, Medium medium, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.citation = citation;
+		this.medium = medium;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the citation
@@ -157,6 +188,20 @@ public class Citation_Medium implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

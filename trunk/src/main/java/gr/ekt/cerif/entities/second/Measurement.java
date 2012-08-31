@@ -104,17 +104,68 @@ public class Measurement implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="measurement")
 	private Set<ResultProduct_Measurement> resultProducts_measurements;
 	
-	@OneToMany(mappedBy="measurement", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="measurement")
 	private Set<MeasurementName> names;
 	
-	@OneToMany(mappedBy="measurement", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="measurement")
 	private Set<MeasurementKeyword> keywords;
 	
-	@OneToMany(mappedBy="measurement", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="measurement")
 	private Set<MeasurementDescription> descriptions;
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<ResultPublication_Measurement> resultPublications_measurements;
+
+	/**
+	 * Default Constructor
+	 */
+	public Measurement() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param counter
+	 * @param valFloatP
+	 * @param valJudgeNum
+	 * @param countIntChange
+	 * @param countFloatPChange
+	 * @param valJudgeNumChange
+	 * @param valJudgeText
+	 * @param valJudgeTextChange
+	 * @param uri
+	 * @param resultPatents_measurements
+	 * @param resultProducts_measurements
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 * @param resultPublications_measurements
+	 */
+	public Measurement(Integer counter, Double valFloatP, Double valJudgeNum,
+			Integer countIntChange, Double countFloatPChange,
+			Double valJudgeNumChange, String valJudgeText,
+			String valJudgeTextChange, String uri,
+			Set<ResultPatent_Measurement> resultPatents_measurements,
+			Set<ResultProduct_Measurement> resultProducts_measurements,
+			Set<MeasurementName> names, Set<MeasurementKeyword> keywords,
+			Set<MeasurementDescription> descriptions,
+			Set<ResultPublication_Measurement> resultPublications_measurements) {
+		this.counter = counter;
+		this.valFloatP = valFloatP;
+		this.valJudgeNum = valJudgeNum;
+		this.countIntChange = countIntChange;
+		this.countFloatPChange = countFloatPChange;
+		this.valJudgeNumChange = valJudgeNumChange;
+		this.valJudgeText = valJudgeText;
+		this.valJudgeTextChange = valJudgeTextChange;
+		this.uri = uri;
+		this.resultPatents_measurements = resultPatents_measurements;
+		this.resultProducts_measurements = resultProducts_measurements;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+		this.resultPublications_measurements = resultPublications_measurements;
+	}
 
 	/**
 	 * @return the id

@@ -45,14 +45,34 @@ public class Citation implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
-	@OneToMany(mappedBy="citation", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="citation")
 	private Set<CitationDescription> descriptions;
 	
-	@OneToMany(mappedBy="citation", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="citation")
 	private Set<CitationTitle> titles;
 	
 	@OneToMany(mappedBy="citation")
 	private Set<ResultPublication_Citation> resultPublications_citations;
+
+	/**
+	 * Default Constructor
+	 */
+	public Citation() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @param descriptions
+	 * @param titles
+	 */
+	public Citation(String uri, Set<CitationDescription> descriptions,
+			Set<CitationTitle> titles) {
+		this.uri = uri;
+		this.descriptions = descriptions;
+		this.titles = titles;
+	}
 
 	/**
 	 * @return the id

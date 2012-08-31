@@ -5,24 +5,25 @@ package gr.ekt.cerif.entities.link;
 
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.features.semantics.ClassScheme;
-import gr.ekt.cerif.pk.ClassScheme_ClassSchemeId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfClassScheme_ClassScheme")
-@IdClass(ClassScheme_ClassSchemeId.class)
+@Table(name="cfClassScheme_ClassScheme", uniqueConstraints=@UniqueConstraint(columnNames={"cfClassSchemeId1","cfClassSchemeId2","cfClassId", "cfStartDate", "cfEndDate"}))
 public class ClassScheme_ClassScheme implements CerifLinkEntity {
 
 	/**
@@ -30,42 +31,46 @@ public class ClassScheme_ClassScheme implements CerifLinkEntity {
 	 */
 	private static final long serialVersionUID = 2855044663638508241L;
 	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	
 	/**
 	 * The first class scheme.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassSchemeId1")	
 	private ClassScheme classScheme1;
 	
 	/**
 	 * The second class scheme.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassSchemeId2")	
 	private ClassScheme classScheme2;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +79,33 @@ public class ClassScheme_ClassScheme implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public ClassScheme_ClassScheme() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param classScheme1
+	 * @param classScheme2
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public ClassScheme_ClassScheme(ClassScheme classScheme1,
+			ClassScheme classScheme2, Class theClass, Date startDate,
+			Date endDate, Double fraction) {
+		this.classScheme1 = classScheme1;
+		this.classScheme2 = classScheme2;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the classScheme1
@@ -157,6 +189,20 @@ public class ClassScheme_ClassScheme implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

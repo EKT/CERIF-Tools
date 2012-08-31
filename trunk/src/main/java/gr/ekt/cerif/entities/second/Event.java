@@ -3,8 +3,13 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Event_Class;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Event;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_Event;
 import gr.ekt.cerif.entities.link.project.Project_Event;
+import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
+import gr.ekt.cerif.entities.link.result.ResultPublication_Class;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Event;
 import gr.ekt.cerif.features.multilingual.EventDescription;
 import gr.ekt.cerif.features.multilingual.EventKeyword;
@@ -84,19 +89,20 @@ public class Event implements CerifSecondLevelEntity{
 	@Column(name="cfURI")
 	private String uri;
 	
+	
 	/**
 	 * The link entities of projects and events.
 	 */
 	@OneToMany(mappedBy="event")
 	private Set<Project_Event> projects_events;
 	
-	@OneToMany(mappedBy="event", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="event")
 	private Set<EventName> names;
 	
-	@OneToMany(mappedBy="event", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="event")
 	private Set<EventKeyword> keywords;
 	
-	@OneToMany(mappedBy="event", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="event")
 	private Set<EventDescription> descriptions;
 
 	@OneToMany(mappedBy="event")
@@ -104,6 +110,50 @@ public class Event implements CerifSecondLevelEntity{
 	
 	@OneToMany(mappedBy="event")
 	private Set<ResultPublication_Event> resultPublications_events;
+	
+	@OneToMany(mappedBy="event")
+	private Set<Event_Class> classes;
+	
+	@OneToMany(mappedBy="event")
+	private Set<OrganisationUnit_Event> organisationUnit_events;
+	
+
+	/**
+	 * Default Constructor
+	 */
+	public Event() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param country
+	 * @param cityTown
+	 * @param feeOrFree
+	 * @param startDate
+	 * @param endDate
+	 * @param uri
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 * @param classes
+	 */
+	public Event(Country country, String cityTown, String feeOrFree,
+			Date startDate, Date endDate, String uri, Set<EventName> names,
+			Set<EventKeyword> keywords, Set<EventDescription> descriptions,
+			Set<Event_Class> classes, Set<OrganisationUnit_Event> organisationUnit_events) {
+		this.country = country;
+		this.cityTown = cityTown;
+		this.feeOrFree = feeOrFree;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.uri = uri;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+		this.classes = classes;
+		this.organisationUnit_events = organisationUnit_events;
+	}
 
 	/**
 	 * @return the id
@@ -216,6 +266,8 @@ public class Event implements CerifSecondLevelEntity{
 	public void setProjects_events(Set<Project_Event> projects_events) {
 		this.projects_events = projects_events;
 	}
+	
+	
 	/**
 	 * @return the names
 	 */
@@ -287,5 +339,34 @@ public class Event implements CerifSecondLevelEntity{
 			Set<ResultPublication_Event> resultPublications_events) {
 		this.resultPublications_events = resultPublications_events;
 	}
+	
+	/**
+	 * @return the classes
+	 */
+	public Set<Event_Class> getClasses() {
+		return classes;
+	}
+
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<Event_Class> classes) {
+		this.classes = classes;
+	}
+	
+	/**
+	 * @return the organisationUnit_events
+	 */
+	public Set<OrganisationUnit_Event> getOrganisationUnit_Event() {
+		return organisationUnit_events;
+	}
+
+	/**
+	 * @param organisationUnit_events the organisationUnit_events to set
+	 */
+	public void setOrganisationUnit_Event(Set<OrganisationUnit_Event> organisationUnit_events) {
+		this.organisationUnit_events = organisationUnit_events;
+	}
+
 
 }

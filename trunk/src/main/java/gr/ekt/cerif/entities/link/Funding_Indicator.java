@@ -9,22 +9,23 @@ import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Funding_IndicatorId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfFund_Indic")
-@IdClass(Funding_IndicatorId.class)
+@Table(name="cfFund_Indic", uniqueConstraints=@UniqueConstraint(columnNames={"cfFundId", "cfIndicId", "cfClassId", "cfStartDate", "cfEndDate"}))
 public class Funding_Indicator implements CerifLinkEntity {
 
 	/**
@@ -32,41 +33,46 @@ public class Funding_Indicator implements CerifLinkEntity {
 	 */
 	private static final long serialVersionUID = -3391364531265701846L;
 	
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The funding.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFundId")
 	private Funding funding;
 	
 	/**
 	 * The indicator.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfIndicId")
 	private Indicator indicator;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -87,6 +93,38 @@ public class Funding_Indicator implements CerifLinkEntity {
 	 */
 	@Column(name="cfCurrCode")
 	private Currency currency;
+
+	/**
+	 * Default Constructor
+	 */
+	public Funding_Indicator() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param funding
+	 * @param indicator
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param amount
+	 * @param currency
+	 */
+	public Funding_Indicator(Funding funding, Indicator indicator,
+			Class theClass, Date startDate, Date endDate, Double fraction,
+			Double amount, Currency currency) {
+		super();
+		this.funding = funding;
+		this.indicator = indicator;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.amount = amount;
+		this.currency = currency;
+	}
 
 	/**
 	 * @return the funding
@@ -198,6 +236,20 @@ public class Funding_Indicator implements CerifLinkEntity {
 	 */
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

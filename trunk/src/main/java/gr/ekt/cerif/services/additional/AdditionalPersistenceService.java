@@ -31,6 +31,8 @@ import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementPriv
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementRights;
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementSecurity;
 import gr.ekt.cerif.features.additional.PersonName;
+import gr.ekt.cerif.features.additional.SentEmails;
+import gr.ekt.cerif.services.multilingual.PersonTranslationRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -124,6 +126,22 @@ public class AdditionalPersistenceService {
 	@Autowired
 	private FormalisedDublinCoreRightsManagementSecurityRepository formalisedDublinCoreRightsManagementSecurityRepository;
 	
+	@Autowired
+	private SentEmailsRepository sentEmailsRepository;
+	
+	@Autowired
+	PersonTranslationRepository personTranslationRepository;
+	
+	@Transactional
+	public void delete(CerifAdditionalFeature entity) {
+		
+		if (entity instanceof PersonName) {
+			personNameRepository.delete( (PersonName) entity);
+		} else {
+			throw new IllegalArgumentException(String.format("Invalid additional feature entity provided. %s", entity));
+		}
+	}
+	
 	@Transactional
 	public void save(CerifAdditionalFeature entity) {
 		if (entity instanceof PersonName) {
@@ -180,6 +198,8 @@ public class AdditionalPersistenceService {
 			formalisedDublinCoreRightsManagementRightsRepository.save( (FormalisedDublinCoreRightsManagementRights) entity);
 		} else if (entity instanceof FormalisedDublinCoreRightsManagementSecurity) {
 			formalisedDublinCoreRightsManagementSecurityRepository.save( (FormalisedDublinCoreRightsManagementSecurity) entity);
+		} else if (entity instanceof SentEmails) {
+			sentEmailsRepository.save( (SentEmails) entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid additional feature entity provided. %s", entity));
 		}

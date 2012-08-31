@@ -8,25 +8,27 @@ import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.project.Project_EquipmentId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a project with an equipment.
  * 
  */
 @Entity
-@Table(name="cfProj_Equip")
-@IdClass(Project_EquipmentId.class)
+@Table(name="cfProj_Equip", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId", "cfEquipId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class Project_Equipment implements CerifLinkEntity {
 	
 	/**
@@ -34,39 +36,42 @@ public class Project_Equipment implements CerifLinkEntity {
 	 */
 	private static final long serialVersionUID = 4515765430023110872L;
 	
-
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The project.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The equipment.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEquipId")
 	private Equipment equipment;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
-	@Column (name="cfStartDate")
+	@NotNull
+	@Column(name="cfStartDate")
 	private Date startDate;
 		
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -85,7 +90,8 @@ public class Project_Equipment implements CerifLinkEntity {
 	/**
 	 * The currency code.
 	 */
-	@Column(name="cfCurrCode")
+	@OneToOne
+	@JoinColumn(name="cfCurrCode")
 	private Currency currency;
 
 	/**
@@ -99,6 +105,56 @@ public class Project_Equipment implements CerifLinkEntity {
 	 */
 	@Column(name="cfConditions")
 	private String conditions;
+
+	/**
+	 * Default constructor
+	 */
+	public Project_Equipment() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param equipment
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param price
+	 * @param currency
+	 * @param availability
+	 * @param conditions
+	 */
+	public Project_Equipment(Project project, Equipment equipment,
+			Class theClass, Date startDate, Date endDate, Double fraction,
+			Double price, Currency currency, String availability,
+			String conditions) {
+		this.project = project;
+		this.equipment = equipment;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.price = price;
+		this.currency = currency;
+		this.availability = availability;
+		this.conditions = conditions;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * Returns the start date.

@@ -46,17 +46,42 @@ public class Metrics implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
-	@OneToMany(mappedBy="metrics", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="metrics")
 	private Set<MetricsName> names;
 	
-	@OneToMany(mappedBy="metrics", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="metrics")
 	private Set<MetricsKeyword> keywords;
 	
-	@OneToMany(mappedBy="metrics", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="metrics")
 	private Set<MetricsDescription> descriptions;
 	
 	@OneToMany(mappedBy="metrics")
 	private Set<ResultPublication_Metrics> resultPublications_metrics;
+
+	/**
+	 * Default Constructor
+	 */
+	public Metrics() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 * @param resultPublications_metrics
+	 */
+	public Metrics(String uri, Set<MetricsName> names,
+			Set<MetricsKeyword> keywords, Set<MetricsDescription> descriptions,
+			Set<ResultPublication_Metrics> resultPublications_metrics) {
+		this.uri = uri;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+		this.resultPublications_metrics = resultPublications_metrics;
+	}
 
 	/**
 	 * @return the id

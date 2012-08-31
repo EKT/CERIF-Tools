@@ -7,24 +7,25 @@ import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Equipment_FundingId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfEquip_Fund")
-@IdClass(Equipment_FundingId.class)
+@Table(name="cfEquip_Fund", uniqueConstraints=@UniqueConstraint(columnNames={"cfEquipId", "cfFundId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class Equipment_Funding implements CerifLinkEntity {
 
 	/**
@@ -33,40 +34,44 @@ public class Equipment_Funding implements CerifLinkEntity {
 	private static final long serialVersionUID = 4466478409053153427L;
 	
 	/**
-	 * The equipment.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The equipment.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEquipId")
 	private Equipment equipment;
 	
 	/**
 	 * The funding.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFundId")
 	private Funding funding;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -87,6 +92,51 @@ public class Equipment_Funding implements CerifLinkEntity {
 	 */
 	@Column(name="cfCurrCode")
 	private Currency currency;
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * Default Constructor
+	 */
+	public Equipment_Funding() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param equipment
+	 * @param funding
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param amount
+	 * @param currency
+	 */
+	public Equipment_Funding(Equipment equipment, Funding funding,
+			Class theClass, Date startDate, Date endDate, Double fraction,
+			Double amount, Currency currency) {
+		this.equipment = equipment;
+		this.funding = funding;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.amount = amount;
+		this.currency = currency;
+	}
 
 	/**
 	 * @return the equipment

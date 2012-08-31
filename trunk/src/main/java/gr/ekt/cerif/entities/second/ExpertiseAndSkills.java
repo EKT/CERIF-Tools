@@ -47,17 +47,41 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
-	@OneToMany(mappedBy="expertiseAndSkills", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="expertiseAndSkills")
 	private Set<ExpertiseAndSkillsName> names;
 	
-	@OneToMany(mappedBy="expertiseAndSkills", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="expertiseAndSkills")
 	private Set<ExpertiseAndSkillsKeyword> keywords;
 	
-	@OneToMany(mappedBy="expertiseAndSkills", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="expertiseAndSkills")
 	private Set<ExpertiseAndSkillsDescription> descriptions;
 	
 	@OneToMany(mappedBy="expertiseAndSkills")
 	private Set<Person_ExpertiseAndSkills> persons_expertiseAndSkills;
+
+	/**
+	 * Default Constructor
+	 */
+	public ExpertiseAndSkills() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 * @param persons_expertiseAndSkills
+	 */
+	public ExpertiseAndSkills(String uri, Set<ExpertiseAndSkillsName> names,
+			Set<ExpertiseAndSkillsKeyword> keywords,
+			Set<ExpertiseAndSkillsDescription> descriptions) {
+		this.uri = uri;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+	}
 
 	/**
 	 * @return the id

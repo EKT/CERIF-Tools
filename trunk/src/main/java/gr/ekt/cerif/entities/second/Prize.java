@@ -47,17 +47,41 @@ public class Prize implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
-	@OneToMany(mappedBy="prize", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="prize")
 	private Set<PrizeName> names;
 	
-	@OneToMany(mappedBy="prize", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="prize")
 	private Set<PrizeKeyword> keywords;
 	
-	@OneToMany(mappedBy="prize", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="prize")
 	private Set<PrizeDescription> descriptions;
 	
 	@OneToMany(mappedBy="person")
 	private Set<Person_Prize> persons_prizes;
+
+	/**
+	 * Default Constructor
+	 */
+	public Prize() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 * @param persons_prizes
+	 */
+	public Prize(String uri, Set<PrizeName> names, Set<PrizeKeyword> keywords,
+			Set<PrizeDescription> descriptions, Set<Person_Prize> persons_prizes) {
+		this.uri = uri;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+		this.persons_prizes = persons_prizes;
+	}
 
 	/**
 	 * @return the id

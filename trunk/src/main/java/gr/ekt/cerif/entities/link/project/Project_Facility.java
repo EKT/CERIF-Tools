@@ -8,25 +8,26 @@ import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.project.Project_FacilityId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a project with a facility.
  * 
  */
 @Entity
-@Table(name="cfProj_Facil")
-@IdClass(Project_FacilityId.class)
+@Table(name="cfProj_Facil", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId", "cfFacilId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class Project_Facility implements CerifLinkEntity {
 	
 	/**
@@ -35,37 +36,41 @@ public class Project_Facility implements CerifLinkEntity {
 	private static final long serialVersionUID = -3052891621307942145L;
 
 	/**
-	 * The project.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The project.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The facility.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFacilId")
 	private Facility facility;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 		
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -98,6 +103,57 @@ public class Project_Facility implements CerifLinkEntity {
 	 */
 	@Column(name="cfConditions")
 	private String conditions;
+
+	
+	/**
+	 * Default Constructor
+	 */
+	public Project_Facility() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param facility
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param price
+	 * @param currency
+	 * @param availability
+	 * @param conditions
+	 */
+	public Project_Facility(Project project, Facility facility,
+			Class theClass, Date startDate, Date endDate, Double fraction,
+			Double price, Currency currency, String availability,
+			String conditions) {
+		this.project = project;
+		this.facility = facility;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.price = price;
+		this.currency = currency;
+		this.availability = availability;
+		this.conditions = conditions;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * Returns the start date.

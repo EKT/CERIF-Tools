@@ -7,25 +7,26 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.person.Person_ExpertiseAndSkillsId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfPers_ExpSkills")
-@IdClass(Person_ExpertiseAndSkillsId.class)
+@Table(name="cfPers_ExpSkills", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfExpSkillsId","cfClassId","cfStartDate","cfEndDate"}))
 public class Person_ExpertiseAndSkills implements CerifLinkEntity {
 
 	/**
@@ -34,40 +35,44 @@ public class Person_ExpertiseAndSkills implements CerifLinkEntity {
 	private static final long serialVersionUID = -13457654254546L;
 	
 	/**
-	 * The person.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	private Person person;
 	
 	/**
 	 * The expertise and skills.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfExpSkillsId")
 	private ExpertiseAndSkills expertiseAndSkills;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -100,6 +105,42 @@ public class Person_ExpertiseAndSkills implements CerifLinkEntity {
 	 */
 	@Column(name="cfConditions")
 	private String conditions;
+
+	/**
+	 * Default Constructor
+	 */
+	public Person_ExpertiseAndSkills() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param expertiseAndSkills
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param price
+	 * @param currency
+	 * @param availability
+	 * @param conditions
+	 */
+	public Person_ExpertiseAndSkills(Person person,
+			ExpertiseAndSkills expertiseAndSkills, Class theClass,
+			Date startDate, Date endDate, Double fraction, Double price,
+			Currency currency, String availability, String conditions) {
+		this.person = person;
+		this.expertiseAndSkills = expertiseAndSkills;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.price = price;
+		this.currency = currency;
+		this.availability = availability;
+		this.conditions = conditions;
+	}
 
 	/**
 	 * @return the person
@@ -239,6 +280,20 @@ public class Person_ExpertiseAndSkills implements CerifLinkEntity {
 	 */
 	public void setConditions(String conditions) {
 		this.conditions = conditions;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

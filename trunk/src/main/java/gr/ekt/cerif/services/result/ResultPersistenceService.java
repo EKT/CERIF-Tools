@@ -38,6 +38,15 @@ public class ResultPersistenceService {
 	@Autowired
 	private ResultPublicationRepository publicationRepository;
 	
+
+	
+	
+	
+	public void setPublicationRepository(
+			ResultPublicationRepository publicationRepository) {
+		this.publicationRepository = publicationRepository;
+	}
+
 	/**
 	 * Saves the provided result entity.
 	 * @param entity The result entity.
@@ -49,6 +58,22 @@ public class ResultPersistenceService {
 			productRepository.save((ResultProduct)entity);
 		} else if (entity instanceof ResultPublication) {
 			publicationRepository.save((ResultPublication)entity);
+		} else {
+			throw new IllegalArgumentException(String.format("Invalid result entity provided. %s", entity));
+		}
+	}
+	
+	/**
+	 * Deletes the provided result entity.
+	 * @param entity The result entity.
+	 */
+	public void delete(CerifResultEntity entity) {
+		if (entity instanceof ResultPatent) {
+			patentRepository.delete((ResultPatent)entity);
+		} else if (entity instanceof ResultProduct) {
+			productRepository.save((ResultProduct)entity);
+		} else if (entity instanceof ResultPublication) {
+			publicationRepository.delete((ResultPublication)entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid result entity provided. %s", entity));
 		}
@@ -75,74 +100,19 @@ public class ResultPersistenceService {
 		
 	}
 
-	/**
-	 * @return
-	 */
-	public List<ResultProduct> findAllProducts() {
-		return productRepository.getAllProducts();
+	public ResultPublicationRepository getPublicationRepository() {
+		return publicationRepository;
+	}
+	
+	public ResultPatentRepository getResultPatentRepository() {
+		return patentRepository;
 	}
 
 	/**
-	 * @param id
-	 * @return
+	 * @return the publicationRepository
 	 */
-	public ResultProduct findProductById(Long id) {
-		return productRepository.getProduct(id);
+	public ResultPublicationRepository getResultPublicationRepository() {
+		return publicationRepository;
 	}
-
-	/**
-	 * @param keyword
-	 * @return
-	 */
-	public List<ResultProduct> findProductsByKeyword(String keyword) {
-		return productRepository.findByKeyword(keyword);
-	}
-	
-	public List<ResultProduct> findByClass(String uri) {
-		return productRepository.findByClass(uri);
-	}
-	
-	public List<ResultProduct> findByOrganisationClass(String uri) {
-		return productRepository.findByOrganisationClass(uri);
-	}
-
-	/**
-	 * @param uri
-	 * @return
-	 */
-	public List<ResultProduct> findProductsByPersonClass(String uri) {
-		return productRepository.findByPersonClass(uri);
-	}
-
-	/**
-	 * @param uri
-	 * @return
-	 */
-	public List<ResultProduct> findProductsByProjectClass(String uri) {
-		return productRepository.findByProjectClass(uri);
-	}
-	
-	public List<ResultProduct> findProductsByCountry(String code) {
-		return productRepository.findByCountry(code);
-	}
-	
-	public List<ResultProduct> findByOrganisationURI(String uri) {
-		return productRepository.findByOrganisationURI(uri);
-	}
-	
-	public List<ResultProduct> findByOrganisationURIClass(String orgURI, String classURI) {
-		return productRepository.findByOrganisationURIClass(orgURI, classURI);
-	}
-	
-	public List<ResultProduct> findByOrganisationExpanded(String input, String classURI) {
-		return productRepository.findByOrganisationExpanded(input, classURI);
-	}
-	
-	public List<ResultProduct> findByPersonAny(String input) {
-		return productRepository.findByPersonComplete(input);
-	}
-	
-	
-	
 
 }

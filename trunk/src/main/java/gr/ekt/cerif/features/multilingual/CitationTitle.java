@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Citation;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.CitationTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual title of a citation entity.
  * 
  */
 @Entity
-@Table(name="cfCiteTitle")
-@IdClass(CitationTranslationId.class)
+@Table(name="cfCiteTitle", uniqueConstraints=@UniqueConstraint(columnNames={"cfCiteId","cfLangCode","cfTrans"}))
 public class CitationTitle implements CitationTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class CitationTitle implements CitationTranslation {
 	private static final long serialVersionUID = -1775379743833271978L;
 
 	/**
-	 * The citation.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The citation.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfCiteId")
 	private Citation citation;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +67,28 @@ public class CitationTitle implements CitationTranslation {
 	@Column(name="cfTitle")
 	private String title;
 	
+	/**
+	 * Default Constructor
+	 */
+	public CitationTitle() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param citation
+	 * @param language
+	 * @param translation
+	 * @param title
+	 */
+	public CitationTitle(Citation citation, Language language,
+			Translation translation, String title) {
+		this.citation = citation;
+		this.language = language;
+		this.translation = translation;
+		this.title = title;
+	}
+
 	/**
 	 * @return the citation
 	 */
@@ -118,6 +146,20 @@ public class CitationTitle implements CitationTranslation {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

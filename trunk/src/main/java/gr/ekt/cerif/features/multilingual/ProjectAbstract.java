@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.project.ProjectTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual abstract of a project entity.
  * 
  */
 @Entity
-@Table(name="cfProjAbstr")
-@IdClass(ProjectTranslationId.class)
+@Table(name="cfProjAbstr", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId","cfLangCode","cfTrans"}))
 public class ProjectAbstract implements ProjectTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class ProjectAbstract implements ProjectTranslation {
 	private static final long serialVersionUID = -4376853597182752897L;
 
 	/**
-	 * The project.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The project.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;	
@@ -61,6 +67,28 @@ public class ProjectAbstract implements ProjectTranslation {
 	@Column(name="cfAbstr")
 	private String abstractText;
 	
+	/**
+	 * Default Constructor
+	 */
+	public ProjectAbstract() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param language
+	 * @param translation
+	 * @param abstractText
+	 */
+	public ProjectAbstract(Project project, Language language,
+			Translation translation, String abstractText) {
+		this.project = project;
+		this.language = language;
+		this.translation = translation;
+		this.abstractText = abstractText;
+	}
+
 	/**
 	 * @return the project
 	 */
@@ -115,5 +143,19 @@ public class ProjectAbstract implements ProjectTranslation {
 	 */
 	public void setAbstractText(String abstractText) {
 		this.abstractText = abstractText;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

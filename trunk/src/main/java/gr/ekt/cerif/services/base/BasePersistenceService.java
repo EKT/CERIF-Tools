@@ -39,6 +39,22 @@ public class BasePersistenceService {
 	private ProjectRepository projectRepository;
 	
 	/**
+	 * Deletes the provided base entity.
+	 * @param entity The base entity.
+	 */
+	public void delete(CerifBaseEntity entity) {
+		if (entity instanceof OrganisationUnit) {
+			organisationRepository.delete((OrganisationUnit)entity);
+		} else if (entity instanceof Person) {
+			personRepository.delete((Person)entity);
+		} else if (entity instanceof Project) {
+			projectRepository.delete((Project)entity);
+		} else {
+			throw new IllegalArgumentException(String.format("Invalid base entity provided. %s", entity));
+		}
+	}
+	
+	/**
 	 * Saves the provided base entity.
 	 * @param entity The base entity.
 	 */
@@ -75,4 +91,47 @@ public class BasePersistenceService {
 		
 	}
 
+	/**
+	 * @return the organisationRepository
+	 */
+	public OrganisationUnitRepository getOrganisationRepository() {
+		return organisationRepository;
+	}
+
+	/**
+	 * @param organisationRepository the organisationRepository to set
+	 */
+	public void setOrganisationRepository(
+			OrganisationUnitRepository organisationRepository) {
+		this.organisationRepository = organisationRepository;
+	}
+
+	/**
+	 * @return the personRepository
+	 */
+	public PersonRepository getPersonRepository() {
+		return personRepository;
+	}
+
+	/**
+	 * @param personRepository the personRepository to set
+	 */
+	public void setPersonRepository(PersonRepository personRepository) {
+		this.personRepository = personRepository;
+	}
+
+	/**
+	 * @return the projectRepository
+	 */
+	public ProjectRepository getProjectRepository() {
+		return projectRepository;
+	}
+
+	/**
+	 * @param projectRepository the projectRepository to set
+	 */
+	public void setProjectRepository(ProjectRepository projectRepository) {
+		this.projectRepository = projectRepository;
+	}
+	
 }

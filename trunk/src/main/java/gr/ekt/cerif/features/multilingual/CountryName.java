@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.CountryTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual name of a country entity.
  * 
  */
 @Entity
-@Table(name="cfCountryName")
-@IdClass(CountryTranslationId.class)
+@Table(name="cfCountryName", uniqueConstraints=@UniqueConstraint(columnNames={"cfCountryCode","cfLangCode","cfTrans"}))
 public class CountryName implements CountryTranslation {
 	
 	/**
@@ -31,27 +32,31 @@ public class CountryName implements CountryTranslation {
 	 */
 	private static final long serialVersionUID = 2434897846250953784L;
 
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 
 	/**
 	 * The country.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfCountryCode")
 	private Country country;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -62,6 +67,28 @@ public class CountryName implements CountryTranslation {
 	@Column(name="cfName")
 	private String name;
 	
+	/**
+	 * Default Constructor
+	 */
+	public CountryName() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param country
+	 * @param language
+	 * @param translation
+	 * @param name
+	 */
+	public CountryName(Country country, Language language,
+			Translation translation, String name) {
+		this.country = country;
+		this.language = language;
+		this.translation = translation;
+		this.name = name;
+	}
+
 	/**
 	 * @return the country
 	 */
@@ -119,6 +146,20 @@ public class CountryName implements CountryTranslation {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

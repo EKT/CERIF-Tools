@@ -3,14 +3,29 @@
  */
 package gr.ekt.cerif.features.semantics;
 
-import gr.ekt.cerif.entities.link.person.Person_Class;
-import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
-import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
+import gr.ekt.cerif.entities.link.Citation_Class;
+import gr.ekt.cerif.entities.link.Facility_Class;
+import gr.ekt.cerif.entities.link.Facility_Equipment;
+import gr.ekt.cerif.entities.link.Facility_Event;
+import gr.ekt.cerif.entities.link.Facility_Facility;
+import gr.ekt.cerif.entities.link.Facility_Funding;
+import gr.ekt.cerif.entities.link.Facility_Indicator;
+import gr.ekt.cerif.entities.link.Facility_Measurement;
+import gr.ekt.cerif.entities.link.Facility_Medium;
+import gr.ekt.cerif.entities.link.Facility_PostalAddress;
+import gr.ekt.cerif.entities.link.Facility_Service;
+import gr.ekt.cerif.entities.link.Funding_Class;
+import gr.ekt.cerif.entities.link.Funding_Funding;
+import gr.ekt.cerif.entities.link.Funding_Indicator;
+import gr.ekt.cerif.entities.link.Funding_Measurement;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
+import gr.ekt.cerif.entities.link.person.Person_Class;
+import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_Classification;
 import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Event;
@@ -21,6 +36,7 @@ import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.entities.link.project.Project_PrizeAward;
 import gr.ekt.cerif.entities.link.project.Project_Project;
 import gr.ekt.cerif.entities.link.project.Project_ResultPatent;
+import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.link.project.Project_Service;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Class;
@@ -38,7 +54,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,7 +69,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="cfClass")
 public class Class implements CerifSemanticFeature {
-	
+
 	/**
 	 * Serialization version.
 	 */
@@ -83,7 +98,7 @@ public class Class implements CerifSemanticFeature {
 	/**
 	 * The URI.
 	 */
-	@Column(name="cfUri")
+	@Column(name="cfUri", columnDefinition="LONGTEXT")
 	private String uri;
 	
 	/**
@@ -150,7 +165,7 @@ public class Class implements CerifSemanticFeature {
 	@OneToMany(mappedBy="theClass")
 	private Set<ResultPatent_Class> resultPatents_classes;
 	
-	//Define relations with organisationUnit link enktities
+	//Define relations with organisationUnit link enntities
 	@OneToMany(mappedBy="theClass")
 	private Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses;
 	
@@ -167,20 +182,107 @@ public class Class implements CerifSemanticFeature {
 	private Set<OrganisationUnit_ResultPublication> organisationUnits_resultPublications;
 	
 	@OneToMany(mappedBy="theClass")
+	private Set<OrganisationUnit_Class> organisationUnits_classes;
+	
+	
+	@OneToMany(mappedBy="theClass")
 	private Set<ResultPublication_Class> resultPublications_classes;
 	
-	@OneToMany(mappedBy="theClass", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="theClass")
 	private Set<ClassDescription> descriptions;
 	
-	@OneToMany(mappedBy="theClass", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="theClass")
 	private Set<ClassTerm> terms;
 	
-	@OneToMany(mappedBy="theClass", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="theClass")
 	private Set<ClassEx> exs;
 	
-	@OneToMany(mappedBy="theClass", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="theClass")
 	private Set<ClassDefinition> definitions;
 	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_Class> facilities;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_Equipment> facilities_equipments;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_Event> facilities_events;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_Facility> facilities_facilities;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_Funding> facilities_fundings;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_Indicator> facilities_indicators;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_Measurement> facilities_measurements;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_Medium> facilities_mediums;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_PostalAddress> facilities_postalAddresses;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Facility_Service> facilities_services;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Funding_Class> fundings;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Funding_Indicator> fundings_indicators;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Funding_Measurement> fundings_measurement;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Funding_Funding> fundings_fundings;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Citation_Class> citations;
+	
+	/**
+	 * Default Constructor
+	 */
+	public Class(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 * @param uri
+	 * @param scheme
+	 * @param descriptions
+	 * @param terms
+	 * @param exs
+	 * @param definitions
+	 */
+	public Class(String uri){
+		this.uri = uri;
+	}
+	
+	public Class(Date startDate, Date endDate, String uri,
+			ClassScheme scheme,
+			Set<ClassDescription> descriptions, Set<ClassTerm> terms,
+			Set<ClassEx> exs, Set<ClassDefinition> definitions) {
+		super();
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.uri = uri;
+		this.scheme = scheme;
+		this.descriptions = descriptions;
+		this.terms = terms;
+		this.exs = exs;
+		this.definitions = definitions;
+
+	}
+
 	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.
@@ -690,6 +792,226 @@ public class Class implements CerifSemanticFeature {
 		this.resultPublications_classes = resultPublications_classes;
 	}
 
+	/**
+	 * @return the facilities
+	 */
+	public Set<Facility_Class> getFacilities() {
+		return facilities;
+	}
+
+	/**
+	 * @param facilities the facilities to set
+	 */
+	public void setFacilities(Set<Facility_Class> facilities) {
+		this.facilities = facilities;
+	}
+	
+	
+
+	/**
+	 * @return the facilities_equipments
+	 */
+	public Set<Facility_Equipment> getFacilities_equipments() {
+		return facilities_equipments;
+	}
+
+	/**
+	 * @param facilities_equipments the facilities_equipments to set
+	 */
+	public void setFacilities_equipments(
+			Set<Facility_Equipment> facilities_equipments) {
+		this.facilities_equipments = facilities_equipments;
+	}
+
+	/**
+	 * @return the facilities_events
+	 */
+	public Set<Facility_Event> getFacilities_events() {
+		return facilities_events;
+	}
+
+	/**
+	 * @param facilities_events the facilities_events to set
+	 */
+	public void setFacilities_events(Set<Facility_Event> facilities_events) {
+		this.facilities_events = facilities_events;
+	}
+
+	/**
+	 * @return the facilities_facilities
+	 */
+	public Set<Facility_Facility> getFacilities_facilities() {
+		return facilities_facilities;
+	}
+
+	/**
+	 * @param facilities_facilities the facilities_facilities to set
+	 */
+	public void setFacilities_facilities(
+			Set<Facility_Facility> facilities_facilities) {
+		this.facilities_facilities = facilities_facilities;
+	}
+
+	/**
+	 * @return the facilities_fundings
+	 */
+	public Set<Facility_Funding> getFacilities_fundings() {
+		return facilities_fundings;
+	}
+
+	/**
+	 * @param facilities_fundings the facilities_fundings to set
+	 */
+	public void setFacilities_fundings(Set<Facility_Funding> facilities_fundings) {
+		this.facilities_fundings = facilities_fundings;
+	}
+
+	/**
+	 * @return the facilities_indicators
+	 */
+	public Set<Facility_Indicator> getFacilities_indicators() {
+		return facilities_indicators;
+	}
+
+	/**
+	 * @param facilities_indicators the facilities_indicators to set
+	 */
+	public void setFacilities_indicators(
+			Set<Facility_Indicator> facilities_indicators) {
+		this.facilities_indicators = facilities_indicators;
+	}
+
+	/**
+	 * @return the facilities_measurements
+	 */
+	public Set<Facility_Measurement> getFacilities_measurements() {
+		return facilities_measurements;
+	}
+
+	/**
+	 * @param facilities_measurements the facilities_measurements to set
+	 */
+	public void setFacilities_measurements(
+			Set<Facility_Measurement> facilities_measurements) {
+		this.facilities_measurements = facilities_measurements;
+	}
+
+	/**
+	 * @return the facilities_mediums
+	 */
+	public Set<Facility_Medium> getFacilities_mediums() {
+		return facilities_mediums;
+	}
+
+	/**
+	 * @param facilities_mediums the facilities_mediums to set
+	 */
+	public void setFacilities_mediums(Set<Facility_Medium> facilities_mediums) {
+		this.facilities_mediums = facilities_mediums;
+	}
+
+	/**
+	 * @return the facilities_postalAddresses
+	 */
+	public Set<Facility_PostalAddress> getFacilities_postalAddresses() {
+		return facilities_postalAddresses;
+	}
+
+	/**
+	 * @param facilities_postalAddresses the facilities_postalAddresses to set
+	 */
+	public void setFacilities_postalAddresses(
+			Set<Facility_PostalAddress> facilities_postalAddresses) {
+		this.facilities_postalAddresses = facilities_postalAddresses;
+	}
+
+	/**
+	 * @return the facilities_services
+	 */
+	public Set<Facility_Service> getFacilities_services() {
+		return facilities_services;
+	}
+
+	/**
+	 * @param facilities_services the facilities_services to set
+	 */
+	public void setFacilities_services(Set<Facility_Service> facilities_services) {
+		this.facilities_services = facilities_services;
+	}
+
+	/**
+	 * @return the fundings
+	 */
+	public Set<Funding_Class> getFundings() {
+		return fundings;
+	}
+
+	/**
+	 * @param fundings the fundings to set
+	 */
+	public void setFundings(Set<Funding_Class> fundings) {
+		this.fundings = fundings;
+	}
+	
+	
+
+	/**
+	 * @return the fundings_indicators
+	 */
+	public Set<Funding_Indicator> getFundings_indicators() {
+		return fundings_indicators;
+	}
+
+	/**
+	 * @param fundings_indicators the fundings_indicators to set
+	 */
+	public void setFundings_indicators(Set<Funding_Indicator> fundings_indicators) {
+		this.fundings_indicators = fundings_indicators;
+	}
+
+	/**
+	 * @return the fundings_measurement
+	 */
+	public Set<Funding_Measurement> getFundings_measurement() {
+		return fundings_measurement;
+	}
+
+	/**
+	 * @param fundings_measurement the fundings_measurement to set
+	 */
+	public void setFundings_measurement(
+			Set<Funding_Measurement> fundings_measurement) {
+		this.fundings_measurement = fundings_measurement;
+	}
+
+	/**
+	 * @return the fundings_fundings
+	 */
+	public Set<Funding_Funding> getFundings_fundings() {
+		return fundings_fundings;
+	}
+
+	/**
+	 * @param fundings_fundings the fundings_fundings to set
+	 */
+	public void setFundings_fundings(Set<Funding_Funding> fundings_fundings) {
+		this.fundings_fundings = fundings_fundings;
+	}
+
+	/**
+	 * @return the citations
+	 */
+	public Set<Citation_Class> getCitations() {
+		return citations;
+	}
+
+	/**
+	 * @param citations the citations to set
+	 */
+	public void setCitations(Set<Citation_Class> citations) {
+		this.citations = citations;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -714,5 +1036,22 @@ public class Class implements CerifSemanticFeature {
 		}
 		return true;
 	}
+
+	/**
+	 * @return the organisationUnits_classes
+	 */
+	public Set<OrganisationUnit_Class> getOrganisationUnits_classes() {
+		return organisationUnits_classes;
+	}
+
+	/**
+	 * @param organisationUnits_classes the organisationUnits_classes to set
+	 */
+	public void setOrganisationUnits_classes(
+			Set<OrganisationUnit_Class> organisationUnits_classes) {
+		this.organisationUnits_classes = organisationUnits_classes;
+	}
+	
+	
 	
 }

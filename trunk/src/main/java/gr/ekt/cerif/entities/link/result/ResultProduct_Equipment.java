@@ -7,24 +7,25 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.result.ResultProduct_EquipmentId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfResProd_Equip")
-@IdClass(ResultProduct_EquipmentId.class)
+@Table(name="cfResProd_Equip", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId","cfEquipId","cfClassId","cfStartDate","cfEndDate"}))
 public class ResultProduct_Equipment implements CerifLinkEntity {
 
 	/**
@@ -33,40 +34,44 @@ public class ResultProduct_Equipment implements CerifLinkEntity {
 	private static final long serialVersionUID = -4608768978414470739L;
 	
 	/**
-	 * The result product.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The result product.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResProdId")
 	private ResultProduct resultProduct;
 	
 	/**
 	 * The equipment.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfEquipId")
 	private Equipment equipment;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -75,6 +80,33 @@ public class ResultProduct_Equipment implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultProduct_Equipment() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param resultProduct
+	 * @param equipment
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public ResultProduct_Equipment(ResultProduct resultProduct,
+			Equipment equipment, Class theClass, Date startDate, Date endDate,
+			Double fraction) {
+		this.resultProduct = resultProduct;
+		this.equipment = equipment;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the resultProduct
@@ -158,6 +190,20 @@ public class ResultProduct_Equipment implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

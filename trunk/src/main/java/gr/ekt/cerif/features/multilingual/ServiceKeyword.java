@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.ServiceTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual keyword of a service entity.
  * 
  */
 @Entity
-@Table(name="cfSrvKeyw")
-@IdClass(ServiceTranslationId.class)
+@Table(name="cfSrvKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfSrvId","cfLangCode","cfTrans"}))
 public class ServiceKeyword implements ServiceTranslation {
 	
 	/**
@@ -31,26 +32,32 @@ public class ServiceKeyword implements ServiceTranslation {
 	 */
 	private static final long serialVersionUID = 4529913919863266664L;
 
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The service.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfSrvId")
 	private Service service;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +68,28 @@ public class ServiceKeyword implements ServiceTranslation {
 	@Column(name="cfKeyw")
 	private String keyword;
 	
+	/**
+	 * Default Constructor
+	 */
+	public ServiceKeyword() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param service
+	 * @param language
+	 * @param translation
+	 * @param keyword
+	 */
+	public ServiceKeyword(Service service, Language language,
+			Translation translation, String keyword) {
+		this.service = service;
+		this.language = language;
+		this.translation = translation;
+		this.keyword = keyword;
+	}
+
 	/**
 	 * @return the service
 	 */
@@ -118,6 +147,20 @@ public class ServiceKeyword implements ServiceTranslation {
 	 */
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

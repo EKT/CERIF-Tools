@@ -6,24 +6,25 @@ package gr.ekt.cerif.entities.link;
 import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Service_EventId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfSrv_Event")
-@IdClass(Service_EventId.class)
+@Table(name="cfSrv_Event", uniqueConstraints=@UniqueConstraint(columnNames={"cfSrvId","cfEventId","cfClassId","cfStartDate","cfEndDate"}))
 public class Service_Event implements CerifLinkEntity {
 
 	/**
@@ -32,40 +33,44 @@ public class Service_Event implements CerifLinkEntity {
 	private static final long serialVersionUID = 2381589969951598159L;
 
 	/**
-	 * The service.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The service.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfSrvId")
 	private Service service;
 	
 	/**
 	 * The event. 
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEventId")
 	private Event event;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +79,32 @@ public class Service_Event implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Service_Event() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param service
+	 * @param event
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Service_Event(Service service, Event event, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.service = service;
+		this.event = event;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the service
@@ -157,6 +188,20 @@ public class Service_Event implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

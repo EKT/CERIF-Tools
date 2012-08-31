@@ -47,7 +47,6 @@ public class Service implements CerifInfrastructureEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
-	@Field(index=Index.TOKENIZED)
 	private String acronym;
 	
 	/**
@@ -62,17 +61,41 @@ public class Service implements CerifInfrastructureEntity {
 	@OneToMany(mappedBy="service")
 	private Set<Project_Service> projects_services;
 
-	@OneToMany(mappedBy="service", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="service")
 	private Set<ServiceName> names;
 	
-	@OneToMany(mappedBy="service", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="service")
 	private Set<ServiceKeyword> keywords;
 	
-	@OneToMany(mappedBy="service", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="service")
 	private Set<ServiceDescription> descriptions;
 	
 	@OneToMany(mappedBy="service")
 	private Set<Person_Service> persons_services;
+
+	/**
+	 * Default Constructor
+	 */
+	public Service() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param acronym
+	 * @param uri
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 */
+	public Service(String acronym, String uri, Set<ServiceName> names,
+			Set<ServiceKeyword> keywords, Set<ServiceDescription> descriptions) {
+		this.acronym = acronym;
+		this.uri = uri;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+	}
 
 	/**
 	 * @return the id

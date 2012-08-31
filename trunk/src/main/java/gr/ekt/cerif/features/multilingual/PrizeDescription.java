@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Prize;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.PrizeTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual description of a prize entity.
  * 
  */
 @Entity
-@Table(name="cfPrizeDescr")
-@IdClass(PrizeTranslationId.class)
+@Table(name="cfPrizeDescr", uniqueConstraints=@UniqueConstraint(columnNames={"cfPrizeId","cfLangCode","cfTrans"}))
 public class PrizeDescription implements PrizeTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class PrizeDescription implements PrizeTranslation {
 	private static final long serialVersionUID = -2220121120699650829L;
 
 	/**
-	 * The prize.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The prize.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPrizeId")
 	private Prize prize;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +67,28 @@ public class PrizeDescription implements PrizeTranslation {
 	@Column(name="cfDescr")
 	private String description;
 	
+	/**
+	 * Default Constructor
+	 */
+	public PrizeDescription() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param prize
+	 * @param language
+	 * @param translation
+	 * @param description
+	 */
+	public PrizeDescription(Prize prize, Language language,
+			Translation translation, String description) {
+		this.prize = prize;
+		this.language = language;
+		this.translation = translation;
+		this.description = description;
+	}
+
 	/**
 	 * @return the prize
 	 */
@@ -118,6 +146,20 @@ public class PrizeDescription implements PrizeTranslation {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

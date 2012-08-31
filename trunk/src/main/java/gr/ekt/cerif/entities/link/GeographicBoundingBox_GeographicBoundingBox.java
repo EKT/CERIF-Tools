@@ -7,22 +7,23 @@ import java.util.Date;
 
 import gr.ekt.cerif.entities.second.GeographicBoundingBox;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.GeographicBoundingBox_GeographicBoundingBoxId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfGeoBBox_GeoBBox")
-@IdClass(GeographicBoundingBox_GeographicBoundingBoxId.class)
+@Table(name="cfGeoBBox_GeoBBox", uniqueConstraints=@UniqueConstraint(columnNames={"cfGeoBBoxId1","cfGeoBBoxId2","cfClassId","cfStartDate","cfEndDate"}))
 public class GeographicBoundingBox_GeographicBoundingBox implements CerifLinkEntity {
 
 	/**
@@ -31,40 +32,44 @@ public class GeographicBoundingBox_GeographicBoundingBox implements CerifLinkEnt
 	private static final long serialVersionUID = 7158677551745514198L;
 	
 	/**
-	 * The first geographic bounding box.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The first geographic bounding box.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfGeoBBoxId1")
 	private GeographicBoundingBox geographicBoundingBox1;
 	
 	/**
 	 * The second geographic bounding box.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfGeoBBoxId2")
 	private GeographicBoundingBox geographicBoundingBox2;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -73,6 +78,34 @@ public class GeographicBoundingBox_GeographicBoundingBox implements CerifLinkEnt
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public GeographicBoundingBox_GeographicBoundingBox() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param geographicBoundingBox1
+	 * @param geographicBoundingBox2
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public GeographicBoundingBox_GeographicBoundingBox(
+			GeographicBoundingBox geographicBoundingBox1,
+			GeographicBoundingBox geographicBoundingBox2, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.geographicBoundingBox1 = geographicBoundingBox1;
+		this.geographicBoundingBox2 = geographicBoundingBox2;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the geographicBoundingBox1
@@ -158,6 +191,20 @@ public class GeographicBoundingBox_GeographicBoundingBox implements CerifLinkEnt
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

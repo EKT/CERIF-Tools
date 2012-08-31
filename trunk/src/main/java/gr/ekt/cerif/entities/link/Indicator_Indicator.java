@@ -7,22 +7,23 @@ import java.util.Date;
 
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Indicator_IndicatorId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfIndic_Indic")
-@IdClass(Indicator_IndicatorId.class)
+@Table(name="cfIndic_Indic",uniqueConstraints=@UniqueConstraint(columnNames={"cfIndicId1", "cfIndicId2", "cfClassId", "cfStartDate", "cfEndDate"}))
 public class Indicator_Indicator implements CerifLinkEntity {
 
 	/**
@@ -31,40 +32,44 @@ public class Indicator_Indicator implements CerifLinkEntity {
 	private static final long serialVersionUID = -7125387232758656697L;
 
 	/**
-	 * The first indicator.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The first indicator.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfIndicId1")
 	private Indicator indicator1;
 	
 	/**
 	 * The second indicator.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfIndicId2")
 	private Indicator indicator2;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -73,6 +78,32 @@ public class Indicator_Indicator implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Indicator_Indicator() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param indicator1
+	 * @param indicator2
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Indicator_Indicator(Indicator indicator1, Indicator indicator2,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.indicator1 = indicator1;
+		this.indicator2 = indicator2;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the indicator1
@@ -156,6 +187,20 @@ public class Indicator_Indicator implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

@@ -8,28 +8,36 @@ import java.util.Date;
 import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Equipment_EventId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  */
 @Entity
-@Table(name="cfEquip_Event")
-@IdClass(Equipment_EventId.class)
+@Table(name="cfEquip_Event", uniqueConstraints=@UniqueConstraint(columnNames={"cfEquipId", "cfEventId", "cfClassId", "cfStartDate", "cfEndDate"}))
 public class Equipment_Event implements CerifLinkEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6921492008350226019L;
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	
 	/**
 	 * The equipment.
@@ -42,30 +50,28 @@ public class Equipment_Event implements CerifLinkEntity {
 	/**
 	 * The event. 
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEventId")
 	private Event event;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +80,32 @@ public class Equipment_Event implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Equipment_Event() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param equipment
+	 * @param event
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Equipment_Event(Equipment equipment, Event event, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.equipment = equipment;
+		this.event = event;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the equipment
@@ -157,6 +189,20 @@ public class Equipment_Event implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.EquipmentTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual description of a equipment entity.
  * 
  */
 @Entity
-@Table(name="cfEquipDescr")
-@IdClass(EquipmentTranslationId.class)
+@Table(name="cfEquipDescr", uniqueConstraints=@UniqueConstraint(columnNames={"cfEquipId","cfLangCode","cfTrans"}))
 public class EquipmentDescription implements EquipmentTranslation {
 	
 	/**
@@ -31,26 +32,32 @@ public class EquipmentDescription implements EquipmentTranslation {
 	 */
 	private static final long serialVersionUID = -5293713032033238501L;
 
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The equipment.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfEquipId")
 	private Equipment equipment;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +68,28 @@ public class EquipmentDescription implements EquipmentTranslation {
 	@Column(name="cfDescr")
 	private String description;
 	
+	/**
+	 * Default Constructor
+	 */
+	public EquipmentDescription() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param equipment
+	 * @param language
+	 * @param translation
+	 * @param description
+	 */
+	public EquipmentDescription(Equipment equipment, Language language,
+			Translation translation, String description) {
+		this.equipment = equipment;
+		this.language = language;
+		this.translation = translation;
+		this.description = description;
+	}
+
 	/**
 	 * @return the equipment
 	 */
@@ -118,6 +147,20 @@ public class EquipmentDescription implements EquipmentTranslation {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

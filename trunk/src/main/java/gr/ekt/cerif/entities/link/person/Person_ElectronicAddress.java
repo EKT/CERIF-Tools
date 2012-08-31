@@ -7,25 +7,26 @@ import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
-import gr.ekt.cerif.pk.person.Person_ElectronicAddressId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a person with an electronic address.
  * 
  */
 @Entity
-@Table(name="cfPers_EAddr")
-@IdClass(Person_ElectronicAddressId.class)
+@Table(name="cfPers_EAddr", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersonId","cfEAddrId","cfClassId","cfStartDate","cfEndDate"}))
 public class Person_ElectronicAddress implements CerifLinkEntity {
 	
 	/**
@@ -34,40 +35,44 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 	private static final long serialVersionUID = -7403278970414343L;
 	
 	/**
-	 * The person.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersonId")
 	private Person person;
 
 	/**
 	 * The electronic address.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfEAddrId")
 	private ElectronicAddress electronicAddress;
 
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -77,6 +82,33 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 	@Column(name="cfFraction")
 	private Double fraction;
 	
+	/**
+	 * Default Constructor
+	 */
+	public Person_ElectronicAddress() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param electronicAddress
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Person_ElectronicAddress(Person person,
+			ElectronicAddress electronicAddress, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.person = person;
+		this.electronicAddress = electronicAddress;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
+
 	/**
 	 * @return the person
 	 */
@@ -165,6 +197,20 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 

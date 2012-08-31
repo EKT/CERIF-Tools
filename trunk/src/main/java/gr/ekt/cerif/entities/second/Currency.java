@@ -37,10 +37,10 @@ public class Currency implements CerifSecondLevelEntity {
 	 * The currency code.
 	 */
 	@Id
-	@Column(name="cfCurrCode")
+	@Column(name="cfCurrCode", length=5)
 	private String code;
 
-	@Column(name="cfNumCurrCode")
+	@Column(name="cfNumCurrCode", length=3)
 	private String numeric;
 	
 	/**
@@ -82,12 +82,37 @@ public class Currency implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="funding")
 	private Set<Project_Funding> projects_fundings;
 	
-	@OneToMany(mappedBy="currency", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="currency")
 	private Set<CurrencyName> names;
 	
-	@OneToMany(mappedBy="currency", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="currency")
 	private Set<CurrencyEntityName> entityNames;
 	
+	/**
+	 * Default Constructor
+	 */
+	public Currency(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param code
+	 * @param numeric
+	 * @param uri
+	 * @param names
+	 * @param entityNames
+	 */
+	public Currency(String code, String numeric, String uri,
+			Set<CurrencyName> names,
+			Set<CurrencyEntityName> entityNames) {
+		this.code = code;
+		this.numeric = numeric;
+		this.uri = uri;
+		this.names = names;
+		this.entityNames = entityNames;
+	}
+
 	/**
 	 * Returns the code.
 	 * @return the code.

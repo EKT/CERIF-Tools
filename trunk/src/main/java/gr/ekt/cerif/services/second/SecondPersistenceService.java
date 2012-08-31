@@ -137,6 +137,51 @@ public class SecondPersistenceService {
 	private QualificationRepository qualificationRepository;	
 	
 	/**
+	 * Delete the provided 2nd level entity.
+	 * @param entity The 2nd level entity.
+	 */
+	public void delete(CerifSecondLevelEntity entity) {
+		if (entity instanceof Citation) {
+			citationRepository.save((Citation)entity);
+		} else if (entity instanceof Country) {
+			System.out.println("COUNTRY");
+			countryRepository.delete((Country)entity);
+		} else if (entity instanceof Currency) {
+			currencyRepository.save((Currency)entity);
+		} else if (entity instanceof CV) {
+			cvRepository.save((CV)entity);
+		} else if (entity instanceof ElectronicAddress) {
+			electronicRepository.delete((ElectronicAddress)entity);
+		} else if (entity instanceof Event) {
+			eventRepository.save((Event)entity);
+		} else if (entity instanceof ExpertiseAndSkills) {
+			expertiseAndSkillsRepository.save((ExpertiseAndSkills)entity);
+		} else if (entity instanceof Funding) {
+			fundingRepository.save((Funding)entity);
+		} else if (entity instanceof GeographicBoundingBox) {
+			geographicBoundingBoxRepository.save((GeographicBoundingBox)entity);
+		} else if (entity instanceof Indicator) {
+			indicatorRepository.save((Indicator)entity);
+		} else if (entity instanceof Language) {
+			languageRepository.save((Language)entity);
+		} else if (entity instanceof Measurement) {
+			measurementRepository.save((Measurement)entity);
+		} else if (entity instanceof Medium) {
+			mediumRepository.delete((Medium)entity);
+		} else if (entity instanceof Metrics) {
+			metricsRepository.save((Metrics)entity);
+		} else if (entity instanceof PostalAddress) {
+			postalRepository.delete((PostalAddress)entity);
+		} else if (entity instanceof Prize) {
+			prizeRepository.save((Prize)entity);
+		} else if (entity instanceof Qualification) {
+			qualificationRepository.save((Qualification)entity);
+		} else {
+			throw new IllegalArgumentException(String.format("Invalid 2nd level entity provided. %s", entity));
+		}
+	}
+	
+	/**
 	 * Saves the provided 2nd level entity.
 	 * @param entity The 2nd level entity.
 	 */
@@ -144,6 +189,7 @@ public class SecondPersistenceService {
 		if (entity instanceof Citation) {
 			citationRepository.save((Citation)entity);
 		} else if (entity instanceof Country) {
+			System.out.println("COUNTRY");
 			countryRepository.save((Country)entity);
 		} else if (entity instanceof Currency) {
 			currencyRepository.save((Currency)entity);
@@ -228,5 +274,126 @@ public class SecondPersistenceService {
 		}
 		
 	}
+
+	/**
+	 * @return the citationRepository
+	 */
+	public CitationRepository getCitationRepository() {
+		return citationRepository;
+	}
+
+	/**
+	 * @return the countryRepository
+	 */
+	public CountryRepository getCountryRepository() {
+		return countryRepository;
+	}
+
+	/**
+	 * @return the currencyRepository
+	 */
+	public CurrencyRepository getCurrencyRepository() {
+		return currencyRepository;
+	}
+
+	/**
+	 * @return the cvRepository
+	 */
+	public CVRepository getCvRepository() {
+		return cvRepository;
+	}
+
+	/**
+	 * @return the electronicRepository
+	 */
+	public ElectronicAddressRepository getElectronicRepository() {
+		return electronicRepository;
+	}
+
+	/**
+	 * @return the eventRepository
+	 */
+	public EventRepository getEventRepository() {
+		return eventRepository;
+	}
+
+	/**
+	 * @return the expertiseAndSkillsRepository
+	 */
+	public ExpertiseAndSkillsRepository getExpertiseAndSkillsRepository() {
+		return expertiseAndSkillsRepository;
+	}
+
+	/**
+	 * @return the fundingRepository
+	 */
+	public FundingRepository getFundingRepository() {
+		return fundingRepository;
+	}
+
+	/**
+	 * @return the geographicBoundingBoxRepository
+	 */
+	public GeographicBoundingBoxRepository getGeographicBoundingBoxRepository() {
+		return geographicBoundingBoxRepository;
+	}
+
+	/**
+	 * @return the indicatorRepository
+	 */
+	public IndicatorRepository getIndicatorRepository() {
+		return indicatorRepository;
+	}
+
+	/**
+	 * @return the languageRepository
+	 */
+	public LanguageRepository getLanguageRepository() {
+		return languageRepository;
+	}
+
+	/**
+	 * @return the measurementRepository
+	 */
+	public MeasurementRepository getMeasurementRepository() {
+		return measurementRepository;
+	}
+
+	/**
+	 * @return the mediumRepository
+	 */
+	public MediumRepository getMediumRepository() {
+		return mediumRepository;
+	}
+
+	/**
+	 * @return the metricsRepository
+	 */
+	public MetricsRepository getMetricsRepository() {
+		return metricsRepository;
+	}
+
+	/**
+	 * @return the postalRepository
+	 */
+	public PostalAddressRepository getPostalRepository() {
+		return postalRepository;
+	}
+
+	/**
+	 * @return the prizeRepository
+	 */
+	public PrizeRepository getPrizeRepository() {
+		return prizeRepository;
+	}
+
+	/**
+	 * @return the qualificationRepository
+	 */
+	public QualificationRepository getQualificationRepository() {
+		return qualificationRepository;
+	}
+	
+	
 
 }

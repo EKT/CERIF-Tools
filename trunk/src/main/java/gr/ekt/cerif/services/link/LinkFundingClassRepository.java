@@ -1,53 +1,19 @@
 package gr.ekt.cerif.services.link;
 
 import gr.ekt.cerif.entities.link.Funding_Class;
-import gr.ekt.cerif.services.second.FundingRepository;
-import gr.ekt.cerif.services.semantics.ClassRepository;
+import gr.ekt.cerif.entities.second.Funding;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * A repository for links between fundings and classes.
  * 
  */
-@Component
-public class LinkFundingClassRepository {
-
-	@PersistenceContext(unitName="cerif-persistence-unit")
-	private EntityManager entityManager;
-	
-	@Autowired
-	private FundingRepository fundingRepository;
-	
-	@Autowired
-	private ClassRepository classRepository;
-	
-	@Transactional
-	public void save(Funding_Class entity) {
-		if (entity.getFunding() == null || entity.getTheClass() == null) {
-			throw new IllegalArgumentException("Please provide both a funding and a class.");
-		}
-		if (entity.getFunding().getId() == null) {
-			fundingRepository.save(entity.getFunding());
-		}
-		if (entity.getTheClass().getId() == null) {
-			classRepository.save(entity.getTheClass());
-		}
-		entityManager.merge(entity);
-	}
-	
-	@Transactional
-	public void save(List<Funding_Class> entityList) {
-		for (Funding_Class entity : entityList) {
-			save(entity);
-		}
-	}
+public interface LinkFundingClassRepository extends CrudRepository<Funding_Class, String>{
+	List<Funding_Class> findByTheClass(Class theClass);
+	List<Funding_Class> findByTheClassAndFunding(Class theClass, Funding funding);
 	
 }

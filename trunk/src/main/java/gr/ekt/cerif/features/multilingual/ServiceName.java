@@ -5,17 +5,18 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.ServiceTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual name of a service entity.
@@ -23,7 +24,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="cfSrvName")
-@IdClass(ServiceTranslationId.class)
 public class ServiceName implements ServiceTranslation {
 	
 	/**
@@ -31,28 +31,32 @@ public class ServiceName implements ServiceTranslation {
 	 */
 	private static final long serialVersionUID = -6297452190494479146L;
 
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	
 
 	/**
 	 * The service.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfSrvId")
 	private Service service;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -63,6 +67,28 @@ public class ServiceName implements ServiceTranslation {
 	@Column(name="cfName")
 	private String name;
 	
+	/**
+	 * Default Constructor
+	 */
+	public ServiceName() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param service
+	 * @param language
+	 * @param translation
+	 * @param name
+	 */
+	public ServiceName(Service service, Language language,
+			Translation translation, String name) {
+		this.service = service;
+		this.language = language;
+		this.translation = translation;
+		this.name = name;
+	}
+
 	/**
 	 * @return the service
 	 */
@@ -120,6 +146,20 @@ public class ServiceName implements ServiceTranslation {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

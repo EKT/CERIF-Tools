@@ -6,32 +6,33 @@ package gr.ekt.cerif.entities.link.organisationunit;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultProduct;
-import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.organisationunit.OrganisationUnit_ResultProductId;
 import gr.ekt.cerif.entities.second.Currency;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links an organization unit with a product.
  * 
  */
 @Entity
-@Table(name="cfOrgUnit_ResProd")
-@IdClass(OrganisationUnit_ResultProductId.class)
 @NamedQueries({
 	@NamedQuery(name="OrganisationUnit_ResultProduct.countProductsBySchemeURI", query="SELECT rpc.organisationUnit, count(rpc.resultProduct) FROM OrganisationUnit_ResultProduct rpc WHERE rpc.theClass.uri = :uri group by rpc.organisationUnit")
 })
+@Table(name="cfOrgUnit_ResProd", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId", "cfResProdId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 	
 	/**
@@ -40,38 +41,44 @@ public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 	private static final long serialVersionUID = -3895789716446471064L;
 	
 	/**
-	 * The organisation unit.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The organisation unit.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfOrgUnitId")
 	private OrganisationUnit organisationUnit;
 	
 	/**
 	 * The result product.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResProdId")
 	private ResultProduct resultProduct;
 
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -107,12 +114,66 @@ public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 	private String conditions;
 
 	/**
+	 * Default Constructor
+	 */
+	public OrganisationUnit_ResultProduct() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param organisationUnit
+	 * @param resultProduct
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param price
+	 * @param currency
+	 * @param availability
+	 * @param conditions
+	 */
+	public OrganisationUnit_ResultProduct(OrganisationUnit organisationUnit,
+			ResultProduct resultProduct, Class theClass, Date startDate,
+			Date endDate, Double fraction, Double price, Currency currency,
+			String availability, String conditions) {
+		this.organisationUnit = organisationUnit;
+		this.resultProduct = resultProduct;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.price = price;
+		this.currency = currency;
+		this.availability = availability;
+		this.conditions = conditions;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	
+	
+	/**
 	 * Returns the organisation.
 	 * @return the organisation.
 	 */
 	public OrganisationUnit getOrganisationUnit() {
 		return organisationUnit;
 	}
+
+	
 
 	/**
 	 * Sets the organisation.

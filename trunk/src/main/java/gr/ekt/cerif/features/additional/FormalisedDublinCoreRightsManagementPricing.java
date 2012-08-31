@@ -3,23 +3,22 @@
  */
 package gr.ekt.cerif.features.additional;
 
-import gr.ekt.cerif.pk.DublinCoreBasicId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Represents a FormalisedDublinCoreRightsManagementPricing entity.
  * 
  */
 @Entity
-@Table(name="cfFDCRightsMmPricing")
-@IdClass(DublinCoreBasicId.class)
+@Table(name="cfFDCRightsMmPricing", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class FormalisedDublinCoreRightsManagementPricing implements CerifAdditionalFeature {
 	
 	/**
@@ -38,21 +37,21 @@ public class FormalisedDublinCoreRightsManagementPricing implements CerifAdditio
 	/**
 	 * The dc scheme.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCScheme")
 	private String scheme;
 	
 	/**
 	 * The dc language.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCLangTag")
 	private String language;
 	
 	/**
 	 * The dc translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCTrans")
 	private String translation;	
 	
@@ -62,6 +61,27 @@ public class FormalisedDublinCoreRightsManagementPricing implements CerifAdditio
 	@Column(name="cfFDCPriceConstraint")
 	private String priceConstraint;
 		
+	/**
+	 * Default Constructor
+	 */
+	public FormalisedDublinCoreRightsManagementPricing() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param scheme
+	 * @param language
+	 * @param translation
+	 * @param priceConstraint
+	 */
+	public FormalisedDublinCoreRightsManagementPricing(String scheme,
+			String language, String translation, String priceConstraint) {
+		this.scheme = scheme;
+		this.language = language;
+		this.translation = translation;
+		this.priceConstraint = priceConstraint;
+	}
 
 	/**
 	 * @return the id

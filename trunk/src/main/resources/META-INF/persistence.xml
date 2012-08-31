@@ -5,7 +5,8 @@
 	version="1.0">
 
 	<persistence-unit name="cerif-persistence-unit" transaction-type="RESOURCE_LOCAL">
-
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
 		<class>gr.ekt.cerif.entities.base.OrganisationUnit</class>
 		<class>gr.ekt.cerif.entities.base.Person</class>
 		<class>gr.ekt.cerif.entities.base.Project</class>
@@ -329,6 +330,8 @@
 		<class>gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementSecurity</class>
 		<class>gr.ekt.cerif.features.additional.DublinCore</class>
 
+		<class>gr.ekt.cerif.features.additional.SentEmails</class>
+		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 	</persistence-unit>

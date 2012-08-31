@@ -79,25 +79,27 @@ public class ResultPatent implements CerifResultEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
+	
+
 	/**
 	 * The result patent titles.
 	 */
-	@OneToMany(mappedBy="resultPatent", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatentTitle> resultPatentTitles;
 	
 	/**
 	 * The result patent abstracts.
 	 */
-	@OneToMany(mappedBy="resultPatent", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatentAbstract> resultPatentAbstracts;
 	
 	/**
 	 * The result patent keywords.
 	 */
-	@OneToMany(mappedBy="resultPatent", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatentKeyword> resultPatentKeywords;
 	
-	@OneToMany(mappedBy="resultPatent", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatentKeyword> resultPatentVersionInfos;
 	
 	/**
@@ -130,7 +132,42 @@ public class ResultPatent implements CerifResultEntity {
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPublication_ResultPatent> resultPublications_resultPatents;
 
+	/**
+	 * Default Constructor
+	 */
+	public ResultPatent() {
+		
+	}
 	
+	/**
+	 * 
+	 * @param country
+	 * @param registrationDate
+	 * @param approvalDate
+	 * @param number
+	 * @param uri
+	 * @param resultPatentTitles
+	 * @param resultPatentAbstracts
+	 * @param resultPatentKeywords
+	 * @param resultPatentVersionInfos
+	 */
+	public ResultPatent(Country country, Date registrationDate,
+			Date approvalDate, String number, String uri,
+			Set<ResultPatentTitle> resultPatentTitles,
+			Set<ResultPatentAbstract> resultPatentAbstracts,
+			Set<ResultPatentKeyword> resultPatentKeywords,
+			Set<ResultPatentKeyword> resultPatentVersionInfos) {
+		this.country = country;
+		this.registrationDate = registrationDate;
+		this.approvalDate = approvalDate;
+		this.number = number;
+		this.uri = uri;
+		this.resultPatentTitles = resultPatentTitles;
+		this.resultPatentAbstracts = resultPatentAbstracts;
+		this.resultPatentKeywords = resultPatentKeywords;
+		this.resultPatentVersionInfos = resultPatentVersionInfos;
+	}
+
 	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.

@@ -6,25 +6,26 @@ package gr.ekt.cerif.entities.link.project;
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.project.Project_ProjectId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a project with an organization unit.
  * 
  */
 @Entity
-@Table(name="cfProj_Proj")
-@IdClass(Project_ProjectId.class)
+@Table(name="cfProj_Proj", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId1", "cfProjId2", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class Project_Project implements CerifLinkEntity {
 	
 	/**
@@ -33,37 +34,41 @@ public class Project_Project implements CerifLinkEntity {
 	private static final long serialVersionUID = -8816705520013381180L;	
 
 	/**
-	 * The project.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The project.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId1")
 	private Project project1;
 	
 	/**
 	 * The project connected to
 	 */
-	@Id	
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId2")
 	private Project project2;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 		
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -73,6 +78,47 @@ public class Project_Project implements CerifLinkEntity {
 	@Column(name="cfFraction")
 	private Double fraction;
 	
+	
+	/**
+	 * Default Constructor
+	 */
+	public Project_Project() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project1
+	 * @param project2
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Project_Project(Project project1, Project project2,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.project1 = project1;
+		this.project2 = project2;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	/**
 	 * @return the project1
 	 */

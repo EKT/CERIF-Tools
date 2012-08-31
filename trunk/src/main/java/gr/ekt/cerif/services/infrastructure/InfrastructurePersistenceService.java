@@ -31,7 +31,7 @@ public class InfrastructurePersistenceService {
 	 */
 	@Autowired
 	private FacilityRepository facilityRepository;
-	
+		
 	/**
 	 * The service repository.
 	 */
@@ -76,4 +76,25 @@ public class InfrastructurePersistenceService {
 		
 	}
 
+	/**
+	 * @return the equipmentRepository
+	 */
+	public EquipmentRepository getEquipmentRepository() {
+		return equipmentRepository;
+	}
+
+	/**
+	 * @return the facilityRepository
+	 */
+	public FacilityRepository getFacilityRepository() {
+		return facilityRepository;
+	}
+
+	/**
+	 * @return the serviceRepository
+	 */
+	public ServiceRepository getServiceRepository() {
+		return serviceRepository;
+	}
+	
 }

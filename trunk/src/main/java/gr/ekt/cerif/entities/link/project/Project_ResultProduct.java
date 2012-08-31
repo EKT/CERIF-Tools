@@ -7,25 +7,25 @@ import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.project.Project_ResultProductId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Links a project with a result product.
  * 
  */
 @Entity
-@Table(name="cfProj_ResProd")
-@IdClass(Project_ResultProductId.class)
+@Table(name="cfProj_ResProd", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId","cfResProdId","cfClassId"}))
 public class Project_ResultProduct implements CerifLinkEntity {
 	/**
 	 * Serialization version.
@@ -33,23 +33,27 @@ public class Project_ResultProduct implements CerifLinkEntity {
 	private static final long serialVersionUID = 509664892301196149L;
 
 	/**
-	 * The project.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The project.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The result product.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResProdId")
 	private ResultProduct resultProduct;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
@@ -70,6 +74,32 @@ public class Project_ResultProduct implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Project_ResultProduct() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param resultProduct
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Project_ResultProduct(Project project, ResultProduct resultProduct,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.project = project;
+		this.resultProduct = resultProduct;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the project
@@ -153,5 +183,19 @@ public class Project_ResultProduct implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

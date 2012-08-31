@@ -7,24 +7,25 @@ import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Event_FundingId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfEvent_Fund")
-@IdClass(Event_FundingId.class)
+@Table(name="cfEvent_Fund", uniqueConstraints=@UniqueConstraint(columnNames={"cfEventId", "cfFundId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class Event_Funding implements CerifLinkEntity {
 
 	/**
@@ -33,40 +34,44 @@ public class Event_Funding implements CerifLinkEntity {
 	private static final long serialVersionUID = 358765503868030984L;
 	
 	/**
-	 * The event. 
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The event. 
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEventId")
 	private Event event;
 	
 	/**
 	 * The funding.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFundId")
 	private Funding funding;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -87,6 +92,52 @@ public class Event_Funding implements CerifLinkEntity {
 	 */
 	@Column(name="cfCurrCode")
 	private Currency currency;
+
+	/**
+	 * Default Constructor
+	 */
+	public Event_Funding() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param event
+	 * @param funding
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param amount
+	 * @param currency
+	 */
+	public Event_Funding(Event event, Funding funding, Class theClass,
+			Date startDate, Date endDate, Double fraction, Double amount,
+			Currency currency) {
+		super();
+		this.event = event;
+		this.funding = funding;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.amount = amount;
+		this.currency = currency;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the event

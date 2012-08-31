@@ -4,6 +4,8 @@
 package gr.ekt.cerif.entities.second;
 
 
+import gr.ekt.cerif.entities.link.Facility_Funding;
+import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.person.Person_Funding;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Funding;
@@ -75,7 +77,6 @@ public class Funding implements CerifSecondLevelEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
-	@Field(index=Index.TOKENIZED)
 	private String acronym;
 	
 	/**
@@ -95,13 +96,13 @@ public class Funding implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="funding")
 	private Set<Project_Funding> projects_fundings;
 	
-	@OneToMany(mappedBy="funding", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="funding")
 	private Set<FundingName> names;
 	
-	@OneToMany(mappedBy="funding", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="funding")
 	private Set<FundingKeyword> keywords;
 	
-	@OneToMany(mappedBy="funding", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="funding")
 	private Set<FundingDescription> descriptions;
 
 	@OneToMany(mappedBy="funding")
@@ -115,6 +116,44 @@ public class Funding implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="funding")
 	private Set<ResultPublication_Funding> resultPublications_fundings;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<Funding_Class> classes;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<Facility_Funding> facilities_fundings;
+
+	/**
+	 * Default Constructor
+	 */
+	public Funding() {
+		
+	}
+	/**
+	 * 
+	 * @param currency
+	 * @param startDate
+	 * @param endDate
+	 * @param acronym
+	 * @param amount
+	 * @param uri
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 */
+	public Funding(Currency currency, Date startDate, Date endDate,
+			String acronym, Double amount, String uri, Set<FundingName> names,
+			Set<FundingKeyword> keywords, Set<FundingDescription> descriptions) {
+		this.currency = currency;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.acronym = acronym;
+		this.amount = amount;
+		this.uri = uri;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+	}
 
 	/**
 	 * @return the id
@@ -327,5 +366,27 @@ public class Funding implements CerifSecondLevelEntity {
 	public void setResultPublications_fundings(
 			Set<ResultPublication_Funding> resultPublications_fundings) {
 		this.resultPublications_fundings = resultPublications_fundings;
+	}
+
+	/**
+	 * @return the classes
+	 */
+	public Set<Funding_Class> getClasses() {
+		return classes;
+	}
+
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<Funding_Class> classes) {
+		this.classes = classes;
+	}
+
+	public Set<Facility_Funding> getFacilities_fundings() {
+		return facilities_fundings;
+	}
+
+	public void setFacilities_fundings(Set<Facility_Funding> facilities_fundings) {
+		this.facilities_fundings = facilities_fundings;
 	}
 }

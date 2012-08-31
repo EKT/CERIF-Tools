@@ -3,28 +3,29 @@
  */
 package gr.ekt.cerif.entities.link.organisationunit;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Currency;
-import gr.ekt.cerif.pk.organisationunit.OrganisationUnit_EquipmentId;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfOrgUnit_Equip")
-@IdClass(OrganisationUnit_EquipmentId.class)
+@Table(name="cfOrgUnit_Equip", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId", "cfEquipId", "cfStartDate", "cfEndDate"}) )
 public class OrganisationUnit_Equipment implements CerifLinkEntity {
 
 	/**
@@ -33,32 +34,37 @@ public class OrganisationUnit_Equipment implements CerifLinkEntity {
 	private static final long serialVersionUID = -2514809715031910038L;
 
 	/**
-	 * The organisation unit.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The organisation unit.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfOrgUnitId")
 	private OrganisationUnit organisationUnit;
 	
 	/**
 	 * The equipment.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfEquipId")
 	private Equipment equipment;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -92,6 +98,54 @@ public class OrganisationUnit_Equipment implements CerifLinkEntity {
 	 */
 	@Column(name="cfConditions")
 	private String conditions;
+
+	/**
+	 * Default Constructor
+	 */
+	public OrganisationUnit_Equipment() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param organisationUnit
+	 * @param equipment
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param price
+	 * @param currency
+	 * @param availability
+	 * @param conditions
+	 */
+	public OrganisationUnit_Equipment(OrganisationUnit organisationUnit,
+			Equipment equipment, Date startDate, Date endDate, Double fraction,
+			Double price, Currency currency, String availability,
+			String conditions) {
+		this.organisationUnit = organisationUnit;
+		this.equipment = equipment;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.price = price;
+		this.currency = currency;
+		this.availability = availability;
+		this.conditions = conditions;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the organisationUnit

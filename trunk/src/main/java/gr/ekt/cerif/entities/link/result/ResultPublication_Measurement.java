@@ -7,24 +7,25 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.result.ResultPublication_MeasurementId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfResPubl_Meas")
-@IdClass(ResultPublication_MeasurementId.class)
+@Table(name="cfResPubl_Meas", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfMeasId","cfClassId","cfStartDate","cfEndDate"}))
 public class ResultPublication_Measurement implements CerifLinkEntity {
 
 	/**
@@ -33,40 +34,44 @@ public class ResultPublication_Measurement implements CerifLinkEntity {
 	private static final long serialVersionUID = -5060154333414788265L;
 
 	/**
-	 * The result publication.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;	
+	
+	/**
+	 * The result publication.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
 	/**
 	 * The measurement.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMeasId")
 	private Measurement measurement;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -75,6 +80,33 @@ public class ResultPublication_Measurement implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublication_Measurement() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param resultPublication
+	 * @param measurement
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public ResultPublication_Measurement(ResultPublication resultPublication,
+			Measurement measurement, Class theClass, Date startDate,
+			Date endDate, Double fraction) {
+		this.resultPublication = resultPublication;
+		this.measurement = measurement;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the resultPublication
@@ -158,6 +190,20 @@ public class ResultPublication_Measurement implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

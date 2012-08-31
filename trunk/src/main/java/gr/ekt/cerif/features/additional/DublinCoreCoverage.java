@@ -3,23 +3,22 @@
  */
 package gr.ekt.cerif.features.additional;
 
-import gr.ekt.cerif.pk.DublinCoreBasicId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Represents a DublinCoreCoverage entity.
  * 
  */
 @Entity
-@Table(name="cfDCCoverage")
-@IdClass(DublinCoreBasicId.class)
+@Table(name="cfDCCoverage", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreCoverage implements CerifAdditionalFeature {
 	
 	/**
@@ -38,21 +37,21 @@ public class DublinCoreCoverage implements CerifAdditionalFeature {
 	/**
 	 * The dc scheme.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCScheme")
 	private String scheme;
 	
 	/**
 	 * The dc language.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCLangTag")
 	private String language;
 	
 	/**
 	 * The dc translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCTrans")
 	private String translation;
 	
@@ -68,6 +67,29 @@ public class DublinCoreCoverage implements CerifAdditionalFeature {
 	@Column(name="cfDCValue")
 	private String value;
 		
+	/**
+	 * Default Constructor
+	 */
+	public DublinCoreCoverage() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param scheme
+	 * @param language
+	 * @param translation
+	 * @param type
+	 * @param value
+	 */
+	public DublinCoreCoverage(String scheme, String language,
+			String translation, String type, String value) {
+		this.scheme = scheme;
+		this.language = language;
+		this.translation = translation;
+		this.type = type;
+		this.value = value;
+	}
 
 	/**
 	 * @return the id

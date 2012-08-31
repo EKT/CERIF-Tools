@@ -3,23 +3,21 @@
  */
 package gr.ekt.cerif.features.additional;
 
-import gr.ekt.cerif.pk.DublinCoreBasicId;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Represents a FormalisedDublinCoreRightsManagementRights entity.
  * 
  */
 @Entity
-@Table(name="cfFDCRightsMmRights")
-@IdClass(DublinCoreBasicId.class)
+@Table(name="cfFDCRightsMmRights", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class FormalisedDublinCoreRightsManagementRights implements CerifAdditionalFeature {
 	
 	/**
@@ -38,21 +36,21 @@ public class FormalisedDublinCoreRightsManagementRights implements CerifAddition
 	/**
 	 * The dc scheme.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCScheme")
 	private String scheme;
 	
 	/**
 	 * The dc language.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCLangTag")
 	private String language;
 	
 	/**
 	 * The dc translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCTrans")
 	private String translation;	
 	
@@ -62,6 +60,27 @@ public class FormalisedDublinCoreRightsManagementRights implements CerifAddition
 	@Column(name="cfFDCRightsConstraint")
 	private String rightsConstraint;
 		
+	/**
+	 * Default Constructor
+	 */
+	public FormalisedDublinCoreRightsManagementRights() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param scheme
+	 * @param language
+	 * @param translation
+	 * @param rightsConstraint
+	 */
+	public FormalisedDublinCoreRightsManagementRights(String scheme,
+			String language, String translation, String rightsConstraint) {
+		this.scheme = scheme;
+		this.language = language;
+		this.translation = translation;
+		this.rightsConstraint = rightsConstraint;
+	}
 
 	/**
 	 * @return the id

@@ -49,7 +49,7 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	/**
 	 * The country.
 	 */
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="cfCountryCode", nullable=false)
 	private Country country;
 
@@ -110,6 +110,41 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="postalAddress")
 	private Set<Person_PostalAddress> persons_postalAddresses;
 	
+	/**
+	 * Default Constructor
+	 */
+	public PostalAddress() {
+		
+	}
+	/**
+	 * 
+	 * @param uri
+	 * @param country
+	 * @param addressLine1
+	 * @param addressLine2
+	 * @param addressLine3
+	 * @param addressLine4
+	 * @param addressLine5
+	 * @param postalCode
+	 * @param cityTown
+	 * @param state
+	 */
+	public PostalAddress(String uri, Country country,
+			String addressLine1, String addressLine2, String addressLine3,
+			String addressLine4, String addressLine5, String postalCode,
+			String cityTown, String state) {
+		this.uri = uri;
+		this.country = country;
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.addressLine3 = addressLine3;
+		this.addressLine4 = addressLine4;
+		this.addressLine5 = addressLine5;
+		this.postalCode = postalCode;
+		this.cityTown = cityTown;
+		this.state = state;
+	}
+
 	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.

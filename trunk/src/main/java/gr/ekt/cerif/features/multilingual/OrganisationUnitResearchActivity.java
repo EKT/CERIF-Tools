@@ -5,53 +5,58 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.organisationunit.OrganisationUnitTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual research activity of an OrganisationUnit entity.
  * 
  */
 @Entity
-@Table(name="cfOrgUnitResAct")
-@IdClass(OrganisationUnitTranslationId.class)
+@Table(name="cfOrgUnitResAct", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId","cfLangCode","cfTrans"}))
 public class OrganisationUnitResearchActivity implements OrganisationUnitTranslation {
 
 	/**
 	 * Serialization version.
 	 */
 	private static final long serialVersionUID = 318813824254546521L;
-		
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	
 	/**
 	 * The organisation unit.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfOrgUnitId")
 	private OrganisationUnit organisationUnit;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +66,28 @@ public class OrganisationUnitResearchActivity implements OrganisationUnitTransla
 	 */
 	@Column(name="cfResAct")
 	private String researchActivity;	
+
+	/**
+	 * Default Constructor
+	 */
+	public OrganisationUnitResearchActivity(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param organisationUnit
+	 * @param language
+	 * @param translation
+	 * @param researchActivity
+	 */
+	public OrganisationUnitResearchActivity(OrganisationUnit organisationUnit,
+			Language language, Translation translation, String researchActivity) {
+		this.organisationUnit = organisationUnit;
+		this.language = language;
+		this.translation = translation;
+		this.researchActivity = researchActivity;
+	}
 
 	/**
 	 * @return the organisationUnit
@@ -116,5 +143,19 @@ public class OrganisationUnitResearchActivity implements OrganisationUnitTransla
 	 */
 	public void setResearchActivity(String researchActivity) {
 		this.researchActivity = researchActivity;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

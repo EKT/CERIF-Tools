@@ -3,27 +3,28 @@
  */
 package gr.ekt.cerif.entities.link.organisationunit;
 
+import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.second.Event;
+
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import gr.ekt.cerif.entities.base.OrganisationUnit;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.second.Event;
-import gr.ekt.cerif.pk.organisationunit.OrganisationUnit_EventId;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfOrgUnit_Event")
-@IdClass(OrganisationUnit_EventId.class)
+@Table(name="cfOrgUnit_Event", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId", "cfEventId", "cfStartDate", "cfEndDate"}) )
 public class OrganisationUnit_Event implements CerifLinkEntity {
 
 	/**
@@ -32,32 +33,37 @@ public class OrganisationUnit_Event implements CerifLinkEntity {
 	private static final long serialVersionUID = 3460925048109248831L;
 
 	/**
-	 * The organisation unit.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The organisation unit.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfOrgUnitId")
 	private OrganisationUnit organisationUnit;
 	
 	/**
 	 * The event. 
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfEventId")
 	private Event event;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -66,6 +72,44 @@ public class OrganisationUnit_Event implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default costructor
+	 */
+	public OrganisationUnit_Event() { 
+		
+	}
+	
+	/**
+	 * 
+	 * @param organisationUnit
+	 * @param event
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public OrganisationUnit_Event(OrganisationUnit organisationUnit,
+			Event event, Date startDate, Date endDate, Double fraction) {
+		this.organisationUnit = organisationUnit;
+		this.event = event;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the organisationUnit

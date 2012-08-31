@@ -5,25 +5,25 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Qualification;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.QualificationTranslationId;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual keyword of a qualification entity.
  * 
  */
 @Entity
-@Table(name="cfQualKeyw")
-@IdClass(QualificationTranslationId.class)
+@Table(name="cfQualKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfQualId","cfLangCode","cfTrans"}))
 public class QualificationKeyword implements QualificationTranslation {
 	
 	/**
@@ -32,25 +32,30 @@ public class QualificationKeyword implements QualificationTranslation {
 	private static final long serialVersionUID = -3953951167292983041L;
 
 	/**
-	 * The qualification.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The qualification.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfQualId")
 	private Qualification qualification;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +66,28 @@ public class QualificationKeyword implements QualificationTranslation {
 	@Column(name="cfKeyw")
 	private String keyword;
 	
+	/**
+	 * Default Constructor
+	 */
+	public QualificationKeyword() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param qualification
+	 * @param language
+	 * @param translation
+	 * @param keyword
+	 */
+	public QualificationKeyword(Qualification qualification, Language language,
+			Translation translation, String keyword) {
+		this.qualification = qualification;
+		this.language = language;
+		this.translation = translation;
+		this.keyword = keyword;
+	}
+
 	/**
 	 * @return the qualification
 	 */
@@ -118,6 +145,20 @@ public class QualificationKeyword implements QualificationTranslation {
 	 */
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
