@@ -3,28 +3,29 @@
  */
 package gr.ekt.cerif.entities.link.person;
 
-import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.pk.person.Person_ClassId;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links an person with a class.
  * 
  */
 @Entity
-@Table(name="cfPers_Class")
-@IdClass(Person_ClassId.class)
+@Table(name="cfPers_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class Person_Class implements CerifLinkEntity {
 	
 	/**
@@ -33,32 +34,37 @@ public class Person_Class implements CerifLinkEntity {
 	private static final long serialVersionUID = -2556507434557546L;
 	
 	/**
-	 * The person.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	private Person person;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -68,6 +74,43 @@ public class Person_Class implements CerifLinkEntity {
 	@Column(name="cfFraction")
 	private Double fraction;
 	
+	/**
+	 * Default Constructor
+	 */
+	public Person_Class() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Person_Class(Person person, Class theClass, Date startDate,
+			Date endDate, Double fraction) {
+		this.person = person;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * Returns the person.

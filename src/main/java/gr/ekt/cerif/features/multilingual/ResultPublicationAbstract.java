@@ -5,26 +5,27 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.result.ResultPublicationTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual abstract of a publication result entity.
  * 
  */
 @Entity
-@Table(name="cfResPublAbstr")
-@IdClass(ResultPublicationTranslationId.class)
-public class ResultPublicationAbstract implements ResultPublicationTranslation {
+@Table(name="cfResPublAbstr", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfLangCode","cfTrans"}))
+public class ResultPublicationAbstract implements CerifMultipleLanguageFeature {
 
 	/**
 	 * Serialization version.
@@ -32,9 +33,16 @@ public class ResultPublicationAbstract implements ResultPublicationTranslation {
 	private static final long serialVersionUID = 6871234809317027016L;	
 
 	/**
-	 * The translation.
+	 * 
 	 */
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The translation.
+	 */
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation = Translation.MACHINE;
@@ -42,16 +50,14 @@ public class ResultPublicationAbstract implements ResultPublicationTranslation {
 	/**
 	 * The publication.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
@@ -61,6 +67,30 @@ public class ResultPublicationAbstract implements ResultPublicationTranslation {
 	@Column(name="cfAbstr")
 	private String abstractText;
 	
+	
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublicationAbstract(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param translation
+	 * @param resultPublication
+	 * @param language
+	 * @param abstractText
+	 */
+	public ResultPublicationAbstract(Translation translation,
+			ResultPublication resultPublication, Language language,
+			String abstractText) {
+		this.translation = translation;
+		this.resultPublication = resultPublication;
+		this.language = language;
+		this.abstractText = abstractText;
+	}
+
 	/**
 	 * Returns the translation.
 	 * @return the translation
@@ -134,6 +164,20 @@ public class ResultPublicationAbstract implements ResultPublicationTranslation {
 		return String
 				.format("ResultPublicationAbstract [translation=%s, resultPublication=%s, language=%s, abstractText=%s]",
 						translation, resultPublication, language, abstractText);
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

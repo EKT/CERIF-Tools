@@ -25,7 +25,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -79,19 +78,19 @@ public class Project implements CerifBaseEntity {
 	/**
 	 * The project titles.
 	 */
-	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="project")
 	private Set<ProjectTitle> projectTitles;
 	
 	/**
 	 * The project abstracts.
 	 */
-	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="project")
 	private Set<ProjectAbstract> projectAbstracts;
 	
 	/**
 	 * The project keywords.
 	 */
-	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="project")
 	private Set<ProjectKeyword> projectKeywords;
 
 	/**
@@ -125,34 +124,65 @@ public class Project implements CerifBaseEntity {
 	@OneToMany(mappedBy="project")
 	private Set<Project_ResultProduct> resultProducts;
 	
-	@OneToMany(mappedBy="theClass")
+	@OneToMany(mappedBy="project")
 	private Set<Project_Classification> projects_classes;
 
-	@OneToMany(mappedBy="theClass")
+	@OneToMany(mappedBy="project")
 	private Set<Project_Equipment> projects_equipments;
 
-	@OneToMany(mappedBy="theClass")
+	@OneToMany(mappedBy="project")
 	private Set<Project_Event> projects_events;
 
-	@OneToMany(mappedBy="theClass")
+	@OneToMany(mappedBy="project")
 	private Set<Project_Facility> projects_facilities;
 
-	@OneToMany(mappedBy="theClass")
+	@OneToMany(mappedBy="project")
 	private Set<Project_Funding> projects_fundings;
 
-	@OneToMany(mappedBy="theClass")
+	@OneToMany(mappedBy="project")
 	private Set<Project_PrizeAward> projects_prizes;
 
-	@OneToMany(mappedBy="theClass")
+	@OneToMany(mappedBy="project")
 	private Set<Project_ResultPatent> projects_resultPatents;
 
-	@OneToMany(mappedBy="theClass")
+	@OneToMany(mappedBy="project")
 	private Set<Project_ResultPublication> projects_resultPublications;
 
-	@OneToMany(mappedBy="theClass")
+	@OneToMany(mappedBy="project")
 	private Set<Project_Service> projects_services;
 
+	/**
+	 * Default Constructor
+	 */
+	public Project(){
+		
+	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param startDate
+	 * @param endDate
+	 * @param acronym
+	 * @param uri
+	 * @param projectTitles
+	 * @param projectAbstracts
+	 * @param projectKeywords
+	 */
+	public Project(Long id, Date startDate, Date endDate, String acronym,
+			String uri, Set<ProjectTitle> projectTitles,
+			Set<ProjectAbstract> projectAbstracts,
+			Set<ProjectKeyword> projectKeywords) {
+		this.id = id;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.acronym = acronym;
+		this.uri = uri;
+		this.projectTitles = projectTitles;
+		this.projectAbstracts = projectAbstracts;
+		this.projectKeywords = projectKeywords;
+	}
+
 	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.

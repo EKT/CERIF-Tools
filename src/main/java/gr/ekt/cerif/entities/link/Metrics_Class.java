@@ -5,24 +5,25 @@ package gr.ekt.cerif.entities.link;
 
 import gr.ekt.cerif.entities.second.Metrics;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Metrics_ClassId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfMetrics_Class")
-@IdClass(Metrics_ClassId.class)
+@Table(name="cfMetrics_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfMetricsId","cfClassId","cfStartDate","cfEndDate"}))
 public class Metrics_Class implements CerifLinkEntity {
 
 	/**
@@ -31,32 +32,37 @@ public class Metrics_Class implements CerifLinkEntity {
 	private static final long serialVersionUID = -1617711252466758493L;
 	
 	/**
-	 * The metrics.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The metrics.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfMetricsId")
 	private Metrics metrics;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -65,6 +71,30 @@ public class Metrics_Class implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Metrics_Class() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param metrics
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Metrics_Class(Metrics metrics, Class theClass, Date startDate,
+			Date endDate, Double fraction) {
+		this.metrics = metrics;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the metrics
@@ -134,6 +164,20 @@ public class Metrics_Class implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

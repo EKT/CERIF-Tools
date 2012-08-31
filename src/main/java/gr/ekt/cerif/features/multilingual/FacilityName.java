@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.FacilityTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual name of a facility entity.
  * 
  */
 @Entity
-@Table(name="cfFacilName")
-@IdClass(FacilityTranslationId.class)
+@Table(name="cfFacilName", uniqueConstraints=@UniqueConstraint(columnNames={"cfFacilId","cfLangCode","cfTrans"}))
 public class FacilityName implements FacilityTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class FacilityName implements FacilityTranslation {
 	private static final long serialVersionUID = 5221481151344418915L;
 
 	/**
-	 * The facility.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The facility.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFacilId")
 	private Facility facility;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +67,27 @@ public class FacilityName implements FacilityTranslation {
 	@Column(name="cfName")
 	private String name;
 	
+	/**
+	 * Default Constructor
+	 */
+	public FacilityName() {
+		
+	}
+	/**
+	 * 
+	 * @param facility
+	 * @param language
+	 * @param translation
+	 * @param name
+	 */
+	public FacilityName(Facility facility, Language language,
+			Translation translation, String name) {
+		this.facility = facility;
+		this.language = language;
+		this.translation = translation;
+		this.name = name;
+	}
+
 	/**
 	 * @return the facility
 	 */
@@ -118,6 +145,18 @@ public class FacilityName implements FacilityTranslation {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

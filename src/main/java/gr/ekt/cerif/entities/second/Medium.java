@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.person.Person_Medium;
+import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
+import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.features.multilingual.MediumDescription;
 import gr.ekt.cerif.features.multilingual.MediumKeyword;
 import gr.ekt.cerif.features.multilingual.MediumTitle;
@@ -64,14 +67,55 @@ public class Medium implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
-	@OneToMany(mappedBy="medium", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="medium")
 	private Set<MediumTitle> names;
 	
-	@OneToMany(mappedBy="medium", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="medium")
 	private Set<MediumKeyword> keywords;
 	
-	@OneToMany(mappedBy="medium", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="medium")
 	private Set<MediumDescription> descriptions;
+	
+	/**
+	 * The persons_medium.
+	 */
+	@OneToMany(mappedBy="medium")
+	private Set<Person_Medium> persons_medium;
+	
+	/**
+	 * The resultPublications_medium.
+	 */
+	@OneToMany(mappedBy="medium")
+	private Set<ResultPublication_Medium> resultPublications_medium;
+
+	/**
+	 * Default Constructor
+	 */
+	public Medium() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param mediumCreationDate
+	 * @param size
+	 * @param mimeType
+	 * @param uri
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 */
+	public Medium(String mediumCreationDate, Double size, String mimeType,
+			String uri, Set<MediumTitle> names, Set<MediumKeyword> keywords,
+			Set<MediumDescription> descriptions) {
+		this.mediumCreationDate = mediumCreationDate;
+		this.size = size;
+		this.mimeType = mimeType;
+		this.uri = uri;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+	}
 
 	/**
 	 * @return the id
@@ -185,6 +229,36 @@ public class Medium implements CerifSecondLevelEntity {
 	 */
 	public void setDescriptions(Set<MediumDescription> descriptions) {
 		this.descriptions = descriptions;
+	}
+	
+	/**
+	 * @return the persons_medium
+	 */
+	public Set<Person_Medium> getPersons_medium() {
+		return persons_medium;
+	}
+	
+	/**
+	 * @param persons_medium the persons_medium to set
+	 */
+	public void setPersons_medium(
+			Set<Person_Medium> persons_medium) {
+		this.persons_medium = persons_medium;
+	}
+	
+	/**
+	 * @return the resultPublications_medium
+	 */
+	public Set<ResultPublication_Medium> getResultPublications_medium() {
+		return resultPublications_medium;
+	}
+
+	/**
+	 * @param resultPublications_medium the resultPublications_medium to set
+	 */
+	public void setResultPublications_medium(
+			Set<ResultPublication_Medium> resultPublications_medium) {
+		this.resultPublications_medium = resultPublications_medium;
 	}
 	
 }

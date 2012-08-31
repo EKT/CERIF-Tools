@@ -60,13 +60,29 @@ public class Country implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="country")
 	private Set<PostalAddress> postalAddresses;
 	
-	@OneToMany(mappedBy="country", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="country")
 	private Set<CountryName> names;
 
 	@OneToMany(mappedBy="country")
 	private Set<Person_Country> persons_countries;
 	
+	/**
+	 * Default Constructor
+	 */
+	public Country(){
+		
+	}
 	
+	/**
+	 * 
+	 * @param code
+	 * @param uri
+	 */
+	public Country(String code, String uri) {
+		this.code = code;
+		this.uri = uri;
+	}
+
 	/**
 	 * Returns the code.
 	 * @return the code.

@@ -11,7 +11,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,11 +50,33 @@ public class ClassScheme implements CerifSemanticFeature {
 	@OneToMany (mappedBy = "scheme")
 	private Set<Class> classes;
 	
-	@OneToMany(mappedBy="scheme", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="scheme")
 	private Set<ClassSchemeDescription> descriptions;
 	
-	@OneToMany(mappedBy="scheme", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="scheme")
 	private Set<ClassSchemeName> names;
+
+	/**
+	 * Default Constructor
+	 */
+	public ClassScheme() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @param classes
+	 * @param descriptions
+	 * @param names
+	 */
+	public ClassScheme(String uri, Set<Class> classes,
+			Set<ClassSchemeDescription> descriptions, Set<ClassSchemeName> names) {
+		this.uri = uri;
+		this.classes = classes;
+		this.descriptions = descriptions;
+		this.names = names;
+	}
 
 	/**
 	 * Returns the unique identifier.

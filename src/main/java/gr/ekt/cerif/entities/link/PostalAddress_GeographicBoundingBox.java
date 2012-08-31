@@ -8,22 +8,23 @@ import java.util.Date;
 import gr.ekt.cerif.entities.second.GeographicBoundingBox;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.PostalAddress_GeographicBoundingBoxId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfPAddr_GeoBBox")
-@IdClass(PostalAddress_GeographicBoundingBoxId.class)
+@Table(name="cfPAddr_GeoBBox", uniqueConstraints=@UniqueConstraint(columnNames={"cfPAddrId","cfGeoBBoxId", "cfClassId","cfStartDate", "cfEndDate"}))
 public class PostalAddress_GeographicBoundingBox implements CerifLinkEntity {
 
 	/**
@@ -32,40 +33,44 @@ public class PostalAddress_GeographicBoundingBox implements CerifLinkEntity {
 	private static final long serialVersionUID = -8126126101374018591L;
 	
 	/**
-	 * The postal address.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The postal address.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfPAddrId")
 	private PostalAddress postalAddress;
 	
 	/**
 	 * The geographic bounding box.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfGeoBBoxId")
 	private GeographicBoundingBox geographicBoundingBox;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +79,33 @@ public class PostalAddress_GeographicBoundingBox implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public PostalAddress_GeographicBoundingBox() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param postalAddress
+	 * @param geographicBoundingBox
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public PostalAddress_GeographicBoundingBox(PostalAddress postalAddress,
+			GeographicBoundingBox geographicBoundingBox, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.postalAddress = postalAddress;
+		this.geographicBoundingBox = geographicBoundingBox;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the postalAddress
@@ -157,6 +189,20 @@ public class PostalAddress_GeographicBoundingBox implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

@@ -7,24 +7,25 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.person.Person_IndicatorId;
 
 /**
  *
  */
 @Entity
-@Table(name="cfPers_Indic")
-@IdClass(Person_IndicatorId.class)
+@Table(name="cfPers_Indic", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfIndicId","cfClassId","cfStartDate","cfEndDate"}))
 public class Person_Indicator implements CerifLinkEntity {
 
 	/**
@@ -33,40 +34,44 @@ public class Person_Indicator implements CerifLinkEntity {
 	private static final long serialVersionUID = 9003818968537198240L;
 
 	/**
-	 * The person.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	private Person person;
 	
 	/**
 	 * The indicator.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfIndicId")
 	private Indicator indicator;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -75,6 +80,32 @@ public class Person_Indicator implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Person_Indicator() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param indicator
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Person_Indicator(Person person, Indicator indicator, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.person = person;
+		this.indicator = indicator;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the person
@@ -158,6 +189,20 @@ public class Person_Indicator implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

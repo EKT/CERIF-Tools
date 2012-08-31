@@ -7,25 +7,26 @@ import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.project.Project_PersonId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a project with an organization unit.
  * 
  */
 @Entity
-@Table(name="cfProj_Pers")
-@IdClass(Project_PersonId.class)
+@Table(name="cfProj_Pers", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId", "cfPersId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class Project_Person implements CerifLinkEntity {
 	
 	/**
@@ -34,37 +35,41 @@ public class Project_Person implements CerifLinkEntity {
 	private static final long serialVersionUID = -3052891621307942145L;
 
 	/**
-	 * The project.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The project.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The organisation unit.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	private Person person;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 		
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +79,46 @@ public class Project_Person implements CerifLinkEntity {
 	@Column(name="cfFraction")
 	private Double fraction;
 	
+	/**
+	 * Default Constructor
+	 */
+	public Project_Person() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param person
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Project_Person(Project project, Person person, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.project = project;
+		this.person = person;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	/**
 	 * Returns the person.
 	 * @return the person.

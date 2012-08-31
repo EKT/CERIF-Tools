@@ -7,25 +7,25 @@ import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.result.ResultPublication_ResultProductId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Links a result publication with a result product.
  * 
  */
 @Entity
-@Table(name="cfResPubl_ResProd")
-@IdClass(ResultPublication_ResultProductId.class)
+@Table(name="cfResPubl_ResProd", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfResProdId","cfClassId"}))
 public class ResultPublication_ResultProduct implements CerifLinkEntity {
 	/**
 	 * Serialization version.
@@ -33,23 +33,27 @@ public class ResultPublication_ResultProduct implements CerifLinkEntity {
 	private static final long serialVersionUID = 184675292396197761L;
 
 	/**
-	 * The result publication.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The result publication.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
 	/**
 	 * The result product.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResProdId")
 	private ResultProduct resultProduct;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
@@ -71,7 +75,32 @@ public class ResultPublication_ResultProduct implements CerifLinkEntity {
 	@Column(name="cfFraction")
 	private Double fraction;
 	
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublication_ResultProduct() {
+		
+	}
 	
+	/**
+	 * 
+	 * @param resultPublication
+	 * @param resultProduct
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public ResultPublication_ResultProduct(ResultPublication resultPublication,
+			ResultProduct resultProduct, Class theClass, Date startDate,
+			Date endDate, Double fraction) {
+		this.resultPublication = resultPublication;
+		this.resultProduct = resultProduct;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the resultPublication
@@ -155,5 +184,19 @@ public class ResultPublication_ResultProduct implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

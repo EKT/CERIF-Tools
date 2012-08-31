@@ -7,24 +7,25 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Citation;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.result.ResultPublication_CitationId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfResPubl_Cite")
-@IdClass(ResultPublication_CitationId.class)
+@Table(name="cfResPubl_Cite", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfCiteId","cfClassId","cfStartDate","cfEndDate"}))
 public class ResultPublication_Citation implements CerifLinkEntity {
 
 	/**
@@ -33,40 +34,44 @@ public class ResultPublication_Citation implements CerifLinkEntity {
 	private static final long serialVersionUID = -673538086811073595L;
 	
 	/**
-	 * The result publication.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The result publication.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
 	/**
 	 * The citation.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfCiteId")
 	private Citation citation;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -87,6 +92,37 @@ public class ResultPublication_Citation implements CerifLinkEntity {
 	 */
 	@Column(name="cfCount")
 	private Double count;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublication_Citation() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param resultPublication
+	 * @param citation
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param year
+	 * @param count
+	 */
+	public ResultPublication_Citation(ResultPublication resultPublication,
+			Citation citation, Class theClass, Date startDate, Date endDate,
+			Double fraction, Integer year, Double count) {
+		this.resultPublication = resultPublication;
+		this.citation = citation;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.year = year;
+		this.count = count;
+	}
 
 	/**
 	 * @return the resultPublication
@@ -198,6 +234,20 @@ public class ResultPublication_Citation implements CerifLinkEntity {
 	 */
 	public void setCount(Double count) {
 		this.count = count;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

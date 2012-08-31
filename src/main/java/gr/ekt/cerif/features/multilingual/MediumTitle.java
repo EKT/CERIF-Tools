@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.MediumTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual title of a medium entity.
  * 
  */
 @Entity
-@Table(name="cfMediumTitle")
-@IdClass(MediumTranslationId.class)
+@Table(name="cfMediumTitle", uniqueConstraints=@UniqueConstraint(columnNames={"cfMediumId","cfLangCode","cfTrans"}))
 public class MediumTitle implements MediumTranslation {
 	
 	/**
@@ -31,26 +32,32 @@ public class MediumTitle implements MediumTranslation {
 	 */
 	private static final long serialVersionUID = 3360417632172185906L;
 
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The medium.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMediumId")
 	private Medium medium;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +68,28 @@ public class MediumTitle implements MediumTranslation {
 	@Column(name="cfTitle")
 	private String title;
 	
+	/**
+	 * Default Constructor
+	 */
+	public MediumTitle() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param medium
+	 * @param language
+	 * @param translation
+	 * @param title
+	 */
+	public MediumTitle(Medium medium, Language language,
+			Translation translation, String title) {
+		this.medium = medium;
+		this.language = language;
+		this.translation = translation;
+		this.title = title;
+	}
+
 	/**
 	 * @return the medium
 	 */
@@ -118,6 +147,20 @@ public class MediumTitle implements MediumTranslation {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

@@ -7,27 +7,28 @@ import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.second.Country;
-import gr.ekt.cerif.pk.result.ResultProduct_CountryId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links an organization unit with a postal address.
  * 
  */
 @Entity
-@Table(name="cfResProd_Country")
-@IdClass(ResultProduct_CountryId.class)
+@Table(name="cfResProd_Country", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId","cfCountryId","cfClassId","cfStartDate","cfEndDate"}))
 @NamedQueries({
 	@NamedQuery(name="ResultProduct_Country.getProductsByCountry", query="SELECT a.country, count(a.country) FROM ResultProduct_Country a GROUP BY a.country"),
 	@NamedQuery(name="ResultProduct_Country.getProductsByCountryCode", query="SELECT a.resultProduct FROM ResultProduct_Country a WHERE a.country.code LIKE :code OR a.country.uri LIKE :code")
@@ -41,40 +42,44 @@ public class ResultProduct_Country implements CerifLinkEntity {
 	private static final long serialVersionUID = -389578121645571064L;
 	
 	/**
-	 * The result product.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The result product.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResProdId")
 	private ResultProduct resultProduct;
 
 	/**
 	 * The country.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfCountryId")
 	private Country country;
 
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -84,6 +89,32 @@ public class ResultProduct_Country implements CerifLinkEntity {
 	@Column(name="cfFraction")
 	private Double fraction;
 	
+	/**
+	 * Default Constructor
+	 */
+	public ResultProduct_Country() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param resultProduct
+	 * @param country
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public ResultProduct_Country(ResultProduct resultProduct, Country country,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.resultProduct = resultProduct;
+		this.country = country;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
+
 	/**
 	 * @return the resultProduct
 	 */
@@ -172,6 +203,20 @@ public class ResultProduct_Country implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 

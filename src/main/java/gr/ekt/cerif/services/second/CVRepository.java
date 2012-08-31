@@ -12,5 +12,7 @@ import org.springframework.data.repository.CrudRepository;
  * 
  */
 public interface CVRepository extends CrudRepository<CV, String> {
+	
+	CV findById(Long id);
 
 }

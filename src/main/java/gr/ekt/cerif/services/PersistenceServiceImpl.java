@@ -8,7 +8,6 @@ import gr.ekt.cerif.entities.base.CerifBaseEntity;
 import gr.ekt.cerif.entities.infrastructure.CerifInfrastructureEntity;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.CerifResultEntity;
-import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.second.CerifSecondLevelEntity;
 import gr.ekt.cerif.features.additional.CerifAdditionalFeature;
 import gr.ekt.cerif.features.multilingual.CerifMultipleLanguageFeature;
@@ -83,9 +82,41 @@ public class PersistenceServiceImpl implements PersistenceService {
 	private AdditionalPersistenceService additionalService;
 	
 	/**
-	 * Saves the provided CERIF component.
+	 * Deletes the provided CERIF component.
+	 * @TODO FOR EVERY ENTITY IMPLEMENT DELETE
 	 * @param component The CERIF component.
 	 */
+	public void delete(CerifComponent component){
+		if (component == null) {
+			throw new IllegalArgumentException("Empty component provided. Save will not proceed.");
+		}
+		
+		if (component instanceof CerifBaseEntity) {
+			baseService.delete((CerifBaseEntity) component);
+		} 
+		else if (component instanceof CerifResultEntity) {
+			resultService.delete((CerifResultEntity) component);
+		}
+		else if (component instanceof CerifLinkEntity) {
+			linkService.delete((CerifLinkEntity) component);
+		} 
+		else if (component instanceof CerifSecondLevelEntity) {
+			secondService.delete((CerifSecondLevelEntity) component);
+		} 
+//			else if (component instanceof CerifInfrastructureEntity) {
+//			infrastructureService.delete((CerifInfrastructureEntity) component);
+//		} 
+		else if (component instanceof CerifMultipleLanguageFeature) {
+			translationService.delete( (CerifMultipleLanguageFeature) component);
+	} 
+			else if (component instanceof CerifSemanticFeature) {
+			semanticService.delete((CerifSemanticFeature) component);
+		} 
+		else if (component instanceof CerifAdditionalFeature) {
+			additionalService.delete((CerifAdditionalFeature) component);
+		}
+	}
+	
 	@Override
 	public void save(CerifComponent component) {
 		
@@ -111,6 +142,24 @@ public class PersistenceServiceImpl implements PersistenceService {
 			additionalService.save((CerifAdditionalFeature) component);
 		}
 		
+	}
+	
+	/**
+	 * Deletes the provided CERIF components.
+	 * @param components The CERIF components.
+	 */
+	@SuppressWarnings("unchecked")
+	public void delete(List<? extends CerifComponent> components) {
+		
+		if (components == null || components.size() == 0) {
+			throw new IllegalArgumentException("Empty collection provided. Save will not proceed.");
+		}
+		
+		final CerifComponent type = components.get(0);
+		
+		if (type instanceof CerifLinkEntity) {
+			linkService.delete((List<CerifLinkEntity>) components);
+		}
 	}
 
 	/**
@@ -147,84 +196,60 @@ public class PersistenceServiceImpl implements PersistenceService {
 		
 		
 	}
-	
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.IndexService#getAllProducts()
+
+	/**
+	 * @return the baseService
 	 */
-	@Override
-	public List<ResultProduct> getAllProducts() {
-		return resultService.findAllProducts();
-	}
-	
-	@Override
-	public ResultProduct getProduct(Long id) {
-		return resultService.findProductById(id);
-	}
-	
-	@Override
-	public List<ResultProduct> getProductsByKeyword(String keyword) {
-		return resultService.findProductsByKeyword(keyword);
+	public BasePersistenceService getBaseService() {
+		return baseService;
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#findByClass(java.lang.String)
+	/**
+	 * @return the resultService
 	 */
-	@Override
-	public List<ResultProduct> getProductsByClass(String uri) {
-		return resultService.findByClass(uri);
+	public ResultPersistenceService getResultService() {
+		return resultService;
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#getProductByOrganisationClass(java.lang.String)
+	/**
+	 * @return the secondService
 	 */
-	@Override
-	public List<ResultProduct> getProductByOrganisationClass(String uri) {
-		return resultService.findByOrganisationClass(uri);
+	public SecondPersistenceService getSecondService() {
+		return secondService;
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#getProductByPersonClass(java.lang.String)
+	/**
+	 * @return the infrastructureService
 	 */
-	@Override
-	public List<ResultProduct> getProductByPersonClass(String uri) {
-		return resultService.findProductsByPersonClass(uri);
+	public InfrastructurePersistenceService getInfrastructureService() {
+		return infrastructureService;
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#getProductByProjectClass(java.lang.String)
+	/**
+	 * @return the semanticService
 	 */
-	@Override
-	public List<ResultProduct> getProductByProjectClass(String uri) {
-		return resultService.findProductsByProjectClass(uri);
+	public SemanticsPersistenceService getSemanticService() {
+		return semanticService;
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#getProductByCountry(java.lang.String)
+	/**
+	 * @return the linkService
 	 */
-	@Override
-	public List<ResultProduct> getProductByCountry(String code) {
-		return resultService.findProductsByCountry(code);
+	public LinkPersistenceService getLinkService() {
+		return linkService;
 	}
-	
-	@Override
-	public List<ResultProduct> getProductByOrganisationURI(String uri) {
-		return resultService.findByOrganisationURI(uri);
-	}
-	
-	@Override
-	public List<ResultProduct> getProductByOrganisationURIClass(String orgURI, String classURI) {
-		return resultService.findByOrganisationURIClass(orgURI, classURI);
-	}
-	
-	@Override
-	public List<ResultProduct> getProductByOrganisationExpanded(String input, String classURI) {
-		return resultService.findByOrganisationExpanded(input, classURI);
-	}
-	
-	@Override
-	public List<ResultProduct> getProductByPersonAny(String uri) {
-		return resultService.findByPersonAny(uri);
-	}
-	
 
+	/**
+	 * @return the translationService
+	 */
+	public TranslationPersistenceService getTranslationService() {
+		return translationService;
+	}
+
+	/**
+	 * @return the additionalService
+	 */
+	public AdditionalPersistenceService getAdditionalService() {
+		return additionalService;
+	}
 }

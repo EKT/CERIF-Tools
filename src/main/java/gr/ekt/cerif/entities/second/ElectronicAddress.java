@@ -61,6 +61,23 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 //	private Set<Person_ElectronicAddress> persons_electronicAddresses;
 	
 	/**
+	 * Default Constructor
+	 */
+	public ElectronicAddress() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param postalAddress
+	 * @param uri
+	 */
+	public ElectronicAddress(PostalAddress postalAddress, String uri) {
+	this.postalAddress = postalAddress;
+	this.uri = uri;	
+	}
+	
+	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.
 	 */

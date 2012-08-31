@@ -5,23 +5,21 @@ package gr.ekt.cerif.features.additional;
 
 import java.util.Date;
 
-import gr.ekt.cerif.pk.DublinCoreBasicId;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Represents a DublinCoreCoverageTemporal entity.
  * 
  */
 @Entity
-@Table(name="cfDCCoverageTemporal")
-@IdClass(DublinCoreBasicId.class)
+@Table(name="cfDCCoverageTemporal", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreCoverageTemporal implements CerifAdditionalFeature {
 	
 	/**
@@ -40,21 +38,21 @@ public class DublinCoreCoverageTemporal implements CerifAdditionalFeature {
 	/**
 	 * The dc scheme.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCScheme")
 	private String scheme;
 	
 	/**
 	 * The dc language.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCLangTag")
 	private String language;
 	
 	/**
 	 * The dc translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCTrans")
 	private String translation;	
 	
@@ -81,6 +79,35 @@ public class DublinCoreCoverageTemporal implements CerifAdditionalFeature {
 	 */
 	@Column(name="cfFDCPrecision")
 	private Double precision;
+
+	/**
+	 * Default Constructor
+	 */
+	public DublinCoreCoverageTemporal() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param scheme
+	 * @param language
+	 * @param translation
+	 * @param value
+	 * @param startDate
+	 * @param endDate
+	 * @param precision
+	 */
+	public DublinCoreCoverageTemporal(String scheme, String language,
+			String translation, String value, Date startDate, Date endDate,
+			Double precision) {
+		this.scheme = scheme;
+		this.language = language;
+		this.translation = translation;
+		this.value = value;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.precision = precision;
+	}
 
 	/**
 	 * @return the id

@@ -3,27 +3,18 @@
  */
 package gr.ekt.cerif.services.base;
 
-import java.util.List;
-
 import gr.ekt.cerif.entities.base.OrganisationUnit;
+
+import org.springframework.data.repository.CrudRepository;
 
 
 /**
  * A repository for organisations.
  * 
  */
-public interface OrganisationUnitRepository {
+public interface OrganisationUnitRepository extends CrudRepository<OrganisationUnit, Long> {
 
-	/**
-	 * Saves the provided organisation.
-	 * @param organisation
-	 */
-	void save(OrganisationUnit organisation);
-
-	/**
-	 * Saves the provided list of organisations.
-	 * @param organisationList
-	 */
-	void save(List<OrganisationUnit> organisationList);
-
+	OrganisationUnit findByUri(String uri);
+	
+	OrganisationUnit findByAcronym(String acronym);
 }

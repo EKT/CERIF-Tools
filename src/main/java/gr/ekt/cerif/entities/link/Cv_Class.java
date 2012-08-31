@@ -5,24 +5,25 @@ package gr.ekt.cerif.entities.link;
 
 import gr.ekt.cerif.entities.second.CV;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Cv_ClassId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfCV_Class")
-@IdClass(Cv_ClassId.class)
+@Table(name="cfCV_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfCVId", "cfClassId", "cfStartDate", "cfEndDate"}))
 public class Cv_Class implements CerifLinkEntity {
 
 	/**
@@ -31,32 +32,37 @@ public class Cv_Class implements CerifLinkEntity {
 	private static final long serialVersionUID = 9131289991723282407L;
 	
 	/**
-	 * The CV.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The CV.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfCVId")
 	private CV cv;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -65,6 +71,30 @@ public class Cv_Class implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Cv_Class() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param cv
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Cv_Class(CV cv, Class theClass, Date startDate, Date endDate,
+			Double fraction) {
+		this.cv = cv;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the cv
@@ -134,5 +164,19 @@ public class Cv_Class implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

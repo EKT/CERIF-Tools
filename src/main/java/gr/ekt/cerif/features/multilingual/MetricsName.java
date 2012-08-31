@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Metrics;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.MetricsTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual name of a metrics entity.
  * 
  */
 @Entity
-@Table(name="cfMetricsName")
-@IdClass(MetricsTranslationId.class)
+@Table(name="cfMetricsName", uniqueConstraints=@UniqueConstraint(columnNames={"cfMetricsId","cfLangCode","cfTrans"}))
 public class MetricsName implements MetricsTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class MetricsName implements MetricsTranslation {
 	private static final long serialVersionUID = 2340138262148734534L;
 
 	/**
-	 * The metrics.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The metrics.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMetricsId")
 	private Metrics metrics;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +67,28 @@ public class MetricsName implements MetricsTranslation {
 	@Column(name="cfName")
 	private String name;
 	
+	/**
+	 * Default Constructor
+	 */
+	public MetricsName() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param metrics
+	 * @param language
+	 * @param translation
+	 * @param name
+	 */
+	public MetricsName(Metrics metrics, Language language,
+			Translation translation, String name) {
+		this.metrics = metrics;
+		this.language = language;
+		this.translation = translation;
+		this.name = name;
+	}
+
 	/**
 	 * @return the metrics
 	 */
@@ -118,6 +146,20 @@ public class MetricsName implements MetricsTranslation {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

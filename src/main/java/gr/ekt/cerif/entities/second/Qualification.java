@@ -47,17 +47,40 @@ public class Qualification implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
-	@OneToMany(mappedBy="qualification", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="qualification")
 	private Set<QualificationTitle> titles;
 	
-	@OneToMany(mappedBy="qualification", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="qualification")
 	private Set<QualificationKeyword> keywords;
 	
-	@OneToMany(mappedBy="qualification", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="qualification")
 	private Set<QualificationDescription> descriptions;
 	
 	@OneToMany(mappedBy="person")
 	private Set<Person_Qualification> persons_qualifications;
+
+	/**
+	 * Default constructor
+	 */
+	public Qualification() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @param titles
+	 * @param keywords
+	 * @param descriptions
+	 */
+	public Qualification(String uri, Set<QualificationTitle> titles,
+			Set<QualificationKeyword> keywords,
+			Set<QualificationDescription> descriptions) {
+		this.uri = uri;
+		this.titles = titles;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+	}
 
 	/**
 	 * @return the id

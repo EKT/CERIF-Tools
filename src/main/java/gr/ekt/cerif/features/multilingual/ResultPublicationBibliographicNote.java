@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.result.ResultPublicationTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual fields of a publication result entity.
  * 
  */
 @Entity
-@Table(name="cfResPublBiblNote")
-@IdClass(ResultPublicationTranslationId.class)
+@Table(name="cfResPublBiblNote", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfLangCode","cfTrans"}))
 public class ResultPublicationBibliographicNote implements ResultPublicationTranslation {
 
 	/**
@@ -32,9 +33,16 @@ public class ResultPublicationBibliographicNote implements ResultPublicationTran
 	private static final long serialVersionUID = -8204123285067903117L;
 
 	/**
-	 * The translation.
+	 * 
 	 */
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The translation.
+	 */
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation = Translation.MACHINE;
@@ -42,16 +50,14 @@ public class ResultPublicationBibliographicNote implements ResultPublicationTran
 	/**
 	 * The publication.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
@@ -61,6 +67,29 @@ public class ResultPublicationBibliographicNote implements ResultPublicationTran
 	@Column(name="cfBiblNote")
 	private String bibliographicNote;
 	
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublicationBibliographicNote() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param translation
+	 * @param resultPublication
+	 * @param language
+	 * @param bibliographicNote
+	 */
+	public ResultPublicationBibliographicNote(Translation translation,
+			ResultPublication resultPublication, Language language,
+			String bibliographicNote) {
+		this.translation = translation;
+		this.resultPublication = resultPublication;
+		this.language = language;
+		this.bibliographicNote = bibliographicNote;
+	}
+
 	/**
 	 * Returns the translation.
 	 * @return the translation
@@ -123,6 +152,20 @@ public class ResultPublicationBibliographicNote implements ResultPublicationTran
 	 */
 	public void setBibliographicNote(String bibliographicNote) {
 		this.bibliographicNote = bibliographicNote;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

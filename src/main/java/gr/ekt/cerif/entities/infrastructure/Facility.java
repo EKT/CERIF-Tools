@@ -5,6 +5,10 @@ package gr.ekt.cerif.entities.infrastructure;
 
 import java.util.Set;
 
+import gr.ekt.cerif.entities.link.Facility_Class;
+import gr.ekt.cerif.entities.link.Facility_Facility;
+import gr.ekt.cerif.entities.link.Facility_Funding;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.person.Person_Facility;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Facility;
@@ -48,7 +52,6 @@ public class Facility implements CerifInfrastructureEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
-	@Field(index=Index.TOKENIZED)
 	private String acronym;
 	
 	/**
@@ -63,13 +66,16 @@ public class Facility implements CerifInfrastructureEntity {
 	@OneToMany(mappedBy="facility")
 	private Set<Project_Facility> projects_facilities;
 	
-	@OneToMany(mappedBy="facility", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="facility")
+	private Set<OrganisationUnit_Facility> organisationUnits_facilities;
+	
+	@OneToMany(mappedBy="facility")
 	private Set<FacilityName> names;
 	
-	@OneToMany(mappedBy="facility", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="facility")
 	private Set<FacilityKeyword> keywords;
 	
-	@OneToMany(mappedBy="facility", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="facility")
 	private Set<FacilityDescription> descriptions;
 
 	@OneToMany(mappedBy="facility")
@@ -78,6 +84,44 @@ public class Facility implements CerifInfrastructureEntity {
 	@OneToMany(mappedBy="facility")
 	private Set<ResultPublication_Facility> resultPublications_facilities;
 	
+	@OneToMany(mappedBy="facility")
+	private Set<Facility_Class> classes;
+	
+	@OneToMany(mappedBy="facility")
+	private Set<Facility_Funding> facilities_fundings;
+	
+	@OneToMany(mappedBy="facility1")
+	private Set<Facility_Facility> facilities_facilities1;
+	
+	@OneToMany(mappedBy="facility2")
+	private Set<Facility_Facility> facilities_facilities2;
+	
+	/**
+	 * Default Constructor
+	 */
+	public Facility(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param acronym
+	 * @param uri
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 */
+	public Facility(String acronym, String uri, 
+			Set<FacilityName> names,
+			Set<FacilityKeyword> keywords,
+			Set<FacilityDescription> descriptions) {
+		this.acronym = acronym;
+		this.uri = uri;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -205,6 +249,65 @@ public class Facility implements CerifInfrastructureEntity {
 	public void setResultPublications_facilities(
 			Set<ResultPublication_Facility> resultPublications_facilities) {
 		this.resultPublications_facilities = resultPublications_facilities;
+	}
+
+	public Set<OrganisationUnit_Facility> getOrganisationUnits_facilities() {
+		return organisationUnits_facilities;
+	}
+
+	public void setOrganisationUnits_facilities(
+			Set<OrganisationUnit_Facility> organisationUnits_facilities) {
+		this.organisationUnits_facilities = organisationUnits_facilities;
+	}
+
+	/**
+	 * @return the classes
+	 */
+	public Set<Facility_Class> getClasses() {
+		return classes;
+	}
+
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<Facility_Class> classes) {
+		this.classes = classes;
+	}
+
+	public Set<Facility_Funding> getFacilities_fundings() {
+		return facilities_fundings;
+	}
+
+	public void setFacilities_fundings(Set<Facility_Funding> facilities_fundings) {
+		this.facilities_fundings = facilities_fundings;
+	}	
+
+	/**
+	 * @return the facilities_facilities1
+	 */
+	public Set<Facility_Facility> getFacilities_facilities1() {
+		return facilities_facilities1;
+	}
+
+	/**
+	 * @param facilities_facilities1 the facilities_facilities1 to set
+	 */
+	public void setFacilities_facilities1(Set<Facility_Facility> facilities_facilities1) {
+		this.facilities_facilities1 = facilities_facilities1;
+	}
+
+	/**
+	 * @return the facilities_facilities2
+	 */
+	public Set<Facility_Facility> getFacilities_facilities2() {
+		return facilities_facilities2;
+	}
+
+	/**
+	 * @param facilities_facilities2 the facilities_facilities2 to set
+	 */
+	public void setFacilities_facilities2(Set<Facility_Facility> facilities_facilities2) {
+		this.facilities_facilities2 = facilities_facilities2;
 	}
 	
 }

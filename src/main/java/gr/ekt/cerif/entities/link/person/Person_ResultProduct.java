@@ -8,25 +8,25 @@ import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.person.Person_ResultProductId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Links a person with a result product.
  * 
  */
 @Entity
-@Table(name="cfPers_ResProd")
-@IdClass(Person_ResultProductId.class)
+@Table(name="cfPers_ResProd", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId", "cfResProdId", "cfClassId"}) )
 public class Person_ResultProduct implements CerifLinkEntity {
 	/**
 	 * Serialization version.
@@ -34,23 +34,27 @@ public class Person_ResultProduct implements CerifLinkEntity {
 	private static final long serialVersionUID = 3238642464308496752L;
 
 	/**
-	 * The person.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	private Person person;
 	
 	/**
 	 * The result product.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResProdId")
 	private ResultProduct resultProduct;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
@@ -101,6 +105,58 @@ public class Person_ResultProduct implements CerifLinkEntity {
 	 */
 	@Column(name="cfIPR")
 	private String ipr;
+
+	/**
+	 * Default Constructor
+	 */
+	public Person_ResultProduct() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param resultProduct
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param price
+	 * @param currency
+	 * @param conditions
+	 * @param availability
+	 * @param ipr
+	 */
+	public Person_ResultProduct(Person person, ResultProduct resultProduct,
+			Class theClass, Date startDate, Date endDate, Double fraction,
+			Double price, Currency currency, String conditions,
+			String availability, String ipr) {
+		this.person = person;
+		this.resultProduct = resultProduct;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.price = price;
+		this.currency = currency;
+		this.conditions = conditions;
+		this.availability = availability;
+		this.ipr = ipr;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the person

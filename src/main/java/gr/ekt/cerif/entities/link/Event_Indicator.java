@@ -8,22 +8,23 @@ import java.util.Date;
 import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Event_IndicatorId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfEvent_Indic")
-@IdClass(Event_IndicatorId.class)
+@Table(name="cfEvent_Indic", uniqueConstraints=@UniqueConstraint(columnNames={"cfEventId","cfIndicId","cfClassId","cfStartDate", "cfEndDate"}))
 public class Event_Indicator implements CerifLinkEntity {
 
 	/**
@@ -32,40 +33,44 @@ public class Event_Indicator implements CerifLinkEntity {
 	private static final long serialVersionUID = 4202266376316898681L;
 	
 	/**
-	 * The event.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The event.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEventId")
 	private Event event;
 
 	/**
 	 * The indicator.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfIndicId")
 	private Indicator indicator;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +79,32 @@ public class Event_Indicator implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Event_Indicator() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param event
+	 * @param indicator
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Event_Indicator(Event event, Indicator indicator, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.event = event;
+		this.indicator = indicator;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the event
@@ -157,6 +188,20 @@ public class Event_Indicator implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

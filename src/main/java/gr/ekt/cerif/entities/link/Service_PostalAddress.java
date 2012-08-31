@@ -6,24 +6,25 @@ package gr.ekt.cerif.entities.link;
 import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Service_PostalAddressId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfSrv_PAddr")
-@IdClass(Service_PostalAddressId.class)
+@Table(name="cfSrv_PAddr", uniqueConstraints=@UniqueConstraint(columnNames={"cfSrvId","cfPAddrId","cfClassId","cfStartDate","cfEndDate"}))
 public class Service_PostalAddress implements CerifLinkEntity {
 
 	/**
@@ -32,40 +33,44 @@ public class Service_PostalAddress implements CerifLinkEntity {
 	private static final long serialVersionUID = 5784093498514827378L;
 
 	/**
-	 * The service.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The service.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfSrvId")
 	private Service service;
 	
 	/**
 	 * The postal address.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfPAddrId")
 	private PostalAddress postalAddress;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +79,32 @@ public class Service_PostalAddress implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Service_PostalAddress() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param service
+	 * @param postalAddress
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Service_PostalAddress(Service service, PostalAddress postalAddress,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.service = service;
+		this.postalAddress = postalAddress;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the service
@@ -157,6 +188,20 @@ public class Service_PostalAddress implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

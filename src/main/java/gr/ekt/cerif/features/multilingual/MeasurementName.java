@@ -5,52 +5,58 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.MeasurementTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual name of a measurement entity.
  * 
  */
 @Entity
-@Table(name="cfMeasName")
-@IdClass(MeasurementTranslationId.class)
+@Table(name="cfMeasName", uniqueConstraints=@UniqueConstraint(columnNames={"cfMeasId","cfLangCode","cfTrans"}))
 public class MeasurementName implements MeasurementTranslation {
 	
 	/**
 	 * Serialization version.
 	 */
 	private static final long serialVersionUID = -7505127684586299738L;
-
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The measurement.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMeasId")
 	private Measurement measurement;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +67,28 @@ public class MeasurementName implements MeasurementTranslation {
 	@Column(name="cfName")
 	private String name;
 	
+	/**
+	 * Default Constructor
+	 */
+	public MeasurementName() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param measurement
+	 * @param language
+	 * @param translation
+	 * @param name
+	 */
+	public MeasurementName(Measurement measurement, Language language,
+			Translation translation, String name) {
+		this.measurement = measurement;
+		this.language = language;
+		this.translation = translation;
+		this.name = name;
+	}
+
 	/**
 	 * @return the measurement
 	 */
@@ -118,6 +146,20 @@ public class MeasurementName implements MeasurementTranslation {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

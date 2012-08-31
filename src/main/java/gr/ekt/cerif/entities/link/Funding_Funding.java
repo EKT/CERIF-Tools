@@ -5,24 +5,25 @@ package gr.ekt.cerif.entities.link;
 
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Funding_FundingId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfFund_Fund")
-@IdClass(Funding_FundingId.class)
+@Table(name="cfFund_Fund", uniqueConstraints=@UniqueConstraint(columnNames={"cfFundId1","cfFundId2", "cfClassId", "cfStartDate", "cfEndDate"}))
 public class Funding_Funding implements CerifLinkEntity {
 
 	/**
@@ -31,40 +32,44 @@ public class Funding_Funding implements CerifLinkEntity {
 	private static final long serialVersionUID = 5022721020255387896L;
 	
 	/**
-	 * The first funding.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The first funding.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfFundId1")
 	private Funding funding1;
 	
 	/**
 	 * The second funding.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfFundId2")
 	private Funding funding2;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -73,6 +78,32 @@ public class Funding_Funding implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Funding_Funding(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param funding1
+	 * @param funding2
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Funding_Funding(Funding funding1, Funding funding2, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.funding1 = funding1;
+		this.funding2 = funding2;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the funding1
@@ -156,5 +187,19 @@ public class Funding_Funding implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

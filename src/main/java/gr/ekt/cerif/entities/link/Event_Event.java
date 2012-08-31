@@ -5,24 +5,25 @@ package gr.ekt.cerif.entities.link;
 
 import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Event_EventId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfEvent_Event")
-@IdClass(Event_EventId.class)
+@Table(name="cfEvent_Event", uniqueConstraints=@UniqueConstraint(columnNames={"cfEventId1","cfEventId2", "cfClassId", "cfStartDate", "cfEndDate"}))
 public class Event_Event implements CerifLinkEntity {
 
 	/**
@@ -30,43 +31,72 @@ public class Event_Event implements CerifLinkEntity {
 	 */
 	private static final long serialVersionUID = -3612321328579120871L;
 	
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The event. 
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEventId1")
 	private Event event1;
 	
 	/**
 	 * The event. 
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEventId2")
 	private Event event2;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
+
+	/**
+	 * Default Constructor
+	 */
+	public Event_Event() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param event1
+	 * @param event2
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public Event_Event(Event event1, Event event2, Class theClass,
+			Date startDate, Date endDate) {
+		this.event1 = event1;
+		this.event2 = event2;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 
 	/**
 	 * @return the event1
@@ -136,6 +166,20 @@ public class Event_Event implements CerifLinkEntity {
 	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

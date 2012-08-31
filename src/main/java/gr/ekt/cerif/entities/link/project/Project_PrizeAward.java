@@ -7,25 +7,26 @@ import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Prize;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.project.Project_PrizeAwardId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a project with a prize award.
  * 
  */
 @Entity
-@Table(name="cfProj_Prize")
-@IdClass(Project_PrizeAwardId.class)
+@Table(name="cfProj_Prize", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId","cfPrizeId","cfClassId","cfPrizeDate"}))
 public class Project_PrizeAward implements CerifLinkEntity {
 	
 	/**
@@ -34,30 +35,34 @@ public class Project_PrizeAward implements CerifLinkEntity {
 	private static final long serialVersionUID = 7934613965896425349L;
 
 	/**
-	 * The project.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The project.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The prize award.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPrizeId")
 	private Prize prizeAward;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 		
 	/**
 	 * The prize date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfPrizeDate")
 	private Date prizeDate;
 	
@@ -68,6 +73,30 @@ public class Project_PrizeAward implements CerifLinkEntity {
 	private Double fraction;
 
 	
+	/**
+	 * Default Constructor
+	 */
+	public Project_PrizeAward() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param prizeAward
+	 * @param theClass
+	 * @param prizeDate
+	 * @param fraction
+	 */
+	public Project_PrizeAward(Project project, Prize prizeAward,
+			Class theClass, Date prizeDate, Double fraction) {
+		this.project = project;
+		this.prizeAward = prizeAward;
+		this.theClass = theClass;
+		this.prizeDate = prizeDate;
+		this.fraction = fraction;
+	}
+
 	/**
 	 * Returns the prize date.
 	 * @return the prize date.
@@ -138,6 +167,20 @@ public class Project_PrizeAward implements CerifLinkEntity {
 	 */
 	public void setTheClass(Class theClass) {
 		this.theClass = theClass;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

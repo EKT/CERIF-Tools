@@ -35,6 +35,6 @@ public class DublinCoreAudienceRepository {
 		for (DublinCoreAudience entity : entityList) {
 			save(entity);
 		}
-	}
+	}		
 }
 

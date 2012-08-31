@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.MeasurementTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual keyword of a measurement entity.
  * 
  */
 @Entity
-@Table(name="cfMeasKeyw")
-@IdClass(MeasurementTranslationId.class)
+@Table(name="cfMeasKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfMeasId","cfLangCode","cfTrans"}))
 public class MeasurementKeyword implements MeasurementTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class MeasurementKeyword implements MeasurementTranslation {
 	private static final long serialVersionUID = 8703072026849709902L;
 
 	/**
-	 * The measurement.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The measurement.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMeasId")
 	private Measurement measurement;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +67,28 @@ public class MeasurementKeyword implements MeasurementTranslation {
 	@Column(name="cfKeyw")
 	private String keyword;
 	
+	/**
+	 * Default Constructor
+	 */
+	public MeasurementKeyword() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param measurement
+	 * @param language
+	 * @param translation
+	 * @param keyword
+	 */
+	public MeasurementKeyword(Measurement measurement, Language language,
+			Translation translation, String keyword) {
+		this.measurement = measurement;
+		this.language = language;
+		this.translation = translation;
+		this.keyword = keyword;
+	}
+
 	/**
 	 * @return the measurement
 	 */
@@ -118,6 +146,20 @@ public class MeasurementKeyword implements MeasurementTranslation {
 	 */
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

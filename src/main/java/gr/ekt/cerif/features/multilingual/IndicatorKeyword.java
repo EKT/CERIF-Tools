@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.IndicatorTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual keyword of a indicator entity.
  * 
  */
 @Entity
-@Table(name="cfIndicKeyw")
-@IdClass(IndicatorTranslationId.class)
+@Table(name="cfIndicKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfIndicId","cfLangCode","cfTrans"}))
 public class IndicatorKeyword implements IndicatorTranslation {
 	
 	/**
@@ -31,26 +32,32 @@ public class IndicatorKeyword implements IndicatorTranslation {
 	 */
 	private static final long serialVersionUID = -8172610507289141790L;
 
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The indicator.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfIndicId")
 	private Indicator indicator;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +68,28 @@ public class IndicatorKeyword implements IndicatorTranslation {
 	@Column(name="cfKeyw")
 	private String keyword;
 	
+	/**
+	 * Default Constructor
+	 */
+	public IndicatorKeyword() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param indicator
+	 * @param language
+	 * @param translation
+	 * @param keyword
+	 */
+	public IndicatorKeyword(Indicator indicator, Language language,
+			Translation translation, String keyword) {
+		this.indicator = indicator;
+		this.language = language;
+		this.translation = translation;
+		this.keyword = keyword;
+	}
+
 	/**
 	 * @return the indicator
 	 */
@@ -118,6 +147,20 @@ public class IndicatorKeyword implements IndicatorTranslation {
 	 */
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

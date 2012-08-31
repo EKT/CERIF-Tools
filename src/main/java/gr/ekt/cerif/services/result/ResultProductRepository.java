@@ -7,47 +7,48 @@ import gr.ekt.cerif.entities.result.ResultProduct;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
 /**
- * A repository for products.
  * 
  */
-public interface ResultProductRepository {
+@Component
+public class ResultProductRepository{
 
-	/**
-	 * Saves the provided result product.
-	 * @param resultProduct
+	@Autowired
+	ResultProductService service;
+	
+	@PersistenceContext(unitName="cerif-persistence-unit")
+	EntityManager entityManager;
+	
+	/* (non-Javadoc)
+	 * @see gr.ekt.cerif.services.result.ResultProductRepository#save(gr.ekt.cerif.entities.result.ResultProduct)
 	 */
-	void save(ResultProduct resultProduct);
+	@Transactional
+	public void save(ResultProduct resultProduct) {
+		if (StringUtils.hasText(resultProduct.getUri())) {
+			ResultProduct alreadyStored = service.findByUri(resultProduct.getUri());
+			if (alreadyStored != null) {
+				resultProduct.setId(alreadyStored.getId());
+			}
+		}
+		service.save(resultProduct);
+	}
 
-	/**
-	 * Saves the provided list of result products.
-	 * @param productList
+	/* (non-Javadoc)
+	 * @see gr.ekt.cerif.services.result.ResultProductRepository#save(java.util.List)
 	 */
-	void save(List<ResultProduct> productList);
-	
-	
-	List<ResultProduct> getAllProducts();
-	
-	ResultProduct getProduct(Long id);
-	
-	List<ResultProduct> findByKeyword(String keyword);
-	
-	List<ResultProduct> findByClass(String uri);
-	
-	List<ResultProduct> findByOrganisationClass(String uri);
+	@Transactional
+	public void save(List<ResultProduct> productList) {
+		for (ResultProduct product : productList) {
+			save(product);
+		}
+	}
 
-	List<ResultProduct> findByPersonClass(String uri);
-	
-	List<ResultProduct> findByCountry(String code);
-
-	List<ResultProduct> findByProjectClass(String uri);
-
-	List<ResultProduct> findByOrganisationURI(String uri);
-
-	List<ResultProduct> findByPersonComplete(String input);
-
-	List<ResultProduct> findByOrganisationURIClass(String orgURI, String classURI);
-
-	List<ResultProduct> findByOrganisationExpanded(String input, String classURI);
-	
 }

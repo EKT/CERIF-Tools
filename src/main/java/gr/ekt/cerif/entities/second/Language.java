@@ -344,13 +344,13 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	@OneToMany(mappedBy="language")
 	private Set<ServiceDescription> serviceDescriptions;
 
-
+	@OneToMany(mappedBy="language")
+	private Set<Person_Language> persons_languages;
+	
 	public Language() {
 		// nothing to implement here
 	}
 	
-	@OneToMany(mappedBy="language")
-	private Set<Person_Language> persons_languages;
 	
 	public Language(String code) {
 		this();
@@ -363,7 +363,7 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	 * @param uri The URI.
 	 */
 	public Language(String code, String uri) {
-		super();
+
 		this.code = code;
 		this.uri = uri;
 	}

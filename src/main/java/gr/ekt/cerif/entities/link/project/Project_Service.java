@@ -8,25 +8,26 @@ import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.project.Project_ServiceId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a project with a service.
  * 
  */
 @Entity
-@Table(name="cfProj_Srv")
-@IdClass(Project_ServiceId.class)
+@Table(name="cfProj_Srv", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId", "cfSrvId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class Project_Service implements CerifLinkEntity {
 	
 	/**
@@ -35,37 +36,41 @@ public class Project_Service implements CerifLinkEntity {
 	private static final long serialVersionUID = -7052786035692869584L;
 
 	/**
-	 * The project.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The project.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The Service.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfSrvId")
 	private Service service;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 		
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -98,6 +103,55 @@ public class Project_Service implements CerifLinkEntity {
 	 */
 	@Column(name="cfConditions")
 	private String conditions;
+
+	/**
+	 * Default Constructor
+	 */
+	public Project_Service() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param service
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param price
+	 * @param currency
+	 * @param availability
+	 * @param conditions
+	 */
+	public Project_Service(Project project, Service service, Class theClass,
+			Date startDate, Date endDate, Double fraction, Double price,
+			Currency currency, String availability, String conditions) {
+		this.project = project;
+		this.service = service;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.price = price;
+		this.currency = currency;
+		this.availability = availability;
+		this.conditions = conditions;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * Returns the start date.

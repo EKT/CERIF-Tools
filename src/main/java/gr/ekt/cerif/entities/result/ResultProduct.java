@@ -93,22 +93,22 @@ public class ResultProduct implements CerifResultEntity {
 	/**
 	 * The result product descriptions.
 	 */
-	@OneToMany(mappedBy="resultProduct", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProductDescription> resultProductDescriptions;
 	
 	/**
 	 * The result product names.
 	 */
-	@OneToMany(mappedBy="resultProduct", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProductName> resultProductNames;
 	
 	/**
 	 * The result product keywords.
 	 */
-	@OneToMany(mappedBy="resultProduct", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProductKeyword> resultProductKeywords;
 	
-	@OneToMany(mappedBy="resultProduct", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProductKeyword> resultProductVersionInfos;
 	
 	/**
@@ -164,6 +164,38 @@ public class ResultProduct implements CerifResultEntity {
 	@OneToMany(mappedBy="resultProduct2")
 	private Set<ResultProduct_ResultProduct> resultProducts2_resultProducts;
 	
+	/**
+	 * Default Constructors
+	 */
+	public ResultProduct(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @param internId
+	 * @param uri
+	 * @param version
+	 * @param resultProductDescriptions
+	 * @param resultProductNames
+	 * @param resultProductKeywords
+	 * @param resultProductVersionInfos
+	 */
+	public ResultProduct(String internId, String uri, String version,
+			Set<ResultProductDescription> resultProductDescriptions,
+			Set<ResultProductName> resultProductNames,
+			Set<ResultProductKeyword> resultProductKeywords,
+			Set<ResultProductKeyword> resultProductVersionInfos) {
+		this.internId = internId;
+		this.uri = uri;
+		this.version = version;
+		this.resultProductDescriptions = resultProductDescriptions;
+		this.resultProductNames = resultProductNames;
+		this.resultProductKeywords = resultProductKeywords;
+		this.resultProductVersionInfos = resultProductVersionInfos;
+	}
+
 	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.

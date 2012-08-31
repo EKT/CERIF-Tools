@@ -5,24 +5,25 @@ package gr.ekt.cerif.entities.link;
 
 import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.ExpertiseAndSkills_ClassId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfExpSkills_Class")
-@IdClass(ExpertiseAndSkills_ClassId.class)
+@Table(name="cfExpSkills_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfExpSkillsId", "cfClassId", "cfStartDate", "cfEndDate"}))
 public class ExpertiseAndSkills_Class implements CerifLinkEntity {
 
 	/**
@@ -31,32 +32,37 @@ public class ExpertiseAndSkills_Class implements CerifLinkEntity {
 	private static final long serialVersionUID = 5732063884882746913L;
 	
 	/**
-	 * The expertise and skills.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The expertise and skills.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfExpSkillsId")
 	private ExpertiseAndSkills expertiseAndSkills;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -65,6 +71,30 @@ public class ExpertiseAndSkills_Class implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public ExpertiseAndSkills_Class() { 
+		
+	}
+	
+	/**
+	 * 
+	 * @param expertiseAndSkills
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public ExpertiseAndSkills_Class(ExpertiseAndSkills expertiseAndSkills,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.expertiseAndSkills = expertiseAndSkills;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the expertiseAndSkills
@@ -134,6 +164,20 @@ public class ExpertiseAndSkills_Class implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

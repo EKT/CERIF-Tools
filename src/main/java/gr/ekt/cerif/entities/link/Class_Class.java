@@ -4,24 +4,25 @@
 package gr.ekt.cerif.entities.link;
 
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Class_ClassId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfClass_Class")
-@IdClass(Class_ClassId.class)
+@Table(name="cfClass_Class" , uniqueConstraints=@UniqueConstraint(columnNames={"cfClassId1","cfClassId2","cfClassId", "cfStartDate", "cfEndDate"}))
 public class Class_Class implements CerifLinkEntity {
 
 	/**
@@ -30,40 +31,44 @@ public class Class_Class implements CerifLinkEntity {
 	private static final long serialVersionUID = 4534975883109829233L;
 	
 	/**
-	 * The first class.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The first class.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId1")
 	private Class theClass1;
 	
 	/**
 	 * The second class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId2")
 	private Class theClass2;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -72,6 +77,32 @@ public class Class_Class implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Class_Class() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param theClass1
+	 * @param theClass2
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Class_Class(Class theClass1, Class theClass2, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.theClass1 = theClass1;
+		this.theClass2 = theClass2;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the theClass1
@@ -155,5 +186,19 @@ public class Class_Class implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

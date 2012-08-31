@@ -3,28 +3,29 @@
  */
 package gr.ekt.cerif.entities.link.result;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.result.ResultPatent_FacilityId;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfResPat_Facil")
-@IdClass(ResultPatent_FacilityId.class)
+@Table(name="cfResPat_Facil", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPatId", "cfFacilId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class ResultPatent_Facility implements CerifLinkEntity {
 
 	/**
@@ -33,40 +34,44 @@ public class ResultPatent_Facility implements CerifLinkEntity {
 	private static final long serialVersionUID = 8244948928777131064L;
 	
 	/**
-	 * The result patent.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The result patent.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPatId")
 	private ResultPatent resultPatent;
 
 	/**
 	 * The facility.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFacilId")
 	private Facility facility;	
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -75,6 +80,46 @@ public class ResultPatent_Facility implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultPatent_Facility() {
+		
+	}
+			
+	/**
+	 * 
+	 * @param resultPatent
+	 * @param facility
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public ResultPatent_Facility(ResultPatent resultPatent, Facility facility,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.resultPatent = resultPatent;
+		this.facility = facility;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the resultPatent

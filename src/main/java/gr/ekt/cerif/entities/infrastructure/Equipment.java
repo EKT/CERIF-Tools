@@ -48,7 +48,6 @@ public class Equipment implements CerifInfrastructureEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
-	@Field(index=Index.TOKENIZED)
 	private String acronym;
 	
 	/**
@@ -63,13 +62,13 @@ public class Equipment implements CerifInfrastructureEntity {
 	@OneToMany(mappedBy="equipment")
 	private Set<Project_Equipment> projects_equipments;
 	
-	@OneToMany(mappedBy="equipment", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="equipment")
 	private Set<EquipmentName> names;
 	
-	@OneToMany(mappedBy="equipment", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="equipment")
 	private Set<EquipmentKeyword> keywords;
 	
-	@OneToMany(mappedBy="equipment", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="equipment")
 	private Set<EquipmentDescription> descriptions;
 
 	@OneToMany(mappedBy="equipment")
@@ -77,6 +76,31 @@ public class Equipment implements CerifInfrastructureEntity {
 	
 	@OneToMany(mappedBy="equipment")
 	private Set<ResultPublication_Equipment> resultPublications_equipments;
+
+	/**
+	 * Default Constructor
+	 */
+	public Equipment() { 
+		
+	}
+	
+	/**
+	 * 
+	 * @param acronym
+	 * @param uri
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 */
+	public Equipment(String acronym, String uri,
+			Set<EquipmentName> names, Set<EquipmentKeyword> keywords,
+			Set<EquipmentDescription> descriptions) {
+		this.acronym = acronym;
+		this.uri = uri;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+	}
 
 	/**
 	 * @return the id

@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.result.ResultPatentTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual keyword of a ResultPatent entity.
  * 
  */
 @Entity
-@Table(name="cfResPatKeyw")
-@IdClass(ResultPatentTranslationId.class)
+@Table(name="cfResPatKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPatId","cfLangCode","cfTrans"}))
 public class ResultPatentKeyword implements ResultPatentTranslation {
 
 	/**
@@ -32,25 +33,30 @@ public class ResultPatentKeyword implements ResultPatentTranslation {
 	private static final long serialVersionUID = 4706680035680909482L;	
 	
 	/**
-	 * The result patent.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The result patent.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPatId")
 	private ResultPatent resultPatent;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -60,6 +66,28 @@ public class ResultPatentKeyword implements ResultPatentTranslation {
 	 */
 	@Column(name="cfKeyw")
 	private String keyword;
+
+	
+	/**
+	 * Default Constructor
+	 */
+	public ResultPatentKeyword(){
+		
+	}
+	/**
+	 * 
+	 * @param resultPatent
+	 * @param language
+	 * @param translation
+	 * @param keyword
+	 */
+	public ResultPatentKeyword(ResultPatent resultPatent, Language language,
+			Translation translation, String keyword) {
+		this.resultPatent = resultPatent;
+		this.language = language;
+		this.translation = translation;
+		this.keyword = keyword;
+	}
 
 	/**
 	 * @return the resultPatent
@@ -115,6 +143,18 @@ public class ResultPatentKeyword implements ResultPatentTranslation {
 	 */
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
 

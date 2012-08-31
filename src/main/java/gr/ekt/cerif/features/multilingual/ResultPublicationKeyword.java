@@ -5,26 +5,27 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.result.ResultPublicationTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual keyword of a publication result entity.
  * 
  */
 @Entity
-@Table(name="cfResPublKeyw")
-@IdClass(ResultPublicationTranslationId.class)
-public class ResultPublicationKeyword implements ResultPublicationTranslation {
+@Table(name="cfResPublKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfLangCode","cfTrans"}))
+public class ResultPublicationKeyword implements CerifMultipleLanguageFeature {
 
 	/**
 	 * Serialization version.
@@ -32,9 +33,16 @@ public class ResultPublicationKeyword implements ResultPublicationTranslation {
 	private static final long serialVersionUID = 7782989060689236092L;
 
 	/**
-	 * The translation.
+	 * 
 	 */
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The translation.
+	 */
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation = Translation.MACHINE;
@@ -42,16 +50,14 @@ public class ResultPublicationKeyword implements ResultPublicationTranslation {
 	/**
 	 * The publication.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
@@ -60,6 +66,29 @@ public class ResultPublicationKeyword implements ResultPublicationTranslation {
 	 */
 	@Column(name="cfKeyw")
 	private String keyword;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublicationKeyword() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param translation
+	 * @param resultPublication
+	 * @param language
+	 * @param keyword
+	 */
+	public ResultPublicationKeyword(Translation translation,
+			ResultPublication resultPublication, Language language,
+			String keyword) {
+		this.translation = translation;
+		this.resultPublication = resultPublication;
+		this.language = language;
+		this.keyword = keyword;
+	}
 
 	/**
 	 * Returns the translation.
@@ -133,6 +162,20 @@ public class ResultPublicationKeyword implements ResultPublicationTranslation {
 		return String
 				.format("ResultPublicationKeyword [translation=%s, resultPublication=%s, language=%s, keywords=%s]",
 						translation, resultPublication, language, keyword);
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

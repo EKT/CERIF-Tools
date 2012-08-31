@@ -5,24 +5,24 @@ package gr.ekt.cerif.entities.link.result;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Metrics;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.result.ResultPublication_MetricsId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfResPubl_Metrics")
-@IdClass(ResultPublication_MetricsId.class)
+@Table(name="cfResPubl_Metrics", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfMetricsId","cfClassId"}))
 public class ResultPublication_Metrics implements CerifLinkEntity {
 
 	/**
@@ -31,26 +31,30 @@ public class ResultPublication_Metrics implements CerifLinkEntity {
 	private static final long serialVersionUID = -782640104740909225L;
 	
 	/**
-	 * The result publication.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The result publication.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
 	/**
 	 * The metrics.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMetricsId")
 	private Metrics metrics;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
@@ -71,6 +75,33 @@ public class ResultPublication_Metrics implements CerifLinkEntity {
 	 */
 	@Column(name="cfCount")
 	private Double count;
+
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublication_Metrics() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param resultPublication
+	 * @param metrics
+	 * @param theClass
+	 * @param fraction
+	 * @param year
+	 * @param count
+	 */
+	public ResultPublication_Metrics(ResultPublication resultPublication,
+			Metrics metrics, Class theClass, Double fraction, Integer year,
+			Double count) {
+		this.resultPublication = resultPublication;
+		this.metrics = metrics;
+		this.theClass = theClass;
+		this.fraction = fraction;
+		this.year = year;
+		this.count = count;
+	}
 
 	/**
 	 * @return the resultPublication
@@ -154,6 +185,20 @@ public class ResultPublication_Metrics implements CerifLinkEntity {
 	 */
 	public void setCount(Double count) {
 		this.count = count;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

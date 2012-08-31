@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for equipments.
  * 
  */
-public interface EquipmentRepository extends CrudRepository<Equipment, String> {
+public interface EquipmentRepository extends CrudRepository<Equipment, Long> {
 
 }

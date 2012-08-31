@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.semantics.ClassScheme;
-import gr.ekt.cerif.pk.ClassSchemeTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual description of a class scheme entity.
  * 
  */
 @Entity
-@Table(name="cfClassSchemeDescr")
-@IdClass(ClassSchemeTranslationId.class)
+@Table(name="cfClassSchemeDescr", uniqueConstraints=@UniqueConstraint(columnNames={"cfClassSchemeId", "cfLangCode", "cfTrans"}) )
 public class ClassSchemeDescription implements ClassSchemeTranslation {
 	
 	/**
@@ -31,26 +32,28 @@ public class ClassSchemeDescription implements ClassSchemeTranslation {
 	 */
 	private static final long serialVersionUID = -2804499062529714599L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The class scheme.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassSchemeId")
 	private ClassScheme scheme;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -66,6 +69,38 @@ public class ClassSchemeDescription implements ClassSchemeTranslation {
 	 */
 	@Column(name="cfDescrSrc")
 	private String descriptionSrc;
+
+	/**
+	 * Default Constructor
+	 */
+	public ClassSchemeDescription() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param scheme
+	 * @param language
+	 * @param translation
+	 * @param description
+	 * @param descriptionSrc
+	 */
+	public ClassSchemeDescription(ClassScheme scheme, Language language,
+			Translation translation, String description, String descriptionSrc) {
+		this.scheme = scheme;
+		this.language = language;
+		this.translation = translation;
+		this.description = description;
+		this.descriptionSrc = descriptionSrc;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the classScheme

@@ -3,23 +3,22 @@
  */
 package gr.ekt.cerif.features.additional;
 
-import gr.ekt.cerif.pk.DublinCoreBasicId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Represents a FormalisedDublinCoreRightsManagementPrivacy entity.
  * 
  */
 @Entity
-@Table(name="cfFDCRightsMmPrivacy")
-@IdClass(DublinCoreBasicId.class)
+@Table(name="cfFDCRightsMmPrivacy", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class FormalisedDublinCoreRightsManagementPrivacy implements CerifAdditionalFeature {
 	
 	/**
@@ -38,21 +37,21 @@ public class FormalisedDublinCoreRightsManagementPrivacy implements CerifAdditio
 	/**
 	 * The dc scheme.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCScheme")
 	private String scheme;
 	
 	/**
 	 * The dc language.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCLangTag")
 	private String language;
 	
 	/**
 	 * The dc translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfDCTrans")
 	private String translation;	
 	
@@ -62,6 +61,28 @@ public class FormalisedDublinCoreRightsManagementPrivacy implements CerifAdditio
 	@Column(name="cfFDCPrivacyConstraint")
 	private String privacyConstraint;
 		
+
+	/**
+	 * Default Constructor
+	 */
+	public FormalisedDublinCoreRightsManagementPrivacy() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param scheme
+	 * @param language
+	 * @param translation
+	 * @param privacyConstraint
+	 */
+	public FormalisedDublinCoreRightsManagementPrivacy(String scheme,
+			String language, String translation, String privacyConstraint) {
+		this.scheme = scheme;
+		this.language = language;
+		this.translation = translation;
+		this.privacyConstraint = privacyConstraint;
+	}
 
 	/**
 	 * @return the id

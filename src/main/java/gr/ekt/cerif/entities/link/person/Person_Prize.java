@@ -7,24 +7,24 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Prize;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.person.Person_PrizeId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfPers_Prize")
-@IdClass(Person_PrizeId.class)
+@Table(name="cfPers_Prize", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfPrizeId","cfClassId"}))
 public class Person_Prize implements CerifLinkEntity {
 	
 	/**
@@ -33,26 +33,30 @@ public class Person_Prize implements CerifLinkEntity {
 	private static final long serialVersionUID = 3214237859342907L;
 
 	/**
-	 * The person.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	private Person person;
 	
 	/**
 	 * The prize.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPrizeId")
 	private Prize prize;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
@@ -67,6 +71,30 @@ public class Person_Prize implements CerifLinkEntity {
 	 */
 	@Column (name="cfPrizeDate")
 	private Date prizeDate;
+
+	/**
+	 * Default Constructor
+	 */
+	public Person_Prize() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param prize
+	 * @param theClass
+	 * @param fraction
+	 * @param prizeDate
+	 */
+	public Person_Prize(Person person, Prize prize, Class theClass,
+			Double fraction, Date prizeDate) {
+		this.person = person;
+		this.prize = prize;
+		this.theClass = theClass;
+		this.fraction = fraction;
+		this.prizeDate = prizeDate;
+	}
 
 	/**
 	 * @return the person
@@ -136,5 +164,19 @@ public class Person_Prize implements CerifLinkEntity {
 	 */
 	public void setPrizeDate(Date prizeDate) {
 		this.prizeDate = prizeDate;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

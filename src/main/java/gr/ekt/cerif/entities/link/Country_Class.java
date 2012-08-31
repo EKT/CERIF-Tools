@@ -5,24 +5,25 @@ package gr.ekt.cerif.entities.link;
 
 import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Country_ClassId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfCountry_Class")
-@IdClass(Country_ClassId.class)
+@Table(name="cfCountry_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfCountryCode", "cfClassId", "cfStartDate", "cfEndDate"}))
 public class Country_Class implements CerifLinkEntity {
 
 	/**
@@ -31,32 +32,37 @@ public class Country_Class implements CerifLinkEntity {
 	private static final long serialVersionUID = 2956619539423581988L;
 	
 	/**
-	 * The country.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The country.
+	 */
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfCountryCode")
 	private Country country;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -65,6 +71,30 @@ public class Country_Class implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Country_Class() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param country
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Country_Class(Country country, Class theClass, Date startDate,
+			Date endDate, Double fraction) {
+		this.country = country;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the country
@@ -134,6 +164,20 @@ public class Country_Class implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

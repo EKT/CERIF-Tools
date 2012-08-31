@@ -14,6 +14,7 @@ import gr.ekt.cerif.entities.link.person.Person_ExpertiseAndSkills;
 import gr.ekt.cerif.entities.link.person.Person_Facility;
 import gr.ekt.cerif.entities.link.person.Person_Funding;
 import gr.ekt.cerif.entities.link.person.Person_Language;
+import gr.ekt.cerif.entities.link.person.Person_Medium;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.person.Person_Person;
 //import gr.ekt.cerif.entities.link.person.Person_Person;
@@ -89,13 +90,13 @@ public class Person implements CerifBaseEntity {
 	/**
 	 * The person research interests.
 	 */
-	@OneToMany(mappedBy="person", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="person")
 	private Set<PersonResearchInterest> personResearchInterests;
 	
 	/**
 	 * The person keywords.
 	 */
-	@OneToMany(mappedBy="person", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="person")
 	private Set<PersonKeyword> personKeywords;
 	
 	@OneToMany(mappedBy="person")
@@ -171,6 +172,38 @@ public class Person implements CerifBaseEntity {
 	@OneToMany(mappedBy="person")
 	private Set<Person_Service> persons_services;
 	
+	@OneToMany(mappedBy="person")
+	private Set<Person_Medium> persons_medium;
+	
+	/**
+	 * Default Constructor
+	 */
+	public Person(){
+		
+	}
+	/**
+	 * Constructor
+	 * @param id
+	 * @param birthDate
+	 * @param gender
+	 * @param uri
+	 * @param personResearchInterests
+	 * @param personKeywords
+	 * @param personName
+	 */
+	public Person(Long id, Date birthDate, String gender, String uri,
+			Set<PersonResearchInterest> personResearchInterests,
+			Set<PersonKeyword> personKeywords,
+			PersonName personName) {
+		this.id = id;
+		this.birthDate = birthDate;
+		this.gender = gender;
+		this.uri = uri;
+		this.personResearchInterests = personResearchInterests;
+		this.personKeywords = personKeywords;
+		this.personName = personName;
+	}
+
 	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.
@@ -590,6 +623,20 @@ public class Person implements CerifBaseEntity {
 	 */
 	public void setPersons_services(Set<Person_Service> persons_services) {
 		this.persons_services = persons_services;
+	}
+	
+	/**
+	 * @return the persons_medium
+	 */
+	public Set<Person_Medium> getPersons_medium() {
+		return persons_medium;
+	}
+	
+	/**
+	 * @param persons_medium the persons_services to set
+	 */
+	public void setPersons_medium(Set<Person_Medium> persons_medium) {
+		this.persons_medium = persons_medium;
 	}
 	
 }

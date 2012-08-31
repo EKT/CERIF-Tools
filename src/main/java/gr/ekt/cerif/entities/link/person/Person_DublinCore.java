@@ -3,29 +3,29 @@
  */
 package gr.ekt.cerif.entities.link.person;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.features.additional.DublinCore;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.person.Person_DublinCoreId;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfPers_DC")
-@IdClass(Person_DublinCoreId.class)
+@Table(name="cfPers_DC", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfDCId","cfDCScheme","cfClassId","cfStartDate","cfEndDate"}))
 public class Person_DublinCore implements CerifLinkEntity {
 	
 	/**
@@ -34,43 +34,55 @@ public class Person_DublinCore implements CerifLinkEntity {
 	private static final long serialVersionUID = -38034685674L;
 	
 	/**
-	 * The Person.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The Person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	private Person person;	
 
 	/**
 	 * The Dublin Core.
 	 */
-	@Id
-	@ManyToOne 
-	@JoinColumns({
-        @JoinColumn(name="cfDCId"),
-        @JoinColumn(name="cfDCScheme")
-    })
+	@ManyToOne(optional=false)
+	//	@JoinColumns({
+	//  @JoinColumn(name="cfDCId"),
+	//  @JoinColumn(name="cfDCScheme")
+	//})
+	@JoinColumn(name="cfDCId")
 	private DublinCore dublinCore;
+	
+	/**
+	* The dc scheme.
+	*/
+	@NotNull
+	@Column(name="cfDCScheme")
+	private String scheme;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -79,6 +91,32 @@ public class Person_DublinCore implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default constructor
+	 */
+	public Person_DublinCore() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param dublinCore
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Person_DublinCore(Person person, DublinCore dublinCore,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.person = person;
+		this.dublinCore = dublinCore;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the person
@@ -120,6 +158,20 @@ public class Person_DublinCore implements CerifLinkEntity {
 	 */
 	public void setDublinCore(DublinCore dublinCore) {
 		this.dublinCore = dublinCore;
+	}
+
+	/**
+	 * @return the scheme
+	 */
+	public String getScheme() {
+		return scheme;
+	}
+
+	/**
+	 * @param scheme the scheme to set
+	 */
+	public void setScheme(String scheme) {
+		this.scheme = scheme;
 	}
 
 	/**
@@ -176,6 +228,20 @@ public class Person_DublinCore implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

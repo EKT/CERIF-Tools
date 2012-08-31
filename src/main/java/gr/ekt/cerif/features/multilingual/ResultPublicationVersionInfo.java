@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.result.ResultPublicationTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual fields of a publication result entity.
  * 
  */
 @Entity
-@Table(name="cfResPublVersInfo")
-@IdClass(ResultPublicationTranslationId.class)
+@Table(name="cfResPublVersInfo", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfLangCode","cfTrans"}))
 public class ResultPublicationVersionInfo implements ResultPublicationTranslation {
 
 	/**
@@ -32,9 +33,16 @@ public class ResultPublicationVersionInfo implements ResultPublicationTranslatio
 	private static final long serialVersionUID = -2948329218827233335L;
 
 	/**
-	 * The translation.
+	 * 
 	 */
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The translation.
+	 */
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation = Translation.MACHINE;
@@ -42,16 +50,14 @@ public class ResultPublicationVersionInfo implements ResultPublicationTranslatio
 	/**
 	 * The publication.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
@@ -61,6 +67,29 @@ public class ResultPublicationVersionInfo implements ResultPublicationTranslatio
 	@Column(name="cfVersInfo")
 	private String versionInfo;
 	
+	/**
+	 * Default Constructor
+	 */
+	public ResultPublicationVersionInfo() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param translation
+	 * @param resultPublication
+	 * @param language
+	 * @param versionInfo
+	 */
+	public ResultPublicationVersionInfo(Translation translation,
+			ResultPublication resultPublication, Language language,
+			String versionInfo) {
+		this.translation = translation;
+		this.resultPublication = resultPublication;
+		this.language = language;
+		this.versionInfo = versionInfo;
+	}
+
 	/**
 	 * Returns the translation.
 	 * @return the translation
@@ -123,6 +152,20 @@ public class ResultPublicationVersionInfo implements ResultPublicationTranslatio
 	 */
 	public void setVersionInfo(String versionInfo) {
 		this.versionInfo = versionInfo;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	

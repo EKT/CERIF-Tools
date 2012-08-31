@@ -55,17 +55,49 @@ public class Indicator implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="indicator")
 	private Set<ResultProduct_Indicator> resultProducts_indicators;
 	
-	@OneToMany(mappedBy="indicator", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="indicator")
 	private Set<IndicatorName> names;
 	
-	@OneToMany(mappedBy="indicator", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="indicator")
 	private Set<IndicatorKeyword> keywords;
 	
-	@OneToMany(mappedBy="indicator", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="indicator")
 	private Set<IndicatorDescription> descriptions;
 	
 	@OneToMany(mappedBy="indicator")
 	private Set<ResultPublication_Indicator> resultPublications_indicators;
+
+	/**
+	 * Default Constructor
+	 */
+	public Indicator() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @param resultPatents_indicators
+	 * @param resultProducts_indicators
+	 * @param names
+	 * @param keywords
+	 * @param descriptions
+	 * @param resultPublications_indicators
+	 */
+	public Indicator(String uri,
+			Set<ResultPatent_Indicator> resultPatents_indicators,
+			Set<ResultProduct_Indicator> resultProducts_indicators,
+			Set<IndicatorName> names, Set<IndicatorKeyword> keywords,
+			Set<IndicatorDescription> descriptions,
+			Set<ResultPublication_Indicator> resultPublications_indicators) {
+		this.uri = uri;
+		this.resultPatents_indicators = resultPatents_indicators;
+		this.resultProducts_indicators = resultProducts_indicators;
+		this.names = names;
+		this.keywords = keywords;
+		this.descriptions = descriptions;
+		this.resultPublications_indicators = resultPublications_indicators;
+	}
 
 	/**
 	 * @return the id

@@ -7,24 +7,25 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Project_MediumId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfProj_Medium")
-@IdClass(Project_MediumId.class)
+@Table(name="cfProj_Medium", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId","cfMediumId","cfClassId","cfStartDate","cfEndDate"}))
 public class Project_Medium implements CerifLinkEntity {
 
 	/**
@@ -33,40 +34,44 @@ public class Project_Medium implements CerifLinkEntity {
 	private static final long serialVersionUID = -5240263886426168629L;
 
 	/**
-	 * The project.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The project.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The Medium.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfMediumId")
 	private Medium medium;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -75,6 +80,33 @@ public class Project_Medium implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	
+	/**
+	 * Default Constructor
+	 */
+	public Project_Medium() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param medium
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Project_Medium(Project project, Medium medium, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.project = project;
+		this.medium = medium;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the project
@@ -158,6 +190,20 @@ public class Project_Medium implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

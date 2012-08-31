@@ -9,17 +9,20 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Holds the names of the person entity.
  * 
  */
 @Entity
-@Table(name="cfPersName")
+@Table(name="cfPersName", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId"}))
 public class PersonName implements CerifAdditionalFeature {
 	
 	/**
@@ -27,20 +30,15 @@ public class PersonName implements CerifAdditionalFeature {
 	 */
 	private static final long serialVersionUID = -445651440143730694L;
 	
-	@Id @GeneratedValue(generator = "customForeignGenerator")
-	@Column(name="cfPersId")
-    @org.hibernate.annotations.GenericGenerator(
-        name = "customForeignGenerator",
-        strategy = "foreign",
-        parameters = @org.hibernate.annotations.Parameter(name = "property", value = "person")
-    )
-    private Long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	
 	/**
 	 * The person.
 	 */
-	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn(name="cfPersId")
+	@OneToOne(optional=false)
+	@JoinColumn(name="cfPersId")
 	private Person person;
 	
 	/**
@@ -66,6 +64,29 @@ public class PersonName implements CerifAdditionalFeature {
 	 */
 	public Person getPerson() {
 		return person;
+	}
+
+	
+	/**
+	 * Default Constructor
+	 */
+	public PersonName() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param firstNames
+	 * @param familyNames
+	 * @param otherNames
+	 */
+	public PersonName(Person person, String firstNames,
+			String familyNames, String otherNames) {
+		this.person = person;
+		this.firstNames = firstNames;
+		this.familyNames = familyNames;
+		this.otherNames = otherNames;
 	}
 
 

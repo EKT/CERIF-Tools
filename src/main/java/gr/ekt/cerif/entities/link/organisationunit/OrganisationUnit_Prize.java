@@ -7,24 +7,25 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Prize;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.organisationunit.OrganisationUnit_PrizeId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfOrgUnit_Prize")
-@IdClass(OrganisationUnit_PrizeId.class)
+@Table(name="cfOrgUnit_Prize", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId","cfPrizeId","cfClassId","cfPrizeDate"}))
 public class OrganisationUnit_Prize implements CerifLinkEntity {
 
 	/**
@@ -33,33 +34,37 @@ public class OrganisationUnit_Prize implements CerifLinkEntity {
 	private static final long serialVersionUID = 3963197941839110302L;
 
 	/**
-	 * The organisation unit.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The organisation unit.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfOrgUnitId")
 	private OrganisationUnit organisationUnit;
 	
 	/**
 	 * The prize.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPrizeId")
 	private Prize prize;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The prize date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfPrizeDate")
 	private Date prizeDate;
 	
@@ -68,6 +73,30 @@ public class OrganisationUnit_Prize implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public OrganisationUnit_Prize() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param organisationUnit
+	 * @param prize
+	 * @param theClass
+	 * @param prizeDate
+	 * @param fraction
+	 */
+	public OrganisationUnit_Prize(OrganisationUnit organisationUnit,
+			Prize prize, Class theClass, Date prizeDate, Double fraction) {
+		this.organisationUnit = organisationUnit;
+		this.prize = prize;
+		this.theClass = theClass;
+		this.prizeDate = prizeDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the organisationUnit
@@ -137,6 +166,20 @@ public class OrganisationUnit_Prize implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

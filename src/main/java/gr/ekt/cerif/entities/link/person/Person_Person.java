@@ -7,23 +7,24 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.person.Person_PersonId;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfPers_Pers")
-@IdClass(Person_PersonId.class)
+@Table(name="cfPers_Pers", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId1","cfPersId2","cfClassId","cfStartDate","cfEndDate"}))
 public class Person_Person implements CerifLinkEntity {
 
 	/**
@@ -32,18 +33,23 @@ public class Person_Person implements CerifLinkEntity {
 	private static final long serialVersionUID = -54329051360347895L;
 	
 	/**
-	 * The first person.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The first person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId1")
 	private Person person1;
 
 	/**
 	 * The second person.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId2")
 	private Person person2;
 
@@ -51,22 +57,21 @@ public class Person_Person implements CerifLinkEntity {
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -75,6 +80,32 @@ public class Person_Person implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Person_Person() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person1
+	 * @param person2
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Person_Person(Person person1, Person person2, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.person1 = person1;
+		this.person2 = person2;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the person1
@@ -158,6 +189,20 @@ public class Person_Person implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
 

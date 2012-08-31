@@ -6,25 +6,26 @@ package gr.ekt.cerif.entities.link.organisationunit;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.organisationunit.OrganisationUnit_OrganisationUnitId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a organisationUnit with an organization unit.
  * 
  */
 @Entity
-@Table(name="cfOrgUnit_OrgUnit")
-@IdClass(OrganisationUnit_OrganisationUnitId.class)
+@Table(name="cfOrgUnit_OrgUnit", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId1","cfProjId2","cfClassId","cfStartDate","cfEndDate"}))
 public class OrganisationUnit_OrganisationUnit implements CerifLinkEntity {
 	
 	/**
@@ -33,37 +34,41 @@ public class OrganisationUnit_OrganisationUnit implements CerifLinkEntity {
 	private static final long serialVersionUID = 1260922487608052569L;
 
 	/**
-	 * The organisationUnit.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The organisationUnit.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId1")
 	private OrganisationUnit organisationUnit1;
 	
 	/**
 	 * The organisationUnit connected to
 	 */
-	@Id	
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId2")
 	private OrganisationUnit organisationUnit2;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 		
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -73,6 +78,34 @@ public class OrganisationUnit_OrganisationUnit implements CerifLinkEntity {
 	@Column(name="cfFraction")
 	private Double fraction;
 	
+	/**
+	 * Default constructor
+	 */
+	public OrganisationUnit_OrganisationUnit() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param organisationUnit1
+	 * @param organisationUnit2
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public OrganisationUnit_OrganisationUnit(
+			OrganisationUnit organisationUnit1,
+			OrganisationUnit organisationUnit2, Class theClass, Date startDate,
+			Date endDate, Double fraction) {
+		this.organisationUnit1 = organisationUnit1;
+		this.organisationUnit2 = organisationUnit2;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
+
 	/**
 	 * @return the organisationUnit1
 	 */
@@ -163,6 +196,20 @@ public class OrganisationUnit_OrganisationUnit implements CerifLinkEntity {
 	 */
 	public void setTheClass(Class theClass) {
 		this.theClass = theClass;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

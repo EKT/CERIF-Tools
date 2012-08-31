@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.person.PersonTranslationtId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual research interest of a person entity.
  * 
  */
 @Entity
-@Table(name="cfPersResInt")
-@IdClass(PersonTranslationtId.class)
+@Table(name="cfPersResInt", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfLangCode","cfTrans"}))
 public class PersonResearchInterest implements PersonTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class PersonResearchInterest implements PersonTranslation {
 	private static final long serialVersionUID = -3303081887774658428L;	
 
 	/**
-	 * The person.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	private Person person;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -60,8 +66,30 @@ public class PersonResearchInterest implements PersonTranslation {
 	 */
 	@Column(name="cfResInt")
 	private String researchInterests;
-				
 	
+	/**
+	 * Default Constructor
+	 */
+	public PersonResearchInterest() {
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param person
+	 * @param language
+	 * @param translation
+	 * @param researchInterests
+	 */
+	public PersonResearchInterest(Person person, Language language,
+			Translation translation, String researchInterests) {
+		this.person = person;
+		this.language = language;
+		this.translation = translation;
+		this.researchInterests = researchInterests;
+	}
+
+
 	/**
 	 * @return the person
 	 */
@@ -123,6 +151,20 @@ public class PersonResearchInterest implements PersonTranslation {
 	 */
 	public void setResearchInterests(String researchInterests) {
 		this.researchInterests = researchInterests;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

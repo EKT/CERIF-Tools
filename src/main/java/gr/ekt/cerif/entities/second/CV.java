@@ -7,11 +7,14 @@ import gr.ekt.cerif.entities.link.person.Person_Cv;
 
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -39,8 +42,10 @@ public class CV implements CerifSecondLevelEntity {
 	/**
 	 * The URI.
 	 */
-	@Column(name="cfCVDoc")
-	private Byte[] doc;
+	@Basic(fetch=FetchType.LAZY)
+	@Lob
+	@Column(name="cfCVDoc",length = 20971520)
+	private byte[] doc;
 
 	/**
 	 * The URI.
@@ -50,6 +55,23 @@ public class CV implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="cv")
 	private Set<Person_Cv> persons_cvs;
+
+	/**
+	 * Default Constructor
+	 */
+	public CV() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param doc
+	 * @param uri
+	 */
+	public CV(byte[] doc, String uri) {
+		this.doc = doc;
+		this.uri = uri;
+	}
 
 	/**
 	 * @return the id
@@ -68,14 +90,14 @@ public class CV implements CerifSecondLevelEntity {
 	/**
 	 * @return the doc
 	 */
-	public Byte[] getDoc() {
+	public byte[] getDoc() {
 		return doc;
 	}
 
 	/**
 	 * @param doc the doc to set
 	 */
-	public void setDoc(Byte[] doc) {
+	public void setDoc(byte[] doc) {
 		this.doc = doc;
 	}
 

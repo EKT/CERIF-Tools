@@ -7,22 +7,23 @@ import java.util.Date;
 
 import gr.ekt.cerif.entities.second.Qualification;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Qualification_ClassId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfQual_class")
-@IdClass(Qualification_ClassId.class)
+@Table(name="cfQual_class",  uniqueConstraints=@UniqueConstraint(columnNames={"cfQualId","cfClassId","cfStartDate","cfEndDate"}))
 public class Qualification_Class implements CerifLinkEntity {
 
 	/**
@@ -31,32 +32,38 @@ public class Qualification_Class implements CerifLinkEntity {
 	private static final long serialVersionUID = 5892170348385008094L;
 
 	/**
-	 * The qualification.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	
+	/**
+	 * The qualification.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfQualId")
 	private Qualification qualification;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -65,6 +72,30 @@ public class Qualification_Class implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Qualification_Class() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param qualification
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Qualification_Class(Qualification qualification, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.qualification = qualification;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the qualification
@@ -134,6 +165,20 @@ public class Qualification_Class implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

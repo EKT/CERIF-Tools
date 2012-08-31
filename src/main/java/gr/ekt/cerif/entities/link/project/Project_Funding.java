@@ -8,25 +8,26 @@ import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.project.Project_FundingId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a project with a Funding.
  * 
  */
 @Entity
-@Table(name="cfProj_Fund")
-@IdClass(Project_FundingId.class)
+@Table(name="cfProj_Fund", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId", "cfFundId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class Project_Funding implements CerifLinkEntity {
 	
 	/**
@@ -35,22 +36,26 @@ public class Project_Funding implements CerifLinkEntity {
 	private static final long serialVersionUID = 7399238214374425624L;
 
 	/**
-	 * The project.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The project.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The Funding.
 	 */
-	@Id
-	@ManyToOne 
-	@JoinColumn(name="cfFacilId")
+	@ManyToOne(optional=false)
+	@JoinColumn(name="cfFundId")
 	private Funding funding;
 	
-	@Id
 	@ManyToOne
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
@@ -58,14 +63,14 @@ public class Project_Funding implements CerifLinkEntity {
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 		
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -81,7 +86,48 @@ public class Project_Funding implements CerifLinkEntity {
 	@Column(name="cfCurrCode")
 	private Currency currency;
 
-	
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * Default Constructor
+	 */
+	public Project_Funding() {
+		
+	}
+	/**
+	 * 
+	 * @param project
+	 * @param funding
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param currency
+	 */
+	public Project_Funding(Project project, Funding funding, Class theClass,
+			Date startDate, Date endDate, Double fraction, Currency currency) {
+		super();
+		this.project = project;
+		this.funding = funding;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.currency = currency;
+	}
+
 	/**
 	 * Returns the start date.
 	 * @return the start date.

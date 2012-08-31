@@ -6,24 +6,25 @@ package gr.ekt.cerif.entities.link;
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.Facility_IndicatorId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
  */
 @Entity
-@Table(name="cfFacil_Indic")
-@IdClass(Facility_IndicatorId.class)
+@Table(name="cfFacil_Indic", uniqueConstraints=@UniqueConstraint(columnNames={"cfFacilId", "cfIndicId", "cfClassId", "cfStartDate", "cfEndDate"} )) 
 public class Facility_Indicator implements CerifLinkEntity {
 
 	/**
@@ -31,41 +32,42 @@ public class Facility_Indicator implements CerifLinkEntity {
 	 */
 	private static final long serialVersionUID = 8581669880391170120L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The facility.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFacilId")
 	private Facility facility;
 	
 	/**
 	 * The indicator.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfIndicId")
 	private Indicator indicator;
 	
 	/**
 	 * The Class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -74,6 +76,32 @@ public class Facility_Indicator implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public Facility_Indicator() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param facility
+	 * @param indicator
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Facility_Indicator(Facility facility, Indicator indicator,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		this.facility = facility;
+		this.indicator = indicator;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * @return the facility
@@ -157,6 +185,20 @@ public class Facility_Indicator implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

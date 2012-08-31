@@ -7,21 +7,22 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.person.Person_LanguageId;
 
 @Entity
-@Table(name="cfPers_Lang")
-@IdClass(Person_LanguageId.class)
+@Table(name="cfPers_Lang", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfLangCode","cfClassId","cfStartDate","cfEndDate"}))
 public class Person_Language implements CerifLinkEntity {
 	
 	/**
@@ -30,40 +31,44 @@ public class Person_Language implements CerifLinkEntity {
 	private static final long serialVersionUID = -6547898956812123403L;
 	
 	/**
-	 * The person.
+	 * 
 	 */
 	@Id
-	@ManyToOne 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The person.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	private Person person;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The class.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -87,6 +92,39 @@ public class Person_Language implements CerifLinkEntity {
 	 * Language writing skills: nm=mother tongue or native language, nf=fluent in the language, nw=working knowledge of the language
 	 */
 	private String writing;
+
+	/**
+	 * Default Constructor
+	 */
+	public Person_Language() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param language
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param reading
+	 * @param speaking
+	 * @param writing
+	 */
+	public Person_Language(Person person, Language language, Class theClass,
+			Date startDate, Date endDate, Double fraction, String reading,
+			String speaking, String writing) {
+		this.person = person;
+		this.language = language;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.reading = reading;
+		this.speaking = speaking;
+		this.writing = writing;
+	}
 
 	/**
 	 * @return the person
@@ -212,6 +250,20 @@ public class Person_Language implements CerifLinkEntity {
 	 */
 	public void setWriting(String writing) {
 		this.writing = writing;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

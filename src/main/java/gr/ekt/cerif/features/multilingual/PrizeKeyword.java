@@ -5,25 +5,26 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.second.Prize;
 import gr.ekt.cerif.entities.second.Language;
-import gr.ekt.cerif.pk.PrizeTranslationId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Holds the multi-lingual keyword of a prize entity.
  * 
  */
 @Entity
-@Table(name="cfPrizeKeyw")
-@IdClass(PrizeTranslationId.class)
+@Table(name="cfPrizeKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfPrizeId","cfLangCode","cfTrans"}))
 public class PrizeKeyword implements PrizeTranslation {
 	
 	/**
@@ -32,25 +33,30 @@ public class PrizeKeyword implements PrizeTranslation {
 	private static final long serialVersionUID = -7159497724417392497L;
 
 	/**
-	 * The prize.
+	 * 
 	 */
 	@Id
-	@ManyToOne
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The prize.
+	 */
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPrizeId")
 	private Prize prize;
 	
 	/**
 	 * The language.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
 	private Language language;
 	
 	/**
 	 * The translation.
 	 */
-	@Id
+	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
 	private Translation translation;
@@ -61,6 +67,28 @@ public class PrizeKeyword implements PrizeTranslation {
 	@Column(name="cfKeyw")
 	private String keyword;
 	
+	/**
+	 * Default Constructor
+	 */
+	public PrizeKeyword() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param prize
+	 * @param language
+	 * @param translation
+	 * @param keyword
+	 */
+	public PrizeKeyword(Prize prize, Language language,
+			Translation translation, String keyword) {
+		this.prize = prize;
+		this.language = language;
+		this.translation = translation;
+		this.keyword = keyword;
+	}
+
 	/**
 	 * @return the prize
 	 */
@@ -118,6 +146,20 @@ public class PrizeKeyword implements PrizeTranslation {
 	 */
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

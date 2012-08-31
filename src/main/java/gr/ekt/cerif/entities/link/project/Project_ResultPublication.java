@@ -7,64 +7,69 @@ import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.pk.project.Project_ResultPublicationId;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Links a project with a result publication.
  * 
  */
 @Entity
-@Table(name="cfProj_ResPubl")
-@IdClass(Project_ResultPublicationId.class)
+@Table(name="cfProj_ResPubl", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId","cfResPublId","cfClassId","cfStartDate","cfEndDate"}))
 public class Project_ResultPublication implements CerifLinkEntity {
 	
 	/**
 	 * Serialization version.
 	 */
 	private static final long serialVersionUID = 1627049422091063641L;
-
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
 	/**
 	 * The project.
 	 */
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
 	private Project project;
 	
 	/**
 	 * The result publication.
 	 */
-	@Id
-	@ManyToOne 
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
 	private ResultPublication resultPublication;
 	
-	@Id
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
 	private Class theClass;
 	
 	/**
 	 * The start date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 		
 	/**
 	 * The end date.
 	 */
-	@Id
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -79,6 +84,55 @@ public class Project_ResultPublication implements CerifLinkEntity {
 	 */
 	@Column(name="cfCopyright")
 	private Double copyright;
+
+	/**
+	 * Default Constructor
+	 */
+	public Project_ResultPublication() {
+		
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param resultPublication
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 * @param copyright
+	 */
+	public Project_ResultPublication(Project project,
+			ResultPublication resultPublication, Class theClass,
+			Date startDate, Date endDate, Double fraction, Double copyright) {
+		this.project = project;
+		this.resultPublication = resultPublication;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+		this.copyright = copyright;
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param resultPublication
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public Project_ResultPublication(Project project,
+			ResultPublication resultPublication, Class theClass,
+			Date startDate, Date endDate, Double fraction) {
+		this.project = project;
+		this.resultPublication = resultPublication;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
 
 	/**
 	 * Returns the start date.
@@ -188,6 +242,20 @@ public class Project_ResultPublication implements CerifLinkEntity {
 	 */
 	public void setCopyright(Double copyright) {
 		this.copyright = copyright;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 

@@ -12,5 +12,6 @@ import org.springframework.data.repository.CrudRepository;
  * 
  */
 public interface ResultPublicationRepository extends CrudRepository<ResultPublication, String> {
+	ResultPublication findByUri(String uri);
 
 }
