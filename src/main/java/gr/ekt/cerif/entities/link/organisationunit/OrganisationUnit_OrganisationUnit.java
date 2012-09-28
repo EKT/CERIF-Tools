@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  * 
  */
 @Entity
-@Table(name="cfOrgUnit_OrgUnit", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId1","cfProjId2","cfClassId","cfStartDate","cfEndDate"}))
+@Table(name="cfOrgUnit_OrgUnit", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId1","cfOrgUnitId2","cfClassId","cfStartDate","cfEndDate"}))
 public class OrganisationUnit_OrganisationUnit implements CerifLinkEntity {
 	
 	/**
@@ -44,14 +44,14 @@ public class OrganisationUnit_OrganisationUnit implements CerifLinkEntity {
 	 * The organisationUnit.
 	 */
 	@ManyToOne(optional=false)
-	@JoinColumn(name="cfProjId1")
+	@JoinColumn(name="cfOrgUnitId1")
 	private OrganisationUnit organisationUnit1;
 	
 	/**
 	 * The organisationUnit connected to
 	 */
 	@ManyToOne(optional=false)
-	@JoinColumn(name="cfProjId2")
+	@JoinColumn(name="cfOrgUnitId2")
 	private OrganisationUnit organisationUnit2;
 	
 	@ManyToOne(optional=false)
