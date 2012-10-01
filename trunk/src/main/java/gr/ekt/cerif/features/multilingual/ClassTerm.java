@@ -72,7 +72,7 @@ public class ClassTerm implements ClassTranslation {
 	/**
 	 * The class term.
 	 */
-	@Column(name="cfTerm", columnDefinition="LONGTEXT")
+	@Column(name="cfTerm", columnDefinition="TEXT")
 	private String term;
 	
 	/**

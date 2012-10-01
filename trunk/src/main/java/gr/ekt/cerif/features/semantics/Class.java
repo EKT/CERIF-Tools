@@ -98,7 +98,7 @@ public class Class implements CerifSemanticFeature {
 	/**
 	 * The URI.
 	 */
-	@Column(name="cfUri", columnDefinition="LONGTEXT")
+	@Column(name="cfUri", columnDefinition="TEXT")
 	private String uri;
 	
 	/**
