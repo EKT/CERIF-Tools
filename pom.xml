@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gr.ekt</groupId>
 	<artifactId>cerif-jpa-persistence</artifactId>
-	<version>${target.version}</version>
+	<version>0.2</version>
 	<packaging>jar</packaging>
 	<name>CERIF JPA Utility</name>
 	<url>http://www.ekt.gr</url>
@@ -19,6 +19,7 @@
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
 		<spring.framework.version>3.0.5.RELEASE</spring.framework.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<slf4j-version>1.7.1</slf4j-version>
 	</properties>
 	
 	<profiles>
@@ -28,17 +29,34 @@
                        <activeByDefault>true</activeByDefault>
                  </activation>
                  <properties>
-                       <target.version>cerif-0.2</target.version>
+                       <target.version>0.2</target.version>
                        <db.driver>com.mysql.jdbc.Driver</db.driver>
                        <db.url>jdbc:mysql://localhost:3306/cerif?characterEncoding=utf8</db.url>
                        <db.username>root</db.username>
-                       <db.password>root</db.password>
+                       <db.password></db.password>
                        
                        <hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
                        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
                        <hibernate.show_sql>true</hibernate.show_sql>
                  </properties>
           </profile>
+		<profile>
+                 <id>cerif-jpa-local-postgres</id>
+                 <activation>
+                       <activeByDefault>true</activeByDefault>
+                 </activation>
+                 <properties>
+                       <target.version>0.2</target.version>
+                       <db.driver>org.postgresql.Driver</db.driver>
+                       <db.url>jdbc:postgresql://localhost:5432/cerif?characterEncoding=utf8</db.url>
+                       <db.username>postgres</db.username>
+                       <db.password>root</db.password>
+                       
+                       <hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
+                       <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
+                       <hibernate.show_sql>true</hibernate.show_sql>
+                 </properties>
+          </profile>          
 	</profiles>
 
 	<dependencies>
@@ -63,7 +81,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -93,7 +111,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<version>1.2.17</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -118,8 +136,8 @@
 		<dependency>
 		  <groupId>org.slf4j</groupId>
 		  <artifactId>slf4j-log4j12</artifactId>
-		  <version>1.6.4</version>
-		  <scope>test</scope>
+		  <version>${slf4j-version}</version>
+		  <scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
@@ -133,7 +151,6 @@
 			<artifactId>commons-collections</artifactId>
 			<version>3.2.1</version>
 		</dependency>		
-            
 	</dependencies>
 
 	<issueManagement>

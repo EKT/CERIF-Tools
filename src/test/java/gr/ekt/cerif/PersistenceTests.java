@@ -156,7 +156,6 @@ public class PersistenceTests {
 		project.setAcronym("ESPA");
 		project.setUri("espa.gr");
 		service.save(project);		
-		
 	}
 	
 	

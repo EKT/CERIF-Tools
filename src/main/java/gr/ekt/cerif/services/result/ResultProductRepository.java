@@ -19,7 +19,7 @@ import org.springframework.util.StringUtils;
  * 
  */
 @Component
-public class ResultProductRepository{
+public class ResultProductRepository {
 
 	@Autowired
 	ResultProductService service;

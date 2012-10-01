@@ -66,7 +66,7 @@ public class FacilityDescription implements FacilityTranslation {
 	/**
 	 * The facility description.
 	 */
-	@Column(name="cfDescr", columnDefinition="LONGTEXT")
+	@Column(name="cfDescr", columnDefinition="TEXT")
 	private String description;
 	
 	/**
