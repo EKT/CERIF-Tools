@@ -159,7 +159,17 @@ public class PersistenceTests {
 	}
 	
 	
-	
+	/**
+	 * Tries to retrieve a Class by URI.
+	 */
+	@Test
+	@Transactional
+	public void testRetrieveClassByUri() {
+		Class c = new Class();
+		c = service.getSemanticService().getClassRepository().findByUri("medium to dataset");	
+		String s;
+		s = (c == null ? null : c.getUri());
+	}
 	
 	
 	

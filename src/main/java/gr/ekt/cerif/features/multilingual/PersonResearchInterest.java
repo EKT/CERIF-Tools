@@ -64,7 +64,7 @@ public class PersonResearchInterest implements PersonTranslation {
 	/**
 	 * The person's research interests.
 	 */
-	@Column(name="cfResInt")
+	@Column(name="cfResInt", columnDefinition="TEXT")
 	private String researchInterests;
 	
 	/**

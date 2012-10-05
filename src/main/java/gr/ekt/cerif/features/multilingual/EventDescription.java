@@ -64,7 +64,7 @@ public class EventDescription implements EventTranslation {
 	/**
 	 * The event description.
 	 */
-	@Column(name="cfDescr")
+	@Column(name="cfDescr", columnDefinition="TEXT")
 	private String description;
 	
 	/**

@@ -63,7 +63,7 @@ public class MediumDescription implements MediumTranslation {
 	/**
 	 * The medium description.
 	 */
-	@Column(name="cfDescr")
+	@Column(name="cfDescr", columnDefinition="TEXT")
 	private String description;
 	
 	/**

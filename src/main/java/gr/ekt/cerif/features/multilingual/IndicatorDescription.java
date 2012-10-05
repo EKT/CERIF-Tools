@@ -64,7 +64,7 @@ public class IndicatorDescription implements IndicatorTranslation {
 	/**
 	 * The indicator description.
 	 */
-	@Column(name="cfDescr")
+	@Column(name="cfDescr", columnDefinition="TEXT")
 	private String description;
 	
 	/**
