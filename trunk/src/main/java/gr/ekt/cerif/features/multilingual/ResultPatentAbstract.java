@@ -64,7 +64,7 @@ public class ResultPatentAbstract implements ResultPatentTranslation {
 	/**
 	 * The result patent abstract.
 	 */
-	@Column(name="cfAbstr")
+	@Column(name="cfAbstr", columnDefinition="TEXT")
 	private String abstractText;
 
 	/**

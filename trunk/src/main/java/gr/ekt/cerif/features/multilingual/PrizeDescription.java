@@ -64,7 +64,7 @@ public class PrizeDescription implements PrizeTranslation {
 	/**
 	 * The prize description.
 	 */
-	@Column(name="cfDescr")
+	@Column(name="cfDescr", columnDefinition="TEXT")
 	private String description;
 	
 	/**

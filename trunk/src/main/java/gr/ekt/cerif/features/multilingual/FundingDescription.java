@@ -64,7 +64,7 @@ public class FundingDescription implements FundingTranslation {
 	/**
 	 * The funding description.
 	 */
-	@Column(name="cfDescr")
+	@Column(name="cfDescr", columnDefinition="TEXT")
 	private String description;
 	
 	/**

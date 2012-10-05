@@ -64,7 +64,7 @@ public class ExpertiseAndSkillsDescription implements ExpertiseAndSkillsTranslat
 	/**
 	 * The expertiseAndSkills description.
 	 */
-	@Column(name="cfDescr")
+	@Column(name="cfDescr", columnDefinition="TEXT")
 	private String description;
 	
 	/**

@@ -64,7 +64,7 @@ public class ResultProductDescription implements ResultProductTranslation, Compa
 	/**
 	 * The result product description.
 	 */
-	@Column(name="cfDescr")
+	@Column(name="cfDescr", columnDefinition="TEXT")
 	private String description;
 
 	/**

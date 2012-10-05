@@ -64,7 +64,7 @@ public class ProjectAbstract implements ProjectTranslation {
 	/**
 	 * The project abstract.
 	 */
-	@Column(name="cfAbstr")
+	@Column(name="cfAbstr", columnDefinition="TEXT")
 	private String abstractText;
 	
 	/**

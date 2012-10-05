@@ -83,13 +83,13 @@ public class Measurement implements CerifSecondLevelEntity {
 	/**
 	 * The valJudgeText.
 	 */
-	@Column(name="cfValJudgeText")
+	@Column(name="cfValJudgeText", columnDefinition="TEXT")
 	private String valJudgeText;
 	
 	/**
 	 * The valJudgeText.
 	 */
-	@Column(name="cfValJudgeTextChange")
+	@Column(name="cfValJudgeTextChange", columnDefinition="TEXT")
 	private String valJudgeTextChange;
 	
 	/**

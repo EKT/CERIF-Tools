@@ -64,7 +64,7 @@ public class MeasurementDescription implements MeasurementTranslation {
 	/**
 	 * The measurement description.
 	 */
-	@Column(name="cfDescr")
+	@Column(name="cfDescr", columnDefinition="TEXT")
 	private String description;
 	
 	

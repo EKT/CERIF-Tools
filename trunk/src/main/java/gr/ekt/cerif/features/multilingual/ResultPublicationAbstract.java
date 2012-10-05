@@ -64,7 +64,7 @@ public class ResultPublicationAbstract implements CerifMultipleLanguageFeature {
 	/**
 	 * The abstract.
 	 */
-	@Column(name="cfAbstr")
+	@Column(name="cfAbstr", columnDefinition="TEXT")
 	private String abstractText;
 	
 	
