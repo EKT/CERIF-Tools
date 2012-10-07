@@ -38,10 +38,14 @@ public class ResultPersistenceService {
 	@Autowired
 	private ResultPublicationRepository publicationRepository;
 	
+	@Autowired
+	private ResultPublicationService publicationService;
+	
+	
+	public ResultPublicationRepository getPublicationRepository() {
+		return publicationRepository;
+	}
 
-	
-	
-	
 	public void setPublicationRepository(
 			ResultPublicationRepository publicationRepository) {
 		this.publicationRepository = publicationRepository;
@@ -100,19 +104,87 @@ public class ResultPersistenceService {
 		
 	}
 
-	public ResultPublicationRepository getPublicationRepository() {
-		return publicationRepository;
-	}
-	
-	public ResultPatentRepository getResultPatentRepository() {
-		return patentRepository;
+	/**
+	 * @return
+	 */
+	public List<ResultProduct> findAllProducts() {
+		return productRepository.getAllProducts();
 	}
 
+	/**
+	 * @param id
+	 * @return
+	 */
+	public ResultProduct findProductById(Long id) {
+		return productRepository.getProduct(id);
+	}
+
+	/**
+	 * @param keyword
+	 * @return
+	 */
+	public List<ResultProduct> findProductsByKeyword(String keyword) {
+		return productRepository.findByKeyword(keyword);
+	}
+	
+	public List<ResultProduct> findByClass(String uri) {
+		return productRepository.findByClass(uri);
+	}
+	
+	public List<ResultProduct> findByOrganisationClass(String uri) {
+		return productRepository.findByOrganisationClass(uri);
+	}
+
+	/**
+	 * @param uri
+	 * @return
+	 */
+	public List<ResultProduct> findProductsByPersonClass(String uri) {
+		return productRepository.findByPersonClass(uri);
+	}
+
+	/**
+	 * @param uri
+	 * @return
+	 */
+	public List<ResultProduct> findProductsByProjectClass(String uri) {
+		return productRepository.findByProjectClass(uri);
+	}
+	
+	public List<ResultProduct> findProductsByCountry(String code) {
+		return productRepository.findByCountry(code);
+	}
+	
+	public List<ResultProduct> findByOrganisationURI(String uri) {
+		return productRepository.findByOrganisationURI(uri);
+	}
+	
+	public List<ResultProduct> findByOrganisationURIClass(String orgURI, String classURI) {
+		return productRepository.findByOrganisationURIClass(orgURI, classURI);
+	}
+	
+	public List<ResultProduct> findByOrganisationExpanded(String input, String classURI) {
+		return productRepository.findByOrganisationExpanded(input, classURI);
+	}
+	
+	public List<ResultProduct> findByPersonAny(String input) {
+		return productRepository.findByPersonComplete(input);
+	}
+	
 	/**
 	 * @return the publicationRepository
 	 */
 	public ResultPublicationRepository getResultPublicationRepository() {
 		return publicationRepository;
 	}
+
+	/**
+	 * @return the publicationService
+	 */
+	public ResultPublicationService getPublicationService() {
+		return publicationService;
+	}
+	
+	
 
 }
