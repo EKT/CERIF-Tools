@@ -38,8 +38,8 @@ public class ResultPersistenceService {
 	@Autowired
 	private ResultPublicationRepository publicationRepository;
 	
-	@Autowired
-	private ResultPublicationService publicationService;
+	/*@Autowired
+	private ResultPublicationService publicationService;*/
 	
 	
 	public ResultPublicationRepository getPublicationRepository() {
@@ -181,10 +181,7 @@ public class ResultPersistenceService {
 	/**
 	 * @return the publicationService
 	 */
-	public ResultPublicationService getPublicationService() {
+	/*public ResultPublicationService getPublicationService() {
 		return publicationService;
-	}
-	
-	
-
+	}*/
 }
