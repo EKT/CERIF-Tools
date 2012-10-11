@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.infrastructure;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.infrastructure.Service;
 
 import org.springframework.data.repository.CrudRepository;
@@ -13,5 +15,10 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ServiceRepository extends CrudRepository<Service, String> {
 
+	Service findById(Long id);
+	
+	List<Service> findByAcronym(String acronym);
+	
+	Service findByUri(String uri);
 }
 
