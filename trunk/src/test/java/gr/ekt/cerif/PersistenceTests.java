@@ -72,7 +72,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Test suite for persistence.
- * 
  * @author Nikos Pougounias <pougounias@ekt.gr>
  * @author Nikolaos Konstantinou <nkons@ekt.gr>
  * @author Nikos Houssos <nhoussos@ekt.gr>

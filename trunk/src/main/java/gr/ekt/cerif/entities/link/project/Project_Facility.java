@@ -89,7 +89,8 @@ public class Project_Facility implements CerifLinkEntity {
 	/**
 	 * The currency code.
 	 */
-	@Column(name="cfCurrCode")
+	@ManyToOne
+	@JoinColumn(name="cfCurrCode")
 	private Currency currency;
 
 	/**
