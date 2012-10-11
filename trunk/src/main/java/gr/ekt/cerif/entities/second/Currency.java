@@ -61,25 +61,25 @@ public class Currency implements CerifSecondLevelEntity {
 	/**
 	 * The link entities of projects and equipments.
 	 */
-	@OneToMany(mappedBy="equipment")
+	@OneToMany(mappedBy="currency")
 	private Set<Project_Equipment> projects_equipments;
 	
 	/**
 	 * The link entities of projects and facilities.
 	 */
-	@OneToMany(mappedBy="facility")
+	@OneToMany(mappedBy="currency")
 	private Set<Project_Facility> projects_facilities;
 	
 	/**
 	 * The link entities of projects and services.
 	 */
-	@OneToMany(mappedBy="service")
+	@OneToMany(mappedBy="currency")
 	private Set<Project_Service> projects_services;
 	
 	/**
 	 * The link entities of projects and fundings.
 	 */
-	@OneToMany(mappedBy="funding")
+	@OneToMany(mappedBy="currency")
 	private Set<Project_Funding> projects_fundings;
 	
 	@OneToMany(mappedBy="currency")
