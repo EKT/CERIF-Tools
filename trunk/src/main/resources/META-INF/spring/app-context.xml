@@ -37,8 +37,6 @@
 	</bean>
 		
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
 	<context:component-scan base-package="gr.ekt.cerif" />
-	
 	<jpa:repositories base-package="gr.ekt.cerif.services" />
 </beans>
