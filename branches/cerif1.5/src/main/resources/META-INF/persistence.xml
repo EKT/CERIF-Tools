@@ -116,6 +116,7 @@
         <class>gr.ekt.cerif.entities.link.Facility_Funding</class>
         <class>gr.ekt.cerif.entities.link.Facility_Indicator</class>
         <class>gr.ekt.cerif.entities.link.Facility_Measurement</class>
+        <class>gr.ekt.cerif.entities.link.FederatedIdentifier_Class</class>
         <class>gr.ekt.cerif.entities.link.Funding_Class</class>
         <class>gr.ekt.cerif.entities.link.Funding_Funding</class>
         <class>gr.ekt.cerif.entities.link.Indicator_Class</class>
@@ -180,6 +181,7 @@
 		<class>gr.ekt.cerif.entities.link.result.ResultPublication_Medium</class> 
 		<class>gr.ekt.cerif.entities.link.result.ResultPublication_Service</class>
 		<class>gr.ekt.cerif.entities.link.Service_Event</class>
+		<class>gr.ekt.cerif.entities.link.Service_FederatedIdentifier</class>
 		<class>gr.ekt.cerif.entities.link.Service_Medium</class>
 		<class>gr.ekt.cerif.entities.link.Service_PostalAddress</class>
 		<class>gr.ekt.cerif.entities.link.Service_Service</class>
@@ -204,6 +206,7 @@
 		<class>gr.ekt.cerif.entities.second.ElectronicAddress</class>
 		<class>gr.ekt.cerif.entities.second.Event</class>
 		<class>gr.ekt.cerif.entities.second.ExpertiseAndSkills</class>
+		<class>gr.ekt.cerif.entities.second.FederatedIdentifier</class>
 		<class>gr.ekt.cerif.entities.second.Funding</class>
 		<class>gr.ekt.cerif.entities.second.GeographicBoundingBox</class>
 		<class>gr.ekt.cerif.entities.second.Indicator</class>

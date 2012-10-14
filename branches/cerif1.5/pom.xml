@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gr.ekt</groupId>
 	<artifactId>cerif-jpa-persistence</artifactId>
-	<version>0.2</version>
+	<version>0.3</version>
 	<packaging>jar</packaging>
 	<name>CERIF JPA Utility</name>
 	<url>http://www.ekt.gr</url>
