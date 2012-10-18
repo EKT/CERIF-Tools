@@ -163,6 +163,8 @@ public class SecondPersistenceService {
 			eventRepository.save((Event)entity);
 		} else if (entity instanceof ExpertiseAndSkills) {
 			expertiseAndSkillsRepository.save((ExpertiseAndSkills)entity);
+		} else if (entity instanceof FederatedIdentifier) {
+			federatedIdentifierRepository.save((FederatedIdentifier)entity);			
 		} else if (entity instanceof Funding) {
 			fundingRepository.save((Funding)entity);
 		} else if (entity instanceof GeographicBoundingBox) {
@@ -208,6 +210,8 @@ public class SecondPersistenceService {
 			eventRepository.save((Event)entity);
 		} else if (entity instanceof ExpertiseAndSkills) {
 			expertiseAndSkillsRepository.save((ExpertiseAndSkills)entity);
+		} else if (entity instanceof FederatedIdentifier) {
+			federatedIdentifierRepository.save((FederatedIdentifier)entity);			
 		} else if (entity instanceof Funding) {
 			fundingRepository.save((Funding)entity);
 		} else if (entity instanceof GeographicBoundingBox) {
@@ -334,6 +338,13 @@ public class SecondPersistenceService {
 	}
 
 	/**
+	 * @return the federatedIdentifierRepository
+	 */
+	public FederatedIdentifierRepository getFederatedIdentifierRepository() {
+		return federatedIdentifierRepository;
+	}
+	
+	/**
 	 * @return the fundingRepository
 	 */
 	public FundingRepository getFundingRepository() {
@@ -402,7 +413,4 @@ public class SecondPersistenceService {
 	public QualificationRepository getQualificationRepository() {
 		return qualificationRepository;
 	}
-	
-	
-
 }
