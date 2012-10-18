@@ -11,6 +11,7 @@ import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.entities.second.Language;
@@ -75,6 +76,12 @@ public class SecondPersistenceService {
 	 */
 	@Autowired
 	private ExpertiseAndSkillsRepository expertiseAndSkillsRepository;
+	
+	/**
+	 * The federeated identifier repository.
+	 */
+	@Autowired
+	private FederatedIdentifierRepository federatedIdentifierRepository;	
 	
 	/**
 	 * The funding repository.
@@ -249,6 +256,8 @@ public class SecondPersistenceService {
 			eventRepository.save((List<Event>)entity);
 		} else if (entity instanceof ExpertiseAndSkills) {
 			expertiseAndSkillsRepository.save((List<ExpertiseAndSkills>)entity);
+		} else if (entity instanceof FederatedIdentifier) {
+			federatedIdentifierRepository.save((List<FederatedIdentifier>)entity);			
 		} else if (entity instanceof Funding) {
 			fundingRepository.save((List<Funding>)entity);
 		} else if (entity instanceof GeographicBoundingBox) {
