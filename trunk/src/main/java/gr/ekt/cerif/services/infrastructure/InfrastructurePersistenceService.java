@@ -8,8 +8,6 @@ import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.infrastructure.Service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +29,7 @@ public class InfrastructurePersistenceService {
 	 */
 	@Autowired
 	private FacilityRepository facilityRepository;
-		
+
 	/**
 	 * The service repository.
 	 */
@@ -43,16 +41,17 @@ public class InfrastructurePersistenceService {
 	 * Saves the provided infrastructure entity.
 	 * @param entity The infrastructure entity.
 	 */
-	public void save(CerifInfrastructureEntity entity) {
+	public CerifInfrastructureEntity save(CerifInfrastructureEntity entity) {
 		if (entity instanceof Equipment) {
-			equipmentRepository.save((Equipment)entity);
+			entity = equipmentRepository.save((Equipment)entity);
 		} else if (entity instanceof Facility) {
-			facilityRepository.save((Facility)entity);
+			entity = facilityRepository.save((Facility)entity);
 		} else if (entity instanceof Service) {
-			serviceRepository.save((Service)entity);		
+			entity = serviceRepository.save((Service)entity);		
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid infrastructure entity provided. %s", entity));
 		}
+		return entity;
 	}
 
 	/**
@@ -60,20 +59,20 @@ public class InfrastructurePersistenceService {
 	 * @param entity The infrastructure entities.
 	 */
 	@SuppressWarnings("unchecked")
-	public void save(List<? extends CerifInfrastructureEntity> entityList) {
+	public Iterable<? extends CerifInfrastructureEntity> save(Iterable<? extends CerifInfrastructureEntity> entityList) {
 		
-		final CerifInfrastructureEntity entity = (CerifInfrastructureEntity)entityList.get(0);
+		final CerifInfrastructureEntity entity = (CerifInfrastructureEntity) entityList.iterator().next();
 		
 		if (entity instanceof Equipment) {
-			equipmentRepository.save((List<Equipment>)entityList);
+			entityList = equipmentRepository.save((Iterable<Equipment>)entityList);
 		} else if (entity instanceof Facility) {
-			facilityRepository.save((List<Facility>)entityList);
+			entityList = facilityRepository.save((Iterable<Facility>)entityList);
 		} else if (entity instanceof Service) {
-			serviceRepository.save((List<Service>)entityList);
+			entityList = serviceRepository.save((Iterable<Service>)entityList);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid list of infrastructure entities provided. %s", entity));
 		}
-		
+		return entityList;
 	}
 
 	/**
@@ -88,13 +87,6 @@ public class InfrastructurePersistenceService {
 	 */
 	public FacilityRepository getFacilityRepository() {
 		return facilityRepository;
-	}
-
-	/**
-	 * @return the serviceRepository
-	 */
-	public ServiceRepository getServiceRepository() {
-		return serviceRepository;
 	}
 	
 }

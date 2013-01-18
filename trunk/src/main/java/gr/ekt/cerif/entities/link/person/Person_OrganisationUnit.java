@@ -107,6 +107,22 @@ public class Person_OrganisationUnit implements CerifLinkEntity {
 		this.endDate = endDate;
 		this.fraction = fraction;
 	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param organisationUnit
+	 * @param startDate
+	 * @param endDate
+	 */
+	public Person_OrganisationUnit(Person person,
+			OrganisationUnit organisationUnit, Date startDate,
+			Date endDate) {
+		this.person = person;
+		this.organisationUnit = organisationUnit;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 
 	/**
 	 * @return the id

@@ -3,8 +3,8 @@
  */
 package gr.ekt.cerif.features.multilingual;
 
-import gr.ekt.cerif.entities.second.Prize;
 import gr.ekt.cerif.entities.second.Language;
+import gr.ekt.cerif.entities.second.Prize;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfPrizeDescr", uniqueConstraints=@UniqueConstraint(columnNames={"cfPrizeId","cfLangCode","cfTrans"}))
-public class PrizeDescription implements PrizeTranslation {
+public class PrizeDescription implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.
@@ -64,7 +64,7 @@ public class PrizeDescription implements PrizeTranslation {
 	/**
 	 * The prize description.
 	 */
-	@Column(name="cfDescr", columnDefinition="TEXT")
+	@Column(name="cfDescr")
 	private String description;
 	
 	/**

@@ -175,8 +175,12 @@ public class LinkResultPublicationClassRepository {
 		query.setParameter("respubId", respubId);
 		query.setParameter("schUri", schUri);
 		
-		ids=query.getResultList();
-			
+		try {
+			ids=query.getResultList();
+		} catch (NoResultException nre) {
+			ids=null;
+		} 
+					
 		return ids;
 	}
 	

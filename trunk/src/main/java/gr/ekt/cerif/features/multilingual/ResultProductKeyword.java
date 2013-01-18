@@ -33,7 +33,7 @@ import javax.validation.constraints.NotNull;
 					  "  from ResultProductKeyword" +
 					  " where cfKeyw like :input")
 })
-public class ResultProductKeyword implements ResultProductTranslation, Comparable<ResultProductKeyword> {
+public class ResultProductKeyword implements CerifMultipleLanguageFeature, Comparable<ResultProductKeyword> {
 
 	/**
 	 * Serialization version.

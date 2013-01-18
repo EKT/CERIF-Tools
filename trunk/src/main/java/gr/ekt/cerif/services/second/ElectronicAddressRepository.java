@@ -3,7 +3,6 @@
  */
 package gr.ekt.cerif.services.second;
 
-import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 
 import org.springframework.data.repository.CrudRepository;

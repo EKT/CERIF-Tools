@@ -11,6 +11,7 @@ import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.entities.second.Language;
@@ -75,6 +76,13 @@ public class SecondPersistenceService {
 	 */
 	@Autowired
 	private ExpertiseAndSkillsRepository expertiseAndSkillsRepository;
+	
+	
+	/**
+	 * The federated identifier repository.
+	 */
+	@Autowired
+	private FederatedIdentifierRepository federatedIdentifierRepository;
 	
 	/**
 	 * The funding repository.
@@ -142,40 +150,42 @@ public class SecondPersistenceService {
 	 */
 	public void delete(CerifSecondLevelEntity entity) {
 		if (entity instanceof Citation) {
-			citationRepository.save((Citation)entity);
+			citationRepository.delete((Citation)entity);
 		} else if (entity instanceof Country) {
 			System.out.println("COUNTRY");
 			countryRepository.delete((Country)entity);
 		} else if (entity instanceof Currency) {
-			currencyRepository.save((Currency)entity);
+			currencyRepository.delete((Currency)entity);
 		} else if (entity instanceof CV) {
-			cvRepository.save((CV)entity);
+			cvRepository.delete((CV)entity);
 		} else if (entity instanceof ElectronicAddress) {
 			electronicRepository.delete((ElectronicAddress)entity);
 		} else if (entity instanceof Event) {
-			eventRepository.save((Event)entity);
+			eventRepository.delete((Event)entity);
 		} else if (entity instanceof ExpertiseAndSkills) {
-			expertiseAndSkillsRepository.save((ExpertiseAndSkills)entity);
+			expertiseAndSkillsRepository.delete((ExpertiseAndSkills)entity);
+		} else if (entity instanceof FederatedIdentifier) {
+			federatedIdentifierRepository.delete((FederatedIdentifier)entity);
 		} else if (entity instanceof Funding) {
-			fundingRepository.save((Funding)entity);
+			fundingRepository.delete((Funding)entity);
 		} else if (entity instanceof GeographicBoundingBox) {
-			geographicBoundingBoxRepository.save((GeographicBoundingBox)entity);
+			geographicBoundingBoxRepository.delete((GeographicBoundingBox)entity);
 		} else if (entity instanceof Indicator) {
-			indicatorRepository.save((Indicator)entity);
+			indicatorRepository.delete((Indicator)entity);
 		} else if (entity instanceof Language) {
-			languageRepository.save((Language)entity);
+			languageRepository.delete((Language)entity);
 		} else if (entity instanceof Measurement) {
-			measurementRepository.save((Measurement)entity);
+			measurementRepository.delete((Measurement)entity);
 		} else if (entity instanceof Medium) {
 			mediumRepository.delete((Medium)entity);
 		} else if (entity instanceof Metrics) {
-			metricsRepository.save((Metrics)entity);
+			metricsRepository.delete((Metrics)entity);
 		} else if (entity instanceof PostalAddress) {
 			postalRepository.delete((PostalAddress)entity);
 		} else if (entity instanceof Prize) {
-			prizeRepository.save((Prize)entity);
+			prizeRepository.delete((Prize)entity);
 		} else if (entity instanceof Qualification) {
-			qualificationRepository.save((Qualification)entity);
+			qualificationRepository.delete((Qualification)entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid 2nd level entity provided. %s", entity));
 		}
@@ -185,45 +195,47 @@ public class SecondPersistenceService {
 	 * Saves the provided 2nd level entity.
 	 * @param entity The 2nd level entity.
 	 */
-	public void save(CerifSecondLevelEntity entity) {
+	public CerifSecondLevelEntity save(CerifSecondLevelEntity entity) {
 		if (entity instanceof Citation) {
-			citationRepository.save((Citation)entity);
+			entity = citationRepository.save((Citation)entity);
 		} else if (entity instanceof Country) {
-			System.out.println("COUNTRY");
-			countryRepository.save((Country)entity);
+			entity = countryRepository.save((Country)entity);
 		} else if (entity instanceof Currency) {
-			currencyRepository.save((Currency)entity);
+			entity = currencyRepository.save((Currency)entity);
 		} else if (entity instanceof CV) {
-			cvRepository.save((CV)entity);
+			entity = cvRepository.save((CV)entity);
 		} else if (entity instanceof ElectronicAddress) {
-			electronicRepository.save((ElectronicAddress)entity);
+			entity = electronicRepository.save((ElectronicAddress)entity);
 		} else if (entity instanceof Event) {
-			eventRepository.save((Event)entity);
+			entity = eventRepository.save((Event)entity);
 		} else if (entity instanceof ExpertiseAndSkills) {
-			expertiseAndSkillsRepository.save((ExpertiseAndSkills)entity);
+			entity = expertiseAndSkillsRepository.save((ExpertiseAndSkills)entity);
+		} else if (entity instanceof FederatedIdentifier) {
+			entity = federatedIdentifierRepository.save((FederatedIdentifier)entity);
 		} else if (entity instanceof Funding) {
-			fundingRepository.save((Funding)entity);
+			entity = fundingRepository.save((Funding)entity);
 		} else if (entity instanceof GeographicBoundingBox) {
-			geographicBoundingBoxRepository.save((GeographicBoundingBox)entity);
+			entity = geographicBoundingBoxRepository.save((GeographicBoundingBox)entity);
 		} else if (entity instanceof Indicator) {
-			indicatorRepository.save((Indicator)entity);
+			entity = indicatorRepository.save((Indicator)entity);
 		} else if (entity instanceof Language) {
-			languageRepository.save((Language)entity);
+			entity = languageRepository.save((Language)entity);
 		} else if (entity instanceof Measurement) {
-			measurementRepository.save((Measurement)entity);
+			entity = measurementRepository.save((Measurement)entity);
 		} else if (entity instanceof Medium) {
-			mediumRepository.save((Medium)entity);
+			entity = mediumRepository.save((Medium)entity);
 		} else if (entity instanceof Metrics) {
-			metricsRepository.save((Metrics)entity);
+			entity = metricsRepository.save((Metrics)entity);
 		} else if (entity instanceof PostalAddress) {
-			postalRepository.save((PostalAddress)entity);
+			entity = postalRepository.save((PostalAddress)entity);
 		} else if (entity instanceof Prize) {
-			prizeRepository.save((Prize)entity);
+			entity = prizeRepository.save((Prize)entity);
 		} else if (entity instanceof Qualification) {
-			qualificationRepository.save((Qualification)entity);
+			entity = qualificationRepository.save((Qualification)entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid 2nd level entity provided. %s", entity));
 		}
+		return entity;
 	}
 
 	/**
@@ -231,47 +243,50 @@ public class SecondPersistenceService {
 	 * @param entity The 2nd level entities.
 	 */
 	@SuppressWarnings("unchecked")
-	public void save(List<? extends CerifSecondLevelEntity> entityList) {
+	public Iterable<? extends CerifSecondLevelEntity> save(Iterable<? extends CerifSecondLevelEntity> entityList) {
 		
-		final CerifSecondLevelEntity entity = (CerifSecondLevelEntity)entityList.get(0);
+		final CerifSecondLevelEntity entity = (CerifSecondLevelEntity) entityList.iterator().next();
 		
 		if (entity instanceof Citation) {
-			citationRepository.save((List<Citation>)entity);
+			entityList = citationRepository.save((Iterable<Citation>)entityList);
 		} else if (entity instanceof Country) {
-			countryRepository.save((List<Country>)entity);
+			entityList = countryRepository.save((List<Country>)entityList);
 		} else if (entity instanceof Currency) {
-			currencyRepository.save((List<Currency>)entity);
+			entityList = currencyRepository.save((List<Currency>)entityList);
 		} else if (entity instanceof CV) {
-			cvRepository.save((List<CV>)entity);
+			entityList = cvRepository.save((List<CV>)entityList);
 		} else if (entity instanceof ElectronicAddress) {
-			electronicRepository.save((List<ElectronicAddress>)entity);
+			entityList = electronicRepository.save((List<ElectronicAddress>)entityList);
 		} else if (entity instanceof Event) {
-			eventRepository.save((List<Event>)entity);
+			entityList = eventRepository.save((List<Event>)entityList);
 		} else if (entity instanceof ExpertiseAndSkills) {
-			expertiseAndSkillsRepository.save((List<ExpertiseAndSkills>)entity);
+			entityList = expertiseAndSkillsRepository.save((List<ExpertiseAndSkills>)entityList);
+		} else if (entity instanceof FederatedIdentifier) {
+			entityList = federatedIdentifierRepository.save((List<FederatedIdentifier>)entityList);
 		} else if (entity instanceof Funding) {
-			fundingRepository.save((List<Funding>)entity);
+			entityList = fundingRepository.save((List<Funding>)entityList);
 		} else if (entity instanceof GeographicBoundingBox) {
-			geographicBoundingBoxRepository.save((List<GeographicBoundingBox>)entity);
+			entityList = geographicBoundingBoxRepository.save((List<GeographicBoundingBox>)entityList);
 		} else if (entity instanceof Indicator) {
-			indicatorRepository.save((List<Indicator>)entity);
+			entityList = indicatorRepository.save((List<Indicator>)entityList);
 		} else if (entity instanceof Language) {
-			languageRepository.save((List<Language>)entity);
+			entityList = languageRepository.save((List<Language>)entityList);
 		} else if (entity instanceof Measurement) {
-			measurementRepository.save((List<Measurement>)entity);
+			entityList = measurementRepository.save((List<Measurement>)entityList);
 		} else if (entity instanceof Medium) {
-			mediumRepository.save((List<Medium>)entity);
+			entityList = mediumRepository.save((List<Medium>)entityList);
 		} else if (entity instanceof Metrics) {
-			metricsRepository.save((List<Metrics>)entity);
+			entityList = metricsRepository.save((List<Metrics>)entityList);
 		} else if (entity instanceof PostalAddress) {
-			postalRepository.save((List<PostalAddress>)entity);
+			entityList = postalRepository.save((List<PostalAddress>)entityList);
 		} else if (entity instanceof Prize) {
-			prizeRepository.save((List<Prize>)entity);
+			entityList = prizeRepository.save((List<Prize>)entityList);
 		} else if (entity instanceof Qualification) {
-			qualificationRepository.save((List<Qualification>)entity);
+			entityList = qualificationRepository.save((List<Qualification>)entityList);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid list of 2nd level entities provided. %s", entity));
 		}
+		return entityList;
 		
 	}
 
@@ -322,6 +337,10 @@ public class SecondPersistenceService {
 	 */
 	public ExpertiseAndSkillsRepository getExpertiseAndSkillsRepository() {
 		return expertiseAndSkillsRepository;
+	}
+	
+	public FederatedIdentifierRepository getFederatedIdentifierRepository() {
+		return federatedIdentifierRepository;
 	}
 
 	/**

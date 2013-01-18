@@ -3,11 +3,12 @@
  */
 package gr.ekt.cerif.services;
 
-import gr.ekt.cerif.CerifComponent;
+import gr.ekt.cerif.CerifEntity;
 import gr.ekt.cerif.entities.base.CerifBaseEntity;
 import gr.ekt.cerif.entities.infrastructure.CerifInfrastructureEntity;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.CerifResultEntity;
+import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.second.CerifSecondLevelEntity;
 import gr.ekt.cerif.features.additional.CerifAdditionalFeature;
 import gr.ekt.cerif.features.multilingual.CerifMultipleLanguageFeature;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementation of the persistence service for CERIF entities.
@@ -86,62 +88,65 @@ public class PersistenceServiceImpl implements PersistenceService {
 	 * @TODO FOR EVERY ENTITY IMPLEMENT DELETE
 	 * @param component The CERIF component.
 	 */
-	public void delete(CerifComponent component){
-		if (component == null) {
-			throw new IllegalArgumentException("Empty component provided. Save will not proceed.");
+	@Transactional
+	public void delete(CerifEntity entity){
+		if (entity == null) {
+			throw new IllegalArgumentException("Empty entity provided. Save will not proceed.");
 		}
 		
-		if (component instanceof CerifBaseEntity) {
-			baseService.delete((CerifBaseEntity) component);
+		if (entity instanceof CerifBaseEntity) {
+			baseService.delete((CerifBaseEntity) entity);
 		} 
-		else if (component instanceof CerifResultEntity) {
-			resultService.delete((CerifResultEntity) component);
+		else if (entity instanceof CerifResultEntity) {
+			resultService.delete((CerifResultEntity) entity);
 		}
-		else if (component instanceof CerifLinkEntity) {
-			linkService.delete((CerifLinkEntity) component);
+		else if (entity instanceof CerifLinkEntity) {
+			linkService.delete((CerifLinkEntity) entity);
 		} 
-		else if (component instanceof CerifSecondLevelEntity) {
-			secondService.delete((CerifSecondLevelEntity) component);
+		else if (entity instanceof CerifSecondLevelEntity) {
+			secondService.delete((CerifSecondLevelEntity) entity);
 		} 
 //			else if (component instanceof CerifInfrastructureEntity) {
 //			infrastructureService.delete((CerifInfrastructureEntity) component);
 //		} 
-		else if (component instanceof CerifMultipleLanguageFeature) {
-			translationService.delete( (CerifMultipleLanguageFeature) component);
+		else if (entity instanceof CerifMultipleLanguageFeature) {
+			translationService.delete( (CerifMultipleLanguageFeature) entity);
 	} 
-			else if (component instanceof CerifSemanticFeature) {
-			semanticService.delete((CerifSemanticFeature) component);
+			else if (entity instanceof CerifSemanticFeature) {
+			semanticService.delete((CerifSemanticFeature) entity);
 		} 
-		else if (component instanceof CerifAdditionalFeature) {
-			additionalService.delete((CerifAdditionalFeature) component);
+		else if (entity instanceof CerifAdditionalFeature) {
+			additionalService.delete((CerifAdditionalFeature) entity);
 		}
 	}
 	
 	@Override
-	public void save(CerifComponent component) {
+	@Transactional
+	public CerifEntity save(CerifEntity entity) {
 		
-		if (component == null) {
+		if (entity == null) {
 			throw new IllegalArgumentException("Empty component provided. Save will not proceed.");
 		}
 		
-		if (component instanceof CerifBaseEntity) {
-			baseService.save((CerifBaseEntity) component);
-		} else if (component instanceof CerifResultEntity) {
-			resultService.save((CerifResultEntity) component);
-		} else if (component instanceof CerifLinkEntity) {
-			linkService.save((CerifLinkEntity) component);
-		} else if (component instanceof CerifSecondLevelEntity) {
-			secondService.save((CerifSecondLevelEntity) component);
-		} else if (component instanceof CerifInfrastructureEntity) {
-			infrastructureService.save((CerifInfrastructureEntity) component);
-		} else if (component instanceof CerifMultipleLanguageFeature) {
-			translationService.save( (CerifMultipleLanguageFeature) component);
-		} else if (component instanceof CerifSemanticFeature) {
-			semanticService.save((CerifSemanticFeature) component);
-		} else if (component instanceof CerifAdditionalFeature) {
-			additionalService.save((CerifAdditionalFeature) component);
+		if (entity instanceof CerifBaseEntity) {
+			entity = baseService.save((CerifBaseEntity) entity);
+		} else if (entity instanceof CerifResultEntity) {
+			entity = resultService.save((CerifResultEntity) entity);
+		} else if (entity instanceof CerifLinkEntity) {
+			entity = linkService.save((CerifLinkEntity) entity);
+		} else if (entity instanceof CerifSecondLevelEntity) {
+			entity = secondService.save((CerifSecondLevelEntity) entity);
+		} else if (entity instanceof CerifInfrastructureEntity) {
+			entity = infrastructureService.save((CerifInfrastructureEntity) entity);
+		} else if (entity instanceof CerifMultipleLanguageFeature) {
+			entity = translationService.save((CerifMultipleLanguageFeature) entity);
+		} else if (entity instanceof CerifSemanticFeature) {
+			entity = semanticService.save((CerifSemanticFeature) entity);
+		} else if (entity instanceof CerifAdditionalFeature) {
+			entity = additionalService.save((CerifAdditionalFeature) entity);
 		}
 		
+		return entity;
 	}
 	
 	/**
@@ -149,52 +154,131 @@ public class PersistenceServiceImpl implements PersistenceService {
 	 * @param components The CERIF components.
 	 */
 	@SuppressWarnings("unchecked")
-	public void delete(List<? extends CerifComponent> components) {
+	@Transactional
+	public void delete(Iterable<? extends CerifEntity> entities) {
 		
-		if (components == null || components.size() == 0) {
+		if (entities == null || !entities.iterator().hasNext()) {
 			throw new IllegalArgumentException("Empty collection provided. Save will not proceed.");
 		}
 		
-		final CerifComponent type = components.get(0);
+		final CerifEntity type = entities.iterator().next();
 		
 		if (type instanceof CerifLinkEntity) {
-			linkService.delete((List<CerifLinkEntity>) components);
+			linkService.delete((List<CerifLinkEntity>) entities);
 		}
 	}
 
 	/**
-	 * Saves the provided CERIF components.
-	 * @param components The CERIF components.
+	 * Saves the provided CERIF entities.
+	 * @param entities The CERIF entities.
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void save(List<? extends CerifComponent> components) {
+	@Transactional
+	public Iterable<? extends CerifEntity> save(Iterable<? extends CerifEntity> entities) {
 		
-		if (components == null || components.size() == 0) {
+		if (entities == null || !entities.iterator().hasNext()) {
 			throw new IllegalArgumentException("Empty collection provided. Save will not proceed.");
 		}
 		
-		final CerifComponent type = components.get(0);
+		final CerifEntity type = entities.iterator().next();
 		
 		if (type instanceof CerifBaseEntity) {
-			baseService.save((List<CerifBaseEntity>) components);
+			entities = baseService.save((Iterable<CerifBaseEntity>) entities);
 		} else if (type instanceof CerifResultEntity) {
-			resultService.save((List<CerifResultEntity>) components);
+			entities = resultService.save((Iterable<CerifResultEntity>) entities);
 		} else if (type instanceof CerifLinkEntity) {
-			linkService.save((List<CerifLinkEntity>) components);
+			entities = linkService.save((Iterable<CerifLinkEntity>) entities);
 		} else if (type instanceof CerifSecondLevelEntity) {
-			secondService.save((List<CerifSecondLevelEntity>) components);
+			entities = secondService.save((Iterable<CerifSecondLevelEntity>) entities);
 		} else if (type instanceof CerifInfrastructureEntity) {
-			infrastructureService.save((List<CerifInfrastructureEntity>) components);
+			entities = infrastructureService.save((Iterable<CerifInfrastructureEntity>) entities);
 		} else if (type instanceof CerifMultipleLanguageFeature) {
 			
 		} else if (type instanceof CerifSemanticFeature) {
-			semanticService.save((List<CerifSemanticFeature>) components);
+			entities = semanticService.save((Iterable<CerifSemanticFeature>) entities);
 		} else if (type instanceof CerifAdditionalFeature) {
 
 		}
-		
-		
+		return entities;
+	}
+	
+	/* (non-Javadoc)
+	 * @see gr.ekt.cerif.services.IndexService#getAllProducts()
+	 */
+	@Override
+	public List<ResultProduct> getAllProducts() {
+		return resultService.findAllProducts();
+	}
+	
+	@Override
+	public ResultProduct getProduct(Long id) {
+		return resultService.findProductById(id);
+	}
+	
+	@Override
+	public List<ResultProduct> getProductsByKeyword(String keyword) {
+		return resultService.findProductsByKeyword(keyword);
+	}
+
+	/* (non-Javadoc)
+	 * @see gr.ekt.cerif.services.PersistenceService#findByClass(java.lang.String)
+	 */
+	@Override
+	public List<ResultProduct> getProductsByClass(String uri) {
+		return resultService.findByClass(uri);
+	}
+
+	/* (non-Javadoc)
+	 * @see gr.ekt.cerif.services.PersistenceService#getProductByOrganisationClass(java.lang.String)
+	 */
+	@Override
+	public List<ResultProduct> getProductByOrganisationClass(String uri) {
+		return resultService.findByOrganisationClass(uri);
+	}
+
+	/* (non-Javadoc)
+	 * @see gr.ekt.cerif.services.PersistenceService#getProductByPersonClass(java.lang.String)
+	 */
+	@Override
+	public List<ResultProduct> getProductByPersonClass(String uri) {
+		return resultService.findProductsByPersonClass(uri);
+	}
+
+	/* (non-Javadoc)
+	 * @see gr.ekt.cerif.services.PersistenceService#getProductByProjectClass(java.lang.String)
+	 */
+	@Override
+	public List<ResultProduct> getProductByProjectClass(String uri) {
+		return resultService.findProductsByProjectClass(uri);
+	}
+
+	/* (non-Javadoc)
+	 * @see gr.ekt.cerif.services.PersistenceService#getProductByCountry(java.lang.String)
+	 */
+	@Override
+	public List<ResultProduct> getProductByCountry(String code) {
+		return resultService.findProductsByCountry(code);
+	}
+	
+	@Override
+	public List<ResultProduct> getProductByOrganisationURI(String uri) {
+		return resultService.findByOrganisationURI(uri);
+	}
+	
+	@Override
+	public List<ResultProduct> getProductByOrganisationURIClass(String orgURI, String classURI) {
+		return resultService.findByOrganisationURIClass(orgURI, classURI);
+	}
+	
+	@Override
+	public List<ResultProduct> getProductByOrganisationExpanded(String input, String classURI) {
+		return resultService.findByOrganisationExpanded(input, classURI);
+	}
+	
+	@Override
+	public List<ResultProduct> getProductByPersonAny(String uri) {
+		return resultService.findByPersonAny(uri);
 	}
 
 	/**

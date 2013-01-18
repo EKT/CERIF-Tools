@@ -90,7 +90,7 @@ public class Project_Equipment implements CerifLinkEntity {
 	/**
 	 * The currency code.
 	 */
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="cfCurrCode")
 	private Currency currency;
 

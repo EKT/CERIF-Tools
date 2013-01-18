@@ -146,7 +146,11 @@ public class LinkProjectResultPublicationRepository {
 		query=entityManager.createQuery(QUERY3, Long.class);
 		query.setParameter("respubId", respubId);
 		
-		ids=query.getResultList();
+		try {
+			ids=query.getResultList();
+		} catch (NoResultException nre) {
+			ids=null;
+		} 
 			
 		return ids;
 	}

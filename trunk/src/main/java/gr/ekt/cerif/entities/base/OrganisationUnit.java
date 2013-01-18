@@ -11,7 +11,6 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Organisation
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
-import gr.ekt.cerif.entities.link.person.Person_Class;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.second.Currency;
@@ -22,6 +21,7 @@ import gr.ekt.cerif.features.multilingual.OrganisationUnitResearchActivity;
 
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,9 +34,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 import org.springframework.util.StringUtils;
 
 /**
@@ -44,6 +47,9 @@ import org.springframework.util.StringUtils;
  */
 @Entity
 @Table(name="cfOrgUnit")
+@Indexed(index="indexes/organisationUnits")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class OrganisationUnit implements CerifBaseEntity {
 	
 	/**
@@ -70,6 +76,7 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
+	@Field(name="organisationUnitAcronym", index=Index.YES, store=Store.YES)
 	private String acronym;
 
 	/**
@@ -111,7 +118,7 @@ public class OrganisationUnit implements CerifBaseEntity {
 	/**
 	 * The postal addresses.
 	 */
-	@OneToMany(mappedBy="organisationUnit")
+	@OneToMany(mappedBy="organisationUnit", fetch=FetchType.EAGER)
 	private Set<OrganisationUnit_PostalAddress> postalAddresses;
 	
 	/**
@@ -135,19 +142,19 @@ public class OrganisationUnit implements CerifBaseEntity {
 	/**
 	 * The organisation unit names.
 	 */
-	@OneToMany(mappedBy="organisationUnit")
+	@OneToMany(mappedBy="organisationUnit", fetch=FetchType.EAGER)
 	private Set<OrganisationUnitName> organisationUnitNames;
 	
 	/**
 	 * The organisation unit research activities.
 	 */
-	@OneToMany(mappedBy="organisationUnit")
+	@OneToMany(mappedBy="organisationUnit", fetch=FetchType.EAGER)
 	private Set<OrganisationUnitResearchActivity> organisationUnitResearchActivities;
 	
 	/**
 	 * The organisation unit keywords.
 	 */
-	@OneToMany(mappedBy="organisationUnit")
+	@OneToMany(mappedBy="organisationUnit", fetch=FetchType.EAGER)
 	private Set<OrganisationUnitKeyword> organisationUnitKeywords;
 	
 	@OneToMany(mappedBy="organisationUnit")

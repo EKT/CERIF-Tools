@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.services.second.ElectronicAddressRepository;
 import gr.ekt.cerif.services.semantics.ClassRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkElectronicAddressClassRepository {
 	private ClassRepository classRepository;
 	
 	@Transactional
-	public void save(ElectronicAddress_Class entity) {
+	public ElectronicAddress_Class save(ElectronicAddress_Class entity) {
 		if (entity.getElectronicAddress() == null || entity.getTheClass() == null) {
 			throw new IllegalArgumentException("Please provide both a electronicAddress and a class.");
 		}
@@ -40,14 +38,15 @@ public class LinkElectronicAddressClassRepository {
 		if (entity.getTheClass().getId() == null) {
 			classRepository.save(entity.getTheClass());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<ElectronicAddress_Class> entityList) {
+	public Iterable<ElectronicAddress_Class> save(Iterable<ElectronicAddress_Class> entityList) {
 		for (ElectronicAddress_Class entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

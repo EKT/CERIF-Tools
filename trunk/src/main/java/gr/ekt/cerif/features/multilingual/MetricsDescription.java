@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfMetricsDescr", uniqueConstraints=@UniqueConstraint(columnNames={"cfMetricsId","cfLangCode","cfTrans"}))
-public class MetricsDescription implements MetricsTranslation {
+public class MetricsDescription implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.
@@ -64,7 +64,7 @@ public class MetricsDescription implements MetricsTranslation {
 	/**
 	 * The metrics description.
 	 */
-	@Column(name="cfDescr", columnDefinition="TEXT")
+	@Column(name="cfDescr")
 	private String description;
 	
 	/**

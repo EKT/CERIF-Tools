@@ -3,8 +3,6 @@ package gr.ekt.cerif.services.link;
 import gr.ekt.cerif.entities.link.Equipment_Equipment;
 import gr.ekt.cerif.services.infrastructure.EquipmentRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -26,7 +24,7 @@ public class LinkEquipmentEquipmentRepository {
 	private EquipmentRepository equipmentRepository;
 	
 	@Transactional
-	public void save(Equipment_Equipment entity) {
+	public Equipment_Equipment save(Equipment_Equipment entity) {
 		if (entity.getEquipment1() == null || entity.getEquipment2() == null) {
 			throw new IllegalArgumentException("Please provide both equipments.");
 		}
@@ -36,14 +34,15 @@ public class LinkEquipmentEquipmentRepository {
 		if (entity.getEquipment2().getId() == null) {
 			equipmentRepository.save(entity.getEquipment2());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Equipment_Equipment> entityList) {
+	public Iterable<Equipment_Equipment> save(Iterable<Equipment_Equipment> entityList) {
 		for (Equipment_Equipment entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

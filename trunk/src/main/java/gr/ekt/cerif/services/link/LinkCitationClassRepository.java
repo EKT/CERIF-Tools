@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.Citation_Class;
 import gr.ekt.cerif.services.second.CitationRepository;
 import gr.ekt.cerif.services.semantics.ClassRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkCitationClassRepository {
 	private ClassRepository classRepository;
 	
 	@Transactional
-	public void save(Citation_Class entity) {
+	public Citation_Class save(Citation_Class entity) {
 		if (entity.getCitation() == null || entity.getTheClass() == null) {
 			throw new IllegalArgumentException("Please provide both a citation and a class.");
 		}
@@ -40,14 +38,15 @@ public class LinkCitationClassRepository {
 		if (entity.getTheClass().getId() == null) {
 			classRepository.save(entity.getTheClass());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Citation_Class> entityList) {
+	public Iterable<Citation_Class> save(Iterable<Citation_Class> entityList) {
 		for (Citation_Class entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

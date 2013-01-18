@@ -3,12 +3,12 @@
  */
 package gr.ekt.cerif.features.additional;
 
-import gr.ekt.cerif.CerifComponent;
+import gr.ekt.cerif.CerifEntity;
 
 /**
  * Represents a CERIF Multiple Language Feature.
  * 
  */
-public interface CerifAdditionalFeature extends CerifComponent {
+public interface CerifAdditionalFeature extends CerifEntity {
 
 }

@@ -36,35 +36,32 @@ public class ResultPersistenceService {
 	 * The project repository.
 	 */
 	@Autowired
-	private ResultPublicationRepository publicationRepository;
-	
-	/*@Autowired
-	private ResultPublicationService publicationService;*/
+	private ResultPublicationRepository resultPublicationRepository;
 	
 	
 	public ResultPublicationRepository getPublicationRepository() {
-		return publicationRepository;
+		return resultPublicationRepository;
 	}
 
-	public void setPublicationRepository(
-			ResultPublicationRepository publicationRepository) {
-		this.publicationRepository = publicationRepository;
+	public void setPublicationRepository(ResultPublicationRepository publicationRepository) {
+		this.resultPublicationRepository = publicationRepository;
 	}
 
 	/**
 	 * Saves the provided result entity.
 	 * @param entity The result entity.
 	 */
-	public void save(CerifResultEntity entity) {
+	public CerifResultEntity save(CerifResultEntity entity) {
 		if (entity instanceof ResultPatent) {
-			patentRepository.save((ResultPatent)entity);
+			entity = patentRepository.save((ResultPatent)entity);
 		} else if (entity instanceof ResultProduct) {
-			productRepository.save((ResultProduct)entity);
+			entity = productRepository.save((ResultProduct)entity);
 		} else if (entity instanceof ResultPublication) {
-			publicationRepository.save((ResultPublication)entity);
+			entity = resultPublicationRepository.save((ResultPublication)entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid result entity provided. %s", entity));
 		}
+		return entity;
 	}
 	
 	/**
@@ -77,7 +74,7 @@ public class ResultPersistenceService {
 		} else if (entity instanceof ResultProduct) {
 			productRepository.save((ResultProduct)entity);
 		} else if (entity instanceof ResultPublication) {
-			publicationRepository.delete((ResultPublication)entity);
+			resultPublicationRepository.delete((ResultPublication)entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid result entity provided. %s", entity));
 		}
@@ -88,20 +85,20 @@ public class ResultPersistenceService {
 	 * @param entity The result entities.
 	 */
 	@SuppressWarnings("unchecked")
-	public void save(List<? extends CerifResultEntity> entityList) {
+	public Iterable<? extends CerifResultEntity> save(Iterable<? extends CerifResultEntity> entityList) {
 		
-		final CerifResultEntity entity = (CerifResultEntity)entityList.get(0);
+		final CerifResultEntity entity = (CerifResultEntity) entityList.iterator().next();
 		
 		if (entity instanceof ResultPatent) {
-			patentRepository.save((List<ResultPatent>)entityList);
+			entityList = patentRepository.save((List<ResultPatent>)entityList);
 		} else if (entity instanceof ResultProduct) {
-			productRepository.save((List<ResultProduct>)entityList);
+			entityList = productRepository.save((List<ResultProduct>)entityList);
 		} else if (entity instanceof ResultPublication) {
-			publicationRepository.save((List<ResultPublication>)entityList);
+			entityList = resultPublicationRepository.save((List<ResultPublication>)entityList);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid list of result entities provided. %s", entity));
 		}
-		
+		return entityList;
 	}
 
 	/**
@@ -175,13 +172,7 @@ public class ResultPersistenceService {
 	 * @return the publicationRepository
 	 */
 	public ResultPublicationRepository getResultPublicationRepository() {
-		return publicationRepository;
+		return resultPublicationRepository;
 	}
 
-	/**
-	 * @return the publicationService
-	 */
-	/*public ResultPublicationService getPublicationService() {
-		return publicationService;
-	}*/
 }

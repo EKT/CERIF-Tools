@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfExpSkillsKeyw", uniqueConstraints=@UniqueConstraint(columnNames={}))
-public class ExpertiseAndSkillsKeyword implements ExpertiseAndSkillsTranslation {
+public class ExpertiseAndSkillsKeyword implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.

@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +34,6 @@ public class DublinCoreAudienceRepository {
 		for (DublinCoreAudience entity : entityList) {
 			save(entity);
 		}
-	}		
+	}
 }
 

@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.Country_Class;
 import gr.ekt.cerif.services.second.CountryRepository;
 import gr.ekt.cerif.services.semantics.ClassRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkCountryClassRepository {
 	private ClassRepository classRepository;
 	
 	@Transactional
-	public void save(Country_Class entity) {
+	public Country_Class save(Country_Class entity) {
 		if (entity.getCountry() == null || entity.getTheClass() == null) {
 			throw new IllegalArgumentException("Please provide both a country and a class.");
 		}
@@ -40,14 +38,15 @@ public class LinkCountryClassRepository {
 		if (entity.getTheClass().getId() == null) {
 			classRepository.save(entity.getTheClass());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Country_Class> entityList) {
+	public Iterable<Country_Class> save(Iterable<Country_Class> entityList) {
 		for (Country_Class entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

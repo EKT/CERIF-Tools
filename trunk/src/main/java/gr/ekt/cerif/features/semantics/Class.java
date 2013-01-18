@@ -26,7 +26,7 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduc
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_Class;
 import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
-import gr.ekt.cerif.entities.link.project.Project_Classification;
+import gr.ekt.cerif.entities.link.project.Project_Class;
 import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Event;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
@@ -48,22 +48,21 @@ import gr.ekt.cerif.features.multilingual.ClassDefinition;
 import gr.ekt.cerif.features.multilingual.ClassDescription;
 import gr.ekt.cerif.features.multilingual.ClassEx;
 import gr.ekt.cerif.features.multilingual.ClassTerm;
+import gr.ekt.cerif.features.semantics.ClassScheme;
 
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.Length;
 
 /**
  * Represents a classification semantic.
@@ -101,7 +100,7 @@ public class Class implements CerifSemanticFeature {
 	/**
 	 * The URI.
 	 */
-	@Column(name="cfUri", columnDefinition="TEXT")
+	@Column(name="cfUri", columnDefinition="LONGTEXT")
 	private String uri;
 	
 	/**
@@ -133,7 +132,7 @@ public class Class implements CerifSemanticFeature {
 	private Set<Project_Project> projects;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Project_Classification> projects_classes;
+	private Set<Project_Class> projects_classes;
 
 	@OneToMany(mappedBy="theClass")
 	private Set<Project_Equipment> projects_equipments;
@@ -268,6 +267,16 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public Class(String uri){
 		this.uri = uri;
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @param scheme
+	 */
+	public Class(String uri, ClassScheme scheme){
+		this.uri = uri;
+		this.scheme = scheme;
 	}
 	
 	public Class(Date startDate, Date endDate, String uri,
@@ -539,14 +548,14 @@ public class Class implements CerifSemanticFeature {
 	/**
 	 * @return the projects_classes
 	 */
-	public Set<Project_Classification> getProjects_classes() {
+	public Set<Project_Class> getProjects_classes() {
 		return projects_classes;
 	}
 
 	/**
 	 * @param projects_classes the projects_classes to set
 	 */
-	public void setProjects_classes(Set<Project_Classification> projects_classes) {
+	public void setProjects_classes(Set<Project_Class> projects_classes) {
 		this.projects_classes = projects_classes;
 	}
 
@@ -999,20 +1008,6 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setFundings_fundings(Set<Funding_Funding> fundings_fundings) {
 		this.fundings_fundings = fundings_fundings;
-	}
-
-	/**
-	 * @return the citations
-	 */
-	public Set<Citation_Class> getCitations() {
-		return citations;
-	}
-
-	/**
-	 * @param citations the citations to set
-	 */
-	public void setCitations(Set<Citation_Class> citations) {
-		this.citations = citations;
 	}
 
 	/* (non-Javadoc)

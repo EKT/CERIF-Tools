@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.Cv_Class;
 import gr.ekt.cerif.services.second.CVRepository;
 import gr.ekt.cerif.services.semantics.ClassRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkCvClassRepository {
 	private ClassRepository classRepository;
 	
 	@Transactional
-	public void save(Cv_Class entity) {
+	public Cv_Class save(Cv_Class entity) {
 		if (entity.getCv() == null || entity.getTheClass() == null) {
 			throw new IllegalArgumentException("Please provide both a cv and a class.");
 		}
@@ -40,14 +38,15 @@ public class LinkCvClassRepository {
 		if (entity.getTheClass().getId() == null) {
 			classRepository.save(entity.getTheClass());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Cv_Class> entityList) {
+	public Iterable<Cv_Class> save(Iterable<Cv_Class> entityList) {
 		for (Cv_Class entity : entityList) {
 			save(entity);
 		}
+		return entityList; 
 	}
 	
 }

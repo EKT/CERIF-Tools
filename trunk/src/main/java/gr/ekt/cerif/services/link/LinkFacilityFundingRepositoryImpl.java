@@ -1,6 +1,7 @@
 package gr.ekt.cerif.services.link;
 
 import gr.ekt.cerif.entities.link.Facility_Funding;
+import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.services.infrastructure.FacilityRepository;
 import gr.ekt.cerif.services.second.FundingRepository;
 
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  */
 @Component
-public abstract class LinkFacilityFundingRepositoryImpl implements LinkFacilityFundingRepository{
+public class LinkFacilityFundingRepositoryImpl implements LinkFacilityFundingRepository {
 	
 	@PersistenceContext(unitName="cerif-persistence-unit")
 	private EntityManager entityManager;
@@ -29,6 +30,9 @@ public abstract class LinkFacilityFundingRepositoryImpl implements LinkFacilityF
 	
 	@Autowired
 	private FundingRepository fundingRepository;
+	
+	@Autowired
+	private LinkFacilityFundingCrudRepository linkFacilityFundingCrudRepository;
 	
 	@Transactional
 	public Facility_Funding save(Facility_Funding entity) {
@@ -45,9 +49,24 @@ public abstract class LinkFacilityFundingRepositoryImpl implements LinkFacilityF
 	}
 	
 	@Transactional
-	public void save(List<Facility_Funding> entityList) {
+	public Iterable<Facility_Funding> save(Iterable<Facility_Funding> entityList) {
 		for (Facility_Funding entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
+	
+	public List<Facility_Funding> findByFunding(Funding funding) {
+		return linkFacilityFundingCrudRepository.findByFunding(funding);
+	}
+
+	@Transactional
+	public void delete(Facility_Funding entity) {
+		linkFacilityFundingCrudRepository.delete(entity);
+	}
+
+	public Iterable<Facility_Funding> findAll() {
+		return linkFacilityFundingCrudRepository.findAll();
+	}
+	
 }

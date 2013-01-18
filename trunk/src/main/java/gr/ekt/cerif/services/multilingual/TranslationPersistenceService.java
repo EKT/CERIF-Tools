@@ -3,42 +3,19 @@
  */
 package gr.ekt.cerif.services.multilingual;
 
-import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.multilingual.CerifMultipleLanguageFeature;
-import gr.ekt.cerif.features.multilingual.CitationTranslation;
 import gr.ekt.cerif.features.multilingual.ClassSchemeDescription;
 import gr.ekt.cerif.features.multilingual.ClassSchemeName;
-import gr.ekt.cerif.features.multilingual.ClassTranslation;
-import gr.ekt.cerif.features.multilingual.CountryName;
-import gr.ekt.cerif.features.multilingual.CountryTranslation;
-import gr.ekt.cerif.features.multilingual.CurrencyTranslation;
-import gr.ekt.cerif.features.multilingual.EquipmentTranslation;
-import gr.ekt.cerif.features.multilingual.EventTranslation;
-import gr.ekt.cerif.features.multilingual.ExpertiseAndSkillsTranslation;
 import gr.ekt.cerif.features.multilingual.FacilityName;
-import gr.ekt.cerif.features.multilingual.FacilityTranslation;
-import gr.ekt.cerif.features.multilingual.FundingTranslation;
-import gr.ekt.cerif.features.multilingual.GeographicBoundingBoxTranslation;
-import gr.ekt.cerif.features.multilingual.IndicatorTranslation;
-import gr.ekt.cerif.features.multilingual.LanguageTranslation;
-import gr.ekt.cerif.features.multilingual.MeasurementTranslation;
-import gr.ekt.cerif.features.multilingual.MediumTranslation;
-import gr.ekt.cerif.features.multilingual.MetricsTranslation;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitName;
-import gr.ekt.cerif.features.multilingual.OrganisationUnitTranslation;
-import gr.ekt.cerif.features.multilingual.PersonTranslation;
-import gr.ekt.cerif.features.multilingual.PrizeTranslation;
+import gr.ekt.cerif.features.multilingual.ProjectAbstract;
 import gr.ekt.cerif.features.multilingual.ProjectTitle;
-import gr.ekt.cerif.features.multilingual.ProjectTranslation;
-import gr.ekt.cerif.features.multilingual.QualificationTranslation;
-import gr.ekt.cerif.features.multilingual.ResultPatentTranslation;
-import gr.ekt.cerif.features.multilingual.ResultProductTranslation;
 import gr.ekt.cerif.features.multilingual.ResultPublicationAbstract;
 import gr.ekt.cerif.features.multilingual.ResultPublicationKeyword;
 import gr.ekt.cerif.features.multilingual.ResultPublicationTitle;
-import gr.ekt.cerif.features.multilingual.ResultPublicationTranslation;
-import gr.ekt.cerif.features.multilingual.ServiceTranslation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,87 +26,31 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 public class TranslationPersistenceService {
-
-	@Autowired
-	CitationTranslationRepository citationTranslationRepository;
+	private static final Logger log = LoggerFactory.getLogger(TranslationPersistenceService.class);
 	
 	@Autowired
 	ClassSchemeNameRepository classSchemeNameRepository;
 	
 	@Autowired
-	ClassSchemeNameService classSchemeNameService;
-	
-	@Autowired
 	ClassSchemeDescriptionRepository classSchemeDescriptionRepository;
-	
-	@Autowired
-	ClassTranslationRepository classTranslationRepository;
 	
 	@Autowired
 	ClassTermRepository classTermRepository;
 	
 	@Autowired
-	CountryTranslationRepository countryTranslationRepository;
+	CountryNameRepository countryNameRepository;
 	
 	@Autowired
-	CurrencyTranslationRepository currencyTranslationRepository;
+	FacilityNameRepository facilityNameRepository;
 	
 	@Autowired
-	EquipmentTranslationRepository equipmentTranslationRepository;
+	OrganisationUnitNameRepository organisationUnitNameRepository;
 	
 	@Autowired
-	EventTranslationRepository eventTranslationRepository;
+	ProjectTitleRepository projectTitleRepository;
 	
 	@Autowired
-	ExpertiseAndSkillsTranslationRepository expertiseAndSkillsTranslationRepository;
-	
-	@Autowired
-	FacilityTranslationRepository facilityTranslationRepository;
-	
-	@Autowired
-	FacilityNameService facilityNameService;
-	
-	@Autowired
-	FundingTranslationRepository fundingTranslationRepository;
-	
-	@Autowired
-	GeographicBoundingBoxTranslationRepository geographicBoundingBoxTranslationRepository;
-	
-	@Autowired
-	IndicatorTranslationRepository indicatorTranslationRepository;
-	
-	@Autowired
-	LanguageTranslationRepository languageTranslationRepository;
-	
-	@Autowired
-	MeasurementTranslationRepository measurementTranslationRepository;
-	
-	@Autowired
-	MediumTranslationRepository mediumTranslationRepository;
-	
-	@Autowired
-	MetricsTranslationRepository metricsTranslationRepository;
-	
-	@Autowired
-	OrganisationUnitTranslationRepository organisationUnitTranslationRepository;
-	
-	@Autowired
-	PersonTranslationRepository personTranslationRepository;
-	
-	@Autowired
-	PrizeTranslationRepository prizeTranslationRepository;
-	
-	@Autowired
-	ProjectTranslationRepository projectTranslationRepository;
-	
-	@Autowired
-	QualificationTranslationRepository qualificationTranslationRepository;	
-
-	@Autowired
-	ResultPatentTranslationRepository resultPatentTranslationRepository;
-
-	@Autowired
-	ResultProductTranslationRepository resultProductTranslationRepository;
+	ProjectAbstractRepository projectAbstractRepository;
 	
 	@Autowired
 	ResultPublicationTitleRepository resultPublicationTitleRepository;
@@ -139,154 +60,61 @@ public class TranslationPersistenceService {
 	
 	@Autowired
 	ResultPublicationKeywordRepository resultPublicationKeywordRepository;
-
-	@Autowired
-	ResultPublicationTranslationRepository resultPublicationTranslationRepository;
-	
-	@Autowired
-	ServiceTranslationRepository serviceTranslationRepository;	
 	
 	@Transactional
 	public void delete(CerifMultipleLanguageFeature entity) {
-		if (entity instanceof CitationTranslation) {
-			citationTranslationRepository.save( (CitationTranslation) entity);
-		} else if (entity instanceof ClassSchemeName) {
-			classSchemeNameService.save( (ClassSchemeName) entity);
+		if (entity instanceof ClassSchemeName) {
+			classSchemeNameRepository.save( (ClassSchemeName) entity);
 		} else if (entity instanceof ClassSchemeDescription) {
 			classSchemeDescriptionRepository.save( (ClassSchemeDescription) entity);
-		} else if (entity instanceof ClassTranslation) {
-			classTranslationRepository.save( (ClassTranslation) entity);
-		} else if (entity instanceof CountryTranslation) {
-			countryTranslationRepository.delete( (CountryName) entity);
-		} else if (entity instanceof CurrencyTranslation) {
-			currencyTranslationRepository.save( (CurrencyTranslation) entity);
-		} else if (entity instanceof EquipmentTranslation) {
-			equipmentTranslationRepository.save( (EquipmentTranslation) entity);
-		} else if (entity instanceof EventTranslation) {
-			eventTranslationRepository.save( (EventTranslation) entity);
-		} else if (entity instanceof ExpertiseAndSkillsTranslation) {
-			expertiseAndSkillsTranslationRepository.save( (ExpertiseAndSkillsTranslation) entity);
 		} else if (entity instanceof FacilityName) {
-			facilityNameService.save( (FacilityName) entity);
-		} else if (entity instanceof FacilityTranslation) {
-			facilityTranslationRepository.save( (FacilityTranslation) entity);
-		} else if (entity instanceof FundingTranslation) {
-			fundingTranslationRepository.save( (FundingTranslation) entity);
-		} else if (entity instanceof GeographicBoundingBoxTranslation) {
-			geographicBoundingBoxTranslationRepository.save( (GeographicBoundingBoxTranslation) entity);
-		} else if (entity instanceof IndicatorTranslation) {
-			indicatorTranslationRepository.save( (IndicatorTranslation) entity);
-		} else if (entity instanceof LanguageTranslation) {
-			languageTranslationRepository.save( (LanguageTranslation) entity);
-		} else if (entity instanceof MeasurementTranslation) {
-			measurementTranslationRepository.save( (MeasurementTranslation) entity);
-		} else if (entity instanceof MediumTranslation) {
-			mediumTranslationRepository.save( (MediumTranslation) entity);
-		} else if (entity instanceof MetricsTranslation) {
-			metricsTranslationRepository.save( (MetricsTranslation) entity);
-		} else if (entity instanceof OrganisationUnitTranslation) {
-			organisationUnitTranslationRepository.delete( (OrganisationUnitName) entity);
-		} else if (entity instanceof PersonTranslation) {
-			personTranslationRepository.delete((PersonName) entity);
-			 System.out.println("Deleting!!!!!!!");
-		} else if (entity instanceof PrizeTranslation) {
-			prizeTranslationRepository.save((PrizeTranslation) entity);
-		} else if (entity instanceof ProjectTranslation) {
-			projectTranslationRepository.save((ProjectTitle) entity);
-		} else if (entity instanceof QualificationTranslation) {
-			qualificationTranslationRepository.save((QualificationTranslation) entity);
-		} else if (entity instanceof ResultPatentTranslation) {
-			resultPatentTranslationRepository.save( (ResultPatentTranslation) entity);
-		} else if (entity instanceof ResultProductTranslation) {
-			resultProductTranslationRepository.save((ResultProductTranslation) entity);
-		} else if (entity instanceof ResultPublicationTranslation) {
-			resultPublicationTranslationRepository.save((ResultPublicationTranslation) entity);
-		} else if (entity instanceof ServiceTranslation) {
-			serviceTranslationRepository.save((ServiceTranslation) entity);
+			facilityNameRepository.delete( (FacilityName) entity);
+		} else if (entity instanceof OrganisationUnitName) {
+			organisationUnitNameRepository.delete( (OrganisationUnitName) entity);
+			log.info("Deleting PersonTranslation");
 		} else if (entity instanceof ResultPublicationTitle) {
 			resultPublicationTitleRepository.delete((ResultPublicationTitle) entity);
 		} else if (entity instanceof ResultPublicationAbstract) {
 			resultPublicationAbstractRepository.delete((ResultPublicationAbstract) entity);
 		} else if (entity instanceof ResultPublicationKeyword) {
 			resultPublicationKeywordRepository.delete((ResultPublicationKeyword) entity);
+		} else if (entity instanceof ProjectTitle) {
+			projectTitleRepository.delete((ProjectTitle) entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid multiple language feature entity provided. %s", entity));
 		}
 	}
 	
 	@Transactional
-	public void save(CerifMultipleLanguageFeature entity) {
-		if (entity instanceof CitationTranslation) {
-			citationTranslationRepository.save( (CitationTranslation) entity);
-		} else if (entity instanceof ClassSchemeName) {
-			classSchemeNameService.save( (ClassSchemeName) entity);
+	public CerifMultipleLanguageFeature save(CerifMultipleLanguageFeature entity) {
+		if (entity instanceof ClassSchemeName) {
+			entity = classSchemeNameRepository.save( (ClassSchemeName) entity);
 		} else if (entity instanceof ClassSchemeDescription) {
-			classSchemeDescriptionRepository.save( (ClassSchemeDescription) entity);
-		} else if (entity instanceof ClassTranslation) {
-			classTranslationRepository.save( (ClassTranslation) entity);
-		} else if (entity instanceof CountryTranslation) {
-			countryTranslationRepository.save( (CountryName) entity);
-		} else if (entity instanceof CurrencyTranslation) {
-			currencyTranslationRepository.save( (CurrencyTranslation) entity);
-		} else if (entity instanceof EquipmentTranslation) {
-			equipmentTranslationRepository.save( (EquipmentTranslation) entity);
-		} else if (entity instanceof EventTranslation) {
-			eventTranslationRepository.save( (EventTranslation) entity);
-		} else if (entity instanceof ExpertiseAndSkillsTranslation) {
-			expertiseAndSkillsTranslationRepository.save( (ExpertiseAndSkillsTranslation) entity);
+			entity = classSchemeDescriptionRepository.save( (ClassSchemeDescription) entity);
 		} else if (entity instanceof FacilityName) {
-			facilityNameService.save( (FacilityName) entity);
-		} else if (entity instanceof FacilityTranslation) {
-			facilityTranslationRepository.save( (FacilityTranslation) entity);
-		} else if (entity instanceof FundingTranslation) {
-			fundingTranslationRepository.save( (FundingTranslation) entity);
-		} else if (entity instanceof GeographicBoundingBoxTranslation) {
-			geographicBoundingBoxTranslationRepository.save( (GeographicBoundingBoxTranslation) entity);
-		} else if (entity instanceof IndicatorTranslation) {
-			indicatorTranslationRepository.save( (IndicatorTranslation) entity);
-		} else if (entity instanceof LanguageTranslation) {
-			languageTranslationRepository.save( (LanguageTranslation) entity);
-		} else if (entity instanceof MeasurementTranslation) {
-			measurementTranslationRepository.save( (MeasurementTranslation) entity);
-		} else if (entity instanceof MediumTranslation) {
-			mediumTranslationRepository.save( (MediumTranslation) entity);
-		} else if (entity instanceof MetricsTranslation) {
-			metricsTranslationRepository.save( (MetricsTranslation) entity);
-		} else if (entity instanceof OrganisationUnitTranslation) {
-			organisationUnitTranslationRepository.save( (OrganisationUnitName) entity);
-		} else if (entity instanceof PersonTranslation) {
-			personTranslationRepository.save((PersonName) entity);
-		} else if (entity instanceof PrizeTranslation) {
-			prizeTranslationRepository.save((PrizeTranslation) entity);
-		} else if (entity instanceof ProjectTranslation) {
-			projectTranslationRepository.save((ProjectTitle) entity);
-		} else if (entity instanceof QualificationTranslation) {
-			qualificationTranslationRepository.save((QualificationTranslation) entity);
-		} else if (entity instanceof ResultPatentTranslation) {
-			resultPatentTranslationRepository.save( (ResultPatentTranslation) entity);
-		} else if (entity instanceof ResultProductTranslation) {
-			resultProductTranslationRepository.save((ResultProductTranslation) entity);
-		} else if (entity instanceof ResultPublicationTranslation) {
-			resultPublicationTranslationRepository.save((ResultPublicationTranslation) entity);
-		} else if (entity instanceof ServiceTranslation) {
-			serviceTranslationRepository.save((ServiceTranslation) entity);
+			entity = facilityNameRepository.save( (FacilityName) entity);
+		} else if (entity instanceof ProjectAbstract) {
+			entity = projectAbstractRepository.save((ProjectAbstract) entity);
 		} else if (entity instanceof ResultPublicationTitle) {
-			resultPublicationTitleRepository.save((ResultPublicationTitle) entity);
+			entity = resultPublicationTitleRepository.save((ResultPublicationTitle) entity);
 		} else if (entity instanceof ResultPublicationAbstract) {
-			resultPublicationAbstractRepository.save((ResultPublicationAbstract) entity);
+			entity = resultPublicationAbstractRepository.save((ResultPublicationAbstract) entity);
 		} else if (entity instanceof ResultPublicationKeyword) {
-			resultPublicationKeywordRepository.save((ResultPublicationKeyword) entity);
+			entity = resultPublicationKeywordRepository.save((ResultPublicationKeyword) entity);
+		} else if (entity instanceof ProjectTitle) {
+			entity = projectTitleRepository.save((ProjectTitle) entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid multiple language feature entity provided. %s", entity));
 		}
-	}
-
-	public OrganisationUnitTranslationRepository getOrganisationUnitTranslationRepository(){
-		return organisationUnitTranslationRepository;
+		return entity;
 	}
 	
-	public CountryTranslationRepository getCountryTranslationRepository(){
-		return countryTranslationRepository;
+	public CountryNameRepository getCountryNameRepository(){
+		return countryNameRepository;
+	}
+	
+	public OrganisationUnitNameRepository getOrganisationUnitNameRepository() {
+		return organisationUnitNameRepository;
 	}
 	
 	/**
@@ -297,10 +125,10 @@ public class TranslationPersistenceService {
 	}
 
 	/**
-	 * @return the ProjectTranslationRepository
+	 * @return the ProjectTitleRepository
 	 */
-	public ProjectTranslationRepository getProjectTranslationRepository() {
-		return projectTranslationRepository;
+	public ProjectTitleRepository getProjectTitleRepository() {
+		return projectTitleRepository;
 	}
 	
 	/**
@@ -311,17 +139,10 @@ public class TranslationPersistenceService {
 	}
 
 	/**
-	 * @return the classSchemeNameService
+	 * @return the facilityNameRepository
 	 */
-	public ClassSchemeNameService getClassSchemeNameService() {
-		return classSchemeNameService;
-	}
-
-	/**
-	 * @return the facilityNameService
-	 */
-	public FacilityNameService getFacilityNameService() {
-		return facilityNameService;
+	public FacilityNameRepository getFacilityNameRepository() {
+		return facilityNameRepository;
 	}
 
 	public ClassTermRepository getClassTermRepository() {

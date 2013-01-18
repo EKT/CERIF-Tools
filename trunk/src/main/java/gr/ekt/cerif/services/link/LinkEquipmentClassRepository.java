@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.Equipment_Class;
 import gr.ekt.cerif.services.infrastructure.EquipmentRepository;
 import gr.ekt.cerif.services.semantics.ClassRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkEquipmentClassRepository {
 	private ClassRepository classRepository;
 	
 	@Transactional
-	public void save(Equipment_Class entity) {
+	public Equipment_Class save(Equipment_Class entity) {
 		if (entity.getEquipment() == null || entity.getTheClass() == null) {
 			throw new IllegalArgumentException("Please provide both a equipment and a class.");
 		}
@@ -40,14 +38,15 @@ public class LinkEquipmentClassRepository {
 		if (entity.getTheClass().getId() == null) {
 			classRepository.save(entity.getTheClass());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Equipment_Class> entityList) {
+	public Iterable<Equipment_Class> save(Iterable<Equipment_Class> entityList) {
 		for (Equipment_Class entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

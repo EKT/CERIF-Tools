@@ -3,8 +3,6 @@ package gr.ekt.cerif.services.link;
 import gr.ekt.cerif.entities.link.ClassScheme_ClassScheme;
 import gr.ekt.cerif.services.semantics.ClassSchemeRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -26,7 +24,7 @@ public class LinkClassSchemeClassSchemeRepository {
 	private ClassSchemeRepository classSchemeRepository;
 	
 	@Transactional
-	public void save(ClassScheme_ClassScheme entity) {
+	public ClassScheme_ClassScheme save(ClassScheme_ClassScheme entity) {
 		if (entity.getClassScheme1() == null || entity.getClassScheme2() == null) {
 			throw new IllegalArgumentException("Please provide both classSchemes.");
 		}
@@ -36,14 +34,15 @@ public class LinkClassSchemeClassSchemeRepository {
 		if (entity.getClassScheme2().getId() == null) {
 			classSchemeRepository.save(entity.getClassScheme2());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<ClassScheme_ClassScheme> entityList) {
+	public Iterable<ClassScheme_ClassScheme> save(Iterable<ClassScheme_ClassScheme> entityList) {
 		for (ClassScheme_ClassScheme entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

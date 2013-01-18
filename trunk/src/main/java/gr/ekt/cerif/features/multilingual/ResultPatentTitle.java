@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfResPatTitle", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPatId","cfLangCode","cfTrans"}))
-public class ResultPatentTitle implements ResultPatentTranslation {
+public class ResultPatentTitle implements CerifMultipleLanguageFeature {
 
 	/**
 	 * Serialization version.

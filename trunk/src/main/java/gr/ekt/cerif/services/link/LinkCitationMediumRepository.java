@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.Citation_Medium;
 import gr.ekt.cerif.services.second.CitationRepository;
 import gr.ekt.cerif.services.second.MediumRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkCitationMediumRepository {
 	private MediumRepository mediumRepository;
 	
 	@Transactional
-	public void save(Citation_Medium entity) {
+	public Citation_Medium save(Citation_Medium entity) {
 		if (entity.getCitation() == null || entity.getMedium() == null) {
 			throw new IllegalArgumentException("Please provide both a citation and a medium.");
 		}
@@ -40,14 +38,15 @@ public class LinkCitationMediumRepository {
 		if (entity.getMedium().getId() == null) {
 			mediumRepository.save(entity.getMedium());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Citation_Medium> entityList) {
+	public Iterable<Citation_Medium> save(Iterable<Citation_Medium> entityList) {
 		for (Citation_Medium entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

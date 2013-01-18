@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfEventDescr", uniqueConstraints=@UniqueConstraint(columnNames={"cfEventId","cfLangCode","cfTrans"}))
-public class EventDescription implements EventTranslation {
+public class EventDescription implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.
@@ -64,7 +64,7 @@ public class EventDescription implements EventTranslation {
 	/**
 	 * The event description.
 	 */
-	@Column(name="cfDescr", columnDefinition="TEXT")
+	@Column(name="cfDescr")
 	private String description;
 	
 	/**

@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfFundName", uniqueConstraints=@UniqueConstraint(columnNames={"cfFundId","cfLangCode","cfTrans"}))
-public class FundingName implements FundingTranslation {
+public class FundingName implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.

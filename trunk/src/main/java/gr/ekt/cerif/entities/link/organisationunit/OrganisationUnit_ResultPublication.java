@@ -135,6 +135,25 @@ public class OrganisationUnit_ResultPublication implements CerifLinkEntity {
 		this.endDate = endDate;
 		this.fraction = fraction;
 	}
+	
+	/**
+	 * 
+	 * @param organisationUnit
+	 * @param resultPublication
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public OrganisationUnit_ResultPublication(
+			OrganisationUnit organisationUnit,
+			ResultPublication resultPublication, Class theClass,
+			Date startDate, Date endDate) {
+		this.organisationUnit = organisationUnit;
+		this.resultPublication = resultPublication;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 
 	/**
 	 * Returns the organisationUnit.

@@ -121,6 +121,24 @@ public class Project_ResultPublication implements CerifLinkEntity {
 	 * @param theClass
 	 * @param startDate
 	 * @param endDate
+	 */
+	public Project_ResultPublication(Project project,
+			ResultPublication resultPublication, Class theClass,
+			Date startDate, Date endDate) {
+		this.project = project;
+		this.resultPublication = resultPublication;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param resultPublication
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
 	 * @param fraction
 	 */
 	public Project_ResultPublication(Project project,

@@ -6,6 +6,7 @@ package gr.ekt.cerif.features.multilingual;
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.second.Language;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,13 +20,23 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 /**
  * Holds the multi-lingual abstract of a project entity.
  * 
  */
 @Entity
 @Table(name="cfProjAbstr", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId","cfLangCode","cfTrans"}))
-public class ProjectAbstract implements ProjectTranslation {
+@Indexed(index="indexes/projectAbstracts")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+public class ProjectAbstract implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.
@@ -64,7 +75,8 @@ public class ProjectAbstract implements ProjectTranslation {
 	/**
 	 * The project abstract.
 	 */
-	@Column(name="cfAbstr", columnDefinition="TEXT")
+	@Column(name="cfAbstr", length=5000)
+	@Field(name="projectAbstract", index=Index.YES, store=Store.YES)
 	private String abstractText;
 	
 	/**

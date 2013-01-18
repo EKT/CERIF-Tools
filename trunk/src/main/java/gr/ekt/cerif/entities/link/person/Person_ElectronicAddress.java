@@ -3,10 +3,10 @@
  */
 package gr.ekt.cerif.entities.link.person;
 
-import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
 
@@ -93,20 +93,34 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 	 * 
 	 * @param person
 	 * @param electronicAddress
+	 * @param startDate
+	 * @param endDate
+	 */
+	public Person_ElectronicAddress(Person person,
+			ElectronicAddress electronicAddress,
+			Date startDate, Date endDate, Double fraction) {
+		this.person = person;
+		this.electronicAddress = electronicAddress;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param electronicAddress
 	 * @param theClass
 	 * @param startDate
 	 * @param endDate
 	 * @param fraction
 	 */
 	public Person_ElectronicAddress(Person person,
-			ElectronicAddress electronicAddress, Class theClass,
-			Date startDate, Date endDate, Double fraction) {
+			ElectronicAddress electronicAddress,
+			Date startDate, Date endDate) {
 		this.person = person;
 		this.electronicAddress = electronicAddress;
-		this.theClass = theClass;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.fraction = fraction;
 	}
 
 	/**

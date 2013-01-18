@@ -1,6 +1,7 @@
 package gr.ekt.cerif.services.link.person;
 
 import gr.ekt.cerif.entities.link.person.Person_Cv;
+import gr.ekt.cerif.entities.link.person.Person_ResultPublication;
 import gr.ekt.cerif.services.base.PersonRepository;
 import gr.ekt.cerif.services.second.CVRepository;
 
@@ -48,6 +49,10 @@ public class LinkPersonCvRepository {
 		for (Person_Cv entity : entityList) {
 			save(entity);
 		}
+	}
+	
+	public void delete(Person_Cv entity) {
+		entityManager.remove(entity);
 	}
 	
 }

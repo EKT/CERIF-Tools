@@ -23,12 +23,6 @@ public class SemanticsPersistenceService {
 	 */
 	@Autowired
 	private ClassRepository classRepository;
-	
-	/**
-	 * The repository for classification schemes.
-	 */
-	@Autowired
-	private ClassSchemeService classSchemeService;
 
 	@Autowired
 	private ClassSchemeRepository classSchemeRepository;
@@ -51,14 +45,15 @@ public class SemanticsPersistenceService {
 	 * Saves the provided semantic feature.
 	 * @param feature The semantic feature.
 	 */
-	public void save(CerifSemanticFeature feature) {
-		if (feature instanceof gr.ekt.cerif.features.semantics.Class) {
-			classRepository.save((gr.ekt.cerif.features.semantics.Class)feature);
-		} else if (feature instanceof ClassScheme) {
-			classSchemeService.save((ClassScheme)feature);
+	public CerifSemanticFeature save(CerifSemanticFeature entity) {
+		if (entity instanceof gr.ekt.cerif.features.semantics.Class) {
+			entity = classRepository.save((gr.ekt.cerif.features.semantics.Class)entity);
+		} else if (entity instanceof ClassScheme) {
+			entity = classSchemeRepository.save((ClassScheme)entity);
 		} else {
-			throw new IllegalArgumentException(String.format("Invalid semantic feature provided. %s", feature));
+			throw new IllegalArgumentException(String.format("Invalid semantic feature provided. %s", entity));
 		}
+		return entity;
 	}
 
 	/**
@@ -66,32 +61,27 @@ public class SemanticsPersistenceService {
 	 * @param entity The semantic features.
 	 */
 	@SuppressWarnings("unchecked")
-	public void save(List<? extends CerifSemanticFeature> featureList) {
+	public Iterable<? extends CerifSemanticFeature> save(Iterable<? extends CerifSemanticFeature> entityList) {
 		
-		final CerifSemanticFeature entity = (CerifSemanticFeature)featureList.get(0);
+		final CerifSemanticFeature entity = (CerifSemanticFeature) entityList.iterator().next();
 		
 		if (entity instanceof gr.ekt.cerif.features.semantics.Class) {
-			classRepository.save((List<gr.ekt.cerif.features.semantics.Class>)featureList);
+			entityList = classRepository.save((List<gr.ekt.cerif.features.semantics.Class>) entityList);
 		} else if (entity instanceof ClassScheme) {
-			classSchemeService.save((List<ClassScheme>)featureList);
+			entityList = classSchemeRepository.save((List<ClassScheme>) entityList);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid list of semantic features provided. %s", entity));
 		}
 		
-	}	
+		return entityList;
+		
+	}
 
 	/**
 	 * @return the classRepository
 	 */
 	public ClassRepository getClassRepository() {
 		return classRepository;
-	}
-
-	/**
-	 * @return the classSchemeService
-	 */
-	public ClassSchemeService getClassSchemeService() {
-		return classSchemeService;
 	}
 
 	/**

@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.Equipment_Event;
 import gr.ekt.cerif.services.infrastructure.EquipmentRepository;
 import gr.ekt.cerif.services.second.EventRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkEquipmentEventRepository {
 	private EventRepository eventRepository;
 	
 	@Transactional
-	public void save(Equipment_Event entity) {
+	public Equipment_Event save(Equipment_Event entity) {
 		if (entity.getEquipment() == null || entity.getEvent() == null) {
 			throw new IllegalArgumentException("Please provide both a equipment and a event.");
 		}
@@ -40,14 +38,15 @@ public class LinkEquipmentEventRepository {
 		if (entity.getEvent().getId() == null) {
 			eventRepository.save(entity.getEvent());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Equipment_Event> entityList) {
+	public Iterable<Equipment_Event> save(Iterable<Equipment_Event> entityList) {
 		for (Equipment_Event entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }
