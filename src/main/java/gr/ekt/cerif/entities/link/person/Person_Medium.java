@@ -3,8 +3,12 @@
  */
 package gr.ekt.cerif.entities.link.person;
 
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.second.Medium;
+import gr.ekt.cerif.features.semantics.Class;
+
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,11 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.second.Medium;
-import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * 

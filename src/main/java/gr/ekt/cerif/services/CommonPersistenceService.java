@@ -1,10 +1,12 @@
 package gr.ekt.cerif.services;
 
-import java.util.List;
 
 public interface CommonPersistenceService<Entity> {
-	void save(Entity entity);	
 	
-	void save(List<? extends Entity> entities);		
+	Entity save(Entity entity);	
+	
+	Iterable<? extends Entity> save(Iterable<? extends Entity> entities);
+	
+	void delete(Entity entity);
 
 }

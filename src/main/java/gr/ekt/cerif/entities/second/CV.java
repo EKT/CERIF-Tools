@@ -72,6 +72,14 @@ public class CV implements CerifSecondLevelEntity {
 		this.doc = doc;
 		this.uri = uri;
 	}
+	
+	/**
+	 * 
+	 * @param doc
+	 */
+	public CV(byte[] doc) {
+		this.doc = doc;
+	}
 
 	/**
 	 * @return the id

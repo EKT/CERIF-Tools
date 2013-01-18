@@ -106,6 +106,20 @@ public class Person_PostalAddress implements CerifLinkEntity {
 		this.endDate = endDate;
 		this.fraction = fraction;
 	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param postalAddress
+	 * @param startDate
+	 * @param endDate
+	 */
+	public Person_PostalAddress(Person person, PostalAddress postalAddress,Date startDate, Date endDate) {
+		this.person = person;
+		this.postalAddress = postalAddress;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 
 	/**
 	 * @return the person

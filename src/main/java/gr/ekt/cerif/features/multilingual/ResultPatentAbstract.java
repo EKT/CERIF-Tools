@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfResPatAbstr", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPatId","cfLangCode","cfTrans"}))
-public class ResultPatentAbstract implements ResultPatentTranslation {
+public class ResultPatentAbstract implements CerifMultipleLanguageFeature {
 
 	/**
 	 * Serialization version.
@@ -64,7 +64,7 @@ public class ResultPatentAbstract implements ResultPatentTranslation {
 	/**
 	 * The result patent abstract.
 	 */
-	@Column(name="cfAbstr", columnDefinition="TEXT")
+	@Column(name="cfAbstr")
 	private String abstractText;
 
 	/**

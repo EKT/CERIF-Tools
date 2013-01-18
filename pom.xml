@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gr.ekt</groupId>
 	<artifactId>cerif-jpa-persistence</artifactId>
-	<version>0.2</version>
+	<version>0.3</version>
 	<packaging>jar</packaging>
 	<name>CERIF JPA Utility</name>
 	<url>http://www.ekt.gr</url>
@@ -16,7 +16,7 @@
 	<properties>
 		<maven.test.skip>true</maven.test.skip>
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
-		<spring.framework.version>3.0.5.RELEASE</spring.framework.version>
+		<spring.framework.version>3.1.2.RELEASE</spring.framework.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j-version>1.7.1</slf4j-version>
 	</properties>
@@ -28,41 +28,57 @@
                        <activeByDefault>true</activeByDefault>
                  </activation>
                  <properties>
-                       <target.version>0.2</target.version>
+                       <target.version>0.3</target.version>
                        <db.driver>com.mysql.jdbc.Driver</db.driver>
                        <db.url>jdbc:mysql://localhost:3306/cerif?characterEncoding=utf8</db.url>
                        <db.username>root</db.username>
-                       <db.password></db.password>
+                       <db.password>1234</db.password>
                        
-                       <hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
+                       <!-- validate | update | create | create-drop -->
+                       <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
                        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
                        <hibernate.show_sql>true</hibernate.show_sql>
+                       <hibernate.indexBase>/usr/local/lucene</hibernate.indexBase>
+                       <!-- set to "manual" to disable lucene indexing -->
+                       <hibernate.search.indexing_strategy>manual</hibernate.search.indexing_strategy>
+                       
+                       <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
+                       <hibernate.cache.use_query_cache>true</hibernate.cache.use_query_cache>
+                       <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
                  </properties>
           </profile>
 		<profile>
                  <id>cerif-jpa-local-postgres</id>
                  <activation>
-                       <activeByDefault>true</activeByDefault>
+                       <activeByDefault>false</activeByDefault>
                  </activation>
                  <properties>
-                       <target.version>0.2</target.version>
+                       <target.version>0.3</target.version>
                        <db.driver>org.postgresql.Driver</db.driver>
                        <db.url>jdbc:postgresql://localhost:5432/cerif?characterEncoding=utf8</db.url>
                        <db.username>postgres</db.username>
                        <db.password>postgres</db.password>
                        
-                       <hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
+                       <!-- validate | update | create | create-drop -->
+                       <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
                        <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
                        <hibernate.show_sql>true</hibernate.show_sql>
+                       <hibernate.indexBase>/usr/local/lucene</hibernate.indexBase>
+                       <!-- set to "manual" to disable lucene indexing -->
+                       <hibernate.search.indexing_strategy>manual</hibernate.search.indexing_strategy>
+                       
+                       <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
+                       <hibernate.cache.use_query_cache>true</hibernate.cache.use_query_cache>
+                       <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
                  </properties>
-          </profile>          
+          </profile>
 	</profiles>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.0.Final</version>
+			<version>4.1.7.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -72,64 +88,35 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>4.1.0.Final</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>
+			<version>4.3.0.Final</version>
 		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.framework.version}</version>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>			
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.framework.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>			
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${spring.framework.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>			
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.framework.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>			
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -151,41 +138,22 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.0.1.RELEASE</version>
+			<version>1.2.0.RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search</artifactId>
-			<version>3.4.1.Final</version>
+			<version>4.1.1.Final</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 		  <groupId>org.slf4j</groupId>
-		  <artifactId>slf4j-api</artifactId>
-		  <version>${slf4j-version}</version>
-		  <scope>compile</scope>
-		</dependency>		
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j-version}</version>
-			<scope>compile</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
-			</exclusions>
+		  <artifactId>slf4j-log4j12</artifactId>
+		  <version>1.6.4</version>
+		  <scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${slf4j-version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>		
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -197,7 +165,78 @@
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 			<version>3.2.1</version>
-		</dependency>		
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.3</version>
+            <type>jar</type>
+            <classifier>jdk15</classifier>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>xom</groupId>
+            <artifactId>xom</artifactId>
+            <version>1.1</version>
+        </dependency>        
+        <dependency>
+            <groupId>net.sf.ezmorph</groupId>
+            <artifactId>ezmorph</artifactId>
+            <version>1.0.6</version>
+	    </dependency>
+		<dependency>
+			<groupId>com.google.code.geocoder-java</groupId>
+			<artifactId>geocoder-java</artifactId>
+			<version>0.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.geonames</groupId>
+			<artifactId>geonames</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.codehaus.jettison</groupId>
+			<artifactId>jettison</artifactId>
+			<version>1.3</version>
+		</dependency>
+
+		<!-- <dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.5.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency> -->
+		 <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>4.1.7.Final</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib-nodep</artifactId>
+		<version>2.2.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<issueManagement>

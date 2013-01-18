@@ -6,16 +6,14 @@ package gr.ekt.cerif.entities.second;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Indicator;
-
-import java.util.Set;
-
 import gr.ekt.cerif.features.multilingual.IndicatorDescription;
 import gr.ekt.cerif.features.multilingual.IndicatorKeyword;
 import gr.ekt.cerif.features.multilingual.IndicatorName;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

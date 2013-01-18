@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfClassSchemeName", uniqueConstraints=@UniqueConstraint(columnNames={"cfClassSchemeId", "cfLangCode", "cfTrans"}) )
-public class ClassSchemeName implements ClassSchemeTranslation {
+public class ClassSchemeName implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.

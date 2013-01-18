@@ -48,6 +48,12 @@ public class LinkPersonResultPublicationRepository {
 			"  left join persrespub.person pers " +
 			"  left join persrespub.theClass persrespubcl " +
 			"  where respub.id = :respubId and persrespubcl.uri=:persrespubclUri ";
+	
+	private static final String QUERY5 =
+			"select persrespub from Person_ResultPublication persrespub "+
+			"  left join persrespub.resultPublication respub " +
+			"  where respub.id = :respubId ";
+
 
 	@PersistenceContext(unitName="cerif-persistence-unit")
 	private EntityManager entityManager;
@@ -119,6 +125,21 @@ public class LinkPersonResultPublicationRepository {
 			return perrespub;
 	}
 	
+	public List<Person_ResultPublication> queryAllPersResPubByResPubId(Long respubId) {
+		List<Person_ResultPublication> perrespub=null;
+		TypedQuery<Person_ResultPublication> query;
+		
+		query=entityManager.createQuery(QUERY5, Person_ResultPublication.class);
+		query.setParameter("respubId", respubId);
+		
+		try {
+			perrespub=query.getResultList();
+		} catch (NoResultException nre) {
+			perrespub=null;
+		}
+			return perrespub;
+	}
+	
 	public Person_ResultPublication queryPersResPubByResPubIdAndPersId(Long respubId, String persrespubclUri, Long persId) {
 		Person_ResultPublication perrespub=null;
 		TypedQuery<Person_ResultPublication> query;
@@ -150,7 +171,11 @@ public class LinkPersonResultPublicationRepository {
 		query.setParameter("respubId", respubId);
 		query.setParameter("persrespubclUri", persrespubclUri);
 		
-		ids=query.getResultList();
+		try {
+			ids=query.getResultList();
+		} catch (NoResultException nre) {
+			ids=null;
+		} 
 			
 		return ids;
 	}

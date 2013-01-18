@@ -5,12 +5,16 @@ package gr.ekt.cerif.services.result;
 
 import gr.ekt.cerif.entities.result.ResultPatent;
 
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * A repository for patents.
  * 
  */
-public interface ResultPatentRepository extends CrudRepository<ResultPatent, String> {
+public interface ResultPatentRepository {
 
+	void delete(ResultPatent entity);
+	
+	Iterable<ResultPatent> save(Iterable<ResultPatent> entities);
+	
+	ResultPatent save(ResultPatent entity);
 }

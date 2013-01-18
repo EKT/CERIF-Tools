@@ -6,14 +6,20 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
-
 /**
  * A repository for links between fundings and classes.
  * 
  */
-public interface LinkFundingClassRepository extends CrudRepository<Funding_Class, String>{
+public interface LinkFundingClassRepository {
+	
 	List<Funding_Class> findByTheClass(Class theClass);
+	
 	List<Funding_Class> findByTheClassAndFunding(Class theClass, Funding funding);
+	
+	public Funding_Class save(Funding_Class entity);
+	
+	public Iterable<? extends Funding_Class> save(Iterable<? extends Funding_Class> entities);
+	
+	public void delete(Funding_Class entity);
 	
 }

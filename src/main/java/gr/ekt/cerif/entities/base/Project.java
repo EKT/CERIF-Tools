@@ -3,7 +3,7 @@
  */
 package gr.ekt.cerif.entities.base;
 
-import gr.ekt.cerif.entities.link.project.Project_Classification;
+import gr.ekt.cerif.entities.link.project.Project_Class;
 import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Event;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
@@ -23,19 +23,31 @@ import gr.ekt.cerif.features.multilingual.ProjectTitle;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 /**
  * Represents a project base entity.
  */
 @Entity
 @Table(name="cfProj")
+@Indexed(index="indexes/projects")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Project implements CerifBaseEntity {
 	
 	/**
@@ -67,6 +79,7 @@ public class Project implements CerifBaseEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
+	@Field(name="projectAcronym", index=Index.YES, store=Store.YES)
 	private String acronym;
 
 	/**
@@ -78,25 +91,25 @@ public class Project implements CerifBaseEntity {
 	/**
 	 * The project titles.
 	 */
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
 	private Set<ProjectTitle> projectTitles;
 	
 	/**
 	 * The project abstracts.
 	 */
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
 	private Set<ProjectAbstract> projectAbstracts;
 	
 	/**
 	 * The project keywords.
 	 */
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
 	private Set<ProjectKeyword> projectKeywords;
 
 	/**
 	 * The organisations.
 	 */
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
 	private Set<Project_OrganisationUnit> organisationUnits;
 	
 	/**
@@ -114,7 +127,7 @@ public class Project implements CerifBaseEntity {
 	/**
 	 * The persons.
 	 */
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
 	private Set<Project_Person> persons;
 	
 	
@@ -125,7 +138,7 @@ public class Project implements CerifBaseEntity {
 	private Set<Project_ResultProduct> resultProducts;
 	
 	@OneToMany(mappedBy="project")
-	private Set<Project_Classification> projects_classes;
+	private Set<Project_Class> projects_classes;
 
 	@OneToMany(mappedBy="project")
 	private Set<Project_Equipment> projects_equipments;
@@ -136,7 +149,7 @@ public class Project implements CerifBaseEntity {
 	@OneToMany(mappedBy="project")
 	private Set<Project_Facility> projects_facilities;
 
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
 	private Set<Project_Funding> projects_fundings;
 
 	@OneToMany(mappedBy="project")
@@ -145,7 +158,7 @@ public class Project implements CerifBaseEntity {
 	@OneToMany(mappedBy="project")
 	private Set<Project_ResultPatent> projects_resultPatents;
 
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", fetch=FetchType.EAGER)
 	private Set<Project_ResultPublication> projects_resultPublications;
 
 	@OneToMany(mappedBy="project")
@@ -387,14 +400,14 @@ public class Project implements CerifBaseEntity {
 	/**
 	 * @return the projects_classes
 	 */
-	public Set<Project_Classification> getProjects_classes() {
+	public Set<Project_Class> getProjects_classes() {
 		return projects_classes;
 	}
 
 	/**
 	 * @param projects_classes the projects_classes to set
 	 */
-	public void setProjects_classes(Set<Project_Classification> projects_classes) {
+	public void setProjects_classes(Set<Project_Class> projects_classes) {
 		this.projects_classes = projects_classes;
 	}
 

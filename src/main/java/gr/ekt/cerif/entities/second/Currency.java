@@ -16,7 +16,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -61,25 +60,25 @@ public class Currency implements CerifSecondLevelEntity {
 	/**
 	 * The link entities of projects and equipments.
 	 */
-	@OneToMany(mappedBy="currency")
+	@OneToMany(mappedBy="equipment")
 	private Set<Project_Equipment> projects_equipments;
 	
 	/**
 	 * The link entities of projects and facilities.
 	 */
-	@OneToMany(mappedBy="currency")
+	@OneToMany(mappedBy="facility")
 	private Set<Project_Facility> projects_facilities;
 	
 	/**
 	 * The link entities of projects and services.
 	 */
-	@OneToMany(mappedBy="currency")
+	@OneToMany(mappedBy="service")
 	private Set<Project_Service> projects_services;
 	
 	/**
 	 * The link entities of projects and fundings.
 	 */
-	@OneToMany(mappedBy="currency")
+	@OneToMany(mappedBy="funding")
 	private Set<Project_Funding> projects_fundings;
 	
 	@OneToMany(mappedBy="currency")

@@ -3,17 +3,15 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.person.Person_ExpertiseAndSkills;
 import gr.ekt.cerif.features.multilingual.ExpertiseAndSkillsDescription;
 import gr.ekt.cerif.features.multilingual.ExpertiseAndSkillsKeyword;
 import gr.ekt.cerif.features.multilingual.ExpertiseAndSkillsName;
 
 import java.util.Set;
 
-import gr.ekt.cerif.entities.link.person.Person_ExpertiseAndSkills;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

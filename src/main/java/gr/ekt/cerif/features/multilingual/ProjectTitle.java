@@ -6,6 +6,7 @@ package gr.ekt.cerif.features.multilingual;
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.second.Language;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,13 +20,18 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Holds the multi-lingual title of a project entity.
  * 
  */
 @Entity
 @Table(name="cfProjTitle", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId","cfLangCode","cfTrans"}))
-public class ProjectTitle implements ProjectTranslation {
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+public class ProjectTitle implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.

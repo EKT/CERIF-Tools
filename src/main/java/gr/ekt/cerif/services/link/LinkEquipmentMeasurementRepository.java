@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.Equipment_Measurement;
 import gr.ekt.cerif.services.infrastructure.EquipmentRepository;
 import gr.ekt.cerif.services.second.MeasurementRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkEquipmentMeasurementRepository {
 	private MeasurementRepository measurementRepository;
 	
 	@Transactional
-	public void save(Equipment_Measurement entity) {
+	public Equipment_Measurement save(Equipment_Measurement entity) {
 		if (entity.getEquipment() == null || entity.getMeasurement() == null) {
 			throw new IllegalArgumentException("Please provide both a equipment and a measurement.");
 		}
@@ -40,14 +38,15 @@ public class LinkEquipmentMeasurementRepository {
 		if (entity.getMeasurement().getId() == null) {
 			measurementRepository.save(entity.getMeasurement());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Equipment_Measurement> entityList) {
+	public Iterable<Equipment_Measurement> save(Iterable<Equipment_Measurement> entityList) {
 		for (Equipment_Measurement entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

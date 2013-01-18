@@ -6,16 +6,14 @@ package gr.ekt.cerif.entities.second;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Measurement;
-
-import java.util.Set;
-
 import gr.ekt.cerif.features.multilingual.MeasurementDescription;
 import gr.ekt.cerif.features.multilingual.MeasurementKeyword;
 import gr.ekt.cerif.features.multilingual.MeasurementName;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -83,13 +81,13 @@ public class Measurement implements CerifSecondLevelEntity {
 	/**
 	 * The valJudgeText.
 	 */
-	@Column(name="cfValJudgeText", columnDefinition="TEXT")
+	@Column(name="cfValJudgeText")
 	private String valJudgeText;
 	
 	/**
 	 * The valJudgeText.
 	 */
-	@Column(name="cfValJudgeTextChange", columnDefinition="TEXT")
+	@Column(name="cfValJudgeTextChange")
 	private String valJudgeTextChange;
 	
 	/**

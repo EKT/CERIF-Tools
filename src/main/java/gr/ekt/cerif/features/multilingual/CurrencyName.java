@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfCurrencyName", uniqueConstraints=@UniqueConstraint(columnNames={"cfCurrCode","cfLangCode","cfTrans"}))
-public class CurrencyName implements CurrencyTranslation {
+public class CurrencyName implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.

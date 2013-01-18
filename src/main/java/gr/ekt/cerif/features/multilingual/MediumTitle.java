@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfMediumTitle", uniqueConstraints=@UniqueConstraint(columnNames={"cfMediumId","cfLangCode","cfTrans"}))
-public class MediumTitle implements MediumTranslation {
+public class MediumTitle implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.

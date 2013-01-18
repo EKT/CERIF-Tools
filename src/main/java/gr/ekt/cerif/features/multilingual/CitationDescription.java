@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfCiteDescr", uniqueConstraints=@UniqueConstraint(columnNames={"cfCiteId","cfLangCode","cfTrans"}))
-public class CitationDescription implements CitationTranslation {
+public class CitationDescription implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.
@@ -65,7 +65,7 @@ public class CitationDescription implements CitationTranslation {
 	/**
 	 * The citation title.
 	 */
-	@Column(name="cfDescr", columnDefinition="TEXT")
+	@Column(name="cfDescr")
 	private String description;
 	
 	/**

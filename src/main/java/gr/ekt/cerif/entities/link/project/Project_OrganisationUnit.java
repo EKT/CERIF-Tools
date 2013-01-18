@@ -10,6 +10,7 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,12 +22,17 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Links a project with an organization unit.
  * 
  */
 @Entity
 @Table(name="cfProj_OrgUnit", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId", "cfOrgUnitId", "cfClassId", "cfStartDate", "cfEndDate"}) )
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Project_OrganisationUnit implements CerifLinkEntity {
 	
 	/**

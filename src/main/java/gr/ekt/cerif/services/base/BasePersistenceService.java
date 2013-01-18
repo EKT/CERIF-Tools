@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Persistence service for CERIF Base Entities.
@@ -24,7 +25,7 @@ public class BasePersistenceService {
 	 * The organisation repository.
 	 */
 	@Autowired
-	private OrganisationUnitRepository organisationRepository;
+	private OrganisationUnitRepository organisationUnitRepository;
 	
 	/**
 	 * The person repository.
@@ -42,9 +43,10 @@ public class BasePersistenceService {
 	 * Deletes the provided base entity.
 	 * @param entity The base entity.
 	 */
+	@Transactional
 	public void delete(CerifBaseEntity entity) {
 		if (entity instanceof OrganisationUnit) {
-			organisationRepository.delete((OrganisationUnit)entity);
+			organisationUnitRepository.delete((OrganisationUnit)entity);
 		} else if (entity instanceof Person) {
 			personRepository.delete((Person)entity);
 		} else if (entity instanceof Project) {
@@ -58,16 +60,18 @@ public class BasePersistenceService {
 	 * Saves the provided base entity.
 	 * @param entity The base entity.
 	 */
-	public void save(CerifBaseEntity entity) {
+	@Transactional
+	public CerifBaseEntity save(CerifBaseEntity entity) {
 		if (entity instanceof OrganisationUnit) {
-			organisationRepository.save((OrganisationUnit)entity);
+			entity = organisationUnitRepository.save((OrganisationUnit) entity);
 		} else if (entity instanceof Person) {
-			personRepository.save((Person)entity);
+			entity = personRepository.save((Person) entity);
 		} else if (entity instanceof Project) {
-			projectRepository.save((Project)entity);
+			entity = projectRepository.save((Project) entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid base entity provided. %s", entity));
 		}
+		return entity;
 	}
 
 	/**
@@ -75,35 +79,36 @@ public class BasePersistenceService {
 	 * @param entity The base entities.
 	 */
 	@SuppressWarnings("unchecked")
-	public void save(List<? extends CerifBaseEntity> entityList) {
+	@Transactional
+	public Iterable<? extends CerifBaseEntity> save(Iterable<? extends CerifBaseEntity> entityList) {
 		
-		final CerifBaseEntity entity = (CerifBaseEntity)entityList.get(0);
+		final CerifBaseEntity entity = (CerifBaseEntity)entityList.iterator().next();
 		
 		if (entity instanceof OrganisationUnit) {
-			organisationRepository.save((List<OrganisationUnit>)entityList);
+			entityList = organisationUnitRepository.save((List<OrganisationUnit>) entityList);
 		} else if (entity instanceof Person) {
-			personRepository.save((List<Person>)entityList);
+			entityList = personRepository.save((List<Person>) entityList);
 		} else if (entity instanceof Project) {
-			projectRepository.save((List<Project>)entityList);
+			entityList = projectRepository.save((List<Project>) entityList);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid list of base entities provided. %s", entity));
 		}
-		
+		return entityList;
 	}
 
 	/**
 	 * @return the organisationRepository
 	 */
-	public OrganisationUnitRepository getOrganisationRepository() {
-		return organisationRepository;
+	public OrganisationUnitRepository getOrganisationUnitRepository() {
+		return organisationUnitRepository;
 	}
 
 	/**
 	 * @param organisationRepository the organisationRepository to set
 	 */
-	public void setOrganisationRepository(
-			OrganisationUnitRepository organisationRepository) {
-		this.organisationRepository = organisationRepository;
+	public void setOrganisationUnitRepository(
+			OrganisationUnitRepository organisationUnitRepository) {
+		this.organisationUnitRepository = organisationUnitRepository;
 	}
 
 	/**

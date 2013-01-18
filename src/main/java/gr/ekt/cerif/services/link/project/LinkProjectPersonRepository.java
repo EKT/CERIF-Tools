@@ -17,10 +17,12 @@ import org.springframework.data.repository.CrudRepository;
  * 
  */
 
-public interface LinkProjectPersonRepository  extends CrudRepository<Project_Person, Long> {
+public interface LinkProjectPersonRepository extends CrudRepository<Project_Person, Long> {
+	
 	public Project_Person findByProjectAndPerson(Project project, Person person);
 
 	List <Project_Person> findByPerson(Person person);
 	
 	List <Project_Person> findByTheClass(Class theClass);
+	
 }

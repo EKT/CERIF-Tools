@@ -5,6 +5,8 @@ package gr.ekt.cerif.features.multilingual;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.second.Language;
+
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,13 +20,23 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 /**
  * Holds the multi-lingual name of an OrganisationUnit entity.
  * 
  */
 @Entity
 @Table(name="cfOrgUnitName", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId","cfLangCode","cfTrans"}))
-public class OrganisationUnitName implements OrganisationUnitTranslation {
+@Indexed(index="indexes/organisationUnits/names")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+public class OrganisationUnitName implements CerifMultipleLanguageFeature {
 
 	/**
 	 * Serialization version.
@@ -65,6 +77,7 @@ public class OrganisationUnitName implements OrganisationUnitTranslation {
 	 * The organisation unit name.
 	 */
 	@Column(name="cfName")
+	@Field(name="organisationUnitName", index=Index.YES, store=Store.YES)
 	private String name;	
 
 	/**

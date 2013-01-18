@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfSrvName")
-public class ServiceName implements ServiceTranslation {
+public class ServiceName implements CerifMultipleLanguageFeature {
 	
 	/**
 	 * Serialization version.

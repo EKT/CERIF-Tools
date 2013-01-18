@@ -17,7 +17,6 @@ import gr.ekt.cerif.entities.link.person.Person_Language;
 import gr.ekt.cerif.entities.link.person.Person_Medium;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.person.Person_Person;
-//import gr.ekt.cerif.entities.link.person.Person_Person;
 import gr.ekt.cerif.entities.link.person.Person_PostalAddress;
 import gr.ekt.cerif.entities.link.person.Person_Prize;
 import gr.ekt.cerif.entities.link.person.Person_Qualification;
@@ -33,9 +32,9 @@ import gr.ekt.cerif.features.multilingual.PersonResearchInterest;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,11 +43,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+//import gr.ekt.cerif.entities.link.person.Person_Person;
+
 /**
  * Represents a person base entity.
  */
 @Entity
 @Table(name="cfPers")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Person implements CerifBaseEntity {
 	
 	/**

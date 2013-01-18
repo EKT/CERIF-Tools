@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.Equipment_Indicator;
 import gr.ekt.cerif.services.infrastructure.EquipmentRepository;
 import gr.ekt.cerif.services.second.IndicatorRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkEquipmentIndicatorRepository {
 	private IndicatorRepository indicatorRepository;
 	
 	@Transactional
-	public void save(Equipment_Indicator entity) {
+	public Equipment_Indicator save(Equipment_Indicator entity) {
 		if (entity.getEquipment() == null || entity.getIndicator() == null) {
 			throw new IllegalArgumentException("Please provide both a equipment and a indicator.");
 		}
@@ -40,14 +38,15 @@ public class LinkEquipmentIndicatorRepository {
 		if (entity.getIndicator().getId() == null) {
 			indicatorRepository.save(entity.getIndicator());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Equipment_Indicator> entityList) {
+	public Iterable<Equipment_Indicator> save(Iterable<Equipment_Indicator> entityList) {
 		for (Equipment_Indicator entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

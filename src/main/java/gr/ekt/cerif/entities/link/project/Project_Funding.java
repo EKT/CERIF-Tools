@@ -83,8 +83,7 @@ public class Project_Funding implements CerifLinkEntity {
 	/**
 	 * The currency code.
 	 */
-	@ManyToOne
-	@JoinColumn(name="cfCurrCode")
+	@Column(name="cfCurrCode")
 	private Currency currency;
 
 	/**
@@ -127,6 +126,23 @@ public class Project_Funding implements CerifLinkEntity {
 		this.endDate = endDate;
 		this.fraction = fraction;
 		this.currency = currency;
+	}
+	
+	/**
+	 * 
+	 * @param project
+	 * @param funding
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public Project_Funding(Project project, Funding funding, Class theClass, Date startDate, Date endDate) {
+		super();
+		this.project = project;
+		this.funding = funding;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 	/**

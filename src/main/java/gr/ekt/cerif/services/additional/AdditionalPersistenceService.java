@@ -26,13 +26,13 @@ import gr.ekt.cerif.features.additional.DublinCoreRightsManagementLicence;
 import gr.ekt.cerif.features.additional.DublinCoreSource;
 import gr.ekt.cerif.features.additional.DublinCoreSubject;
 import gr.ekt.cerif.features.additional.DublinCoreTitle;
+import gr.ekt.cerif.features.additional.Feedback;
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementPricing;
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementPrivacy;
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementRights;
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementSecurity;
 import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.additional.SentEmails;
-import gr.ekt.cerif.services.multilingual.PersonTranslationRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -130,22 +130,12 @@ public class AdditionalPersistenceService {
 	private SentEmailsRepository sentEmailsRepository;
 	
 	@Autowired
-	PersonTranslationRepository personTranslationRepository;
+	private FeedbackRepository feedbackRepository;
 	
 	@Transactional
 	public void delete(CerifAdditionalFeature entity) {
-		
 		if (entity instanceof PersonName) {
 			personNameRepository.delete( (PersonName) entity);
-		} else {
-			throw new IllegalArgumentException(String.format("Invalid additional feature entity provided. %s", entity));
-		}
-	}
-	
-	@Transactional
-	public void save(CerifAdditionalFeature entity) {
-		if (entity instanceof PersonName) {
-			personNameRepository.save( (PersonName) entity);
 		} else if (entity instanceof DublinCoreAudience) {
 			dublinCoreAudienceRepository.save( (DublinCoreAudience) entity);
 		} else if (entity instanceof DublinCoreContributor) {
@@ -200,8 +190,76 @@ public class AdditionalPersistenceService {
 			formalisedDublinCoreRightsManagementSecurityRepository.save( (FormalisedDublinCoreRightsManagementSecurity) entity);
 		} else if (entity instanceof SentEmails) {
 			sentEmailsRepository.save( (SentEmails) entity);
+		} else if (entity instanceof Feedback) {
+			feedbackRepository.save( (Feedback) entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid additional feature entity provided. %s", entity));
 		}
+	}
+	
+	@Transactional
+	public CerifAdditionalFeature save(CerifAdditionalFeature entity) {
+		if (entity instanceof PersonName) {
+			entity = personNameRepository.save( (PersonName) entity);
+		} else if (entity instanceof DublinCoreAudience) {
+			dublinCoreAudienceRepository.save( (DublinCoreAudience) entity);
+		} else if (entity instanceof DublinCoreContributor) {
+			dublinCoreContributorRepository.save( (DublinCoreContributor) entity);
+		} else if (entity instanceof DublinCoreCoverage) {
+			dublinCoreCoverageRepository.save( (DublinCoreCoverage) entity);
+		} else if (entity instanceof DublinCoreCoverageSpatial) {
+			dublinCoreCoverageSpatialRepository.save( (DublinCoreCoverageSpatial) entity);
+		} else if (entity instanceof DublinCoreCoverageTemporal) {
+			dublinCoreCoverageTemporalRepository.save( (DublinCoreCoverageTemporal) entity);
+		} else if (entity instanceof DublinCoreCreator) {
+			dublinCoreCreatorRepository.save( (DublinCoreCreator) entity);
+		} else if (entity instanceof DublinCoreDate) {
+			dublinCoreDateRepository.save( (DublinCoreDate) entity);
+		} else if (entity instanceof DublinCoreDescription) {
+			dublinCoreDescriptionRepository.save( (DublinCoreDescription) entity);
+		} else if (entity instanceof DublinCoreFormat) {
+			dublinCoreFormatRepository.save( (DublinCoreFormat) entity);
+		} else if (entity instanceof DublinCoreLanguage) {
+			dublinCoreLanguageRepository.save( (DublinCoreLanguage) entity);
+		} else if (entity instanceof DublinCoreProvenance) {
+			dublinCoreProvenanceRepository.save( (DublinCoreProvenance) entity);
+		} else if (entity instanceof DublinCorePublisher) {
+			dublinCorePublisherRepository.save( (DublinCorePublisher) entity);
+		} else if (entity instanceof DublinCoreRelation) {
+			dublinCoreRelationRepository.save( (DublinCoreRelation) entity);
+		} else if (entity instanceof DublinCore) {
+			dublinCoreRepository.save( (DublinCore) entity);
+		} else if (entity instanceof DublinCoreResourceIdentifier) {
+			dublinCoreResourceIdentifierRepository.save( (DublinCoreResourceIdentifier) entity);
+		} else if (entity instanceof DublinCoreResourceType) {
+			dublinCoreResourceTypeRepository.save( (DublinCoreResourceType) entity);
+		} else if (entity instanceof DublinCoreRightsManagementAccessRights) {
+			dublinCoreRightsManagementAccessRightsRepository.save( (DublinCoreRightsManagementAccessRights) entity);
+		} else if (entity instanceof DublinCoreRightsManagementLicence) {
+			dublinCoreRightsManagementLicenceRepository.save( (DublinCoreRightsManagementLicence) entity);
+		} else if (entity instanceof DublinCoreRightsManagement) {
+			dublinCoreRightsManagementRepository.save( (DublinCoreRightsManagement) entity);
+		} else if (entity instanceof DublinCoreSource) {
+			dublinCoreSourceRepository.save( (DublinCoreSource) entity);
+		} else if (entity instanceof DublinCoreSubject) {
+			dublinCoreSubjectRepository.save( (DublinCoreSubject) entity);
+		} else if (entity instanceof DublinCoreTitle) {
+			dublinCoreTitleRepository.save( (DublinCoreTitle) entity);
+		} else if (entity instanceof FormalisedDublinCoreRightsManagementPricing) {
+			formalisedDublinCoreRightsManagementPricingRepository.save( (FormalisedDublinCoreRightsManagementPricing) entity);
+		} else if (entity instanceof FormalisedDublinCoreRightsManagementPrivacy) {
+			formalisedDublinCoreRightsManagementPrivacyRepository.save( (FormalisedDublinCoreRightsManagementPrivacy) entity);
+		} else if (entity instanceof FormalisedDublinCoreRightsManagementRights) {
+			formalisedDublinCoreRightsManagementRightsRepository.save( (FormalisedDublinCoreRightsManagementRights) entity);
+		} else if (entity instanceof FormalisedDublinCoreRightsManagementSecurity) {
+			formalisedDublinCoreRightsManagementSecurityRepository.save( (FormalisedDublinCoreRightsManagementSecurity) entity);
+		} else if (entity instanceof SentEmails) {
+			sentEmailsRepository.save( (SentEmails) entity);
+		} else if (entity instanceof Feedback) {
+			feedbackRepository.save( (Feedback) entity);
+		} else {
+			throw new IllegalArgumentException(String.format("Invalid additional feature entity provided. %s", entity));
+		}
+		return entity;
 	}
 }

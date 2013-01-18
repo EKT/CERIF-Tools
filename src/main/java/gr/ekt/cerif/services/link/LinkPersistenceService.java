@@ -110,7 +110,7 @@ import gr.ekt.cerif.entities.link.person.Person_ResultPatent;
 import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.person.Person_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_Service;
-import gr.ekt.cerif.entities.link.project.Project_Classification;
+import gr.ekt.cerif.entities.link.project.Project_Class;
 import gr.ekt.cerif.entities.link.project.Project_DublinCore;
 import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Event;
@@ -174,7 +174,7 @@ import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitIndicator
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitMeasurementRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitMediumRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitOrganisationUnitRepository;
-import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitPAddrRepository;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitPostalAddressRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitPrizeRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitResultPatentRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitResultProductRepository;
@@ -184,7 +184,7 @@ import gr.ekt.cerif.services.link.person.LinkPersonClassRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonCountryRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonCvRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonDublinCoreRepository;
-import gr.ekt.cerif.services.link.person.LinkPersonEAddrRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonElectronicAddressRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonEquipmentRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonEventRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonExpertiseAndSkillsRepository;
@@ -196,7 +196,7 @@ import gr.ekt.cerif.services.link.person.LinkPersonMeasurementRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonMediumRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonNamePersonRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonOrganisationUnitRepository;
-import gr.ekt.cerif.services.link.person.LinkPersonPAddrRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonPostalAddressRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonPersonRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonPrizeRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonQualificationRepository;
@@ -213,7 +213,7 @@ import gr.ekt.cerif.services.link.project.LinkProjectFundingRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectIndicatorRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectMeasurementRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectMediumRepository;
-import gr.ekt.cerif.services.link.project.LinkProjectOrganisationRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectOrganisationUnitRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectPersonRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectPrizeAwardRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectProductRepository;
@@ -347,9 +347,6 @@ public class LinkPersistenceService {
 	private LinkFacilityClassRepository facilityClassRepository;
 	
 	@Autowired
-	private LinkFacilityClassService facilityClassService;
-	
-	@Autowired
 	private LinkFacilityEquipmentRepository facilityEquipmentRepository;
 	
 	@Autowired
@@ -357,9 +354,6 @@ public class LinkPersistenceService {
 	
 	@Autowired
 	private LinkFacilityFacilityRepository facilityFacilityRepository;
-	
-	@Autowired
-	private LinkFacilityFacilityService facilityFacilityService;
 	
 	@Autowired
 	private LinkFacilityFundingRepository facilityFundingRepository;
@@ -381,9 +375,6 @@ public class LinkPersistenceService {
 	
 	@Autowired
 	private LinkFundingClassRepository fundingClassRepository;
-	
-	@Autowired
-	private LinkFundingClassService fundingClassService;
 	
 	@Autowired
 	private LinkFundingFundingRepository fundingFundingRepository;
@@ -512,7 +503,7 @@ public class LinkPersistenceService {
 	private LinkOrganisationUnitOrganisationUnitRepository organisationUnitOrganisationUnitRepository;
 	
 	@Autowired
-	private LinkOrganisationUnitPAddrRepository organisationUnitPAddrRepository;
+	private LinkOrganisationUnitPostalAddressRepository organisationUnitPAddrRepository;
 	
 	@Autowired
 	private LinkOrganisationUnitPrizeRepository organisationUnitPrizeRepository;	
@@ -575,7 +566,7 @@ public class LinkPersistenceService {
 	 * The repository for links between projects and organisations.
 	 */
 	@Autowired
-	private LinkProjectOrganisationRepository projectOrganisationRepository;
+	private LinkProjectOrganisationUnitRepository projectOrganisationUnitRepository;
 	
 	/**
 	 * The repository for links between projects.
@@ -638,7 +629,7 @@ public class LinkPersistenceService {
 	private LinkPersonDublinCoreRepository personDublinCoreRepository;
 	
 	@Autowired
-	private LinkPersonEAddrRepository personEAddrRepository;
+	private LinkPersonElectronicAddressRepository personEAddrRepository;
 	
 	@Autowired
 	private LinkPersonEquipmentRepository personEquipmentRepository;
@@ -671,7 +662,7 @@ public class LinkPersistenceService {
 	private LinkPersonOrganisationUnitRepository personOrganisationUnitRepository;
 	
 	@Autowired
-	private LinkPersonPAddrRepository personPAddrRepository;
+	private LinkPersonPostalAddressRepository personPAddrRepository;
 	
 	@Autowired
 	private LinkPersonPersonRepository personPersonRepository;
@@ -811,7 +802,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Citation_Medium) {
 			citationMediumRepository.save((Citation_Medium) entity);
 		} else if (entity instanceof Class_Class) {
-			classClassRepository.save((Class_Class) entity);
+			classClassRepository.delete((Class_Class) entity);
 		} else if (entity instanceof ClassScheme_ClassScheme) {
 			classSchemeClassSchemeRepository.save((ClassScheme_ClassScheme) entity);
 		} else if (entity instanceof Country_Class) {
@@ -855,15 +846,15 @@ public class LinkPersistenceService {
 		} else if (entity instanceof ExpertiseAndSkills_Class) {
 			expertiseAndSkillsClassRepository.save((ExpertiseAndSkills_Class) entity);
 		} else if (entity instanceof Facility_Class) {
-			facilityClassService.save((Facility_Class) entity);
+			facilityClassRepository.delete((Facility_Class) entity);
 		} else if (entity instanceof Facility_Equipment) {
 			facilityEquipmentRepository.save((Facility_Equipment) entity);
 		} else if (entity instanceof Facility_Event) {
 			facilityEventRepository.save((Facility_Event) entity);
 		} else if (entity instanceof Facility_Facility) {
-			facilityFacilityService.save((Facility_Facility) entity);
+			facilityFacilityRepository.delete((Facility_Facility) entity);
 		} else if (entity instanceof Facility_Funding) {
-			facilityFundingRepository.save((Facility_Funding) entity);
+			facilityFundingRepository.delete((Facility_Funding) entity);
 		} else if (entity instanceof Facility_Indicator) {
 			facilityIndicatorRepository.save((Facility_Indicator) entity);
 		} else if (entity instanceof Facility_Measurement) {
@@ -875,7 +866,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Facility_Service) {
 			facilityServiceRepository.save((Facility_Service) entity);
 		} else if (entity instanceof Funding_Class) {
-			fundingClassService.save((Funding_Class) entity);
+			fundingClassRepository.delete((Funding_Class) entity);
 		} else if (entity instanceof Funding_Funding) {
 			fundingFundingRepository.save((Funding_Funding) entity);
 		} else if (entity instanceof Funding_Indicator) {
@@ -937,7 +928,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Service_Service) {
 			serviceServiceRepository.save((Service_Service) entity);
 		} else if (entity instanceof OrganisationUnit_Class) {
-			organisationUnitClassRepository.save((OrganisationUnit_Class) entity);
+			organisationUnitClassRepository.delete((OrganisationUnit_Class) entity);
 		} else if (entity instanceof OrganisationUnit_DublinCore) {
 			organisationUnitDublinCoreRepository.save((OrganisationUnit_DublinCore) entity);
 		} else if (entity instanceof OrganisationUnit_ElectronicAddress) {
@@ -972,8 +963,8 @@ public class LinkPersistenceService {
 			organisationUnitResultPublicationRepository.delete((OrganisationUnit_ResultPublication) entity);
 		} else if (entity instanceof OrganisationUnit_Service) {
 			organisationUnitServiceRepository.save((OrganisationUnit_Service) entity);
-		} else if (entity instanceof Project_Classification) {
-			projectClassRepository.delete((Project_Classification) entity);
+		} else if (entity instanceof Project_Class) {
+			projectClassRepository.delete((Project_Class) entity);
 		} else if (entity instanceof Project_DublinCore) {
 			projectDublinCoreRepository.save((Project_DublinCore) entity);
 		} else if (entity instanceof Project_Equipment) {
@@ -983,7 +974,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Project_Facility) {
 			projectFacilityRepository.save((Project_Facility) entity);
 		} else if (entity instanceof Project_Funding) {
-			projectFundingRepository.save((Project_Funding) entity);
+			projectFundingRepository.delete((Project_Funding) entity);
 		} else if (entity instanceof Project_Indicator) {
 			projectIndicatorRepository.save((Project_Indicator) entity);
 		} else if (entity instanceof Project_Measurement) {
@@ -1001,7 +992,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Project_Service) {
 			projectServiceRepository.save((Project_Service) entity);
 		} else if (entity instanceof Project_OrganisationUnit) {
-			projectOrganisationRepository.delete((Project_OrganisationUnit) entity);
+			projectOrganisationUnitRepository.delete((Project_OrganisationUnit) entity);
 		} else if (entity instanceof Project_Person) {
 			projectPersonRepository.delete((Project_Person) entity);
 		} else if (entity instanceof Project_Project) {
@@ -1015,7 +1006,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Person_Country) {
 			personCountryRepository.save((Person_Country) entity);
 		} else if (entity instanceof Person_Cv) {
-			personCvRepository.save((Person_Cv) entity);
+			personCvRepository.delete((Person_Cv) entity);
 		} else if (entity instanceof Person_DublinCore) {
 			personDublinCoreRepository.save((Person_DublinCore) entity);
 		} else if (entity instanceof Person_ElectronicAddress) {
@@ -1043,7 +1034,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Person_PostalAddress) {
 			personPAddrRepository.delete((Person_PostalAddress) entity);
 		} else if (entity instanceof Person_Person) {
-			personPersonRepository.save((Person_Person) entity);
+			personPersonRepository.delete((Person_Person) entity);
 		} else if (entity instanceof Person_Prize) {
 			personPrizeRepository.save((Person_Prize) entity);
 		} else if (entity instanceof Person_Qualification) {
@@ -1135,33 +1126,33 @@ public class LinkPersistenceService {
 	 * Saves the provided link entity.
 	 * @param entity The link entity.
 	 */
-	public void save(CerifLinkEntity entity) {
+	public CerifLinkEntity save(CerifLinkEntity entity) {
 		if (entity instanceof Citation_Class) {
-			citationClassRepository.save((Citation_Class) entity);
+			entity = citationClassRepository.save((Citation_Class) entity);
 		} else if (entity instanceof Citation_Medium) {
-			citationMediumRepository.save((Citation_Medium) entity);
+			entity = citationMediumRepository.save((Citation_Medium) entity);
 		} else if (entity instanceof Class_Class) {
-			classClassRepository.save((Class_Class) entity);
+			entity = classClassRepository.save((Class_Class) entity);
 		} else if (entity instanceof ClassScheme_ClassScheme) {
-			classSchemeClassSchemeRepository.save((ClassScheme_ClassScheme) entity);
+			entity = classSchemeClassSchemeRepository.save((ClassScheme_ClassScheme) entity);
 		} else if (entity instanceof Country_Class) {
-			countryClassRepository.save((Country_Class) entity);
+			entity = countryClassRepository.save((Country_Class) entity);
 		} else if (entity instanceof Currency_Class) {
-			currencyClassRepository.save((Currency_Class) entity);
+			entity = currencyClassRepository.save((Currency_Class) entity);
 		} else if (entity instanceof Cv_Class) {
-			cvClassRepository.save((Cv_Class) entity);
+			entity = cvClassRepository.save((Cv_Class) entity);
 		} else if (entity instanceof ElectronicAddress_Class) {
-			electronicAddressClassRepository.save((ElectronicAddress_Class) entity);
+			entity = electronicAddressClassRepository.save((ElectronicAddress_Class) entity);
 		} else if (entity instanceof Equipment_Class) {
-			equipmentClassRepository.save((Equipment_Class) entity);
+			entity = equipmentClassRepository.save((Equipment_Class) entity);
 		} else if (entity instanceof Equipment_Equipment) {
-			equipmentEquipmentRepository.save((Equipment_Equipment) entity);
+			entity = equipmentEquipmentRepository.save((Equipment_Equipment) entity);
 		} else if (entity instanceof Equipment_Event) {
-			equipmentEventRepository.save((Equipment_Event) entity);
+			entity = equipmentEventRepository.save((Equipment_Event) entity);
 		} else if (entity instanceof Equipment_Funding) {
-			equipmentFundingRepository.save((Equipment_Funding) entity);
+			entity = equipmentFundingRepository.save((Equipment_Funding) entity);
 		} else if (entity instanceof Equipment_Indicator) {
-			equipmentIndicatorRepository.save((Equipment_Indicator) entity);
+			entity = equipmentIndicatorRepository.save((Equipment_Indicator) entity);
 		} else if (entity instanceof Equipment_Measurement) {
 			equipmentMeasurementRepository.save((Equipment_Measurement) entity);
 		} else if (entity instanceof Equipment_Medium) {
@@ -1185,13 +1176,13 @@ public class LinkPersistenceService {
 		} else if (entity instanceof ExpertiseAndSkills_Class) {
 			expertiseAndSkillsClassRepository.save((ExpertiseAndSkills_Class) entity);
 		} else if (entity instanceof Facility_Class) {
-			facilityClassService.save((Facility_Class) entity);
+			facilityClassRepository.save((Facility_Class) entity);
 		} else if (entity instanceof Facility_Equipment) {
 			facilityEquipmentRepository.save((Facility_Equipment) entity);
 		} else if (entity instanceof Facility_Event) {
 			facilityEventRepository.save((Facility_Event) entity);
 		} else if (entity instanceof Facility_Facility) {
-			facilityFacilityService.save((Facility_Facility) entity);
+			facilityFacilityRepository.save((Facility_Facility) entity);
 		} else if (entity instanceof Facility_Funding) {
 			facilityFundingRepository.save((Facility_Funding) entity);
 		} else if (entity instanceof Facility_Indicator) {
@@ -1205,7 +1196,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Facility_Service) {
 			facilityServiceRepository.save((Facility_Service) entity);
 		} else if (entity instanceof Funding_Class) {
-			fundingClassService.save((Funding_Class) entity);
+			fundingClassRepository.save((Funding_Class) entity);
 		} else if (entity instanceof Funding_Funding) {
 			fundingFundingRepository.save((Funding_Funding) entity);
 		} else if (entity instanceof Funding_Indicator) {
@@ -1302,8 +1293,8 @@ public class LinkPersistenceService {
 			organisationUnitResultPublicationRepository.save((OrganisationUnit_ResultPublication) entity);
 		} else if (entity instanceof OrganisationUnit_Service) {
 			organisationUnitServiceRepository.save((OrganisationUnit_Service) entity);
-		} else if (entity instanceof Project_Classification) {
-			projectClassRepository.save((Project_Classification) entity);
+		} else if (entity instanceof Project_Class) {
+			projectClassRepository.save((Project_Class) entity);
 		} else if (entity instanceof Project_DublinCore) {
 			projectDublinCoreRepository.save((Project_DublinCore) entity);
 		} else if (entity instanceof Project_Equipment) {
@@ -1331,7 +1322,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Project_Service) {
 			projectServiceRepository.save((Project_Service) entity);
 		} else if (entity instanceof Project_OrganisationUnit) {
-			projectOrganisationRepository.save((Project_OrganisationUnit) entity);
+			projectOrganisationUnitRepository.save((Project_OrganisationUnit) entity);
 		} else if (entity instanceof Project_Person) {
 			projectPersonRepository.save((Project_Person) entity);
 		} else if (entity instanceof Project_Project) {
@@ -1459,6 +1450,8 @@ public class LinkPersistenceService {
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid link entity provided. %s", entity));
 		}
+		
+		return entity;
 	}
 
 	/**
@@ -1496,38 +1489,38 @@ public class LinkPersistenceService {
 	 * @param entity The link entities.
 	 */
 	@SuppressWarnings("unchecked")
-	public void save(List<? extends CerifLinkEntity> entityList) {
+	public Iterable <? extends CerifLinkEntity> save(Iterable <? extends CerifLinkEntity> entityList) {
 		
-		final CerifLinkEntity entity = (CerifLinkEntity)entityList.get(0);
+		final CerifLinkEntity entity = (CerifLinkEntity)entityList.iterator().next();
 		
 		if (entity instanceof Citation_Class) {
-			citationClassRepository.save((List<Citation_Class>) entityList);
+			entityList = citationClassRepository.save((List<Citation_Class>) entityList);
 		} else if (entity instanceof Citation_Medium) {
-			citationMediumRepository.save((List<Citation_Medium>) entityList);
+			entityList = citationMediumRepository.save((List<Citation_Medium>) entityList);
 		} else if (entity instanceof Class_Class) {
-			classClassRepository.save((List<Class_Class>) entityList);
+			entityList = classClassRepository.save((List<Class_Class>) entityList);
 		} else if (entity instanceof ClassScheme_ClassScheme) {
-			classSchemeClassSchemeRepository.save((List<ClassScheme_ClassScheme>) entityList);
+			entityList = classSchemeClassSchemeRepository.save((List<ClassScheme_ClassScheme>) entityList);
 		} else if (entity instanceof Country_Class) {
-			countryClassRepository.save((List<Country_Class>) entityList);
+			entityList = countryClassRepository.save((List<Country_Class>) entityList);
 		} else if (entity instanceof Currency_Class) {
-			currencyClassRepository.save((List<Currency_Class>) entityList);
+			entityList = currencyClassRepository.save((List<Currency_Class>) entityList);
 		} else if (entity instanceof Cv_Class) {
-			cvClassRepository.save((List<Cv_Class>) entityList);
+			entityList = cvClassRepository.save((List<Cv_Class>) entityList);
 		} else if (entity instanceof ElectronicAddress_Class) {
-			electronicAddressClassRepository.save((List<ElectronicAddress_Class>) entityList);
+			entityList = electronicAddressClassRepository.save((List<ElectronicAddress_Class>) entityList);
 		} else if (entity instanceof Equipment_Class) {
-			equipmentClassRepository.save((List<Equipment_Class>) entityList);
+			entityList = equipmentClassRepository.save((List<Equipment_Class>) entityList);
 		} else if (entity instanceof Equipment_Equipment) {
-			equipmentEquipmentRepository.save((List<Equipment_Equipment>) entityList);
+			entityList = equipmentEquipmentRepository.save((List<Equipment_Equipment>) entityList);
 		} else if (entity instanceof Equipment_Event) {
-			equipmentEventRepository.save((List<Equipment_Event>) entityList);
+			entityList = equipmentEventRepository.save((List<Equipment_Event>) entityList);
 		} else if (entity instanceof Equipment_Funding) {
-			equipmentFundingRepository.save((List<Equipment_Funding>) entityList);
+			entityList = equipmentFundingRepository.save((List<Equipment_Funding>) entityList);
 		} else if (entity instanceof Equipment_Indicator) {
-			equipmentIndicatorRepository.save((List<Equipment_Indicator>) entityList);
+			entityList = equipmentIndicatorRepository.save((List<Equipment_Indicator>) entityList);
 		} else if (entity instanceof Equipment_Measurement) {
-			equipmentMeasurementRepository.save((List<Equipment_Measurement>) entityList);
+			entityList = equipmentMeasurementRepository.save((List<Equipment_Measurement>) entityList);
 		} else if (entity instanceof Equipment_Medium) {
 			equipmentMediumRepository.save((List<Equipment_Medium>) entity);
 		} else if (entity instanceof Equipment_PostalAddress) {
@@ -1549,13 +1542,13 @@ public class LinkPersistenceService {
 		} else if (entity instanceof ExpertiseAndSkills_Class) {
 			expertiseAndSkillsClassRepository.save((List<ExpertiseAndSkills_Class>) entityList);
 		} else if (entity instanceof Facility_Class) {
-			facilityClassService.save((List<Facility_Class>) entityList);
+			facilityClassRepository.save((List<Facility_Class>) entityList);
 		} else if (entity instanceof Facility_Equipment) {
 			facilityEquipmentRepository.save((List<Facility_Equipment>) entityList);
 		} else if (entity instanceof Facility_Event) {
 			facilityEventRepository.save((List<Facility_Event>) entityList);
 		} else if (entity instanceof Facility_Facility) {
-			facilityFacilityService.save((List<Facility_Facility>) entityList);
+			facilityFacilityRepository.save((List<Facility_Facility>) entityList);
 		} else if (entity instanceof Facility_Funding) {
 			facilityFundingRepository.save((List<Facility_Funding>) entityList);
 		} else if (entity instanceof Facility_Indicator) {
@@ -1569,7 +1562,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Facility_Service) {
 			facilityServiceRepository.save((List<Facility_Service>) entityList);
 		} else if (entity instanceof Funding_Class) {
-			fundingClassService.save((List<Funding_Class>) entityList);
+			fundingClassRepository.save((List<Funding_Class>) entityList);
 		} else if (entity instanceof Funding_Funding) {
 			fundingFundingRepository.save((List<Funding_Funding>) entityList);
 		} else if (entity instanceof Funding_Indicator) {
@@ -1666,8 +1659,8 @@ public class LinkPersistenceService {
 			organisationUnitResultPublicationRepository.save((List<OrganisationUnit_ResultPublication>) entityList);
 		} else if (entity instanceof OrganisationUnit_Service) {
 			organisationUnitServiceRepository.save((List<OrganisationUnit_Service>) entityList);
-		} else if (entity instanceof Project_Classification) {
-			projectClassRepository.save((List<Project_Classification>) entityList);
+		} else if (entity instanceof Project_Class) {
+			projectClassRepository.save((List<Project_Class>) entityList);
 		} else if (entity instanceof Project_DublinCore) {
 			projectDublinCoreRepository.save((List<Project_DublinCore>) entityList);
 		} else if (entity instanceof Project_Equipment) {
@@ -1685,7 +1678,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Project_Medium) {
 			projectMediumRepository.save((List<Project_Medium>) entity);
 		} else if (entity instanceof Project_OrganisationUnit) {
-			projectOrganisationRepository.save((List<Project_OrganisationUnit>) entityList);
+			projectOrganisationUnitRepository.save((List<Project_OrganisationUnit>) entityList);
 		} else if (entity instanceof Project_Person) {
 			projectPersonRepository.save((List<Project_Person>) entityList);
 		} else if (entity instanceof Project_PrizeAward) {
@@ -1821,7 +1814,7 @@ public class LinkPersistenceService {
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid list of link entities provided. %s", entityList));
 		}
-		
+		return entityList;
 	}
 
 	/**
@@ -1997,13 +1990,6 @@ public class LinkPersistenceService {
 	 */
 	public LinkFacilityClassRepository getFacilityClassRepository() {
 		return facilityClassRepository;
-	}
-
-	/**
-	 * @return the facilityClassService
-	 */
-	public LinkFacilityClassService getFacilityClassService() {
-		return facilityClassService;
 	}
 
 	/**
@@ -2373,7 +2359,7 @@ public class LinkPersistenceService {
 	/**
 	 * @return the organisationUnitPAddrRepository
 	 */
-	public LinkOrganisationUnitPAddrRepository getOrganisationUnitPAddrRepository() {
+	public LinkOrganisationUnitPostalAddressRepository getOrganisationUnitPAddrRepository() {
 		return organisationUnitPAddrRepository;
 	}
 
@@ -2478,8 +2464,8 @@ public class LinkPersistenceService {
 	/**
 	 * @return the projectOrganisationRepository
 	 */
-	public LinkProjectOrganisationRepository getProjectOrganisationRepository() {
-		return projectOrganisationRepository;
+	public LinkProjectOrganisationUnitRepository getProjectOrganisationUnitRepository() {
+		return projectOrganisationUnitRepository;
 	}
 
 	/**
@@ -2569,7 +2555,7 @@ public class LinkPersistenceService {
 	/**
 	 * @return the personEAddrRepository
 	 */
-	public LinkPersonEAddrRepository getPersonEAddrRepository() {
+	public LinkPersonElectronicAddressRepository getPersonEAddrRepository() {
 		return personEAddrRepository;
 	}
 
@@ -2646,7 +2632,7 @@ public class LinkPersistenceService {
 	/**
 	 * @return the personPAddrRepository
 	 */
-	public LinkPersonPAddrRepository getPersonPAddrRepository() {
+	public LinkPersonPostalAddressRepository getPersonPAddrRepository() {
 		return personPAddrRepository;
 	}
 

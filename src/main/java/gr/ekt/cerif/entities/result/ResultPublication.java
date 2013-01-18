@@ -32,6 +32,7 @@ import gr.ekt.cerif.features.multilingual.Translation;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,12 +42,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Represents a result publication entity.
  * 
  */
 @Entity
 @Table(name="cfResPubl")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class ResultPublication implements CerifResultEntity {
 	
 	/**
@@ -137,7 +143,7 @@ public class ResultPublication implements CerifResultEntity {
 	/**
 	 * The publication Titles.
 	 */
-	@OneToMany(mappedBy="resultPublication")
+	@OneToMany(mappedBy="resultPublication", fetch=FetchType.EAGER)
 	private Set<ResultPublicationTitle> resultPublicationTitles;
 	
 	/**

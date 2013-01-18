@@ -10,6 +10,7 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,12 +22,17 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Links an organization unit with a postal address.
  * 
  */
 @Entity
 @Table(name="cfOrgUnit_PAddr", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId","cfPAddrId","cfClassId","cfStartDate","cfEndDate"}))
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class OrganisationUnit_PostalAddress implements CerifLinkEntity {
 	
 	/**
@@ -107,6 +113,40 @@ public class OrganisationUnit_PostalAddress implements CerifLinkEntity {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.fraction = fraction;
+	}
+	
+	/**
+	 * 
+	 * @param organisationUnit
+	 * @param postalAddress
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public OrganisationUnit_PostalAddress(OrganisationUnit organisationUnit,
+			PostalAddress postalAddress, Class theClass, Date startDate,
+			Date endDate) {
+		this.organisationUnit = organisationUnit;
+		this.postalAddress = postalAddress;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	/**
+	 * 
+	 * @param organisationUnit
+	 * @param postalAddress
+	 * @param startDate
+	 * @param endDate
+	 */
+	public OrganisationUnit_PostalAddress(OrganisationUnit organisationUnit,
+			PostalAddress postalAddress, Date startDate,
+			Date endDate) {
+		this.organisationUnit = organisationUnit;
+		this.postalAddress = postalAddress;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 	/**

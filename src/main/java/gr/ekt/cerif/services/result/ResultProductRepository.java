@@ -3,12 +3,9 @@
  */
 package gr.ekt.cerif.services.result;
 
-import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.entities.result.ResultProduct;
 
 import java.util.List;
-
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * A repository for products.
@@ -20,14 +17,15 @@ public interface ResultProductRepository {
 	 * Saves the provided result product.
 	 * @param resultProduct
 	 */
-	void save(ResultProduct resultProduct);
+	ResultProduct save(ResultProduct resultProduct);
 
 	/**
 	 * Saves the provided list of result products.
 	 * @param productList
 	 */
-	void save(List<ResultProduct> productList);
+	Iterable<ResultProduct> save(Iterable<ResultProduct> productList);
 	
+	void delete(ResultProduct entity);
 	
 	List<ResultProduct> getAllProducts();
 	

@@ -5,12 +5,18 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
-
 /**
  * A repository for links between facilities and facilities.
  * 
  */
-public interface LinkFacilityFacilityRepository extends CrudRepository<Facility_Facility, String>{
+public interface LinkFacilityFacilityRepository {
+	
 	List<Facility_Facility> findByTheClass(Class theClass);
+	
+	public Facility_Facility save(Facility_Facility entity);
+	
+	public Iterable<? extends Facility_Facility> save(Iterable<? extends Facility_Facility> entities);
+	
+	public void delete(Facility_Facility entity);
+	
 }

@@ -3,17 +3,15 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.person.Person_Prize;
 import gr.ekt.cerif.features.multilingual.PrizeDescription;
 import gr.ekt.cerif.features.multilingual.PrizeKeyword;
 import gr.ekt.cerif.features.multilingual.PrizeName;
-
-import gr.ekt.cerif.entities.link.person.Person_Prize;
 
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

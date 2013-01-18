@@ -6,6 +6,7 @@ package gr.ekt.cerif.features.multilingual;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Language;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,12 +20,17 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Holds the multi-lingual abstract of a publication result entity.
  * 
  */
 @Entity
 @Table(name="cfResPublAbstr", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfLangCode","cfTrans"}))
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class ResultPublicationAbstract implements CerifMultipleLanguageFeature {
 
 	/**
@@ -64,7 +70,7 @@ public class ResultPublicationAbstract implements CerifMultipleLanguageFeature {
 	/**
 	 * The abstract.
 	 */
-	@Column(name="cfAbstr", columnDefinition="TEXT")
+	@Column(name="cfAbstr")
 	private String abstractText;
 	
 	

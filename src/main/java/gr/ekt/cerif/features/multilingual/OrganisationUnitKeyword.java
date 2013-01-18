@@ -6,6 +6,7 @@ package gr.ekt.cerif.features.multilingual;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.second.Language;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,13 +20,18 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Holds the multi-lingual keyword of an OrganisationUnit entity.
  * 
  */
 @Entity
 @Table(name="cfOrgUnitKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId","cfLangCode","cfTrans"}))
-public class OrganisationUnitKeyword implements OrganisationUnitTranslation {
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+public class OrganisationUnitKeyword implements CerifMultipleLanguageFeature {
 
 	/**
 	 * 

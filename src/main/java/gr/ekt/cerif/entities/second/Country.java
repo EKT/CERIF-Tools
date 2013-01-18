@@ -3,18 +3,21 @@
  */
 package gr.ekt.cerif.entities.second;
 
-import gr.ekt.cerif.features.multilingual.CountryName;
 import gr.ekt.cerif.entities.link.person.Person_Country;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Country;
+import gr.ekt.cerif.features.multilingual.CountryName;
 
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Represents a country second level entity.
@@ -22,6 +25,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="cfCountry")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Country implements CerifSecondLevelEntity {
 	
 	/**

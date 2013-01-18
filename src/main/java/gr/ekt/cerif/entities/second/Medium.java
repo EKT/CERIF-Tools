@@ -4,7 +4,6 @@
 package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.link.person.Person_Medium;
-import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.features.multilingual.MediumDescription;
 import gr.ekt.cerif.features.multilingual.MediumKeyword;
@@ -12,14 +11,17 @@ import gr.ekt.cerif.features.multilingual.MediumTitle;
 
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
 /**
@@ -28,6 +30,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="cfMedium")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Medium implements CerifSecondLevelEntity {
 	
 	/**

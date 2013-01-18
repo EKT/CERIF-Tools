@@ -145,12 +145,17 @@ public class LinkOrganisationUnitResultPublicationRepository {
 		
 		List<Long> ids=null;
 		TypedQuery<Long> query;
-		
+
 		query=entityManager.createQuery(QUERY4, Long.class);
 		query.setParameter("respubId", respubId);
 		query.setParameter("orgunitrespubclUri", orgunitrespubclUri);
 		
-		ids=query.getResultList();
+		//System.out.println("rep="+query.unwrap(org.hibernate.Query.class).getQueryString());
+		try {
+			ids=query.getResultList();
+		} catch (NoResultException nre) {
+			ids=null;
+		}
 			
 		return ids;
 	}

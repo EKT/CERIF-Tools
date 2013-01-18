@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.entities.link.result;
 
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.features.additional.DublinCore;
+import gr.ekt.cerif.features.semantics.Class;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,16 +16,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.result.ResultPublication;
-import gr.ekt.cerif.features.additional.DublinCore;
-import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * 

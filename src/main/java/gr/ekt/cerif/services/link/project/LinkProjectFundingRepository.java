@@ -3,54 +3,26 @@
  */
 package gr.ekt.cerif.services.link.project;
 
-import gr.ekt.cerif.entities.link.project.Project_Funding;
-import gr.ekt.cerif.services.second.FundingRepository;
-import gr.ekt.cerif.services.base.ProjectRepository;
-
 import java.util.List;
+import gr.ekt.cerif.entities.base.Project;
+import gr.ekt.cerif.entities.link.project.Project_Funding;
+import gr.ekt.cerif.entities.second.Funding;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * A repository for links between projects and fundings.
  * 
  */
-@Component
-public class LinkProjectFundingRepository {
+public interface LinkProjectFundingRepository {
 
-	@PersistenceContext(unitName="cerif-persistence-unit")
-	private EntityManager entityManager;
+	public List<Project_Funding> findByProject(Project project);
 	
-	@Autowired
-	private ProjectRepository projectRepository;
+	public List<Project_Funding> findByFunding(Funding funding);
 	
-	@Autowired
-	private FundingRepository fundingRepository;
+	public Project_Funding save(Project_Funding entity);
 	
-	@Transactional
-	public void save(Project_Funding entity) {
-		if (entity.getProject() == null || entity.getFunding() == null) {
-			throw new IllegalArgumentException("Please provide both a project and a funding.");
-		}
-		if (entity.getProject().getId() == null) {
-			projectRepository.save(entity.getProject());
-		}
-		if (entity.getFunding().getId() == null) {
-			fundingRepository.save(entity.getFunding());
-		}
-		entityManager.merge(entity);
-	}
+	public Iterable<? extends Project_Funding> save(Iterable<? extends Project_Funding> entities);
 	
-	@Transactional
-	public void save(List<Project_Funding> entityList) {
-		for (Project_Funding entity : entityList) {
-			save(entity);
-		}
-	}
+	public void delete(Project_Funding entity);
 	
 }

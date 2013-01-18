@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.link.Equipment_Funding;
 import gr.ekt.cerif.services.infrastructure.EquipmentRepository;
 import gr.ekt.cerif.services.second.FundingRepository;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -30,7 +28,7 @@ public class LinkEquipmentFundingRepository {
 	private FundingRepository fundingRepository;
 	
 	@Transactional
-	public void save(Equipment_Funding entity) {
+	public Equipment_Funding save(Equipment_Funding entity) {
 		if (entity.getEquipment() == null || entity.getFunding() == null) {
 			throw new IllegalArgumentException("Please provide both a equipment and a funding.");
 		}
@@ -40,14 +38,15 @@ public class LinkEquipmentFundingRepository {
 		if (entity.getFunding().getId() == null) {
 			fundingRepository.save(entity.getFunding());
 		}
-		entityManager.merge(entity);
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void save(List<Equipment_Funding> entityList) {
+	public Iterable<Equipment_Funding> save(Iterable<Equipment_Funding> entityList) {
 		for (Equipment_Funding entity : entityList) {
 			save(entity);
 		}
+		return entityList;
 	}
 	
 }

@@ -3,9 +3,8 @@
  */
 package gr.ekt.cerif.services;
 
-import gr.ekt.cerif.CerifComponent;
+import gr.ekt.cerif.CerifEntity;
 import gr.ekt.cerif.entities.result.ResultProduct;
-import gr.ekt.cerif.features.multilingual.ClassTerm;
 import gr.ekt.cerif.services.additional.AdditionalPersistenceService;
 import gr.ekt.cerif.services.base.BasePersistenceService;
 import gr.ekt.cerif.services.infrastructure.InfrastructurePersistenceService;
@@ -16,7 +15,6 @@ import gr.ekt.cerif.services.second.SecondPersistenceService;
 import gr.ekt.cerif.services.semantics.SemanticsPersistenceService;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Persistence service for CERIF entities.
@@ -25,21 +23,44 @@ import java.util.Set;
 public interface PersistenceService {
 
 	/**
-	 * Saves the provided CERIF component.
-	 * @param component The CERIF component.
+	 * Saves the provided CERIF entity.
+	 * @param entity The CERIF entity.
 	 */
-	void save(CerifComponent component);	
+	CerifEntity save(CerifEntity entity);	
 	
 	/**
-	 * Saves the provided CERIF components.
-	 * @param components The CERIF components.
+	 * Saves the provided CERIF entities.
+	 * @param entities The CERIF components.
 	 */
-	void save(List<? extends CerifComponent> components);
+	Iterable<? extends CerifEntity> save(Iterable<? extends CerifEntity> entities);
 	
+	void delete(CerifEntity entity);
 	
-	void delete(CerifComponent component);
+	void delete(Iterable<? extends CerifEntity> entities);
 	
-	void delete(List<? extends CerifComponent> components);	
+	List<ResultProduct> getAllProducts();
+	
+	ResultProduct getProduct(Long id);
+	
+	List<ResultProduct> getProductsByKeyword(String keyword);
+	
+	List<ResultProduct> getProductsByClass(String uri);
+	
+	List<ResultProduct> getProductByOrganisationClass(String uri);
+	
+	List<ResultProduct> getProductByPersonClass(String uri);
+	
+	List<ResultProduct> getProductByProjectClass(String uri);
+	
+	List<ResultProduct> getProductByCountry(String code);
+
+	List<ResultProduct> getProductByOrganisationURI(String uri);
+
+	List<ResultProduct> getProductByPersonAny(String uri);
+
+	List<ResultProduct> getProductByOrganisationURIClass(String orgURI, String classURI);
+
+	List<ResultProduct> getProductByOrganisationExpanded(String input, String classURI);
 		
 	BasePersistenceService getBaseService();
 	

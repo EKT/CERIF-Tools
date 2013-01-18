@@ -9,6 +9,7 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,12 +21,17 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Links an person with a class.
  * 
  */
 @Entity
 @Table(name="cfPers_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId", "cfClassId", "cfStartDate", "cfEndDate"}) )
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Person_Class implements CerifLinkEntity {
 	
 	/**
@@ -96,6 +102,21 @@ public class Person_Class implements CerifLinkEntity {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.fraction = fraction;
+	}
+	
+	/**
+	 * 
+	 * @param person
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public Person_Class(Person person, Class theClass, Date startDate,
+			Date endDate) {
+		this.person = person;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 	/**
