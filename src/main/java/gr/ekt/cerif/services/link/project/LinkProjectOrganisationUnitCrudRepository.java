@@ -17,6 +17,8 @@ public interface LinkProjectOrganisationUnitCrudRepository extends CrudRepositor
 
 	List <Project_OrganisationUnit> findByProjectAndTheClass(Project project, Class theClass);
 	
+	List <Project_OrganisationUnit> findByProject(Project project);
+	
 	List <Project_OrganisationUnit> findByOrganisationUnitAndTheClass(OrganisationUnit organisationUnit, Class theClass);
 
 }

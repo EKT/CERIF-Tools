@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ProjectCrudRepository extends CrudRepository<Project, String> {
+public interface ProjectCrudRepository extends CrudRepository<Project, Long> {
 
 public Project findByAcronym(String acronym);
 	

@@ -13,11 +13,22 @@ import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.link.result.ResultPublicationMediumView;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Class;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Event;
+import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.result.ResultPublicationView;
 import gr.ekt.cerif.entities.second.EventView;
 import gr.ekt.cerif.entities.second.Medium;
+import gr.ekt.cerif.features.multilingual.ResultPublicationAbstract;
+import gr.ekt.cerif.features.multilingual.ResultPublicationTitle;
 import gr.ekt.cerif.features.semantics.ClassView;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitResultPublicationRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonResultPublicationRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectResultPublicationRepository;
+import gr.ekt.cerif.services.link.result.LinkResultPublicationClassRepository;
+import gr.ekt.cerif.services.link.result.LinkResultPublicationEventRepository;
+import gr.ekt.cerif.services.link.result.LinkResultPublicationMediumRepository;
+import gr.ekt.cerif.services.multilingual.ResultPublicationAbstractRepository;
+import gr.ekt.cerif.services.multilingual.ResultPublicationTitleRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -39,6 +50,30 @@ public class ResultPublicationRepositoryImpl implements ResultPublicationReposit
 	
 	@Autowired
 	private ResultPublicationCrudRepository resultPublicationCrudRepository;
+	
+	@Autowired
+	private ResultPublicationTitleRepository resultPublicationTitleRepository;
+	
+	@Autowired
+	private ResultPublicationAbstractRepository resultPublicationAbstractRepository;
+	
+	@Autowired
+	private LinkResultPublicationClassRepository linkResultPublicationClassRepository;
+	
+	@Autowired
+	private LinkOrganisationUnitResultPublicationRepository linkOrganisationUnitResultPublicationRepository;
+	
+	@Autowired
+	private LinkProjectResultPublicationRepository linkProjectResultPublicationRepository;
+	
+	@Autowired
+	private LinkPersonResultPublicationRepository linkPersonResultPublicationRepository;
+	
+	@Autowired
+	private LinkResultPublicationEventRepository linkResultPublicationEventRepository;
+	
+	@Autowired
+	private LinkResultPublicationMediumRepository linkResultPublicationMediumRepository;
 	
 	public ResultPublication findByUri(String uri) {
 		return resultPublicationCrudRepository.findByUri(uri);
@@ -280,6 +315,40 @@ public class ResultPublicationRepositoryImpl implements ResultPublicationReposit
 
 	@Transactional
 	public void delete(ResultPublication entity) {
+		
+		ResultPublicationTitle rt = resultPublicationTitleRepository.findByResultPublication(entity);
+		if (rt != null) resultPublicationTitleRepository.delete(rt);
+		entity.setResultPublicationTitles(null);
+		
+		ResultPublicationAbstract ra = resultPublicationAbstractRepository.findByResultPublication(entity);
+		if (ra != null) resultPublicationAbstractRepository.delete(ra);
+		entity.setResultPublicationAbstracts(null);
+
+		List<ResultPublication_Class> rc =  linkResultPublicationClassRepository.findByResultPublication(entity);
+		if (rc != null) linkResultPublicationClassRepository.delete(rc);
+		entity.setResultPublications_classes(null);
+		
+		List<OrganisationUnit_ResultPublication> or = linkOrganisationUnitResultPublicationRepository.findByResultPublication(entity);
+		if (or != null) linkOrganisationUnitResultPublicationRepository.delete(or);
+		entity.setOrganisationUnit_ResultPublication(null);
+		
+		List<Project_ResultPublication> pr = linkProjectResultPublicationRepository.findByResultPublication(entity);
+		if (pr != null) linkProjectResultPublicationRepository.delete(pr);
+		entity.setProjects_resultPublications(null);
+		
+		List<Person_ResultPublication> prp = linkPersonResultPublicationRepository.findByResultPublication(entity);
+		if (prp != null) linkPersonResultPublicationRepository.delete(prp);
+		entity.setPersons_resultPublications(null);
+
+		List<ResultPublication_Event> re = linkResultPublicationEventRepository.findByResultPublication(entity);
+		if (re != null) linkResultPublicationEventRepository.delete(re);
+		entity.setResultPublications_events(null);
+		
+		List<ResultPublication_Medium> rm = linkResultPublicationMediumRepository.findByResultPublication(entity);
+		if (rm != null) linkResultPublicationMediumRepository.delete(rm);
+		entity.setResultPublications_medium(null);
+		
+		entity = resultPublicationCrudRepository.save(entity);
 		resultPublicationCrudRepository.delete(entity);
 	}
 

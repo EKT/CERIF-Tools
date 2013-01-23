@@ -8,7 +8,6 @@ import gr.ekt.cerif.entities.base.CerifBaseEntity;
 import gr.ekt.cerif.entities.infrastructure.CerifInfrastructureEntity;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.result.CerifResultEntity;
-import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.second.CerifSecondLevelEntity;
 import gr.ekt.cerif.features.additional.CerifAdditionalFeature;
 import gr.ekt.cerif.features.multilingual.CerifMultipleLanguageFeature;
@@ -85,7 +84,6 @@ public class PersistenceServiceImpl implements PersistenceService {
 	
 	/**
 	 * Deletes the provided CERIF component.
-	 * @TODO FOR EVERY ENTITY IMPLEMENT DELETE
 	 * @param component The CERIF component.
 	 */
 	@Transactional
@@ -203,84 +201,6 @@ public class PersistenceServiceImpl implements PersistenceService {
 		return entities;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.IndexService#getAllProducts()
-	 */
-	@Override
-	public List<ResultProduct> getAllProducts() {
-		return resultService.findAllProducts();
-	}
-	
-	@Override
-	public ResultProduct getProduct(Long id) {
-		return resultService.findProductById(id);
-	}
-	
-	@Override
-	public List<ResultProduct> getProductsByKeyword(String keyword) {
-		return resultService.findProductsByKeyword(keyword);
-	}
-
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#findByClass(java.lang.String)
-	 */
-	@Override
-	public List<ResultProduct> getProductsByClass(String uri) {
-		return resultService.findByClass(uri);
-	}
-
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#getProductByOrganisationClass(java.lang.String)
-	 */
-	@Override
-	public List<ResultProduct> getProductByOrganisationClass(String uri) {
-		return resultService.findByOrganisationClass(uri);
-	}
-
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#getProductByPersonClass(java.lang.String)
-	 */
-	@Override
-	public List<ResultProduct> getProductByPersonClass(String uri) {
-		return resultService.findProductsByPersonClass(uri);
-	}
-
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#getProductByProjectClass(java.lang.String)
-	 */
-	@Override
-	public List<ResultProduct> getProductByProjectClass(String uri) {
-		return resultService.findProductsByProjectClass(uri);
-	}
-
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.PersistenceService#getProductByCountry(java.lang.String)
-	 */
-	@Override
-	public List<ResultProduct> getProductByCountry(String code) {
-		return resultService.findProductsByCountry(code);
-	}
-	
-	@Override
-	public List<ResultProduct> getProductByOrganisationURI(String uri) {
-		return resultService.findByOrganisationURI(uri);
-	}
-	
-	@Override
-	public List<ResultProduct> getProductByOrganisationURIClass(String orgURI, String classURI) {
-		return resultService.findByOrganisationURIClass(orgURI, classURI);
-	}
-	
-	@Override
-	public List<ResultProduct> getProductByOrganisationExpanded(String input, String classURI) {
-		return resultService.findByOrganisationExpanded(input, classURI);
-	}
-	
-	@Override
-	public List<ResultProduct> getProductByPersonAny(String uri) {
-		return resultService.findByPersonAny(uri);
-	}
-
 	/**
 	 * @return the baseService
 	 */
@@ -336,4 +256,5 @@ public class PersistenceServiceImpl implements PersistenceService {
 	public AdditionalPersistenceService getAdditionalService() {
 		return additionalService;
 	}
+	
 }

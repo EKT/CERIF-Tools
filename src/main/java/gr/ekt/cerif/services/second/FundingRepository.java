@@ -18,7 +18,7 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for fundings.
  * 
  */
-public interface FundingRepository extends CrudRepository<Funding, String> {
+public interface FundingRepository extends CrudRepository<Funding, Long> {
 
 	Funding findByAcronym(String acronym);
 

@@ -77,4 +77,9 @@ public class LinkOrganisationUnitPostalAddressRepositoryImpl implements LinkOrga
 		linkOrganisationUnitPAddrCrudRepository.delete(entity);
 	}
 
+	@Transactional
+	public void delete(Iterable<? extends OrganisationUnit_PostalAddress> entityList) {
+		linkOrganisationUnitPAddrCrudRepository.delete(entityList);
+	}
+
 }

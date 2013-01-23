@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
-public interface FacilityCrudRepository extends CrudRepository<Facility, String> {
+public interface FacilityCrudRepository extends CrudRepository<Facility, Long> {
 
 	Facility findById(Long id);
 	

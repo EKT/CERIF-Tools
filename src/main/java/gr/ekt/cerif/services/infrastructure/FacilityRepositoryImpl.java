@@ -8,6 +8,7 @@ import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Facility;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Funding_Class;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.features.semantics.Class;
@@ -196,8 +197,10 @@ public class FacilityRepositoryImpl implements FacilityRepository {
 		}
 		
 		List<Facility> facilities = new ArrayList<Facility>();
-		for(OrganisationUnit org:orgs){
-			facilities.add(linkOrganisationUnitFacilityRepository.findByOrganisationUnit(org).getFacility());
+		for(OrganisationUnit org:orgs) {
+			for (OrganisationUnit_Facility ouf : linkOrganisationUnitFacilityRepository.findByOrganisationUnit(org)) {
+				facilities.add(ouf.getFacility());
+			}
 		}
 		return facilities;
 	}

@@ -140,19 +140,4 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 		this.organisationUnits = organisationUnits;
 	}
 	
-//	/**
-//	 * @return the persons_electronicAddresses
-//	 */
-//	public Set<Person_ElectronicAddress> getPersons_electronicAddresses() {
-//		return persons_electronicAddresses;
-//	}
-//	
-//	/**
-//	 * @param persons_electronicAddresses the persons_electronicAddresses to set
-//	 */
-//	public void setPersons_electronicAddresses(
-//			Set<Person_ElectronicAddress> persons_electronicAddresses) {
-//		this.persons_electronicAddresses = persons_electronicAddresses;
-//	}
-	
 }

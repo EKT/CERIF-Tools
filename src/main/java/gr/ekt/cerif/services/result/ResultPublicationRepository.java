@@ -33,63 +33,63 @@ public interface ResultPublicationRepository {
 
 	ResultPublication findByUri(String uri);
 
-	ResultPublicationView findViewById(Long Id);
+	ResultPublicationView findViewById(Long id);
 	
-	Medium findCoverById(Long Id);
+	Medium findCoverById(Long id);
 	
-	List<ProjectView> findProjectsById(Long Id);
+	List<ProjectView> findProjectsById(Long id);
 		
-	OrganisationUnitResultPublicationView findDocumentSourceById(Long Id);
+	OrganisationUnitResultPublicationView findDocumentSourceById(Long id);
 
 	List<OrganisationUnitResultPublicationView> findAllDocumentSourcesForResultPubl();
 	
-	List<OrganisationUnitResultPublicationView> findOrganisationsById(Long Id);
+	List<OrganisationUnitResultPublicationView> findOrganisationsById(Long id);
 	
-	List<OrganisationUnitResultPublicationView> findAllOrganisationsById(Long Id);
+	List<OrganisationUnitResultPublicationView> findAllOrganisationsById(Long id);
 	
 	List<OrganisationUnitResultPublicationView> findAllOrganisationsForResultPubl();
 	
 	List<OrganisationUnitResultPublicationView> findOrganisationsForResultPubl();
 	
-	List<PersonResultPublicationView> findPersonsById(Long Id);
+	List<PersonResultPublicationView> findPersonsById(Long id);
 	
 	List<ResultPublicationView> findAllViews();
 	
-	List<ResultPublicationView> findFavouriteResPubl(Long Id);
+	List<ResultPublicationView> findFavouriteResPubl(Long id);
 	
-	List<ResultPublicationView> findMyUploads(Long Id);
+	List<ResultPublicationView> findMyUploads(Long id);
 	   
-	ResultPublication findById(Long Id);
+	ResultPublication findById(Long id);
 
-	Person findPersonById(Long Id);
+	Person findPersonById(Long id);
 	
 	Person_ResultPublication findByPersonIdAndResultPublicationId(Long PerId, Long ResId);
 	
-	OrganisationUnit findOrganisationUnitById(Long Id);
+	OrganisationUnit findOrganisationUnitById(Long id);
 	
 	OrganisationUnit_ResultPublication findByOrganisationUnitIdAndResultPublicationId(Long ouId, Long resId);
 	
-	Project findProjectById(Long Id);
+	Project findProjectById(Long id);
 	
 	Project_ResultPublication findByProjectIdAndResultPublicationId(Long prId, Long resId);
 	
-	List<ResultPublicationView> findResPublByPersonId(Long Id);	
+	List<ResultPublicationView> findResPublByPersonId(Long id);	
 	
-	List<ResultPublicationMediumView> findResPublMediumByResPubId(Long Id);	
+	List<ResultPublicationMediumView> findResPublMediumByResPubId(Long id);	
 	
-	List<ResultPublicationView> findByProjectId(Long Id);
+	List<ResultPublicationView> findByProjectId(Long id);
 	
-	List<ResultPublicationView> findAllViewsByProjectId(Long Id);
+	List<ResultPublicationView> findAllViewsByProjectId(Long id);
 	
-	List<ResultPublicationView> findAllViewsByEventId(Long Id);
+	List<ResultPublicationView> findAllViewsByEventId(Long id);
 	
 	List<Object[]> countByProjectId();
 	
-	List<ResultPublicationView> findByOrganisationUnitId(Long Id);
+	List<ResultPublicationView> findByOrganisationUnitId(Long id);
 	
-	List<ResultPublicationView> findByEventId(Long Id);
+	List<ResultPublicationView> findByEventId(Long id);
 	
-	List<ResultPublicationView> findByResultPublicationId(Long Id);
+	List<ResultPublicationView> findByResultPublicationId(Long id);
 	
 	List<ResultPublicationMediumView> findAllFiles();
 	
@@ -103,7 +103,7 @@ public interface ResultPublicationRepository {
 	
 	List<EventView> findEventByResPubId(Long id);
 		
-	ResultPublication_Event findResPublEventByResPublId(Long Id);
+	ResultPublication_Event findResPublEventByResPublId(Long id);
 	
 	List<Object[]> countByProject();
 	

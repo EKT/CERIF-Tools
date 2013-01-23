@@ -33,7 +33,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="cfEvent")
-public class Event implements CerifSecondLevelEntity{
+public class Event implements CerifSecondLevelEntity {
 
 	/**
 	 * Serialization version.

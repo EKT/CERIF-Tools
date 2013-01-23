@@ -51,6 +51,8 @@ public interface OrganisationUnitRepository {
 	
 	List<OrganisationUnitList> findOrganisationUnitsByCountryCode(String code);
 	
+	List<OrganisationUnitList> findAllOrgs2();
+	
 	List<OrganisationUnitList> findCountryCodesForOrganisationUnits();
 	
 	List<OrganisationUnitList> findRINCP();

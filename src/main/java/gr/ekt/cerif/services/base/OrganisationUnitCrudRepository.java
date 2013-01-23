@@ -205,6 +205,23 @@ public interface OrganisationUnitCrudRepository extends CrudRepository<Organisat
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select new gr.ekt.cerif.entities.base.OrganisationUnitList(" +
+			   "       ou.id,				" +
+			   "	   ona.name,			" +
+			   "       pac.uri,	" +
+				"       ou.uri,	    " +
+				"       pac.code)	" +
+				"  from OrganisationUnit ou 	     " +   
+				"  left join ou.postalAddresses pas	 " +
+				"  left join pas.postalAddress pa    " +
+				"  left join pa.country pac       	 " +
+				"  left join ou.organisationUnitNames ona    " +	
+				"  left join ou.classes oc 				" +
+				"  left join oc.theClass c 				" +
+			    "  where c.id is null or c.uri='Other type' ")
+	List<OrganisationUnitList> findAllOrgs2();
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	@Query(value = "select new gr.ekt.cerif.entities.base.OrganisationUnitList(" +
 			"	   ou.id,		" +
 			"       ona.name,	" +
 			"       pac.uri,	" +

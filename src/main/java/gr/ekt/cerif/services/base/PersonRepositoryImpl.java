@@ -6,15 +6,28 @@ import gr.ekt.cerif.entities.base.PersonView;
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.person.Person_Class;
 import gr.ekt.cerif.entities.link.person.Person_Cv;
+import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
+import gr.ekt.cerif.entities.link.person.Person_Medium;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.person.Person_Person;
+import gr.ekt.cerif.entities.link.person.Person_PostalAddress;
 import gr.ekt.cerif.entities.link.person.Person_ResultPublication;
+import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.entities.second.CV;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.features.semantics.ClassView;
+import gr.ekt.cerif.services.additional.PersonNameRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonClassRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonElectronicAddressRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonMediumRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonOrganisationUnitRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonPersonRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonPostalAddressRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonResultPublicationRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectPersonRepository;
 
 import java.util.List;
 
@@ -27,6 +40,33 @@ public class PersonRepositoryImpl implements PersonRepository {
 
 	@Autowired
 	private PersonCrudRepository personCrudRepository;
+	
+	@Autowired
+	private LinkPersonOrganisationUnitRepository linkPersonOrganisationUnitRepository;
+	
+	@Autowired
+	private LinkPersonClassRepository linkPersonClassRepository;
+	
+	@Autowired
+	private LinkPersonElectronicAddressRepository linkPersonElectronicAddressRepository;
+	
+	@Autowired
+	private LinkPersonPostalAddressRepository linkPersonPostalAddressRepository;
+	
+	@Autowired
+	private LinkPersonResultPublicationRepository linkPersonResultPublicationRepository;
+	
+	@Autowired
+	private LinkProjectPersonRepository linkProjectPersonRepository;
+	
+	@Autowired
+	private PersonNameRepository personNameRepository;
+	
+	@Autowired
+	private LinkPersonPersonRepository linkPersonPersonRepository;
+	
+	@Autowired
+	private LinkPersonMediumRepository linkPersonMediumRepository;
 	
 	public Person findPersonById(Long id) {
 		return personCrudRepository.findPersonById(id);
@@ -283,6 +323,48 @@ public class PersonRepositoryImpl implements PersonRepository {
 
 	@Transactional
 	public void delete(Person entity) {
+		List<Person_OrganisationUnit> po = linkPersonOrganisationUnitRepository.findByPerson(entity);
+		if (po != null) linkPersonOrganisationUnitRepository.delete(po);
+		entity.setPersons_organisationUnits(null);
+		
+		List<Person_Class> pc = linkPersonClassRepository.findByPerson(entity);
+		if (pc != null) linkPersonClassRepository.delete(pc);
+		entity.setClasses(null);
+		
+		List<Person_ElectronicAddress> pe = linkPersonElectronicAddressRepository.findByPerson(entity);
+		if (pe != null) linkPersonElectronicAddressRepository.delete(pe);
+		entity.setPersons_electronicAddresses(null);
+		
+		List<Person_PostalAddress> pp = linkPersonPostalAddressRepository.findByPerson(entity);
+		if (pp != null) linkPersonPostalAddressRepository.delete(pp);
+		entity.setPersons_postalAddresses(null);
+
+		List<Person_ResultPublication> pr = linkPersonResultPublicationRepository.findByPerson(entity);
+		if (pr != null) linkPersonResultPublicationRepository.delete(pr);
+		entity.setPersons_resultPublications(null);
+		
+		List<Project_Person> prp = linkProjectPersonRepository.findByPerson(entity);
+		if (prp != null) linkProjectPersonRepository.delete(prp);
+		entity.setProjects(null);
+		
+		List<PersonName> pn = personNameRepository.findByPerson(entity);
+		if (pn != null) personNameRepository.delete(pn);
+		
+		//delete the relations where the person is the first in the relation
+		List<Person_Person> p2a = linkPersonPersonRepository.findByPerson1(entity);
+		if (p2a != null) linkPersonPersonRepository.delete(p2a);
+		entity.setPerson1_persons(null);
+		
+		//delete the relations where the person is the second in the relation
+		List<Person_Person> p2b = linkPersonPersonRepository.findByPerson2(entity);
+		if (p2b != null) linkPersonPersonRepository.delete(p2b);
+		entity.setPerson2_persons(null);
+		
+		List<Person_Medium> pm = linkPersonMediumRepository.findByPerson(entity);
+		if (pm != null) linkPersonMediumRepository.delete(pm);
+		
+		//save it before deleting it to commit all other changes
+		entity = personCrudRepository.save(entity);
 		personCrudRepository.delete(entity);
 	}
 

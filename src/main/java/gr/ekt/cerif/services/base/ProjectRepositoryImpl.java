@@ -8,15 +8,22 @@ import gr.ekt.cerif.entities.link.project.Project_Class;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_Person;
+import gr.ekt.cerif.entities.link.project.Project_Project;
+import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ProjectAbstract;
+import gr.ekt.cerif.features.multilingual.ProjectTitle;
 import gr.ekt.cerif.features.multilingual.Translation;
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.services.link.project.LinkProjectClassRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectFundingRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectOrganisationUnitRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectPersonRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectProjectRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectResultPublicationRepository;
 import gr.ekt.cerif.services.multilingual.ProjectAbstractRepository;
+import gr.ekt.cerif.services.multilingual.ProjectTitleRepository;
 import gr.ekt.cerif.services.second.FundingRepository;
 import gr.ekt.cerif.services.semantics.ClassRepository;
 
@@ -58,6 +65,18 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	
 	@Autowired
 	private LinkProjectOrganisationUnitRepository linkProjectOrganisationUnitRepository;
+	
+	@Autowired
+	private ProjectTitleRepository projectTitleRepository;
+	
+	@Autowired
+	private LinkProjectPersonRepository linkProjectPersonRepository;
+	
+	@Autowired
+	private LinkProjectResultPublicationRepository linkProjectResultPublicationRepository;
+	
+	@Autowired
+	private LinkProjectProjectRepository linkProjectProjectRepository;
 	
 	@Transactional
 	public Project updatePartners(Long projectId, List<Long> newPartnerIds) {
@@ -321,6 +340,44 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
 	@Transactional
 	public void delete(Project entity) {
+		
+		List<ProjectAbstract> pa = projectAbstractRepository.findByProject(entity);
+		if (pa != null) projectAbstractRepository.delete(pa);
+		entity.setProjectAbstracts(null);
+		
+		ProjectTitle pt = projectTitleRepository.findByProject(entity);
+		if (pt != null) projectTitleRepository.delete(pt);
+		entity.setProjectTitles(null);
+		
+		List<Project_OrganisationUnit> po = linkProjectOrganisationUnitRepository.findByProject(entity);
+		if (po != null) linkProjectOrganisationUnitRepository.delete(po);
+		entity.setOrganisationUnits(null);
+		
+		List<Project_Class> pc = linkProjectClassRepository.findByProject(entity);
+		if (pc != null) linkProjectClassRepository.delete(pc);
+		entity.setProjects_classes(null);
+		
+		List<Project_Funding> pf = linkProjectFundingRepository.findByProject(entity);
+		if (pf != null) linkProjectFundingRepository.delete(pf);
+		entity.setProjects_fundings(null);
+
+		List<Project_Person> pp = linkProjectPersonRepository.findByProject(entity);
+		if (pp != null) linkProjectPersonRepository.delete(pp);
+		entity.setPersons(null);
+		
+		List<Project_ResultPublication> pr = linkProjectResultPublicationRepository.findByProject(entity);
+		if (pr != null) linkProjectResultPublicationRepository.delete(pr);
+		entity.setProjects_resultPublications(null);
+		
+		List<Project_Project> pp1 = linkProjectProjectRepository.findByProject1(entity);
+		if (pp1 != null) linkProjectProjectRepository.delete(pp1);
+		entity.setProjects1(null);
+		
+		List<Project_Project> pp2 = linkProjectProjectRepository.findByProject2(entity);
+		if (pp2 != null) linkProjectProjectRepository.delete(pp2);
+		entity.setProjects2(null);
+		
+		entity = projectCrudRepository.save(entity);
 		projectCrudRepository.delete(entity);
 	}
 

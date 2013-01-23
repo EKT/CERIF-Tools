@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for ExpertiseAndSkills.
  * 
  */
-public interface ExpertiseAndSkillsRepository extends CrudRepository<ExpertiseAndSkills, String> {
+public interface ExpertiseAndSkillsRepository extends CrudRepository<ExpertiseAndSkills, Long> {
 
 }

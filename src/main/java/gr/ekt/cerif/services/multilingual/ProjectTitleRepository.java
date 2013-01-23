@@ -3,6 +3,7 @@
  */
 package gr.ekt.cerif.services.multilingual;
 
+import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.features.multilingual.ProjectTitle;
 
 import javax.persistence.QueryHint;
@@ -23,5 +24,8 @@ public interface ProjectTitleRepository extends CrudRepository<ProjectTitle, Lon
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("Select pt from gr.ekt.cerif.features.multilingual.ProjectTitle pt join pt.project p where p.id=?1")
 	ProjectTitle findProjectTitleById(Long id);
+	
+	ProjectTitle findByProject(Project project);
+	
 }
 

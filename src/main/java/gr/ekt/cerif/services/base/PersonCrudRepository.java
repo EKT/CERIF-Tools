@@ -24,7 +24,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
-public interface PersonCrudRepository extends CrudRepository<Person, String> {
+public interface PersonCrudRepository extends CrudRepository<Person, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value= "select p from Person p where p.id = ?1")
@@ -58,7 +58,7 @@ public interface PersonCrudRepository extends CrudRepository<Person, String> {
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select new gr.ekt.cerif.entities.base.PersonView("+
-			   "  persname.familyNames, persrespub.startDate)	" +
+			   "  persname.firstNames, persname.familyNames, persrespub.startDate)	" +
 			   "  from Person_ResultPublication persrespub    		 	" +
 			   "  left join persrespub.person pers " +
 			   "  left join pers.personName persname " +
@@ -174,6 +174,7 @@ public interface PersonCrudRepository extends CrudRepository<Person, String> {
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select new gr.ekt.cerif.entities.base.PersonView(	" +
 			   "       p.id,    	 					" +
+			   "       n.firstNames,					" +
 			   "       n.familyNames,					" +
 			   "	   ea.uri) 				   			" +
 			   "  from Person p 							" +
@@ -190,8 +191,9 @@ public interface PersonCrudRepository extends CrudRepository<Person, String> {
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select	new gr.ekt.cerif.entities.base.PersonView(	" +
-			   "       pn.familyNames,    	 			" +
 			   "       p.id,							" +
+			   "       pn.firstNames,    	 			" +
+			   "       pn.familyNames,    	 			" +
 			   "	   ea.uri,    	 					" +
 			   "       pa.addressLine2,					" +
 			   "	   pa.addressLine1,					" +

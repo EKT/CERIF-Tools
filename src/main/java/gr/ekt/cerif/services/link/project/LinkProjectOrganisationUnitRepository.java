@@ -24,10 +24,14 @@ public interface LinkProjectOrganisationUnitRepository {
 	
 	List <Project_OrganisationUnit> findByOrganisationUnitAndTheClass(OrganisationUnit organisationUnit, Class theClass);
 	
+	List <Project_OrganisationUnit> findByProject(Project project);
+	
 	public Project_OrganisationUnit save(Project_OrganisationUnit entity);
 	
 	public Iterable<? extends Project_OrganisationUnit> save(Iterable<? extends Project_OrganisationUnit> entities);
 	
 	public void delete(Project_OrganisationUnit entity);
+	
+	public void delete(Iterable<? extends Project_OrganisationUnit> entities);
 	
 }

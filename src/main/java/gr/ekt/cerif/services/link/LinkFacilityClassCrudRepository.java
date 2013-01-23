@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface LinkFacilityClassCrudRepository extends CrudRepository<Facility_Class, String>{
+public interface LinkFacilityClassCrudRepository extends CrudRepository<Facility_Class, Long> {
 
 	List<Facility_Class> findByTheClass(Class theClass);
 	

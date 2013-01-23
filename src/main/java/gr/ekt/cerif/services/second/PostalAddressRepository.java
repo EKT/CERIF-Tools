@@ -20,7 +20,8 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for postal addresses.
  * 
  */
-public interface PostalAddressRepository extends CrudRepository<PostalAddress, String> {
+public interface PostalAddressRepository extends CrudRepository<PostalAddress, Long> {
+	
 	List<PostalAddress> findByCountry(Country country);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
@@ -41,7 +42,6 @@ public interface PostalAddressRepository extends CrudRepository<PostalAddress, S
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select pa from PostalAddress pa join pa.persons_postalAddresses pp join pp.person per where per=?1")
 	PostalAddress findByPerson(Person person);
-	
 	
 	@Query("select pa from PostalAddress pa join pa.organisationUnits orgs join orgs.organisationUnit org join org.organisationUnitNames uname where uname.name=?1")
     PostalAddress findByOrganisationUnitName(String organisationUnitName);

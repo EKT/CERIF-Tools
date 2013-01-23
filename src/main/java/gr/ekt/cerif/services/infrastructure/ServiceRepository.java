@@ -11,7 +11,7 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for services.
  * 
  */
-public interface ServiceRepository extends CrudRepository<Service, String> {
+public interface ServiceRepository extends CrudRepository<Service, Long> {
 
 }
 

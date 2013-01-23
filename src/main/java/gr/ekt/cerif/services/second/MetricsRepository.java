@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for metrics.
  * 
  */
-public interface MetricsRepository extends CrudRepository<Metrics, String> {
+public interface MetricsRepository extends CrudRepository<Metrics, Long> {
 
 }
