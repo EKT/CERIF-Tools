@@ -11,6 +11,8 @@ public interface LinkProjectClassRepository {
 
 	void delete(Project_Class entity);
 	
+	void delete(Iterable<Project_Class> entities);
+	
 	Project_Class save(Project_Class entity);
 	
 	List<Project_Class> save(List<Project_Class> entityList);
@@ -28,4 +30,7 @@ public interface LinkProjectClassRepository {
 	Project_Class findByProjectAndClassschemeAndClass(Project project,ClassScheme classScheme,Class theClass);
 
 	Project_Class findByProjectAndClassScheme(Project project, ClassScheme classScheme);
+	
+	List<Project_Class> findByProject(Project project);
+	
 }

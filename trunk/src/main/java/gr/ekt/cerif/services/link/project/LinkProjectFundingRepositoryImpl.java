@@ -30,7 +30,6 @@ public class LinkProjectFundingRepositoryImpl implements LinkProjectFundingRepos
 	@Autowired
 	private LinkProjectFundingCrudRepository linkProjectFundingCrudRepository;
 	
-	
 	@Transactional
 	public Project_Funding save(Project_Funding entity) {
 		if (entity.getProject() == null || entity.getFunding() == null) {
@@ -56,9 +55,13 @@ public class LinkProjectFundingRepositoryImpl implements LinkProjectFundingRepos
 	@Transactional
 	public void delete(Project_Funding entity) {
 		linkProjectFundingCrudRepository.delete(entity);
-		
 	}
-
+	
+	@Transactional
+	public void delete(Iterable<Project_Funding> entities) {
+		linkProjectFundingCrudRepository.delete(entities);
+	}
+	
 	public List<Project_Funding> findByProject(Project project) {
 		return linkProjectFundingCrudRepository.findByProject(project);
 	}

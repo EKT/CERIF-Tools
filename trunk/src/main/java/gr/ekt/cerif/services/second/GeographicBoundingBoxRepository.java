@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for languages.
  * 
  */
-public interface GeographicBoundingBoxRepository extends CrudRepository<GeographicBoundingBox, String> {
+public interface GeographicBoundingBoxRepository extends CrudRepository<GeographicBoundingBox, Long> {
 
 }

@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for indicators.
  * 
  */
-public interface IndicatorRepository extends CrudRepository<Indicator, String> {
+public interface IndicatorRepository extends CrudRepository<Indicator, Long> {
 
 }

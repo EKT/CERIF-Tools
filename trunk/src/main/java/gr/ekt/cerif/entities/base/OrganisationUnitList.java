@@ -67,6 +67,22 @@ public class OrganisationUnitList {
 		this.country = country;
 		this.count = count;
 	}
+	
+	/**
+	 * @param id
+	 * @param name
+	 * @param classuri
+	 * @param country
+	 * @param count
+	 */
+	public OrganisationUnitList(Long id, String name, String classuri, String orgunituri, String country) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.classuri = classuri;
+		this.orgunituri = orgunituri;
+		this.country = country;
+	}
 
 	/**
 	 * @param id

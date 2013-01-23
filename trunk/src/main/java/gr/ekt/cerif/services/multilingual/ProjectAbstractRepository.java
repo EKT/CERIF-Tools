@@ -14,5 +14,7 @@ public interface ProjectAbstractRepository {
 	Iterable<? extends ProjectAbstract> save(Iterable<? extends ProjectAbstract> entities);
 	
 	void delete(ProjectAbstract entity);
+	
+	void delete(List<ProjectAbstract> entities);
 
 }

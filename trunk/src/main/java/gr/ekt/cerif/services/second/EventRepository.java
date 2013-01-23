@@ -18,7 +18,7 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for events.
  * 
  */
-public interface EventRepository extends CrudRepository<Event, String> {
+public interface EventRepository extends CrudRepository<Event, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select new gr.ekt.cerif.entities.second.EventView(" +

@@ -69,6 +69,10 @@ public class ProjectAbstractRepositoryImpl implements ProjectAbstractRepository 
 	public void delete(ProjectAbstract entity) {
 		projectAbstractCrudRepository.delete(entity);
 	}
-	
+
+	@Transactional
+	public void delete(List<ProjectAbstract> entities) {
+		projectAbstractCrudRepository.delete(entities);
+	}
 
 }

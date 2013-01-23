@@ -23,6 +23,11 @@ public class PersonView {
 	private String firstNames;
 	
 	/**
+	 * The name.
+	 */
+	private String name;
+	
+	/**
 	 * The otherNames.
 	 */
 	private String otherNames;
@@ -190,10 +195,14 @@ public class PersonView {
 	 * @param familyNames
 	 * @param email
 	 */
-	public PersonView(Long id, String familyNames, String email) {
+	public PersonView(Long id, String firstNames, String familyNames, String email) {
 		super();
+		if (firstNames==null) {firstNames="";}
+		if (familyNames==null) {familyNames="";}
+		this.name = familyNames.trim()+" "+firstNames.trim();
 		this.id = id;
 		this.familyNames = familyNames;
+		this.firstNames = firstNames;
 		this.email = email;
 	}
 	
@@ -221,8 +230,13 @@ public class PersonView {
 	 * @param startDate
 	 * @param familyNames
 	 */
-	public PersonView(String familyNames, Date startDate) {
+	public PersonView(String firstNames, String familyNames, Date startDate) {
 		super();
+		if (firstNames==null) {firstNames="";}
+		if (familyNames==null) {familyNames="";}
+		this.name = familyNames.trim()+" "+firstNames.trim();
+		this.familyNames = familyNames;
+		this.firstNames = firstNames;
 		this.startDate = startDate;
 		this.familyNames = familyNames;
 	}
@@ -271,6 +285,20 @@ public class PersonView {
 	 */
 	public void setFirstNames(String firstNames) {
 		this.firstNames = firstNames;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

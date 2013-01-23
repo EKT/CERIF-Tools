@@ -28,7 +28,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ResultPublicationCrudRepository extends CrudRepository<ResultPublication, String> {
+public interface ResultPublicationCrudRepository extends CrudRepository<ResultPublication, Long> {
 
 	ResultPublication findByUri(String uri);
 

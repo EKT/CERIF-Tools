@@ -29,6 +29,10 @@ public class LinkProjectOrganisationUnitRepositoryImpl implements LinkProjectOrg
 		return linkProjectOrganisationUnitCrudRepository.findByProjectAndTheClass(project, theClass);
 	}
 	
+	public List<Project_OrganisationUnit> findByProject(Project project) {
+		return linkProjectOrganisationUnitCrudRepository.findByProject(project);
+	}
+	
 	public List <Project_OrganisationUnit> findByOrganisationUnitAndTheClass(OrganisationUnit organisationUnit, Class theClass) {
 		return linkProjectOrganisationUnitCrudRepository.findByOrganisationUnitAndTheClass(organisationUnit, theClass);
 	}
@@ -46,6 +50,11 @@ public class LinkProjectOrganisationUnitRepositoryImpl implements LinkProjectOrg
 	@Transactional
 	public void delete(Project_OrganisationUnit entity) {
 		linkProjectOrganisationUnitCrudRepository.delete(entity);
+	}
+
+	@Transactional
+	public void delete(Iterable<? extends Project_OrganisationUnit> entities) {
+		linkProjectOrganisationUnitCrudRepository.delete(entities);
 	}
 	
 }

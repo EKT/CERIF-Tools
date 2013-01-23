@@ -8,19 +8,29 @@ import gr.ekt.cerif.entities.base.OrganisationUnitList;
 import gr.ekt.cerif.entities.base.OrganisationUnitView;
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.base.Project;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.second.Country;
+import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitName;
 import gr.ekt.cerif.features.multilingual.Translation;
 import gr.ekt.cerif.features.semantics.Class;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitClassRepository;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitElectronicAddressRepository;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitFacilityRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitPostalAddressRepository;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitResultPublicationRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonOrganisationUnitRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectOrganisationUnitRepository;
 import gr.ekt.cerif.services.multilingual.OrganisationUnitNameRepository;
+import gr.ekt.cerif.services.second.ElectronicAddressRepository;
 import gr.ekt.cerif.services.second.PostalAddressRepository;
 import gr.ekt.cerif.services.second.SecondPersistenceService;
 import gr.ekt.cerif.services.semantics.ClassRepository;
@@ -77,11 +87,26 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 	private PostalAddressRepository postalAddressRepository;
 	
 	@Autowired
+	private ElectronicAddressRepository electronicAddressRepository;
+	
+	@Autowired
 	private SecondPersistenceService secondService;
 	
 	@Autowired
 	private LinkOrganisationUnitPostalAddressRepository linkOrganisationUnitPostalAddressRepository;
 	
+	@Autowired
+	private LinkOrganisationUnitElectronicAddressRepository linkOrganisationUnitElectronicAddressRepository;
+	
+	@Autowired
+	LinkOrganisationUnitResultPublicationRepository linkOrganisationUnitResultPublicationRepository;
+	
+	@Autowired
+	LinkOrganisationUnitClassRepository linkOrganisationUnitClassRepository;
+	
+	@Autowired
+	LinkOrganisationUnitFacilityRepository linkOrganisationUnitFacilityRepository;
+
 	@Transactional
 	public OrganisationUnit save(OrganisationUnit organisation) {
 		if (StringUtils.hasText(organisation.getUri())) {
@@ -290,6 +315,10 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 	public List<OrganisationUnitView> findAllOrgs() {
 		return organisationUnitCrudRepository.findAllOrgs();
 	}
+	
+	public List<OrganisationUnitList> findAllOrgs2() {
+		return organisationUnitCrudRepository.findAllOrgs2();
+	}
 
 	public List<OrganisationUnitView> findFavouriteOrgs(Long id) {
 		return organisationUnitCrudRepository.findFavouriteOrgs(id);
@@ -341,6 +370,43 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 	
 	@Transactional
 	public void delete(OrganisationUnit entity) {
+		List<OrganisationUnit_PostalAddress> oup = linkOrganisationUnitPostalAddressRepository.findByOrganisationUnit(entity);
+		if (oup != null) linkOrganisationUnitPostalAddressRepository.delete(oup);
+		entity.setPostalAddresses(null);
+		
+		PostalAddress pa = postalAddressRepository.findByOrganisationUnit(entity);
+		if (pa != null) postalAddressRepository.delete(pa);
+		
+		List<OrganisationUnit_ElectronicAddress> oue = linkOrganisationUnitElectronicAddressRepository.findByOrganisationUnit(entity);
+		if (oue != null) linkOrganisationUnitElectronicAddressRepository.delete(oue);
+		entity.setElectronicAddresses(null);
+		
+		ElectronicAddress ea = electronicAddressRepository.findByOrganisationUnit(entity);
+		if (ea != null) electronicAddressRepository.delete(ea);
+		
+		OrganisationUnitName oun = organisationUnitNameRepository.findByOrganisationUnit(entity);
+		if (oun != null) organisationUnitNameRepository.delete(oun);
+
+		List<Person_OrganisationUnit> po = linkPersonOrganisationUnitRepository.findByOrganisationUnit(entity);
+		if (po != null) linkPersonOrganisationUnitRepository.delete(po);
+		entity.setPersons_organisationUnits(null);
+		
+		List<Project_OrganisationUnit> pro = linkProjectOrganisationUnitRepository.findByOrganisationUnit(entity);
+		if (pro != null) linkProjectOrganisationUnitRepository.delete(pro);
+		entity.setProjects(null);
+
+		List<OrganisationUnit_ResultPublication> ourp = linkOrganisationUnitResultPublicationRepository.findByOrganisationUnit(entity);
+		if (ourp != null) linkOrganisationUnitResultPublicationRepository.delete(ourp);
+		entity.setResultPublications(null);
+		
+		List<OrganisationUnit_Class> ouc = linkOrganisationUnitClassRepository.findByOrganisationUnit(entity);
+		if (ouc != null) linkOrganisationUnitClassRepository.delete(ouc);
+		entity.setClasses(null);
+
+		List<OrganisationUnit_Facility> ouf = linkOrganisationUnitFacilityRepository.findByOrganisationUnit(entity);
+		if (ouf != null) linkOrganisationUnitFacilityRepository.delete(ouf);
+		
+		entity = organisationUnitCrudRepository.save(entity);
 		organisationUnitCrudRepository.delete(entity);
 	}
 

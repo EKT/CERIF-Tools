@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for prizes.
  * 
  */
-public interface PrizeRepository extends CrudRepository<Prize, String> {
+public interface PrizeRepository extends CrudRepository<Prize, Long> {
 
 }

@@ -25,4 +25,6 @@ public interface LinkProjectFundingRepository {
 	
 	public void delete(Project_Funding entity);
 	
+	public void delete(Iterable<Project_Funding> entities);
+	
 }

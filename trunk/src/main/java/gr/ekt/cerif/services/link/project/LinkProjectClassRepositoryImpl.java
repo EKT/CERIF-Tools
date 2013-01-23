@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LinkProjectClassRepositoryImpl implements LinkProjectClassRepository {
@@ -16,14 +17,22 @@ public class LinkProjectClassRepositoryImpl implements LinkProjectClassRepositor
 	@Autowired
 	private LinkProjectClassCrudRepository linkProjectClassCrudRepository;
 	
+	@Transactional
 	public void delete(Project_Class entity) {
 		linkProjectClassCrudRepository.delete(entity);		
 	}
 
+	@Transactional
+	public void delete(Iterable<Project_Class> entities) {
+		linkProjectClassCrudRepository.delete(entities);
+	}
+	
+	@Transactional
 	public Project_Class save(Project_Class entity) {
 		return linkProjectClassCrudRepository.save(entity);
 	}
 
+	@Transactional
 	public List<Project_Class> save(List<Project_Class> entities) {
 		return (List<Project_Class>) linkProjectClassCrudRepository.save(entities);
 	}
@@ -54,6 +63,10 @@ public class LinkProjectClassRepositoryImpl implements LinkProjectClassRepositor
 
 	public Project_Class findByProjectAndClassScheme(Project project, ClassScheme classScheme) {
 		return linkProjectClassCrudRepository.findByProjectAndClassScheme(project, classScheme);
+	}
+
+	public List<Project_Class> findByProject(Project project) {
+		return linkProjectClassCrudRepository.findByProject(project);
 	}
 
 }

@@ -25,4 +25,6 @@ public interface LinkProjectPersonRepository extends CrudRepository<Project_Pers
 	
 	List <Project_Person> findByTheClass(Class theClass);
 	
+	List <Project_Person> findByProject(Project project);
+	
 }

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ResultPublicationKeywordRepository extends CrudRepository<ResultPublicationKeyword, String> {
+public interface ResultPublicationKeywordRepository extends CrudRepository<ResultPublicationKeyword, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value= "select respubkey from ResultPublication respub "+

@@ -28,4 +28,6 @@ public interface LinkOrganisationUnitPostalAddressRepository {
 	
 	public void delete(OrganisationUnit_PostalAddress entity);
 	
+	public void delete(Iterable<? extends OrganisationUnit_PostalAddress> entityList);
+	
 }

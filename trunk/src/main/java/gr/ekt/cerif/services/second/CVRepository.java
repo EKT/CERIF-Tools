@@ -11,7 +11,7 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for cvs.
  * 
  */
-public interface CVRepository extends CrudRepository<CV, String> {
+public interface CVRepository extends CrudRepository<CV, Long> {
 	
 	CV findById(Long id);
 

@@ -7,14 +7,12 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
-
 /**
  * A repository for links between persons and organisationUnits.
  * 
  */
 
-public interface LinkPersonOrganisationUnitRepository extends CrudRepository<Person_OrganisationUnit, Long> {
+public interface LinkPersonOrganisationUnitRepository {
 
 	List <Person_OrganisationUnit> findByOrganisationUnit(OrganisationUnit organisationUnit);
 
@@ -23,5 +21,13 @@ public interface LinkPersonOrganisationUnitRepository extends CrudRepository<Per
 	Person_OrganisationUnit findByOrganisationUnitAndPerson(OrganisationUnit organisationUnit,Person person);
 	
 	List<Person_OrganisationUnit> findByOrganisationUnitAndTheClass(OrganisationUnit organisationUnit, Class theClass);
+	
+	void delete(Person_OrganisationUnit entity);
+	
+	void delete(Iterable<Person_OrganisationUnit> entities);
+	
+	Iterable<Person_OrganisationUnit> save(Iterable<Person_OrganisationUnit> entities);
+	
+	Person_OrganisationUnit save(Person_OrganisationUnit entity);
 	
 }

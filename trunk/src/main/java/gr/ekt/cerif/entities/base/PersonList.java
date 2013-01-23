@@ -162,7 +162,7 @@ public class PersonList {
 		super();
 		if (firstName==null) {firstName="";}
 		if (lastName==null) {lastName="";}
-		this.name = firstName.trim()+" "+lastName.trim();
+		this.name = lastName.trim()+" "+firstName.trim();
 		this.id = id;
 		this.stakeholder = stakeholder;
 		this.pbRole = pbRole;
@@ -185,7 +185,7 @@ public class PersonList {
 		this.id = id;
 		this.stakeholder = stakeholder;
 		this.pbRole = pbRole;
-		this.name = firstName.trim()+" "+lastName.trim();
+		this.name = lastName.trim()+" "+firstName.trim();
 	}
 	
 	
@@ -202,7 +202,7 @@ public class PersonList {
 		this.lastName = lastName;
 		this.id = id;
 		this.pbRole = pbRole;
-		this.name =firstName.trim()+" "+lastName.trim();
+		this.name =lastName.trim()+" "+firstName.trim();
 	}
 	
 	/**
@@ -219,7 +219,7 @@ public class PersonList {
 		this.lastName = lastName;
 		this.id = id;
 		this.country = country;
-		this.name =firstName.trim()+" "+lastName.trim();
+		this.name =lastName.trim()+" "+firstName.trim();
 	}
 	
 	/**
@@ -250,7 +250,7 @@ public class PersonList {
 		this.country = country;
 		this.organisation = organisation;
 		this.organisationId = organisationId;
-		this.name = firstName.trim()+" "+lastName.trim();
+		this.name = lastName.trim()+" "+firstName.trim();
 	}
 	
 	public PersonList(String country, Long id, String name, String organisation, String pbRole, String email) {
@@ -272,7 +272,7 @@ public class PersonList {
 		this.id = id;
 		this.email = email;
 		this.tel = tel;
-		this.name = firstName.trim()+" "+lastName.trim();
+		this.name = lastName.trim()+" "+firstName.trim();
 	}
 	
 	public PersonList(String country, Long id, String firstName, String lastName, String organisation, Long organisationId, String pbRole, String email, String photo) {
@@ -288,7 +288,7 @@ public class PersonList {
 		this.pbRole = pbRole;
 		this.email = email;
 		this.photo = photo;
-		this.name = firstName.trim()+" "+lastName.trim();
+		this.name = lastName.trim()+" "+firstName.trim();
 	}
 	
 	public PersonList(Long id, String name, String registrationStatus) {
@@ -306,7 +306,7 @@ public class PersonList {
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.id = id;
-		this.name = firstName.trim()+" "+lastName.trim();
+		this.name = lastName.trim()+" "+firstName.trim();
 	}
 	
 
@@ -321,7 +321,7 @@ public class PersonList {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.id = id;
-		this.name = firstName.trim()+" "+lastName.trim();
+		this.name = lastName.trim()+" "+firstName.trim();
 	}
 	
 	/**
@@ -336,7 +336,7 @@ public class PersonList {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.id = id;
-		this.name = firstName.trim()+" "+lastName.trim();
+		this.name = lastName.trim()+" "+firstName.trim();
 	}
 	
 	/**
@@ -352,7 +352,7 @@ public class PersonList {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.id = id;
-		this.name = firstName.trim()+" "+lastName.trim();
+		this.name = lastName.trim()+" "+firstName.trim();
 		this.projectid = projectid;
 		this.projectacro = projectacro;
 	}

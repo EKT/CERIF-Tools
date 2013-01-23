@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * A repository for qualifications.
  * 
  */
-public interface QualificationRepository extends CrudRepository<Qualification, String> {
+public interface QualificationRepository extends CrudRepository<Qualification, Long> {
 
 }

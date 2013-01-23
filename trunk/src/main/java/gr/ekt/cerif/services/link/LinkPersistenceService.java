@@ -164,7 +164,7 @@ import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPublication;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Service;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitClassRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitDublinCoreRepository;
-import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitEAddrRepository;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitElectronicAddressRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitEquipmentRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitEventRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitExpertiseAndSkillsRepository;
@@ -473,7 +473,7 @@ public class LinkPersistenceService {
 	private LinkOrganisationUnitDublinCoreRepository organisationUnitDublinCoreRepository;
 	
 	@Autowired
-	private LinkOrganisationUnitEAddrRepository organisationUnitEAddrRepository;
+	private LinkOrganisationUnitElectronicAddressRepository organisationUnitElectronicAddressRepository;
 	
 	@Autowired
 	private LinkOrganisationUnitEquipmentRepository organisationUnitEquipmentRepository;
@@ -629,7 +629,7 @@ public class LinkPersistenceService {
 	private LinkPersonDublinCoreRepository personDublinCoreRepository;
 	
 	@Autowired
-	private LinkPersonElectronicAddressRepository personEAddrRepository;
+	private LinkPersonElectronicAddressRepository personElectronicAddressRepository;
 	
 	@Autowired
 	private LinkPersonEquipmentRepository personEquipmentRepository;
@@ -932,7 +932,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof OrganisationUnit_DublinCore) {
 			organisationUnitDublinCoreRepository.save((OrganisationUnit_DublinCore) entity);
 		} else if (entity instanceof OrganisationUnit_ElectronicAddress) {
-			organisationUnitEAddrRepository.save((OrganisationUnit_ElectronicAddress) entity);
+			organisationUnitElectronicAddressRepository.delete((OrganisationUnit_ElectronicAddress) entity);
 		} else if (entity instanceof OrganisationUnit_Equipment) {
 			organisationUnitEquipmentRepository.save((OrganisationUnit_Equipment) entity);
 		} else if (entity instanceof OrganisationUnit_Event) {
@@ -1010,7 +1010,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Person_DublinCore) {
 			personDublinCoreRepository.save((Person_DublinCore) entity);
 		} else if (entity instanceof Person_ElectronicAddress) {
-			personEAddrRepository.delete((Person_ElectronicAddress) entity);
+			personElectronicAddressRepository.delete((Person_ElectronicAddress) entity);
 		} else if (entity instanceof Person_Equipment) {
 			personEquipmentRepository.save((Person_Equipment) entity);
 		} else if (entity instanceof Person_Event) {
@@ -1028,7 +1028,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Person_Measurement) {
 			personMeasurementRepository.save((Person_Measurement) entity);
 		} else if (entity instanceof Person_Medium) {
-			personMediumRepository.save((Person_Medium) entity);
+			personMediumRepository.delete((Person_Medium) entity);
 		} else if (entity instanceof Person_OrganisationUnit) {
 			personOrganisationUnitRepository.delete((Person_OrganisationUnit) entity);
 		} else if (entity instanceof Person_PostalAddress) {
@@ -1262,7 +1262,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof OrganisationUnit_DublinCore) {
 			organisationUnitDublinCoreRepository.save((OrganisationUnit_DublinCore) entity);
 		} else if (entity instanceof OrganisationUnit_ElectronicAddress) {
-			organisationUnitEAddrRepository.save((OrganisationUnit_ElectronicAddress) entity);
+			organisationUnitElectronicAddressRepository.save((OrganisationUnit_ElectronicAddress) entity);
 		} else if (entity instanceof OrganisationUnit_Equipment) {
 			organisationUnitEquipmentRepository.save((OrganisationUnit_Equipment) entity);
 		} else if (entity instanceof OrganisationUnit_Event) {
@@ -1340,7 +1340,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Person_DublinCore) {
 			personDublinCoreRepository.save((Person_DublinCore) entity);
 		} else if (entity instanceof Person_ElectronicAddress) {
-			personEAddrRepository.save((Person_ElectronicAddress) entity);
+			personElectronicAddressRepository.save((Person_ElectronicAddress) entity);
 		} else if (entity instanceof Person_Equipment) {
 			personEquipmentRepository.save((Person_Equipment) entity);
 		} else if (entity instanceof Person_Event) {
@@ -1628,7 +1628,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof OrganisationUnit_DublinCore) {
 			organisationUnitDublinCoreRepository.save((List<OrganisationUnit_DublinCore>) entityList);
 		} else if (entity instanceof OrganisationUnit_ElectronicAddress) {
-			organisationUnitEAddrRepository.save((List<OrganisationUnit_ElectronicAddress>) entityList);
+			organisationUnitElectronicAddressRepository.save((List<OrganisationUnit_ElectronicAddress>) entityList);
 		} else if (entity instanceof OrganisationUnit_Equipment) {
 			organisationUnitEquipmentRepository.save((List<OrganisationUnit_Equipment>) entityList);
 		} else if (entity instanceof OrganisationUnit_Event) {
@@ -1702,7 +1702,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Person_DublinCore) {
 			personDublinCoreRepository.save((List<Person_DublinCore>) entityList);
 		} else if (entity instanceof Person_ElectronicAddress) {
-			personEAddrRepository.save((List<Person_ElectronicAddress>) entityList);
+			personElectronicAddressRepository.save((List<Person_ElectronicAddress>) entityList);
 		} else if (entity instanceof Person_Equipment) {
 			personEquipmentRepository.save((List<Person_Equipment>) entityList);
 		} else if (entity instanceof Person_Event) {
@@ -2287,10 +2287,10 @@ public class LinkPersistenceService {
 	}
 
 	/**
-	 * @return the organisationUnitEAddrRepository
+	 * @return the organisationUnitElectronicAddressRepository
 	 */
-	public LinkOrganisationUnitEAddrRepository getOrganisationUnitEAddrRepository() {
-		return organisationUnitEAddrRepository;
+	public LinkOrganisationUnitElectronicAddressRepository getOrganisationUnitElectronicAddressRepository() {
+		return organisationUnitElectronicAddressRepository;
 	}
 
 	/**
@@ -2553,10 +2553,10 @@ public class LinkPersistenceService {
 	}
 
 	/**
-	 * @return the personEAddrRepository
+	 * @return the personElectronicAddressRepository
 	 */
-	public LinkPersonElectronicAddressRepository getPersonEAddrRepository() {
-		return personEAddrRepository;
+	public LinkPersonElectronicAddressRepository getPersonElectronicAddressRepository() {
+		return personElectronicAddressRepository;
 	}
 
 	/**

@@ -17,13 +17,13 @@ import org.springframework.data.repository.CrudRepository;
  * 
  */
 
-public interface LinkPersonPostalAddressRepository  extends CrudRepository<Person_PostalAddress, Long>{
+public interface LinkPersonPostalAddressRepository extends CrudRepository<Person_PostalAddress, Long>{
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("Select pa from gr.ekt.cerif.entities.link.person.Person_PostalAddress pa join pa.person p join p.personName pn where pn.familyNames=?1")
 	Person_PostalAddress findByPersonName(String personName);
 	
-	Person_PostalAddress findByPerson(Person person);
+	List<Person_PostalAddress> findByPerson(Person person);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("Select pa from gr.ekt.cerif.entities.link.person.Person_PostalAddress pa join pa.person p where p=?1")

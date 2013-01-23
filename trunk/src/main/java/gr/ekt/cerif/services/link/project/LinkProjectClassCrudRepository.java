@@ -38,4 +38,6 @@ public interface LinkProjectClassCrudRepository extends CrudRepository<Project_C
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("Select pc from gr.ekt.cerif.entities.link.project.Project_Class pc join pc.theClass cl where pc.project=?1 and cl.scheme=?2")
 	Project_Class findByProjectAndClassScheme(Project project, ClassScheme classScheme);
+	
+	List<Project_Class> findByProject(Project project);
 }
