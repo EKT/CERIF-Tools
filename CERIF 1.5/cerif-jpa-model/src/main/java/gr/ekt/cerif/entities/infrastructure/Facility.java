@@ -8,6 +8,7 @@ import java.util.Set;
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Facility;
 import gr.ekt.cerif.entities.link.Facility_Funding;
+import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.Facility_Service;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.person.Person_Facility;
@@ -17,23 +18,31 @@ import gr.ekt.cerif.features.multilingual.FacilityDescription;
 import gr.ekt.cerif.features.multilingual.FacilityKeyword;
 import gr.ekt.cerif.features.multilingual.FacilityName;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 
 /**
  * Represents a facility second level entity.
  */
 @Entity
 @Table(name="cfFacil")
+@Indexed(index="indexes/facilities")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Facility implements CerifInfrastructureEntity {
 	
 	/**
@@ -53,6 +62,7 @@ public class Facility implements CerifInfrastructureEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
+	@Field(name="facilityAcronym", index=Index.YES, store=Store.YES)
 	private String acronym;
 	
 	/**
@@ -71,6 +81,7 @@ public class Facility implements CerifInfrastructureEntity {
 	private Set<OrganisationUnit_Facility> organisationUnits_facilities;
 	
 	@OneToMany(mappedBy="facility")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<FacilityName> names;
 	
 	@OneToMany(mappedBy="facility")
@@ -99,6 +110,12 @@ public class Facility implements CerifInfrastructureEntity {
 	
 	@OneToMany(mappedBy="facility")
 	private Set<Facility_Service> facilities_services;
+	
+	/**
+	 * The postal addresses.
+	 */
+	@OneToMany(mappedBy="facility")
+	private Set<Facility_PostalAddress> postalAddresses;
 	
 	/**
 	 * Default Constructor
@@ -326,6 +343,21 @@ public class Facility implements CerifInfrastructureEntity {
 	 */
 	public void setFacilities_services(Set<Facility_Service> facilities_services) {
 		this.facilities_services = facilities_services;
+	}
+
+	/**
+	 * @return the postalAddresses
+	 */
+	public Set<Facility_PostalAddress> getPostalAddresses() {
+		return postalAddresses;
+	}
+
+	/**
+	 * @param postalAddresses the postalAddresses to set
+	 */
+	public void setPostalAddresses(
+			Set<Facility_PostalAddress> postalAddresses) {
+		this.postalAddresses = postalAddresses;
 	}
 	
 }

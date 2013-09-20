@@ -3,6 +3,7 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.Service_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.person.Person_PostalAddress;
@@ -122,6 +123,10 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="postalAddress")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Service_PostalAddress> services_postalAddresses;
+	
+	@OneToMany(mappedBy="postalAddress")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private Set<Facility_PostalAddress> facilities_postalAddresses;
 	
 	
 	/**
@@ -376,6 +381,18 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	public void setServices_postalAddresses(
 			Set<Service_PostalAddress> services_postalAddresses) {
 		this.services_postalAddresses = services_postalAddresses;
+	}
+	/**
+	 * @return the facilities
+	 */
+	public Set<Facility_PostalAddress> getFacilities() {
+		return facilities_postalAddresses;
+	}
+	/**
+	 * @param facilities the facilities to set
+	 */
+	public void setFacilities(Set<Facility_PostalAddress> facilities) {
+		this.facilities_postalAddresses = facilities;
 	}
 	
 }
