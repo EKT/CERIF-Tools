@@ -3,6 +3,7 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Facility_Measurement;
 import gr.ekt.cerif.entities.link.Service_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
@@ -102,6 +103,9 @@ public class Measurement implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<ResultProduct_Measurement> resultProducts_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<Facility_Measurement> facility_measurements;
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<MeasurementName> names;

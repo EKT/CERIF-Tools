@@ -6,6 +6,7 @@ package gr.ekt.cerif.features.multilingual;
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.second.Language;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,12 +20,22 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 /**
  * Holds the multi-lingual name of a facility entity.
  * 
  */
 @Entity
 @Table(name="cfFacilName", uniqueConstraints=@UniqueConstraint(columnNames={"cfFacilId","cfLangCode","cfTrans"}))
+@Indexed(index="indexes/facilities/names")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class FacilityName implements CerifMultipleLanguageFeature {
 	
 	/**
@@ -65,6 +76,7 @@ public class FacilityName implements CerifMultipleLanguageFeature {
 	 * The facility name.
 	 */
 	@Column(name="cfName")
+	@Field(name="facilityName", index=Index.YES, store=Store.YES)
 	private String name;
 	
 	/**
