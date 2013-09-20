@@ -1,7 +1,7 @@
-#summary How to include the CERIF packages in your JAVA project.
+#summary How to include and use the cerif-jpa-persistence packages in your JAVA project.
 
 
-There are two distinct JAVA projects, the _cerif-jpa-model_ which represents the CERIF data model and the _cerif-jpa-services_ which can be used to accommodate queries and custom functions and provides a mechanism for the programmer to access them. Each inner package in _cerif-jpa-services_ provides a transfer object class for multilingual fields.
+There are two distinct Java projects, the _cerif-jpa-model_ which represents the CERIF data model and the _cerif-jpa-services_ which can be used to accommodate queries and custom functions and provides a mechanism for the programmer to access them. Each inner package in _cerif-jpa-services_ provides a transfer object class for multilingual fields.
 
 The _cerif-jpa-model_ package doesn't need any editing or preparation. It can be used as is. 
 
