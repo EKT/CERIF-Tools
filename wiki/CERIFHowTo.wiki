@@ -32,6 +32,8 @@ The context xml of the client project must include an import command for the con
 
 ==Example project==
 
+http://cerif-jpa-persistence.googlecode.com/svn/trunk/CERIF%201.5/cerif.jpg
+
 The project relationships between individual packages can be structured as in the image above. A parent project can contain the client project and the services package. The parameters for the application can be stored in the parent’s project pom.xml file inside pom profiles, e.g.
 
 {{{
