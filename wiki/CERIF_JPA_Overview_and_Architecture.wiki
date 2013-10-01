@@ -34,7 +34,7 @@ It defines a common object-oriented structure for every entity of the model, as 
 Let us consider the entity Person:
  * PersonRepository is the service interface. 
  * PersonRepositoryImpl is the implementation of the service interface.
- * PersonCrudRepository is the Spring Data CrudRepository .
+ * PersonCrudRepository is the Spring Data CrudRepository.
 
 This object-oriented scheme facilitates the implementation and usage of database related functions through a delegation process.
  
