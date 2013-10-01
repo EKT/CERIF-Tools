@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>gr.ekt</groupId>
+  <artifactId>example_app</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Example App</name>
+  
+  <modules>
+     <module>cerif-jpa-services</module>
+     <module>webapp</module>
+     <module>cerif-jpa-model</module>
+  </modules>
+  
+  <profiles>
+		<profile>
+                 <id>example</id>
+                 <activation>
+                       <activeByDefault>false</activeByDefault>
+                 </activation>
+                 <properties>
+                       <!-- <target.version>euroris-0.1</target.version>
+                       <db.driver>com.mysql.jdbc.Driver</db.driver>
+                       <db.url>jdbc:mysql://localhost:3306/example_app?characterEncoding=utf8</db.url>
+                       <db.username>root</db.username>
+                       <db.password>11111</db.password> -->
+                       
+                       <!-- validate | update | create | create-drop -->
+                       <hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
+                       <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+                       <hibernate.show_sql>true</hibernate.show_sql>
+                       <hibernate.indexBase>/usr/local/lucene/example_app</hibernate.indexBase>
+                       <!-- set to "manual" to disable lucene indexing -->
+                       <hibernate.search.indexing_strategy>manual</hibernate.search.indexing_strategy>
+                       
+                       <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
+                       <hibernate.cache.use_query_cache>true</hibernate.cache.use_query_cache>
+                       <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
+                       
+                        <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
+                       <hibernate.cache.use_query_cache>false</hibernate.cache.use_query_cache>
+                       <hibernate.cache.region.factory_class>net.sf.ehcache.hibernate.EhCacheRegionFactory</hibernate.cache.region.factory_class>
+                       <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
+                 </properties>
+        </profile>
+	</profiles>
+	
+	<dependencies>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+</project>
