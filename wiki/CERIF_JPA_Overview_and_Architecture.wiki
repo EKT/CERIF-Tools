@@ -30,7 +30,8 @@ This module provides ready-to-use functionality for common persistence needs. It
 
 It defines a common object-oriented structure for every entity of the model, as depicted in the following image.
 
-  
+http://cerif-jpa-persistence.googlecode.com/svn/trunk/CERIF%201.5/diagram.png
+
 Let us consider the entity Person:
  * PersonRepository is the service interface. 
  * PersonRepositoryImpl is the implementation of the service interface.
@@ -45,6 +46,47 @@ By properly forming a function’s name, a SELECT query can be used without the 
 Custom functions with more complex logic along with basic CRUD functions that require a different approach compared to the ones in XXXCrudRepository, can be included in XXXRepositoryImpl classes. These classes implement the actual delegation scheme. 
 
 The XXXRepository interfaces provide access to all aforementioned functions. In XXXRepositoryImpl classes the implemented functions of XXXRepository call the functions of the appropriate XXXCrudRepository or they provide a custom implementation. The _cerif-jpa-services_ package also implements a mechanism for accessing these custom functions and queries from an external client. CRUD operations are implemented so as to be type driven and generic, hence the programmer only uses a single function per operation instead of a different one per data type.
+
+
+==Example code==
+
+{{{
+//create a project with a project title
+@Autowired
+private PersistenceService service;
+
+//in a function
+Project proj = new Project();
+proj.setAcronym("ACRO");
+service.save(proj);
+ProjectTitle projt = new ProjectTitle(proj, Language.ENGLISH, Translation.HUMAN, "Title");
+service.save(projt);
+}}}
+
+{{{
+//Find an Organisation Unit and edit it
+//inside OrganisationUnitCrudRepository interface in services package 
+@Query(value= "select o from gr.ekt.cerif.entities.base.OrganisationUnit o where o.id = ?1")
+OrganisationUnit findById(Long id);
+
+//inside OrganisationUnitRepository interface in services package 
+OrganisationUnit findById(Long id);
+
+//inside OrganisationUnitRepositoryImpl class in services package
+@Autowired
+private OrganisationUnitCrudRepository organisationUnitCrudRepository;
+
+public OrganisationUnit findById(Long id) {
+    return organisationUnitCrudRepository.findById(id);
+}
+
+//in a function
+OrganisationUnit org = service.getBaseService().getOrganisationUnitRepository().findById((long)100);
+if (org!=null) {
+    org.setAcronym("ACRO");
+    service.save(org);
+}
+}}}
 
 
  # http://www.eurocris.org/Index.php?page=CERIFreleases&t=1
