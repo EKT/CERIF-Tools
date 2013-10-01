@@ -19,7 +19,3 @@ Step 6) Put exampleapp.war in {Apache Tomcat installation directory}\webapps.
 Step 7) Start Tocmat.
 
 Step 8) Use http://localhost:{Tomcat port}/exampleapp
-
-
-NOTES: 
-1) The application needs Tomcat version 7 and above to run properly.
