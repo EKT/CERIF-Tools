@@ -1,0 +1,23 @@
+==Installation instructions==
+
+All files are located in trunk/examlpe app/webapp/build
+
+Step 1) Run example db.sql in your local MySQL installation. This script will create the database and populate it with some dummy data.
+
+Step 2) Shut down Tomcat.
+
+Step 3) If the MySQL connector is not included in Tomcat then copy/paste file mysql-connector-java-5.1.21.jar to {Apache Tomcat installation directory}\lib folder.
+
+Step 4) Change entries username, password and url in file exampleapp.xml to the ones required by your local MySQL installation. NOTE: Do not change the name of the database in url. It should be example_app.
+
+Step 5) Put exampleapp.xml in {Apache Tomcat installation directory}\conf\Catalina\localhost.
+
+Step 6) Put exampleapp.war in {Apache Tomcat installation directory}\webapps.
+
+Step 7) Start Tocmat.
+
+Step 8) Use http://localhost:{Tomcat port}/exampleapp
+
+
+NOTES: 
+1) The application needs Tomcat version 7 and above to run properly.
