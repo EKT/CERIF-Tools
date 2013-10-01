@@ -1,6 +1,6 @@
 ==Installation instructions==
 
-The application files are located in trunk/exampleapp/webapp/build. 
+The application files are located in trunk/example_app/webapp/build. 
 
 Prerequisites to run the application are Tomcat 7.x and MySQL 5.x. Once you have these in place, please follow the steps described below:
 
