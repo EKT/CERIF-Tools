@@ -172,5 +172,67 @@ public class OrganisationUnitName implements CerifMultipleLanguageFeature {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((language == null) ? 0 : language.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime
+				* result
+				+ ((organisationUnit == null) ? 0 : organisationUnit.hashCode());
+		result = prime * result
+				+ ((translation == null) ? 0 : translation.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (!(obj instanceof OrganisationUnitName)) {
+			return false;
+		}
+		
+		OrganisationUnitName other = (OrganisationUnitName) obj;
+		
+		if (id != null && other.id != null) { //check only the ids
+			if (id.equals(other.id)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			if (organisationUnit == null || other.organisationUnit == null) {
+				return false; //no reason to check further
+			}
+			if (organisationUnit.equals(other.organisationUnit)) {
+				if (language.equals(other.language) && 
+						translation.equals(other.translation) && 
+						name.equals(other.name)) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false; //different organisations
+			}
+		}
 	}	
+	
+	
 }
