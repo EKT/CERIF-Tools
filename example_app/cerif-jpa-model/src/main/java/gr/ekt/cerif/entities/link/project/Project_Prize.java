@@ -25,7 +25,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * Links a project with a prize award.
+ * Links a project with a prize.
  * 
  */
 @Entity
@@ -53,7 +53,7 @@ public class Project_Prize implements CerifLinkEntity {
 	private Project project;
 	
 	/**
-	 * The prize award.
+	 * The prize.
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPrizeId")
@@ -106,15 +106,15 @@ public class Project_Prize implements CerifLinkEntity {
 	/**
 	 * 
 	 * @param project
-	 * @param prizeAward
+	 * @param prize
 	 * @param theClass
 	 * @param prizeDate
 	 * @param fraction
 	 */
-	public Project_Prize(Project project, Prize prizeAward,
+	public Project_Prize(Project project, Prize prize,
 			Class theClass,  Date startDate, Date endDate, Double fraction) {
 		this.project = project;
-		this.prize = prizeAward;
+		this.prize = prize;
 		this.theClass = theClass;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -169,12 +169,12 @@ public class Project_Prize implements CerifLinkEntity {
 		this.project = project;
 	}
 
-	public Prize getPrizeAward() {
+	public Prize getPrize() {
 		return prize;
 	}
 
-	public void setPrizeAward(Prize prizeAward) {
-		this.prize = prizeAward;
+	public void setPrize(Prize prize) {
+		this.prize = prize;
 	}
 
 	/**

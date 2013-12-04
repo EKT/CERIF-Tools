@@ -72,13 +72,13 @@ public class ClassDefinition implements CerifMultipleLanguageFeature {
 	/**
 	 * The class description.
 	 */
-	@Column(name="cfDef")
+	@Column(name="cfDef", length=20000)
 	private String definition;
 	
 	/**
 	 * The class description source.
 	 */
-	@Column(name="cfDefSrc")
+	@Column(name="cfDefSrc", length=20000)
 	private String definitionSrc;
 
 	/**
