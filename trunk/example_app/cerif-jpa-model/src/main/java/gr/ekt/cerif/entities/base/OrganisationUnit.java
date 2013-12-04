@@ -627,6 +627,8 @@ public class OrganisationUnit implements CerifBaseEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((acronym == null) ? 0 : acronym.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
 		return result;
 	}
@@ -636,24 +638,66 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
+		if (getClass() != obj.getClass())
+			return false;
 		if (!(obj instanceof OrganisationUnit)) {
 			return false;
 		}
+		
 		OrganisationUnit other = (OrganisationUnit) obj;
-		if (uri == null) {
-			if (other.uri != null) {
+		
+		if (id != null && other.id != null) { //check only the ids
+			if (id.equals(other.id)) {
+				return true;
+			} else {
 				return false;
 			}
-		} else if (!uri.equals(other.uri)) {
-			return false;
+		} else { //both or one of them are new objects and checks should be done based on other data
+			if (uri == null) {
+				if (other.uri == null) {
+					if (acronym == null) {
+						return false;
+					} else {
+						if (acronym.equals(other.acronym)) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				} else {
+					return false;
+				}
+			} else {
+				if (other.uri == null) {
+					return false;
+				} else {
+					if (uri.equals(other.uri)) {
+						if (acronym == null) {
+							if (other.acronym == null) {
+								return true;
+							} else {
+								return false;
+							}
+						} else {
+							if (acronym.equals(other.acronym)) {
+								return true;
+							} else {
+								return false;
+							}
+						}
+					} else {
+						return false;
+					}
+				}
+			}
 		}
-		return true;
+
 	}
+
+	
 	
 }

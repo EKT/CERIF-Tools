@@ -22,6 +22,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Holds the multi-lingual title of a project entity.
@@ -72,6 +75,7 @@ public class ProjectTitle implements CerifMultipleLanguageFeature {
 	 * The project title.
 	 */
 	@Column(name="cfTitle")
+	@Field(name="projectTitle", index=Index.YES, store=Store.YES)
 	private String title;
 			
 	/**
