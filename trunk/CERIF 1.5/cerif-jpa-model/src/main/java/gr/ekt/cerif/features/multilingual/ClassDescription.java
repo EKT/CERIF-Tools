@@ -79,7 +79,7 @@ public class ClassDescription implements CerifMultipleLanguageFeature {
 	/**
 	 * The class description source.
 	 */
-	@Column(name="cfDescrSrc")
+	@Column(name="cfDescrSrc", length=20000)
 	private String descriptionSrc;
 
 	/**

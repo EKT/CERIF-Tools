@@ -359,5 +359,83 @@ public class Facility implements CerifInfrastructureEntity {
 			Set<Facility_PostalAddress> postalAddresses) {
 		this.postalAddresses = postalAddresses;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((acronym == null) ? 0 : acronym.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (!(obj instanceof Facility)) {
+			return false;
+		}
+		
+		Facility other = (Facility) obj;
+		
+		if (id != null && other.id != null) { //check only the ids
+			if (id.equals(other.id)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else { //both or one of them are new objects and checks should be done based on other data
+			if (uri == null) {
+				if (other.uri == null) {
+					if (acronym == null) {
+						return false;
+					} else {
+						if (acronym.equals(other.acronym)) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				} else {
+					return false;
+				}
+			} else {
+				if (other.uri == null) {
+					return false;
+				} else {
+					if (uri.equals(other.uri)) {
+						if (acronym == null) {
+							if (other.acronym == null) {
+								return true;
+							} else {
+								return false;
+							}
+						} else {
+							if (acronym.equals(other.acronym)) {
+								return true;
+							} else {
+								return false;
+							}
+						}
+					} else {
+						return false;
+					}
+				}
+			}
+		}
+	}
+	
 	
 }

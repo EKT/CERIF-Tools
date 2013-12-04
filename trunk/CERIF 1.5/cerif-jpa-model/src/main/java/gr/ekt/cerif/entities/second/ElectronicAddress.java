@@ -48,7 +48,7 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	 * The postal address.
 	 */
 	@OneToOne
-	@JoinColumn(name="PAddrId")
+	@JoinColumn(name="cfPAddrId")
 	private PostalAddress postalAddress;
 	
 	/**

@@ -152,5 +152,62 @@ public class PersonName implements CerifAdditionalFeature {
 	public void setOtherNames(String otherNames) {
 		this.otherNames = otherNames;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((familyNames == null) ? 0 : familyNames.hashCode());
+		result = prime * result
+				+ ((firstNames == null) ? 0 : firstNames.hashCode());
+		return result;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (!(obj instanceof PersonName)) {
+			return false;
+		}
+		
+		PersonName other = (PersonName) obj;
+		
+		if (id != null && other.id != null) { //check only the ids
+			if (id.equals(other.id)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			if (person == null || other.person == null) {
+				return false; //no reason to check further
+			}
+			if (person.equals(other.person)) {
+				if (familyNames.equals(other.familyNames) && 
+						firstNames.equals(other.firstNames)) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false; //different persons
+			}
+		}
+	}
+	
 	
 }
