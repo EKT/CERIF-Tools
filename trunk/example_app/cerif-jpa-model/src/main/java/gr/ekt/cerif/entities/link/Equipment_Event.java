@@ -45,7 +45,6 @@ public class Equipment_Event implements CerifLinkEntity {
 	/**
 	 * The equipment.
 	 */
-	@Id
 	@ManyToOne 
 	@JoinColumn(name="cfEquipId")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
@@ -211,4 +210,5 @@ public class Equipment_Event implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	
 }

@@ -62,13 +62,13 @@ public class ClassSchemeDescription implements CerifMultipleLanguageFeature {
 	 * The class scheme description.
 	 */
 	@NotNull
-	@Column(name="cfDescr", length=20000)
+	@Column(name="cfDescr", length=10600)
 	private String description;
 	
 	/**
 	 * The class scheme description source.
 	 */
-	@Column(name="cfDescrSrc")
+	@Column(name="cfDescrSrc", length=10600)
 	private String descriptionSrc;
 
 	/**
