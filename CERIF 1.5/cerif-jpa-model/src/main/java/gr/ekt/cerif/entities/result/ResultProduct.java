@@ -349,36 +349,35 @@ public class ResultProduct implements CerifResultEntity {
 	public void setProjects(Set<Project_ResultProduct> projects) {
 		this.projects = projects;
 	}
-	
+			
 	/**
-	 * @return the classes
+	 * @return the theclasses
 	 */
-	public Set<ResultProduct_Class> getTheClass() {
+	public Set<ResultProduct_Class> getTheclasses() {
 		return theclasses;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param theclasses the theclasses to set
 	 */
-	public void setTheClass(Set<ResultProduct_Class> theclasses) {
+	public void setTheclasses(Set<ResultProduct_Class> theclasses) {
 		this.theclasses = theclasses;
 	}
-	
+
 	/**
 	 * @return the countries
 	 */
-	public Set<ResultProduct_Country> getCountry() {
+	public Set<ResultProduct_Country> getCountries() {
 		return countries;
 	}
 
 	/**
-	 * @param country the country to set
+	 * @param countries the countries to set
 	 */
-	public void setCountry(Set<ResultProduct_Country> countries) {
+	public void setCountries(Set<ResultProduct_Country> countries) {
 		this.countries = countries;
 	}
-	
-	
+
 	/**
 	 * @return the geographic bounding box
 	 */
@@ -686,8 +685,8 @@ public class ResultProduct implements CerifResultEntity {
 	 */
 	public Map<String, List<ResultProduct_Class>> getUniqueClassSchemes() {
 		Map<String, List<ResultProduct_Class>> map = new HashMap<String, List<ResultProduct_Class>>();
-		if (getTheClass() != null) {
-			for (ResultProduct_Class element : getTheClass()) {
+		if (getTheclasses() != null) {
+			for (ResultProduct_Class element : getTheclasses()) {
 				final String uri = element.getTheClass().getScheme().getUri();
 				if (!"Temporal Coverage".equals(uri)) {
 					if (!map.containsKey(uri)) {
