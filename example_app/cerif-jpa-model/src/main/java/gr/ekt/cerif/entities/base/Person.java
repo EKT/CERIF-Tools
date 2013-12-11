@@ -25,6 +25,7 @@ import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.person.Person_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_Service;
 import gr.ekt.cerif.entities.link.project.Project_Person;
+import gr.ekt.cerif.features.additional.Gender;
 import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.multilingual.PersonKeyword;
 import gr.ekt.cerif.features.multilingual.PersonResearchInterest;
@@ -35,6 +36,8 @@ import java.util.Set;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +46,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-//import gr.ekt.cerif.entities.link.person.Person_Person;
 
 /**
  * Represents a person base entity.
@@ -82,7 +84,8 @@ public class Person implements CerifBaseEntity {
 	 * </ul>
 	 */
 	@Column(name="cfGender")
-	private String gender;
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 
 	/**
 	 * The URI.
@@ -198,7 +201,7 @@ public class Person implements CerifBaseEntity {
 	 * @param personKeywords
 	 * @param personName
 	 */
-	public Person(Long id, Date birthDate, String gender, String uri,
+	public Person(Long id, Date birthDate, Gender gender, String uri,
 			Set<PersonResearchInterest> personResearchInterests,
 			Set<PersonKeyword> personKeywords,
 			Set<PersonName> personNames) {
@@ -247,7 +250,7 @@ public class Person implements CerifBaseEntity {
 	 * Returns the gender.
 	 * @return the gender.
 	 */
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
@@ -255,7 +258,7 @@ public class Person implements CerifBaseEntity {
 	 * Sets the gender.
 	 * @param gender the gender.
 	 */
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
