@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 
@@ -26,6 +28,6 @@ public interface ElectronicAddressCrudRepository extends CrudRepository<Electron
 			"join ea.organisationUnits orgs " +
 			"join orgs.organisationUnit org " +
 			"where org=?1 ")
-    ElectronicAddress findByOrganisationUnit(OrganisationUnit organisationUnit);
+	List<ElectronicAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
 	
 }

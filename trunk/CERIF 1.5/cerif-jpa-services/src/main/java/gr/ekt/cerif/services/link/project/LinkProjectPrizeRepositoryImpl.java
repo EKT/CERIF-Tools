@@ -14,27 +14,27 @@ public class LinkProjectPrizeRepositoryImpl implements
 	private static final Logger log = LoggerFactory.getLogger(LinkProjectPrizeRepositoryImpl.class);
 	
 	@Autowired
-	private LinkProjectPrizeCrudRepository linkProjectPrizeAwardCrudRepository;
+	private LinkProjectPrizeCrudRepository linkProjectPrizeCrudRepository;
 
 	@Override
 	public void delete(Project_Prize entity) {
-		linkProjectPrizeAwardCrudRepository.delete(entity);
+		linkProjectPrizeCrudRepository.delete(entity);
 	}
 
 	@Override
 	public void delete(Iterable<Project_Prize> entities) {
-		linkProjectPrizeAwardCrudRepository.delete(entities);
+		linkProjectPrizeCrudRepository.delete(entities);
 	}
 
 	@Override
 	public Iterable<Project_Prize> save(
 			Iterable<Project_Prize> entities) {
-		return linkProjectPrizeAwardCrudRepository.save(entities);
+		return linkProjectPrizeCrudRepository.save(entities);
 	}
 
 	@Override
 	public Project_Prize save(Project_Prize entity) {
-		return linkProjectPrizeAwardCrudRepository.save(entity);
+		return linkProjectPrizeCrudRepository.save(entity);
 	}
 
 }

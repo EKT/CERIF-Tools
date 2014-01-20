@@ -1,11 +1,13 @@
 package gr.ekt.cerif.services.multilingual.organisationunit;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitName;
 
 public interface OrganisationUnitNameRepository {
 
-	OrganisationUnitName findByOrganisationUnit(OrganisationUnit organisationUnit);
+	List<OrganisationUnitName> findByOrganisationUnit(OrganisationUnit organisationUnit);
 	
 	public void delete(OrganisationUnitName entity); 
 	

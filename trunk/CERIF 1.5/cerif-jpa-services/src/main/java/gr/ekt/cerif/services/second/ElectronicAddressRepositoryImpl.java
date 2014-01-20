@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 
@@ -49,7 +51,7 @@ public class ElectronicAddressRepositoryImpl implements ElectronicAddressReposit
 	}
 
 	@Override
-	public ElectronicAddress findByOrganisationUnit(
+	public List<ElectronicAddress> findByOrganisationUnit(
 			OrganisationUnit organisationUnit) {
 		return electronicAddressCrudRepository.findByOrganisationUnit(organisationUnit);
 	}

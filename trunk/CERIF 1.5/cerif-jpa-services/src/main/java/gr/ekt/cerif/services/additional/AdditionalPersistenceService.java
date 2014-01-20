@@ -29,13 +29,11 @@ import gr.ekt.cerif.features.additional.DublinCoreRightsManagementLicence;
 import gr.ekt.cerif.features.additional.DublinCoreSource;
 import gr.ekt.cerif.features.additional.DublinCoreSubject;
 import gr.ekt.cerif.features.additional.DublinCoreTitle;
-import gr.ekt.cerif.features.additional.Feedback;
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementPricing;
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementPrivacy;
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementRights;
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementSecurity;
 import gr.ekt.cerif.features.additional.PersonName;
-import gr.ekt.cerif.features.additional.SentEmails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -132,12 +130,6 @@ public class AdditionalPersistenceService {
 	@Autowired
 	private FormalisedDublinCoreRightsManagementSecurityRepository formalisedDublinCoreRightsManagementSecurityRepository;
 	
-	@Autowired
-	private SentEmailsRepository sentEmailsRepository;
-	
-	@Autowired
-	private FeedbackRepository feedbackRepository;
-	
 	@Transactional
 	public void delete(CerifAdditionalFeature entity) {
 		if (entity instanceof PersonName) {
@@ -196,10 +188,6 @@ public class AdditionalPersistenceService {
 			formalisedDublinCoreRightsManagementRightsRepository.delete( (FormalisedDublinCoreRightsManagementRights) entity);
 		} else if (entity instanceof FormalisedDublinCoreRightsManagementSecurity) {
 			formalisedDublinCoreRightsManagementSecurityRepository.delete( (FormalisedDublinCoreRightsManagementSecurity) entity);
-		} else if (entity instanceof SentEmails) {
-			sentEmailsRepository.delete( (SentEmails) entity);
-		} else if (entity instanceof Feedback) {
-			feedbackRepository.delete( (Feedback) entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid additional feature entity provided. %s", entity));
 		}
@@ -263,10 +251,6 @@ public class AdditionalPersistenceService {
 			entity = formalisedDublinCoreRightsManagementRightsRepository.save( (FormalisedDublinCoreRightsManagementRights) entity);
 		} else if (entity instanceof FormalisedDublinCoreRightsManagementSecurity) {
 			entity = formalisedDublinCoreRightsManagementSecurityRepository.save( (FormalisedDublinCoreRightsManagementSecurity) entity);
-		} else if (entity instanceof SentEmails) {
-			entity = sentEmailsRepository.save( (SentEmails) entity);
-		} else if (entity instanceof Feedback) {
-			entity = feedbackRepository.save( (Feedback) entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid additional feature entity provided. %s", entity));
 		}
@@ -336,10 +320,6 @@ public class AdditionalPersistenceService {
 			entityList = formalisedDublinCoreRightsManagementRightsRepository.save( (List<FormalisedDublinCoreRightsManagementRights>) entityList);
 		} else if (entity instanceof FormalisedDublinCoreRightsManagementSecurity) {
 			entityList = formalisedDublinCoreRightsManagementSecurityRepository.save( (List<FormalisedDublinCoreRightsManagementSecurity>) entityList);
-		} else if (entity instanceof SentEmails) {
-			entityList = sentEmailsRepository.save( (List<SentEmails>) entityList);
-		} else if (entity instanceof Feedback) {
-			entityList = feedbackRepository.save( (List<Feedback>) entityList);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid additional feature entity provided. %s", entity));
 		}
@@ -409,10 +389,6 @@ public class AdditionalPersistenceService {
 			formalisedDublinCoreRightsManagementRightsRepository.delete( (List<FormalisedDublinCoreRightsManagementRights>) entityList);
 		} else if (entity instanceof FormalisedDublinCoreRightsManagementSecurity) {
 			formalisedDublinCoreRightsManagementSecurityRepository.delete( (List<FormalisedDublinCoreRightsManagementSecurity>) entityList);
-		} else if (entity instanceof SentEmails) {
-			sentEmailsRepository.delete( (List<SentEmails>) entityList);
-		} else if (entity instanceof Feedback) {
-			feedbackRepository.delete( (List<Feedback>) entityList);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid additional feature entity provided. %s", entity));
 		}
@@ -615,20 +591,6 @@ public class AdditionalPersistenceService {
 		return formalisedDublinCoreRightsManagementSecurityRepository;
 	}
 
-	/**
-	 * @return the sentEmailsRepository
-	 */
-	public SentEmailsRepository getSentEmailsRepository() {
-		return sentEmailsRepository;
-	}
 
-	/**
-	 * @return the feedbackRepository
-	 */
-	public FeedbackRepository getFeedbackRepository() {
-		return feedbackRepository;
-	}
-
-	
 	
 }

@@ -1,5 +1,7 @@
 package gr.ekt.cerif.services.multilingual.organisationunit;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +15,7 @@ public class OrganisationUnitNameRepositoryImpl implements OrganisationUnitNameR
 	@Autowired
 	private OrganisationUnitNameCrudRepository organisationUnitNameCrudRepository;
 	
-	public OrganisationUnitName findByOrganisationUnit(	OrganisationUnit organisationUnit) {
+	public List<OrganisationUnitName> findByOrganisationUnit(	OrganisationUnit organisationUnit) {
 		return organisationUnitNameCrudRepository.findByOrganisationUnit(organisationUnit);
 	}
 

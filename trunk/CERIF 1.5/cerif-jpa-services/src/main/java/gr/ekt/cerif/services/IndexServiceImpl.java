@@ -55,7 +55,6 @@ public class IndexServiceImpl implements IndexService {
 	 */
 	public void createIndex() {
 
-		System.out.println("Creating index...");
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 		try {
 			fullTextEntityManager.createIndexer()

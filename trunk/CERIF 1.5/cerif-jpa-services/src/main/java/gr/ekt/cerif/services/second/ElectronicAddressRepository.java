@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 
@@ -14,7 +16,7 @@ public interface ElectronicAddressRepository {
 	
 	ElectronicAddress findByUri(String uri);
 	
-	ElectronicAddress findByOrganisationUnit(OrganisationUnit organisationUnit);
+	List<ElectronicAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
 
 	public void delete(ElectronicAddress entity); 
 	
