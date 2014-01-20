@@ -224,6 +224,16 @@ public class PersonName implements CerifAdditionalFeature {
 			}
 		}
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PersonName [firstNames=" + firstNames + ", familyNames="
+				+ familyNames + ", otherNames=" + otherNames + "]";
+	}
 	
 	
 }

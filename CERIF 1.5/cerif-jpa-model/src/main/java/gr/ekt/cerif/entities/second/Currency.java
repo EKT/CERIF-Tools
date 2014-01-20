@@ -290,5 +290,16 @@ public class Currency implements CerifSecondLevelEntity {
 	public void setEntityNames(Set<CurrencyEntityName> entityNames) {
 		this.entityNames = entityNames;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Currency [code=" + code + ", numeric=" + numeric + ", uri="
+				+ uri + "]";
+	}
+	
+	
 	
 }

@@ -3,7 +3,9 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
+import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
 
 import java.util.Set;
 
@@ -63,8 +65,11 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="electronicAddress")
 	private Set<OrganisationUnit_ElectronicAddress> organisationUnits;
 	
-//	@OneToMany(mappedBy="electronicAddress")
-//	private Set<Person_ElectronicAddress> persons_electronicAddresses;
+	@OneToMany(mappedBy="electronicAddress")
+	private Set<Person_ElectronicAddress> persons_electronicAddresses;
+	
+	@OneToMany(mappedBy="electronicAddress")
+	private Set<ElectronicAddress_Class> classes;
 	
 	/**
 	 * Default Constructor
@@ -145,5 +150,45 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 			Set<OrganisationUnit_ElectronicAddress> organisationUnits) {
 		this.organisationUnits = organisationUnits;
 	}
+
+	
+	/**
+	 * @return the persons_electronicAddresses
+	 */
+	public Set<Person_ElectronicAddress> getPersons_electronicAddresses() {
+		return persons_electronicAddresses;
+	}
+
+	/**
+	 * @param persons_electronicAddresses the persons_electronicAddresses to set
+	 */
+	public void setPersons_electronicAddresses(
+			Set<Person_ElectronicAddress> persons_electronicAddresses) {
+		this.persons_electronicAddresses = persons_electronicAddresses;
+	}
+
+	/**
+	 * @return the classes
+	 */
+	public Set<ElectronicAddress_Class> getClasses() {
+		return classes;
+	}
+
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<ElectronicAddress_Class> classes) {
+		this.classes = classes;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ElectronicAddress [id=" + id + ", postalAddress="
+				+ postalAddress + ", uri=" + uri + "]";
+	}
+	
 	
 }

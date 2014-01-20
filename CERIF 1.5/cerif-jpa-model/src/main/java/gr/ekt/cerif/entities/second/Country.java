@@ -232,5 +232,14 @@ public class Country implements CerifSecondLevelEntity {
 		}
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Country [code=" + code + ", uri=" + uri + "]";
+	}
+	
 	
 }

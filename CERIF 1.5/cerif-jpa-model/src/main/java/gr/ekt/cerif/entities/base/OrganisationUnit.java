@@ -8,6 +8,7 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Medium;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
@@ -177,6 +178,9 @@ public class OrganisationUnit implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnit_Service> organisationUnits_services;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_Medium> organisationUnits_medium;
 	
 	/**
 	 * Default Constructor
@@ -620,6 +624,21 @@ public class OrganisationUnit implements CerifBaseEntity {
 		this.organisationUnits_services = organisationUnits_services;
 	}
 
+	/**
+	 * @return the organisationUnits_medium
+	 */
+	public Set<OrganisationUnit_Medium> getOrganisationUnits_medium() {
+		return organisationUnits_medium;
+	}
+
+	/**
+	 * @param organisationUnits_medium the organisationUnits_medium to set
+	 */
+	public void setOrganisationUnits_medium(
+			Set<OrganisationUnit_Medium> organisationUnits_medium) {
+		this.organisationUnits_medium = organisationUnits_medium;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -696,6 +715,16 @@ public class OrganisationUnit implements CerifBaseEntity {
 			}
 		}
 
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnit [id=" + id + ", currency=" + currency
+				+ ", acronym=" + acronym + ", headCount=" + headCount
+				+ ", turn=" + turn + ", uri=" + uri + "]";
 	}
 
 	

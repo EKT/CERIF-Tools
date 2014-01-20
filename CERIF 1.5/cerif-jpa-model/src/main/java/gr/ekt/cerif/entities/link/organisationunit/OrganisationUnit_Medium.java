@@ -211,5 +211,6 @@ public class OrganisationUnit_Medium implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+		
 }
