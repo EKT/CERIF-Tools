@@ -4,6 +4,7 @@
 package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.link.Facility_PostalAddress;
+import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.Service_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.person.Person_PostalAddress;
@@ -128,6 +129,8 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Facility_PostalAddress> facilities_postalAddresses;
 	
+	@OneToMany(mappedBy="postalAddress")
+	private Set<PostalAddress_Class> classes;
 	
 	/**
 	 * Default Constructor
@@ -369,12 +372,14 @@ public class PostalAddress implements CerifSecondLevelEntity {
 			Set<Person_PostalAddress> persons_postalAddresses) {
 		this.persons_postalAddresses = persons_postalAddresses;
 	}
+	
 	/**
 	 * @return the services_postalAddresses
 	 */
 	public Set<Service_PostalAddress> getServices_postalAddresses() {
 		return services_postalAddresses;
 	}
+	
 	/**
 	 * @param services_postalAddresses the services_postalAddresses to set
 	 */
@@ -382,17 +387,47 @@ public class PostalAddress implements CerifSecondLevelEntity {
 			Set<Service_PostalAddress> services_postalAddresses) {
 		this.services_postalAddresses = services_postalAddresses;
 	}
+	
 	/**
 	 * @return the facilities
 	 */
 	public Set<Facility_PostalAddress> getFacilities() {
 		return facilities_postalAddresses;
 	}
+	
 	/**
 	 * @param facilities the facilities to set
 	 */
 	public void setFacilities(Set<Facility_PostalAddress> facilities) {
 		this.facilities_postalAddresses = facilities;
 	}
+	
+	/**
+	 * @return the classes
+	 */
+	public Set<PostalAddress_Class> getClasses() {
+		return classes;
+	}
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<PostalAddress_Class> classes) {
+		this.classes = classes;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PostalAddress [id=" + id + ", uri=" + uri + ", country="
+				+ country + ", addressLine1=" + addressLine1
+				+ ", addressLine2=" + addressLine2 + ", addressLine3="
+				+ addressLine3 + ", addressLine4=" + addressLine4
+				+ ", addressLine5=" + addressLine5 + ", postalCode="
+				+ postalCode + ", cityTown=" + cityTown + ", state=" + state
+				+ "]";
+	}
+	
+	
 	
 }

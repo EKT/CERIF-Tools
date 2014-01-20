@@ -4,6 +4,7 @@
 package gr.ekt.cerif.features.semantics;
 
 import gr.ekt.cerif.entities.link.Citation_Class;
+import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Equipment;
 import gr.ekt.cerif.entities.link.Facility_Event;
@@ -19,6 +20,7 @@ import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.Funding_Funding;
 import gr.ekt.cerif.entities.link.Funding_Indicator;
 import gr.ekt.cerif.entities.link.Funding_Measurement;
+import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.Service_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
@@ -192,8 +194,7 @@ public class Class implements CerifSemanticFeature {
 	private Set<OrganisationUnit_ResultPublication> organisationUnits_resultPublications;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<OrganisationUnit_Class> organisationUnits_classes;
-	
+	private Set<OrganisationUnit_Class> organisationUnits_classes;	
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<ResultPublication_Class> resultPublications_classes;
@@ -209,6 +210,9 @@ public class Class implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<ClassDefinition> definitions;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<ElectronicAddress_Class> electronicAddresses;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Facility_Class> facilities;
@@ -260,6 +264,9 @@ public class Class implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<FederatedIdentifier> federeratedIdentifier;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<PostalAddress_Class> postalAddresses;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Service_Class> services_Classes;
@@ -546,6 +553,21 @@ public class Class implements CerifSemanticFeature {
 
 	public void setDefinitions(Set<ClassDefinition> definitions) {
 		this.definitions = definitions;
+	}
+
+	/**
+	 * @return the electronicAddresses
+	 */
+	public Set<ElectronicAddress_Class> getElectronicAddresses() {
+		return electronicAddresses;
+	}
+
+	/**
+	 * @param electronicAddresses the electronicAddresses to set
+	 */
+	public void setElectronicAddresses(
+			Set<ElectronicAddress_Class> electronicAddresses) {
+		this.electronicAddresses = electronicAddresses;
 	}
 
 	/**
@@ -1118,6 +1140,20 @@ public class Class implements CerifSemanticFeature {
 	public void setFedereratedIdentifier(
 			Set<FederatedIdentifier> federeratedIdentifier) {
 		this.federeratedIdentifier = federeratedIdentifier;
+	}
+
+	/**
+	 * @return the postalAddresses
+	 */
+	public Set<PostalAddress_Class> getPostalAddresses() {
+		return postalAddresses;
+	}
+
+	/**
+	 * @param postalAddresses the postalAddresses to set
+	 */
+	public void setPostalAddresses(Set<PostalAddress_Class> postalAddresses) {
+		this.postalAddresses = postalAddresses;
 	}
 
 	/**
