@@ -135,10 +135,10 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 		if (oue != null) linkOrganisationUnitElectronicAddressRepository.delete(oue);
 		entity.setElectronicAddresses(null);
 		
-		ElectronicAddress ea = electronicAddressRepository.findByOrganisationUnit(entity);
+		List<ElectronicAddress> ea = electronicAddressRepository.findByOrganisationUnit(entity);
 		if (ea != null) electronicAddressRepository.delete(ea);
 		
-		OrganisationUnitName oun = organisationUnitNameRepository.findByOrganisationUnit(entity);
+		List<OrganisationUnitName> oun = organisationUnitNameRepository.findByOrganisationUnit(entity);
 		if (oun != null) organisationUnitNameRepository.delete(oun);
 
 		List<Person_OrganisationUnit> po = linkPersonOrganisationUnitRepository.findByOrganisationUnit(entity);

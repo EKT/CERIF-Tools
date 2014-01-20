@@ -72,7 +72,6 @@ public class InteroperabilityServiceImpl implements InteroperabilityService {
 			Iterator itr = (rootNode.getChildren()).iterator();
 			while (itr.hasNext()) {
 				Element oneLevelDeep = (Element) itr.next();
-				System.out.println(oneLevelDeep.getName());
 				List twoLevelsDeep = oneLevelDeep.getChildren();
 				// Do something with these children
 			}
@@ -236,7 +235,6 @@ public class InteroperabilityServiceImpl implements InteroperabilityService {
 		try {
 
 			//Document doc = createOrgUnitXml(orgUnit, Namespace.NO_NAMESPACE);
-			System.out.println("Writer for json doc");
 			XMLOutputter out = new XMLOutputter(Format.getCompactFormat());
 		
 			String xmlStringForJson = out.outputString(doc);
@@ -244,8 +242,6 @@ public class InteroperabilityServiceImpl implements InteroperabilityService {
 			XMLEventReader reader = XMLInputFactory.newInstance().createXMLEventReader(new StringReader(xmlStringForJson));
 			XMLEventWriter writer = new MappedXMLOutputFactory(new HashMap()).createXMLEventWriter(System.out);
 			writer.add(reader);
-			
-			//System.out.println("Writer is " + writer.toString());
 			
 			json = writer.toString();
 			

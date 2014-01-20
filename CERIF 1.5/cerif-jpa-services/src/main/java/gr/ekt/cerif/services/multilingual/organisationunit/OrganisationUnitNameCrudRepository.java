@@ -1,5 +1,7 @@
 package gr.ekt.cerif.services.multilingual.organisationunit;
 
+import java.util.List;
+
 import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
@@ -16,6 +18,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface OrganisationUnitNameCrudRepository extends CrudRepository<OrganisationUnitName, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	OrganisationUnitName findByOrganisationUnit(OrganisationUnit organisationUnit);
+	List<OrganisationUnitName> findByOrganisationUnit(OrganisationUnit organisationUnit);
 	
 }

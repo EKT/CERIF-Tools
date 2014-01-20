@@ -661,7 +661,7 @@ public class LinkPersistenceService {
 	private LinkProjectPersonRepository projectPersonRepository;
 
 	@Autowired
-	private LinkProjectPrizeRepository projectPrizeAwardRepository;
+	private LinkProjectPrizeRepository projectPrizeRepository;
 
 	@Autowired
 	private LinkProjectProjectRepository projectProjectRepository;
@@ -1038,7 +1038,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Project_Person) {
 		    projectPersonRepository.delete((Project_Person) entity);
 		} else if (entity instanceof Project_Prize) {
-		    projectPrizeAwardRepository.delete((Project_Prize) entity);
+		    projectPrizeRepository.delete((Project_Prize) entity);
 		} else if (entity instanceof Project_Project) {
 		    projectProjectRepository.delete((Project_Project) entity);
 		} else if (entity instanceof Project_ResultPatent) {
@@ -1367,7 +1367,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Project_Person) {
 		    entity = projectPersonRepository.save((Project_Person) entity);
 		} else if (entity instanceof Project_Prize) {
-		    entity = projectPrizeAwardRepository.save((Project_Prize) entity);
+		    entity = projectPrizeRepository.save((Project_Prize) entity);
 		} else if (entity instanceof Project_Project) {
 		    entity = projectProjectRepository.save((Project_Project) entity);
 		} else if (entity instanceof Project_ResultPatent) {
@@ -1613,7 +1613,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof OrganisationUnit_Measurement) {
 		    organisationUnitMeasurementRepository.delete((List<OrganisationUnit_Measurement>) entityList);
 		} else if (entity instanceof OrganisationUnit_Medium) {
-		    organisationUnitMediumRepository.delete((List<OrganisationUnit_Medium>) entityList);
+			organisationUnitMediumRepository.delete((List<OrganisationUnit_Medium>) entityList);
 		} else if (entity instanceof OrganisationUnit_OrganisationUnit) {
 		    organisationUnitOrganisationUnitRepository.delete((List<OrganisationUnit_OrganisationUnit>) entityList);
 		} else if (entity instanceof OrganisationUnit_PostalAddress) {
@@ -1703,7 +1703,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Project_Person) {
 		    projectPersonRepository.delete((List<Project_Person>) entityList);
 		} else if (entity instanceof Project_Prize) {
-		    projectPrizeAwardRepository.delete((List<Project_Prize>) entityList);
+		    projectPrizeRepository.delete((List<Project_Prize>) entityList);
 		} else if (entity instanceof Project_Project) {
 		    projectProjectRepository.delete((List<Project_Project>) entityList);
 		} else if (entity instanceof Project_ResultPatent) {
@@ -2037,7 +2037,7 @@ public class LinkPersistenceService {
 		} else if (entity instanceof Project_Person) {
 		    entityList = projectPersonRepository.save((List<Project_Person>) entityList);
 		} else if (entity instanceof Project_Prize) {
-		    entityList = projectPrizeAwardRepository.save((List<Project_Prize>) entityList);
+		    entityList = projectPrizeRepository.save((List<Project_Prize>) entityList);
 		} else if (entity instanceof Project_Project) {
 		    entityList = projectProjectRepository.save((List<Project_Project>) entityList);
 		} else if (entity instanceof Project_ResultPatent) {
@@ -2902,10 +2902,10 @@ public class LinkPersistenceService {
 	}
 
 	/**
-	 * @return the projectPrizeAwardRepository
+	 * @return the projectPrizeRepository
 	 */
-	public LinkProjectPrizeRepository getProjectPrizeAwardRepository() {
-		return projectPrizeAwardRepository;
+	public LinkProjectPrizeRepository getProjectPrizeRepository() {
+		return projectPrizeRepository;
 	}
 
 	/**
