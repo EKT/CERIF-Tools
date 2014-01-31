@@ -208,5 +208,17 @@ public class Facility_Facility implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Facility_Facility [id=" + id + ", facility1=" + facility1
+				+ ", facility2=" + facility2 + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+	
 	
 }

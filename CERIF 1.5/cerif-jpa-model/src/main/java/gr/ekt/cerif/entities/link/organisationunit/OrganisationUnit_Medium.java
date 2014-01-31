@@ -212,5 +212,16 @@ public class OrganisationUnit_Medium implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnit_Medium [id=" + id + ", organisationUnit="
+				+ organisationUnit + ", medium=" + medium + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + "]";
+	}
+
 		
 }

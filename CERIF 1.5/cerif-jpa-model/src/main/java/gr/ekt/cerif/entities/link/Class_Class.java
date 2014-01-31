@@ -207,4 +207,17 @@ public class Class_Class implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Class_Class [id=" + id + ", theClass1=" + theClass1
+				+ ", theClass2=" + theClass2 + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+	
+	
 }

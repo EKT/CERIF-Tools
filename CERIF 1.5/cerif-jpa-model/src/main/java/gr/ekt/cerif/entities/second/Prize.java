@@ -148,5 +148,14 @@ public class Prize implements CerifSecondLevelEntity {
 	public void setPersons_prizes(Set<Person_Prize> persons_prizes) {
 		this.persons_prizes = persons_prizes;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Prize [id=" + id + ", uri=" + uri + "]";
+	}
+	
 	
 }

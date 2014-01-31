@@ -25,7 +25,7 @@ import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.person.Person_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_Service;
 import gr.ekt.cerif.entities.link.project.Project_Person;
-import gr.ekt.cerif.features.additional.Gender;
+import gr.ekt.cerif.enumerations.Gender;
 import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.multilingual.PersonKeyword;
 import gr.ekt.cerif.features.multilingual.PersonResearchInterest;
@@ -679,6 +679,14 @@ public class Person implements CerifBaseEntity {
 		return true;
 	}
 	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", birthDate=" + birthDate + ", gender="
+				+ gender + ", uri=" + uri + "]";
+	}
+		
 	
 }

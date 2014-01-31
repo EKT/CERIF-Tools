@@ -212,5 +212,18 @@ public class GeographicBoundingBox_GeographicBoundingBox implements CerifLinkEnt
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GeographicBoundingBox_GeographicBoundingBox [id=" + id
+				+ ", geographicBoundingBox1=" + geographicBoundingBox1
+				+ ", geographicBoundingBox2=" + geographicBoundingBox2
+				+ ", theClass=" + theClass + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", fraction=" + fraction + "]";
+	}
+	
 	
 }

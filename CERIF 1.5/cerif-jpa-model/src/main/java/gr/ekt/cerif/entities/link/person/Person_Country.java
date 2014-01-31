@@ -213,5 +213,16 @@ public class Person_Country implements CerifLinkEntity {
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person_Country [id=" + id + ", person=" + person + ", country="
+				+ country + ", theClass=" + theClass + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", fraction=" + fraction
+				+ "]";
+	}
 	
 }

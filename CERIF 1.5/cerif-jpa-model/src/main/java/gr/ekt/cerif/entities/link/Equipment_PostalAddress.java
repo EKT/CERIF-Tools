@@ -210,5 +210,17 @@ public class Equipment_PostalAddress implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Equipment_PostalAddress [id=" + id + ", equipment=" + equipment
+				+ ", postalAddress=" + postalAddress + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+	
 	
 }

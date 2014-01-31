@@ -323,5 +323,17 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 			Set<GeographicBoundingBoxKeyword> geographicBoundingBoxKeywords) {
 		this.geographicBoundingBoxKeywords = geographicBoundingBoxKeywords;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GeographicBoundingBox [id=" + id + ", WBLong=" + WBLong
+				+ ", EBLong=" + EBLong + ", SBLat=" + SBLat + ", NBLat="
+				+ NBLat + ", MinElev=" + MinElev + ", MaxElev=" + MaxElev
+				+ ", uri=" + uri + "]";
+	}
+	
 	
 }

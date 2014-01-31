@@ -211,5 +211,16 @@ public class OrganisationUnit_Indicator implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnit_Indicator [id=" + id + ", organisationUnit="
+				+ organisationUnit + ", indicator=" + indicator + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + "]";
+	}
 	
 }

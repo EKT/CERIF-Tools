@@ -303,5 +303,19 @@ public class Person_Service implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person_Service [id=" + id + ", person=" + person + ", service="
+				+ service + ", theClass=" + theClass + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", fraction=" + fraction
+				+ ", price=" + price + ", currency=" + currency
+				+ ", conditions=" + conditions + ", availability="
+				+ availability + "]";
+	}
+
+	
 }
 

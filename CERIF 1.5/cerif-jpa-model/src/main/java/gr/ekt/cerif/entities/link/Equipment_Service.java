@@ -209,5 +209,17 @@ public class Equipment_Service implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Equipment_Service [id=" + id + ", equipment=" + equipment
+				+ ", service=" + service + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+	
 	
 }

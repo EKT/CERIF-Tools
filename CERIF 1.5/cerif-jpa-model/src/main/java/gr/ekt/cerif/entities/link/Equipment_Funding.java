@@ -258,4 +258,17 @@ public class Equipment_Funding implements CerifLinkEntity {
 		this.currency = currency;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Equipment_Funding [id=" + id + ", equipment=" + equipment
+				+ ", funding=" + funding + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + ", currency=" + currency
+				+ ", amount=" + amount + "]";
+	}
+
+	
 }

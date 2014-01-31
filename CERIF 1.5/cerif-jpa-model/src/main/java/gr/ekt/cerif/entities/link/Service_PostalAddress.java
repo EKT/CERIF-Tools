@@ -209,5 +209,17 @@ public class Service_PostalAddress implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Service_PostalAddress [id=" + id + ", service=" + service
+				+ ", postalAddress=" + postalAddress + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+	
 	
 }

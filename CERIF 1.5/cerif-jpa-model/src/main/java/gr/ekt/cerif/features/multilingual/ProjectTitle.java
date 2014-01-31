@@ -74,7 +74,7 @@ public class ProjectTitle implements CerifMultipleLanguageFeature {
 	/**
 	 * The project title.
 	 */
-	@Column(name="cfTitle")
+	@Column(name="cfTitle", length=1000)
 	@Field(name="projectTitle", index=Index.YES, store=Store.YES)
 	private String title;
 			

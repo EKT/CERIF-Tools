@@ -242,4 +242,17 @@ public class OrganisationUnit_Funding implements CerifLinkEntity {
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnit_Funding [id=" + id + ", organisationUnit="
+				+ organisationUnit + ", funding=" + funding + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + ", currency=" + currency
+				+ ", amount=" + amount + "]";
+	}
+	
 }

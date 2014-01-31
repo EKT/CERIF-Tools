@@ -319,6 +319,16 @@ public class Medium implements CerifSecondLevelEntity {
 			return false;
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Medium [id=" + id + ", mediumCreationDate="
+				+ mediumCreationDate + ", size=" + size + ", mimeType="
+				+ mimeType + ", uri=" + uri + "]";
+	}
 	
 	
 }

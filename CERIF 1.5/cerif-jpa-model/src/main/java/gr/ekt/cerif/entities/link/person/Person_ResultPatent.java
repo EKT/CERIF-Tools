@@ -211,4 +211,16 @@ public class Person_ResultPatent implements CerifLinkEntity {
 		this.fraction = fraction;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person_ResultPatent [id=" + id + ", person=" + person
+				+ ", resultPatent=" + resultPatent + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+
+	
 }

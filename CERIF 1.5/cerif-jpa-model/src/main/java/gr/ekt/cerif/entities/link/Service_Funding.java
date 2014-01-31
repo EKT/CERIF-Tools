@@ -258,4 +258,16 @@ public class Service_Funding implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Service_Funding [id=" + id + ", service=" + service
+				+ ", funding=" + funding + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + ", currency=" + currency
+				+ ", amount=" + amount + "]";
+	}
+
 }

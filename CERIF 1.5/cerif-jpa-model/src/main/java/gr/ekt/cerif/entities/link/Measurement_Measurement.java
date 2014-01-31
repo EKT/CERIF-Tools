@@ -209,5 +209,17 @@ public class Measurement_Measurement implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Measurement_Measurement [id=" + id + ", measurement1="
+				+ measurement1 + ", measurement2=" + measurement2
+				+ ", theClass=" + theClass + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", fraction=" + fraction + "]";
+	}
+	
 	
 }

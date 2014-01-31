@@ -148,5 +148,14 @@ public class Qualification implements CerifSecondLevelEntity {
 			Set<Person_Qualification> persons_qualifications) {
 		this.persons_qualifications = persons_qualifications;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Qualification [id=" + id + ", uri=" + uri + "]";
+	}
+	
 	
 }

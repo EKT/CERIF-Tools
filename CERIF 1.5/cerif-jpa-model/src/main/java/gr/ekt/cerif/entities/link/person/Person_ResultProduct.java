@@ -322,4 +322,19 @@ public class Person_ResultProduct implements CerifLinkEntity {
 	public void setIpr(String ipr) {
 		this.ipr = ipr;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person_ResultProduct [id=" + id + ", person=" + person
+				+ ", resultProduct=" + resultProduct + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + ", price=" + price + ", currency="
+				+ currency + ", conditions=" + conditions + ", availability="
+				+ availability + ", ipr=" + ipr + "]";
+	}
+	
+	
 }

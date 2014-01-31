@@ -749,6 +749,15 @@ public class ResultProduct implements CerifResultEntity {
 			Set<ResultProduct_Service> resultProducts_services) {
 		this.resultProducts_services = resultProducts_services;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultProduct [id=" + id + ", internId=" + internId + ", uri="
+				+ uri + ", version=" + version + "]";
+	}
 	
 	
 	

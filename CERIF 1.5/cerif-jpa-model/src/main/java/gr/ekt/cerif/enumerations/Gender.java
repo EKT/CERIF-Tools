@@ -1,4 +1,4 @@
-package gr.ekt.cerif.features.additional;
+package gr.ekt.cerif.enumerations;
 
 import java.io.Serializable;
 

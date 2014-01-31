@@ -629,21 +629,6 @@ public class ResultPublication implements CerifResultEntity {
 	}
 
 	/**
-	 * @return the organisationUnit_resultPublications
-	 */
-	public Set<OrganisationUnit_ResultPublication> getOrganisationUnit_ResultPublication() {
-		return organisationUnit_resultPublications;
-	}
-
-	/**
-	 * @param organisationUnit_resultPublications the organisationUnit_resultPublications to set
-	 */
-	public void setOrganisationUnit_ResultPublication(
-			Set<OrganisationUnit_ResultPublication> organisationUnit_resultPublications) {
-		this.organisationUnit_resultPublications = organisationUnit_resultPublications;
-	}
-
-	/**
 	 * @return the resultPublications_citations
 	 */
 	public Set<ResultPublication_Citation> getResultPublications_citations() {
@@ -868,9 +853,23 @@ public class ResultPublication implements CerifResultEntity {
 		this.resultPublications_services = resultPublications_services;
 	}
 
+	/**
+	 * @return the organisationUnit_resultPublications
+	 */
+	public Set<OrganisationUnit_ResultPublication> getOrganisationUnit_resultPublications() {
+		return organisationUnit_resultPublications;
+	}
+
+	/**
+	 * @param organisationUnit_resultPublications the organisationUnit_resultPublications to set
+	 */
+	public void setOrganisationUnit_resultPublications(
+			Set<OrganisationUnit_ResultPublication> organisationUnit_resultPublications) {
+		this.organisationUnit_resultPublications = organisationUnit_resultPublications;
+	}
+
 	public ResultPublicationTitle findOriginalTranslation() {
 		for (ResultPublicationTitle translation : resultPublicationTitles) {
-			System.out.format("Found %s", translation.getTitle());
 			if (translation.getTranslation().equals(Translation.ORIGINAL)) return translation;
 		}
 		return null;
@@ -912,6 +911,18 @@ public class ResultPublication implements CerifResultEntity {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublication [id=" + id + ", date=" + date + ", num="
+				+ num + ", vol=" + vol + ", edition=" + edition + ", series="
+				+ series + ", issue=" + issue + ", startPage=" + startPage
+				+ ", endPage=" + endPage + ", totalPages=" + totalPages
+				+ ", isbn=" + isbn + ", issn=" + issn + ", uri=" + uri + "]";
 	}
 	
 	

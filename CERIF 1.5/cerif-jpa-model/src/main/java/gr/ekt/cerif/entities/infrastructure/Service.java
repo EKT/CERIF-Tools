@@ -498,5 +498,16 @@ public class Service implements CerifInfrastructureEntity {
 	public void setServices_federatedIdentifiers(
 			Set<Service_FederatedIdentifier> services_federatedIdentifiers) {
 		this.services_federatedIdentifiers = services_federatedIdentifiers;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Service [id=" + id + ", acronym=" + acronym + ", uri=" + uri
+				+ "]";
 	}	
+	
+	
 }

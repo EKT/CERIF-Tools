@@ -608,6 +608,15 @@ public class Project implements CerifBaseEntity {
 			}
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Project [id=" + id + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", acronym=" + acronym + ", uri=" + uri + "]";
+	}
 	
 	
 

@@ -251,5 +251,16 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person_ElectronicAddress [id=" + id + ", person=" + person
+				+ ", electronicAddress=" + electronicAddress + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + "]";
+	}
+
 
 }

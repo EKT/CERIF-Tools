@@ -443,4 +443,16 @@ public class Funding implements CerifSecondLevelEntity {
 	public void setServices_fundings(Set<Service_Funding> services_fundings) {
 		this.services_fundings = services_fundings;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Funding [id=" + id + ", currency=" + currency + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", acronym=" + acronym
+				+ ", amount=" + amount + ", uri=" + uri + "]";
+	}
+	
+	
 }

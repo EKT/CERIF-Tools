@@ -210,4 +210,16 @@ public class Service_Indicator implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Service_Indicator [id=" + id + ", service=" + service
+				+ ", indicator=" + indicator + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+
+	
 }

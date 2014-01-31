@@ -208,4 +208,17 @@ public class Funding_Funding implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Funding_Funding [id=" + id + ", funding1=" + funding1
+				+ ", funding2=" + funding2 + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+	
+	
 }

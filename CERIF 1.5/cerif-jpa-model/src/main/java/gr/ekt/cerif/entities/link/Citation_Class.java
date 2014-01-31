@@ -186,4 +186,15 @@ public class Citation_Class implements CerifLinkEntity {
 		this.fraction = fraction;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Citation_Class [id=" + id + ", citation=" + citation
+				+ ", theClass=" + theClass + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", fraction=" + fraction + "]";
+	}
+
+	
 }

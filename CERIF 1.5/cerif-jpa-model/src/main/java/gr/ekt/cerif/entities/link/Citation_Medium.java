@@ -210,4 +210,16 @@ public class Citation_Medium implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Citation_Medium [id=" + id + ", citation=" + citation
+				+ ", medium=" + medium + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+
+	
 }
