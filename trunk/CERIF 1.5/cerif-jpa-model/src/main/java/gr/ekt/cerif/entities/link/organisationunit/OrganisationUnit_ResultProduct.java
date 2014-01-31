@@ -401,5 +401,19 @@ public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 		}
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnit_ResultProduct [id=" + id
+				+ ", organisationUnit=" + organisationUnit + ", resultProduct="
+				+ resultProduct + ", theClass=" + theClass + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", fraction=" + fraction
+				+ ", price=" + price + ", currency=" + currency
+				+ ", availability=" + availability + ", conditions="
+				+ conditions + "]";
+	}
 	
 }

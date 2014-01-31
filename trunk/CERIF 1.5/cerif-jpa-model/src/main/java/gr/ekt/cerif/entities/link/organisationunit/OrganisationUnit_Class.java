@@ -203,5 +203,17 @@ public class OrganisationUnit_Class implements CerifLinkEntity {
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnit_Class [id=" + id + ", organisationUnit="
+				+ organisationUnit + ", theClass=" + theClass + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", fraction=" + fraction
+				+ "]";
+	}
+	
 	
 }

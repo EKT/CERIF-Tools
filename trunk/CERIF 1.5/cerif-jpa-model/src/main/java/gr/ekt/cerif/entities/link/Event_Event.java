@@ -188,4 +188,15 @@ public class Event_Event implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Event_Event [id=" + id + ", event1=" + event1 + ", event2="
+				+ event2 + ", theClass=" + theClass + ", startDate="
+				+ startDate + ", endDate=" + endDate + "]";
+	}
+
+	
 }

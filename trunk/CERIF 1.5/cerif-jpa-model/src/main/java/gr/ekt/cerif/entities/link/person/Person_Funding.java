@@ -258,4 +258,17 @@ public class Person_Funding implements CerifLinkEntity {
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person_Funding [id=" + id + ", person=" + person + ", funding="
+				+ funding + ", theClass=" + theClass + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", fraction=" + fraction
+				+ ", currency=" + currency + ", amount=" + amount + "]";
+	}
+	
+	
 }

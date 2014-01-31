@@ -185,4 +185,16 @@ public class ExpertiseAndSkills_Class implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ExpertiseAndSkills_Class [id=" + id + ", expertiseAndSkills="
+				+ expertiseAndSkills + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+
+	
 }

@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +26,7 @@ import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.semantics.Class;
+import gr.ekt.cerif.enumerations.LanguageSkills;
 
 @Entity
 @Table(name="cfPers_Lang", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfLangCode","cfClassId","cfStartDate","cfEndDate"}))
@@ -88,19 +91,25 @@ public class Person_Language implements CerifLinkEntity {
 	private Double fraction;
 	
 	/**
-	 * Language reading skills: nm=mother tongue or native language, nf=fluent in the language, nw=working knowledge of the language
+	 * Language reading skills.
 	 */
-	private String reading;
+	@Column(name="cfSkillReading")
+	@Enumerated(EnumType.STRING)
+	private LanguageSkills reading;
 
 	/**
-	 * Language speaking skills: nm=mother tongue or native language, nf=fluent in the language, nw=working knowledge of the language
+	 * Language speaking skills.
 	 */
-	private String speaking;
+	@Column(name="cfSkillSpeaking")
+	@Enumerated(EnumType.STRING)
+	private LanguageSkills speaking;
 	
 	/**
-	 * Language writing skills: nm=mother tongue or native language, nf=fluent in the language, nw=working knowledge of the language
+	 * Language writing skills.
 	 */
-	private String writing;
+	@Column(name="cfSkillWriting")
+	@Enumerated(EnumType.STRING)
+	private LanguageSkills writing;
 
 	/**
 	 * Default Constructor
@@ -122,8 +131,8 @@ public class Person_Language implements CerifLinkEntity {
 	 * @param writing
 	 */
 	public Person_Language(Person person, Language language, Class theClass,
-			Date startDate, Date endDate, Double fraction, String reading,
-			String speaking, String writing) {
+			Date startDate, Date endDate, Double fraction, LanguageSkills reading,
+			LanguageSkills speaking, LanguageSkills writing) {
 		this.person = person;
 		this.language = language;
 		this.theClass = theClass;
@@ -222,42 +231,42 @@ public class Person_Language implements CerifLinkEntity {
 	/**
 	 * @return the reading
 	 */
-	public String getReading() {
+	public LanguageSkills getReading() {
 		return reading;
 	}
 
 	/**
 	 * @param reading the reading to set
 	 */
-	public void setReading(String reading) {
+	public void setReading(LanguageSkills reading) {
 		this.reading = reading;
 	}
 
 	/**
 	 * @return the speaking
 	 */
-	public String getSpeaking() {
+	public LanguageSkills getSpeaking() {
 		return speaking;
 	}
 
 	/**
 	 * @param speaking the speaking to set
 	 */
-	public void setSpeaking(String speaking) {
+	public void setSpeaking(LanguageSkills speaking) {
 		this.speaking = speaking;
 	}
 
 	/**
 	 * @return the writing
 	 */
-	public String getWriting() {
+	public LanguageSkills getWriting() {
 		return writing;
 	}
 
 	/**
 	 * @param writing the writing to set
 	 */
-	public void setWriting(String writing) {
+	public void setWriting(LanguageSkills writing) {
 		this.writing = writing;
 	}
 
@@ -273,6 +282,18 @@ public class Person_Language implements CerifLinkEntity {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person_Language [id=" + id + ", person=" + person
+				+ ", language=" + language + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + ", reading=" + reading
+				+ ", speaking=" + speaking + ", writing=" + writing + "]";
 	}
 	
 }

@@ -288,5 +288,20 @@ public class OrganisationUnit_ExpertiseAndSkills implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnit_ExpertiseAndSkills [id=" + id
+				+ ", organisationUnit=" + organisationUnit
+				+ ", expertiseAndSkills=" + expertiseAndSkills + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + ", price=" + price
+				+ ", currency=" + currency + ", availability=" + availability
+				+ ", conditions=" + conditions + "]";
+	}
+	
 	
 }

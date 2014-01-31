@@ -184,5 +184,14 @@ public class Prize_Class implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Prize_Class [id=" + id + ", prize=" + prize + "]";
+	}
+	
 	
 }

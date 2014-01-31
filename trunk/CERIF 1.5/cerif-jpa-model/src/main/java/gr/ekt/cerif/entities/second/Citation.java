@@ -145,4 +145,14 @@ public class Citation implements CerifSecondLevelEntity {
 			Set<ResultPublication_Citation> resultPublications_citations) {
 		this.resultPublications_citations = resultPublications_citations;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Citation [id=" + id + ", uri=" + uri + "]";
+	}
+	
+	
 }

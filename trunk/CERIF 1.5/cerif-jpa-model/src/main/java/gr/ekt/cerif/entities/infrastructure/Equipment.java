@@ -248,4 +248,15 @@ public class Equipment implements CerifInfrastructureEntity {
 	public void setEquipments_services(Set<Equipment_Service> equipments_services) {
 		this.equipments_services = equipments_services;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Equipment [id=" + id + ", acronym=" + acronym + ", uri=" + uri
+				+ "]";
+	}
+	
+	
 }

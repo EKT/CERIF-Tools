@@ -212,5 +212,18 @@ public class Service_FederatedIdentifier implements CerifLinkEntity {
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Service_FederatedIdentifier [id=" + id + ", service=" + service
+				+ ", fedId=" + fedId + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
 	}	
+	
+	
 }

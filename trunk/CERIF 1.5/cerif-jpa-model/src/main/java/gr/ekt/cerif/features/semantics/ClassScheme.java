@@ -200,6 +200,14 @@ public class ClassScheme implements CerifSemanticFeature {
 		this.federeratedIdentifier = federeratedIdentifier;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ClassScheme [id=" + id + ", uri=" + uri + "]";
+	}
+
 	
 	
 }

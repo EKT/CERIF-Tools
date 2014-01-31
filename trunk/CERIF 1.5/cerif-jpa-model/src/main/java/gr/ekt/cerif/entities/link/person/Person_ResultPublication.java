@@ -258,4 +258,17 @@ public class Person_ResultPublication implements CerifLinkEntity {
 		this.copyright = copyright;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person_ResultPublication [id=" + id + ", person=" + person
+				+ ", resultPublication=" + resultPublication + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + ", copyright="
+				+ copyright + "]";
+	}
+
+	
 }

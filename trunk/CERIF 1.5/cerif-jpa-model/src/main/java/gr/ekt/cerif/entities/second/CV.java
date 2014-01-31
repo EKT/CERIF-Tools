@@ -138,5 +138,14 @@ public class CV implements CerifSecondLevelEntity {
 	public void setPersons_cvs(Set<Person_Cv> persons_cvs) {
 		this.persons_cvs = persons_cvs;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CV [id=" + id + ", uri=" + uri + "]";
+	}
+	
 	
 }

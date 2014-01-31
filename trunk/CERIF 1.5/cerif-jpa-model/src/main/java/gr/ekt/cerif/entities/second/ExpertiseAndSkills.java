@@ -167,5 +167,14 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 			Set<Person_ExpertiseAndSkills> persons_expertiseAndSkills) {
 		this.persons_expertiseAndSkills = persons_expertiseAndSkills;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ExpertiseAndSkills [id=" + id + ", uri=" + uri + "]";
+	}
+	
 	
 }

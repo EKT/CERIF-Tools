@@ -256,5 +256,17 @@ public class OrganisationUnit_PostalAddress implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnit_PostalAddress [id=" + id
+				+ ", organisationUnit=" + organisationUnit + ", postalAddress="
+				+ postalAddress + ", theClass=" + theClass + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", fraction=" + fraction
+				+ "]";
+	}
+
 
 }

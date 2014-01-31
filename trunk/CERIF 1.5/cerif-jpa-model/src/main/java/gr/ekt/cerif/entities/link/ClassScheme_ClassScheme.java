@@ -211,4 +211,16 @@ public class ClassScheme_ClassScheme implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ClassScheme_ClassScheme [id=" + id + ", classScheme1="
+				+ classScheme1 + ", classScheme2=" + classScheme2
+				+ ", theClass=" + theClass + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", fraction=" + fraction + "]";
+	}
+
+	
 }

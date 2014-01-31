@@ -139,4 +139,14 @@ public class Metrics implements CerifSecondLevelEntity {
 			Set<ResultPublication_Metrics> resultPublications_metrics) {
 		this.resultPublications_metrics = resultPublications_metrics;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Metrics [id=" + id + ", uri=" + uri + "]";
+	}
+	
+	
 }

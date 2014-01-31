@@ -231,5 +231,14 @@ public class Indicator implements CerifSecondLevelEntity {
 	public void setServices_indicators(Set<Service_Indicator> services_indicators) {
 		this.services_indicators = services_indicators;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Indicator [id=" + id + ", uri=" + uri + "]";
+	}
+	
 	
 }

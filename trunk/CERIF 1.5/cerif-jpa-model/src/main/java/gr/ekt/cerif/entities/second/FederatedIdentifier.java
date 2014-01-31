@@ -57,6 +57,18 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 	private String fedId;
 	
 	/**
+	 * The start date.
+	 */
+	@Column(name="cfStartDate")
+	private Date startDate;
+	
+	/**
+	 * The end date.
+	 */
+	@Column(name="cfEndDate")
+	private Date endDate;
+	
+	/**
 	 * The class.
 	 */
 	@ManyToOne(optional=false)
@@ -69,18 +81,6 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 	@ManyToOne(optional=false)
 	@JoinColumn (name = "cfClassSchemeId")
 	private ClassScheme scheme;
-	
-	/**
-	 * The start date.
-	 */
-	@Column(name="cfStartDate")
-	private Date startDate;
-	
-	/**
-	 * The end date.
-	 */
-	@Column(name="cfEndDate")
-	private Date endDate;
 
 	/**
 	 * The classifications.
@@ -254,7 +254,8 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 	public String toString() {
 		return "FederatedIdentifier [id=" + id + ", instanceId=" + instanceId
 				+ ", fedId=" + fedId + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", fedIds_classes=" + fedIds_classes
-				+ ", services_fedids=" + services_fedids + "]";
-	}	
+				+ ", endDate=" + endDate + "]";
+	}
+
+
 }

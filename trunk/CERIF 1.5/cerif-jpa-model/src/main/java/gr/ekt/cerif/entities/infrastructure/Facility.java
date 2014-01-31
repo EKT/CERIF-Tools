@@ -436,6 +436,15 @@ public class Facility implements CerifInfrastructureEntity {
 			}
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Facility [id=" + id + ", acronym=" + acronym + ", uri=" + uri
+				+ "]";
+	}
 	
 	
 }

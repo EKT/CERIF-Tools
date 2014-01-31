@@ -382,5 +382,15 @@ public class Event implements CerifSecondLevelEntity {
 		this.services_events = services_events;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Event [id=" + id + ", country=" + country + ", cityTown="
+				+ cityTown + ", feeOrFree=" + feeOrFree + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", uri=" + uri + "]";
+	}
+
 
 }

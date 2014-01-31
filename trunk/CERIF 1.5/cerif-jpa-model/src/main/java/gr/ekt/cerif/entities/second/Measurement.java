@@ -83,13 +83,13 @@ public class Measurement implements CerifSecondLevelEntity {
 	/**
 	 * The valJudgeText.
 	 */
-	@Column(name="cfValJudgeText")
+	@Column(name="cfValJudgeText", length=10000)
 	private String valJudgeText;
 	
 	/**
 	 * The valJudgeText.
 	 */
-	@Column(name="cfValJudgeTextChange")
+	@Column(name="cfValJudgeTextChange", length=10000)
 	private String valJudgeTextChange;
 	
 	/**
@@ -416,5 +416,20 @@ public class Measurement implements CerifSecondLevelEntity {
 			Set<Service_Measurement> services_measurements) {
 		this.services_measurements = services_measurements;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Measurement [id=" + id + ", counter=" + counter
+				+ ", valFloatP=" + valFloatP + ", valJudgeNum=" + valJudgeNum
+				+ ", countIntChange=" + countIntChange + ", countFloatPChange="
+				+ countFloatPChange + ", valJudgeNumChange="
+				+ valJudgeNumChange + ", valJudgeText=" + valJudgeText
+				+ ", valJudgeTextChange=" + valJudgeTextChange + ", uri=" + uri
+				+ "]";
+	}
+	
 	
 }

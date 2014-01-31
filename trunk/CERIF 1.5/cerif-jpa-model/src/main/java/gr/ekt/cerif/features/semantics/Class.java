@@ -1168,5 +1168,16 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setServices_Classes(Set<Service_Class> services_Classes) {
 		this.services_Classes = services_Classes;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Class [id=" + id + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", uri=" + uri + "]";
 	}	
+	
+	
 }

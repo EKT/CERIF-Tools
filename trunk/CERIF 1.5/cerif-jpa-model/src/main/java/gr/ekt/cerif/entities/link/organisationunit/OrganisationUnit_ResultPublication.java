@@ -292,5 +292,18 @@ public class OrganisationUnit_ResultPublication implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnit_ResultPublication [id=" + id
+				+ ", organisationUnit=" + organisationUnit
+				+ ", resultPublication=" + resultPublication + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + ", copyright="
+				+ copyright + "]";
+	}
 	
 }

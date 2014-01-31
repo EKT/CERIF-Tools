@@ -1303,5 +1303,15 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	public int compareTo(Language o) {
 		return code.compareTo(o.code);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Language [code=" + code + ", uri=" + uri + "]";
+	}
+	
 	
 }
