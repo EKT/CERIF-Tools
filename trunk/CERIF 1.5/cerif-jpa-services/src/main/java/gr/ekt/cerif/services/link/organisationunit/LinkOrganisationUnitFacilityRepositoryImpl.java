@@ -3,6 +3,7 @@ package gr.ekt.cerif.services.link.organisationunit;
 import java.util.List;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.services.base.OrganisationUnitRepository;
 import gr.ekt.cerif.services.infrastructure.FacilityRepository;
@@ -28,15 +29,6 @@ public class LinkOrganisationUnitFacilityRepositoryImpl implements LinkOrganisat
 
 	@Transactional
 	public OrganisationUnit_Facility save(OrganisationUnit_Facility entity) {
-		if (entity.getOrganisationUnit() == null || entity.getFacility() == null) {
-			throw new IllegalArgumentException("Please provide both an organisation and an facility.");
-		}
-		if (entity.getOrganisationUnit().getId() == null) {
-			organisationRepository.save(entity.getOrganisationUnit());
-		}
-		if (entity.getFacility().getId() == null) {
-			facilityRepository.save(entity.getFacility());
-		}
 		return linkOrganisationUnitFacilityCrudRepository.save(entity);
 	}
 	
@@ -58,5 +50,10 @@ public class LinkOrganisationUnitFacilityRepositoryImpl implements LinkOrganisat
 	@Transactional
 	public void delete(Iterable<? extends OrganisationUnit_Facility> entityList) {
 		linkOrganisationUnitFacilityCrudRepository.delete(entityList);
+	}
+
+	@Override
+	public List<OrganisationUnit_Facility> findByFacility(Facility facility) {
+		return linkOrganisationUnitFacilityCrudRepository.findByFacility(facility);
 	}
 }

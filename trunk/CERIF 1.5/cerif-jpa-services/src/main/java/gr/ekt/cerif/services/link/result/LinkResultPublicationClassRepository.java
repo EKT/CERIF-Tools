@@ -27,6 +27,8 @@ public interface LinkResultPublicationClassRepository {
 	
 	List<ResultPublication_Class> findByResultPublication(ResultPublication resultPublication);
 	
+	List<ResultPublication_Class> findBytheClass(Class theClass);
+	
 	public List<ResultPublication_Class> findByResPublIdAndClScheme(Long respubId, String schUri);
 	
 	public ResultPublication_Class findById(Long respubclId);

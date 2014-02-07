@@ -1,5 +1,6 @@
 package gr.ekt.cerif.services.link.facility;
 
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.second.Funding;
 
@@ -45,6 +46,11 @@ public class LinkFacilityFundingRepositoryImpl implements LinkFacilityFundingRep
 	@Override
 	public void delete(Iterable<Facility_Funding> entities) {
 		linkFacilityFundingCrudRepository.delete(entities);		
+	}
+
+	@Override
+	public List<Facility_Funding> findByFacility(Facility facility) {
+		return linkFacilityFundingCrudRepository.findByFacility(facility);
 	}
 	
 }

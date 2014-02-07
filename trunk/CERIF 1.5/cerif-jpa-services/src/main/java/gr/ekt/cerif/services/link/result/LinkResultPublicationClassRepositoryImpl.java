@@ -28,24 +28,12 @@ public class LinkResultPublicationClassRepositoryImpl implements LinkResultPubli
 	
 	@Transactional
 	public ResultPublication_Class save(ResultPublication_Class entity) {
-		if (entity.getResultPublication() == null || entity.getTheClass() == null) {
-			throw new IllegalArgumentException("Please provide both a resultPublication and a class.");
-		}
-		if (entity.getResultPublication().getId() == null) {
-			resultPublicationRepository.save(entity.getResultPublication());
-		}
-		if (entity.getTheClass().getId() == null) {
-			classRepository.save(entity.getTheClass());
-		}
 		return linkResultPublicationClassCrudRepository.save(entity);
 	}
 	
 	@Transactional
 	public Iterable<ResultPublication_Class> save(Iterable<ResultPublication_Class> entityList) {
-		for (ResultPublication_Class entity : entityList) {
-			save(entity);
-		}
-		return entityList;
+		return save(entityList);
 	}
 	
 	
@@ -124,5 +112,10 @@ public class LinkResultPublicationClassRepositoryImpl implements LinkResultPubli
 	@Override
 	public ResultPublication_Class findResPubClassBySchemeUriAndResPubId(String schemeUri, Long respubId) {
 		return linkResultPublicationClassCrudRepository.findResPubClassBySchemeUriAndResPubId(schemeUri, respubId);
+	}
+
+	@Override
+	public List<ResultPublication_Class> findBytheClass(Class theClass) {
+		return linkResultPublicationClassCrudRepository.findBytheClass(theClass);
 	}
 }

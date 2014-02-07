@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.organisationunit;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
+import gr.ekt.cerif.entities.second.Funding;
 
 @Component
 public class LinkOrganisationUnitFundingRepositoryImpl implements
@@ -35,6 +39,17 @@ public class LinkOrganisationUnitFundingRepositoryImpl implements
 	@Override
 	public OrganisationUnit_Funding save(OrganisationUnit_Funding entity) {
 		return linkOrganisationUnitFundingCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<OrganisationUnit_Funding> findByFunding(Funding funding) {
+		return linkOrganisationUnitFundingCrudRepository.findByFunding(funding);
+	}
+
+	@Override
+	public List<OrganisationUnit_Funding> findByOrganisationUnit(
+			OrganisationUnit organisationUnit) {
+		return linkOrganisationUnitFundingCrudRepository.findByOrganisationUnit(organisationUnit);
 	}
 
 }

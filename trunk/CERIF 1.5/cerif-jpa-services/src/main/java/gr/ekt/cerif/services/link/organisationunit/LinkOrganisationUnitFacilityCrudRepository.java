@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 
 import org.springframework.data.jpa.repository.QueryHints;
@@ -14,5 +15,8 @@ public interface LinkOrganisationUnitFacilityCrudRepository extends CrudReposito
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<OrganisationUnit_Facility> findByOrganisationUnit(OrganisationUnit organisationUnit);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<OrganisationUnit_Facility> findByFacility(Facility facility);
 	
 }

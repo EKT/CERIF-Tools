@@ -62,4 +62,10 @@ public class LinkPersonPostalAddressRepositoryImpl implements
 		return linkPersonPostalAddressCrudRepository.save(entity);
 	}
 
+	@Override
+	public List<Person_PostalAddress> findByPostalAddress(
+			PostalAddress postalAddress) {
+		return linkPersonPostalAddressCrudRepository.findByPostalAddress(postalAddress);
+	}
+
 }

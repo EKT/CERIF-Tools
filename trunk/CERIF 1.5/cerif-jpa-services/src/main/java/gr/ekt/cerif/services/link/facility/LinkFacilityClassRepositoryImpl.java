@@ -1,5 +1,6 @@
 package gr.ekt.cerif.services.link.facility;
 
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.features.semantics.Class;
 
@@ -37,6 +38,11 @@ public class LinkFacilityClassRepositoryImpl implements LinkFacilityClassReposit
 	@Override
 	public void delete(Iterable<Facility_Class> entities) {
 		linkFacilityClassCrudRepository.delete(entities);		
+	}
+
+	@Override
+	public List<Facility_Class> findByFacility(Facility facility) {
+		return linkFacilityClassCrudRepository.findByFacility(facility);
 	}
 
 }

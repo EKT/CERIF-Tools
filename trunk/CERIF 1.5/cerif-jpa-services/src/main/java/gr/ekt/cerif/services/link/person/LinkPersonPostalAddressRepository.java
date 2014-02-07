@@ -12,6 +12,8 @@ Person_PostalAddress findByPersonName(String personName);
 	
 	List<Person_PostalAddress> findByPerson(Person person);
 	
+	List<Person_PostalAddress> findByPostalAddress(PostalAddress postalAddress);
+	
 	List<Person_PostalAddress> findByPerson2(Person person);
 	
 	Person_PostalAddress findByPersonAndPostalAddress (Person person, PostalAddress postalAddress);

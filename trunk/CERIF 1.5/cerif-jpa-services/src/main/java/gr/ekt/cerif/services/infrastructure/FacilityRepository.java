@@ -11,6 +11,8 @@ public interface FacilityRepository {
 	
 	Facility findByAcronym(String acronym);
 	
+	List<Facility> findAll();
+	
 	public List<Facility> findByClass(Class theClass);
 
 	public List<Facility> findByFundingClass(Class theClass);
@@ -22,7 +24,5 @@ public interface FacilityRepository {
 	Iterable<Facility> save(Iterable<Facility> entities);
 	
 	Facility save(Facility entity);
-	
-	public Iterable<Facility> findAll();
 	
 }

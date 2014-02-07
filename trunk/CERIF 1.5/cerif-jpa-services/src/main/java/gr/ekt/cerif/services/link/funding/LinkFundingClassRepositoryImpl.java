@@ -25,11 +25,13 @@ public class LinkFundingClassRepositoryImpl implements LinkFundingClassRepositor
 	public Iterable<? extends Funding_Class> save(Iterable<? extends Funding_Class> entities) {
 		return linkFundingClassCrudRepository.save(entities);
 	}
-
+	
+	@Override
 	public List<Funding_Class> findByTheClass(Class theClass) {
 		return linkFundingClassCrudRepository.findByTheClass(theClass);
 	}
-
+	
+	@Override
 	public List<Funding_Class> findByTheClassAndFunding(Class theClass, Funding funding) {
 		return linkFundingClassCrudRepository.findByTheClassAndFunding(theClass, funding);
 	}
@@ -42,6 +44,11 @@ public class LinkFundingClassRepositoryImpl implements LinkFundingClassRepositor
 	@Override
 	public void delete(Iterable<Funding_Class> entities) {
 		linkFundingClassCrudRepository.delete(entities);		
+	}
+
+	@Override
+	public List<Funding_Class> findByFunding(Funding funding) {
+		return linkFundingClassCrudRepository.findByFunding(funding);
 	}
 	
 }
