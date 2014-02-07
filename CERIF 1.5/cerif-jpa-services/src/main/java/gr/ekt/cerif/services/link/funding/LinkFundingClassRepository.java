@@ -16,6 +16,8 @@ public interface LinkFundingClassRepository {
 	
 	List<Funding_Class> findByTheClassAndFunding(Class theClass, Funding funding);
 	
+	List<Funding_Class> findByFunding(Funding funding);
+	
 	public Funding_Class save(Funding_Class entity);
 	
 	public Iterable<? extends Funding_Class> save(Iterable<? extends Funding_Class> entities);

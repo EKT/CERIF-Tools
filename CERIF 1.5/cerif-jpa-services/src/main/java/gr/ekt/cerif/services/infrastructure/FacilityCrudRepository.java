@@ -1,5 +1,7 @@
 package gr.ekt.cerif.services.infrastructure;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.infrastructure.Facility;
 
 import javax.persistence.QueryHint;
@@ -11,6 +13,9 @@ public interface FacilityCrudRepository extends CrudRepository<Facility, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Facility findById(Long id);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<Facility> findAll();
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Facility findByAcronym(String acronym);

@@ -1,5 +1,6 @@
 package gr.ekt.cerif.services.link.facility;
 
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.features.semantics.Class;
 
@@ -13,6 +14,8 @@ import java.util.List;
 public interface LinkFacilityClassRepository {
 
 	List<Facility_Class> findByTheClass(Class theClass);
+	
+	List<Facility_Class> findByFacility(Facility facility);
 	
 	public Facility_Class save(Facility_Class entity);
 	

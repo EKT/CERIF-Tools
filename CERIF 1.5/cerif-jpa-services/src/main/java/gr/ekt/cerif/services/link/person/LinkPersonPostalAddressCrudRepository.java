@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * A repository for links between persons and countryes.
+ * A repository for links between persons and countries.
  * 
  */
 
@@ -25,6 +25,9 @@ public interface LinkPersonPostalAddressCrudRepository extends CrudRepository<Pe
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Person_PostalAddress> findByPerson(Person person);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<Person_PostalAddress> findByPostalAddress(PostalAddress postalAddress);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("Select pa from gr.ekt.cerif.entities.link.person.Person_PostalAddress pa join pa.person p where p=?1")

@@ -2,6 +2,7 @@ package gr.ekt.cerif.services.link.result;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_Class;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public interface LinkResultPublicationClassCrudRepository extends CrudRepository
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ResultPublication_Class> findByResultPublication(ResultPublication resultPublication);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<ResultPublication_Class> findBytheClass(Class theClass);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select respubc from ResultPublication respub "+

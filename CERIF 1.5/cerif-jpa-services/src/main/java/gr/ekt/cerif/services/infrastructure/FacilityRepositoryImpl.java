@@ -105,7 +105,7 @@ public class FacilityRepositoryImpl implements FacilityRepository {
 		return facilityCrudRepository.save(entity);
 	}
 
-	public Iterable<Facility> findAll() {
+	public List<Facility> findAll() {
 		return facilityCrudRepository.findAll();
 	}
 
