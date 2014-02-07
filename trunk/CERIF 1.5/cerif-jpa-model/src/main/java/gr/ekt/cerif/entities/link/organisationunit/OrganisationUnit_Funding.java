@@ -202,6 +202,20 @@ public class OrganisationUnit_Funding implements CerifLinkEntity {
 	}
 
 	/**
+	 * @return the theClass
+	 */
+	public Class getTheClass() {
+		return theClass;
+	}
+
+	/**
+	 * @param theClass the theClass to set
+	 */
+	public void setTheClass(Class theClass) {
+		this.theClass = theClass;
+	}
+
+	/**
 	 * @return the fraction
 	 */
 	public Double getFraction() {

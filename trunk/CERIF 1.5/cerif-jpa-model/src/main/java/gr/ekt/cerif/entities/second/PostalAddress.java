@@ -364,7 +364,6 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	public Set<Person_PostalAddress> getPersons_postalAddresses() {
 		return persons_postalAddresses;
 	}
-	
 	/**
 	 * @param persons_postalAddresses the persons_postalAddresses to set
 	 */
@@ -372,7 +371,6 @@ public class PostalAddress implements CerifSecondLevelEntity {
 			Set<Person_PostalAddress> persons_postalAddresses) {
 		this.persons_postalAddresses = persons_postalAddresses;
 	}
-	
 	/**
 	 * @return the services_postalAddresses
 	 */
@@ -389,19 +387,18 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	}
 	
 	/**
-	 * @return the facilities
+	 * @return the facilities_postalAddresses
 	 */
-	public Set<Facility_PostalAddress> getFacilities() {
+	public Set<Facility_PostalAddress> getFacilities_postalAddresses() {
 		return facilities_postalAddresses;
 	}
-	
 	/**
-	 * @param facilities the facilities to set
+	 * @param facilities_postalAddresses the facilities_postalAddresses to set
 	 */
-	public void setFacilities(Set<Facility_PostalAddress> facilities) {
-		this.facilities_postalAddresses = facilities;
+	public void setFacilities_postalAddresses(
+			Set<Facility_PostalAddress> facilities_postalAddresses) {
+		this.facilities_postalAddresses = facilities_postalAddresses;
 	}
-	
 	/**
 	 * @return the classes
 	 */

@@ -202,6 +202,21 @@ public class Facility implements CerifInfrastructureEntity {
 	}
 
 	/**
+	 * @return the organisationUnits_facilities
+	 */
+	public Set<OrganisationUnit_Facility> getOrganisationUnits_facilities() {
+		return organisationUnits_facilities;
+	}
+
+	/**
+	 * @param organisationUnits_facilities the organisationUnits_facilities to set
+	 */
+	public void setOrganisationUnits_facilities(
+			Set<OrganisationUnit_Facility> organisationUnits_facilities) {
+		this.organisationUnits_facilities = organisationUnits_facilities;
+	}
+
+	/**
 	 * @return the names
 	 */
 	public Set<FacilityName> getNames() {
@@ -249,36 +264,27 @@ public class Facility implements CerifInfrastructureEntity {
 	public Set<Person_Facility> getPersons_facilities() {
 		return persons_facilities;
 	}
-	
+
 	/**
 	 * @param persons_facilities the persons_facilities to set
 	 */
 	public void setPersons_facilities(Set<Person_Facility> persons_facilities) {
 		this.persons_facilities = persons_facilities;
 	}
-	
+
 	/**
 	 * @return the resultPublications_facilities
 	 */
 	public Set<ResultPublication_Facility> getResultPublications_facilities() {
 		return resultPublications_facilities;
 	}
-	
+
 	/**
 	 * @param resultPublications_facilities the resultPublications_facilities to set
 	 */
 	public void setResultPublications_facilities(
 			Set<ResultPublication_Facility> resultPublications_facilities) {
 		this.resultPublications_facilities = resultPublications_facilities;
-	}
-
-	public Set<OrganisationUnit_Facility> getOrganisationUnits_facilities() {
-		return organisationUnits_facilities;
-	}
-
-	public void setOrganisationUnits_facilities(
-			Set<OrganisationUnit_Facility> organisationUnits_facilities) {
-		this.organisationUnits_facilities = organisationUnits_facilities;
 	}
 
 	/**
