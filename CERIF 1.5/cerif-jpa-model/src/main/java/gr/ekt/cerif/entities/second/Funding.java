@@ -8,6 +8,7 @@ import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.Funding_Funding;
 import gr.ekt.cerif.entities.link.Service_Funding;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
 import gr.ekt.cerif.entities.link.person.Person_Funding;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Funding;
@@ -101,6 +102,9 @@ public class Funding implements CerifSecondLevelEntity {
 	 */
 	@OneToMany(mappedBy="funding")
 	private Set<Project_Funding> projects_fundings;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<OrganisationUnit_Funding> organisationUnits_fundings;
 	
 	@OneToMany(mappedBy="funding")
 	private Set<FundingName> names;
@@ -282,6 +286,19 @@ public class Funding implements CerifSecondLevelEntity {
 	}
 
 	/**
+	 * @return the organisationUnits_fundings
+	 */
+	public Set<OrganisationUnit_Funding> getOrganisationUnits_fundings() {
+		return organisationUnits_fundings;
+	}
+	/**
+	 * @param organisationUnits_fundings the organisationUnits_fundings to set
+	 */
+	public void setOrganisationUnits_fundings(
+			Set<OrganisationUnit_Funding> organisationUnits_fundings) {
+		this.organisationUnits_fundings = organisationUnits_fundings;
+	}
+	/**
 	 * @return the names
 	 */
 	public Set<FundingName> getNames() {
@@ -329,14 +346,12 @@ public class Funding implements CerifSecondLevelEntity {
 	public Set<Person_Funding> getPersons_fundings() {
 		return persons_fundings;
 	}
-	
 	/**
 	 * @param persons_fundings the persons_fundings to set
 	 */
 	public void setPersons_fundings(Set<Person_Funding> persons_fundings) {
 		this.persons_fundings = persons_fundings;
 	}
-	
 	/**
 	 * @return the resultPatents_fundings
 	 */
@@ -353,6 +368,19 @@ public class Funding implements CerifSecondLevelEntity {
 	}
 	
 	/**
+	 * @return the resultPublications_fundings
+	 */
+	public Set<ResultPublication_Funding> getResultPublications_fundings() {
+		return resultPublications_fundings;
+	}
+	/**
+	 * @param resultPublications_fundings the resultPublications_fundings to set
+	 */
+	public void setResultPublications_fundings(
+			Set<ResultPublication_Funding> resultPublications_fundings) {
+		this.resultPublications_fundings = resultPublications_fundings;
+	}
+	/**
 	 * @return the resultProducts_fundings
 	 */
 	public Set<ResultProduct_Funding> getResultProducts_fundings() {
@@ -368,21 +396,6 @@ public class Funding implements CerifSecondLevelEntity {
 	}
 	
 	/**
-	 * @return the resultPublications_fundings
-	 */
-	public Set<ResultPublication_Funding> getResultPublications_fundings() {
-		return resultPublications_fundings;
-	}
-	
-	/**
-	 * @param resultPublications_fundings the resultPublications_fundings to set
-	 */
-	public void setResultPublications_fundings(
-			Set<ResultPublication_Funding> resultPublications_fundings) {
-		this.resultPublications_fundings = resultPublications_fundings;
-	}
-
-	/**
 	 * @return the classes
 	 */
 	public Set<Funding_Class> getClasses() {
@@ -396,14 +409,18 @@ public class Funding implements CerifSecondLevelEntity {
 		this.classes = classes;
 	}
 
+	/**
+	 * @return the facilities_fundings
+	 */
 	public Set<Facility_Funding> getFacilities_fundings() {
 		return facilities_fundings;
 	}
-
+	/**
+	 * @param facilities_fundings the facilities_fundings to set
+	 */
 	public void setFacilities_fundings(Set<Facility_Funding> facilities_fundings) {
 		this.facilities_fundings = facilities_fundings;
 	}
-	
 	/**
 	 * @return the funding1_fundings
 	 */
