@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.result;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.result.ResultProduct;
 
 /**
@@ -18,5 +20,7 @@ public interface ResultProductRepository {
 	public Iterable<ResultProduct> save(Iterable<ResultProduct> entities); 
 	
 	public ResultProduct save(ResultProduct entity);
+	
+	List<ResultProduct> findAll();
 	
 }

@@ -1,6 +1,10 @@
 package gr.ekt.cerif.services.link.result;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.link.result.ResultProduct_Class;
+import gr.ekt.cerif.entities.result.ResultProduct;
+import gr.ekt.cerif.features.semantics.Class;
 
 
 /**
@@ -16,4 +20,8 @@ public interface LinkResultProductClassRepository {
 	public Iterable<ResultProduct_Class> save(Iterable<ResultProduct_Class> entities); 
 	
 	public ResultProduct_Class save(ResultProduct_Class entity);	
+	
+	List<ResultProduct_Class> findByResultProduct(ResultProduct resultProduct);
+	
+	List<ResultProduct_Class> findBytheClass(Class theClass);
 }

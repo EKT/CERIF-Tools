@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.multilingual.service;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.features.multilingual.ServiceName;
 
 public interface ServiceNameRepository {
@@ -11,5 +14,7 @@ public interface ServiceNameRepository {
 	public Iterable<ServiceName> save(Iterable<ServiceName> entities); 
 	
 	public ServiceName save(ServiceName entity);
+	
+	List<ServiceName> findByService(Service service);
 
 }

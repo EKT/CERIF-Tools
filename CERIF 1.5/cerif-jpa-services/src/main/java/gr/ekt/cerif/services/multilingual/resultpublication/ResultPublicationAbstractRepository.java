@@ -1,11 +1,13 @@
 package gr.ekt.cerif.services.multilingual.resultpublication;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.multilingual.ResultPublicationAbstract;
 
 public interface ResultPublicationAbstractRepository {
 
-	ResultPublicationAbstract findByResultPublication(ResultPublication resultPublication);
+	List<ResultPublicationAbstract> findByResultPublication(ResultPublication resultPublication);
 	
 	public void delete(ResultPublicationAbstract entity); 
 	

@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.link.Service_Class;
+import gr.ekt.cerif.features.semantics.Class;
 
 @Component
 public class LinkServiceClassRepositoryImpl implements
@@ -34,6 +38,16 @@ public class LinkServiceClassRepositoryImpl implements
 	@Override
 	public Service_Class save(Service_Class entity) {
 		return linkServiceClassCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Service_Class> findByService(Service service) {
+		return linkServiceClassCrudRepository.findByService(service);
+	}
+
+	@Override
+	public List<Service_Class> findBytheClass(Class theClass) {
+		return linkServiceClassCrudRepository.findBytheClass(theClass);
 	}
 
 }

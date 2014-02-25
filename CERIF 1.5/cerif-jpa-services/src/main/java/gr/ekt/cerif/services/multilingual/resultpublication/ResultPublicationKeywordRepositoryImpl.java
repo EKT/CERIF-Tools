@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.multilingual.resultpublication;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.multilingual.ResultPublicationKeyword;
 
 import org.slf4j.Logger;
@@ -33,6 +36,12 @@ public class ResultPublicationKeywordRepositoryImpl implements ResultPublication
 	@Override
 	public ResultPublicationKeyword save(ResultPublicationKeyword entity) {
 		return resultPublicationKeywordCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ResultPublicationKeyword> findByResultPublication(
+			ResultPublication resultPublication) {
+		return resultPublicationKeywordCrudRepository.findByResultPublication(resultPublication);
 	}
 
 }
