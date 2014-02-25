@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="gr.ekt" />
+	
+	<bean id="cerifToXmlTransformationEngine" class="gr.ekt.transformationengine.core.TransformationEngine">
+		<property name="dataLoader" ref="cerifToXmlDataLoader" />
+		<property name="workflow" ref="cerifToXmlConjunctionTransformationWorkflow" />
+		<property name="outputGenerator" ref="cerifToXmlOutputGenerator" />
+	</bean>
+
+	<bean id="cerifToXmlDataLoader" class="gr.ekt.cerif.xml.loader.CerifToXmlDataLoader" />
+
+	<bean id="cerifToXmlConjunctionTransformationWorkflow"
+		class="gr.ekt.transformationengine.core.ConjunctionTransformationWorkflow">
+	</bean>
+
+	<bean id="cerifToXmlOutputGenerator" class="gr.ekt.cerif.xml.output.CerifToXmlOutputGenerator">
+		<property name="velocityEngine" ref="cerifToXmlVelocityEngine" />
+		<property name="outputDir" value="${xml.outputDir}" />
+		<property name="outputFileName" value="${xml.outputFileName}" />
+		<property name="template" value="${xml.template}" />
+	</bean>
+	
+	<bean id="cerifToXmlVelocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">UTF-8</prop>
+	            <prop key="output.encoding">UTF-8</prop>
+	            <prop key="resource.loader">class</prop>
+	            <prop key="class.resource.loader.class">org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader</prop>
+			</props>
+		</property>
+	</bean>
+</beans>
