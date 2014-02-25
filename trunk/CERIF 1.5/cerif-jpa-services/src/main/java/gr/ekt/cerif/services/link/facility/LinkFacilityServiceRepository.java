@@ -1,5 +1,13 @@
 package gr.ekt.cerif.services.link.facility;
 
+import java.util.List;
+
+import javax.persistence.QueryHint;
+
+import org.springframework.data.jpa.repository.QueryHints;
+
+import gr.ekt.cerif.entities.infrastructure.Facility;
+import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.link.Facility_Service;
 
 /**
@@ -15,5 +23,9 @@ public interface LinkFacilityServiceRepository {
 	public Iterable<Facility_Service> save(Iterable<Facility_Service> entities); 
 	
 	public Facility_Service save(Facility_Service entity);
+	
+	List<Facility_Service> findByService(Service service);
+	
+	List<Facility_Service> findByFacility(Facility facility);
 	
 }

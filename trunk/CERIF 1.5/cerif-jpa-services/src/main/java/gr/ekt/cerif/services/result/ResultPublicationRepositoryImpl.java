@@ -74,7 +74,7 @@ public class ResultPublicationRepositoryImpl implements ResultPublicationReposit
 		if (rt != null) resultPublicationTitleRepository.delete(rt);
 		entity.setResultPublicationTitles(null);
 		
-		ResultPublicationAbstract ra = resultPublicationAbstractRepository.findByResultPublication(entity);
+		List<ResultPublicationAbstract> ra = resultPublicationAbstractRepository.findByResultPublication(entity);
 		if (ra != null) resultPublicationAbstractRepository.delete(ra);
 		entity.setResultPublicationAbstracts(null);
 

@@ -1,5 +1,7 @@
 package gr.ekt.cerif.services.multilingual.resultpublication;
 
+import java.util.List;
+
 import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.entities.result.ResultPublication;
@@ -11,6 +13,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface ResultPublicationAbstractCrudRepository extends CrudRepository<ResultPublicationAbstract, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	ResultPublicationAbstract findByResultPublication(ResultPublication resultPublication);
+	List<ResultPublicationAbstract> findByResultPublication(ResultPublication resultPublication);
 	
 }

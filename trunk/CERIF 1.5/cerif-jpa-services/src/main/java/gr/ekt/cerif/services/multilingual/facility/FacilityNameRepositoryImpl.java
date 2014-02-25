@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.multilingual.facility;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.features.multilingual.FacilityName;
 import gr.ekt.cerif.services.infrastructure.FacilityRepository;
 import gr.ekt.cerif.services.second.LanguageCrudRepository;
@@ -35,6 +38,11 @@ public class FacilityNameRepositoryImpl implements FacilityNameRepository {
 	@Override
 	public Iterable<FacilityName> save(Iterable<FacilityName> entities) {
 		return facilityNameCrudRepository.save(entities);
+	}
+
+	@Override
+	public List<FacilityName> findByFacility(Facility facility) {
+		return facilityNameCrudRepository.findByFacility(facility);
 	}
 	
 }

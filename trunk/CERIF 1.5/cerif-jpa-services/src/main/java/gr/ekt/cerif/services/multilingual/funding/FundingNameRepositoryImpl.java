@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.funding;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.features.multilingual.FundingName;
 
 /**
@@ -45,6 +48,11 @@ public class FundingNameRepositoryImpl implements FundingNameRepository {
 	@Override
 	public FundingName findByName(String title) {
 		return fundingNameCrudRepository.findByName(title);
+	}
+
+	@Override
+	public List<FundingName> findByFunding(Funding funding) {
+		return fundingNameCrudRepository.findByFunding(funding);
 	}
 
 }

@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.result;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.link.result.ResultProduct_Class;
+import gr.ekt.cerif.entities.result.ResultProduct;
+import gr.ekt.cerif.features.semantics.Class;
 
 @Component
 public class LinkResultProductClassRepositoryImpl implements
@@ -35,6 +39,17 @@ public class LinkResultProductClassRepositoryImpl implements
 	@Override
 	public ResultProduct_Class save(ResultProduct_Class entity) {
 		return linkResultProductClassCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ResultProduct_Class> findByResultProduct(
+			ResultProduct resultProduct) {
+		return linkResultProductClassCrudRepository.findByResultProduct(resultProduct);
+	}
+
+	@Override
+	public List<ResultProduct_Class> findBytheClass(Class theClass) {
+		return linkResultProductClassCrudRepository.findBytheClass(theClass);
 	}
 
 }

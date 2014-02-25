@@ -1,10 +1,14 @@
 package gr.ekt.cerif.services.link.organisationunit;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Service;
 
 @Component
@@ -35,6 +39,17 @@ public class LinkOrganisationUnitServiceRepositoryImpl implements
 	@Override
 	public OrganisationUnit_Service save(OrganisationUnit_Service entity) {
 		return linkOrganisationUnitServiceCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<OrganisationUnit_Service> findByService(Service service) {
+		return linkOrganisationUnitServiceCrudRepository.findByService(service);
+	}
+
+	@Override
+	public List<OrganisationUnit_Service> findByOrganisationUnit(
+			OrganisationUnit organisationUnit) {
+		return linkOrganisationUnitServiceCrudRepository.findByOrganisationUnit(organisationUnit);
 	}
 
 }

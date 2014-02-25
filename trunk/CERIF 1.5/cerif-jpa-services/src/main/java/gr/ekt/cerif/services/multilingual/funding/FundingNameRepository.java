@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.funding;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.features.multilingual.FundingName;
 
 /**
@@ -20,4 +23,6 @@ public interface FundingNameRepository {
 	public FundingName save(FundingName entity);
 	
 	FundingName findByName(String title);
+	
+	List<FundingName> findByFunding(Funding funding);
 }

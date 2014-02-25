@@ -1,6 +1,9 @@
 package gr.ekt.cerif.services.multilingual.resultpublication;
 
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.multilingual.ResultPublicationKeyword;
 
 public interface ResultPublicationKeywordRepository{
@@ -12,5 +15,7 @@ public interface ResultPublicationKeywordRepository{
 	Iterable<ResultPublicationKeyword> save(Iterable<ResultPublicationKeyword> entityList);
 	
 	ResultPublicationKeyword save(ResultPublicationKeyword entity);
+	
+	List<ResultPublicationKeyword> findByResultPublication(ResultPublication resultPublication);
 	
 }

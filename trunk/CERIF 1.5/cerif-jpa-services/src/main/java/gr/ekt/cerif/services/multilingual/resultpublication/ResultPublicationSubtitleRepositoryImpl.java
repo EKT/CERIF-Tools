@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.resultpublication;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.multilingual.ResultPublicationSubtitle;
 
 
@@ -41,6 +44,12 @@ public class ResultPublicationSubtitleRepositoryImpl implements ResultPublicatio
 	@Override
 	public ResultPublicationSubtitle save(ResultPublicationSubtitle entity) {
 		return resultPublicationSubtitleCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ResultPublicationSubtitle> findByResultPublication(
+			ResultPublication resultPublication) {
+		return resultPublicationSubtitleCrudRepository.findByResultPublication(resultPublication);
 	}
 
 }

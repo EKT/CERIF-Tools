@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.multilingual.resultpublication;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.multilingual.ResultPublicationAbstract;
 
@@ -27,7 +29,7 @@ public class ResultPublicationAbstractRepositoryImpl implements ResultPublicatio
 	 * @see gr.ekt.cerif.services.multilingual.ResultPublicationAbstractRepository#findByResultPublication(gr.ekt.cerif.entities.result.ResultPublication)
 	 */
 	@Override
-	public ResultPublicationAbstract findByResultPublication(ResultPublication resultPublication) {
+	public List<ResultPublicationAbstract> findByResultPublication(ResultPublication resultPublication) {
 		return resultPublicationAbstractCrudRepository.findByResultPublication(resultPublication);
 	}
 

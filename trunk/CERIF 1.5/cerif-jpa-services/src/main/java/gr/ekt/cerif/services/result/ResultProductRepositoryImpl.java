@@ -7,14 +7,8 @@ import gr.ekt.cerif.entities.result.ResultProduct;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 /**
  * 
@@ -43,6 +37,11 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 	@Override
 	public ResultProduct save(ResultProduct entity) {
 		return resultProductCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ResultProduct> findAll() {
+		return resultProductCrudRepository.findAll();
 	}
 
 }
