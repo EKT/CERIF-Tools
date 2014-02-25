@@ -180,7 +180,7 @@ public class ResultPublication implements CerifResultEntity {
 	 * The result products.
 	 */
 	@OneToMany (mappedBy = "resultPublication")
-	private Set<ResultPublication_ResultProduct> resultProducts;
+	private Set<ResultPublication_ResultProduct> resultPublications_resultProducts;
 	
 	/**
 	 * The link entities of projects and resultPublications.
@@ -520,21 +520,6 @@ public class ResultPublication implements CerifResultEntity {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
-
-	/**
-	 * @return the resultProducts
-	 */
-	public Set<ResultPublication_ResultProduct> getResultProducts() {
-		return resultProducts;
-	}
-
-	/**
-	 * @param resultProducts the resultProducts to set
-	 */
-	public void setResultProducts(
-			Set<ResultPublication_ResultProduct> resultProducts) {
-		this.resultProducts = resultProducts;
-	}
 	
 	public Set<ResultPublicationTitle> getResultPublicationTitles() {
 		return resultPublicationTitles;
@@ -596,6 +581,21 @@ public class ResultPublication implements CerifResultEntity {
 	public void setResultPublicationVersionInfos(
 			Set<ResultPublicationVersionInfo> resultPublicationVersionInfos) {
 		this.resultPublicationVersionInfos = resultPublicationVersionInfos;
+	}
+
+	/**
+	 * @return the resultPublications_resultProducts
+	 */
+	public Set<ResultPublication_ResultProduct> getResultPublications_resultProducts() {
+		return resultPublications_resultProducts;
+	}
+
+	/**
+	 * @param resultPublications_resultProducts the resultPublications_resultProducts to set
+	 */
+	public void setResultPublications_resultProducts(
+			Set<ResultPublication_ResultProduct> resultPublications_resultProducts) {
+		this.resultPublications_resultProducts = resultPublications_resultProducts;
 	}
 
 	/**
