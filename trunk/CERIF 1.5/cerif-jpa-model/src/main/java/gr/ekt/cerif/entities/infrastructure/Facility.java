@@ -13,6 +13,7 @@ import gr.ekt.cerif.entities.link.Facility_Service;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.person.Person_Facility;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Facility;
 import gr.ekt.cerif.features.multilingual.FacilityDescription;
 import gr.ekt.cerif.features.multilingual.FacilityKeyword;
@@ -95,6 +96,9 @@ public class Facility implements CerifInfrastructureEntity {
 	
 	@OneToMany(mappedBy="facility")
 	private Set<ResultPublication_Facility> resultPublications_facilities;
+	
+	@OneToMany(mappedBy="facility")
+	private Set<ResultProduct_Facility> resultProducts_facilities;
 	
 	@OneToMany(mappedBy="facility")
 	private Set<Facility_Class> classes;
@@ -285,6 +289,21 @@ public class Facility implements CerifInfrastructureEntity {
 	public void setResultPublications_facilities(
 			Set<ResultPublication_Facility> resultPublications_facilities) {
 		this.resultPublications_facilities = resultPublications_facilities;
+	}
+
+	/**
+	 * @return the resultProducts_facilities
+	 */
+	public Set<ResultProduct_Facility> getResultProducts_facilities() {
+		return resultProducts_facilities;
+	}
+
+	/**
+	 * @param resultProducts_facilities the resultProducts_facilities to set
+	 */
+	public void setResultProducts_facilities(
+			Set<ResultProduct_Facility> resultProducts_facilities) {
+		this.resultProducts_facilities = resultProducts_facilities;
 	}
 
 	/**

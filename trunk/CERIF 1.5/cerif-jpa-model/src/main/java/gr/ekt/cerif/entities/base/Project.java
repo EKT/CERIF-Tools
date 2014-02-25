@@ -140,7 +140,7 @@ public class Project implements CerifBaseEntity {
 	 * The result products.
 	 */
 	@OneToMany(mappedBy="project")
-	private Set<Project_ResultProduct> resultProducts;
+	private Set<Project_ResultProduct> projects_resultProducts;
 	
 	@OneToMany(mappedBy="project")
 	private Set<Project_Class> projects_classes;
@@ -391,19 +391,20 @@ public class Project implements CerifBaseEntity {
 	}
 
 	/**
-	 * @return the resultProducts
+	 * @return the projects_resultProducts
 	 */
-	public Set<Project_ResultProduct> getResultProducts() {
-		return resultProducts;
+	public Set<Project_ResultProduct> getProjects_resultProducts() {
+		return projects_resultProducts;
 	}
 
 	/**
-	 * @param resultProducts the resultProducts to set
+	 * @param projects_resultProducts the projects_resultProducts to set
 	 */
-	public void setResultProducts(Set<Project_ResultProduct> resultProducts) {
-		this.resultProducts = resultProducts;
+	public void setProjects_resultProducts(
+			Set<Project_ResultProduct> projects_resultProducts) {
+		this.projects_resultProducts = projects_resultProducts;
 	}
-	
+
 	/**
 	 * @return the projects_classes
 	 */

@@ -9,6 +9,7 @@ import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Class;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Country;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Facility;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
 import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
@@ -34,8 +35,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -63,22 +62,10 @@ public class ResultProduct implements CerifResultEntity {
 	private Long id;
 
 	/**
-	 * The product unique internal identifier, for internal usage with respect to product identification.
-	 */
-	@Column(name="cfResProdInternId")
-	private String internId;
-
-	/**
 	 * The URI.
 	 */
 	@Column(name="cfURI")
 	private String uri;
-	
-	/**
-	 * The version.
-	 */
-	@Column(name="cfVersion")
-	private String version;
 	
 	/**
 	 * The result product descriptions.
@@ -108,7 +95,7 @@ public class ResultProduct implements CerifResultEntity {
 	 * The organization units.
 	 */
 	@OneToMany (mappedBy = "resultProduct")
-	private Set<OrganisationUnit_ResultProduct> organisationUnits;
+	private Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts;
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<Person_ResultProduct> persons_resultProducts;
@@ -119,18 +106,21 @@ public class ResultProduct implements CerifResultEntity {
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Service> resultProducts_services;
 	
+	@OneToMany(mappedBy="resultProduct")
+	private Set<ResultProduct_Facility> resultProducts_facilities;
+	
 	/**
 	 * The class
 	 */
 	
 	@OneToMany(mappedBy = "resultProduct")
-	private Set<ResultProduct_Class> theclasses;
+	private Set<ResultProduct_Class> classes;
 	
 	/**
 	 * The projects.
 	 */
 	@OneToMany(mappedBy="resultProduct")
-	private Set<Project_ResultProduct> projects;	
+	private Set<Project_ResultProduct> projects_resultProducts;	
 	
 	/**
 	 * The country
@@ -170,7 +160,6 @@ public class ResultProduct implements CerifResultEntity {
 	/**
 	 * 
 	 * @param id
-	 * @param internId
 	 * @param uri
 	 * @param version
 	 * @param resultProductDescriptions
@@ -178,14 +167,11 @@ public class ResultProduct implements CerifResultEntity {
 	 * @param resultProductKeywords
 	 * @param resultProductVersionInfos
 	 */
-	public ResultProduct(String internId, String uri, String version,
-			Set<ResultProductDescription> resultProductDescriptions,
+	public ResultProduct(String uri, Set<ResultProductDescription> resultProductDescriptions,
 			Set<ResultProductName> resultProductNames,
 			Set<ResultProductKeyword> resultProductKeywords,
 			Set<ResultProductKeyword> resultProductVersionInfos) {
-		this.internId = internId;
 		this.uri = uri;
-		this.version = version;
 		this.resultProductDescriptions = resultProductDescriptions;
 		this.resultProductNames = resultProductNames;
 		this.resultProductKeywords = resultProductKeywords;
@@ -209,22 +195,6 @@ public class ResultProduct implements CerifResultEntity {
 	}
 
 	/**
-	 * Returns the unique internal identifier.
-	 * @return the unique internal identifier.
-	 */
-	public String getInternId() {
-		return internId;
-	}
-
-	/**
-	 * Sets the unique internal identifier.
-	 * @param internId the unique internal identifier.
-	 */
-	public void setInternId(String internId) {
-		this.internId = internId;
-	}
-
-	/**
 	 * Returns the URI.
 	 * @return the URI.
 	 */
@@ -239,38 +209,6 @@ public class ResultProduct implements CerifResultEntity {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
-
-	/**
-	 * Returns the version.
-	 * @return the version.
-	 */
-	public String getVersion() {
-		return version;
-	}
-
-	/**
-	 * Sets the version.
-	 * @param version the version.
-	 */
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	/**
-	 * Returns the organisation units.
-	 * @return the organisation units.
-	 */
-	public Set<OrganisationUnit_ResultProduct> getOrganisationUnits() {
-		return organisationUnits;
-	}
-	
-	/**
-	 * Sets the organisation units.
-	 * @param organisationUnits the organisation units.
-	 */
-	public void setOrganisationUnits(Set<OrganisationUnit_ResultProduct> organisationUnits) {
-		this.organisationUnits = organisationUnits;
-	}	
 
 	public Set<ResultProductDescription> getResultProductDescriptions() {
 		return resultProductDescriptions;
@@ -322,6 +260,21 @@ public class ResultProduct implements CerifResultEntity {
 	}
 
 	/**
+	 * @return the organisationUnits_resultProducts
+	 */
+	public Set<OrganisationUnit_ResultProduct> getOrganisationUnits_resultProducts() {
+		return organisationUnits_resultProducts;
+	}
+
+	/**
+	 * @param organisationUnits_resultProducts the organisationUnits_resultProducts to set
+	 */
+	public void setOrganisationUnits_resultProducts(
+			Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts) {
+		this.organisationUnits_resultProducts = organisationUnits_resultProducts;
+	}
+
+	/**
 	 * @return the resultPublications
 	 */
 	public Set<ResultPublication_ResultProduct> getResultPublications() {
@@ -335,35 +288,7 @@ public class ResultProduct implements CerifResultEntity {
 			Set<ResultPublication_ResultProduct> resultPublications) {
 		this.resultPublications = resultPublications;
 	}
-
-	/**
-	 * @return the projects
-	 */
-	public Set<Project_ResultProduct> getProjects() {
-		return projects;
-	}
-
-	/**
-	 * @param projects the projects to set
-	 */
-	public void setProjects(Set<Project_ResultProduct> projects) {
-		this.projects = projects;
-	}
 			
-	/**
-	 * @return the theclasses
-	 */
-	public Set<ResultProduct_Class> getTheclasses() {
-		return theclasses;
-	}
-
-	/**
-	 * @param theclasses the theclasses to set
-	 */
-	public void setTheclasses(Set<ResultProduct_Class> theclasses) {
-		this.theclasses = theclasses;
-	}
-
 	/**
 	 * @return the countries
 	 */
@@ -474,8 +399,8 @@ public class ResultProduct implements CerifResultEntity {
 	 */
 	public int getOrganisationCount() {
 		int result = 0;
-		if (organisationUnits != null) {
-			result = organisationUnits.size();
+		if (organisationUnits_resultProducts != null) {
+			result = organisationUnits_resultProducts.size();
 		}
 		return result;
 	}
@@ -510,8 +435,8 @@ public class ResultProduct implements CerifResultEntity {
 	 */
 	public int getClassesCount() {
 		int result = 0;
-		if (theclasses != null) {
-			result = theclasses.size();
+		if (classes != null) {
+			result = classes.size();
 		}
 		return result;
 	}
@@ -571,8 +496,8 @@ public class ResultProduct implements CerifResultEntity {
 	 */
 	public OrganisationUnit getOwner() {
 		OrganisationUnit result = null;
-		if (organisationUnits != null && organisationUnits.size() > 0) {
-			for (OrganisationUnit_ResultProduct organisation : organisationUnits) {
+		if (organisationUnits_resultProducts != null && organisationUnits_resultProducts.size() > 0) {
+			for (OrganisationUnit_ResultProduct organisation : organisationUnits_resultProducts) {
 				if (organisation.isSource()) {
 					result = organisation.getOrganisationUnit();
 					break;
@@ -620,8 +545,8 @@ public class ResultProduct implements CerifResultEntity {
 	
 	public Class getTemporalCoverageClass() {
 		Class result = null;
-		if (theclasses != null) {
-			for (ResultProduct_Class element : theclasses) {
+		if (classes != null) {
+			for (ResultProduct_Class element : classes) {
 				if (element.getTemporalCoverage()) {
 					result = element.getTheClass();
 					break;
@@ -633,8 +558,8 @@ public class ResultProduct implements CerifResultEntity {
 	
 	public Set<Class> getNormalClasses() {
 		Set<Class> result = new LinkedHashSet<Class>();
-		if (theclasses != null) {
-			for (ResultProduct_Class element : theclasses) {
+		if (classes != null) {
+			for (ResultProduct_Class element : classes) {
 				if (!element.getTemporalCoverage()) {
 					result.add(element.getTheClass());
 				}
@@ -685,8 +610,8 @@ public class ResultProduct implements CerifResultEntity {
 	 */
 	public Map<String, List<ResultProduct_Class>> getUniqueClassSchemes() {
 		Map<String, List<ResultProduct_Class>> map = new HashMap<String, List<ResultProduct_Class>>();
-		if (getTheclasses() != null) {
-			for (ResultProduct_Class element : getTheclasses()) {
+		if (getClasses() != null) {
+			for (ResultProduct_Class element : getClasses()) {
 				final String uri = element.getTheClass().getScheme().getUri();
 				if (!"Temporal Coverage".equals(uri)) {
 					if (!map.containsKey(uri)) {
@@ -723,8 +648,8 @@ public class ResultProduct implements CerifResultEntity {
 	 */
 	public Map<String, List<Project_ResultProduct>> getUniqueProjectClasses() {
 		Map<String, List<Project_ResultProduct>> map = new HashMap<String, List<Project_ResultProduct>>();
-		if (projects != null) {
-			for (Project_ResultProduct element : projects) {
+		if (projects_resultProducts != null) {
+			for (Project_ResultProduct element : projects_resultProducts) {
 				final String uri = element.getTheClass().getOriginalTranslation().getTerm();
 				if (!map.containsKey(uri)) {
 					map.put(uri, new ArrayList<Project_ResultProduct>());
@@ -750,13 +675,57 @@ public class ResultProduct implements CerifResultEntity {
 		this.resultProducts_services = resultProducts_services;
 	}
 
+	/**
+	 * @return the resultProducts_facilities
+	 */
+	public Set<ResultProduct_Facility> getResultProducts_facilities() {
+		return resultProducts_facilities;
+	}
+
+	/**
+	 * @param resultProducts_facilities the resultProducts_facilities to set
+	 */
+	public void setResultProducts_facilities(
+			Set<ResultProduct_Facility> resultProducts_facilities) {
+		this.resultProducts_facilities = resultProducts_facilities;
+	}
+
+	/**
+	 * @return the classes
+	 */
+	public Set<ResultProduct_Class> getClasses() {
+		return classes;
+	}
+
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<ResultProduct_Class> classes) {
+		this.classes = classes;
+	}
+
+	/**
+	 * @return the projects_resultProducts
+	 */
+	public Set<Project_ResultProduct> getProjects_resultProducts() {
+		return projects_resultProducts;
+	}
+
+	/**
+	 * @param projects_resultProducts the projects_resultProducts to set
+	 */
+	public void setProjects_resultProducts(
+			Set<Project_ResultProduct> projects_resultProducts) {
+		this.projects_resultProducts = projects_resultProducts;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "ResultProduct [id=" + id + ", internId=" + internId + ", uri="
-				+ uri + ", version=" + version + "]";
+		return "ResultProduct [id=" + id + ", uri="
+				+ uri + "]";
 	}
 	
 	

@@ -4,6 +4,7 @@
 package gr.ekt.cerif.features.semantics;
 
 import gr.ekt.cerif.entities.link.Citation_Class;
+import gr.ekt.cerif.entities.link.Class_Class;
 import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Equipment;
@@ -270,6 +271,12 @@ public class Class implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Service_Class> services_Classes;
+	
+	@OneToMany(mappedBy="theClass1")
+	private Set<Class_Class> theClass_theClass1;
+	
+	@OneToMany(mappedBy="theClass1")
+	private Set<Class_Class> theClass_theClass2;
 	
 	/**
 	 * Default Constructor
@@ -1168,6 +1175,34 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setServices_Classes(Set<Service_Class> services_Classes) {
 		this.services_Classes = services_Classes;
+	}
+
+	/**
+	 * @return the theClass1
+	 */
+	public Set<Class_Class> getTheClass1() {
+		return theClass_theClass1;
+	}
+
+	/**
+	 * @param theClass1 the theClass1 to set
+	 */
+	public void setTheClass1(Set<Class_Class> theClass1) {
+		this.theClass_theClass1 = theClass1;
+	}
+
+	/**
+	 * @return the theClass2
+	 */
+	public Set<Class_Class> getTheClass2() {
+		return theClass_theClass2;
+	}
+
+	/**
+	 * @param theClass2 the theClass2 to set
+	 */
+	public void setTheClass2(Set<Class_Class> theClass2) {
+		this.theClass_theClass2 = theClass2;
 	}
 
 	/* (non-Javadoc)

@@ -173,7 +173,7 @@ public class Person implements CerifBaseEntity {
 	private Set<Person_ResultPatent> persons_resultPatents;
 	
 	@OneToMany(mappedBy="person")
-	private Set<Person_ResultProduct> resultProducts;
+	private Set<Person_ResultProduct> persons_resultProducts;
 	
 	@OneToMany(mappedBy="person")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
@@ -308,20 +308,6 @@ public class Person implements CerifBaseEntity {
 	 */
 	public void setPersonKeywords(Set<PersonKeyword> personKeywords) {
 		this.personKeywords = personKeywords;
-	}
-
-	/**
-	 * @return the resultProducts
-	 */
-	public Set<Person_ResultProduct> getResultProducts() {
-		return resultProducts;
-	}
-
-	/**
-	 * @param resultProducts the resultProducts to set
-	 */
-	public void setResultProducts(Set<Person_ResultProduct> resultProducts) {
-		this.resultProducts = resultProducts;
 	}
 
 	/**
@@ -605,6 +591,19 @@ public class Person implements CerifBaseEntity {
 		this.persons_resultPatents = persons_resultPatents;
 	}
 	
+	/**
+	 * @return the persons_resultProducts
+	 */
+	public Set<Person_ResultProduct> getPersons_resultProducts() {
+		return persons_resultProducts;
+	}
+	/**
+	 * @param persons_resultProducts the persons_resultProducts to set
+	 */
+	public void setPersons_resultProducts(
+			Set<Person_ResultProduct> persons_resultProducts) {
+		this.persons_resultProducts = persons_resultProducts;
+	}
 	/**
 	 * @return the persons_resultPublications
 	 */

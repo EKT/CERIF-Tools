@@ -72,7 +72,7 @@ public class ClassTerm implements CerifMultipleLanguageFeature {
 	/**
 	 * The class term.
 	 */
-	@Column(name="cfTerm")
+	@Column(name="cfTerm", length=20000)
 	private String term;
 	
 	/**
