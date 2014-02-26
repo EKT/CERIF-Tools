@@ -1,0 +1,98 @@
+#summary How to include and use the cerif-jpa-xml package in your JAVA project.
+
+
+==Initialization==
+
+If you intend to use the package in more than one projects it is highly recommended to rename the _artifactId_ inside the project’s pom.xml file.
+
+Because the _cerif-jpa-xml_ package depends on a _cerif-jpa-service_ package and because most likely you will use a specific services package in your project you will have to edit cerif-jpa-xml’s pom.xml file so as it contains a dependency for that specific services package. Note that you need to have the latest version of the services package (revision r60).
+
+{{{
+<dependency>
+    <groupId>gr.ekt</groupId>
+    <artifactId>cerif-jpa-services</artifactId>
+    <version>0.1</version>
+    <type>jar</type>
+    <scope>compile</scope>
+</dependency>
+}}}
+
+Edit the previous dependency for your own services package. If the _artifactId_ of the services package is _cerif-jpa-services_ you don’t have to change it.
+
+The next step is to add a dependency in the project that will use the _cerif-jpa-xml_ package, e.g. the web app project. In the project’s pom.xml you will need to add the following dependency:
+
+{{{
+<dependency>
+    <groupId>gr.ekt</groupId>
+    <artifactId>cerif-jpa-xml</artifactId> //or whatever name you have chosen
+    <version>0.1</version>
+    <exclusions>
+        <exclusion>
+            <artifactId>cerif-jpa-services</artifactId>
+            <groupId>gr.ekt</groupId>
+        </exclusion>
+    </exclusions>
+</dependency> 
+}}}
+
+Note the exclusion. If the project already uses the services package then it needs to be excluded from the _cerif-jpa-xml_ dependency to avoid any discrepancy.
+
+If you intend to use the _cerif-jpa-xml_ package in more than one projects then you must rename the _cerif2xml-context.xml_ file located in the _src/main/resources/META-INF_ folder.
+
+Next you will need to add the following import entry in the context initialization xml file of the project that will use the _cerif-jpa-xml_ package.
+
+{{{
+<beans:import resource="classpath:/META-INF/cerif2xml-context.xml"/>
+}}}
+
+There are three parameters you can edit, the output directory where the xml file will be created, the name of the xml file and the location of the Velocity (http://velocity.apache.org/) xml template in case you want to use a custom one. The parameters can be set in the pom.xml file of the _cerif-jpa-xml_ package inside a profile section.
+
+{{{
+<profiles>
+    <profile>
+        <id>profile1</id>
+        <activation>
+            <activeByDefault>false</activeByDefault>
+        </activation>
+        <properties>
+            <xml.outputDir>C:/</xml.outputDir>
+            <xml.outputFileName>cerif.xml</xml.outputFileName>
+            <xml.template>/META-INF/cerif2xmlTemplate.xml</xml.template>
+        </properties>
+    </profile>   
+</profiles>
+}}}
+
+
+You can edit the existing profile or add new ones to suit your needs.
+
+
+
+==Using the package==
+
+To use the the _cerif-jpa-xml_ package you will have to inject in your class a _TransformationEngine_ object as follows:
+
+{{{
+@Autowired
+private TransformationEngine cerifToXmlTransformationEngine;
+}}}
+
+Then you need to call the object’s _transform()_ function as follows:
+
+{{{
+public void export() {
+    try {
+        cerifToXmlTransformationEngine.transform();
+    } catch (UnknownClassifierException e) {
+        e.printStackTrace();
+    } catch (UnknownInputFileType e) {
+        e.printStackTrace();
+    } catch (UnimplementedAbstractMethod e) {
+        e.printStackTrace();
+    } catch (UnsupportedComparatorMode e) {
+        e.printStackTrace();
+    } catch (UnsupportedCriterion e) {
+        e.printStackTrace();
+    }
+}
+}}}
