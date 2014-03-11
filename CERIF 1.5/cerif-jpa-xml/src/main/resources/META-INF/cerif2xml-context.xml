@@ -14,8 +14,12 @@
 		<property name="workflow" ref="cerifToXmlConjunctionTransformationWorkflow" />
 		<property name="outputGenerator" ref="cerifToXmlOutputGenerator" />
 	</bean>
-
-	<bean id="cerifToXmlDataLoader" class="gr.ekt.cerif.xml.loader.CerifToXmlDataLoader" />
+	
+	<bean id="cerifToXmlDataLoader" class="gr.ekt.cerif.xml.loader.CerifToXmlDataLoader">
+		<property name="loadingSpec" ref="cerifToXmlLoadindSpecs" />
+	</bean>
+	
+	<bean id="cerifToXmlLoadindSpecs" class="gr.ekt.cerif.xml.loadingSpecs.LoadingSpecs"/>
 
 	<bean id="cerifToXmlConjunctionTransformationWorkflow"
 		class="gr.ekt.transformationengine.core.ConjunctionTransformationWorkflow">

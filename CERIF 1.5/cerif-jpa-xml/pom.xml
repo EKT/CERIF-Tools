@@ -2,12 +2,6 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<!-- <parent>
-		<groupId>gr.ekt</groupId>
-		<artifactId>eurorisnet_plus</artifactId>
-		<version>0.0.2</version>
-	</parent> -->
-	
   <modelVersion>4.0.0</modelVersion>
   <groupId>gr.ekt</groupId>
   <artifactId>cerif-jpa-xml</artifactId>
@@ -17,7 +11,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   
   <name>Cerif data to xml project</name>
   
-  <profiles>
+ <!--  <profiles>
 		<profile>
 			<id>profile1</id>
                  <activation>
@@ -29,7 +23,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 						<xml.template>/META-INF/cerif2xmlTemplate.xml</xml.template>
                  </properties>
           </profile>   
-	</profiles>
+	</profiles> -->
 	
   <dependencies>
   	<dependency>
@@ -40,17 +34,17 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<scope>compile</scope>
 	</dependency>
   		
-  	<dependency>
-    	<groupId>org.apache.velocity</groupId>
-    	<artifactId>velocity</artifactId>
-    	<version>1.7</version>
-    </dependency>
+	<dependency>
+		<groupId>org.apache.velocity</groupId>
+		<artifactId>velocity</artifactId>
+		<version>1.7</version>
+	</dependency>
     	
-    <dependency>
-  		<groupId>velocity-tools</groupId>
-  		<artifactId>velocity-tools</artifactId>
-  		<version>2.0-beta1</version>
-	</dependency>	
+	<dependency>
+		<groupId>org.apache.velocity</groupId>
+		<artifactId>velocity-tools</artifactId>
+		<version>2.0</version>
+	</dependency>
 	
 	<dependency>
 		<groupId>junit</groupId>
