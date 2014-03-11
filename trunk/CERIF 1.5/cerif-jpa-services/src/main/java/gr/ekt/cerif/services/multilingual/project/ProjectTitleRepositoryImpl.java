@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.multilingual.project;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.features.multilingual.ProjectTitle;
 
@@ -29,7 +31,7 @@ public class ProjectTitleRepositoryImpl implements ProjectTitleRepository {
 	}
 
 	@Override
-	public ProjectTitle findByProject(Project project) {
+	public List<ProjectTitle> findByProject(Project project) {
 		return projectTitleCrudRepository.findByProject(project);
 	}
 

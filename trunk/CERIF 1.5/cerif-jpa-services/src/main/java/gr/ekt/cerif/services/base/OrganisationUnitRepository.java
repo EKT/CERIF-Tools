@@ -4,6 +4,9 @@ import gr.ekt.cerif.entities.base.OrganisationUnit;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface OrganisationUnitRepository {
 	
 	OrganisationUnit findById(Long id);
@@ -25,6 +28,8 @@ public interface OrganisationUnitRepository {
 	OrganisationUnit save(OrganisationUnit entity);
 	
 	Iterable<OrganisationUnit> findAll();
+	
+	Page<OrganisationUnit> findAll(Pageable page);
 	
 	
 }

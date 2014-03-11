@@ -12,6 +12,8 @@ import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.entities.second.PostalAddress;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
@@ -46,5 +48,11 @@ public interface PostalAddressCrudRepository extends CrudRepository<PostalAddres
 	
 	@Query("select pa from PostalAddress pa join pa.organisationUnits orgs join orgs.organisationUnit org join org.organisationUnitNames uname where uname.name=?1")
     PostalAddress findByOrganisationUnitName(String organisationUnitName);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Iterable<PostalAddress> findAll();
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Page<PostalAddress> findAll(Pageable page);
 	
 }

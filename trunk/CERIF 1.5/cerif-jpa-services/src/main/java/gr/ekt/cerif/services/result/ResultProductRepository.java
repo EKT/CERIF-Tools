@@ -5,6 +5,9 @@ package gr.ekt.cerif.services.result;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.result.ResultProduct;
 
 /**
@@ -22,5 +25,7 @@ public interface ResultProductRepository {
 	public ResultProduct save(ResultProduct entity);
 	
 	List<ResultProduct> findAll();
+	
+	Page<ResultProduct> findAll(Pageable page);
 	
 }

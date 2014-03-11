@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.QueryHint;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
@@ -20,6 +22,12 @@ public interface ClassCrudRepository extends CrudRepository<Class, Long> {
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Class> findByScheme(ClassScheme scheme);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<Class> findAll();
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Page<Class> findAll(Pageable page);
 	
 	
 }

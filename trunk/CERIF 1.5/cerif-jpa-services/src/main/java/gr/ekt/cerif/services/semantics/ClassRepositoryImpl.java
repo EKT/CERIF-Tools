@@ -6,6 +6,8 @@ import gr.ekt.cerif.features.semantics.ClassScheme;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +51,16 @@ public class ClassRepositoryImpl implements ClassRepository {
 	@Override
 	public void delete(Iterable<Class> entityList) {
 		classCrudRepository.delete(entityList);
+	}
+
+	@Override
+	public List<Class> findAll() {
+		return classCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<Class> findAll(Pageable page) {
+		return classCrudRepository.findAll(page);
 	}
 
 }

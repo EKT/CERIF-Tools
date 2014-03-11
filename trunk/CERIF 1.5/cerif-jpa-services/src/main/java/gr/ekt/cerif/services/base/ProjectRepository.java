@@ -7,6 +7,9 @@ import gr.ekt.cerif.entities.base.Project;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * A repository for projects.
  * 
@@ -31,6 +34,8 @@ public interface ProjectRepository {
 	Project save(Project entity);
 	
 	Iterable<Project> findAll();
+	
+	Page<Project> findAll(Pageable page);
 		
 }
 

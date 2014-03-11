@@ -8,6 +8,8 @@ import gr.ekt.cerif.entities.result.ResultProduct;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -42,6 +44,11 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 	@Override
 	public List<ResultProduct> findAll() {
 		return resultProductCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<ResultProduct> findAll(Pageable page) {
+		return resultProductCrudRepository.findAll(page);
 	}
 
 }

@@ -1,5 +1,7 @@
 package gr.ekt.cerif.services.multilingual.theclass;
 
+import java.util.List;
+
 import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.features.multilingual.ClassTerm;
@@ -14,6 +16,6 @@ public interface ClassTermCrudRepository extends CrudRepository<ClassTerm, Long>
 	ClassTerm findByTerm(String term);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	ClassTerm findByTheClass(Class existInfras);
+	List<ClassTerm> findByTheClass(Class theClass);
 	
 }

@@ -4,6 +4,9 @@ import gr.ekt.cerif.entities.second.Funding;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface FundingRepository {
 
 	public void delete(Funding entity); 
@@ -19,5 +22,7 @@ public interface FundingRepository {
 	Funding findById(Long id);	
 	
 	List<Funding> findAll();
+	
+	Page<Funding> findAll(Pageable page);
 			   	
 }

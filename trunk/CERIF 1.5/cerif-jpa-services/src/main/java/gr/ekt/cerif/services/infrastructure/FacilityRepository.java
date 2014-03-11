@@ -5,6 +5,9 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface FacilityRepository {
 
 	Facility findById(Long id);
@@ -24,5 +27,7 @@ public interface FacilityRepository {
 	Iterable<Facility> save(Iterable<Facility> entities);
 	
 	Facility save(Facility entity);
+	
+	Page<Facility> findAll(Pageable page);
 	
 }
