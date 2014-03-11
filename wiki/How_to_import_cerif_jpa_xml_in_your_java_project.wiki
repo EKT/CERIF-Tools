@@ -5,7 +5,7 @@
 
 If you intend to use the package in more than one projects it is highly recommended to rename the _artifactId_ inside the project’s pom.xml file.
 
-Because the _cerif-jpa-xml_ package depends on a _cerif-jpa-service_ package and because most likely you will use a specific services package in your project you will have to edit cerif-jpa-xml’s pom.xml file so as it contains a dependency for that specific services package. Note that you need to have the latest version of the services package (revision r60).
+Because the _cerif-jpa-xml_ package depends on a _cerif-jpa-service_ package and because most likely you will use a specific services package in your project you will have to edit cerif-jpa-xml’s pom.xml file so as it contains a dependency for that specific services package. Note that you need to have the latest version of the services package (revision r64).
 
 {{{
 <dependency>
@@ -81,6 +81,68 @@ Then you need to call the object’s _transform()_ function as follows:
 
 {{{
 public void export() {
+    try {
+        cerifToXmlTransformationEngine.transform();
+    } catch (UnknownClassifierException e) {
+        e.printStackTrace();
+    } catch (UnknownInputFileType e) {
+        e.printStackTrace();
+    } catch (UnimplementedAbstractMethod e) {
+        e.printStackTrace();
+    } catch (UnsupportedComparatorMode e) {
+        e.printStackTrace();
+    } catch (UnsupportedCriterion e) {
+        e.printStackTrace();
+    }
+}
+}}}
+
+
+
+===Retrieve a specific set of data using parameters===
+
+There are four different parameters:
+  * _entities_. You can use this parameter to retrieve specific entities. The list of entities that will be included in the file can be set by typing a string that is comprised of the names of the entities separated by a "AND" e.g. ProjectANDOrganisationANDPersonANDPostal_AddressANDFunding. All space characters are replaced by an underscore. All entities will be retrieved if _entities_ is set to "all" or if it is not included in the set of parameters. The names that should be used are the ones dictated by CERIF (http://www.eurocris.org/Uploads/Web%20pages/CERIF-1.5/CERIF1.5_Semantics.xhtml). Available entities are the following, Project, Organisation, Person, Postal_Address, Funding, Classification, Publication, Facility, Product, Service.
+  * _windowOffset_ and _windowSize_. The combination of these parameters can be used in order to retrieve a subset of data. _windowOffset_ sets the current page and _windowSize_ sets the size of the page. E.g. windowOffset=1&windowSize=100 will produce a file with 100 entities per type starting from 101th entity. If _windowSize_ is equal to zero or if it is not used then all data will be retrieved. Default value for both is 0 (produces full set).
+  * _links_. Set this parameter to _false_ if you don't want to include link entities in your file. Default value is true.
+
+
+To enable parametric results you need to call the object’s _transform()_ function with a code similar to the following:
+
+{{{
+public void export(String entities, Integer windowOffset, Integer windowSize, String links) {
+  LoadingSpecs ls = (LoadingSpecs)cerifToXmlTransformationEngine.getDataLoader().getLoadingSpec();
+  if (entities != null) {
+    entities = entities.replaceAll("_", " ");
+    String[] entitiesArray = entities.split("AND");
+    List<String> listOfEntitiesExported = new ArrayList<String>(Arrays.asList(entitiesArray));
+    ls.setListOfEntitiesExported(listOfEntitiesExported);
+    } else {
+      ls.setListOfEntitiesExported(new ArrayList<String>());
+    }
+
+    if (windowOffset!=null) {
+      ls.setWindowOffset(windowOffset);
+    } else {
+      ls.setWindowOffset(0);
+    }
+
+    if (windowSize!=null) {
+      ls.setWindowSize(windowSize);
+    } else {
+      ls.setWindowSize(0);
+    }
+
+    if (links!=null) {
+      if (links.equalsIgnoreCase("true")) {
+        ls.setLinks(true);
+      } else {
+        ls.setLinks(false);
+      }
+    } else {
+      ls.setLinks(true);
+    }
+		
     try {
         cerifToXmlTransformationEngine.transform();
     } catch (UnknownClassifierException e) {
