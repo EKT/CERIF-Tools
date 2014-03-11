@@ -43,7 +43,6 @@ public class CV implements CerifSecondLevelEntity {
 	 * The URI.
 	 */
 	@Basic(fetch=FetchType.LAZY)
-	@Lob
 	@Column(name="cfCVDoc",length = 20971520)
 	private byte[] doc;
 
