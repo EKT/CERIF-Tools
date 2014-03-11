@@ -25,6 +25,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,7 +92,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		if (pa != null) projectAbstractRepository.delete(pa);
 		entity.setProjectAbstracts(null);
 		
-		ProjectTitle pt = projectTitleRepository.findByProject(entity);
+		List<ProjectTitle> pt = projectTitleRepository.findByProject(entity);
 		if (pt != null) projectTitleRepository.delete(pt);
 		entity.setProjectTitles(null);
 		
@@ -147,6 +149,11 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	@Override
 	public void delete(Iterable<Project> entities) {
 		projectCrudRepository.delete(entities);		
+	}
+
+	@Override
+	public Page<Project> findAll(Pageable page) {
+		return projectCrudRepository.findAll(page);
 	}
 
 

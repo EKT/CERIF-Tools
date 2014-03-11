@@ -1,6 +1,8 @@
 
 package gr.ekt.cerif.services.multilingual.theclass;
 
+import java.util.List;
+
 import gr.ekt.cerif.features.multilingual.ClassTerm;
 import gr.ekt.cerif.features.semantics.Class;
 
@@ -14,7 +16,7 @@ public interface ClassTermRepository {
 	
 	ClassTerm findByTerm(String term);
 	
-	ClassTerm findByTheClass(Class existInfras);
+	List<ClassTerm> findByTheClass(Class theClass);
 	
 	public void delete(ClassTerm entity); 
 	

@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
-	<profiles>
+	<!-- <profiles>
 		<profile>
                  <id>example</id>
                  <activation>
@@ -29,7 +29,7 @@
                  </activation>
                  <properties>
                        <target.version>0.1</target.version>
-                       <!-- not necessary if in context.xml a jee:jndi-lookup is used --> 
+                       not necessary if in context.xml a jee:jndi-lookup is used 
                        <db.driver>org.postgresql.Driver</db.driver>
                        <db.url>jdbc:postgresql://dbhost.ekt.gr/cerif_dev_db?characterEncoding=utf8</db.url>
                        <db.username>username</db.username>
@@ -39,7 +39,7 @@
                        <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
                        <hibernate.show_sql>false</hibernate.show_sql>
                        <hibernate.indexBase>/usr/local/lucene</hibernate.indexBase>
-                       <!-- set to "manual" to disable lucene indexing -->
+                       set to "manual" to disable lucene indexing
                        <hibernate.search.indexing_strategy>event</hibernate.search.indexing_strategy>
                        
                        <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
@@ -47,7 +47,7 @@
                        <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
                  </properties>
         </profile>
-	</profiles>
+	</profiles> -->
 
 	<dependencies>
 		<dependency>

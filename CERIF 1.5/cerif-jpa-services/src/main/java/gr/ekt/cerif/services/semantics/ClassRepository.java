@@ -8,6 +8,9 @@ import gr.ekt.cerif.features.semantics.ClassScheme;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 /**
  * A repository for links between facilities and classes.
@@ -31,5 +34,9 @@ public interface ClassRepository {
 	public Class save(Class entity);
 	
 	public Class findOne(Long id);
+	
+	List<Class> findAll();
+	
+	Page<Class> findAll(Pageable page);
 	
 }

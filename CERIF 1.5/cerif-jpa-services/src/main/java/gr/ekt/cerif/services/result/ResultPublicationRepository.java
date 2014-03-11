@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.services.result;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.result.ResultPublication;
 
 /**
@@ -22,4 +27,8 @@ public interface ResultPublicationRepository {
 	public Iterable<ResultPublication> save(Iterable<ResultPublication> entities); 
 	
 	public ResultPublication save(ResultPublication entity);
+	
+	List<ResultPublication> findAll();
+	
+	Page<ResultPublication> findAll(Pageable page);
 }

@@ -9,10 +9,11 @@ import java.util.List;
 
 import javax.persistence.QueryHint;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
 
 
 /**
@@ -23,6 +24,9 @@ public interface OrganisationUnitCrudRepository extends CrudRepository<Organisat
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	public Iterable<OrganisationUnit> findAll();
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Page<OrganisationUnit> findAll(Pageable page);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value= "select o from gr.ekt.cerif.entities.base.OrganisationUnit o where o.id = ?1")

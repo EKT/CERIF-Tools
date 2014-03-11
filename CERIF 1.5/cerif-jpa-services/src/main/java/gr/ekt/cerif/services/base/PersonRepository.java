@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.base;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.services.GenericSuperRepository;
@@ -33,6 +35,10 @@ public interface PersonRepository {
 	public GenericSuperRepository getPersonGenericRepository();
 	
 	public void setPersonGenericRepository(GenericSuperRepository personGenericRepository);
+	
+	Iterable<Person> findAll();
+	
+	Page<Person> findAll(Pageable page);
 
 	
 }

@@ -13,6 +13,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -99,6 +101,18 @@ public class PostalAddressRepositoryImpl implements PostalAddressRepository {
 	@Override
 	public PostalAddress findByOrganisationUnitName(String organisationUnitName) {
 		return postalAddressCrudRepository.findByOrganisationUnitName(organisationUnitName);
+	}
+
+
+	@Override
+	public Iterable<PostalAddress> findAll() {
+		return postalAddressCrudRepository.findAll();
+	}
+
+
+	@Override
+	public Page<PostalAddress> findAll(Pageable page) {
+		return postalAddressCrudRepository.findAll(page);
 	}
 
 }

@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.project;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.features.multilingual.ProjectKeyword;
 
 
@@ -41,6 +44,11 @@ public class ProjectKeywordRepositoryImpl implements ProjectKeywordRepository{
 	@Override
 	public ProjectKeyword save(ProjectKeyword entity) {
 		return projectKeywordCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ProjectKeyword> findByProject(Project project) {
+		return projectKeywordCrudRepository.findByProject(project);
 	}
 
 }

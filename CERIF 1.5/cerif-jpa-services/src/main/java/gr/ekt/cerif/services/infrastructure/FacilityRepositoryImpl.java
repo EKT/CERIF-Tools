@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -112,6 +114,11 @@ public class FacilityRepositoryImpl implements FacilityRepository {
 	@Override
 	public void delete(Iterable<Facility> entities) {
 		facilityCrudRepository.delete(entities);		
+	}
+
+	@Override
+	public Page<Facility> findAll(Pageable page) {
+		return facilityCrudRepository.findAll(page);
 	}
 
 }

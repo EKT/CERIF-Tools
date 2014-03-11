@@ -1,5 +1,7 @@
 package gr.ekt.cerif.services.multilingual.theclass;
 
+import java.util.List;
+
 import gr.ekt.cerif.features.multilingual.ClassTerm;
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.services.base.ProjectRepositoryImpl;
@@ -23,11 +25,6 @@ public class ClassTermRepositoryImpl implements ClassTermRepository {
 	}
 
 	@Override
-	public ClassTerm findByTheClass(Class existInfras) {
-		return classTermCrudRepository.findByTheClass(existInfras);
-	}
-
-	@Override
 	public void delete(ClassTerm entity) {
 		classTermCrudRepository.delete(entity);		
 	}
@@ -45,6 +42,11 @@ public class ClassTermRepositoryImpl implements ClassTermRepository {
 	@Override
 	public void delete(Iterable<ClassTerm> entities) {
 		classTermCrudRepository.delete(entities);		
+	}
+
+	@Override
+	public List<ClassTerm> findByTheClass(Class theClass) {
+		return classTermCrudRepository.findByTheClass(theClass);
 	}
 
 }

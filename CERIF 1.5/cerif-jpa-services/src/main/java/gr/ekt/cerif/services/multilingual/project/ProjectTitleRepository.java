@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.multilingual.project;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.features.multilingual.ProjectTitle;
 
@@ -14,7 +16,7 @@ public interface ProjectTitleRepository {
 
 	ProjectTitle findByTitle(String title);
 	
-	ProjectTitle findByProject(Project project);
+	List<ProjectTitle> findByProject(Project project);
 	
 	public void delete(ProjectTitle entity); 
 	

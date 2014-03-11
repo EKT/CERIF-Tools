@@ -5,6 +5,9 @@ package gr.ekt.cerif.services.second;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.second.Country;
@@ -35,6 +38,10 @@ public interface PostalAddressRepository {
 	public Iterable<PostalAddress> save(Iterable<PostalAddress> entities); 
 	
 	public PostalAddress save(PostalAddress entity);
+	
+	Iterable<PostalAddress> findAll();
+	
+	Page<PostalAddress> findAll(Pageable page);
 	
 }
 
