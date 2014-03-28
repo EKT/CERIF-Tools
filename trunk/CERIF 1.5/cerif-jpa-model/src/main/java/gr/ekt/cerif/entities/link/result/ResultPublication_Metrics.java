@@ -254,4 +254,17 @@ public class ResultPublication_Metrics implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublication_Metrics [id=" + id + ", resultPublication="
+				+ resultPublication + ", metrics=" + metrics + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + ", year=" + year
+				+ ", count=" + count + "]";
+	}
+
+	
 }

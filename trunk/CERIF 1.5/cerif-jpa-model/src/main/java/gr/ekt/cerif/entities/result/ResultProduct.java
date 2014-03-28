@@ -9,6 +9,7 @@ import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Class;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Country;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Facility;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
 import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
@@ -149,6 +150,9 @@ public class ResultProduct implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultProduct2")
 	private Set<ResultProduct_ResultProduct> resultProducts2_resultProducts;
+	
+	@OneToMany(mappedBy="resultProduct")
+	private Set<ResultProduct_Equipment> resultProducts_equipments;
 	
 	/**
 	 * Default Constructors
@@ -717,6 +721,21 @@ public class ResultProduct implements CerifResultEntity {
 	public void setProjects_resultProducts(
 			Set<Project_ResultProduct> projects_resultProducts) {
 		this.projects_resultProducts = projects_resultProducts;
+	}
+
+	/**
+	 * @return the resultProducts_equipments
+	 */
+	public Set<ResultProduct_Equipment> getResultProducts_equipments() {
+		return resultProducts_equipments;
+	}
+
+	/**
+	 * @param resultProducts_equipments the resultProducts_equipments to set
+	 */
+	public void setResultProducts_equipments(
+			Set<ResultProduct_Equipment> resultProducts_equipments) {
+		this.resultProducts_equipments = resultProducts_equipments;
 	}
 
 	/* (non-Javadoc)

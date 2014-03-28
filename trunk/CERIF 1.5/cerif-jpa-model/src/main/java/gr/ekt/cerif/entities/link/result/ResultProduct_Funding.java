@@ -259,4 +259,17 @@ public class ResultProduct_Funding implements CerifLinkEntity {
 		this.currency = currency;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultProduct_Funding [id=" + id + ", resultProduct="
+				+ resultProduct + ", funding=" + funding + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + ", currency=" + currency
+				+ ", amount=" + amount + "]";
+	}
+
+	
 }

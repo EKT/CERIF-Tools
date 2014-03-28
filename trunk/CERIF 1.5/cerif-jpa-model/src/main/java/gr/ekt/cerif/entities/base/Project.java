@@ -16,7 +16,6 @@ import gr.ekt.cerif.entities.link.project.Project_ResultPatent;
 import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.link.project.Project_Service;
-import gr.ekt.cerif.features.multilingual.OrganisationUnitName;
 import gr.ekt.cerif.features.multilingual.ProjectAbstract;
 import gr.ekt.cerif.features.multilingual.ProjectKeyword;
 import gr.ekt.cerif.features.multilingual.ProjectTitle;

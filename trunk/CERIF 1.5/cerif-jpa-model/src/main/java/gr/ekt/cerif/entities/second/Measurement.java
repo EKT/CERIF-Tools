@@ -3,7 +3,9 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Equipment_Measurement;
 import gr.ekt.cerif.entities.link.Facility_Measurement;
+import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Service_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
@@ -121,6 +123,12 @@ public class Measurement implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<Service_Measurement> services_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<Equipment_Measurement> equipments_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<Medium_Measurement> mediums_measurements;
 
 	/**
 	 * Default Constructor
@@ -415,6 +423,35 @@ public class Measurement implements CerifSecondLevelEntity {
 	public void setServices_measurements(
 			Set<Service_Measurement> services_measurements) {
 		this.services_measurements = services_measurements;
+	}
+
+	/**
+	 * @return the equipments_measurements
+	 */
+	public Set<Equipment_Measurement> getEquipments_measurements() {
+		return equipments_measurements;
+	}
+
+	/**
+	 * @param equipments_measurements the equipments_measurements to set
+	 */
+	public void setEquipments_measurements(
+			Set<Equipment_Measurement> equipments_measurements) {
+		this.equipments_measurements = equipments_measurements;
+	}
+
+	/**
+	 * @return the mediums_measurements
+	 */
+	public Set<Medium_Measurement> getMediums_measurements() {
+		return mediums_measurements;
+	}
+
+	/**
+	 * @param mediums_measurements the mediums_measurements to set
+	 */
+	public void setMediums_measurements(Set<Medium_Measurement> mediums_measurements) {
+		this.mediums_measurements = mediums_measurements;
 	}
 
 	/* (non-Javadoc)

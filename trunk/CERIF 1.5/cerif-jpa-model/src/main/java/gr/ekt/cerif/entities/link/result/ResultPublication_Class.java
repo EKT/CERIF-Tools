@@ -189,4 +189,16 @@ public class ResultPublication_Class implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublication_Class [id=" + id + ", resultPublication="
+				+ resultPublication + ", theClass=" + theClass + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", fraction=" + fraction
+				+ "]";
+	}
+
+	
 }

@@ -235,4 +235,16 @@ public class Project_Prize implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Project_Prize [id=" + id + ", project=" + project + ", prize="
+				+ prize + ", theClass=" + theClass + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", prizeDate=" + prizeDate
+				+ ", fraction=" + fraction + "]";
+	}
+
+	
 }

@@ -285,5 +285,19 @@ public class Project_Facility implements CerifLinkEntity {
 	public void setConditions(String conditions) {
 		this.conditions = conditions;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Project_Facility [id=" + id + ", project=" + project
+				+ ", facility=" + facility + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + ", price=" + price + ", currency="
+				+ currency + ", availability=" + availability + ", conditions="
+				+ conditions + "]";
+	}
+	
 	
 }
