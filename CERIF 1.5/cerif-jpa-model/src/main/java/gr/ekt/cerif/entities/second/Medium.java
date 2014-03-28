@@ -3,6 +3,12 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Equipment_Medium;
+import gr.ekt.cerif.entities.link.Event_Medium;
+import gr.ekt.cerif.entities.link.Facility_Medium;
+import gr.ekt.cerif.entities.link.Medium_Funding;
+import gr.ekt.cerif.entities.link.Medium_Indicator;
+import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Service_Medium;
 import gr.ekt.cerif.entities.link.person.Person_Medium;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
@@ -81,20 +87,32 @@ public class Medium implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="medium")
 	private Set<MediumDescription> descriptions;
 	
-	/**
-	 * The persons_medium.
-	 */
 	@OneToMany(mappedBy="medium")
 	private Set<Person_Medium> persons_medium;
 	
-	/**
-	 * The resultPublications_medium.
-	 */
 	@OneToMany(mappedBy="medium")
 	private Set<ResultPublication_Medium> resultPublications_medium;
 	
 	@OneToMany(mappedBy="medium")
 	private Set<Service_Medium> services_mediums;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<Equipment_Medium> equipments_medium;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<Event_Medium> events_medium;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<Facility_Medium> facilities_medium;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<Medium_Funding> mediums_fundings;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<Medium_Indicator> mediums_indicators;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<Medium_Measurement> mediums_measurements;
 
 	/**
 	 * Default Constructor
@@ -281,6 +299,90 @@ public class Medium implements CerifSecondLevelEntity {
 	 */
 	public void setServices_mediums(Set<Service_Medium> services_mediums) {
 		this.services_mediums = services_mediums;
+	}
+
+	/**
+	 * @return the equipments_medium
+	 */
+	public Set<Equipment_Medium> getEquipments_medium() {
+		return equipments_medium;
+	}
+
+	/**
+	 * @param equipments_medium the equipments_medium to set
+	 */
+	public void setEquipments_medium(Set<Equipment_Medium> equipments_medium) {
+		this.equipments_medium = equipments_medium;
+	}
+
+	/**
+	 * @return the events_medium
+	 */
+	public Set<Event_Medium> getEvents_medium() {
+		return events_medium;
+	}
+
+	/**
+	 * @param events_medium the events_medium to set
+	 */
+	public void setEvents_medium(Set<Event_Medium> events_medium) {
+		this.events_medium = events_medium;
+	}
+
+	/**
+	 * @return the facilities_medium
+	 */
+	public Set<Facility_Medium> getFacilities_medium() {
+		return facilities_medium;
+	}
+
+	/**
+	 * @param facilities_medium the facilities_medium to set
+	 */
+	public void setFacilities_medium(Set<Facility_Medium> facilities_medium) {
+		this.facilities_medium = facilities_medium;
+	}
+
+	/**
+	 * @return the mediums_fundings
+	 */
+	public Set<Medium_Funding> getMediums_fundings() {
+		return mediums_fundings;
+	}
+
+	/**
+	 * @param mediums_fundings the mediums_fundings to set
+	 */
+	public void setMediums_fundings(Set<Medium_Funding> mediums_fundings) {
+		this.mediums_fundings = mediums_fundings;
+	}
+
+	/**
+	 * @return the mediums_indicators
+	 */
+	public Set<Medium_Indicator> getMediums_indicators() {
+		return mediums_indicators;
+	}
+
+	/**
+	 * @param mediums_indicators the mediums_indicators to set
+	 */
+	public void setMediums_indicators(Set<Medium_Indicator> mediums_indicators) {
+		this.mediums_indicators = mediums_indicators;
+	}
+
+	/**
+	 * @return the mediums_measurements
+	 */
+	public Set<Medium_Measurement> getMediums_measurements() {
+		return mediums_measurements;
+	}
+
+	/**
+	 * @param mediums_measurements the mediums_measurements to set
+	 */
+	public void setMediums_measurements(Set<Medium_Measurement> mediums_measurements) {
+		this.mediums_measurements = mediums_measurements;
 	}
 
 	/* (non-Javadoc)

@@ -222,4 +222,16 @@ public class Project_ResultPatent implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Project_ResultPatent [id=" + id + ", project=" + project
+				+ ", resultPatent=" + resultPatent + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+
+	
 }

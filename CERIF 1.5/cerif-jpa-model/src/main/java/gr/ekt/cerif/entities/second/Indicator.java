@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Equipment_Indicator;
+import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.Service_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Indicator;
@@ -68,6 +70,12 @@ public class Indicator implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="indicator")
 	private Set<Service_Indicator> services_indicators;
+	
+	@OneToMany(mappedBy="indicator")
+	private Set<Equipment_Indicator> equipments_indicators;
+	
+	@OneToMany(mappedBy="indicator")
+	private Set<Medium_Indicator> mediums_indicators;
 
 	/**
 	 * Default Constructor
@@ -230,6 +238,35 @@ public class Indicator implements CerifSecondLevelEntity {
 	 */
 	public void setServices_indicators(Set<Service_Indicator> services_indicators) {
 		this.services_indicators = services_indicators;
+	}
+
+	/**
+	 * @return the equipments_indicators
+	 */
+	public Set<Equipment_Indicator> getEquipments_indicators() {
+		return equipments_indicators;
+	}
+
+	/**
+	 * @param equipments_indicators the equipments_indicators to set
+	 */
+	public void setEquipments_indicators(
+			Set<Equipment_Indicator> equipments_indicators) {
+		this.equipments_indicators = equipments_indicators;
+	}
+
+	/**
+	 * @return the mediums_indicators
+	 */
+	public Set<Medium_Indicator> getMediums_indicators() {
+		return mediums_indicators;
+	}
+
+	/**
+	 * @param mediums_indicators the mediums_indicators to set
+	 */
+	public void setMediums_indicators(Set<Medium_Indicator> mediums_indicators) {
+		this.mediums_indicators = mediums_indicators;
 	}
 
 	/* (non-Javadoc)

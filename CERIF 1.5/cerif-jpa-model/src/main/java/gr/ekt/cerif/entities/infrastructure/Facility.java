@@ -6,13 +6,16 @@ package gr.ekt.cerif.entities.infrastructure;
 import java.util.Set;
 
 import gr.ekt.cerif.entities.link.Facility_Class;
+import gr.ekt.cerif.entities.link.Facility_Equipment;
 import gr.ekt.cerif.entities.link.Facility_Facility;
 import gr.ekt.cerif.entities.link.Facility_Funding;
+import gr.ekt.cerif.entities.link.Facility_Medium;
 import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.Facility_Service;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.person.Person_Facility;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
+import gr.ekt.cerif.entities.link.result.ResultPatent_Facility;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Facility;
 import gr.ekt.cerif.features.multilingual.FacilityDescription;
@@ -101,6 +104,9 @@ public class Facility implements CerifInfrastructureEntity {
 	private Set<ResultProduct_Facility> resultProducts_facilities;
 	
 	@OneToMany(mappedBy="facility")
+	private Set<ResultPatent_Facility> resultPatents_facilities;
+	
+	@OneToMany(mappedBy="facility")
 	private Set<Facility_Class> classes;
 	
 	@OneToMany(mappedBy="facility")
@@ -115,11 +121,14 @@ public class Facility implements CerifInfrastructureEntity {
 	@OneToMany(mappedBy="facility")
 	private Set<Facility_Service> facilities_services;
 	
-	/**
-	 * The postal addresses.
-	 */
+	@OneToMany(mappedBy="facility")
+	private Set<Facility_Equipment> facilities_equipments;
+	
 	@OneToMany(mappedBy="facility")
 	private Set<Facility_PostalAddress> postalAddresses;
+	
+	@OneToMany(mappedBy="facility")
+	private Set<Facility_Medium> facilities_medium;
 	
 	/**
 	 * Default Constructor
@@ -307,6 +316,21 @@ public class Facility implements CerifInfrastructureEntity {
 	}
 
 	/**
+	 * @return the resultPatents_facilities
+	 */
+	public Set<ResultPatent_Facility> getResultPatents_facilities() {
+		return resultPatents_facilities;
+	}
+
+	/**
+	 * @param resultPatents_facilities the resultPatents_facilities to set
+	 */
+	public void setResultPatents_facilities(
+			Set<ResultPatent_Facility> resultPatents_facilities) {
+		this.resultPatents_facilities = resultPatents_facilities;
+	}
+
+	/**
 	 * @return the classes
 	 */
 	public Set<Facility_Class> getClasses() {
@@ -371,6 +395,21 @@ public class Facility implements CerifInfrastructureEntity {
 	}
 
 	/**
+	 * @return the facilities_equipments
+	 */
+	public Set<Facility_Equipment> getFacilities_equipments() {
+		return facilities_equipments;
+	}
+
+	/**
+	 * @param facilities_equipments the facilities_equipments to set
+	 */
+	public void setFacilities_equipments(
+			Set<Facility_Equipment> facilities_equipments) {
+		this.facilities_equipments = facilities_equipments;
+	}
+
+	/**
 	 * @return the postalAddresses
 	 */
 	public Set<Facility_PostalAddress> getPostalAddresses() {
@@ -383,6 +422,20 @@ public class Facility implements CerifInfrastructureEntity {
 	public void setPostalAddresses(
 			Set<Facility_PostalAddress> postalAddresses) {
 		this.postalAddresses = postalAddresses;
+	}
+
+	/**
+	 * @return the facilities_medium
+	 */
+	public Set<Facility_Medium> getFacilities_medium() {
+		return facilities_medium;
+	}
+
+	/**
+	 * @param facilities_medium the facilities_medium to set
+	 */
+	public void setFacilities_medium(Set<Facility_Medium> facilities_medium) {
+		this.facilities_medium = facilities_medium;
 	}
 
 	/* (non-Javadoc)

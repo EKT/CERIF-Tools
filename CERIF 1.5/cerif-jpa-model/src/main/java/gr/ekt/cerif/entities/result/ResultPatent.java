@@ -6,6 +6,8 @@ package gr.ekt.cerif.entities.result;
 import gr.ekt.cerif.entities.link.person.Person_ResultPatent;
 import gr.ekt.cerif.entities.link.project.Project_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Class;
+import gr.ekt.cerif.entities.link.result.ResultPatent_Equipment;
+import gr.ekt.cerif.entities.link.result.ResultPatent_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Funding;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Measurement;
@@ -134,6 +136,12 @@ public class ResultPatent implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatent_Service> resultPatents_services;
+	
+	@OneToMany(mappedBy="resultPatent")
+	private Set<ResultPatent_Equipment> resultPatents_equipments;
+	
+	@OneToMany(mappedBy="resultPatent")
+	private Set<ResultPatent_Facility> resultPatents_facilities;
 
 	/**
 	 * Default Constructor
@@ -447,5 +455,46 @@ public class ResultPatent implements CerifResultEntity {
 			Set<ResultPatent_Service> resultPatents_services) {
 		this.resultPatents_services = resultPatents_services;
 	}
+
+	/**
+	 * @return the resultPatents_equipments
+	 */
+	public Set<ResultPatent_Equipment> getResultPatents_equipments() {
+		return resultPatents_equipments;
+	}
+
+	/**
+	 * @param resultPatents_equipments the resultPatents_equipments to set
+	 */
+	public void setResultPatents_equipments(
+			Set<ResultPatent_Equipment> resultPatents_equipments) {
+		this.resultPatents_equipments = resultPatents_equipments;
+	}
+
+	/**
+	 * @return the resultPatents_facilities
+	 */
+	public Set<ResultPatent_Facility> getResultPatents_facilities() {
+		return resultPatents_facilities;
+	}
+
+	/**
+	 * @param resultPatents_facilities the resultPatents_facilities to set
+	 */
+	public void setResultPatents_facilities(
+			Set<ResultPatent_Facility> resultPatents_facilities) {
+		this.resultPatents_facilities = resultPatents_facilities;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPatent [id=" + id + ", country=" + country
+				+ ", registrationDate=" + registrationDate + ", approvalDate="
+				+ approvalDate + ", number=" + number + ", uri=" + uri + "]";
+	}
+	
 	
 }

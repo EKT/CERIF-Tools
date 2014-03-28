@@ -219,5 +219,17 @@ public class Project_Project implements CerifLinkEntity {
 	public void setTheClass(Class theClass) {
 		this.theClass = theClass;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Project_Project [id=" + id + ", project1=" + project1
+				+ ", project2=" + project2 + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+	
 	
 }

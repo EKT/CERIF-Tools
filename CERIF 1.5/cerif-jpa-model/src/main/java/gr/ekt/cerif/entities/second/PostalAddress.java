@@ -3,6 +3,7 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Equipment_PostalAddress;
 import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.Service_PostalAddress;
@@ -128,6 +129,9 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="postalAddress")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Facility_PostalAddress> facilities_postalAddresses;
+	
+	@OneToMany(mappedBy="postalAddress")
+	private Set<Equipment_PostalAddress> equipments_postalAddresses;
 	
 	@OneToMany(mappedBy="postalAddress")
 	private Set<PostalAddress_Class> classes;
@@ -398,6 +402,19 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	public void setFacilities_postalAddresses(
 			Set<Facility_PostalAddress> facilities_postalAddresses) {
 		this.facilities_postalAddresses = facilities_postalAddresses;
+	}
+	/**
+	 * @return the equipments_postalAddresses
+	 */
+	public Set<Equipment_PostalAddress> getEquipments_postalAddresses() {
+		return equipments_postalAddresses;
+	}
+	/**
+	 * @param equipments_postalAddresses the equipments_postalAddresses to set
+	 */
+	public void setEquipments_postalAddresses(
+			Set<Equipment_PostalAddress> equipments_postalAddresses) {
+		this.equipments_postalAddresses = equipments_postalAddresses;
 	}
 	/**
 	 * @return the classes

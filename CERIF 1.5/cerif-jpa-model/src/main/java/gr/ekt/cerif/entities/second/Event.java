@@ -3,7 +3,9 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Equipment_Event;
 import gr.ekt.cerif.entities.link.Event_Class;
+import gr.ekt.cerif.entities.link.Event_Medium;
 import gr.ekt.cerif.entities.link.Service_Event;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Event;
 import gr.ekt.cerif.entities.link.person.Person_Event;
@@ -116,6 +118,12 @@ public class Event implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="event")
 	private Set<Service_Event> services_events;
+	
+	@OneToMany(mappedBy="event")
+	private Set<Equipment_Event> equipments_events;
+	
+	@OneToMany(mappedBy="event")
+	private Set<Event_Medium> events_medium;
 	
 
 	/**
@@ -380,6 +388,34 @@ public class Event implements CerifSecondLevelEntity {
 	 */
 	public void setServices_events(Set<Service_Event> services_events) {
 		this.services_events = services_events;
+	}
+
+	/**
+	 * @return the equipments_events
+	 */
+	public Set<Equipment_Event> getEquipments_events() {
+		return equipments_events;
+	}
+
+	/**
+	 * @param equipments_events the equipments_events to set
+	 */
+	public void setEquipments_events(Set<Equipment_Event> equipments_events) {
+		this.equipments_events = equipments_events;
+	}
+
+	/**
+	 * @return the events_medium
+	 */
+	public Set<Event_Medium> getEvents_medium() {
+		return events_medium;
+	}
+
+	/**
+	 * @param events_medium the events_medium to set
+	 */
+	public void setEvents_medium(Set<Event_Medium> events_medium) {
+		this.events_medium = events_medium;
 	}
 
 	/* (non-Javadoc)

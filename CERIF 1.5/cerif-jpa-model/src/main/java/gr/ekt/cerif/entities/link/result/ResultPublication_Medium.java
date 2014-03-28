@@ -214,5 +214,17 @@ public class ResultPublication_Medium implements CerifLinkEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublication_Medium [id=" + id + ", resultPublication="
+				+ resultPublication + ", medium=" + medium + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + "]";
+	}
+	
 	
 }

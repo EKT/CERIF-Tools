@@ -18,7 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -285,5 +284,19 @@ public class Project_Equipment implements CerifLinkEntity {
 	public void setConditions(String conditions) {
 		this.conditions = conditions;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Project_Equipment [id=" + id + ", project=" + project
+				+ ", equipment=" + equipment + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + ", price=" + price + ", currency="
+				+ currency + ", availability=" + availability + ", conditions="
+				+ conditions + "]";
+	}
+	
 	
 }

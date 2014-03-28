@@ -4,9 +4,11 @@
 package gr.ekt.cerif.entities.second;
 
 
+import gr.ekt.cerif.entities.link.Equipment_Funding;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.Funding_Funding;
+import gr.ekt.cerif.entities.link.Medium_Funding;
 import gr.ekt.cerif.entities.link.Service_Funding;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
 import gr.ekt.cerif.entities.link.person.Person_Funding;
@@ -141,6 +143,13 @@ public class Funding implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="funding")
 	private Set<Service_Funding> services_fundings;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<Equipment_Funding> equipments_fundings;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<Medium_Funding> mediums_fundings;
+	
 	/**
 	 * Default Constructor
 	 */
@@ -461,6 +470,30 @@ public class Funding implements CerifSecondLevelEntity {
 		this.services_fundings = services_fundings;
 	}
 	
+	/**
+	 * @return the equipments_fundings
+	 */
+	public Set<Equipment_Funding> getEquipments_fundings() {
+		return equipments_fundings;
+	}
+	/**
+	 * @param equipments_fundings the equipments_fundings to set
+	 */
+	public void setEquipments_fundings(Set<Equipment_Funding> equipments_fundings) {
+		this.equipments_fundings = equipments_fundings;
+	}
+	/**
+	 * @return the mediums_fundings
+	 */
+	public Set<Medium_Funding> getMediums_fundings() {
+		return mediums_fundings;
+	}
+	/**
+	 * @param mediums_fundings the mediums_fundings to set
+	 */
+	public void setMediums_fundings(Set<Medium_Funding> mediums_fundings) {
+		this.mediums_fundings = mediums_fundings;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

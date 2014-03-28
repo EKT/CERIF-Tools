@@ -6,6 +6,7 @@ package gr.ekt.cerif.entities.base;
 
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Equipment;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Medium;
@@ -172,6 +173,9 @@ public class OrganisationUnit implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnit_Funding> organisationUnits_fundings;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_Equipment> organisationUnits_equipments;
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnit_Class> classes;
@@ -593,6 +597,21 @@ public class OrganisationUnit implements CerifBaseEntity {
 	public void setOrganisationUnits_fundings(
 			Set<OrganisationUnit_Funding> organisationUnits_fundings) {
 		this.organisationUnits_fundings = organisationUnits_fundings;
+	}
+
+	/**
+	 * @return the organisationUnits_equipments
+	 */
+	public Set<OrganisationUnit_Equipment> getOrganisationUnits_equipments() {
+		return organisationUnits_equipments;
+	}
+
+	/**
+	 * @param organisationUnits_equipments the organisationUnits_equipments to set
+	 */
+	public void setOrganisationUnits_equipments(
+			Set<OrganisationUnit_Equipment> organisationUnits_equipments) {
+		this.organisationUnits_equipments = organisationUnits_equipments;
 	}
 
 	/**

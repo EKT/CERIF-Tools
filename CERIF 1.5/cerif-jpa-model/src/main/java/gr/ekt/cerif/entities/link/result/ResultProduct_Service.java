@@ -211,4 +211,16 @@ public class ResultProduct_Service implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultProduct_Service [id=" + id + ", resultProduct="
+				+ resultProduct + ", service=" + service + ", theClass="
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + "]";
+	}
+
+	
 }

@@ -6,6 +6,7 @@ package gr.ekt.cerif.features.semantics;
 import gr.ekt.cerif.entities.link.Citation_Class;
 import gr.ekt.cerif.entities.link.Class_Class;
 import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
+import gr.ekt.cerif.entities.link.Equipment_Class;
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Equipment;
 import gr.ekt.cerif.entities.link.Facility_Event;
@@ -247,6 +248,9 @@ public class Class implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Funding_Class> fundings;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Equipment_Class> equipments;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Funding_Indicator> fundings_indicators;
@@ -1012,6 +1016,20 @@ public class Class implements CerifSemanticFeature {
 	}
 	
 	
+
+	/**
+	 * @return the equipments
+	 */
+	public Set<Equipment_Class> getEquipments() {
+		return equipments;
+	}
+
+	/**
+	 * @param equipments the equipments to set
+	 */
+	public void setEquipments(Set<Equipment_Class> equipments) {
+		this.equipments = equipments;
+	}
 
 	/**
 	 * @return the fundings_indicators
