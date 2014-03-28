@@ -1,10 +1,14 @@
 package gr.ekt.cerif.services.link.facility;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.infrastructure.Equipment;
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.Facility_Equipment;
 
 @Component
@@ -35,6 +39,16 @@ public class LinkFacilityEquipmentRepositoryImpl implements
 	@Override
 	public Facility_Equipment save(Facility_Equipment entity) {
 		return linkFacilityEquipmentCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Facility_Equipment> findByFacility(Facility facility) {
+		return linkFacilityEquipmentCrudRepository.findByFacility(facility);
+	}
+
+	@Override
+	public List<Facility_Equipment> findByEquipment(Equipment equipment) {
+		return linkFacilityEquipmentCrudRepository.findByEquipment(equipment);
 	}
 
 }

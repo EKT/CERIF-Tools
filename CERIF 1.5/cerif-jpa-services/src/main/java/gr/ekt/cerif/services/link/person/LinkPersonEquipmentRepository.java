@@ -1,5 +1,9 @@
 package gr.ekt.cerif.services.link.person;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.link.person.Person_Equipment;
 
 /**
@@ -15,5 +19,9 @@ public interface LinkPersonEquipmentRepository {
 	public Iterable<Person_Equipment> save(Iterable<Person_Equipment> entities); 
 	
 	public Person_Equipment save(Person_Equipment entity);
+	
+	List<Person_Equipment> findByPerson(Person person);
+	
+	List<Person_Equipment> findByEquipment(Equipment equipment);
 	
 }

@@ -5,6 +5,9 @@ package gr.ekt.cerif.services.second;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 
@@ -25,5 +28,9 @@ public interface ElectronicAddressRepository {
 	public Iterable<ElectronicAddress> save(Iterable<ElectronicAddress> entities); 
 	
 	public ElectronicAddress save(ElectronicAddress entity);
+	
+	Iterable<ElectronicAddress> findAll();
+	
+	Page<ElectronicAddress> findAll(Pageable page);
 
 }

@@ -1,10 +1,14 @@
 package gr.ekt.cerif.services.link.person;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.link.person.Person_Equipment;
 
 @Component
@@ -34,6 +38,16 @@ public class LinkPersonEquipmentRepositoryImpl implements
 	@Override
 	public Person_Equipment save(Person_Equipment entity) {
 		return linkPersonEquipmentCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Person_Equipment> findByPerson(Person person) {
+		return linkPersonEquipmentCrudRepository.findByPerson(person);
+	}
+
+	@Override
+	public List<Person_Equipment> findByEquipment(Equipment equipment) {
+		return linkPersonEquipmentCrudRepository.findByEquipment(equipment);
 	}
 
 }

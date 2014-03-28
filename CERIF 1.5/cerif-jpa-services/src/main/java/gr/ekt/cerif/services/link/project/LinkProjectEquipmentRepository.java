@@ -3,6 +3,10 @@
  */
 package gr.ekt.cerif.services.link.project;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.base.Project;
+import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Equipment;
 
 /**
@@ -18,5 +22,9 @@ public interface LinkProjectEquipmentRepository {
 	public Iterable<Project_Equipment> save(Iterable<Project_Equipment> entities); 
 	
 	public Project_Equipment save(Project_Equipment entity);
+	
+	List<Project_Equipment> findByProject(Project project);
+	
+	List<Project_Equipment> findByEquipment(Equipment equipment);
 	
 }

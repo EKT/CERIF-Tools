@@ -1,6 +1,9 @@
 package gr.ekt.cerif.services.multilingual.classscheme;
 
+import java.util.List;
+
 import gr.ekt.cerif.features.multilingual.ClassSchemeName;
+import gr.ekt.cerif.features.semantics.ClassScheme;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,5 +37,10 @@ public class ClassSchemeNameRepositoryImpl implements ClassSchemeNameRepository 
 	@Override
 	public Iterable<ClassSchemeName> save(Iterable<ClassSchemeName> entities) {
 		return classSchemeNameCrudRepository.save(entities);
+	}
+
+	@Override
+	public List<ClassSchemeName> findByScheme(ClassScheme scheme) {
+		return classSchemeNameCrudRepository.findByScheme(scheme);
 	}
 }

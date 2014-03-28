@@ -1,7 +1,10 @@
 
 package gr.ekt.cerif.services.multilingual.classscheme;
 
+import java.util.List;
+
 import gr.ekt.cerif.features.multilingual.ClassSchemeName;
+import gr.ekt.cerif.features.semantics.ClassScheme;
 
 
 /**
@@ -19,5 +22,7 @@ public interface ClassSchemeNameRepository {
 	public Iterable<ClassSchemeName> save(Iterable<ClassSchemeName> entities); 
 	
 	public ClassSchemeName save(ClassSchemeName entity);
+	
+	List<ClassSchemeName> findByScheme(ClassScheme scheme);
 	
 }

@@ -2,6 +2,7 @@ package gr.ekt.cerif.services.link.organisationunit;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
+import gr.ekt.cerif.entities.second.ElectronicAddress;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
 public interface LinkOrganisationUnitElectronicAddressRepository {
 	
 	List<OrganisationUnit_ElectronicAddress> findByOrganisationUnit(OrganisationUnit orgUnit);
+	
+	List<OrganisationUnit_ElectronicAddress> findByElectronicAddress(ElectronicAddress electronicAddress);
 	
 	public OrganisationUnit_ElectronicAddress save(OrganisationUnit_ElectronicAddress entity);
 	

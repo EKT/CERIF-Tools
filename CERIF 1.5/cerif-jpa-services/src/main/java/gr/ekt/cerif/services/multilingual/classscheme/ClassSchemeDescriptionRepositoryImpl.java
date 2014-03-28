@@ -3,12 +3,15 @@
  */
 package gr.ekt.cerif.services.multilingual.classscheme;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.multilingual.ClassSchemeDescription;
+import gr.ekt.cerif.features.semantics.ClassScheme;
 
 /**
  * @author bonisv
@@ -52,6 +55,11 @@ public class ClassSchemeDescriptionRepositoryImpl implements ClassSchemeDescript
 	@Override
 	public ClassSchemeDescription save(ClassSchemeDescription entity) {
 		return classSchemeDescriptionCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ClassSchemeDescription> findByScheme(ClassScheme scheme) {
+		return classSchemeDescriptionCrudRepository.findByScheme(scheme);
 	}
 
 }
