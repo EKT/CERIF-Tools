@@ -1,25 +1,35 @@
-package gr.ekt.cerif.xml.records;
+package gr.ekt.cerif.xml.records.infrastructure;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.ekt.cerif.entities.second.Funding;
+import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.transformationengine.core.Record;
 
-/**
- * @author bonisv
- *
- */
-public class CerifFundingRecord extends Record {
-
-	private Funding funding;
+public class CerifEquipmentRecord extends Record {
+	
+	private Equipment equipment;
 	
 	/**
-	 * @param funding
+	 * @param equipment
 	 */
-	public CerifFundingRecord(Funding funding) {
+	public CerifEquipmentRecord(Equipment equipment) {
 		super();
-		this.funding = funding;
+		this.setEquipment(equipment);
+	}
+	
+	/**
+	 * @return the equipment
+	 */
+	public Equipment getEquipment() {
+		return equipment;
+	}
+
+	/**
+	 * @param equipment the equipment to set
+	 */
+	public void setEquipment(Equipment equipment) {
+		this.equipment = equipment;
 	}
 
 	@Override
@@ -45,20 +55,6 @@ public class CerifFundingRecord extends Record {
 
 	@Override
 	public void addValueToField(String fieldName, Object fieldValue) {
-	}
-
-	/**
-	 * @return the funding
-	 */
-	public Funding getFunding() {
-		return funding;
-	}
-
-	/**
-	 * @param funding the funding to set
-	 */
-	public void setFunding(Funding funding) {
-		this.funding = funding;
 	}
 
 }

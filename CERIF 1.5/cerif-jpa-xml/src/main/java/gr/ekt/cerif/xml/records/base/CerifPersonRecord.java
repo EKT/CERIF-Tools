@@ -1,37 +1,23 @@
-package gr.ekt.cerif.xml.records;
+package gr.ekt.cerif.xml.records.base;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.ekt.cerif.entities.infrastructure.Service;
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.transformationengine.core.Record;
 
-public class CerifServiceRecord extends Record {
+/**
+ * @author bonisv
+ *
+ */
+public class CerifPersonRecord extends Record {
 
-	private Service service;
+	private Person person;
 	
-	/**
-	 * @param service
-	 */
-	public CerifServiceRecord(Service service) {
-		super();
-		this.setService(service);
+	public CerifPersonRecord(Person person) {
+		this.setPerson(person);
 	}
 	
-	/**
-	 * @return the service
-	 */
-	public Service getService() {
-		return service;
-	}
-
-	/**
-	 * @param service the service to set
-	 */
-	public void setService(Service service) {
-		this.service = service;
-	}
-
 	@Override
 	public List<Object> getByName(String fieldName) {
 		return null;
@@ -55,6 +41,20 @@ public class CerifServiceRecord extends Record {
 
 	@Override
 	public void addValueToField(String fieldName, Object fieldValue) {
+	}
+
+	/**
+	 * @return the person
+	 */
+	public Person getPerson() {
+		return person;
+	}
+
+	/**
+	 * @param person the person to set
+	 */
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 }

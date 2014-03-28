@@ -1,25 +1,25 @@
-package gr.ekt.cerif.xml.records;
+package gr.ekt.cerif.xml.records.second;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.transformationengine.core.Record;
 
 /**
  * @author bonisv
  *
  */
-public class CerifOrganisationUnitRecord extends Record {
+public class CerifFundingRecord extends Record {
 
-	private OrganisationUnit organisationUnit;
+	private Funding funding;
 	
 	/**
-	 * @param organisationUnit
+	 * @param funding
 	 */
-	public CerifOrganisationUnitRecord(OrganisationUnit organisationUnit) {
+	public CerifFundingRecord(Funding funding) {
 		super();
-		this.organisationUnit = organisationUnit;
+		this.funding = funding;
 	}
 
 	@Override
@@ -48,17 +48,17 @@ public class CerifOrganisationUnitRecord extends Record {
 	}
 
 	/**
-	 * @return the organisationUnit
+	 * @return the funding
 	 */
-	public OrganisationUnit getOrganisationUnit() {
-		return organisationUnit;
+	public Funding getFunding() {
+		return funding;
 	}
 
 	/**
-	 * @param organisationUnit the organisationUnit to set
+	 * @param funding the funding to set
 	 */
-	public void setOrganisationUnit(OrganisationUnit organisationUnit) {
-		this.organisationUnit = organisationUnit;
+	public void setFunding(Funding funding) {
+		this.funding = funding;
 	}
 
 }
