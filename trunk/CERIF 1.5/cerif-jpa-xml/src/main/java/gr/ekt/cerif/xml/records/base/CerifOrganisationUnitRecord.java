@@ -1,25 +1,25 @@
-package gr.ekt.cerif.xml.records;
+package gr.ekt.cerif.xml.records.base;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.ekt.cerif.entities.second.PostalAddress;
+import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.transformationengine.core.Record;
 
 /**
  * @author bonisv
  *
  */
-public class CerifPostalAddressRecord extends Record {
+public class CerifOrganisationUnitRecord extends Record {
 
-	private PostalAddress postalAddress;
+	private OrganisationUnit organisationUnit;
 	
 	/**
-	 * @param postalAddress
+	 * @param organisationUnit
 	 */
-	public CerifPostalAddressRecord(PostalAddress postalAddress) {
+	public CerifOrganisationUnitRecord(OrganisationUnit organisationUnit) {
 		super();
-		this.postalAddress = postalAddress;
+		this.organisationUnit = organisationUnit;
 	}
 
 	@Override
@@ -48,17 +48,17 @@ public class CerifPostalAddressRecord extends Record {
 	}
 
 	/**
-	 * @return the postalAddress
+	 * @return the organisationUnit
 	 */
-	public PostalAddress getPostalAddress() {
-		return postalAddress;
+	public OrganisationUnit getOrganisationUnit() {
+		return organisationUnit;
 	}
 
 	/**
-	 * @param postalAddress the postalAddress to set
+	 * @param organisationUnit the organisationUnit to set
 	 */
-	public void setPostalAddress(PostalAddress postalAddress) {
-		this.postalAddress = postalAddress;
+	public void setOrganisationUnit(OrganisationUnit organisationUnit) {
+		this.organisationUnit = organisationUnit;
 	}
 
 }

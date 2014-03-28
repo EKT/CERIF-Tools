@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.ekt.cerif.xml.records;
+package gr.ekt.cerif.xml.records.base;
 
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.transformationengine.core.Record;

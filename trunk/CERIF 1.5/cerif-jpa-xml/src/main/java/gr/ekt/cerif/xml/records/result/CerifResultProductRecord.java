@@ -1,39 +1,40 @@
-package gr.ekt.cerif.xml.records;
+package gr.ekt.cerif.xml.records.result;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.ekt.cerif.entities.infrastructure.Facility;
+import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.transformationengine.core.Record;
+
 
 /**
  * @author bonisv
  *
  */
-public class CerifFacilityRecord extends Record {
+public class CerifResultProductRecord extends Record {
 	
-	private Facility facility;
+	private ResultProduct resultProduct;
 	
 	/**
-	 * @param facility
+	 * @param resultProduct
 	 */
-	public CerifFacilityRecord(Facility facility) {
+	public CerifResultProductRecord(ResultProduct resultProduct) {
 		super();
-		this.facility = facility;
+		this.resultProduct = resultProduct;
 	}
 
 	/**
-	 * @return the facility
+	 * @return the resultProduct
 	 */
-	public Facility getFacility() {
-		return facility;
+	public ResultProduct getResultProduct() {
+		return resultProduct;
 	}
 
 	/**
-	 * @param facility the facility to set
+	 * @param resultProduct the resultProduct to set
 	 */
-	public void setFacility(Facility facility) {
-		this.facility = facility;
+	public void setResultProduct(ResultProduct resultProduct) {
+		this.resultProduct = resultProduct;
 	}
 
 	@Override

@@ -1,22 +1,21 @@
-package gr.ekt.cerif.xml.records;
+package gr.ekt.cerif.xml.records.semantics;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.ekt.cerif.features.semantics.Class;
-
+import gr.ekt.cerif.features.semantics.ClassScheme;
 import gr.ekt.transformationengine.core.Record;
 
-public class CerifClassRecord extends Record {
-
-	private Class theClass;
+public class CerifClassSchemeRecord extends Record {
+	
+	private ClassScheme classScheme;
 	
 	/**
-	 * @param theClass
+	 * @param classScheme
 	 */
-	public CerifClassRecord(Class theClass) {
+	public CerifClassSchemeRecord(ClassScheme classScheme) {
 		super();
-		this.theClass = theClass;
+		this.classScheme = classScheme;
 	}
 
 	@Override
@@ -45,17 +44,17 @@ public class CerifClassRecord extends Record {
 	}
 
 	/**
-	 * @return the theClass
+	 * @return the classScheme
 	 */
-	public Class getTheClass() {
-		return theClass;
+	public ClassScheme getClassScheme() {
+		return classScheme;
 	}
 
 	/**
-	 * @param theClass the theClass to set
+	 * @param classScheme the classScheme to set
 	 */
-	public void setTheClass(Class theClass) {
-		this.theClass = theClass;
+	public void setClassScheme(ClassScheme classScheme) {
+		this.classScheme = classScheme;
 	}
 
 }

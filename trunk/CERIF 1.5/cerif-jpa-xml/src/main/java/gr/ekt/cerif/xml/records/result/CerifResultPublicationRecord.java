@@ -1,4 +1,4 @@
-package gr.ekt.cerif.xml.records;
+package gr.ekt.cerif.xml.records.result;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,9 +13,16 @@ import java.util.Set;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.base.Project;
+import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.infrastructure.Service;
+import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
+import gr.ekt.cerif.entities.link.Equipment_Class;
+import gr.ekt.cerif.entities.link.Equipment_Funding;
+import gr.ekt.cerif.entities.link.Equipment_PostalAddress;
+import gr.ekt.cerif.entities.link.Equipment_Service;
 import gr.ekt.cerif.entities.link.Facility_Class;
+import gr.ekt.cerif.entities.link.Facility_Equipment;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.Facility_Service;
@@ -25,6 +32,8 @@ import gr.ekt.cerif.entities.link.Service_Class;
 import gr.ekt.cerif.entities.link.Service_Funding;
 import gr.ekt.cerif.entities.link.Service_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Equipment;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
@@ -32,6 +41,8 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduc
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Service;
 import gr.ekt.cerif.entities.link.person.Person_Class;
+import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
+import gr.ekt.cerif.entities.link.person.Person_Equipment;
 import gr.ekt.cerif.entities.link.person.Person_Facility;
 import gr.ekt.cerif.entities.link.person.Person_Funding;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
@@ -40,6 +51,7 @@ import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.person.Person_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_Service;
 import gr.ekt.cerif.entities.link.project.Project_Class;
+import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
@@ -48,21 +60,27 @@ import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.link.project.Project_Service;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Class;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Facility;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Class;
+import gr.ekt.cerif.entities.link.result.ResultPublication_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Funding;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Service;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.enumerations.semantics.ClassEnum;
 import gr.ekt.cerif.features.additional.PersonName;
+import gr.ekt.cerif.features.multilingual.ClassSchemeDescription;
+import gr.ekt.cerif.features.multilingual.ClassSchemeName;
 import gr.ekt.cerif.features.multilingual.ClassTerm;
+import gr.ekt.cerif.features.multilingual.EquipmentName;
 import gr.ekt.cerif.features.multilingual.FacilityName;
 import gr.ekt.cerif.features.multilingual.FundingDescription;
 import gr.ekt.cerif.features.multilingual.FundingName;
@@ -78,20 +96,24 @@ import gr.ekt.cerif.features.multilingual.ResultPublicationSubtitle;
 import gr.ekt.cerif.features.multilingual.ResultPublicationTitle;
 import gr.ekt.cerif.features.multilingual.ServiceName;
 import gr.ekt.cerif.features.semantics.Class;
+import gr.ekt.cerif.features.semantics.ClassScheme;
 import gr.ekt.cerif.services.PersistenceService;
-import gr.ekt.cerif.xml.loadingSpecs.LoadingSpecs;
-import gr.ekt.cerif.xml.records.CerifClassRecord;
-import gr.ekt.cerif.xml.records.CerifFacilityRecord;
-import gr.ekt.cerif.xml.records.CerifFundingRecord;
-import gr.ekt.cerif.xml.records.CerifOrganisationUnitRecord;
-import gr.ekt.cerif.xml.records.CerifPersonRecord;
-import gr.ekt.cerif.xml.records.CerifPostalAddressRecord;
-import gr.ekt.cerif.xml.records.CerifProjectRecord;
-import gr.ekt.cerif.xml.records.CerifResultProductRecord;
-import gr.ekt.cerif.xml.records.CerifResultPublicationRecord;
-import gr.ekt.cerif.xml.records.CerifServiceRecord;
+import gr.ekt.cerif.xml.records.base.CerifOrganisationUnitRecord;
+import gr.ekt.cerif.xml.records.base.CerifPersonRecord;
+import gr.ekt.cerif.xml.records.base.CerifProjectRecord;
+import gr.ekt.cerif.xml.records.infrastructure.CerifEquipmentRecord;
+import gr.ekt.cerif.xml.records.infrastructure.CerifFacilityRecord;
+import gr.ekt.cerif.xml.records.infrastructure.CerifServiceRecord;
+import gr.ekt.cerif.xml.records.result.CerifResultProductRecord;
+import gr.ekt.cerif.xml.records.result.CerifResultPublicationRecord;
+import gr.ekt.cerif.xml.records.second.CerifElectronicAddressRecord;
+import gr.ekt.cerif.xml.records.second.CerifFundingRecord;
+import gr.ekt.cerif.xml.records.second.CerifPostalAddressRecord;
+import gr.ekt.cerif.xml.records.semantics.CerifClassRecord;
+import gr.ekt.cerif.xml.records.semantics.CerifClassSchemeRecord;
 import gr.ekt.transformationengine.core.DataLoader;
 import gr.ekt.transformationengine.core.RecordSet;
+import gr.ekt.cerif.xml.loadingSpecs.LoadingSpecs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -115,12 +137,16 @@ public class CerifToXmlDataLoader extends DataLoader {
 	Iterator<OrganisationUnit> iterOrganisationUnit;
 	Iterable<Person> persons;
 	Iterator<Person> iterPerson;
+	Iterable<ElectronicAddress> electronicAddresses;
+	Iterator<ElectronicAddress> iterElectronicAddress;
 	Iterable<PostalAddress> postalAddresses;
 	Iterator<PostalAddress> iterPostalAddress;
 	List<Funding> fundings;
 	Iterator<Funding> iterFunding;
 	List<Class> theClasses;
 	Iterator<Class> iterClass;
+	List<ClassScheme> classSchemes;
+	Iterator<ClassScheme> iterClassSchemes;
 	List<ResultPublication> resultPublications;
 	Iterator<ResultPublication> iterResultPublication;
 	List<Facility> facilities;
@@ -129,6 +155,8 @@ public class CerifToXmlDataLoader extends DataLoader {
 	Iterator<ResultProduct> iterResultProduct;
 	List<Service> services;
 	Iterator<Service> iterService;
+	List<Equipment> equipment;
+	Iterator<Equipment> iterEquipment;
 
 	public CerifToXmlDataLoader() {
 		super();
@@ -192,6 +220,23 @@ public class CerifToXmlDataLoader extends DataLoader {
 		}
 		
 		
+		if (((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains(ClassEnum.ELECTRONIC_ADDRESS.getName()) || 
+				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains("all") ||
+				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().isEmpty()) {
+			
+			if (windowSize == 0) {
+				electronicAddresses = service.getSecondService().getElectronicAddressRepository().findAll();
+			} else {
+				Page<ElectronicAddress> electronicAddressPage =service.getSecondService().getElectronicAddressRepository().findAll(new PageRequest(windowOffset/windowSize, windowSize));
+				electronicAddresses = electronicAddressPage.getContent();
+			}
+			iterElectronicAddress = electronicAddresses.iterator();
+			if (electronicAddresses instanceof Collection)
+				size = ((Collection<ElectronicAddress>)electronicAddresses).size();
+			System.out.println("electronicAddresses: "+size);
+		}
+		
+		
 		if (((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains(ClassEnum.POSTAL_ADDRESS.getName()) || 
 				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains("all") ||
 				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().isEmpty()) {
@@ -240,6 +285,23 @@ public class CerifToXmlDataLoader extends DataLoader {
 			if (theClasses instanceof Collection)
 				size = ((Collection<Class>)theClasses).size();
 			System.out.println("classes: "+size);
+		}
+		
+		
+		if (((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains(ClassEnum.CLASSIFICATION_SCHEME.getName()) || 
+				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains("all") ||
+				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().isEmpty()) {
+			
+			if (windowSize == 0) {
+				classSchemes = service.getSemanticService().getClassSchemeRepository().findAll();
+			} else {
+				Page<ClassScheme> classSchemePage =service.getSemanticService().getClassSchemeRepository().findAll(new PageRequest(windowOffset/windowSize, windowSize));
+				classSchemes = classSchemePage.getContent();
+			}
+			iterClassSchemes = classSchemes.iterator();
+			if (classSchemes instanceof Collection)
+				size = ((Collection<ClassScheme>)classSchemes).size();
+			System.out.println("classSchemes: "+size);
 		}
 
 		
@@ -309,6 +371,23 @@ public class CerifToXmlDataLoader extends DataLoader {
 				size = ((Collection<Service>)services).size();
 			System.out.println("services: "+size);
 		}
+		
+		
+		if (((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains(ClassEnum.EQUIPMENT.getName()) || 
+				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains("all") ||
+				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().isEmpty()) {
+			
+			if (windowSize == 0) {
+				equipment = service.getInfrastructureService().getEquipmentRepository().findAll();
+			} else {
+				Page<Equipment> equipmentPage =service.getInfrastructureService().getEquipmentRepository().findAll(new PageRequest(windowOffset/windowSize, windowSize));
+				equipment = equipmentPage.getContent();
+			}
+			iterEquipment = equipment.iterator();
+			if (equipment instanceof Collection)
+				size = ((Collection<Equipment>)equipment).size();
+			System.out.println("equipment: "+size);
+		}
 
 		
 		/*
@@ -351,6 +430,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<Project_ResultPublication> projRespubls = new ArrayList<Project_ResultPublication>();
 				List<Project_Service> serviceProj = new ArrayList<Project_Service>();
 				List<Project_Class> projclas = new ArrayList<Project_Class>();
+				List<Project_Equipment> projEquipments = new ArrayList<Project_Equipment>();
 				if (links) {
 					//facilities
 					projFacilities = service.getLinkService().getProjectFacilityRepository().findByProject(project);
@@ -375,6 +455,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 					
 					//classes
 					projclas = service.getLinkService().getProjectClassRepository().findByProject(project);
+					
+					//Equipments
+					projEquipments = service.getLinkService().getProjectEquipmentRepository().findByProject(project);
 				}
 				//facilities
 				Set<Project_Facility> facils = new HashSet<Project_Facility>(projFacilities);
@@ -408,6 +491,11 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<Project_Class> classes = new HashSet<Project_Class>(projclas);
 				project.setProjects_classes(classes);
 				
+				//Equipments
+				Set<Project_Equipment> equipments = new HashSet<Project_Equipment>(projEquipments);
+				project.setProjects_equipments(equipments);
+				
+				
 				CerifProjectRecord projectRecord = new CerifProjectRecord(project);
 				rs.addRecord(projectRecord);
 				c++;
@@ -431,7 +519,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<OrganisationUnitName> names = new HashSet<OrganisationUnitName>(orgNames);
 				organisation.setOrganisationUnitNames(names);
 				
-				List<OrganisationUnit_Class> orgclas = new ArrayList<OrganisationUnit_Class>();
+				List<OrganisationUnit_Class> orgclass = new ArrayList<OrganisationUnit_Class>();
+				List<OrganisationUnit_Equipment> equipmentOrgs = new ArrayList<OrganisationUnit_Equipment>();
+				List<OrganisationUnit_ElectronicAddress> orgEaddrs = new ArrayList<OrganisationUnit_ElectronicAddress>();
 				List<OrganisationUnit_Facility> orgFacilities = new ArrayList<OrganisationUnit_Facility>();
 				List<OrganisationUnit_Funding> orgFunds = new ArrayList<OrganisationUnit_Funding>();
 				List<OrganisationUnit_ResultProduct> orgResprod = new ArrayList<OrganisationUnit_ResultProduct>();
@@ -440,10 +530,15 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<OrganisationUnit_PostalAddress> orgPaddrs = new ArrayList<OrganisationUnit_PostalAddress>();
 				List<OrganisationUnit_ResultPublication> orgRespubls = new ArrayList<OrganisationUnit_ResultPublication>();
 				List<OrganisationUnit_Service> serviceOrgs = new ArrayList<OrganisationUnit_Service>();
-
 				if (links) {
 					//classes
-					orgclas = service.getLinkService().getOrganisationUnitClassRepository().findByOrganisationUnit(organisation);
+					orgclass = service.getLinkService().getOrganisationUnitClassRepository().findByOrganisationUnit(organisation);
+					
+					//OrganisationUnits
+					equipmentOrgs = service.getLinkService().getOrganisationUnitEquipmentRepository().findByOrganisationUnit(organisation);
+					
+					//electronic addresses
+					orgEaddrs = service.getLinkService().getOrganisationUnitElectronicAddressRepository().findByOrganisationUnit(organisation);
 					
 					//facilities
 					orgFacilities = service.getLinkService().getOrganisationUnitFacilityRepository().findByOrganisationUnit(organisation);
@@ -470,8 +565,16 @@ public class CerifToXmlDataLoader extends DataLoader {
 					serviceOrgs = service.getLinkService().getOrganisationUnitServiceRepository().findByOrganisationUnit(organisation);
 				}
 				//classes
-				Set<OrganisationUnit_Class> classes = new HashSet<OrganisationUnit_Class>(orgclas);
+				Set<OrganisationUnit_Class> classes = new HashSet<OrganisationUnit_Class>(orgclass);
 				organisation.setClasses(classes);
+				
+				//Equipments
+				Set<OrganisationUnit_Equipment> equipments = new HashSet<OrganisationUnit_Equipment>(equipmentOrgs);
+				organisation.setOrganisationUnits_equipments(equipments);
+				
+				//electronic addresses
+				Set<OrganisationUnit_ElectronicAddress> eaddrs = new HashSet<OrganisationUnit_ElectronicAddress>(orgEaddrs);
+				organisation.setElectronicAddresses(eaddrs);
 				
 				//facilities
 				Set<OrganisationUnit_Facility> facils = new HashSet<OrganisationUnit_Facility>(orgFacilities);
@@ -527,7 +630,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<PersonName> names = new HashSet<PersonName>(persNames);
 				person.setPersonNames(names);
 				
+				List<Person_ElectronicAddress> persEaddrs = new ArrayList<Person_ElectronicAddress>();
 				List<Person_Class> persClas = new ArrayList<Person_Class>();
+				List<Person_Equipment> persEquipment = new ArrayList<Person_Equipment>();
 				List<Person_Facility> persFacilities = new ArrayList<Person_Facility>();
 				List<Person_Funding> persFunds = new ArrayList<Person_Funding>();
 				List<Person_OrganisationUnit> persOrg = new ArrayList<Person_OrganisationUnit>();
@@ -537,8 +642,14 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<Person_ResultPublication> persRespubls = new ArrayList<Person_ResultPublication>();
 				List<Person_Service> servicePers = new ArrayList<Person_Service>();
 				if (links) {
+					//electronic addresses
+					persEaddrs = service.getLinkService().getPersonElectronicAddressRepository().findByPerson(person);
+					
 					//classes
 					persClas = service.getLinkService().getPersonClassRepository().findByPerson(person);
+					
+					//equipments
+					persEquipment = service.getLinkService().getPersonEquipmentRepository().findByPerson(person);
 					
 					//facilities
 					persFacilities = service.getLinkService().getPersonFacilityRepository().findByPerson(person);
@@ -564,9 +675,17 @@ public class CerifToXmlDataLoader extends DataLoader {
 					//services
 					servicePers = service.getLinkService().getPersonServiceRepository().findByPerson(person);
 				}
+				//electronic addresses
+				Set<Person_ElectronicAddress> eaddrs = new HashSet<Person_ElectronicAddress>(persEaddrs);
+				person.setPersons_electronicAddresses(eaddrs);
+				
 				//classes
 				Set<Person_Class> classes = new HashSet<Person_Class>(persClas);
 				person.setClasses(classes);
+				
+				//equipments
+				Set<Person_Equipment> equipments = new HashSet<Person_Equipment>(persEquipment);
+				person.setPersons_equipments(equipments);
 				
 				//facilities
 				Set<Person_Facility> facils = new HashSet<Person_Facility>(persFacilities);
@@ -610,6 +729,48 @@ public class CerifToXmlDataLoader extends DataLoader {
 		
 		
 		/*
+		 * ElectronicAddress 
+		 */
+		if (iterElectronicAddress != null) {
+			c=0;
+			while (iterElectronicAddress.hasNext()) {
+				ElectronicAddress electronicAddress = iterElectronicAddress.next(); 
+				
+				List<OrganisationUnit_ElectronicAddress> orgEaddrs = new ArrayList<OrganisationUnit_ElectronicAddress>();
+				List<Person_ElectronicAddress> persEaddrs = new ArrayList<Person_ElectronicAddress>();
+				List<ElectronicAddress_Class> eaddrClass = new ArrayList<ElectronicAddress_Class>();
+				if (links) {
+					//organisations
+					orgEaddrs = service.getLinkService().getOrganisationUnitElectronicAddressRepository().findByElectronicAddress(electronicAddress);
+					
+					//persons
+					persEaddrs = service.getLinkService().getPersonElectronicAddressRepository().findByElectronicAddress(electronicAddress);
+					
+					//classes
+					eaddrClass = service.getLinkService().getElectronicAddressClassRepository().findByElectronicAddress(electronicAddress);
+				}
+				//organisations
+				Set<OrganisationUnit_ElectronicAddress> orgs = new HashSet<OrganisationUnit_ElectronicAddress>(orgEaddrs);
+				electronicAddress.setOrganisationUnits(orgs);
+				
+				//persons
+				Set<Person_ElectronicAddress> pers = new HashSet<Person_ElectronicAddress>(persEaddrs);
+				electronicAddress.setPersons_electronicAddresses(pers);
+				
+				//classes
+				Set<ElectronicAddress_Class> classes = new HashSet<ElectronicAddress_Class>(eaddrClass);
+				electronicAddress.setClasses(classes);
+				
+								
+				CerifElectronicAddressRecord electronicAddressRecord = new CerifElectronicAddressRecord(electronicAddress);
+				rs.addRecord(electronicAddressRecord);	
+				c++;
+				System.out.println("postalAddress: "+electronicAddress.getId()+", ("+c+")");
+			}
+		}
+		
+		
+		/*
 		 * PostalAddress 
 		 */
 		if (iterPostalAddress != null) {
@@ -620,6 +781,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<OrganisationUnit_PostalAddress> orgPaddrs = new ArrayList<OrganisationUnit_PostalAddress>();
 				List<Person_PostalAddress> persPaddrs = new ArrayList<Person_PostalAddress>();
 				List<PostalAddress_Class> paddrClass = new ArrayList<PostalAddress_Class>();
+				List<Equipment_PostalAddress> equipmentPaddrs = new ArrayList<Equipment_PostalAddress>();
 				List<Facility_PostalAddress> facilityPaddrs = new ArrayList<Facility_PostalAddress>();
 				List<Service_PostalAddress> servicePaddrs = new ArrayList<Service_PostalAddress>();
 				if (links) {
@@ -631,6 +793,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 					
 					//classes
 					paddrClass = service.getLinkService().getPostalAddressClassRepository().findByPostalAddress(postalAddress);
+					
+					//equipments
+					equipmentPaddrs = service.getLinkService().getEquipmentPostalAddressRepository().findByPostalAddress(postalAddress);
 					
 					//facilities
 					facilityPaddrs = service.getLinkService().getFacilityPostalAddressRepository().findByPostalAddress(postalAddress);
@@ -650,6 +815,10 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<PostalAddress_Class> classes = new HashSet<PostalAddress_Class>(paddrClass);
 				postalAddress.setClasses(classes);
 				
+				//equipments
+				Set<Equipment_PostalAddress> equipments = new HashSet<Equipment_PostalAddress>(equipmentPaddrs);
+				postalAddress.setEquipments_postalAddresses(equipments);
+				
 				//facilities
 				Set<Facility_PostalAddress> facils = new HashSet<Facility_PostalAddress>(facilityPaddrs);
 				postalAddress.setFacilities_postalAddresses(facils);
@@ -657,7 +826,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//services
 				Set<Service_PostalAddress> srvs = new HashSet<Service_PostalAddress>(servicePaddrs);
 				postalAddress.setServices_postalAddresses(srvs);
-				
+			
 				
 				CerifPostalAddressRecord postalAddressRecord = new CerifPostalAddressRecord(postalAddress);
 				rs.addRecord(postalAddressRecord);	
@@ -691,6 +860,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<FundingDescription> descrs = new HashSet<FundingDescription>(fundDescr);
 				funding.setDescriptions(descrs);
 				
+				List<Equipment_Funding> equipmentFunds = new ArrayList<Equipment_Funding>();
 				List<Facility_Funding> facilityFunds = new ArrayList<Facility_Funding>();
 				List<Funding_Class> fundingClas = new ArrayList<Funding_Class>();
 				List<OrganisationUnit_Funding> orgFunds = new ArrayList<OrganisationUnit_Funding>();
@@ -700,6 +870,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<ResultPublication_Funding> respublFunds = new ArrayList<ResultPublication_Funding>();
 				List<Service_Funding> serviceFunds = new ArrayList<Service_Funding>();
 				if (links) {
+					//equipments
+					equipmentFunds = service.getLinkService().getEquipmentFundingRepository().findByFunding(funding);
+					
 					//facilities
 					facilityFunds = service.getLinkService().getFacilityFundingRepository().findByFunding(funding);
 					
@@ -724,6 +897,10 @@ public class CerifToXmlDataLoader extends DataLoader {
 					//services
 					serviceFunds = service.getLinkService().getServiceFundingRepository().findByFunding(funding);
 				}
+				//equipments
+				Set<Equipment_Funding> equipments = new HashSet<Equipment_Funding>(equipmentFunds);
+				funding.setEquipments_fundings(equipments);
+				
 				//facilities
 				Set<Facility_Funding> facils = new HashSet<Facility_Funding>(facilityFunds);
 				funding.setFacilities_fundings(facils);
@@ -786,6 +963,32 @@ public class CerifToXmlDataLoader extends DataLoader {
 			}
 		}
 		
+		/*
+		 * Class Scheme
+		 */
+		if (iterClassSchemes != null) {
+			c=0;
+			while (iterClassSchemes.hasNext()) {
+				ClassScheme classScheme = iterClassSchemes.next(); 
+				
+				//Description
+				List<ClassSchemeDescription> classSchemeDescriptions = service.getTranslationService().getClassSchemeDescriptionRepository().findByScheme(classScheme);
+				Set<ClassSchemeDescription> descriptions = new HashSet<ClassSchemeDescription>(classSchemeDescriptions);
+				classScheme.setDescriptions(descriptions);
+				
+				//Name
+				List<ClassSchemeName> classSchemeNames = service.getTranslationService().getClassSchemeNameRepository().findByScheme(classScheme);
+				Set<ClassSchemeName> names = new HashSet<ClassSchemeName>(classSchemeNames);
+				classScheme.setNames(names);
+				
+				
+				CerifClassSchemeRecord classSchemeRecord = new CerifClassSchemeRecord(classScheme);
+				rs.addRecord(classSchemeRecord);	
+				c++;
+				System.out.println("classScheme: "+classScheme.getId()+", ("+c+")");
+			}
+		}
+		
 		
 		/*
 		 * ResultPublication 
@@ -801,6 +1004,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<Project_ResultPublication> resPublProj = new ArrayList<Project_ResultPublication>();
 				List<ResultPublication_Funding> respublFunds = new ArrayList<ResultPublication_Funding>();
 				List<ResultPublication_Facility> respublFacils = new ArrayList<ResultPublication_Facility>();
+				List<ResultPublication_Equipment> respublEquipments = new ArrayList<ResultPublication_Equipment>();
 				List<ResultPublication_ResultProduct> respublResultProd = new ArrayList<ResultPublication_ResultProduct>();
 				List<ResultPublication_Service> serviceRespubls = new ArrayList<ResultPublication_Service>();
 				if (links) {
@@ -821,6 +1025,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 					
 					//facilities
 					respublFacils = service.getLinkService().getResultPublicationFacilityRepository().findByResultPublication(resultPublication);
+					
+					//Equipments
+					respublEquipments = service.getLinkService().getResultPublicationEquipmentRepository().findByResultPublication(resultPublication);
 					
 					//result products
 					respublResultProd = service.getLinkService().getResultPublicationResultProductRepository().findByResultPublication(resultPublication);
@@ -851,6 +1058,10 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//facilities
 				Set<ResultPublication_Facility> facils = new HashSet<ResultPublication_Facility>(respublFacils);
 				resultPublication.setResultPublications_facilities(facils);
+				
+				//Equipments
+				Set<ResultPublication_Equipment> equipments = new HashSet<ResultPublication_Equipment>(respublEquipments);
+				resultPublication.setResultPublications_equipments(equipments);
 				
 				//result products
 				Set<ResultPublication_ResultProduct> resultProds = new HashSet<ResultPublication_ResultProduct>(respublResultProd);
@@ -933,6 +1144,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<ResultPublication_ResultProduct> respublResultProd = new ArrayList<ResultPublication_ResultProduct>();
 				List<ResultProduct_Facility> resprodFacilities = new ArrayList<ResultProduct_Facility>();
 				List<ResultProduct_Service> serviceResultProd = new ArrayList<ResultProduct_Service>();
+				List<ResultProduct_Equipment> equipmentResultProd = new ArrayList<ResultProduct_Equipment>();
 				if (links) {
 					//OrganisationUnits
 					orgResprod = service.getLinkService().getOrganisationUnitResultProductRepository().findByResultProduct(resultProduct);
@@ -957,6 +1169,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 					
 					//services
 					serviceResultProd = service.getLinkService().getResultProductServiceRepository().findByResultProduct(resultProduct);
+					
+					//equipments
+					equipmentResultProd = service.getLinkService().getResultProductEquipmentRepository().findByResultProduct(resultProduct);
 				}
 				//OrganisationUnits
 				Set<OrganisationUnit_ResultProduct> resultProds = new HashSet<OrganisationUnit_ResultProduct>(orgResprod);
@@ -990,6 +1205,10 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<ResultProduct_Service> srvs = new HashSet<ResultProduct_Service>(serviceResultProd);
 				resultProduct.setResultProducts_services(srvs);
 				
+				//equipments
+				Set<ResultProduct_Equipment> equipments = new HashSet<ResultProduct_Equipment>(equipmentResultProd);
+				resultProduct.setResultProducts_equipments(equipments);
+				
 				
 				CerifResultProductRecord resultProductRecord = new CerifResultProductRecord(resultProduct);
 				rs.addRecord(resultProductRecord);
@@ -1022,6 +1241,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<Project_Facility> projFacilities = new ArrayList<Project_Facility>();
 				List<ResultPublication_Facility> respublFacilities = new ArrayList<ResultPublication_Facility>();
 				List<Facility_PostalAddress> facilityPaddrs = new ArrayList<Facility_PostalAddress>();
+				List<Facility_Equipment> equipmentFacilities = new ArrayList<Facility_Equipment>();
 				List<Facility_Service> serviceFacilities = new ArrayList<Facility_Service>();
 				List<ResultProduct_Facility> resprodFacilities = new ArrayList<ResultProduct_Facility>();
 				if (links) {
@@ -1045,6 +1265,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 					
 					//addresses
 					facilityPaddrs = service.getLinkService().getFacilityPostalAddressRepository().findByFacility(facility);
+					
+					//equipments
+					equipmentFacilities = service.getLinkService().getFacilityEquipmentRepository().findByFacility(facility);
 					
 					//services
 					serviceFacilities = service.getLinkService().getFacilityServiceRepository().findByFacility(facility);
@@ -1079,6 +1302,10 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//addresses
 				Set<Facility_PostalAddress> paddrs = new HashSet<Facility_PostalAddress>(facilityPaddrs);
 				facility.setPostalAddresses(paddrs);
+				
+				//equipments
+				Set<Facility_Equipment> equipments = new HashSet<Facility_Equipment>(equipmentFacilities);
+				facility.setFacilities_equipments(equipments);
 				
 				//services
 				Set<Facility_Service> srvs = new HashSet<Facility_Service>(serviceFacilities);
@@ -1118,6 +1345,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<Service_Funding> serviceFunds = new ArrayList<Service_Funding>();
 				List<Service_PostalAddress> servicePaddrs = new ArrayList<Service_PostalAddress>();
 				List<Facility_Service> serviceFacilities = new ArrayList<Facility_Service>();
+				List<Equipment_Service> equipmentServices = new ArrayList<Equipment_Service>();
 				List<ResultPublication_Service> serviceRespubls = new ArrayList<ResultPublication_Service>();
 				List<ResultProduct_Service> serviceResultProd = new ArrayList<ResultProduct_Service>();
 				List<Service_Class> serviceClass = new ArrayList<Service_Class>();
@@ -1137,6 +1365,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 					
 					//facilities
 					serviceFacilities = service.getLinkService().getFacilityServiceRepository().findByService(serviceInst);
+					
+					//equipments
+					equipmentServices = service.getLinkService().getEquipmentServiceRepository().findByService(serviceInst);
 					
 					//Result Publications
 					serviceRespubls = service.getLinkService().getResultPublicationServiceRepository().findByService(serviceInst);
@@ -1170,6 +1401,10 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<Facility_Service> facils = new HashSet<Facility_Service>(serviceFacilities);
 				serviceInst.setFacilities_services(facils);
 				
+				//equipments
+				Set<Equipment_Service> equipments = new HashSet<Equipment_Service>(equipmentServices);
+				serviceInst.setEquipment_services(equipments);
+				
 				//Result Publications
 				Set<ResultPublication_Service> resultPubls = new HashSet<ResultPublication_Service>(serviceRespubls);
 				serviceInst.setResultPublications_services(resultPubls);
@@ -1191,6 +1426,112 @@ public class CerifToXmlDataLoader extends DataLoader {
 				rs.addRecord(serviceRecord);
 				c++;
 				System.out.println("service: "+serviceInst.getId()+", ("+c+")");
+			}
+		}
+		
+		
+		/*
+		 * Equipment 
+		 */
+		if (iterEquipment != null) {
+			c=0;
+			while (iterEquipment.hasNext()) {
+				Equipment equipment = iterEquipment.next(); 
+				
+				//names
+				List<EquipmentName> equipmentNames = service.getTranslationService().getEquipmentNameRepository().findByEquipment(equipment);
+				for (EquipmentName name:equipmentNames) {
+					name.setName(name.getName().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+				}
+				Set<EquipmentName> names = new HashSet<EquipmentName>(equipmentNames);
+				equipment.setNames(names);
+				
+				List<Equipment_Funding> equipmentFunds = new ArrayList<Equipment_Funding>();
+				List<Equipment_Class> equipmentClass = new ArrayList<Equipment_Class>();
+				List<OrganisationUnit_Equipment> equipmentOrgs = new ArrayList<OrganisationUnit_Equipment>();
+				List<Person_Equipment> equipmentPers = new ArrayList<Person_Equipment>();
+				List<Project_Equipment> equipmentProj = new ArrayList<Project_Equipment>();
+				List<ResultPublication_Equipment> equipmentRespubls = new ArrayList<ResultPublication_Equipment>();
+				List<Equipment_PostalAddress> equipmentPaddrs = new ArrayList<Equipment_PostalAddress>();
+				List<Facility_Equipment> equipmentFacilities = new ArrayList<Facility_Equipment>();
+				List<Equipment_Service> equipmentServices = new ArrayList<Equipment_Service>();
+				List<ResultProduct_Equipment> equipmentResultProd = new ArrayList<ResultProduct_Equipment>();
+				if (links) {
+					//fundings
+					equipmentFunds = service.getLinkService().getEquipmentFundingRepository().findByEquipment(equipment);
+					
+					//classes
+					equipmentClass = service.getLinkService().getEquipmentClassRepository().findByEquipment(equipment);
+					
+					//OrganisationUnits
+					equipmentOrgs = service.getLinkService().getOrganisationUnitEquipmentRepository().findByEquipment(equipment);
+					
+					//persons
+					equipmentPers = service.getLinkService().getPersonEquipmentRepository().findByEquipment(equipment);
+					
+					//projects
+					equipmentProj = service.getLinkService().getProjectEquipmentRepository().findByEquipment(equipment);
+					
+					//Result Publications
+					equipmentRespubls = service.getLinkService().getResultPublicationEquipmentRepository().findByEquipment(equipment);
+					
+					//addresses
+					equipmentPaddrs = service.getLinkService().getEquipmentPostalAddressRepository().findByEquipment(equipment);
+					
+					//facilities
+					equipmentFacilities = service.getLinkService().getFacilityEquipmentRepository().findByEquipment(equipment);
+					
+					//services
+					equipmentServices = service.getLinkService().getEquipmentServiceRepository().findByEquipment(equipment);
+					
+					//result products
+					equipmentResultProd = service.getLinkService().getResultProductEquipmentRepository().findByEquipment(equipment);
+				}
+				//fundings
+				Set<Equipment_Funding> funds = new HashSet<Equipment_Funding>(equipmentFunds);
+				equipment.setEquipments_fundings(funds);
+				
+				//classes
+				Set<Equipment_Class> classes = new HashSet<Equipment_Class>(equipmentClass);
+				equipment.setClasses(classes);
+				
+				//OrganisationUnits
+				Set<OrganisationUnit_Equipment> orgs = new HashSet<OrganisationUnit_Equipment>(equipmentOrgs);
+				equipment.setOrganisationUnits_equipments(orgs);
+				
+				//persons
+				Set<Person_Equipment> pers = new HashSet<Person_Equipment>(equipmentPers);
+				equipment.setPersons_equipments(pers);
+				
+				//projects
+				Set<Project_Equipment> projs = new HashSet<Project_Equipment>(equipmentProj);
+				equipment.setProjects_equipments(projs);
+				
+				//Result Publications
+				Set<ResultPublication_Equipment> resultPubls = new HashSet<ResultPublication_Equipment>(equipmentRespubls);
+				equipment.setResultPublications_equipments(resultPubls);
+				
+				//addresses
+				Set<Equipment_PostalAddress> paddrs = new HashSet<Equipment_PostalAddress>(equipmentPaddrs);
+				equipment.setEquipments_postalAddresses(paddrs);
+				
+				//facilities
+				Set<Facility_Equipment> facils = new HashSet<Facility_Equipment>(equipmentFacilities);
+				equipment.setFacilities_equipments(facils);
+				
+				//services
+				Set<Equipment_Service> srvs = new HashSet<Equipment_Service>(equipmentServices);
+				equipment.setEquipments_services(srvs);
+				
+				//result products
+				Set<ResultProduct_Equipment> resultProds = new HashSet<ResultProduct_Equipment>(equipmentResultProd);
+				equipment.setResultProducts_equipments(resultProds);
+				
+				
+				CerifEquipmentRecord equipmentRecord = new CerifEquipmentRecord(equipment);
+				rs.addRecord(equipmentRecord);
+				c++;
+				System.out.println("service: "+equipment.getId()+", ("+c+")");
 			}
 		}
 		
