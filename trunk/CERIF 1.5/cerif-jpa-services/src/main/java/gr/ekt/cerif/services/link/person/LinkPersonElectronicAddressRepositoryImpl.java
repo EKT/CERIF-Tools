@@ -52,4 +52,10 @@ public class LinkPersonElectronicAddressRepositoryImpl implements
 		return linkPersonElectronicAddressCrudRepository.save(entity);
 	}
 
+	@Override
+	public List<Person_ElectronicAddress> findByElectronicAddress(
+			ElectronicAddress electronicAddress) {
+		return linkPersonElectronicAddressCrudRepository.findByElectronicAddress(electronicAddress);
+	}
+
 }

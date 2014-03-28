@@ -11,6 +11,8 @@ import gr.ekt.cerif.entities.second.ElectronicAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -54,6 +56,16 @@ public class ElectronicAddressRepositoryImpl implements ElectronicAddressReposit
 	public List<ElectronicAddress> findByOrganisationUnit(
 			OrganisationUnit organisationUnit) {
 		return electronicAddressCrudRepository.findByOrganisationUnit(organisationUnit);
+	}
+
+	@Override
+	public Iterable<ElectronicAddress> findAll() {
+		return electronicAddressCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<ElectronicAddress> findAll(Pageable page) {
+		return electronicAddressCrudRepository.findAll(page);
 	}
 
 }

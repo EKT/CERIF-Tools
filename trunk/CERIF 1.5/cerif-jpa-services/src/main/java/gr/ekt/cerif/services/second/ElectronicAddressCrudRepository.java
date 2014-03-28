@@ -10,6 +10,8 @@ import gr.ekt.cerif.entities.second.ElectronicAddress;
 
 import javax.persistence.QueryHint;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
@@ -22,6 +24,12 @@ public interface ElectronicAddressCrudRepository extends CrudRepository<Electron
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	ElectronicAddress findByUri(String uri);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Iterable<ElectronicAddress> findAll();
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Page<ElectronicAddress> findAll(Pageable page);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select ea from ElectronicAddress ea " +

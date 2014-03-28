@@ -25,6 +25,9 @@ public interface LinkPersonElectronicAddressCrudRepository extends CrudRepositor
 	List <Person_ElectronicAddress> findByPerson(Person person);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<Person_ElectronicAddress> findByElectronicAddress(ElectronicAddress electronicAddress);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List <Person_ElectronicAddress> findByPersonAndElectronicAddress(Person person, ElectronicAddress electronicAddress);
 	
 }

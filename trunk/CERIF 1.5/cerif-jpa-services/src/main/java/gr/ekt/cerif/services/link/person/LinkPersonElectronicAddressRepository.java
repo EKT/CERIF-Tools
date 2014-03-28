@@ -10,6 +10,8 @@ public interface LinkPersonElectronicAddressRepository {
 	
 	List <Person_ElectronicAddress> findByPerson(Person person);
 	
+	List<Person_ElectronicAddress> findByElectronicAddress(ElectronicAddress electronicAddress);
+	
 	List <Person_ElectronicAddress> findByPersonAndElectronicAddress(Person person, ElectronicAddress electronicAddress);
 
 	public void delete(Person_ElectronicAddress entity); 

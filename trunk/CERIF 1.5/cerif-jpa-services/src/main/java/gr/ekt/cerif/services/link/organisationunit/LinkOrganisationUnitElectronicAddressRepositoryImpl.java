@@ -2,6 +2,7 @@ package gr.ekt.cerif.services.link.organisationunit;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
+import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.services.base.OrganisationUnitRepository;
 import gr.ekt.cerif.services.second.ElectronicAddressRepository;
 
@@ -25,15 +26,6 @@ public class LinkOrganisationUnitElectronicAddressRepositoryImpl implements Link
 	
 	@Transactional
 	public OrganisationUnit_ElectronicAddress save(OrganisationUnit_ElectronicAddress entity) {
-		if (entity.getOrganisationUnit() == null || entity.getElectronicAddress() == null) {
-			throw new IllegalArgumentException("Please provide both an organisation and an electronic address.");
-		}
-		if (entity.getOrganisationUnit().getId() == null) {
-			organisationRepository.save(entity.getOrganisationUnit());
-		}
-		if (entity.getElectronicAddress().getId() == null) {
-			EAddrRepository.save(entity.getElectronicAddress());
-		}
 		return linkOrganisationUnitElectronicAddressCrudRepository.save(entity);
 	}
 	
@@ -54,6 +46,12 @@ public class LinkOrganisationUnitElectronicAddressRepositoryImpl implements Link
 	@Transactional
 	public void delete(Iterable<OrganisationUnit_ElectronicAddress> entityList) {
 		linkOrganisationUnitElectronicAddressCrudRepository.delete(entityList);
+	}
+
+	@Override
+	public List<OrganisationUnit_ElectronicAddress> findByElectronicAddress(
+			ElectronicAddress electronicAddress) {
+		return linkOrganisationUnitElectronicAddressCrudRepository.findByElectronicAddress(electronicAddress);
 	}
 
 }

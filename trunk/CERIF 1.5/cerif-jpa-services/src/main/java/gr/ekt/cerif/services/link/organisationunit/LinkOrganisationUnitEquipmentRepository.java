@@ -1,5 +1,9 @@
 package gr.ekt.cerif.services.link.organisationunit;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Equipment;
 
 /**
@@ -15,5 +19,9 @@ public interface LinkOrganisationUnitEquipmentRepository {
 	public Iterable<OrganisationUnit_Equipment> save(Iterable<OrganisationUnit_Equipment> entities); 
 	
 	public OrganisationUnit_Equipment save(OrganisationUnit_Equipment entity);
+	
+	List<OrganisationUnit_Equipment> findByOrganisationUnit(OrganisationUnit organisationUnit);
+	
+	List<OrganisationUnit_Equipment> findByEquipment(Equipment equipment);
 
 }

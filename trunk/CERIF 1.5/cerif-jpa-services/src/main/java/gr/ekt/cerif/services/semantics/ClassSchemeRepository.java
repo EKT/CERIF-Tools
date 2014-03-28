@@ -3,12 +3,21 @@
  */
 package gr.ekt.cerif.services.semantics;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.features.semantics.ClassScheme;
 
 
 public interface ClassSchemeRepository {
 	
 	ClassScheme findByUri(String uri);
+	
+	List<ClassScheme> findAll();
+
+	Page<ClassScheme> findAll(Pageable page);
 	
 	public ClassScheme save(ClassScheme entity);
 
