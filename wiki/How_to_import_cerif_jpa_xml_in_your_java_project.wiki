@@ -5,7 +5,7 @@
 
 If you intend to use the package in more than one projects it is highly recommended to rename the _artifactId_ inside the project’s pom.xml file.
 
-Because the _cerif-jpa-xml_ package depends on a _cerif-jpa-service_ package and because most likely you will use a specific services package in your project you will have to edit cerif-jpa-xml’s pom.xml file so as it contains a dependency for that specific services package. Note that you need to have the latest version of the services package (revision r64).
+Because the _cerif-jpa-xml_ package depends on a _cerif-jpa-service_ package and because most likely you will use a specific services package in your project you will have to edit cerif-jpa-xml’s pom.xml file so as it contains a dependency for that specific services package. Note that you need to have the latest version of the services package (revision r68) and the latest version of the model package (revision r67).
 
 {{{
 <dependency>
