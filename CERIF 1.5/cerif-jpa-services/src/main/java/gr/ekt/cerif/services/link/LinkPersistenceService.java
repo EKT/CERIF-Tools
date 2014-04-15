@@ -6,7 +6,9 @@ package gr.ekt.cerif.services.link;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
 import gr.ekt.cerif.entities.link.Citation_Class;
 import gr.ekt.cerif.entities.link.Citation_Medium;
+import gr.ekt.cerif.entities.link.ClassScheme_Class;
 import gr.ekt.cerif.entities.link.ClassScheme_ClassScheme;
+import gr.ekt.cerif.entities.link.ClassScheme_OrganisationUnit;
 import gr.ekt.cerif.entities.link.Class_Class;
 import gr.ekt.cerif.entities.link.Country_Class;
 import gr.ekt.cerif.entities.link.Currency_Class;
@@ -165,7 +167,9 @@ import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPublication;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Service;
 import gr.ekt.cerif.services.link.citation.LinkCitationClassRepository;
 import gr.ekt.cerif.services.link.citation.LinkCitationMediumRepository;
+import gr.ekt.cerif.services.link.classscheme.LinkClassSchemeClassRepository;
 import gr.ekt.cerif.services.link.classscheme.LinkClassSchemeClassSchemeRepository;
+import gr.ekt.cerif.services.link.classscheme.LinkClassSchemeOrganisationUnitRepository;
 import gr.ekt.cerif.services.link.country.LinkCountryClassRepository;
 import gr.ekt.cerif.services.link.currency.LinkCurrencyClassRepository;
 import gr.ekt.cerif.services.link.cv.LinkCvClassRepository;
@@ -347,6 +351,12 @@ public class LinkPersistenceService {
 
 	@Autowired
 	private LinkClassSchemeClassSchemeRepository classSchemeClassSchemeRepository;
+	
+	@Autowired
+	private LinkClassSchemeClassRepository classSchemeClassRepository;
+	
+	@Autowired
+	private LinkClassSchemeOrganisationUnitRepository classSchemeOrganisationUnitRepository;
 
 	@Autowired
 	private LinkCountryClassRepository countryClassRepository;
@@ -829,6 +839,10 @@ public class LinkPersistenceService {
 		    classClassRepository.delete((Class_Class) entity);
 		} else if (entity instanceof ClassScheme_ClassScheme) {
 		    classSchemeClassSchemeRepository.delete((ClassScheme_ClassScheme) entity);
+		} else if (entity instanceof ClassScheme_Class) {
+		    classSchemeClassRepository.delete((ClassScheme_Class) entity);
+		} else if (entity instanceof ClassScheme_OrganisationUnit) {
+		    classSchemeOrganisationUnitRepository.delete((ClassScheme_OrganisationUnit) entity);
 		} else if (entity instanceof Country_Class) {
 		    countryClassRepository.delete((Country_Class) entity);
 		} else if (entity instanceof Currency_Class) {
@@ -1158,6 +1172,10 @@ public class LinkPersistenceService {
 		    entity = classClassRepository.save((Class_Class) entity);
 		} else if (entity instanceof ClassScheme_ClassScheme) {
 		    entity = classSchemeClassSchemeRepository.save((ClassScheme_ClassScheme) entity);
+		} else if (entity instanceof ClassScheme_OrganisationUnit) {
+		    entity = classSchemeOrganisationUnitRepository.save((ClassScheme_OrganisationUnit) entity);
+		} else if (entity instanceof ClassScheme_Class) {
+		    entity = classSchemeClassRepository.save((ClassScheme_Class) entity);
 		} else if (entity instanceof Country_Class) {
 		    entity = countryClassRepository.save((Country_Class) entity);
 		} else if (entity instanceof Currency_Class) {
@@ -1494,6 +1512,10 @@ public class LinkPersistenceService {
 		    classClassRepository.delete((List<Class_Class>) entityList);
 		} else if (entity instanceof ClassScheme_ClassScheme) {
 		    classSchemeClassSchemeRepository.delete((List<ClassScheme_ClassScheme>) entityList);
+		} else if (entity instanceof ClassScheme_Class) {
+		    classSchemeClassRepository.delete((List<ClassScheme_Class>) entityList);
+		} else if (entity instanceof ClassScheme_OrganisationUnit) {
+		    classSchemeOrganisationUnitRepository.delete((List<ClassScheme_OrganisationUnit>) entityList);
 		} else if (entity instanceof Country_Class) {
 		    countryClassRepository.delete((List<Country_Class>) entityList);
 		} else if (entity instanceof Currency_Class) {
@@ -1828,6 +1850,10 @@ public class LinkPersistenceService {
 		    entityList = classClassRepository.save((List<Class_Class>) entityList);
 		} else if (entity instanceof ClassScheme_ClassScheme) {
 		    entityList = classSchemeClassSchemeRepository.save((List<ClassScheme_ClassScheme>) entityList);
+		} else if (entity instanceof ClassScheme_Class) {
+		    entityList = classSchemeClassRepository.save((List<ClassScheme_Class>) entityList);
+		} else if (entity instanceof ClassScheme_OrganisationUnit) {
+		    entityList = classSchemeOrganisationUnitRepository.save((List<ClassScheme_OrganisationUnit>) entityList);
 		} else if (entity instanceof Country_Class) {
 		    entityList = countryClassRepository.save((List<Country_Class>) entityList);
 		} else if (entity instanceof Currency_Class) {
@@ -2171,6 +2197,20 @@ public class LinkPersistenceService {
 	 */
 	public LinkClassSchemeClassSchemeRepository getClassSchemeClassSchemeRepository() {
 		return classSchemeClassSchemeRepository;
+	}
+
+	/**
+	 * @return the classSchemeClassRepository
+	 */
+	public LinkClassSchemeClassRepository getClassSchemeClassRepository() {
+		return classSchemeClassRepository;
+	}
+
+	/**
+	 * @return the classSchemeOrganisationUnitRepository
+	 */
+	public LinkClassSchemeOrganisationUnitRepository getClassSchemeOrganisationUnitRepository() {
+		return classSchemeOrganisationUnitRepository;
 	}
 
 	/**
