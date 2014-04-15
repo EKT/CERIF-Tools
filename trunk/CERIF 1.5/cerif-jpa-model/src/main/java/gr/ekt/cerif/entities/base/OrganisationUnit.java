@@ -4,6 +4,7 @@
 package gr.ekt.cerif.entities.base;
 
 
+import gr.ekt.cerif.entities.link.ClassScheme_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Equipment;
@@ -18,11 +19,13 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Service;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.second.Currency;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitKeyword;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitName;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitResearchActivity;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -36,6 +39,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -100,70 +104,48 @@ public class OrganisationUnit implements CerifBaseEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
-	/**
-	 * The products.
-	 */
-	@OneToMany(mappedBy="organisationUnit")
-	private Set<OrganisationUnit_ResultProduct> resultProducts;
 	
 	/**
-	 * The resultPublications.
-	 */
-	@OneToMany(mappedBy="organisationUnit")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<OrganisationUnit_ResultPublication> resultPublications;
-
-	/**
-	 * The projects.
-	 */
-	@OneToMany(mappedBy="organisationUnit")
-	private Set<Project_OrganisationUnit> projects;
-	
-	/**
-	 * The postal addresses.
-	 */
-	@OneToMany(mappedBy="organisationUnit")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<OrganisationUnit_PostalAddress> postalAddresses;
-	
-	/**
-	 * The electronic addresses.
-	 */
-	@OneToMany(mappedBy="organisationUnit")
-	private Set<OrganisationUnit_ElectronicAddress> electronicAddresses;	
-	
-	/**
-	 * The OrganisationUnits.
-	 */
-	@OneToMany(mappedBy="organisationUnit1")
-	private Set<OrganisationUnit_OrganisationUnit> organisationUnits1;
-	
-	/**
-	 * The OrganisationUnits.
-	 */
-	@OneToMany(mappedBy="organisationUnit2")
-	private Set<OrganisationUnit_OrganisationUnit> organisationUnits2;	
-	
-	/**
-	 * The organisation unit names.
+	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="organisationUnit")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnitName> organisationUnitNames;
 	
-	/**
-	 * The organisation unit research activities.
-	 */
 	@OneToMany(mappedBy="organisationUnit")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnitResearchActivity> organisationUnitResearchActivities;
 	
-	/**
-	 * The organisation unit keywords.
-	 */
 	@OneToMany(mappedBy="organisationUnit")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnitKeyword> organisationUnitKeywords;
+	
+	
+	/**
+	 * Links.
+	 */
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_ResultProduct> resultProducts;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private Set<OrganisationUnit_ResultPublication> resultPublications;
+
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<Project_OrganisationUnit> projects;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private Set<OrganisationUnit_PostalAddress> postalAddresses;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_ElectronicAddress> electronicAddresses;	
+	
+	@OneToMany(mappedBy="organisationUnit1")
+	private Set<OrganisationUnit_OrganisationUnit> organisationUnits1;
+	
+	@OneToMany(mappedBy="organisationUnit2")
+	private Set<OrganisationUnit_OrganisationUnit> organisationUnits2;	
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<Person_OrganisationUnit> persons_organisationUnits;
@@ -185,6 +167,18 @@ public class OrganisationUnit implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnit_Medium> organisationUnits_medium;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<ClassScheme_OrganisationUnit> classScheme_organisationUnits;
+
+	
+	/**
+	 * FederatedIdentifier entities related to OrganisationUnit instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 	
 	/**
 	 * Default Constructor
@@ -656,6 +650,36 @@ public class OrganisationUnit implements CerifBaseEntity {
 	public void setOrganisationUnits_medium(
 			Set<OrganisationUnit_Medium> organisationUnits_medium) {
 		this.organisationUnits_medium = organisationUnits_medium;
+	}
+
+	/**
+	 * @return the classScheme_organisationUnits
+	 */
+	public Set<ClassScheme_OrganisationUnit> getClassScheme_organisationUnits() {
+		return classScheme_organisationUnits;
+	}
+
+	/**
+	 * @param classScheme_organisationUnits the classScheme_organisationUnits to set
+	 */
+	public void setClassScheme_organisationUnits(
+			Set<ClassScheme_OrganisationUnit> classScheme_organisationUnits) {
+		this.classScheme_organisationUnits = classScheme_organisationUnits;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
 	}
 
 	/* (non-Javadoc)

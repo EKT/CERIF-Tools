@@ -4,6 +4,7 @@
 package gr.ekt.cerif.features.semantics;
 
 import gr.ekt.cerif.entities.link.Citation_Class;
+import gr.ekt.cerif.entities.link.ClassScheme_Class;
 import gr.ekt.cerif.entities.link.Class_Class;
 import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.Equipment_Class;
@@ -57,6 +58,7 @@ import gr.ekt.cerif.features.multilingual.ClassEx;
 import gr.ekt.cerif.features.multilingual.ClassTerm;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -69,6 +71,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -122,6 +125,10 @@ public class Class implements CerifSemanticFeature {
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ClassScheme scheme;
 
+	
+	/**
+	 * Links.
+	 */
 	@OneToMany(mappedBy="theClass")
 	private Set<Project_OrganisationUnit> project_organisationUnits;
 	
@@ -179,7 +186,6 @@ public class Class implements CerifSemanticFeature {
 	@OneToMany(mappedBy="theClass")
 	private Set<ResultPatent_Class> resultPatents_classes;
 	
-	//Define relations with organisationUnit link enntities
 	@OneToMany(mappedBy="theClass")
 	private Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses;
 	
@@ -200,18 +206,6 @@ public class Class implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<ResultPublication_Class> resultPublications_classes;
-	
-	@OneToMany(mappedBy="theClass")
-	private Set<ClassDescription> descriptions;
-	
-	@OneToMany(mappedBy="theClass")
-	private Set<ClassTerm> terms;
-	
-	@OneToMany(mappedBy="theClass")
-	private Set<ClassEx> exs;
-	
-	@OneToMany(mappedBy="theClass")
-	private Set<ClassDefinition> definitions;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<ElectronicAddress_Class> electronicAddresses;
@@ -277,10 +271,40 @@ public class Class implements CerifSemanticFeature {
 	private Set<Service_Class> services_Classes;
 	
 	@OneToMany(mappedBy="theClass1")
-	private Set<Class_Class> theClass_theClass1;
+	private Set<Class_Class> class_class1;
 	
-	@OneToMany(mappedBy="theClass1")
-	private Set<Class_Class> theClass_theClass2;
+	@OneToMany(mappedBy="theClass2")
+	private Set<Class_Class> class_class2;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<ClassScheme_Class> classScheme_classes;
+	
+	@OneToMany(mappedBy="relatedClass")
+	private Set<ClassScheme_Class> relatedClassScheme_classes;
+	
+	
+	/**
+	 * Multilingual.
+	 */
+	@OneToMany(mappedBy="theClass")
+	private Set<ClassDescription> descriptions;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<ClassTerm> terms;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<ClassEx> exs;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<ClassDefinition> definitions;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to Person instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;	
+	
 	
 	/**
 	 * Default Constructor
@@ -504,17 +528,6 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setOrgUnit_resultProducts(Set<Person_ResultProduct> orgUnit_resultProducts) {
 		this.orgUnit_resultProducts = orgUnit_resultProducts;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
-		return result;
 	}
 
 	/**
@@ -868,8 +881,6 @@ public class Class implements CerifSemanticFeature {
 		this.facilities = facilities;
 	}
 	
-	
-
 	/**
 	 * @return the facilities_equipments
 	 */
@@ -1015,8 +1026,6 @@ public class Class implements CerifSemanticFeature {
 		this.fundings = fundings;
 	}
 	
-	
-
 	/**
 	 * @return the equipments
 	 */
@@ -1072,31 +1081,6 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setFundings_fundings(Set<Funding_Funding> fundings_fundings) {
 		this.fundings_fundings = fundings_fundings;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof Class)) {
-			return false;
-		}
-		Class other = (Class) obj;
-		if (uri == null) {
-			if (other.uri != null) {
-				return false;
-			}
-		} else if (!uri.equals(other.uri)) {
-			return false;
-		}
-		return true;
 	}
 
 	/**
@@ -1196,33 +1180,85 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the theClass1
+	 * @return the federatedIdentifiers
 	 */
-	public Set<Class_Class> getTheClass1() {
-		return theClass_theClass1;
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
 	}
 
 	/**
-	 * @param theClass1 the theClass1 to set
+	 * @param federatedIdentifiers the federatedIdentifiers to set
 	 */
-	public void setTheClass1(Set<Class_Class> theClass1) {
-		this.theClass_theClass1 = theClass1;
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
 	}
 
 	/**
-	 * @return the theClass2
+	 * @return the classScheme_classes
 	 */
-	public Set<Class_Class> getTheClass2() {
-		return theClass_theClass2;
+	public Set<ClassScheme_Class> getClassScheme_classes() {
+		return classScheme_classes;
 	}
 
 	/**
-	 * @param theClass2 the theClass2 to set
+	 * @param classScheme_classes the classScheme_classes to set
 	 */
-	public void setTheClass2(Set<Class_Class> theClass2) {
-		this.theClass_theClass2 = theClass2;
+	public void setClassScheme_classes(Set<ClassScheme_Class> classScheme_classes) {
+		this.classScheme_classes = classScheme_classes;
 	}
 
+	/**
+	 * @return the relatedClassScheme_classes
+	 */
+	public Set<ClassScheme_Class> getRelatedClassScheme_classes() {
+		return relatedClassScheme_classes;
+	}
+
+	/**
+	 * @param relatedClassScheme_classes the relatedClassScheme_classes to set
+	 */
+	public void setRelatedClassScheme_classes(
+			Set<ClassScheme_Class> relatedClassScheme_classes) {
+		this.relatedClassScheme_classes = relatedClassScheme_classes;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
+		return result;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Class)) {
+			return false;
+		}
+		Class other = (Class) obj;
+		if (uri == null) {
+			if (other.uri != null) {
+				return false;
+			}
+		} else if (!uri.equals(other.uri)) {
+			return false;
+		}
+		return true;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

@@ -36,7 +36,7 @@ public class ClassScheme_OrganisationUnit implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassSchemeId")
-	private ClassScheme classScheme;
+	private ClassScheme scheme;
 	
 	/**
 	 * The organisation unit.
@@ -85,7 +85,7 @@ public class ClassScheme_OrganisationUnit implements CerifLinkEntity {
 			OrganisationUnit organisationUnit, Class theClass, Date startDate,
 			Date endDate) {
 		super();
-		this.classScheme = classScheme;
+		this.scheme = classScheme;
 		this.organisationUnit = organisationUnit;
 		this.theClass = theClass;
 		this.startDate = startDate;
@@ -110,14 +110,14 @@ public class ClassScheme_OrganisationUnit implements CerifLinkEntity {
 	 * @return the classScheme
 	 */
 	public ClassScheme getClassScheme() {
-		return classScheme;
+		return scheme;
 	}
 
 	/**
 	 * @param classScheme the classScheme to set
 	 */
 	public void setClassScheme(ClassScheme classScheme) {
-		this.classScheme = classScheme;
+		this.scheme = classScheme;
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class ClassScheme_OrganisationUnit implements CerifLinkEntity {
 	 */
 	@Override
 	public String toString() {
-		return "ClassScheme_OrgUnit [classScheme=" + classScheme
+		return "ClassScheme_OrgUnit [classScheme=" + scheme
 				+ ", organisationUnit=" + organisationUnit + ", theClass="
 				+ theClass + ", startDate=" + startDate + ", endDate="
 				+ endDate + "]";
