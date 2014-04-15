@@ -4,7 +4,8 @@
 package gr.ekt.cerif.features.semantics;
 
 
-import gr.ekt.cerif.entities.link.FederatedIdentifier_Class;
+import gr.ekt.cerif.entities.link.ClassScheme_Class;
+import gr.ekt.cerif.entities.link.ClassScheme_OrganisationUnit;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.ClassSchemeDescription;
 import gr.ekt.cerif.features.multilingual.ClassSchemeName;
@@ -51,14 +52,11 @@ public class ClassScheme implements CerifSemanticFeature {
 	 */
 	@Column (name = "cfURI")
 	private String uri;
-
-	/**
-	 * The classification classes.
-	 */
-	@OneToMany (mappedBy = "scheme")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<Class> classes;
 	
+	
+	/**
+	 * Multilingual.
+	 */
 	@OneToMany(mappedBy="scheme")
 	private Set<ClassSchemeDescription> descriptions;
 	
@@ -66,8 +64,22 @@ public class ClassScheme implements CerifSemanticFeature {
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ClassSchemeName> names;
 	
+
+	/**
+	 * Links.
+	 */
+	@OneToMany (mappedBy = "scheme")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private Set<Class> classes;
+	
 	@OneToMany(mappedBy="scheme")
 	private Set<FederatedIdentifier> federeratedIdentifier;
+	
+	@OneToMany(mappedBy="scheme")
+	private Set<ClassScheme_OrganisationUnit> classScheme_organisationUnits;
+	
+	@OneToMany(mappedBy="relatedClassScheme")
+	private Set<ClassScheme_Class> classScheme_classes;
 
 	/**
 	 * Default Constructor
@@ -198,6 +210,35 @@ public class ClassScheme implements CerifSemanticFeature {
 	public void setFedereratedIdentifier(
 			Set<FederatedIdentifier> federeratedIdentifier) {
 		this.federeratedIdentifier = federeratedIdentifier;
+	}
+
+	/**
+	 * @return the classScheme_organisationUnits
+	 */
+	public Set<ClassScheme_OrganisationUnit> getClassScheme_organisationUnits() {
+		return classScheme_organisationUnits;
+	}
+
+	/**
+	 * @param classScheme_organisationUnits the classScheme_organisationUnits to set
+	 */
+	public void setClassScheme_organisationUnits(
+			Set<ClassScheme_OrganisationUnit> classScheme_organisationUnits) {
+		this.classScheme_organisationUnits = classScheme_organisationUnits;
+	}
+
+	/**
+	 * @return the classScheme_classes
+	 */
+	public Set<ClassScheme_Class> getClassScheme_classes() {
+		return classScheme_classes;
+	}
+
+	/**
+	 * @param classScheme_classes the classScheme_classes to set
+	 */
+	public void setClassScheme_classes(Set<ClassScheme_Class> classScheme_classes) {
+		this.classScheme_classes = classScheme_classes;
 	}
 
 	/* (non-Javadoc)
