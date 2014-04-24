@@ -13,6 +13,7 @@ import gr.ekt.cerif.entities.link.person.Person_Event;
 import gr.ekt.cerif.entities.link.person.Person_ExpertiseAndSkills;
 import gr.ekt.cerif.entities.link.person.Person_Facility;
 import gr.ekt.cerif.entities.link.person.Person_Funding;
+import gr.ekt.cerif.entities.link.person.Person_Indicator;
 import gr.ekt.cerif.entities.link.person.Person_Language;
 import gr.ekt.cerif.entities.link.person.Person_Medium;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
@@ -25,12 +26,14 @@ import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.person.Person_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_Service;
 import gr.ekt.cerif.entities.link.project.Project_Person;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.enumerations.Gender;
 import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.multilingual.PersonKeyword;
 import gr.ekt.cerif.features.multilingual.PersonResearchInterest;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -43,6 +46,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -94,27 +98,32 @@ public class Person implements CerifBaseEntity {
 	private String uri;
 	
 	/**
-	 * The person research interests.
+	 * The UUID.
 	 */
-	@OneToMany(mappedBy="person")
-	private Set<PersonResearchInterest> personResearchInterests;
+	@Column(name="cfUUID")
+	private String uuid;
+	
 	
 	/**
-	 * The person keywords.
+	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="person")
 	private Set<PersonKeyword> personKeywords;
 	
 	@OneToMany(mappedBy="person")
-	private Set<Person_Class> classes;
+	private Set<PersonResearchInterest> personResearchInterests;
 	
 	@OneToMany(mappedBy="person")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<PersonName> personNames;
 	
+	
 	/**
-	 * The projects.
+	 * Links.
 	 */
+	@OneToMany(mappedBy="person")
+	private Set<Person_Class> classes;
+	
 	@OneToMany(mappedBy="person")
 	private Set<Project_Person> projects;
 	
@@ -184,6 +193,18 @@ public class Person implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="person")
 	private Set<Person_Medium> persons_medium;
+	
+	@OneToMany(mappedBy="person")
+	private Set<Person_Indicator> persons_indicators;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to Person instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 	
 	/**
 	 * Default Constructor
@@ -278,6 +299,18 @@ public class Person implements CerifBaseEntity {
 		this.uri = uri;
 	}	
 	
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	/**
 	 * Returns the person research interests.
 	 * @return the person research interests.
@@ -647,6 +680,31 @@ public class Person implements CerifBaseEntity {
 		this.persons_medium = persons_medium;
 	}
 	
+	/**
+	 * @return the persons_indicators
+	 */
+	public Set<Person_Indicator> getPersons_indicators() {
+		return persons_indicators;
+	}
+	/**
+	 * @param persons_indicators the persons_indicators to set
+	 */
+	public void setPersons_indicators(Set<Person_Indicator> persons_indicators) {
+		this.persons_indicators = persons_indicators;
+	}
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -677,15 +735,14 @@ public class Person implements CerifBaseEntity {
 			return false;
 		return true;
 	}
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Person [id=" + id + ", birthDate=" + birthDate + ", gender="
-				+ gender + ", uri=" + uri + "]";
+				+ gender + ", uri=" + uri + ", uuid=" + uuid + "]";
 	}
-		
 	
+
 }

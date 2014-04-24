@@ -8,11 +8,14 @@ import gr.ekt.cerif.entities.link.ClassScheme_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Equipment;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ExpertiseAndSkills;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Indicator;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Medium;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Prize;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Service;
@@ -104,6 +107,12 @@ public class OrganisationUnit implements CerifBaseEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
 	
 	/**
 	 * Multilingual.
@@ -170,6 +179,15 @@ public class OrganisationUnit implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<ClassScheme_OrganisationUnit> classScheme_organisationUnits;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_ExpertiseAndSkills> organisationUnits_expertiseAndSkills;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_Indicator> organisationUnits_indicators;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_Prize> organisationUnits_prizes;
 
 	
 	/**
@@ -314,6 +332,20 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/**
@@ -668,6 +700,51 @@ public class OrganisationUnit implements CerifBaseEntity {
 	}
 
 	/**
+	 * @return the organisationUnits_expertiseAndSkills
+	 */
+	public Set<OrganisationUnit_ExpertiseAndSkills> getOrganisationUnits_expertiseAndSkills() {
+		return organisationUnits_expertiseAndSkills;
+	}
+
+	/**
+	 * @param organisationUnits_expertiseAndSkills the organisationUnits_expertiseAndSkills to set
+	 */
+	public void setOrganisationUnits_expertiseAndSkills(
+			Set<OrganisationUnit_ExpertiseAndSkills> organisationUnits_expertiseAndSkills) {
+		this.organisationUnits_expertiseAndSkills = organisationUnits_expertiseAndSkills;
+	}
+
+	/**
+	 * @return the organisationUnits_indicators
+	 */
+	public Set<OrganisationUnit_Indicator> getOrganisationUnits_indicators() {
+		return organisationUnits_indicators;
+	}
+
+	/**
+	 * @param organisationUnits_indicators the organisationUnits_indicators to set
+	 */
+	public void setOrganisationUnits_indicators(
+			Set<OrganisationUnit_Indicator> organisationUnits_indicators) {
+		this.organisationUnits_indicators = organisationUnits_indicators;
+	}
+
+	/**
+	 * @return the organisationUnits_prizes
+	 */
+	public Set<OrganisationUnit_Prize> getOrganisationUnits_prizes() {
+		return organisationUnits_prizes;
+	}
+
+	/**
+	 * @param organisationUnits_prizes the organisationUnits_prizes to set
+	 */
+	public void setOrganisationUnits_prizes(
+			Set<OrganisationUnit_Prize> organisationUnits_prizes) {
+		this.organisationUnits_prizes = organisationUnits_prizes;
+	}
+
+	/**
 	 * @return the federatedIdentifiers
 	 */
 	public List<FederatedIdentifier> getFederatedIdentifiers() {
@@ -767,9 +844,9 @@ public class OrganisationUnit implements CerifBaseEntity {
 	public String toString() {
 		return "OrganisationUnit [id=" + id + ", currency=" + currency
 				+ ", acronym=" + acronym + ", headCount=" + headCount
-				+ ", turn=" + turn + ", uri=" + uri + "]";
+				+ ", turn=" + turn + ", uri=" + uri + ", uuid=" + uuid + "]";
 	}
 
-	
+
 	
 }

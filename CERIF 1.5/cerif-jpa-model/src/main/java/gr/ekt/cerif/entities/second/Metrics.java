@@ -3,11 +3,13 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Metrics_Class;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Metrics;
 import gr.ekt.cerif.features.multilingual.MetricsDescription;
 import gr.ekt.cerif.features.multilingual.MetricsKeyword;
 import gr.ekt.cerif.features.multilingual.MetricsName;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Represents a metrics second level entity.
@@ -45,6 +48,16 @@ public class Metrics implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Multilingual.
+	 */
 	@OneToMany(mappedBy="metrics")
 	private Set<MetricsName> names;
 	
@@ -54,8 +67,24 @@ public class Metrics implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="metrics")
 	private Set<MetricsDescription> descriptions;
 	
+	
+	/**
+	 * Links.
+	 */
 	@OneToMany(mappedBy="metrics")
 	private Set<ResultPublication_Metrics> resultPublications_metrics;
+	
+	@OneToMany(mappedBy="metrics")
+	private Set<Metrics_Class> classes;
+
+	
+	/**
+	 * FederatedIdentifier entities related to Metrics instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 
 	/**
 	 * Default Constructor
@@ -101,6 +130,20 @@ public class Metrics implements CerifSecondLevelEntity {
 		this.uri = uri;
 	}
 
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public Set<MetricsName> getNames() {
 		return names;
 	}
@@ -138,6 +181,35 @@ public class Metrics implements CerifSecondLevelEntity {
 	public void setResultPublications_metrics(
 			Set<ResultPublication_Metrics> resultPublications_metrics) {
 		this.resultPublications_metrics = resultPublications_metrics;
+	}
+
+	/**
+	 * @return the classes
+	 */
+	public Set<Metrics_Class> getClasses() {
+		return classes;
+	}
+
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<Metrics_Class> classes) {
+		this.classes = classes;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
 	}
 
 	/* (non-Javadoc)

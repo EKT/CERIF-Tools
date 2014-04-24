@@ -7,6 +7,7 @@ import gr.ekt.cerif.entities.link.person.Person_Country;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Country;
 import gr.ekt.cerif.features.multilingual.CountryName;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -15,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -46,33 +48,47 @@ public class Country implements CerifSecondLevelEntity {
 	 */
 	@Column(name="cfURI")
 	private String uri;
-
+	
 	/**
-	 * The result products.
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+
+	
+	/**
+	 * Multilingual.
+	 */
+	@OneToMany(mappedBy="country")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private Set<CountryName> names;
+	
+	
+	/**
+	 * Links.
 	 */
 	@OneToMany(mappedBy="country")
 	private Set<ResultProduct_Country> resultProducts;
 	
-	/**
-	 * The events.
-	 */
 	@OneToMany(mappedBy="country")
 	private Set<Event> events;
 	
-	/**
-	 * The postal addresses.
-	 */
 	@OneToMany(mappedBy="country")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<PostalAddress> postalAddresses;
 	
 	@OneToMany(mappedBy="country")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<CountryName> names;
-
-	@OneToMany(mappedBy="country")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Person_Country> persons_countries;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to Country instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 	
 	/**
 	 * Default Constructor
@@ -126,6 +142,20 @@ public class Country implements CerifSecondLevelEntity {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	/**
 	 * @return the resultProducts
 	 */
@@ -197,6 +227,21 @@ public class Country implements CerifSecondLevelEntity {
 		this.names = names;
 	}
 
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -238,8 +283,8 @@ public class Country implements CerifSecondLevelEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Country [code=" + code + ", uri=" + uri + "]";
+		return "Country [code=" + code + ", uri=" + uri + ", uuid=" + uuid
+				+ "]";
 	}
-	
-	
+
 }

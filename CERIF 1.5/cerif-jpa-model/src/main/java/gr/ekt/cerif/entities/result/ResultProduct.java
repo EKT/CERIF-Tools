@@ -18,6 +18,7 @@ import gr.ekt.cerif.entities.link.result.ResultProduct_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
 import gr.ekt.cerif.entities.second.Country;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ResultProductDescription;
 import gr.ekt.cerif.features.multilingual.ResultProductKeyword;
@@ -38,10 +39,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
 
-/**terms
+/**
  * Represents a result product entity.
  * 
  */
@@ -69,31 +71,30 @@ public class ResultProduct implements CerifResultEntity {
 	private String uri;
 	
 	/**
-	 * The result product descriptions.
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProductDescription> resultProductDescriptions;
 	
-	/**
-	 * The result product names.
-	 */
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProductName> resultProductNames;
 	
-	/**
-	 * The result product keywords.
-	 */
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProductKeyword> resultProductKeywords;
 	
-	/**
-	 * The result product version infos.
-	 */
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProductKeyword> resultProductVersionInfos;
 	
+	
 	/**
-	 * The organization units.
+	 * Links.
 	 */
 	@OneToMany (mappedBy = "resultProduct")
 	private Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts;
@@ -110,29 +111,15 @@ public class ResultProduct implements CerifResultEntity {
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Facility> resultProducts_facilities;
 	
-	/**
-	 * The class
-	 */
-	
 	@OneToMany(mappedBy = "resultProduct")
 	private Set<ResultProduct_Class> classes;
 	
-	/**
-	 * The projects.
-	 */
 	@OneToMany(mappedBy="resultProduct")
 	private Set<Project_ResultProduct> projects_resultProducts;	
 	
-	/**
-	 * The country
-	 */
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Country> countries;
 	
-	
-	/**
-	 * The geographic bounding box
-	 */
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_GeographicBoundingBox> geographicBoundingBox;
 	
@@ -153,6 +140,16 @@ public class ResultProduct implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Equipment> resultProducts_equipments;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to ResultProduct instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;	
+	
+	// ---------------------------------------------------------------------- //
+	
 	
 	/**
 	 * Default Constructors
@@ -212,6 +209,20 @@ public class ResultProduct implements CerifResultEntity {
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	public Set<ResultProductDescription> getResultProductDescriptions() {
@@ -738,15 +749,29 @@ public class ResultProduct implements CerifResultEntity {
 		this.resultProducts_equipments = resultProducts_equipments;
 	}
 
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "ResultProduct [id=" + id + ", uri="
-				+ uri + "]";
+		return "ResultProduct [id=" + id + ", uri=" + uri + ", uuid=" + uuid
+				+ "]";
 	}
-	
-	
+
 	
 }

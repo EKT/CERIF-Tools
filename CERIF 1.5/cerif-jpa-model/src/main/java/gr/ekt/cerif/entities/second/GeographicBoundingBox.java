@@ -4,12 +4,16 @@
 package gr.ekt.cerif.entities.second;
 
 
+import gr.ekt.cerif.entities.link.GeographicBoundingBox_Class;
+import gr.ekt.cerif.entities.link.GeographicBoundingBox_GeographicBoundingBox;
+import gr.ekt.cerif.entities.link.PostalAddress_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
 import gr.ekt.cerif.features.multilingual.GeographicBoundingBoxDescription;
 import gr.ekt.cerif.features.multilingual.GeographicBoundingBoxKeyword;
 import gr.ekt.cerif.features.multilingual.GeographicBoundingBoxName;
 
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -19,6 +23,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Represents a geographic bounding box second level entity.
@@ -77,36 +82,58 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 	@Column(name="cfMaxElev")
 	private String MaxElev;
 	
-	
 	/**
 	 * The URI.
 	 */
 	@Column(name="cfURI")
 	private String uri;
-
-	/**
-	 * The result products.
-	 */
-	@OneToMany(mappedBy="geographicBoundingBox")
-	private Set<ResultProduct_GeographicBoundingBox> resultProduct;
 	
 	/**
-	 * The Geographic Bounding Box Names.
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+
+	
+	/**
+	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="geographicBoundingBox")
 	private Set<GeographicBoundingBoxName> geographicBoundingBoxNames;
 	
-	/**
-	 * The Geographic Bounding Box Descriptions.
-	 */
 	@OneToMany(mappedBy="geographicBoundingBox")
 	private Set<GeographicBoundingBoxDescription> geographicBoundingBoxDescriptions;
 	
-	/**
-	 * The Geographic Bounding Box Keywords.
-	 */
 	@OneToMany(mappedBy="geographicBoundingBox")
 	private Set<GeographicBoundingBoxKeyword> geographicBoundingBoxKeywords;
+	
+	
+	/**
+	 * Links.
+	 */
+	@OneToMany(mappedBy="geographicBoundingBox")
+	private Set<ResultProduct_GeographicBoundingBox> resultProducts_geographicBoundingBoxes;
+	
+	@OneToMany(mappedBy="geographicBoundingBox")
+	private Set<PostalAddress_GeographicBoundingBox> postalAddresses_geographicBoundingBoxes;
+	
+	@OneToMany(mappedBy="geographicBoundingBox")
+	private Set<GeographicBoundingBox_Class> classes;
+	
+	@OneToMany(mappedBy="geographicBoundingBox1")
+	private Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes1;
+	
+	@OneToMany(mappedBy="geographicBoundingBox2")
+	private Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes2;
+
+	
+	/**
+	 * FederatedIdentifier entities related to GeographicBoundingBox instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 
 	/**
 	 * Default Constructor
@@ -148,7 +175,7 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 		MinElev = minElev;
 		MaxElev = maxElev;
 		this.uri = uri;
-		this.resultProduct = resultProduct;
+		this.resultProducts_geographicBoundingBoxes = resultProduct;
 		this.geographicBoundingBoxNames = geographicBoundingBoxNames;
 		this.geographicBoundingBoxDescriptions = geographicBoundingBoxDescriptions;
 		this.geographicBoundingBoxKeywords = geographicBoundingBoxKeywords;
@@ -282,20 +309,6 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
-	/**
-	 * @return the resultProducts
-	 */
-	public Set<ResultProduct_GeographicBoundingBox> getResultProduct() {
-		return resultProduct;
-	}
-
-	/**
-	 * @param resultProducts the resultProducts to set
-	 */
-	public void setResultProducts(
-			Set<ResultProduct_GeographicBoundingBox> resultProduct) {
-		this.resultProduct = resultProduct;
-	}
 
 	public Set<GeographicBoundingBoxName> getGeographicBoundingBoxNames() {
 		return geographicBoundingBoxNames;
@@ -324,6 +337,109 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 		this.geographicBoundingBoxKeywords = geographicBoundingBoxKeywords;
 	}
 
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	/**
+	 * @return the resultProducts_geographicBoundingBoxes
+	 */
+	public Set<ResultProduct_GeographicBoundingBox> getResultProducts_geographicBoundingBoxes() {
+		return resultProducts_geographicBoundingBoxes;
+	}
+
+	/**
+	 * @param resultProducts_geographicBoundingBoxes the resultProducts_geographicBoundingBoxes to set
+	 */
+	public void setResultProducts_geographicBoundingBoxes(
+			Set<ResultProduct_GeographicBoundingBox> resultProducts_geographicBoundingBoxes) {
+		this.resultProducts_geographicBoundingBoxes = resultProducts_geographicBoundingBoxes;
+	}
+
+	/**
+	 * @return the postalAddresses_geographicBoundingBoxes
+	 */
+	public Set<PostalAddress_GeographicBoundingBox> getPostalAddresses_geographicBoundingBoxes() {
+		return postalAddresses_geographicBoundingBoxes;
+	}
+
+	/**
+	 * @param postalAddresses_geographicBoundingBoxes the postalAddresses_geographicBoundingBoxes to set
+	 */
+	public void setPostalAddresses_geographicBoundingBoxes(
+			Set<PostalAddress_GeographicBoundingBox> postalAddresses_geographicBoundingBoxes) {
+		this.postalAddresses_geographicBoundingBoxes = postalAddresses_geographicBoundingBoxes;
+	}
+
+	/**
+	 * @return the classes
+	 */
+	public Set<GeographicBoundingBox_Class> getClasses() {
+		return classes;
+	}
+
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<GeographicBoundingBox_Class> classes) {
+		this.classes = classes;
+	}
+
+	/**
+	 * @return the geographicBoundingBoxes_geographicBoundingBoxes1
+	 */
+	public Set<GeographicBoundingBox_GeographicBoundingBox> getGeographicBoundingBoxes_geographicBoundingBoxes1() {
+		return geographicBoundingBoxes_geographicBoundingBoxes1;
+	}
+
+	/**
+	 * @param geographicBoundingBoxes_geographicBoundingBoxes1 the geographicBoundingBoxes_geographicBoundingBoxes1 to set
+	 */
+	public void setGeographicBoundingBoxes_geographicBoundingBoxes1(
+			Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes1) {
+		this.geographicBoundingBoxes_geographicBoundingBoxes1 = geographicBoundingBoxes_geographicBoundingBoxes1;
+	}
+
+	/**
+	 * @return the geographicBoundingBoxes_geographicBoundingBoxes2
+	 */
+	public Set<GeographicBoundingBox_GeographicBoundingBox> getGeographicBoundingBoxes_geographicBoundingBoxes2() {
+		return geographicBoundingBoxes_geographicBoundingBoxes2;
+	}
+
+	/**
+	 * @param geographicBoundingBoxes_geographicBoundingBoxes2 the geographicBoundingBoxes_geographicBoundingBoxes2 to set
+	 */
+	public void setGeographicBoundingBoxes_geographicBoundingBoxes2(
+			Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes2) {
+		this.geographicBoundingBoxes_geographicBoundingBoxes2 = geographicBoundingBoxes_geographicBoundingBoxes2;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -332,8 +448,8 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 		return "GeographicBoundingBox [id=" + id + ", WBLong=" + WBLong
 				+ ", EBLong=" + EBLong + ", SBLat=" + SBLat + ", NBLat="
 				+ NBLat + ", MinElev=" + MinElev + ", MaxElev=" + MaxElev
-				+ ", uri=" + uri + "]";
+				+ ", uri=" + uri + ", uuid=" + uuid + "]";
 	}
-	
-	
+
+
 }

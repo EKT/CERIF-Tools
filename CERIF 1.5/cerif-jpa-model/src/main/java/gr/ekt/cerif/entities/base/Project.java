@@ -8,6 +8,7 @@ import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Event;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
+import gr.ekt.cerif.entities.link.project.Project_Indicator;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.entities.link.project.Project_Prize;
@@ -16,11 +17,13 @@ import gr.ekt.cerif.entities.link.project.Project_ResultPatent;
 import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.link.project.Project_Service;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.ProjectAbstract;
 import gr.ekt.cerif.features.multilingual.ProjectKeyword;
 import gr.ekt.cerif.features.multilingual.ProjectTitle;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -31,6 +34,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -88,56 +92,45 @@ public class Project implements CerifBaseEntity {
 	private String uri;	
 	
 	/**
-	 * The project titles.
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="project")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ProjectTitle> projectTitles;
 	
-	/**
-	 * The project abstracts.
-	 */
 	@OneToMany(mappedBy="project")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ProjectAbstract> projectAbstracts;
 	
-	/**
-	 * The project keywords.
-	 */
 	@OneToMany(mappedBy="project")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ProjectKeyword> projectKeywords;
 
+	
 	/**
-	 * The organisations.
+	 * Links.
 	 */
 	@OneToMany(mappedBy="project")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Project_OrganisationUnit> organisationUnits;
 	
-	/**
-	 * The projects.
-	 */
 	@OneToMany(mappedBy="project1")
 	private Set<Project_Project> projects1;
 	
-	/**
-	 * The projects.
-	 */
 	@OneToMany(mappedBy="project2")
 	private Set<Project_Project> projects2;
 	
-	/**
-	 * The persons.
-	 */
 	@OneToMany(mappedBy="project")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Project_Person> persons;
 	
-	
-	/**
-	 * The result products.
-	 */
 	@OneToMany(mappedBy="project")
 	private Set<Project_ResultProduct> projects_resultProducts;
 	
@@ -169,6 +162,18 @@ public class Project implements CerifBaseEntity {
 
 	@OneToMany(mappedBy="project")
 	private Set<Project_Service> projects_services;
+	
+	@OneToMany(mappedBy="project")
+	private Set<Project_Indicator> projects_indicators;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to Project instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 
 	/**
 	 * Default Constructor
@@ -282,6 +287,20 @@ public class Project implements CerifBaseEntity {
 		this.uri = uri;
 	}
 	
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	/**
 	 * Returns the project titles.
 	 * @return the project titles.
@@ -531,6 +550,34 @@ public class Project implements CerifBaseEntity {
 		this.projects_services = projects_services;
 	}
 
+	/**
+	 * @return the projects_indicators
+	 */
+	public Set<Project_Indicator> getProjects_indicators() {
+		return projects_indicators;
+	}
+
+	/**
+	 * @param projects_indicators the projects_indicators to set
+	 */
+	public void setProjects_indicators(Set<Project_Indicator> projects_indicators) {
+		this.projects_indicators = projects_indicators;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -615,9 +662,9 @@ public class Project implements CerifBaseEntity {
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", acronym=" + acronym + ", uri=" + uri + "]";
+				+ endDate + ", acronym=" + acronym + ", uri=" + uri + ", uuid="
+				+ uuid + "]";
 	}
-	
-	
+
 
 }

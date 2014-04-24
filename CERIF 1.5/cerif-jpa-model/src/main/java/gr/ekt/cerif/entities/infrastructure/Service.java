@@ -20,23 +20,22 @@ import gr.ekt.cerif.entities.link.project.Project_Service;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Service;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Service;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.ServiceDescription;
 import gr.ekt.cerif.features.multilingual.ServiceKeyword;
 import gr.ekt.cerif.features.multilingual.ServiceName;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
+import javax.persistence.Transient;
 
 /**
  * Represents a service second level entity.
@@ -70,6 +69,16 @@ public class Service implements CerifInfrastructureEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Multilingual.
+	 */
 	@OneToMany(mappedBy="service")
 	private Set<ServiceName> names;
 	
@@ -79,6 +88,10 @@ public class Service implements CerifInfrastructureEntity {
 	@OneToMany(mappedBy="service")
 	private Set<ServiceKeyword> keywords;
 	
+	
+	/**
+	 * Links.
+	 */
 	@OneToMany(mappedBy="service")
 	private Set<Service_Class> services_classes;
 	
@@ -132,6 +145,15 @@ public class Service implements CerifInfrastructureEntity {
 	
 	@OneToMany(mappedBy="service")
 	private Set<Service_FederatedIdentifier> services_federatedIdentifiers;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to Service instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;	
+	
+	// ---------------------------------------------------------------------- //
 
 	/**
 	 * Default Constructor
@@ -197,6 +219,20 @@ public class Service implements CerifInfrastructureEntity {
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/**
@@ -500,14 +536,29 @@ public class Service implements CerifInfrastructureEntity {
 		this.services_federatedIdentifiers = services_federatedIdentifiers;
 	}
 
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Service [id=" + id + ", acronym=" + acronym + ", uri=" + uri
-				+ "]";
-	}	
-	
+				+ ", uuid=" + uuid + "]";
+	}
+
 	
 }

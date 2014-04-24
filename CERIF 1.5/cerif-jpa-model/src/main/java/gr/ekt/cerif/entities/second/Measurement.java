@@ -5,6 +5,7 @@ package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.link.Equipment_Measurement;
 import gr.ekt.cerif.entities.link.Facility_Measurement;
+import gr.ekt.cerif.entities.link.Indicator_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Service_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Measurement;
@@ -14,6 +15,7 @@ import gr.ekt.cerif.features.multilingual.MeasurementDescription;
 import gr.ekt.cerif.features.multilingual.MeasurementKeyword;
 import gr.ekt.cerif.features.multilingual.MeasurementName;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -23,6 +25,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -100,15 +103,16 @@ public class Measurement implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
-	@OneToMany(mappedBy="measurement")
-	private Set<ResultPatent_Measurement> resultPatents_measurements;
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
 	
-	@OneToMany(mappedBy="measurement")
-	private Set<ResultProduct_Measurement> resultProducts_measurements;
 	
-	@OneToMany(mappedBy="measurement")
-	private Set<Facility_Measurement> facility_measurements;
-	
+	/**
+	 * Multilingual.
+	 */
 	@OneToMany(mappedBy="measurement")
 	private Set<MeasurementName> names;
 	
@@ -117,6 +121,19 @@ public class Measurement implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<MeasurementDescription> descriptions;
+	
+	
+	/**
+	 * Links.
+	 */
+	@OneToMany(mappedBy="measurement")
+	private Set<ResultPatent_Measurement> resultPatents_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<ResultProduct_Measurement> resultProducts_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<Facility_Measurement> facility_measurements;
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<ResultPublication_Measurement> resultPublications_measurements;
@@ -129,6 +146,18 @@ public class Measurement implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<Medium_Measurement> mediums_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<Indicator_Measurement> indicators_measurements;
+
+	
+	/**
+	 * FederatedIdentifier entities related to OrganisationUnit instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 
 	/**
 	 * Default Constructor
@@ -324,6 +353,20 @@ public class Measurement implements CerifSecondLevelEntity {
 	}
 
 	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	/**
 	 * @return the names
 	 */
 	public Set<MeasurementName> getNames() {
@@ -454,6 +497,36 @@ public class Measurement implements CerifSecondLevelEntity {
 		this.mediums_measurements = mediums_measurements;
 	}
 
+	/**
+	 * @return the indicators_measurements
+	 */
+	public Set<Indicator_Measurement> getIndicators_measurements() {
+		return indicators_measurements;
+	}
+
+	/**
+	 * @param indicators_measurements the indicators_measurements to set
+	 */
+	public void setIndicators_measurements(
+			Set<Indicator_Measurement> indicators_measurements) {
+		this.indicators_measurements = indicators_measurements;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -465,8 +538,8 @@ public class Measurement implements CerifSecondLevelEntity {
 				+ countFloatPChange + ", valJudgeNumChange="
 				+ valJudgeNumChange + ", valJudgeText=" + valJudgeText
 				+ ", valJudgeTextChange=" + valJudgeTextChange + ", uri=" + uri
-				+ "]";
+				+ ", uuid=" + uuid + "]";
 	}
-	
-	
+
+
 }

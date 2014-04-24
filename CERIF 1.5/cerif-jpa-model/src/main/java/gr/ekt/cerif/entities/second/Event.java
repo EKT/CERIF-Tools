@@ -5,6 +5,7 @@ package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.link.Equipment_Event;
 import gr.ekt.cerif.entities.link.Event_Class;
+import gr.ekt.cerif.entities.link.Event_Indicator;
 import gr.ekt.cerif.entities.link.Event_Medium;
 import gr.ekt.cerif.entities.link.Service_Event;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Event;
@@ -16,9 +17,9 @@ import gr.ekt.cerif.features.multilingual.EventKeyword;
 import gr.ekt.cerif.features.multilingual.EventName;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -88,13 +90,16 @@ public class Event implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
 	
 	/**
-	 * The link entities of projects and events.
+	 * Multilingual.
 	 */
-	@OneToMany(mappedBy="event")
-	private Set<Project_Event> projects_events;
-	
 	@OneToMany(mappedBy="event")
 	private Set<EventName> names;
 	
@@ -103,7 +108,14 @@ public class Event implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="event")
 	private Set<EventDescription> descriptions;
-
+	
+	
+	/**
+	 * Links.
+	 */
+	@OneToMany(mappedBy="event")
+	private Set<Project_Event> projects_events;
+	
 	@OneToMany(mappedBy="event")
 	private Set<Person_Event> persons_events;
 	
@@ -124,6 +136,18 @@ public class Event implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="event")
 	private Set<Event_Medium> events_medium;
+	
+	@OneToMany(mappedBy="event")
+	private Set<Event_Indicator> events_indicators;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to Event instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 	
 
 	/**
@@ -259,6 +283,20 @@ public class Event implements CerifSecondLevelEntity {
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/**
@@ -418,6 +456,35 @@ public class Event implements CerifSecondLevelEntity {
 		this.events_medium = events_medium;
 	}
 
+	/**
+	 * @return the events_indicators
+	 */
+	public Set<Event_Indicator> getEvents_indicators() {
+		return events_indicators;
+	}
+
+	/**
+	 * @param events_indicators the events_indicators to set
+	 */
+	public void setEvents_indicators(Set<Event_Indicator> events_indicators) {
+		this.events_indicators = events_indicators;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -425,7 +492,8 @@ public class Event implements CerifSecondLevelEntity {
 	public String toString() {
 		return "Event [id=" + id + ", country=" + country + ", cityTown="
 				+ cityTown + ", feeOrFree=" + feeOrFree + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", uri=" + uri + "]";
+				+ startDate + ", endDate=" + endDate + ", uri=" + uri
+				+ ", uuid=" + uuid + "]";
 	}
 
 
