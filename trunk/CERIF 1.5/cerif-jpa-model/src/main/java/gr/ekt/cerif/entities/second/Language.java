@@ -76,6 +76,7 @@ import gr.ekt.cerif.features.multilingual.ServiceDescription;
 import gr.ekt.cerif.features.multilingual.ServiceKeyword;
 import gr.ekt.cerif.features.multilingual.ServiceName;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -84,6 +85,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -130,6 +132,26 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	@Column(name="cfURI")
 	private String uri;
 	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Multilingual.
+	 */
+	@OneToMany(mappedBy="languageOfName")
+	private Set<LanguageName> names;
+	
+	@OneToMany(mappedBy="language")
+	private Set<LanguageName> languageNames;
+	
+	
+	/**
+	 * Links.
+	 */
 	@OneToMany(mappedBy="language")
 	private Set<CitationDescription> citationDescriptions;
 	
@@ -225,12 +247,6 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	
 	@OneToMany(mappedBy="language")
 	private Set<IndicatorDescription> indicatorDescriptions;
-	
-	@OneToMany(mappedBy="languageOfName")
-	private Set<LanguageName> names;
-	
-	@OneToMany(mappedBy="language")
-	private Set<LanguageName> languageNames;
 	
 	@OneToMany(mappedBy="language")
 	private Set<MeasurementName> measurementNames;
@@ -359,6 +375,15 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 
 	@OneToMany(mappedBy="language")
 	private Set<Person_Language> persons_languages;
+
+	
+	/**
+	 * FederatedIdentifier entities related to OrganisationUnit instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 	
 	public Language() {
 		// nothing to implement here
@@ -413,6 +438,22 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 		this.uri = uri;
 	}
 	
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+
 	/**
 	 * @return the persons_languages
 	 */
@@ -1259,6 +1300,23 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	public void setServiceDescriptions(Set<ServiceDescription> serviceDescriptions) {
 		this.serviceDescriptions = serviceDescriptions;
 	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

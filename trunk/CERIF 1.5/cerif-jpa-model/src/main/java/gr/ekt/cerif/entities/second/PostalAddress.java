@@ -10,6 +10,7 @@ import gr.ekt.cerif.entities.link.Service_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.person.Person_PostalAddress;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -22,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -54,6 +56,12 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	 */
 	@Column(name="cfURI")
 	private String uri;
+	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
 
 	/**
 	 * The country.
@@ -111,8 +119,9 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	@Column(name="cfStateOfCountry")
 	private String state;
 
+
 	/**
-	 * The organisation units.
+	 * Links.
 	 */
 	@OneToMany(mappedBy="postalAddress")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
@@ -135,6 +144,15 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="postalAddress")
 	private Set<PostalAddress_Class> classes;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to PostalAddress instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	// ---------------------------------------------------------------------- //
 	
 	/**
 	 * Default Constructor
@@ -203,6 +221,18 @@ public class PostalAddress implements CerifSecondLevelEntity {
 		this.uri = uri;
 	}
 
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	/**
 	 * Returns the country.
 	 * @return the country.
@@ -368,6 +398,7 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	public Set<Person_PostalAddress> getPersons_postalAddresses() {
 		return persons_postalAddresses;
 	}
+	
 	/**
 	 * @param persons_postalAddresses the persons_postalAddresses to set
 	 */
@@ -375,6 +406,7 @@ public class PostalAddress implements CerifSecondLevelEntity {
 			Set<Person_PostalAddress> persons_postalAddresses) {
 		this.persons_postalAddresses = persons_postalAddresses;
 	}
+	
 	/**
 	 * @return the services_postalAddresses
 	 */
@@ -396,6 +428,7 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	public Set<Facility_PostalAddress> getFacilities_postalAddresses() {
 		return facilities_postalAddresses;
 	}
+	
 	/**
 	 * @param facilities_postalAddresses the facilities_postalAddresses to set
 	 */
@@ -403,12 +436,14 @@ public class PostalAddress implements CerifSecondLevelEntity {
 			Set<Facility_PostalAddress> facilities_postalAddresses) {
 		this.facilities_postalAddresses = facilities_postalAddresses;
 	}
+	
 	/**
 	 * @return the equipments_postalAddresses
 	 */
 	public Set<Equipment_PostalAddress> getEquipments_postalAddresses() {
 		return equipments_postalAddresses;
 	}
+	
 	/**
 	 * @param equipments_postalAddresses the equipments_postalAddresses to set
 	 */
@@ -416,32 +451,49 @@ public class PostalAddress implements CerifSecondLevelEntity {
 			Set<Equipment_PostalAddress> equipments_postalAddresses) {
 		this.equipments_postalAddresses = equipments_postalAddresses;
 	}
+	
 	/**
 	 * @return the classes
 	 */
 	public Set<PostalAddress_Class> getClasses() {
 		return classes;
 	}
+	
 	/**
 	 * @param classes the classes to set
 	 */
 	public void setClasses(Set<PostalAddress_Class> classes) {
 		this.classes = classes;
 	}
+	
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+	
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "PostalAddress [id=" + id + ", uri=" + uri + ", country="
-				+ country + ", addressLine1=" + addressLine1
+		return "PostalAddress [id=" + id + ", uri=" + uri + ", uuid=" + uuid
+				+ ", country=" + country + ", addressLine1=" + addressLine1
 				+ ", addressLine2=" + addressLine2 + ", addressLine3="
 				+ addressLine3 + ", addressLine4=" + addressLine4
 				+ ", addressLine5=" + addressLine5 + ", postalCode="
 				+ postalCode + ", cityTown=" + cityTown + ", state=" + state
 				+ "]";
 	}
-	
-	
+
 	
 }

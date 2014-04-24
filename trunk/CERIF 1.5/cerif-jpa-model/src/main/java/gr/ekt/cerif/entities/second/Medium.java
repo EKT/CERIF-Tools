@@ -16,6 +16,7 @@ import gr.ekt.cerif.features.multilingual.MediumDescription;
 import gr.ekt.cerif.features.multilingual.MediumKeyword;
 import gr.ekt.cerif.features.multilingual.MediumTitle;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -26,6 +27,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -78,6 +80,16 @@ public class Medium implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Multilingual.
+	 */
 	@OneToMany(mappedBy="medium")
 	private Set<MediumTitle> names;
 	
@@ -87,6 +99,10 @@ public class Medium implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="medium")
 	private Set<MediumDescription> descriptions;
 	
+	
+	/**
+	 * Links.
+	 */
 	@OneToMany(mappedBy="medium")
 	private Set<Person_Medium> persons_medium;
 	
@@ -113,6 +129,15 @@ public class Medium implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="medium")
 	private Set<Medium_Measurement> mediums_measurements;
+
+	
+	/**
+	 * FederatedIdentifier entities related to Measurement instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 
 	/**
 	 * Default Constructor
@@ -185,6 +210,20 @@ public class Medium implements CerifSecondLevelEntity {
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/**
@@ -385,6 +424,21 @@ public class Medium implements CerifSecondLevelEntity {
 		this.mediums_measurements = mediums_measurements;
 	}
 
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -429,8 +483,8 @@ public class Medium implements CerifSecondLevelEntity {
 	public String toString() {
 		return "Medium [id=" + id + ", mediumCreationDate="
 				+ mediumCreationDate + ", size=" + size + ", mimeType="
-				+ mimeType + ", uri=" + uri + "]";
+				+ mimeType + ", uri=" + uri + ", uuid=" + uuid + "]";
 	}
-	
-	
+
+
 }

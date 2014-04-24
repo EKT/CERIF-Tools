@@ -81,16 +81,20 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 	@ManyToOne(optional=false)
 	@JoinColumn (name = "cfClassSchemeId")
 	private ClassScheme scheme;
-
+	
 	/**
-	 * The classifications.
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+
+	
+	/**
+	 * Links.
 	 */
 	@OneToMany(mappedBy="fedId")
 	private Set<FederatedIdentifier_Class> fedIds_classes;	
 	
-	/**
-	 * The services.
-	 */
 	@OneToMany(mappedBy="fedId")
 	private Set<Service_FederatedIdentifier> services_fedids;
 	
@@ -209,6 +213,20 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 		this.endDate = endDate;
 	}
 	
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public Set<FederatedIdentifier_Class> getFedIds_classes() {
 		return fedIds_classes;
 	}

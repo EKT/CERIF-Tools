@@ -3,11 +3,13 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Qualification_Class;
 import gr.ekt.cerif.entities.link.person.Person_Qualification;
 import gr.ekt.cerif.features.multilingual.QualificationDescription;
 import gr.ekt.cerif.features.multilingual.QualificationKeyword;
 import gr.ekt.cerif.features.multilingual.QualificationTitle;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Represents a Qualification second level entity.
@@ -45,6 +48,16 @@ public class Qualification implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Multilingual.
+	 */
 	@OneToMany(mappedBy="qualification")
 	private Set<QualificationTitle> titles;
 	
@@ -54,8 +67,24 @@ public class Qualification implements CerifSecondLevelEntity {
 	@OneToMany(mappedBy="qualification")
 	private Set<QualificationDescription> descriptions;
 	
-	@OneToMany(mappedBy="person")
+	
+	/**
+	 * Links.
+	 */
+	@OneToMany(mappedBy="qualification")
 	private Set<Person_Qualification> persons_qualifications;
+	
+	@OneToMany(mappedBy="qualification")
+	private Set<Qualification_Class> classes;
+
+	
+	/**
+	 * FederatedIdentifier entities related to Qualification instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 
 	/**
 	 * Default constructor
@@ -110,6 +139,20 @@ public class Qualification implements CerifSecondLevelEntity {
 		this.uri = uri;
 	}
 
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public Set<QualificationTitle> getTitles() {
 		return titles;
 	}
@@ -149,13 +192,29 @@ public class Qualification implements CerifSecondLevelEntity {
 		this.persons_qualifications = persons_qualifications;
 	}
 
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Qualification [id=" + id + ", uri=" + uri + "]";
+		return "Qualification [id=" + id + ", uri=" + uri + ", uuid=" + uuid
+				+ "]";
 	}
-	
+
 	
 }

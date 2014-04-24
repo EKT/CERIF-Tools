@@ -6,8 +6,10 @@ package gr.ekt.cerif.features.semantics;
 import gr.ekt.cerif.entities.link.Citation_Class;
 import gr.ekt.cerif.entities.link.ClassScheme_Class;
 import gr.ekt.cerif.entities.link.Class_Class;
+import gr.ekt.cerif.entities.link.Cv_Class;
 import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.Equipment_Class;
+import gr.ekt.cerif.entities.link.ExpertiseAndSkills_Class;
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Equipment;
 import gr.ekt.cerif.entities.link.Facility_Event;
@@ -23,7 +25,12 @@ import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.Funding_Funding;
 import gr.ekt.cerif.entities.link.Funding_Indicator;
 import gr.ekt.cerif.entities.link.Funding_Measurement;
+import gr.ekt.cerif.entities.link.GeographicBoundingBox_Class;
+import gr.ekt.cerif.entities.link.Indicator_Class;
+import gr.ekt.cerif.entities.link.Metrics_Class;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
+import gr.ekt.cerif.entities.link.Prize_Class;
+import gr.ekt.cerif.entities.link.Qualification_Class;
 import gr.ekt.cerif.entities.link.Service_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
@@ -116,6 +123,12 @@ public class Class implements CerifSemanticFeature {
 	 */
 	@Column(name="cfUri")
 	private String uri;
+	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
 	
 	/**
 	 * The classification scheme.
@@ -270,6 +283,18 @@ public class Class implements CerifSemanticFeature {
 	@OneToMany(mappedBy="theClass")
 	private Set<Service_Class> services_Classes;
 	
+	@OneToMany(mappedBy="theClass")
+	private Set<ExpertiseAndSkills_Class> expertiseAndSkills;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<GeographicBoundingBox_Class> geographicBoundingBoxes;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Indicator_Class> indicators;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Cv_Class> cvs;
+	
 	@OneToMany(mappedBy="theClass1")
 	private Set<Class_Class> class_class1;
 	
@@ -281,6 +306,15 @@ public class Class implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="relatedClass")
 	private Set<ClassScheme_Class> relatedClassScheme_classes;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Metrics_Class> metrics;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Prize_Class> prizes;
+	
+	@OneToMany(mappedBy="qualification")
+	private Set<Qualification_Class> qualifications;
 	
 	
 	/**
@@ -300,10 +334,12 @@ public class Class implements CerifSemanticFeature {
 	
 	
 	/**
-	 * FederatedIdentifier entities related to Person instance.
+	 * FederatedIdentifier entities related to Class instance.
 	 */
 	@Transient
 	private List<FederatedIdentifier> federatedIdentifiers;	
+	
+	// ---------------------------------------------------------------------- //
 	
 	
 	/**
@@ -416,6 +452,20 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/**
@@ -592,6 +642,21 @@ public class Class implements CerifSemanticFeature {
 	public void setElectronicAddresses(
 			Set<ElectronicAddress_Class> electronicAddresses) {
 		this.electronicAddresses = electronicAddresses;
+	}
+
+	/**
+	 * @return the geographicBoundingBoxes
+	 */
+	public Set<GeographicBoundingBox_Class> getGeographicBoundingBoxes() {
+		return geographicBoundingBoxes;
+	}
+
+	/**
+	 * @param geographicBoundingBoxes the geographicBoundingBoxes to set
+	 */
+	public void setGeographicBoundingBoxes(
+			Set<GeographicBoundingBox_Class> geographicBoundingBoxes) {
+		this.geographicBoundingBoxes = geographicBoundingBoxes;
 	}
 
 	/**
@@ -1180,6 +1245,49 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
+	 * @return the indicators
+	 */
+	public Set<Indicator_Class> getIndicators() {
+		return indicators;
+	}
+
+	/**
+	 * @param indicators the indicators to set
+	 */
+	public void setIndicators(Set<Indicator_Class> indicators) {
+		this.indicators = indicators;
+	}
+
+	/**
+	 * @return the expertiseAndSkills
+	 */
+	public Set<ExpertiseAndSkills_Class> getExpertiseAndSkills() {
+		return expertiseAndSkills;
+	}
+
+	/**
+	 * @param expertiseAndSkills the expertiseAndSkills to set
+	 */
+	public void setExpertiseAndSkills(
+			Set<ExpertiseAndSkills_Class> expertiseAndSkills) {
+		this.expertiseAndSkills = expertiseAndSkills;
+	}
+
+	/**
+	 * @return the cvs
+	 */
+	public Set<Cv_Class> getCvs() {
+		return cvs;
+	}
+
+	/**
+	 * @param cvs the cvs to set
+	 */
+	public void setCvs(Set<Cv_Class> cvs) {
+		this.cvs = cvs;
+	}
+
+	/**
 	 * @return the federatedIdentifiers
 	 */
 	public List<FederatedIdentifier> getFederatedIdentifiers() {
@@ -1221,6 +1329,48 @@ public class Class implements CerifSemanticFeature {
 	public void setRelatedClassScheme_classes(
 			Set<ClassScheme_Class> relatedClassScheme_classes) {
 		this.relatedClassScheme_classes = relatedClassScheme_classes;
+	}
+
+	/**
+	 * @return the metrics
+	 */
+	public Set<Metrics_Class> getMetrics() {
+		return metrics;
+	}
+
+	/**
+	 * @param metrics the metrics to set
+	 */
+	public void setMetrics(Set<Metrics_Class> metrics) {
+		this.metrics = metrics;
+	}
+
+	/**
+	 * @return the prizes
+	 */
+	public Set<Prize_Class> getPrizes() {
+		return prizes;
+	}
+
+	/**
+	 * @param prizes the prizes to set
+	 */
+	public void setPrizes(Set<Prize_Class> prizes) {
+		this.prizes = prizes;
+	}
+
+	/**
+	 * @return the qualifications
+	 */
+	public Set<Qualification_Class> getQualifications() {
+		return qualifications;
+	}
+
+	/**
+	 * @param qualifications the qualifications to set
+	 */
+	public void setQualifications(Set<Qualification_Class> qualifications) {
+		this.qualifications = qualifications;
 	}
 
 	/* (non-Javadoc)

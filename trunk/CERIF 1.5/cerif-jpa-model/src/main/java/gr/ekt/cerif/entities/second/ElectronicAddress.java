@@ -7,6 +7,7 @@ import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -19,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -58,9 +60,16 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	 */
 	@Column(name="cfURI")
 	private String uri;
-
+	
 	/**
-	 * The organisation units.
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+
+	
+	/**
+	 * Links.
 	 */
 	@OneToMany(mappedBy="electronicAddress")
 	private Set<OrganisationUnit_ElectronicAddress> organisationUnits;
@@ -70,6 +79,16 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="electronicAddress")
 	private Set<ElectronicAddress_Class> classes;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to ElectronicAddress instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
+	
 	
 	/**
 	 * Default Constructor
@@ -137,6 +156,20 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	}
 
 	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	/**
 	 * @return the organisationUnits
 	 */
 	public Set<OrganisationUnit_ElectronicAddress> getOrganisationUnits() {
@@ -181,14 +214,29 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 		this.classes = classes;
 	}
 
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "ElectronicAddress [id=" + id + ", postalAddress="
-				+ postalAddress + ", uri=" + uri + "]";
+				+ postalAddress + ", uri=" + uri + ", uuid=" + uuid + "]";
 	}
-	
-	
+
+
 }

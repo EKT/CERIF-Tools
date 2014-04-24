@@ -3,8 +3,11 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Cv_Class;
 import gr.ekt.cerif.entities.link.person.Person_Cv;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -14,9 +17,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Represents a cv second level entity.
@@ -52,8 +55,30 @@ public class CV implements CerifSecondLevelEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Links.
+	 */
 	@OneToMany(mappedBy="cv")
 	private Set<Person_Cv> persons_cvs;
+	
+	@OneToMany(mappedBy="cv")
+	private Set<Cv_Class> classes;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to CV instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 
 	/**
 	 * Default Constructor
@@ -125,6 +150,20 @@ public class CV implements CerifSecondLevelEntity {
 	}
 	
 	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	/**
 	 * @return the persons_cvs
 	 */
 	public Set<Person_Cv> getPersons_cvs() {
@@ -138,13 +177,28 @@ public class CV implements CerifSecondLevelEntity {
 		this.persons_cvs = persons_cvs;
 	}
 
+	/**
+	 * @return the classes
+	 */
+	public Set<Cv_Class> getClasses() {
+		return classes;
+	}
+
+	/**
+	 * @param classes the classes to set
+	 */
+	public void setClasses(Set<Cv_Class> classes) {
+		this.classes = classes;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "CV [id=" + id + ", uri=" + uri + "]";
+		return "CV [id=" + id + ", doc=" + Arrays.toString(doc) + ", uri="
+				+ uri + ", uuid=" + uuid + "]";
 	}
-	
-	
+
+
 }

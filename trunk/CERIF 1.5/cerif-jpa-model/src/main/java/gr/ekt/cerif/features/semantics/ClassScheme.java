@@ -10,6 +10,7 @@ import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.ClassSchemeDescription;
 import gr.ekt.cerif.features.multilingual.ClassSchemeName;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -20,6 +21,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -53,6 +55,12 @@ public class ClassScheme implements CerifSemanticFeature {
 	@Column (name = "cfURI")
 	private String uri;
 	
+	/**
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
 	
 	/**
 	 * Multilingual.
@@ -80,6 +88,16 @@ public class ClassScheme implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="relatedClassScheme")
 	private Set<ClassScheme_Class> classScheme_classes;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to ClassScheme instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;	
+	
+	// ---------------------------------------------------------------------- //
+	
 
 	/**
 	 * Default Constructor
@@ -133,6 +151,20 @@ public class ClassScheme implements CerifSemanticFeature {
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/**
@@ -239,6 +271,21 @@ public class ClassScheme implements CerifSemanticFeature {
 	 */
 	public void setClassScheme_classes(Set<ClassScheme_Class> classScheme_classes) {
 		this.classScheme_classes = classScheme_classes;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
 	}
 
 	/* (non-Javadoc)

@@ -3,6 +3,7 @@
  */
 package gr.ekt.cerif.entities.infrastructure;
 
+import java.util.List;
 import java.util.Set;
 
 import gr.ekt.cerif.entities.link.Equipment_Class;
@@ -21,6 +22,7 @@ import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Equipment;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.EquipmentDescription;
 import gr.ekt.cerif.features.multilingual.EquipmentKeyword;
 import gr.ekt.cerif.features.multilingual.EquipmentName;
@@ -32,6 +34,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Represents an equipment second level entity.
@@ -66,11 +69,15 @@ public class Equipment implements CerifInfrastructureEntity {
 	private String uri;
 	
 	/**
-	 * The link entities of projects and equipments.
+	 * The UUID.
 	 */
-	@OneToMany(mappedBy="equipment")
-	private Set<Project_Equipment> projects_equipments;
+	@Column(name="cfUUID")
+	private String uuid;
 	
+	
+	/**
+	 * Multilingual.
+	 */
 	@OneToMany(mappedBy="equipment")
 	private Set<EquipmentName> names;
 	
@@ -80,6 +87,13 @@ public class Equipment implements CerifInfrastructureEntity {
 	@OneToMany(mappedBy="equipment")
 	private Set<EquipmentDescription> descriptions;
 
+	
+	/**
+	 * Links.
+	 */
+	@OneToMany(mappedBy="equipment")
+	private Set<Project_Equipment> projects_equipments;
+	
 	@OneToMany(mappedBy="equipment")
 	private Set<Person_Equipment> persons_equipments;
 	
@@ -127,6 +141,15 @@ public class Equipment implements CerifInfrastructureEntity {
 	
 	@OneToMany(mappedBy="equipment")
 	private Set<Equipment_Measurement> equipments_measurements;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to Equipment instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;	
+	
+	// ---------------------------------------------------------------------- //
 
 	/**
 	 * Default Constructor
@@ -195,6 +218,20 @@ public class Equipment implements CerifInfrastructureEntity {
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/**
@@ -487,14 +524,29 @@ public class Equipment implements CerifInfrastructureEntity {
 		this.equipments_measurements = equipments_measurements;
 	}
 
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Equipment [id=" + id + ", acronym=" + acronym + ", uri=" + uri
-				+ "]";
+				+ ", uuid=" + uuid + "]";
 	}
-	
-	
+
+
 }

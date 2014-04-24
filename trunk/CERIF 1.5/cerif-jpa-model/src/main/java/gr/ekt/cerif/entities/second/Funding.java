@@ -8,6 +8,7 @@ import gr.ekt.cerif.entities.link.Equipment_Funding;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.Funding_Funding;
+import gr.ekt.cerif.entities.link.Funding_Indicator;
 import gr.ekt.cerif.entities.link.Medium_Funding;
 import gr.ekt.cerif.entities.link.Service_Funding;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
@@ -21,6 +22,7 @@ import gr.ekt.cerif.features.multilingual.FundingKeyword;
 import gr.ekt.cerif.features.multilingual.FundingName;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -33,6 +35,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -100,14 +103,15 @@ public class Funding implements CerifSecondLevelEntity {
 	private String uri;
 	
 	/**
-	 * The link entities of projects and fundings.
+	 * The UUID.
 	 */
-	@OneToMany(mappedBy="funding")
-	private Set<Project_Funding> projects_fundings;
+	@Column(name="cfUUID")
+	private String uuid;
 	
-	@OneToMany(mappedBy="funding")
-	private Set<OrganisationUnit_Funding> organisationUnits_fundings;
 	
+	/**
+	 * Multilingual.
+	 */
 	@OneToMany(mappedBy="funding")
 	private Set<FundingName> names;
 	
@@ -116,6 +120,16 @@ public class Funding implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="funding")
 	private Set<FundingDescription> descriptions;
+	
+	
+	/**
+	 * Links.
+	 */
+	@OneToMany(mappedBy="funding")
+	private Set<Project_Funding> projects_fundings;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<OrganisationUnit_Funding> organisationUnits_fundings;
 
 	@OneToMany(mappedBy="funding")
 	private Set<Person_Funding> persons_fundings;
@@ -149,6 +163,19 @@ public class Funding implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="funding")
 	private Set<Medium_Funding> mediums_fundings;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<Funding_Indicator> fundings_indicators;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to Funding instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	// ---------------------------------------------------------------------- //
+	
 	
 	/**
 	 * Default Constructor
@@ -280,6 +307,18 @@ public class Funding implements CerifSecondLevelEntity {
 		this.uri = uri;
 	}
 
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	/**
 	 * @return the projects_fundings
 	 */
@@ -493,6 +532,31 @@ public class Funding implements CerifSecondLevelEntity {
 	 */
 	public void setMediums_fundings(Set<Medium_Funding> mediums_fundings) {
 		this.mediums_fundings = mediums_fundings;
+	}
+	/**
+	 * @return the fundings_indicators
+	 */
+	public Set<Funding_Indicator> getFundings_indicators() {
+		return fundings_indicators;
+	}
+	/**
+	 * @param fundings_indicators the fundings_indicators to set
+	 */
+	public void setFundings_indicators(Set<Funding_Indicator> fundings_indicators) {
+		this.fundings_indicators = fundings_indicators;
+	}
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

@@ -3,12 +3,14 @@
  */
 package gr.ekt.cerif.entities.infrastructure;
 
+import java.util.List;
 import java.util.Set;
 
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Equipment;
 import gr.ekt.cerif.entities.link.Facility_Facility;
 import gr.ekt.cerif.entities.link.Facility_Funding;
+import gr.ekt.cerif.entities.link.Facility_Indicator;
 import gr.ekt.cerif.entities.link.Facility_Medium;
 import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.Facility_Service;
@@ -18,6 +20,7 @@ import gr.ekt.cerif.entities.link.project.Project_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Facility;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Facility;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.FacilityDescription;
 import gr.ekt.cerif.features.multilingual.FacilityKeyword;
 import gr.ekt.cerif.features.multilingual.FacilityName;
@@ -30,6 +33,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -76,14 +80,15 @@ public class Facility implements CerifInfrastructureEntity {
 	private String uri;
 	
 	/**
-	 * The link entities of projects and facilities.
+	 * The UUID.
 	 */
-	@OneToMany(mappedBy="facility")
-	private Set<Project_Facility> projects_facilities;
+	@Column(name="cfUUID")
+	private String uuid;
 	
-	@OneToMany(mappedBy="facility")
-	private Set<OrganisationUnit_Facility> organisationUnits_facilities;
 	
+	/**
+	 * Multilingual.
+	 */
 	@OneToMany(mappedBy="facility")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<FacilityName> names;
@@ -93,7 +98,17 @@ public class Facility implements CerifInfrastructureEntity {
 	
 	@OneToMany(mappedBy="facility")
 	private Set<FacilityDescription> descriptions;
-
+	
+	
+	/**
+	 * Links.
+	 */
+	@OneToMany(mappedBy="facility")
+	private Set<Project_Facility> projects_facilities;
+	
+	@OneToMany(mappedBy="facility")
+	private Set<OrganisationUnit_Facility> organisationUnits_facilities;
+	
 	@OneToMany(mappedBy="facility")
 	private Set<Person_Facility> persons_facilities;
 	
@@ -129,6 +144,18 @@ public class Facility implements CerifInfrastructureEntity {
 	
 	@OneToMany(mappedBy="facility")
 	private Set<Facility_Medium> facilities_medium;
+	
+	@OneToMany(mappedBy="facility")
+	private Set<Facility_Indicator> facilities_indicators;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to Facility instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;	
+	
+	// ---------------------------------------------------------------------- //
 	
 	/**
 	 * Default Constructor
@@ -198,6 +225,20 @@ public class Facility implements CerifInfrastructureEntity {
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/**
@@ -438,6 +479,36 @@ public class Facility implements CerifInfrastructureEntity {
 		this.facilities_medium = facilities_medium;
 	}
 
+	/**
+	 * @return the facilities_indicators
+	 */
+	public Set<Facility_Indicator> getFacilities_indicators() {
+		return facilities_indicators;
+	}
+
+	/**
+	 * @param facilities_indicators the facilities_indicators to set
+	 */
+	public void setFacilities_indicators(
+			Set<Facility_Indicator> facilities_indicators) {
+		this.facilities_indicators = facilities_indicators;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -521,8 +592,8 @@ public class Facility implements CerifInfrastructureEntity {
 	@Override
 	public String toString() {
 		return "Facility [id=" + id + ", acronym=" + acronym + ", uri=" + uri
-				+ "]";
+				+ ", uuid=" + uuid + "]";
 	}
-	
-	
+
+
 }

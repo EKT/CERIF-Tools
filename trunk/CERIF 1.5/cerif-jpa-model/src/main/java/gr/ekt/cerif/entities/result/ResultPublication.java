@@ -21,6 +21,7 @@ import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPublication;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Service;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.ResultPublicationAbstract;
 import gr.ekt.cerif.features.multilingual.ResultPublicationBibliographicNote;
 import gr.ekt.cerif.features.multilingual.ResultPublicationKeyword;
@@ -31,6 +32,7 @@ import gr.ekt.cerif.features.multilingual.ResultPublicationVersionInfo;
 import gr.ekt.cerif.features.multilingual.Translation;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -41,6 +43,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -141,28 +144,26 @@ public class ResultPublication implements CerifResultEntity {
 	private String uri;
 	
 	/**
-	 * The publication Titles.
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="resultPublication")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ResultPublicationTitle> resultPublicationTitles;
 	
-	/**
-	 * The publication Subtitles.
-	 */
 	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationSubtitle> resultPublicationSubtitles;
 	
-	/**
-	 * The publication Abstracts.
-	 */
 	@OneToMany(mappedBy="resultPublication")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ResultPublicationAbstract> resultPublicationAbstracts;
 	
-	/**
-	 * The publication Keywords.
-	 */
 	@OneToMany(mappedBy="resultPublication")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ResultPublicationKeyword> resultPublicationKeywords;
@@ -176,15 +177,13 @@ public class ResultPublication implements CerifResultEntity {
 	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationVersionInfo> resultPublicationVersionInfos;
 	
+
 	/**
-	 * The result products.
+	 * Links.
 	 */
 	@OneToMany (mappedBy = "resultPublication")
 	private Set<ResultPublication_ResultProduct> resultPublications_resultProducts;
 	
-	/**
-	 * The link entities of projects and resultPublications.
-	 */
 	@OneToMany(mappedBy="resultPublication")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Project_ResultPublication> projects_resultPublications;
@@ -241,6 +240,16 @@ public class ResultPublication implements CerifResultEntity {
     
 	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublication_Service> resultPublications_services;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to ResultPublication instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;	
+	
+	// ---------------------------------------------------------------------- //
+	
 	
 	/**
 	 * Default Constructor
@@ -521,6 +530,20 @@ public class ResultPublication implements CerifResultEntity {
 		this.uri = uri;
 	}
 	
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public Set<ResultPublicationTitle> getResultPublicationTitles() {
 		return resultPublicationTitles;
 	}
@@ -868,6 +891,21 @@ public class ResultPublication implements CerifResultEntity {
 		this.organisationUnit_resultPublications = organisationUnit_resultPublications;
 	}
 
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	public ResultPublicationTitle findOriginalTranslation() {
 		for (ResultPublicationTitle translation : resultPublicationTitles) {
 			if (translation.getTranslation().equals(Translation.ORIGINAL)) return translation;
@@ -922,8 +960,9 @@ public class ResultPublication implements CerifResultEntity {
 				+ num + ", vol=" + vol + ", edition=" + edition + ", series="
 				+ series + ", issue=" + issue + ", startPage=" + startPage
 				+ ", endPage=" + endPage + ", totalPages=" + totalPages
-				+ ", isbn=" + isbn + ", issn=" + issn + ", uri=" + uri + "]";
+				+ ", isbn=" + isbn + ", issn=" + issn + ", uri=" + uri
+				+ ", uuid=" + uuid + "]";
 	}
-	
+
 	
 }

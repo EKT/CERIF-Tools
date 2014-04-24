@@ -15,11 +15,13 @@ import gr.ekt.cerif.entities.link.result.ResultPatent_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPatent;
 import gr.ekt.cerif.entities.second.Country;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.ResultPatentAbstract;
 import gr.ekt.cerif.features.multilingual.ResultPatentKeyword;
 import gr.ekt.cerif.features.multilingual.ResultPatentTitle;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -29,6 +31,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Represents a patent result entity.
@@ -81,31 +84,31 @@ public class ResultPatent implements CerifResultEntity {
 	@Column(name="cfURI")
 	private String uri;
 	
-	
-
 	/**
-	 * The result patent titles.
+	 * The UUID.
+	 */
+	@Column(name="cfUUID")
+	private String uuid;
+	
+	
+	/**
+	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatentTitle> resultPatentTitles;
 	
-	/**
-	 * The result patent abstracts.
-	 */
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatentAbstract> resultPatentAbstracts;
 	
-	/**
-	 * The result patent keywords.
-	 */
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatentKeyword> resultPatentKeywords;
 	
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatentKeyword> resultPatentVersionInfos;
 	
+	
 	/**
-	 * The link entities of projects and resultPatents.
+	 * Links.
 	 */
 	@OneToMany(mappedBy="resultPatent")
 	private Set<Project_ResultPatent> projects_resultPatents;
@@ -142,6 +145,15 @@ public class ResultPatent implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatent_Facility> resultPatents_facilities;
+	
+	
+	/**
+	 * FederatedIdentifier entities related to ResultPatent instance.
+	 */
+	@Transient
+	private List<FederatedIdentifier> federatedIdentifiers;
+	
+	//----------------------------------------------------------------------------------------------//
 
 	/**
 	 * Default Constructor
@@ -274,6 +286,20 @@ public class ResultPatent implements CerifResultEntity {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}	
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 
 	public Set<ResultPatentTitle> getResultPatentTitles() {
 		return resultPatentTitles;
@@ -486,6 +512,21 @@ public class ResultPatent implements CerifResultEntity {
 		this.resultPatents_facilities = resultPatents_facilities;
 	}
 
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -493,8 +534,9 @@ public class ResultPatent implements CerifResultEntity {
 	public String toString() {
 		return "ResultPatent [id=" + id + ", country=" + country
 				+ ", registrationDate=" + registrationDate + ", approvalDate="
-				+ approvalDate + ", number=" + number + ", uri=" + uri + "]";
+				+ approvalDate + ", number=" + number + ", uri=" + uri
+				+ ", uuid=" + uuid + "]";
 	}
-	
+
 	
 }
