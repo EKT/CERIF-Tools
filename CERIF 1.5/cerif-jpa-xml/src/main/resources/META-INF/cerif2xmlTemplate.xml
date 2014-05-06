@@ -26,7 +26,6 @@
 #if ($project.uri && $project.uri != "")
 	<cfURI>$esc.xml($project.uri)</cfURI>
 #end
-#if ($project.projectTitles)
 #foreach( $projectTitle in $project.projectTitles )
 #if( $projectTitle.translation == "HUMAN" )
 #set ($trans = "h")
@@ -37,8 +36,6 @@
 #end
 	<cfTitle cfLangCode=$esc.quote$projectTitle.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($projectTitle.title)</cfTitle>
 #end
-#end
-#if ($project.projectAbstracts)
 #foreach( $projectAbstract in $project.projectAbstracts )
 #if( $projectAbstract.translation == "HUMAN" )
 #set ($trans = "h")
@@ -49,8 +46,6 @@
 #end
 	<cfAbstr cfLangCode=$esc.quote$projectAbstract.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($projectAbstract.abstractText)</cfAbstr>
 #end
-#end
-#if ($project.projectKeywords)
 #foreach( $projectKeyword in $project.projectKeywords )
 #if( $projectKeyword.translation == "HUMAN" )
 #set ($trans = "h")
@@ -61,7 +56,6 @@
 #end
 	<cfKeyw cfLangCode=$esc.quote$projectKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($projectKeyword.keyword)</cfKeyw>
 #end
-#end
 
 #foreach( $projectClass in $project.projects_classes )
 	<cfProj_Class>
@@ -69,9 +63,9 @@
 		<cfClassSchemeId>$projectClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectClass.startDate)T$date.format('HH:mm:ss',$projectClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectClass.endDate)T$date.format('HH:mm:ss',$projectClass.endDate)</cfEndDate>
-		#if ($projectClass.fraction)
+#if ($projectClass.fraction)
 		<cfFraction>$projectClass.fraction</cfFraction>
-		#end
+#end
 	</cfProj_Class>
 	
 #end
@@ -82,23 +76,23 @@
 		<cfClassSchemeId>$equipmentProj.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentProj.startDate)T$date.format('HH:mm:ss',$equipmentProj.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentProj.endDate)T$date.format('HH:mm:ss',$equipmentProj.endDate)</cfEndDate>
-		#if ($equipmentProj.fraction)
+#if ($equipmentProj.fraction)
 		<cfFraction>$equipmentProj.fraction</cfFraction>
-		#end
-		#if ($equipmentProj.availability)
+#end
+#if ($equipmentProj.availability)
 		<cfAvailability>$equipmentProj.availability</cfAvailability>
-		#end
-		#if ($equipmentProj.conditions)
+#end
+#if ($equipmentProj.conditions)
 		<cfConditions>$equipmentProj.conditions</cfConditions>
-		#end
-		#if ($equipmentProj.price)
+#end
+#if ($equipmentProj.price)
 #if (!$equipmentProj.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $equipmentProj.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentProj.price</cfPrice>
-		#end
+#end
 	</cfProj_Equip>
 	
 #end
@@ -109,23 +103,23 @@
 		<cfClassSchemeId>$projectFacil.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectFacil.startDate)T$date.format('HH:mm:ss',$projectFacil.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectFacil.endDate)T$date.format('HH:mm:ss',$projectFacil.endDate)</cfEndDate>
-		#if ($projectFacil.fraction)
+#if ($projectFacil.fraction)
 		<cfFraction>$projectFacil.fraction</cfFraction>
-		#end
-		#if ($projectFacil.availability)
+#end
+#if ($projectFacil.availability)
 		<cfAvailability>$projectFacil.availability</cfAvailability>
-		#end
-		#if ($projectFacil.conditions)
+#end
+#if ($projectFacil.conditions)
 		<cfConditions>$projectFacil.conditions</cfConditions>
-		#end
-		#if ($projectFacil.price)
+#end
+#if ($projectFacil.price)
 #if (!$projectFacil.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $projectFacil.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$projectFacil.price</cfPrice>
-		#end
+#end
 	</cfProj_Facil>
 	
 #end
@@ -136,17 +130,17 @@
 		<cfClassSchemeId>$projectFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectFund.startDate)T$date.format('HH:mm:ss',$projectFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectFund.endDate)T$date.format('HH:mm:ss',$projectFund.endDate)</cfEndDate>
-		#if ($projectFund.fraction)
+#if ($projectFund.fraction)
 		<cfFraction>$projectFund.fraction</cfFraction>
-		#end
-		#if ($projectFund.amount)
+#end
+#if ($projectFund.amount)
 #if (!$projectFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $projectFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$projectFund.amount</cfAmount>
-		#end
+#end
 	</cfProj_Fund>
 	
 #end
@@ -157,9 +151,9 @@
 		<cfClassSchemeId>$projectOrgUnit.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectOrgUnit.startDate)T$date.format('HH:mm:ss',$projectOrgUnit.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectOrgUnit.endDate)T$date.format('HH:mm:ss',$projectOrgUnit.endDate)</cfEndDate>
-		#if ($projectOrgUnit.fraction)
+#if ($projectOrgUnit.fraction)
 		<cfFraction>$projectOrgUnit.fraction</cfFraction>
-        #end
+#end
 	</cfProj_OrgUnit>
 	
 #end	
@@ -170,9 +164,9 @@
 		<cfClassSchemeId>$projectPers.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectPers.startDate)T$date.format('HH:mm:ss',$projectPers.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectPers.endDate)T$date.format('HH:mm:ss',$projectPers.endDate)</cfEndDate>
-		#if ($projectPers.fraction)
+#if ($projectPers.fraction)
 		<cfFraction>$projectPers.fraction</cfFraction>
-        #end
+#end
 	</cfProj_Pers>
 	
 #end	
@@ -183,9 +177,9 @@
 		<cfClassSchemeId>$projectResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectResProd.startDate)T$date.format('HH:mm:ss',$projectResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectResProd.endDate)T$date.format('HH:mm:ss',$projectResProd.endDate)</cfEndDate>
-		#if ($projectResProd.fraction)
+#if ($projectResProd.fraction)
 		<cfFraction>$projectResProd.fraction</cfFraction>
-		#end
+#end
 	</cfProj_ResProd>
 	
 #end
@@ -196,12 +190,12 @@
 		<cfClassSchemeId>$projectRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectRespubl.startDate)T$date.format('HH:mm:ss',$projectRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectRespubl.endDate)T$date.format('HH:mm:ss',$projectRespubl.endDate)</cfEndDate>
-		#if ($projectRespubl.fraction)
+#if ($projectRespubl.fraction)
 		<cfFraction>$projectRespubl.fraction</cfFraction>
-		#end
-		#if ($projectRespubl.copyright)
+#end
+#if ($projectRespubl.copyright)
 		<cfCopyright>$projectRespubl.copyright</cfCopyright>
-		#end
+#end
 	</cfProj_ResPubl>
 	
 #end
@@ -212,24 +206,71 @@
 		<cfClassSchemeId>$serviceProj.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceProj.startDate)T$date.format('HH:mm:ss',$serviceProj.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceProj.endDate)T$date.format('HH:mm:ss',$serviceProj.endDate)</cfEndDate>
-		#if ($serviceProj.fraction)
+#if ($serviceProj.fraction)
 		<cfFraction>$serviceProj.fraction</cfFraction>
-		#end
-		#if ($serviceProj.availability)
+#end
+#if ($serviceProj.availability)
 		<cfAvailability>$serviceProj.availability</cfAvailability>
-		#end
-		#if ($serviceProj.conditions)
+#end
+#if ($serviceProj.conditions)
 		<cfConditions>$serviceProj.conditions</cfConditions>
-		#end
-		#if ($serviceProj.price)
+#end
+#if ($serviceProj.price)
 #if (!$serviceProj.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $serviceProj.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$serviceProj.price</cfPrice>
-		#end
+#end
 	</cfProj_Srv>
+	
+#end
+#foreach( $projFederatedIdentifiers in $project.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$projFederatedIdentifiers.id</cfFedIdId>
+#if ($projFederatedIdentifiers.fedId && $projFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($projFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($projFederatedIdentifiers.theClass)
+		<cfClassId>$projFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($projFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$projFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($projFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$projFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$projFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($projFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$projFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$projFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $projFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $projFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
 	
 #end
 </cfProj>
@@ -252,7 +293,6 @@
 #if ($organisation.uri && $organisation.uri != "")
 	<cfURI>$esc.xml($organisation.uri)</cfURI>
 #end
-#if ($organisation.organisationUnitNames)
 #foreach( $organisationUnitName in $organisation.organisationUnitNames )
 #if( $organisationUnitName.translation == "HUMAN" )
 #set ($trans = "h")
@@ -263,6 +303,25 @@
 #end
 	<cfName cfLangCode=$esc.quote$organisationUnitName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($organisationUnitName.name)</cfName>
 #end
+#foreach( $organisationResearchActivity in $organisation.organisationUnitResearchActivities )
+#if( $organisationResearchActivity.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $organisationResearchActivity.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfResAct cfLangCode=$esc.quote$organisationResearchActivity.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($organisationResearchActivity.researchActivity)</cfResAct>
+#end
+#foreach( $organisationKeyword in $organisation.organisationUnitKeywords )
+#if( $organisationKeyword.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $organisationKeyword.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfKeyw cfLangCode=$esc.quote$organisationKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($organisationKeyword.keyword)</cfKeyw>
 #end
 
 #foreach( $organisationFacil in $organisation.organisationUnits_facilities )
@@ -474,6 +533,53 @@
 	</cfOrgUnit_PAddr>
 	
 #end
+#foreach( $orgFederatedIdentifiers in $organisation.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$orgFederatedIdentifiers.id</cfFedIdId>
+#if ($orgFederatedIdentifiers.fedId && $orgFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($orgFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($orgFederatedIdentifiers.theClass)
+		<cfClassId>$orgFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($orgFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$orgFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($orgFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$orgFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$orgFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($orgFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$orgFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$orgFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $orgFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $orgFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
+	
+#end
 </cfOrgUnit>
 
 #end
@@ -498,6 +604,26 @@
 #if ($person.uri)
 	<cfURI>$esc.xml($person.uri)</cfURI>
 #end
+#foreach( $personResearchInterests in $person.personResearchInterests )
+#if( $personResearchInterests.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $personResearchInterests.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfResInt cfLangCode=$esc.quote$personResearchInterests.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($personResearchInterests.researchInterests)</cfResInt>
+#end
+#foreach( $personKeywords in $person.personKeywords )
+#if( $personKeywords.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $personKeywords.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfKeyw cfLangCode=$esc.quote$personKeywords.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($personKeywords.keyword)</cfKeyw>
+#end
 
 #foreach( $personEAddress in $person.persons_electronicAddresses )
 	<cfPers_EAddr>
@@ -506,9 +632,9 @@
 		<cfClassSchemeId>$personEAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personEAddress.startDate)T$date.format('HH:mm:ss',$personEAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personEAddress.endDate)T$date.format('HH:mm:ss',$personEAddress.endDate)</cfEndDate>
-		#if ($personEAddress.fraction)
+#if ($personEAddress.fraction)
 		<cfFraction>$personEAddress.fraction</cfFraction>
-        #end
+#end
 	</cfPers_EAddr>
 	
 #end
@@ -518,9 +644,9 @@
 		<cfClassSchemeId>$persClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$persClass.startDate)T$date.format('HH:mm:ss',$persClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$persClass.endDate)T$date.format('HH:mm:ss',$persClass.endDate)</cfEndDate>
-		#if ($persClass.fraction)
+#if ($persClass.fraction)
 		<cfFraction>$persClass.fraction</cfFraction>
-        #end
+#end
 	</cfPers_Class>
 	
 #end
@@ -531,23 +657,23 @@
 		<cfClassSchemeId>$equipmentPers.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentPers.startDate)T$date.format('HH:mm:ss',$equipmentPers.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentPers.endDate)T$date.format('HH:mm:ss',$equipmentPers.endDate)</cfEndDate>
-		#if ($equipmentPers.fraction)
+#if ($equipmentPers.fraction)
 		<cfFraction>$equipmentPers.fraction</cfFraction>
-		#end
-		#if ($equipmentPers.conditions)
+#end
+#if ($equipmentPers.conditions)
 		<cfConditions>$equipmentPers.conditions</cfConditions>
-		#end
-		#if ($equipmentPers.availability)
+#end
+#if ($equipmentPers.availability)
 		<cfAvailability>$equipmentPers.availability</cfAvailability>
-		#end
-		#if ($equipmentPers.price)
+#end
+#if ($equipmentPers.price)
 #if (!$equipmentPers.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $equipmentPers.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentPers.price</cfPrice>
-		#end
+#end
 	</cfPers_Equip>
 	
 #end
@@ -558,23 +684,23 @@
 		<cfClassSchemeId>$personFacil.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personFacil.startDate)T$date.format('HH:mm:ss',$personFacil.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personFacil.endDate)T$date.format('HH:mm:ss',$personFacil.endDate)</cfEndDate>
-		#if ($personFacil.fraction)
+#if ($personFacil.fraction)
 		<cfFraction>$personFacil.fraction</cfFraction>
-		#end
-		#if ($personFacil.availability)
+#end
+#if ($personFacil.availability)
 		<cfAvailability>$personFacil.availability</cfAvailability>
-		#end
-		#if ($personFacil.conditions)
+#end
+#if ($personFacil.conditions)
 		<cfConditions>$personFacil.conditions</cfConditions>
-		#end
-		#if ($personFacil.price)
+#end
+#if ($personFacil.price)
 #if (!$personFacil.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $personFacil.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$personFacil.price</cfPrice>
-		#end
+#end
 	</cfPers_Facil>
 	
 #end
@@ -585,17 +711,17 @@
 		<cfClassSchemeId>$personFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personFund.startDate)T$date.format('HH:mm:ss',$personFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personFund.endDate)T$date.format('HH:mm:ss',$personFund.endDate)</cfEndDate>
-		#if ($personFund.fraction)
+#if ($personFund.fraction)
 		<cfFraction>$personFund.fraction</cfFraction>
-		#end
-		#if ($personFund.amount)
+#end
+#if ($personFund.amount)
 #if (!$personFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $personFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$personFund.amount</cfAmount>
-		#end
+#end
 	</cfPers_Fund>
 	
 #end
@@ -606,9 +732,9 @@
 		<cfClassSchemeId>$organisationPers.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationPers.startDate)T$date.format('HH:mm:ss',$organisationPers.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationPers.endDate)T$date.format('HH:mm:ss',$organisationPers.endDate)</cfEndDate>
-		#if ($organisationPers.fraction)
+#if ($organisationPers.fraction)
 		<cfFraction>$organisationPers.fraction</cfFraction>
-        #end
+#end
 	</cfPers_OrgUnit>
 	
 #end
@@ -619,26 +745,26 @@
 		<cfClassSchemeId>$personResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personResProd.startDate)T$date.format('HH:mm:ss',$personResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personResProd.endDate)T$date.format('HH:mm:ss',$personResProd.endDate)</cfEndDate>
-		#if ($personResProd.fraction)
+#if ($personResProd.fraction)
 		<cfFraction>$personResProd.fraction</cfFraction>
-		#end
-		#if ($personResProd.conditions)
+#end
+#if ($personResProd.conditions)
 		<cfConditions>$personResProd.conditions</cfConditions>
-		#end
-		#if ($personResProd.availability)
+#end
+#if ($personResProd.availability)
 		<cfAvailability>$personResProd.availability</cfAvailability>
-		#end
-		#if ($personResProd.price)
+#end
+#if ($personResProd.price)
 #if (!$personResProd.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $personResProd.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$personResProd.price</cfPrice>
-		#end
-		#if ($personResProd.ipr)
+#end
+#if ($personResProd.ipr)
 		<cfIPR>$personResProd.ipr</cfIPR>
-		#end
+#end
 	</cfPers_ResProd>
 	
 #end
@@ -649,9 +775,9 @@
 		<cfClassSchemeId>$persRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$persRespubl.startDate)T$date.format('HH:mm:ss',$persRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$persRespubl.endDate)T$date.format('HH:mm:ss',$persRespubl.endDate)</cfEndDate>
-		#if ($persRespubl.fraction)
+#if ($persRespubl.fraction)
 		<cfFraction>$persRespubl.fraction</cfFraction>
-		#end
+#end
 	</cfPers_ResPubl>
 	
 #end
@@ -662,23 +788,23 @@
 		<cfClassSchemeId>$servicePers.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$servicePers.startDate)T$date.format('HH:mm:ss',$servicePers.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$servicePers.endDate)T$date.format('HH:mm:ss',$servicePers.endDate)</cfEndDate>
-		#if ($servicePers.fraction)
+#if ($servicePers.fraction)
 		<cfFraction>$servicePers.fraction</cfFraction>
-		#end
-		#if ($servicePers.conditions)
+#end
+#if ($servicePers.conditions)
 		<cfConditions>$servicePers.conditions</cfConditions>
-		#end
-		#if ($servicePers.availability)
+#end
+#if ($servicePers.availability)
 		<cfAvailability>$servicePers.availability</cfAvailability>
-		#end
-		#if ($servicePers.price)
+#end
+#if ($servicePers.price)
 #if (!$servicePers.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $servicePers.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$servicePers.price</cfPrice>
-		#end
+#end
 	</cfPers_Srv>
 	
 #end
@@ -689,9 +815,9 @@
 		<cfClassSchemeId>$projectPers.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectPers.startDate)T$date.format('HH:mm:ss',$projectPers.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectPers.endDate)T$date.format('HH:mm:ss',$projectPers.endDate)</cfEndDate>
-		#if ($projectPers.fraction)
+#if ($projectPers.fraction)
 		<cfFraction>$projectPers.fraction</cfFraction>
-        #end
+#end
 	</cfProj_Pers>
 	
 #end
@@ -702,9 +828,9 @@
 		<cfClassSchemeId>$personPAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personPAddress.startDate)T$date.format('HH:mm:ss',$personPAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personPAddress.endDate)T$date.format('HH:mm:ss',$personPAddress.endDate)</cfEndDate>
-		#if ($personPAddress.fraction)
+#if ($personPAddress.fraction)
 		<cfFraction>$personPAddress.fraction</cfFraction>
-        #end
+#end
 	</cfPers_PAddr>
 	
 #end
@@ -713,18 +839,65 @@
 		<cfPersNameId>$personName.id</cfPersNameId>	
 		<cfClassId>64f0eb00-462d-4737-8033-7efac82decf3</cfClassId>
 		<cfClassSchemeId>7375609d-cfa6-45ce-a803-75de69abe21f</cfClassSchemeId>	
-		#if ($personName.familyNames && $personName.familyNames != "")
+#if ($personName.familyNames && $personName.familyNames != "")
 		<cfFamilyNames>$esc.xml($personName.familyNames)</cfFamilyNames>
-		#end
-		#if ($personName.firstNames && $personName.firstNames != "")			
+#end
+#if ($personName.firstNames && $personName.firstNames != "")			
 		<cfFirstNames>$esc.xml($personName.firstNames)</cfFirstNames>
-		#end
-		#if ($personName.otherNames && $personName.otherNames != "")
+#end
+#if ($personName.otherNames && $personName.otherNames != "")
 		<cfOtherNames>$esc.xml($personName.otherNames)</cfOtherNames>
-		#end
+#end
 	</cfPersName_Pers>
 	
 #end	
+#foreach( $personFederatedIdentifiers in $person.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$personFederatedIdentifiers.id</cfFedIdId>
+#if ($personFederatedIdentifiers.fedId && $personFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($personFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($personFederatedIdentifiers.theClass)
+		<cfClassId>$personFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($personFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$personFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($personFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$personFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$personFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($personFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$personFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$personFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $personFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $personFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
+	
+#end
 </cfPers>
 
 #end
@@ -747,9 +920,9 @@
 		<cfClassSchemeId>$organisationEAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationEAddress.startDate)T$date.format('HH:mm:ss',$organisationEAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationEAddress.endDate)T$date.format('HH:mm:ss',$organisationEAddress.endDate)</cfEndDate>
-		#if ($organisationEAddress.fraction)
+#if ($organisationEAddress.fraction)
 		<cfFraction>$organisationEAddress.fraction</cfFraction>
-        #end
+#end
 	</cfOrgUnit_EAddr>
 	
 #end
@@ -760,9 +933,9 @@
 		<cfClassSchemeId>$personEAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personEAddress.startDate)T$date.format('HH:mm:ss',$personEAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personEAddress.endDate)T$date.format('HH:mm:ss',$personEAddress.endDate)</cfEndDate>
-		#if ($personEAddress.fraction)
+#if ($personEAddress.fraction)
 		<cfFraction>$personEAddress.fraction</cfFraction>
-        #end
+#end
 	</cfPers_EAddr>
 	
 #end
@@ -772,10 +945,57 @@
 		<cfClassSchemeId>$electronicAddressClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$electronicAddressClass.startDate)T$date.format('HH:mm:ss',$electronicAddressClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$electronicAddressClass.endDate)T$date.format('HH:mm:ss',$electronicAddressClass.endDate)</cfEndDate>
-		#if ($electronicAddressClass.fraction)
+#if ($electronicAddressClass.fraction)
 		<cfFraction>$electronicAddressClass.fraction</cfFraction>
-		#end
+#end
 	</cfEAddr_Class>
+	
+#end
+#foreach( $electronicAddressFederatedIdentifiers in $electronicAddress.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$electronicAddressFederatedIdentifiers.id</cfFedIdId>
+#if ($electronicAddressFederatedIdentifiers.fedId && $electronicAddressFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($electronicAddressFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($electronicAddressFederatedIdentifiers.theClass)
+		<cfClassId>$electronicAddressFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($electronicAddressFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$electronicAddressFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($electronicAddressFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$electronicAddressFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$electronicAddressFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($electronicAddressFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$electronicAddressFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$electronicAddressFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $electronicAddressFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $electronicAddressFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
 	
 #end
 
@@ -825,9 +1045,9 @@
 		<cfClassSchemeId>$organisationPAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationPAddress.startDate)T$date.format('HH:mm:ss',$organisationPAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationPAddress.endDate)T$date.format('HH:mm:ss',$organisationPAddress.endDate)</cfEndDate>
-		#if ($organisationPAddress.fraction)
+#if ($organisationPAddress.fraction)
 		<cfFraction>$organisationPAddress.fraction</cfFraction>
-        #end
+#end
 	</cfOrgUnit_PAddr>
 	
 #end
@@ -838,9 +1058,9 @@
 		<cfClassSchemeId>$personPAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personPAddress.startDate)T$date.format('HH:mm:ss',$personPAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personPAddress.endDate)T$date.format('HH:mm:ss',$personPAddress.endDate)</cfEndDate>
-		#if ($personPAddress.fraction)
+#if ($personPAddress.fraction)
 		<cfFraction>$personPAddress.fraction</cfFraction>
-        #end
+#end
 	</cfPers_PAddr>
 	
 #end
@@ -850,9 +1070,9 @@
 		<cfClassSchemeId>$postalAddressClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$postalAddressClass.startDate)T$date.format('HH:mm:ss',$postalAddressClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$postalAddressClass.endDate)T$date.format('HH:mm:ss',$postalAddressClass.endDate)</cfEndDate>
-		#if ($postalAddressClass.fraction)
+#if ($postalAddressClass.fraction)
 		<cfFraction>$postalAddressClass.fraction</cfFraction>
-		#end
+#end
 	</cfPAddr_Class>
 	
 #end
@@ -863,9 +1083,9 @@
 		<cfClassSchemeId>$equipmentPAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentPAddress.startDate)T$date.format('HH:mm:ss',$equipmentPAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentPAddress.endDate)T$date.format('HH:mm:ss',$equipmentPAddress.endDate)</cfEndDate>
-		#if ($equipmentPAddress.fraction)
+#if ($equipmentPAddress.fraction)
 		<cfFraction>$equipmentPAddress.fraction</cfFraction>
-        #end
+#end
 	</cfEquip_PAddr>
 	
 #end
@@ -876,9 +1096,9 @@
 		<cfClassSchemeId>$facilityPAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$facilityPAddress.startDate)T$date.format('HH:mm:ss',$facilityPAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$facilityPAddress.endDate)T$date.format('HH:mm:ss',$facilityPAddress.endDate)</cfEndDate>
-		#if ($facilityPAddress.fraction)
+#if ($facilityPAddress.fraction)
 		<cfFraction>$facilityPAddress.fraction</cfFraction>
-        #end
+#end
 	</cfFacil_PAddr>
 	
 #end
@@ -889,10 +1109,57 @@
 		<cfClassSchemeId>$servicePAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$servicePAddress.startDate)T$date.format('HH:mm:ss',$servicePAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$servicePAddress.endDate)T$date.format('HH:mm:ss',$servicePAddress.endDate)</cfEndDate>
-		#if ($servicePAddress.fraction)
+#if ($servicePAddress.fraction)
 		<cfFraction>$servicePAddress.fraction</cfFraction>
-        #end
+#end
 	</cfSrv_PAddr>
+	
+#end
+#foreach( $postalAddressFederatedIdentifiers in $postalAddress.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$postalAddressFederatedIdentifiers.id</cfFedIdId>
+#if ($postalAddressFederatedIdentifiers.fedId && $postalAddressFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($postalAddressFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($postalAddressFederatedIdentifiers.theClass)
+		<cfClassId>$postalAddressFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($postalAddressFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$postalAddressFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($postalAddressFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$postalAddressFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$postalAddressFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($postalAddressFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$postalAddressFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$postalAddressFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $postalAddressFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $postalAddressFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
 	
 #end
 </cfPAddr>
@@ -923,8 +1190,7 @@
 #if ($funding.uri && $funding.uri != "")
 	<cfURI>$esc.xml($funding.uri)</cfURI>
 #end
-#if ($funding.names)
-#foreach( $fundingName in $funding.names )
+#foreach( $fundingName in $funding.fundingNames )
 #if( $fundingName.translation == "HUMAN" )
 #set ($trans = "h")
 #elseif( $fundingName.translation == "ORIGINAL" )
@@ -934,9 +1200,7 @@
 #end
 	<cfName cfLangCode=$esc.quote$fundingName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($fundingName.name)</cfName>
 #end
-#end
-#if ($funding.descriptions)
-#foreach( $fundingDescr in $funding.descriptions )
+#foreach( $fundingDescr in $funding.fundingDescriptions )
 #if( $fundingDescr.translation == "HUMAN" )
 #set ($trans = "h")
 #elseif( $fundingDescr.translation == "ORIGINAL" )
@@ -946,6 +1210,15 @@
 #end
 	<cfDescr cfLangCode=$esc.quote$fundingDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($fundingDescr.description)</cfDescr>
 #end
+#foreach( $fundingKeyword in $funding.fundingKeywords )
+#if( $fundingKeyword.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $fundingKeyword.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfKeyw cfLangCode=$esc.quote$fundingKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($fundingKeyword.keyword)</cfKeyw>
 #end
 
 #foreach( $equipmentFund in $funding.equipments_fundings )
@@ -955,17 +1228,17 @@
 		<cfClassSchemeId>$equipmentFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentFund.startDate)T$date.format('HH:mm:ss',$equipmentFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentFund.endDate)T$date.format('HH:mm:ss',$equipmentFund.endDate)</cfEndDate>
-		#if ($equipmentFund.fraction)
+#if ($equipmentFund.fraction)
 		<cfFraction>$equipmentFund.fraction</cfFraction>
-		#end
-		#if ($equipmentFund.amount)
+#end
+#if ($equipmentFund.amount)
 #if (!$equipmentFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $equipmentFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$equipmentFund.amount</cfAmount>
-		#end
+#end
 	</cfEquip_Fund>
 	
 #end
@@ -976,17 +1249,17 @@
 		<cfClassSchemeId>$facilityFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$facilityFund.startDate)T$date.format('HH:mm:ss',$facilityFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$facilityFund.endDate)T$date.format('HH:mm:ss',$facilityFund.endDate)</cfEndDate>
-		#if ($facilityFund.fraction)
+#if ($facilityFund.fraction)
 		<cfFraction>$facilityFund.fraction</cfFraction>
-		#end
-		#if ($facilityFund.amount)
+#end
+#if ($facilityFund.amount)
 #if (!$facilityFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $facilityFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$facilityFund.amount</cfAmount>
-		#end
+#end
 	</cfFacil_Fund>
 	
 #end
@@ -996,9 +1269,9 @@
 		<cfClassSchemeId>$fundClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$fundClass.startDate)T$date.format('HH:mm:ss',$fundClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$fundClass.endDate)T$date.format('HH:mm:ss',$fundClass.endDate)</cfEndDate>
-		#if ($fundClass.fraction)
+#if ($fundClass.fraction)
 		<cfFraction>$fundClass.fraction</cfFraction>
-        #end
+#end
 	</cfFund_Class>
 	
 #end
@@ -1009,17 +1282,17 @@
 		<cfClassSchemeId>$organisationFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationFund.startDate)T$date.format('HH:mm:ss',$organisationFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationFund.endDate)T$date.format('HH:mm:ss',$organisationFund.endDate)</cfEndDate>
-		#if ($organisationFund.fraction)
+#if ($organisationFund.fraction)
 		<cfFraction>$organisationFund.fraction</cfFraction>
-		#end
-		#if ($organisationFund.amount)
+#end
+#if ($organisationFund.amount)
 #if (!$organisationFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $organisationFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$organisationFund.amount</cfAmount>
-		#end
+#end
 	</cfOrgUnit_Fund>
 	
 #end
@@ -1030,17 +1303,17 @@
 		<cfClassSchemeId>$personFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personFund.startDate)T$date.format('HH:mm:ss',$personFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personFund.endDate)T$date.format('HH:mm:ss',$personFund.endDate)</cfEndDate>
-		#if ($personFund.fraction)
+#if ($personFund.fraction)
 		<cfFraction>$personFund.fraction</cfFraction>
-		#end
-		#if ($personFund.amount)
+#end
+#if ($personFund.amount)
 #if (!$personFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $personFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$personFund.amount</cfAmount>
-		#end
+#end
 	</cfPers_Fund>
 	
 #end
@@ -1051,17 +1324,17 @@
 		<cfClassSchemeId>$projectFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectFund.startDate)T$date.format('HH:mm:ss',$projectFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectFund.endDate)T$date.format('HH:mm:ss',$projectFund.endDate)</cfEndDate>
-		#if ($projectFund.fraction)
+#if ($projectFund.fraction)
 		<cfFraction>$projectFund.fraction</cfFraction>
-		#end
-		#if ($projectFund.amount)
+#end
+#if ($projectFund.amount)
 #if (!$projectFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $projectFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$projectFund.amount</cfAmount>
-		#end
+#end
 	</cfProj_Fund>
 	
 #end
@@ -1072,17 +1345,17 @@
 		<cfClassSchemeId>$resultProductFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$resultProductFund.startDate)T$date.format('HH:mm:ss',$resultProductFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultProductFund.endDate)T$date.format('HH:mm:ss',$resultProductFund.endDate)</cfEndDate>
-		#if ($resultProductFund.fraction)
+#if ($resultProductFund.fraction)
 		<cfFraction>$resultProductFund.fraction</cfFraction>
-		#end
-		#if ($resultProductFund.amount)
+#end
+#if ($resultProductFund.amount)
 #if (!$resultProductFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $resultProductFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resultProductFund.amount</cfAmount>
-		#end
+#end
 	</cfResProd_Fund>
 	
 #end
@@ -1093,17 +1366,17 @@
 		<cfClassSchemeId>$resultPublicationFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$resultPublicationFund.startDate)T$date.format('HH:mm:ss',$resultPublicationFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultPublicationFund.endDate)T$date.format('HH:mm:ss',$resultPublicationFund.endDate)</cfEndDate>
-		#if ($resultPublicationFund.fraction)
+#if ($resultPublicationFund.fraction)
 		<cfFraction>$resultPublicationFund.fraction</cfFraction>
-		#end
-		#if ($resultPublicationFund.amount)
+#end
+#if ($resultPublicationFund.amount)
 #if (!$resultPublicationFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $resultPublicationFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resultPublicationFund.amount</cfAmount>
-		#end
+#end
 	</cfResPubl_Fund>
 	
 #end
@@ -1114,18 +1387,65 @@
 		<cfClassSchemeId>$serviceFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceFund.startDate)T$date.format('HH:mm:ss',$serviceFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceFund.endDate)T$date.format('HH:mm:ss',$serviceFund.endDate)</cfEndDate>
-		#if ($serviceFund.fraction)
+#if ($serviceFund.fraction)
 		<cfFraction>$serviceFund.fraction</cfFraction>
-		#end
-		#if ($serviceFund.amount)
+#end
+#if ($serviceFund.amount)
 #if (!$serviceFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $serviceFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$serviceFund.amount</cfAmount>
-		#end
+#end
 	</cfSrv_Fund>
+	
+#end
+#foreach( $fundingFederatedIdentifiers in $funding.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$fundingFederatedIdentifiers.id</cfFedIdId>
+#if ($fundingFederatedIdentifiers.fedId && $fundingFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($fundingFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($fundingFederatedIdentifiers.theClass)
+		<cfClassId>$fundingFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($fundingFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$fundingFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($fundingFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$fundingFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$fundingFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($fundingFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$fundingFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$fundingFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $fundingFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $fundingFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
 	
 #end
 </cfFund>
@@ -1146,7 +1466,19 @@
 #if ($theClass.uri && $theClass.uri != "")
 	<cfURI>$esc.xml($theClass.uri)</cfURI>
 #end
-	
+#foreach( $classDescription in $theClass.descriptions )
+#if( $classDescription.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $classDescription.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfDescr cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classDescription.description)</cfDescr>
+#if ($classDescription.descriptionSrc && $classDescription.descriptionSrc != "")	
+	<cfDescrSrc cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classDescription.descriptionSrc)</cfDescrSrc>
+#end
+#end
 #foreach( $classTerm in $theClass.terms )
 #if( $classTerm.translation == "HUMAN" )
 #set ($trans = "h")
@@ -1156,8 +1488,90 @@
 #set ($trans = "m")
 #end
 	<cfTerm cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classTerm.term)</cfTerm>
+#if ($classTerm.roleExpr && $classTerm.roleExpr != "")	
+	<cfRoleExpr cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classTerm.roleExpr)</cfRoleExpr>
+#end
+#if ($classTerm.roleExprOpp && $classTerm.roleExprOpp != "")	
+	<cfRoleExprOpp cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classTerm.roleExprOpp)</cfRoleExprOpp>
+#end
+#if ($classTerm.termSrc && $classTerm.termSrc != "")	
+	<cfTermSrc cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classTerm.termSrc)</cfTermSrc>
+#end
+#end
+#foreach( $classDefinition in $theClass.definitions )
+#if( $classDefinition.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $classDefinition.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfDef cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classDefinition.definition)</cfDef>
+#if ($classDefinition.definitionSrc && $classDefinition.definitionSrc != "")	
+	<cfDefSrc cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classDefinition.definitionSrc)</cfDefSrc>
+#end
+#end
+#foreach( $classEx in $theClass.exs )
+#if( $classEx.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $classEx.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfEx cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classEx.ex)</cfEx>
+#if ($classEx.exSrc && $classEx.exSrc != "")	
+	<cfExSrc cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($classEx.exSrc)</cfExSrc>
+#end
 #end
 
+#foreach( $classFederatedIdentifiers in $theClass.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$classFederatedIdentifiers.id</cfFedIdId>
+#if ($classFederatedIdentifiers.fedId && $classFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($classFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($classFederatedIdentifiers.theClass)
+		<cfClassId>$classFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($classFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$classFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($classFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$classFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$classFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($classFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$classFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$classFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $classFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $classFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
+	
+#end
 </cfClass>
 
 #end
@@ -1169,7 +1583,6 @@
 #if ($classScheme.uri && $classScheme.uri != "")
 	<cfURI>$esc.xml($classScheme.uri)</cfURI>
 #end
-	
 #foreach( $classSchemeDescr in $classScheme.descriptions )
 #if( $classSchemeDescr.translation == "HUMAN" )
 #set ($trans = "h")
@@ -1197,6 +1610,53 @@
 #end
 #end
 
+#foreach( $classSchemeFederatedIdentifiers in $classScheme.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$classSchemeFederatedIdentifiers.id</cfFedIdId>
+#if ($classSchemeFederatedIdentifiers.fedId && $classSchemeFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($classSchemeFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($classSchemeFederatedIdentifiers.theClass)
+		<cfClassId>$classSchemeFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($classSchemeFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$classSchemeFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($classSchemeFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$classSchemeFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$classSchemeFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($classSchemeFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$classSchemeFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$classSchemeFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $classSchemeFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $classSchemeFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
+	
+#end
 </cfClassScheme>
 
 #end
@@ -1208,7 +1668,6 @@
 #if ($resultProduct.uri && $resultProduct.uri != "")
 	<cfURI>$esc.xml($resultProduct.uri)</cfURI>
 #end
-#if ($resultProduct.resultProductNames)
 #foreach( $resultProductName in $resultProduct.resultProductNames )
 #if( $resultProductName.translation == "HUMAN" )
 #set ($trans = "h")
@@ -1219,8 +1678,6 @@
 #end
 	<cfName cfLangCode=$esc.quote$resultProductName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultProductName.name)</cfName>
 #end
-#end
-#if ($resultProduct.resultProductDescriptions)
 #foreach( $resultProductDescr in $resultProduct.resultProductDescriptions )
 #if( $resultProductDescr.translation == "HUMAN" )
 #set ($trans = "h")
@@ -1231,6 +1688,25 @@
 #end
 	<cfDescr cfLangCode=$esc.quote$resultProductDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultProductDescr.description)</cfDescr>
 #end
+#foreach( $resultProductKeyword in $resultProduct.resultProductKeywords )
+#if( $resultProductKeyword.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $resultProductKeyword.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfKeyw cfLangCode=$esc.quote$resultProductKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultProductKeyword.keyword)</cfKeyw>
+#end
+#foreach( $resultProductVersionInfo in $resultProduct.resultProductVersionInfos )
+#if( $resultProductVersionInfo.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $resultProductVersionInfo.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfVersInfo cfLangCode=$esc.quote$resultProductVersionInfo.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultProductVersionInfo.versionInfo)</cfVersInfo>
 #end
 
 #foreach( $organisationResProd in $resultProduct.organisationUnits_resultProducts )
@@ -1240,23 +1716,23 @@
 		<cfClassSchemeId>$organisationResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationResProd.startDate)T$date.format('HH:mm:ss',$organisationResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationResProd.endDate)T$date.format('HH:mm:ss',$organisationResProd.endDate)</cfEndDate>
-		#if ($organisationResProd.fraction)
+#if ($organisationResProd.fraction)
 		<cfFraction>$organisationResProd.fraction</cfFraction>
-		#end
-		#if ($organisationResProd.availability)
+#end
+#if ($organisationResProd.availability)
 		<cfAvailability>$organisationResProd.availability</cfAvailability>
-		#end
-		#if ($organisationResProd.conditions)
+#end
+#if ($organisationResProd.conditions)
 		<cfConditions>$organisationResProd.conditions</cfConditions>
-		#end
-		#if ($organisationResProd.price)
+#end
+#if ($organisationResProd.price)
 #if (!$organisationResProd.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $organisationResProd.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$organisationResProd.price</cfPrice>
-		#end
+#end
 	</cfOrgUnit_ResProd>
 	
 #end
@@ -1267,26 +1743,26 @@
 		<cfClassSchemeId>$personResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personResProd.startDate)T$date.format('HH:mm:ss',$personResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personResProd.endDate)T$date.format('HH:mm:ss',$personResProd.endDate)</cfEndDate>
-		#if ($personResProd.fraction)
+#if ($personResProd.fraction)
 		<cfFraction>$personResProd.fraction</cfFraction>
-		#end
-		#if ($personResProd.conditions)
+#end
+#if ($personResProd.conditions)
 		<cfConditions>$personResProd.conditions</cfConditions>
-		#end
-		#if ($personResProd.availability)
+#end
+#if ($personResProd.availability)
 		<cfAvailability>$personResProd.availability</cfAvailability>
-		#end
-		#if ($personResProd.price)
+#end
+#if ($personResProd.price)
 #if (!$personResProd.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $personResProd.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$personResProd.price</cfPrice>
-		#end
-		#if ($personResProd.ipr)
+#end
+#if ($personResProd.ipr)
 		<cfIPR>$personResProd.ipr</cfIPR>
-		#end
+#end
 	</cfPers_ResProd>
 	
 #end
@@ -1297,9 +1773,9 @@
 		<cfClassSchemeId>$projectResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectResProd.startDate)T$date.format('HH:mm:ss',$projectResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectResProd.endDate)T$date.format('HH:mm:ss',$projectResProd.endDate)</cfEndDate>
-		#if ($projectResProd.fraction)
+#if ($projectResProd.fraction)
 		<cfFraction>$projectResProd.fraction</cfFraction>
-		#end
+#end
 	</cfProj_ResProd>
 	
 #end
@@ -1309,9 +1785,9 @@
 		<cfClassSchemeId>$resultProductClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$resultProductClass.startDate)T$date.format('HH:mm:ss',$resultProductClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultProductClass.endDate)T$date.format('HH:mm:ss',$resultProductClass.endDate)</cfEndDate>
-		#if ($resultProductClass.fraction)
+#if ($resultProductClass.fraction)
 		<cfFraction>$resultProductClass.fraction</cfFraction>
-        #end
+#end
 	</cfResProd_Class>
 	
 #end
@@ -1322,17 +1798,17 @@
 		<cfClassSchemeId>$resultProductFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$resultProductFund.startDate)T$date.format('HH:mm:ss',$resultProductFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultProductFund.endDate)T$date.format('HH:mm:ss',$resultProductFund.endDate)</cfEndDate>
-		#if ($resultProductFund.fraction)
+#if ($resultProductFund.fraction)
 		<cfFraction>$resultProductFund.fraction</cfFraction>
-		#end
-		#if ($resultProductFund.amount)
+#end
+#if ($resultProductFund.amount)
 #if (!$resultProductFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $resultProductFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resultProductFund.amount</cfAmount>
-		#end
+#end
 	</cfResProd_Fund>
 	
 #end
@@ -1343,9 +1819,9 @@
 		<cfClassSchemeId>$resultPublicationResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$resultPublicationResProd.startDate)T$date.format('HH:mm:ss',$resultPublicationResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultPublicationResProd.endDate)T$date.format('HH:mm:ss',$resultPublicationResProd.endDate)</cfEndDate>
-		#if ($resultPublicationResProd.fraction)
+#if ($resultPublicationResProd.fraction)
 		<cfFraction>$resultPublicationResProd.fraction</cfFraction>
-		#end
+#end
 	</cfResPubl_ResProd>
 	
 #end
@@ -1356,9 +1832,9 @@
 		<cfClassSchemeId>$facilityResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$facilityResProd.startDate)T$date.format('HH:mm:ss',$facilityResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$facilityResProd.endDate)T$date.format('HH:mm:ss',$facilityResProd.endDate)</cfEndDate>
-		#if ($facilityResProd.fraction)
+#if ($facilityResProd.fraction)
 		<cfFraction>$facilityResProd.fraction</cfFraction>
-		#end
+#end
 	</cfResProd_Facil>
 	
 #end
@@ -1369,9 +1845,9 @@
 		<cfClassSchemeId>$serviceResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceResProd.startDate)T$date.format('HH:mm:ss',$serviceResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceResProd.endDate)T$date.format('HH:mm:ss',$serviceResProd.endDate)</cfEndDate>
-		#if ($serviceResProd.fraction)
+#if ($serviceResProd.fraction)
 		<cfFraction>$serviceResProd.fraction</cfFraction>
-		#end
+#end
 	</cfResProd_Srv>
 	
 #end
@@ -1382,10 +1858,57 @@
 		<cfClassSchemeId>$equipmentResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentResProd.startDate)T$date.format('HH:mm:ss',$equipmentResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentResProd.endDate)T$date.format('HH:mm:ss',$equipmentResProd.endDate)</cfEndDate>
-		#if ($equipmentResProd.fraction)
+#if ($equipmentResProd.fraction)
 		<cfFraction>$equipmentResProd.fraction</cfFraction>
-		#end
+#end
 	</cfResProd_Equip>
+	
+#end
+#foreach( $resultProductFederatedIdentifiers in $resultProduct.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$resultProductFederatedIdentifiers.id</cfFedIdId>
+#if ($resultProductFederatedIdentifiers.fedId && $resultProductFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($resultProductFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($resultProductFederatedIdentifiers.theClass)
+		<cfClassId>$resultProductFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($resultProductFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$resultProductFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($resultProductFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$resultProductFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$resultProductFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($resultProductFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$resultProductFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$resultProductFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $resultProductFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $resultProductFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
 	
 #end
 </cfResProd>
@@ -1432,7 +1955,6 @@
 #if ($resultPublication.uri && $resultPublication.uri != "")
 	<cfURI>$esc.xml($resultPublication.uri)</cfURI>
 #end
-#if ($resultPublication.resultPublicationTitles)
 #foreach( $resultPublicationTitle in $resultPublication.resultPublicationTitles )
 #if( $resultPublicationTitle.translation == "HUMAN" )
 #set ($trans = "h")
@@ -1443,8 +1965,6 @@
 #end
 	<cfTitle cfLangCode=$esc.quote$resultPublicationTitle.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultPublicationTitle.title)</cfTitle>
 #end
-#end
-#if ($resultPublication.resultPublicationAbstracts)
 #foreach( $resultPublicationAbstract in $resultPublication.resultPublicationAbstracts )
 #if( $resultPublicationAbstract.translation == "HUMAN" )
 #set ($trans = "h")
@@ -1455,8 +1975,6 @@
 #end
 	<cfAbstr cfLangCode=$esc.quote$resultPublicationAbstract.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultPublicationAbstract.abstractText)</cfAbstr>
 #end
-#end
-#if ($resultPublication.resultPublicationKeywords)
 #foreach( $resultPublicationKeyword in $resultPublication.resultPublicationKeywords )
 #if( $resultPublicationKeyword.translation == "HUMAN" )
 #set ($trans = "h")
@@ -1467,8 +1985,26 @@
 #end
 	<cfKeyw cfLangCode=$esc.quote$resultPublicationKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultPublicationKeyword.keyword)</cfKeyw>
 #end
+#foreach( $resultPublicationBibliographicNote in $resultPublication.resultPublicationBibliographicNotes )
+#if( $resultPublicationBibliographicNote.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $resultPublicationBibliographicNote.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
 #end
-#if ($resultPublication.resultPublicationSubtitles)
+	<cfBiblNote cfLangCode=$esc.quote$resultPublicationBibliographicNote.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultPublicationBibliographicNote.bibliographicNote)</cfBiblNote>
+#end
+#foreach( $resultNameAbbreviation in $resultPublication.resultPublicationNameAbbreviations )
+#if( $resultNameAbbreviation.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $resultNameAbbreviation.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfNameAbbrev cfLangCode=$esc.quote$resultNameAbbreviation.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultNameAbbreviation.nameAbbreviation)</cfNameAbbrev>
+#end
 #foreach( $resultPublicationSubtitle in $resultPublication.resultPublicationSubtitles )
 #if( $resultPublicationSubtitle.translation == "HUMAN" )
 #set ($trans = "h")
@@ -1479,6 +2015,15 @@
 #end
 	<cfSubtitle cfLangCode=$esc.quote$resultPublicationSubtitle.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultPublicationSubtitle.subtitle)</cfSubtitle>
 #end
+#foreach( $resultPublicationVersionInfo in $resultPublication.resultPublicationVersionInfos )
+#if( $resultPublicationVersionInfo.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $resultPublicationVersionInfo.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfVersInfo cfLangCode=$esc.quote$resultPublicationVersionInfo.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($resultPublicationVersionInfo.versionInfo)</cfVersInfo>
 #end
 	
 #foreach( $organisationRespubl in $resultPublication.organisationUnit_resultPublications )
@@ -1488,9 +2033,9 @@
 		<cfClassSchemeId>$organisationRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationRespubl.startDate)T$date.format('HH:mm:ss',$organisationRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationRespubl.endDate)T$date.format('HH:mm:ss',$organisationRespubl.endDate)</cfEndDate>
-		#if ($organisationRespubl.fraction)
+#if ($organisationRespubl.fraction)
 		<cfFraction>$organisationRespubl.fraction</cfFraction>
-		#end
+#end
 	</cfOrgUnit_ResPubl>
 	
 #end
@@ -1501,9 +2046,9 @@
 		<cfClassSchemeId>$persRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$persRespubl.startDate)T$date.format('HH:mm:ss',$persRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$persRespubl.endDate)T$date.format('HH:mm:ss',$persRespubl.endDate)</cfEndDate>
-		#if ($persRespubl.fraction)
+#if ($persRespubl.fraction)
 		<cfFraction>$persRespubl.fraction</cfFraction>
-		#end
+#end
 	</cfPers_ResPubl>
 	
 #end
@@ -1514,12 +2059,12 @@
 		<cfClassSchemeId>$projectRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectRespubl.startDate)T$date.format('HH:mm:ss',$projectRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectRespubl.endDate)T$date.format('HH:mm:ss',$projectRespubl.endDate)</cfEndDate>
-		#if ($projectRespubl.fraction)
+#if ($projectRespubl.fraction)
 		<cfFraction>$projectRespubl.fraction</cfFraction>
-		#end
-		#if ($projectRespubl.copyright)
+#end
+#if ($projectRespubl.copyright)
 		<cfCopyright>$projectRespubl.copyright</cfCopyright>
-		#end
+#end
 	</cfProj_ResPubl>
 	
 #end
@@ -1529,9 +2074,9 @@
 		<cfClassSchemeId>$respublClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$respublClass.startDate)T$date.format('HH:mm:ss',$respublClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$respublClass.endDate)T$date.format('HH:mm:ss',$respublClass.endDate)</cfEndDate>
-		#if ($respublClass.fraction)
+#if ($respublClass.fraction)
 		<cfFraction>$respublClass.fraction</cfFraction>
-		#end
+#end
 	</cfResPubl_Class>
 	
 #end
@@ -1542,17 +2087,17 @@
 		<cfClassSchemeId>$resultPublicationFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$resultPublicationFund.startDate)T$date.format('HH:mm:ss',$resultPublicationFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultPublicationFund.endDate)T$date.format('HH:mm:ss',$resultPublicationFund.endDate)</cfEndDate>
-		#if ($resultPublicationFund.fraction)
+#if ($resultPublicationFund.fraction)
 		<cfFraction>$resultPublicationFund.fraction</cfFraction>
-		#end
-		#if ($resultPublicationFund.amount)
+#end
+#if ($resultPublicationFund.amount)
 #if (!$resultPublicationFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $resultPublicationFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resultPublicationFund.amount</cfAmount>
-		#end
+#end
 	</cfResPubl_Fund>
 	
 #end
@@ -1563,9 +2108,9 @@
 		<cfClassSchemeId>$resultPublicationFacil.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$resultPublicationFacil.startDate)T$date.format('HH:mm:ss',$resultPublicationFacil.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultPublicationFacil.endDate)T$date.format('HH:mm:ss',$resultPublicationFacil.endDate)</cfEndDate>
-		#if ($resultPublicationFacil.fraction)
+#if ($resultPublicationFacil.fraction)
 		<cfFraction>$resultPublicationFacil.fraction</cfFraction>
-		#end
+#end
 	</cfResPubl_Facil>
 	
 #end
@@ -1576,9 +2121,9 @@
 		<cfClassSchemeId>$equipmentRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentRespubl.startDate)T$date.format('HH:mm:ss',$equipmentRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentRespubl.endDate)T$date.format('HH:mm:ss',$equipmentRespubl.endDate)</cfEndDate>
-		#if ($equipmentRespubl.fraction)
+#if ($equipmentRespubl.fraction)
 		<cfFraction>$equipmentRespubl.fraction</cfFraction>
-		#end
+#end
 	</cfResPubl_Equip>
 	
 #end
@@ -1589,9 +2134,9 @@
 		<cfClassSchemeId>$resultPublicationResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$resultPublicationResProd.startDate)T$date.format('HH:mm:ss',$resultPublicationResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultPublicationResProd.endDate)T$date.format('HH:mm:ss',$resultPublicationResProd.endDate)</cfEndDate>
-		#if ($resultPublicationResProd.fraction)
+#if ($resultPublicationResProd.fraction)
 		<cfFraction>$resultPublicationResProd.fraction</cfFraction>
-		#end
+#end
 	</cfResPubl_ResProd>
 	
 #end
@@ -1602,10 +2147,57 @@
 		<cfClassSchemeId>$serviceRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceRespubl.startDate)T$date.format('HH:mm:ss',$serviceRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceRespubl.endDate)T$date.format('HH:mm:ss',$serviceRespubl.endDate)</cfEndDate>
-		#if ($serviceRespubl.fraction)
+#if ($serviceRespubl.fraction)
 		<cfFraction>$serviceRespubl.fraction</cfFraction>
-		#end
+#end
 	</cfResPubl_Srv>
+	
+#end
+#foreach( $resultPublicationFederatedIdentifiers in $resultPublication.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$resultPublicationFederatedIdentifiers.id</cfFedIdId>
+#if ($resultPublicationFederatedIdentifiers.fedId && $resultPublicationFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($resultPublicationFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($resultPublicationFederatedIdentifiers.theClass)
+		<cfClassId>$resultPublicationFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($resultPublicationFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$resultPublicationFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($resultPublicationFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$resultPublicationFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$resultPublicationFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($classSchemeFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$resultPublicationFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$resultPublicationFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $resultPublicationFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $resultPublicationFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
 	
 #end
 </cfResPubl>
@@ -1622,8 +2214,7 @@
 #if ($facility.uri && $facility.uri != "")
 	<cfURI>$esc.xml($facility.uri)</cfURI>
 #end
-#if ($facility.names)
-#foreach( $facilityName in $facility.names )
+#foreach( $facilityName in $facility.facilityNames )
 #if( $facilityName.translation == "HUMAN" )
 #set ($trans = "h")
 #elseif( $facilityName.translation == "ORIGINAL" )
@@ -1633,6 +2224,25 @@
 #end
 	<cfName cfLangCode=$esc.quote$facilityName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($facilityName.name)</cfName>
 #end
+#foreach( $facilityDescription in $facility.facilityDescriptions )
+#if( $facilityDescription.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $facilityDescription.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfDescr cfLangCode=$esc.quote$facilityDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($facilityDescription.description)</cfDescr>
+#end
+#foreach( $facilityKeyword in $facility.facilityKeywords )
+#if( $facilityKeyword.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $facilityKeyword.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfKeyw cfLangCode=$esc.quote$facilityKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($facilityKeyword.keyword)</cfKeyw>
 #end
 	
 #foreach( $facilityClass in $facility.classes )
@@ -1641,9 +2251,9 @@
 		<cfClassSchemeId>$facilityClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$facilityClass.startDate)T$date.format('HH:mm:ss',$facilityClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$facilityClass.endDate)T$date.format('HH:mm:ss',$facilityClass.endDate)</cfEndDate>
-		#if ($facilityClass.fraction)
+#if ($facilityClass.fraction)
 		<cfFraction>$facilityClass.fraction</cfFraction>
-		#end
+#end
 	</cfFacil_Class>
 	
 #end
@@ -1654,23 +2264,23 @@
 		<cfClassSchemeId>$organisationFacil.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationFacil.startDate)T$date.format('HH:mm:ss',$organisationFacil.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationFacil.endDate)T$date.format('HH:mm:ss',$organisationFacil.endDate)</cfEndDate>
-		#if ($organisationFacil.fraction)
+#if ($organisationFacil.fraction)
 		<cfFraction>$organisationFacil.fraction</cfFraction>
-		#end
-		#if ($organisationFacil.availability)
+#end
+#if ($organisationFacil.availability)
 		<cfAvailability>$organisationFacil.availability</cfAvailability>
-		#end
-		#if ($organisationFacil.conditions)
+#end
+#if ($organisationFacil.conditions)
 		<cfConditions>$organisationFacil.conditions</cfConditions>
-		#end
-		#if ($organisationFacil.price)
+#end
+#if ($organisationFacil.price)
 #if (!$organisationFacil.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $organisationFacil.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$organisationFacil.price</cfPrice>
-		#end
+#end
 	</cfOrgUnit_Facil>
 	
 #end
@@ -1681,10 +2291,10 @@
 		<cfClassSchemeId>$facilityFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$facilityFund.startDate)T$date.format('HH:mm:ss',$facilityFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$facilityFund.endDate)T$date.format('HH:mm:ss',$facilityFund.endDate)</cfEndDate>
-		#if ($facilityFund.fraction)
+#if ($facilityFund.fraction)
 		<cfFraction>$facilityFund.fraction</cfFraction>
-		#end
-		#if ($facilityFund.amount)
+#end
+#if ($facilityFund.amount)
 #if (!$facilityFund.currency.code)
 #set ($currency = "default")
 #else
@@ -1702,16 +2312,16 @@
 		<cfClassSchemeId>$personFacil.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$personFacil.startDate)T$date.format('HH:mm:ss',$personFacil.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$personFacil.endDate)T$date.format('HH:mm:ss',$personFacil.endDate)</cfEndDate>
-		#if ($personFacil.fraction)
+#if ($personFacil.fraction)
 		<cfFraction>$personFacil.fraction</cfFraction>
-		#end
-		#if ($personFacil.availability)
+#end
+#if ($personFacil.availability)
 		<cfAvailability>$personFacil.availability</cfAvailability>
-		#end
-		#if ($personFacil.conditions)
+#end
+#if ($personFacil.conditions)
 		<cfConditions>$personFacil.conditions</cfConditions>
-		#end
-		#if ($personFacil.price)
+#end
+#if ($personFacil.price)
 #if (!$personFacil.currency.code)
 #set ($currency = "default")
 #else
@@ -1729,23 +2339,23 @@
 		<cfClassSchemeId>$projectFacil.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$projectFacil.startDate)T$date.format('HH:mm:ss',$projectFacil.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$projectFacil.endDate)T$date.format('HH:mm:ss',$projectFacil.endDate)</cfEndDate>
-		#if ($projectFacil.fraction)
+#if ($projectFacil.fraction)
 		<cfFraction>$projectFacil.fraction</cfFraction>
-		#end
-		#if ($projectFacil.availability)
+#end
+#if ($projectFacil.availability)
 		<cfAvailability>$projectFacil.availability</cfAvailability>
-		#end
-		#if ($projectFacil.conditions)
+#end
+#if ($projectFacil.conditions)
 		<cfConditions>$projectFacil.conditions</cfConditions>
-		#end
-		#if ($projectFacil.price)
+#end
+#if ($projectFacil.price)
 #if (!$projectFacil.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $projectFacil.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$projectFacil.price</cfPrice>
-		#end
+#end
 	</cfProj_Facil>
 	
 #end
@@ -1756,9 +2366,9 @@
 		<cfClassSchemeId>$resultPublicationFacil.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$resultPublicationFacil.startDate)T$date.format('HH:mm:ss',$resultPublicationFacil.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultPublicationFacil.endDate)T$date.format('HH:mm:ss',$resultPublicationFacil.endDate)</cfEndDate>
-		#if ($resultPublicationFacil.fraction)
+#if ($resultPublicationFacil.fraction)
 		<cfFraction>$resultPublicationFacil.fraction</cfFraction>
-		#end
+#end
 	</cfResPubl_Facil>
 	
 #end
@@ -1769,9 +2379,9 @@
 		<cfClassSchemeId>$facilityPAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$facilityPAddress.startDate)T$date.format('HH:mm:ss',$facilityPAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$facilityPAddress.endDate)T$date.format('HH:mm:ss',$facilityPAddress.endDate)</cfEndDate>
-		#if ($facilityPAddress.fraction)
+#if ($facilityPAddress.fraction)
 		<cfFraction>$facilityPAddress.fraction</cfFraction>
-        #end
+#end
 	</cfFacil_PAddr>
 	
 #end
@@ -1782,9 +2392,9 @@
 		<cfClassSchemeId>$equipmentFacility.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentFacility.startDate)T$date.format('HH:mm:ss',$equipmentFacility.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentFacility.endDate)T$date.format('HH:mm:ss',$equipmentFacility.endDate)</cfEndDate>
-		#if ($equipmentFacility.fraction)
+#if ($equipmentFacility.fraction)
 		<cfFraction>$equipmentFacility.fraction</cfFraction>
-		#end
+#end
 	</cfFacil_Equip>
 	
 #end
@@ -1795,9 +2405,9 @@
 		<cfClassSchemeId>$serviceFacility.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceFacility.startDate)T$date.format('HH:mm:ss',$serviceFacility.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceFacility.endDate)T$date.format('HH:mm:ss',$serviceFacility.endDate)</cfEndDate>
-		#if ($serviceFacility.fraction)
+#if ($serviceFacility.fraction)
 		<cfFraction>$serviceFacility.fraction</cfFraction>
-		#end
+#end
 	</cfFacil_Srv>
 	
 #end
@@ -1808,10 +2418,57 @@
 		<cfClassSchemeId>$facilityResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$facilityResProd.startDate)T$date.format('HH:mm:ss',$facilityResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$facilityResProd.endDate)T$date.format('HH:mm:ss',$facilityResProd.endDate)</cfEndDate>
-		#if ($facilityResProd.fraction)
+#if ($facilityResProd.fraction)
 		<cfFraction>$facilityResProd.fraction</cfFraction>
-		#end
+#end
 	</cfResProd_Facil>
+	
+#end
+#foreach( $facilityFederatedIdentifiers in $facility.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$facilityFederatedIdentifiers.id</cfFedIdId>
+#if ($facilityFederatedIdentifiers.fedId && $facilityFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($facilityFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($facilityFederatedIdentifiers.theClass)
+		<cfClassId>$facilityFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($facilityFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$facilityFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($facilityFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$facilityFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$facilityFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($facilityFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$facilityFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$facilityFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $facilityFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $facilityFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
 	
 #end
 </cfFacil>
@@ -1828,8 +2485,7 @@
 #if ($service.uri && $service.uri != "")
 	<cfURI>$esc.xml($service.uri)</cfURI>
 #end
-#if ($service.names)
-#foreach( $serviceName in $service.names )
+#foreach( $serviceName in $service.serviceNames )
 #if( $serviceName.translation == "HUMAN" )
 #set ($trans = "h")
 #elseif( $serviceName.translation == "ORIGINAL" )
@@ -1839,6 +2495,25 @@
 #end
 	<cfName cfLangCode=$esc.quote$serviceName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($serviceName.name)</cfName>
 #end
+#foreach( $serviceDescription in $service.serviceDescriptions )
+#if( $serviceDescription.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $serviceDescription.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfDescr cfLangCode=$esc.quote$serviceDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($serviceDescription.description)</cfDescr>
+#end
+#foreach( $serviceKeyword in $service.serviceKeywords )
+#if( $serviceKeyword.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $serviceKeyword.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfKeyw cfLangCode=$esc.quote$serviceKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($serviceKeyword.keyword)</cfKeyw>
 #end
 
 #foreach( $serviceOrgs in $service.organisationUnit_services )
@@ -1848,23 +2523,23 @@
 		<cfClassSchemeId>$serviceOrgs.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceOrgs.startDate)T$date.format('HH:mm:ss',$serviceOrgs.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceOrgs.endDate)T$date.format('HH:mm:ss',$serviceOrgs.endDate)</cfEndDate>
-		#if ($serviceOrgs.fraction)
+#if ($serviceOrgs.fraction)
 		<cfFraction>$serviceOrgs.fraction</cfFraction>
-		#end
-		#if ($serviceOrgs.availability)
+#end
+#if ($serviceOrgs.availability)
 		<cfAvailability>$serviceOrgs.availability</cfAvailability>
-		#end
-		#if ($serviceOrgs.conditions)
+#end
+#if ($serviceOrgs.conditions)
 		<cfConditions>$serviceOrgs.conditions</cfConditions>
-		#end
-		#if ($serviceOrgs.price)
+#end
+#if ($serviceOrgs.price)
 #if (!$serviceOrgs.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $serviceOrgs.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$serviceOrgs.price</cfPrice>
-		#end
+#end
 	</cfOrgUnit_Srv>
 	
 #end
@@ -1875,23 +2550,23 @@
 		<cfClassSchemeId>$servicePers.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$servicePers.startDate)T$date.format('HH:mm:ss',$servicePers.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$servicePers.endDate)T$date.format('HH:mm:ss',$servicePers.endDate)</cfEndDate>
-		#if ($servicePers.fraction)
+#if ($servicePers.fraction)
 		<cfFraction>$servicePers.fraction</cfFraction>
-		#end
-		#if ($servicePers.conditions)
+#end
+#if ($servicePers.conditions)
 		<cfConditions>$servicePers.conditions</cfConditions>
-		#end
-		#if ($servicePers.availability)
+#end
+#if ($servicePers.availability)
 		<cfAvailability>$servicePers.availability</cfAvailability>
-		#end
-		#if ($servicePers.price)
+#end
+#if ($servicePers.price)
 #if (!$servicePers.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $servicePers.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$servicePers.price</cfPrice>
-		#end
+#end
 	</cfPers_Srv>
 	
 #end
@@ -1901,9 +2576,9 @@
 		<cfClassSchemeId>$serviceClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceClass.startDate)T$date.format('HH:mm:ss',$serviceClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceClass.endDate)T$date.format('HH:mm:ss',$serviceClass.endDate)</cfEndDate>
-		#if ($serviceClass.fraction)
+#if ($serviceClass.fraction)
 		<cfFraction>$serviceClass.fraction</cfFraction>
-		#end
+#end
 	</cfSrv_Class>
 	
 #end
@@ -1914,23 +2589,23 @@
 		<cfClassSchemeId>$serviceProj.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceProj.startDate)T$date.format('HH:mm:ss',$serviceProj.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceProj.endDate)T$date.format('HH:mm:ss',$serviceProj.endDate)</cfEndDate>
-		#if ($serviceProj.fraction)
+#if ($serviceProj.fraction)
 		<cfFraction>$serviceProj.fraction</cfFraction>
-		#end
-		#if ($serviceProj.availability)
+#end
+#if ($serviceProj.availability)
 		<cfAvailability>$serviceProj.availability</cfAvailability>
-		#end
-		#if ($serviceProj.conditions)
+#end
+#if ($serviceProj.conditions)
 		<cfConditions>$serviceProj.conditions</cfConditions>
-		#end
-		#if ($serviceProj.price)
+#end
+#if ($serviceProj.price)
 #if (!$serviceProj.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $serviceProj.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$serviceProj.price</cfPrice>
-		#end
+#end
 	</cfProj_Srv>
 	
 #end
@@ -1941,17 +2616,17 @@
 		<cfClassSchemeId>$serviceFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceFund.startDate)T$date.format('HH:mm:ss',$serviceFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceFund.endDate)T$date.format('HH:mm:ss',$serviceFund.endDate)</cfEndDate>
-		#if ($serviceFund.fraction)
+#if ($serviceFund.fraction)
 		<cfFraction>$serviceFund.fraction</cfFraction>
-		#end
-		#if ($serviceFund.amount)
+#end
+#if ($serviceFund.amount)
 #if (!$serviceFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $serviceFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$serviceFund.amount</cfAmount>
-		#end
+#end
 	</cfSrv_Fund>
 	
 #end
@@ -1962,9 +2637,9 @@
 		<cfClassSchemeId>$servicePAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$servicePAddress.startDate)T$date.format('HH:mm:ss',$servicePAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$servicePAddress.endDate)T$date.format('HH:mm:ss',$servicePAddress.endDate)</cfEndDate>
-		#if ($servicePAddress.fraction)
+#if ($servicePAddress.fraction)
 		<cfFraction>$servicePAddress.fraction</cfFraction>
-        #end
+#end
 	</cfSrv_PAddr>
 	
 #end
@@ -1975,9 +2650,9 @@
 		<cfClassSchemeId>$serviceFacility.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceFacility.startDate)T$date.format('HH:mm:ss',$serviceFacility.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceFacility.endDate)T$date.format('HH:mm:ss',$serviceFacility.endDate)</cfEndDate>
-		#if ($serviceFacility.fraction)
+#if ($serviceFacility.fraction)
 		<cfFraction>$serviceFacility.fraction</cfFraction>
-		#end
+#end
 	</cfFacil_Srv>
 	
 #end
@@ -1988,9 +2663,9 @@
 		<cfClassSchemeId>$equipmentService.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentService.startDate)T$date.format('HH:mm:ss',$equipmentService.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentService.endDate)T$date.format('HH:mm:ss',$equipmentService.endDate)</cfEndDate>
-		#if ($equipmentService.fraction)
+#if ($equipmentService.fraction)
 		<cfFraction>$equipmentService.fraction</cfFraction>
-		#end
+#end
 	</cfEquip_Srv>
 	
 #end
@@ -2001,9 +2676,9 @@
 		<cfClassSchemeId>$serviceRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceRespubl.startDate)T$date.format('HH:mm:ss',$serviceRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceRespubl.endDate)T$date.format('HH:mm:ss',$serviceRespubl.endDate)</cfEndDate>
-		#if ($serviceRespubl.fraction)
+#if ($serviceRespubl.fraction)
 		<cfFraction>$serviceRespubl.fraction</cfFraction>
-		#end
+#end
 	</cfResPubl_Srv>
 	
 #end
@@ -2014,10 +2689,57 @@
 		<cfClassSchemeId>$serviceResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceResProd.startDate)T$date.format('HH:mm:ss',$serviceResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceResProd.endDate)T$date.format('HH:mm:ss',$serviceResProd.endDate)</cfEndDate>
-		#if ($serviceResProd.fraction)
+#if ($serviceResProd.fraction)
 		<cfFraction>$serviceResProd.fraction</cfFraction>
-		#end
+#end
 	</cfResProd_Srv>
+	
+#end
+#foreach( $serviceFederatedIdentifiers in $service.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$serviceFederatedIdentifiers.id</cfFedIdId>
+#if ($serviceFederatedIdentifiers.fedId && $serviceFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($serviceFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($serviceFederatedIdentifiers.theClass)
+		<cfClassId>$serviceFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($serviceFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$serviceFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($serviceFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$serviceFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$serviceFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($serviceFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$serviceFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$serviceFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $serviceFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $serviceFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
 	
 #end
 </cfSrv>
@@ -2034,8 +2756,7 @@
 #if ($equipment.uri && $equipment.uri != "")
 	<cfURI>$esc.xml($equipment.uri)</cfURI>
 #end
-#if ($equipment.names)
-#foreach( $equipmentName in $equipment.names )
+#foreach( $equipmentName in $equipment.equipmentNames )
 #if( $equipmentName.translation == "HUMAN" )
 #set ($trans = "h")
 #elseif( $equipmentName.translation == "ORIGINAL" )
@@ -2045,6 +2766,25 @@
 #end
 	<cfName cfLangCode=$esc.quote$equipmentName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($equipmentName.name)</cfName>
 #end
+#foreach( $equipmentDescription in $equipment.equipmentDescriptions )
+#if( $equipmentDescription.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $equipmentDescription.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfDescr cfLangCode=$esc.quote$equipmentDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($equipmentDescription.description)</cfDescr>
+#end
+#foreach( $equipmentKeyword in $equipment.equipmentKeywords )
+#if( $equipmentKeyword.translation == "HUMAN" )
+#set ($trans = "h")
+#elseif( $equipmentKeyword.translation == "ORIGINAL" )
+#set ($trans = "o")
+#else
+#set ($trans = "m")
+#end
+	<cfKeyw cfLangCode=$esc.quote$equipmentKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$esc.xml($equipmentKeyword.keyword)</cfKeyw>
 #end
 
 #foreach( $equipmentClass in $equipment.classes )
@@ -2053,9 +2793,9 @@
 		<cfClassSchemeId>$equipmentClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentClass.startDate)T$date.format('HH:mm:ss',$equipmentClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentClass.endDate)T$date.format('HH:mm:ss',$equipmentClass.endDate)</cfEndDate>
-		#if ($equipmentClass.fraction)
+#if ($equipmentClass.fraction)
 		<cfFraction>$equipmentClass.fraction</cfFraction>
-		#end
+#end
 	</cfEquip_Class>
 	
 #end
@@ -2066,17 +2806,17 @@
 		<cfClassSchemeId>$equipmentFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentFund.startDate)T$date.format('HH:mm:ss',$equipmentFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentFund.endDate)T$date.format('HH:mm:ss',$equipmentFund.endDate)</cfEndDate>
-		#if ($equipmentFund.fraction)
+#if ($equipmentFund.fraction)
 		<cfFraction>$equipmentFund.fraction</cfFraction>
-		#end
-		#if ($equipmentFund.amount)
+#end
+#if ($equipmentFund.amount)
 #if (!$equipmentFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $equipmentFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$equipmentFund.amount</cfAmount>
-		#end
+#end
 	</cfEquip_Fund>
 	
 #end
@@ -2087,23 +2827,23 @@
 		<cfClassSchemeId>$equipmentOrgs.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentOrgs.startDate)T$date.format('HH:mm:ss',$equipmentOrgs.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentOrgs.endDate)T$date.format('HH:mm:ss',$equipmentOrgs.endDate)</cfEndDate>
-		#if ($equipmentOrgs.fraction)
+#if ($equipmentOrgs.fraction)
 		<cfFraction>$equipmentOrgs.fraction</cfFraction>
-		#end
-		#if ($equipmentOrgs.availability)
+#end
+#if ($equipmentOrgs.availability)
 		<cfAvailability>$equipmentOrgs.availability</cfAvailability>
-		#end
-		#if ($equipmentOrgs.conditions)
+#end
+#if ($equipmentOrgs.conditions)
 		<cfConditions>$equipmentOrgs.conditions</cfConditions>
-		#end
-		#if ($equipmentOrgs.price)
+#end
+#if ($equipmentOrgs.price)
 #if (!$equipmentOrgs.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $equipmentOrgs.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentOrgs.price</cfPrice>
-		#end
+#end
 	</cfOrgUnit_Equip>
 	
 #end
@@ -2114,23 +2854,23 @@
 		<cfClassSchemeId>$equipmentPers.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentPers.startDate)T$date.format('HH:mm:ss',$equipmentPers.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentPers.endDate)T$date.format('HH:mm:ss',$equipmentPers.endDate)</cfEndDate>
-		#if ($equipmentPers.fraction)
+#if ($equipmentPers.fraction)
 		<cfFraction>$equipmentPers.fraction</cfFraction>
-		#end
-		#if ($equipmentPers.conditions)
+#end
+#if ($equipmentPers.conditions)
 		<cfConditions>$equipmentPers.conditions</cfConditions>
-		#end
-		#if ($equipmentPers.availability)
+#end
+#if ($equipmentPers.availability)
 		<cfAvailability>$equipmentPers.availability</cfAvailability>
-		#end
-		#if ($equipmentPers.price)
+#end
+#if ($equipmentPers.price)
 #if (!$equipmentPers.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $equipmentPers.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentPers.price</cfPrice>
-		#end
+#end
 	</cfPers_Equip>
 	
 #end
@@ -2141,23 +2881,23 @@
 		<cfClassSchemeId>$equipmentProj.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentProj.startDate)T$date.format('HH:mm:ss',$equipmentProj.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentProj.endDate)T$date.format('HH:mm:ss',$equipmentProj.endDate)</cfEndDate>
-		#if ($equipmentProj.fraction)
+#if ($equipmentProj.fraction)
 		<cfFraction>$equipmentProj.fraction</cfFraction>
-		#end
-		#if ($equipmentProj.availability)
+#end
+#if ($equipmentProj.availability)
 		<cfAvailability>$equipmentProj.availability</cfAvailability>
-		#end
-		#if ($equipmentProj.conditions)
+#end
+#if ($equipmentProj.conditions)
 		<cfConditions>$equipmentProj.conditions</cfConditions>
-		#end
-		#if ($equipmentProj.price)
+#end
+#if ($equipmentProj.price)
 #if (!$equipmentProj.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $equipmentProj.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentProj.price</cfPrice>
-		#end
+#end
 	</cfProj_Equip>
 	
 #end
@@ -2168,9 +2908,9 @@
 		<cfClassSchemeId>$equipmentRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentRespubl.startDate)T$date.format('HH:mm:ss',$equipmentRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentRespubl.endDate)T$date.format('HH:mm:ss',$equipmentRespubl.endDate)</cfEndDate>
-		#if ($equipmentRespubl.fraction)
+#if ($equipmentRespubl.fraction)
 		<cfFraction>$equipmentRespubl.fraction</cfFraction>
-		#end
+#end
 	</cfResPubl_Equip>
 	
 #end
@@ -2181,9 +2921,9 @@
 		<cfClassSchemeId>$equipmentPAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentPAddress.startDate)T$date.format('HH:mm:ss',$equipmentPAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentPAddress.endDate)T$date.format('HH:mm:ss',$equipmentPAddress.endDate)</cfEndDate>
-		#if ($equipmentPAddress.fraction)
+#if ($equipmentPAddress.fraction)
 		<cfFraction>$equipmentPAddress.fraction</cfFraction>
-        #end
+#end
 	</cfEquip_PAddr>
 	
 #end
@@ -2194,9 +2934,9 @@
 		<cfClassSchemeId>$equipmentFacility.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentFacility.startDate)T$date.format('HH:mm:ss',$equipmentFacility.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentFacility.endDate)T$date.format('HH:mm:ss',$equipmentFacility.endDate)</cfEndDate>
-		#if ($equipmentFacility.fraction)
+#if ($equipmentFacility.fraction)
 		<cfFraction>$equipmentFacility.fraction</cfFraction>
-		#end
+#end
 	</cfFacil_Equip>
 	
 #end
@@ -2207,9 +2947,9 @@
 		<cfClassSchemeId>$equipmentService.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentService.startDate)T$date.format('HH:mm:ss',$equipmentService.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentService.endDate)T$date.format('HH:mm:ss',$equipmentService.endDate)</cfEndDate>
-		#if ($equipmentService.fraction)
+#if ($equipmentService.fraction)
 		<cfFraction>$equipmentService.fraction</cfFraction>
-		#end
+#end
 	</cfEquip_Srv>
 	
 #end
@@ -2220,14 +2960,112 @@
 		<cfClassSchemeId>$equipmentResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentResProd.startDate)T$date.format('HH:mm:ss',$equipmentResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentResProd.endDate)T$date.format('HH:mm:ss',$equipmentResProd.endDate)</cfEndDate>
-		#if ($equipmentResProd.fraction)
+#if ($equipmentResProd.fraction)
 		<cfFraction>$equipmentResProd.fraction</cfFraction>
-		#end
+#end
 	</cfResProd_Equip>
 	
 #end
-
+#foreach( $equipmentFederatedIdentifiers in $equipment.federatedIdentifiers )
+	<cfFedId>
+		<cfFedIdId>$equipmentFederatedIdentifiers.id</cfFedIdId>
+#if ($equipmentFederatedIdentifiers.fedId && $equipmentFederatedIdentifiers.fedId != "")
+		<cfFedId>$esc.xml($equipmentFederatedIdentifiers.fedId)</cfFedId>
+#end
+#if ($equipmentFederatedIdentifiers.theClass)
+		<cfClassId>$equipmentFederatedIdentifiers.theClass.id</cfClassId>
+#end
+#if ($equipmentFederatedIdentifiers.scheme)
+		<cfClassSchemeId>$equipmentFederatedIdentifiers.scheme.id</cfClassSchemeId>
+#end
+#if ($equipmentFederatedIdentifiers.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentFederatedIdentifiers.startDate)T$date.format('HH:mm:ss',$equipmentFederatedIdentifiers.startDate)</cfStartDate>
+#end
+#if ($equipmentFederatedIdentifiers.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$equipmentFederatedIdentifiers.endDate)</cfEndDate>
+#end
+	
+#foreach( $federatedIdentifierClass in $equipmentFederatedIdentifiers.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+		
+#end
+#foreach( $federatedIdentifierService in $equipmentFederatedIdentifiers.services_fedids )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+		
+#end
+	</cfFedId>
+	
+#end
 </cfEquip>
+
+#end
+
+#foreach( $federatedIdentifier in $federatedIdentifiers )
+<!-- A FederatedIdentifier record -->
+<cfFedId>
+	<cfFedIdId>$federatedIdentifier.id</cfFedIdId>
+#if ($federatedIdentifier.instanceId && $federatedIdentifier.instanceId != "")
+	<cfInstId>$esc.xml($federatedIdentifier.instanceId)</cfInstId>
+#end
+#if ($federatedIdentifier.fedId && $federatedIdentifier.fedId != "")
+	<cfFedId>$esc.xml($federatedIdentifier.fedId)</cfFedId>
+#end
+#if ($federatedIdentifier.theClass)
+	<cfClassId>$federatedIdentifier.theClass.id</cfClassId>
+#end
+#if ($federatedIdentifier.scheme)
+	<cfClassSchemeId>$federatedIdentifier.scheme.id</cfClassSchemeId>
+#end
+#if ($federatedIdentifier.startDate)
+	<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifier.startDate)T$date.format('HH:mm:ss',$federatedIdentifier.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifier.endDate)
+	<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
+#end
+
+#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+	<cfFedId_Class>
+		<cfClassId>$federatedIdentifierClass.theClass.id</cfClassId>	
+		<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.id</cfClassSchemeId>
+		<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+		#if ($federatedIdentifierClass.fraction)
+		<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+		#end
+	</cfFedId_Class>
+	
+#end
+#foreach( $federatedIdentifierService in $federatedIdentifier.services_fedids )
+	<cfFedId_Srv>
+	 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+		<cfClassId>$federatedIdentifierService.theClass.id</cfClassId>	
+		<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.id</cfClassSchemeId>
+		<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+		#if ($federatedIdentifierService.fraction)
+		<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+		#end
+	</cfFedId_Srv>
+	
+#end
+</cfFedId>
 
 #end
 </CERIF>

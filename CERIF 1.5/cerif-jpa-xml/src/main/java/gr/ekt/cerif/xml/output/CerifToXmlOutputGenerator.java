@@ -9,6 +9,7 @@ import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.features.semantics.Class;
@@ -26,6 +27,7 @@ import gr.ekt.cerif.xml.records.infrastructure.CerifServiceRecord;
 import gr.ekt.cerif.xml.records.result.CerifResultProductRecord;
 import gr.ekt.cerif.xml.records.result.CerifResultPublicationRecord;
 import gr.ekt.cerif.xml.records.second.CerifElectronicAddressRecord;
+import gr.ekt.cerif.xml.records.second.CerifFederatedIdentifierRecord;
 import gr.ekt.cerif.xml.records.second.CerifFundingRecord;
 import gr.ekt.cerif.xml.records.second.CerifPostalAddressRecord;
 import gr.ekt.cerif.xml.records.semantics.CerifClassRecord;
@@ -87,6 +89,7 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 		ArrayList<ResultProduct> resultProducts = new ArrayList<ResultProduct>();
 		ArrayList<Service> services = new ArrayList<Service>();
 		ArrayList<Equipment> equipments = new ArrayList<Equipment>();
+		ArrayList<FederatedIdentifier> federatedIdentifiers = new ArrayList<FederatedIdentifier>();
 
 		Iterator<Record> it = recordSet.getRecords().iterator();
 		while (it.hasNext()) {
@@ -117,6 +120,8 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 		    	services.add(((CerifServiceRecord)tmpRecord).getService());
 		    } else if (tmpRecord instanceof CerifEquipmentRecord) {
 		    	equipments.add(((CerifEquipmentRecord)tmpRecord).getEquipment());
+		    } else if (tmpRecord instanceof CerifFederatedIdentifierRecord) {
+		    	federatedIdentifiers.add(((CerifFederatedIdentifierRecord)tmpRecord).getFederatedIdentifier());
 		    }
 		}
 
@@ -136,6 +141,7 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 		map.put("facilities", facilities);
 		map.put("services", services);
 		map.put("equipments", equipments);
+		map.put("federatedIdentifiers", federatedIdentifiers);
 		
 		try {
 			File file_out = new File(outputDir+outputFileName);
