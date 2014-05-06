@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.facility;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.features.multilingual.FacilityDescription;
 
 /**
@@ -18,4 +21,6 @@ public interface FacilityDescriptionRepository {
 	public Iterable<FacilityDescription> save(Iterable<FacilityDescription> entities); 
 	
 	public FacilityDescription save(FacilityDescription entity);
+	
+	List<FacilityDescription> findByFacility(Facility facility);
 }

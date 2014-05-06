@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.multilingual.resultproduct;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.features.multilingual.ResultProductVersionInfo;
 
 public interface ResultProductVersionInfoRepository {
@@ -11,5 +14,7 @@ public interface ResultProductVersionInfoRepository {
 	public Iterable<ResultProductVersionInfo> save(Iterable<ResultProductVersionInfo> entities); 
 	
 	public ResultProductVersionInfo save(ResultProductVersionInfo entity);
+	
+	List<ResultProductVersionInfo> findByResultProduct(ResultProduct resultProduct);
 
 }

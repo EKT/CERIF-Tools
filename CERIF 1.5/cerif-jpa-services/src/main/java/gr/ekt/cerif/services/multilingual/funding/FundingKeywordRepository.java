@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.funding;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.features.multilingual.FundingKeyword;
 
 /**
@@ -18,4 +21,6 @@ public interface FundingKeywordRepository {
 	public Iterable<FundingKeyword> save(Iterable<FundingKeyword> entities); 
 	
 	public FundingKeyword save(FundingKeyword entity);
+	
+	List<FundingKeyword> findByFunding(Funding funding);
 }

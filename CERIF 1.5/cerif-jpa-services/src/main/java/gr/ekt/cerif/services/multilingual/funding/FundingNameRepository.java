@@ -22,7 +22,5 @@ public interface FundingNameRepository {
 	
 	public FundingName save(FundingName entity);
 	
-	FundingName findByName(String title);
-	
 	List<FundingName> findByFunding(Funding funding);
 }

@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.organisationunit;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitKeyword;
 
 
@@ -41,6 +44,12 @@ public class OrganisationUnitKeywordRepositoryImpl implements OrganisationUnitKe
 	@Override
 	public OrganisationUnitKeyword save(OrganisationUnitKeyword entity) {
 		return organisationUnitKeywordCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<OrganisationUnitKeyword> findByOrganisationUnit(
+			OrganisationUnit organisationUnit) {
+		return organisationUnitKeywordCrudRepository.findByOrganisationUnit(organisationUnit);
 	}
 
 }

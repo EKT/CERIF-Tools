@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.equipment;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.features.multilingual.EquipmentKeyword;
 
 /**
@@ -18,4 +21,6 @@ public interface EquipmentKeywordRepository {
 	public Iterable<EquipmentKeyword> save(Iterable<EquipmentKeyword> entities); 
 	
 	public EquipmentKeyword save(EquipmentKeyword entity);
+	
+	List<EquipmentKeyword> findByEquipment(Equipment equipment);
 }

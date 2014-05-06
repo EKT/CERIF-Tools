@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.resultpublication;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.multilingual.ResultPublicationVersionInfo;
 
 /**
@@ -18,5 +21,7 @@ public interface ResultPublicationVersionInfoRepository {
 	public Iterable<ResultPublicationVersionInfo> save(Iterable<ResultPublicationVersionInfo> entities); 
 	
 	public ResultPublicationVersionInfo save(ResultPublicationVersionInfo entity);
+	
+	List<ResultPublicationVersionInfo> findByResultPublication(ResultPublication resultPublication);
 
 }

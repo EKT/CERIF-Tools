@@ -1,10 +1,13 @@
 package gr.ekt.cerif.services.multilingual.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.features.multilingual.ServiceKeyword;
 
 @Component
@@ -33,6 +36,11 @@ public class ServiceKeywordRepositoryImpl implements ServiceKeywordRepository {
 	@Override
 	public ServiceKeyword save(ServiceKeyword entity) {
 		return serviceKeywordCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ServiceKeyword> findByService(Service service) {
+		return serviceKeywordCrudRepository.findByService(service);
 	}
 
 }
