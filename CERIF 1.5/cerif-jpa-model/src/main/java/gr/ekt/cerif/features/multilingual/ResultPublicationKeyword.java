@@ -169,16 +169,6 @@ public class ResultPublicationKeyword implements CerifMultipleLanguageFeature {
 		this.keyword = keyword;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return String
-				.format("ResultPublicationKeyword [translation=%s, resultPublication=%s, language=%s, keywords=%s]",
-						translation, resultPublication, language, keyword);
-	}
-
 	/**
 	 * @return the id
 	 */
@@ -253,6 +243,14 @@ public class ResultPublicationKeyword implements CerifMultipleLanguageFeature {
 		}
 	}
 
-	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublicationKeyword [id=" + id + ", resultPublication="
+				+ resultPublication + ", language=" + language + ", keyword="
+				+ keyword + "]";
+	}
+
 }

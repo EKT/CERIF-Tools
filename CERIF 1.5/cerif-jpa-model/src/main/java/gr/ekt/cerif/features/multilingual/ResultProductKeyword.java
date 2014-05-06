@@ -175,5 +175,15 @@ public class ResultProductKeyword implements CerifMultipleLanguageFeature, Compa
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultProductKeyword [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", keyword=" + keyword + "]";
+	}
+	
 }
 

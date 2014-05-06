@@ -61,13 +61,14 @@ public class ClassSchemeName implements CerifMultipleLanguageFeature {
 	/**
 	 * The class scheme name.
 	 */
-	@Column(name="cfName")
+	@NotNull
+	@Column(name="cfName", length=10600)
 	private String name;
 	
 	/**
 	 * The class scheme name source.
 	 */
-	@Column(name="cfNameSrc")
+	@Column(name="cfNameSrc", length=10600)
 	private String nameSrc;
 
 	/**
@@ -169,4 +170,16 @@ public class ClassSchemeName implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ClassSchemeName [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", name=" + name
+				+ ", nameSrc=" + nameSrc + "]";
+	}
+	
+	
 }

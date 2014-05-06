@@ -64,6 +64,7 @@ public class MetricsName implements CerifMultipleLanguageFeature {
 	/**
 	 * The metrics name.
 	 */
+	@NotNull
 	@Column(name="cfName")
 	private String name;
 	
@@ -160,6 +161,15 @@ public class MetricsName implements CerifMultipleLanguageFeature {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MetricsName [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", name=" + name + "]";
 	}
 
 }

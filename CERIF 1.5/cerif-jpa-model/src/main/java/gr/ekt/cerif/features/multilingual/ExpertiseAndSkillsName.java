@@ -65,6 +65,7 @@ public class ExpertiseAndSkillsName implements CerifMultipleLanguageFeature {
 	/**
 	 * The expertiseAndSkills name.
 	 */
+	@NotNull
 	@Column(name="cfName")
 	private String name;
 	
@@ -161,6 +162,15 @@ public class ExpertiseAndSkillsName implements CerifMultipleLanguageFeature {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ExpertiseAndSkillsName [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", name=" + name + "]";
 	}
 
 }

@@ -159,5 +159,17 @@ public class GeographicBoundingBoxDescription implements CerifMultipleLanguageFe
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GeographicBoundingBoxDescription [id=" + id + ", language="
+				+ language + ", translation=" + translation + ", description="
+				+ description + "]";
 	}	
+	
+	
 }

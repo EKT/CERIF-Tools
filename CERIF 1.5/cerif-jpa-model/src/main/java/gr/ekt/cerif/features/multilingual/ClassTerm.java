@@ -72,6 +72,7 @@ public class ClassTerm implements CerifMultipleLanguageFeature {
 	/**
 	 * The class term.
 	 */
+	@NotNull
 	@Column(name="cfTerm", length=20000)
 	private String term;
 	
@@ -246,4 +247,17 @@ public class ClassTerm implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ClassTerm [id=" + id + ", classScheme=" + classScheme
+				+ ", language=" + language + ", translation=" + translation
+				+ ", term=" + term + ", roleExpr=" + roleExpr
+				+ ", roleExprOpp=" + roleExprOpp + ", termSrc=" + termSrc + "]";
+	}
+	
+	
 }

@@ -232,6 +232,16 @@ public class ProjectAbstract implements CerifMultipleLanguageFeature {
 			}
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ProjectAbstract [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", abstractText="
+				+ abstractText + "]";
+	}
 	
 	
 }

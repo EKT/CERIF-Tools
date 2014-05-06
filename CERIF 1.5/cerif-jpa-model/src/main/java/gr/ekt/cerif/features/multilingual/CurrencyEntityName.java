@@ -64,6 +64,7 @@ public class CurrencyEntityName implements CerifMultipleLanguageFeature {
 	/**
 	 * The currency entity name.
 	 */
+	@NotNull
 	@Column(name="cfEntName")
 	private String entityName;
 	
@@ -161,6 +162,16 @@ public class CurrencyEntityName implements CerifMultipleLanguageFeature {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CurrencyEntityName [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", entityName=" + entityName
+				+ "]";
 	}
 
 }

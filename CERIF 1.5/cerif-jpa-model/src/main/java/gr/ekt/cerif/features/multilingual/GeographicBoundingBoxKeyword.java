@@ -160,4 +160,16 @@ public class GeographicBoundingBoxKeyword implements CerifMultipleLanguageFeatur
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GeographicBoundingBoxKeyword [id=" + id + ", language="
+				+ language + ", translation=" + translation + ", keyword="
+				+ keyword + "]";
+	}
+	
+	
 }

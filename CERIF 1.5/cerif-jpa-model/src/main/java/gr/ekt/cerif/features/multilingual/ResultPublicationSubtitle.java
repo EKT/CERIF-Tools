@@ -72,6 +72,7 @@ public class ResultPublicationSubtitle implements CerifMultipleLanguageFeature {
 	/**
 	 * The subtitle.
 	 */
+	@NotNull
 	@Column(name="cfSubtitle")
 	private String subtitle;
 
@@ -162,16 +163,6 @@ public class ResultPublicationSubtitle implements CerifMultipleLanguageFeature {
 		this.subtitle = subtitle;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return String
-				.format("ResultPublicationSubtitle [translation=%s, resultPublication=%s, language=%s, subtitle=%s]",
-						translation, resultPublication, language, subtitle);
-	}
-
 	/**
 	 * @return the id
 	 */
@@ -229,6 +220,16 @@ public class ResultPublicationSubtitle implements CerifMultipleLanguageFeature {
 		if (translation != other.translation)
 			return false;
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublicationSubtitle [id=" + id + ", resultPublication="
+				+ resultPublication + ", language=" + language + ", subtitle="
+				+ subtitle + "]";
 	}
 	
 	

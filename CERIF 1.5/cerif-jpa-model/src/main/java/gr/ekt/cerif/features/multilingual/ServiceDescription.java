@@ -162,4 +162,14 @@ public class ServiceDescription implements CerifMultipleLanguageFeature {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ServiceDescription [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", description="
+				+ description + "]";
+	}
+
 }

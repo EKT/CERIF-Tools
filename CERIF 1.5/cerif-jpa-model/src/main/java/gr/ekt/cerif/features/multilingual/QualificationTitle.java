@@ -65,6 +65,7 @@ public class QualificationTitle implements CerifMultipleLanguageFeature {
 	/**
 	 * The qualification title.
 	 */
+	@NotNull
 	@Column(name="cfTitle")
 	private String title;
 	
@@ -162,4 +163,15 @@ public class QualificationTitle implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QualificationTitle [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", title=" + title + "]";
+	}
+	
+	
 }

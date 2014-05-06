@@ -80,13 +80,13 @@ public class Service implements CerifInfrastructureEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="service")
-	private Set<ServiceName> names;
+	private Set<ServiceName> serviceNames;
 	
 	@OneToMany(mappedBy="service")
-	private Set<ServiceDescription> descriptions;
+	private Set<ServiceDescription> serviceDescriptions;
 	
 	@OneToMany(mappedBy="service")
-	private Set<ServiceKeyword> keywords;
+	private Set<ServiceKeyword> serviceKeywords;
 	
 	
 	/**
@@ -170,13 +170,13 @@ public class Service implements CerifInfrastructureEntity {
 	 * @param keywords
 	 * @param descriptions
 	 */
-	public Service(String acronym, String uri, Set<ServiceName> names,
-			Set<ServiceKeyword> keywords, Set<ServiceDescription> descriptions) {
+	public Service(String acronym, String uri, Set<ServiceName> serviceNames,
+			Set<ServiceKeyword> serviceKeywords, Set<ServiceDescription> serviceDescriptions) {
 		this.acronym = acronym;
 		this.uri = uri;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
+		this.serviceNames = serviceNames;
+		this.serviceKeywords = serviceKeywords;
+		this.serviceDescriptions = serviceDescriptions;
 	}
 
 	/**
@@ -236,45 +236,45 @@ public class Service implements CerifInfrastructureEntity {
 	}
 
 	/**
-	 * @return the names
+	 * @return the serviceNames
 	 */
-	public Set<ServiceName> getNames() {
-		return names;
+	public Set<ServiceName> getServiceNames() {
+		return serviceNames;
 	}
 
 	/**
-	 * @param names the names to set
+	 * @param serviceNames the serviceNames to set
 	 */
-	public void setNames(Set<ServiceName> names) {
-		this.names = names;
+	public void setServiceNames(Set<ServiceName> serviceNames) {
+		this.serviceNames = serviceNames;
 	}
 
 	/**
-	 * @return the descriptions
+	 * @return the serviceDescriptions
 	 */
-	public Set<ServiceDescription> getDescriptions() {
-		return descriptions;
+	public Set<ServiceDescription> getServiceDescriptions() {
+		return serviceDescriptions;
 	}
 
 	/**
-	 * @param descriptions the descriptions to set
+	 * @param serviceDescriptions the serviceDescriptions to set
 	 */
-	public void setDescriptions(Set<ServiceDescription> descriptions) {
-		this.descriptions = descriptions;
+	public void setServiceDescriptions(Set<ServiceDescription> serviceDescriptions) {
+		this.serviceDescriptions = serviceDescriptions;
 	}
 
 	/**
-	 * @return the keywords
+	 * @return the serviceKeywords
 	 */
-	public Set<ServiceKeyword> getKeywords() {
-		return keywords;
+	public Set<ServiceKeyword> getServiceKeywords() {
+		return serviceKeywords;
 	}
 
 	/**
-	 * @param keywords the keywords to set
+	 * @param serviceKeywords the serviceKeywords to set
 	 */
-	public void setKeywords(Set<ServiceKeyword> keywords) {
-		this.keywords = keywords;
+	public void setServiceKeywords(Set<ServiceKeyword> serviceKeywords) {
+		this.serviceKeywords = serviceKeywords;
 	}
 
 	/**

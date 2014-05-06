@@ -164,16 +164,6 @@ public class ResultPublicationAbstract implements CerifMultipleLanguageFeature {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return String
-				.format("ResultPublicationAbstract [translation=%s, resultPublication=%s, language=%s, abstractText=%s]",
-						translation, resultPublication, language, abstractText);
-	}
-
 	/**
 	 * @return the id
 	 */
@@ -232,7 +222,16 @@ public class ResultPublicationAbstract implements CerifMultipleLanguageFeature {
 			return false;
 		return true;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublicationAbstract [id=" + id + ", resultPublication="
+				+ resultPublication + ", language=" + language
+				+ ", abstractText=" + abstractText + "]";
+	}
 	
 	
 }

@@ -74,6 +74,7 @@ public class ProjectTitle implements CerifMultipleLanguageFeature {
 	/**
 	 * The project title.
 	 */
+	@NotNull
 	@Column(name="cfTitle", length=1000)
 	@Field(name="projectTitle", index=Index.YES, store=Store.YES)
 	private String title;
@@ -168,5 +169,16 @@ public class ProjectTitle implements CerifMultipleLanguageFeature {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ProjectTitle [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", title=" + title + "]";
 	}	
+	
+	
 }

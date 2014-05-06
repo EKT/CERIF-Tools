@@ -212,4 +212,17 @@ public class ClassDescription implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ClassDescription [id=" + id + ", classScheme=" + classScheme
+				+ ", language=" + language + ", translation=" + translation
+				+ ", description=" + description + ", descriptionSrc="
+				+ descriptionSrc + "]";
+	}
+	
+	
 }

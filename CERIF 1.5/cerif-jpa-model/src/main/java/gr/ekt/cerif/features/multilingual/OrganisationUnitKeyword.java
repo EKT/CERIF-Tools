@@ -171,5 +171,15 @@ public class OrganisationUnitKeyword implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnitKeyword [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", keyword=" + keyword + "]";
+	}
+
 }
 

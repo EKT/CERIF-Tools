@@ -78,6 +78,7 @@ public class OrganisationUnitName implements CerifMultipleLanguageFeature {
 	/**
 	 * The organisation unit name.
 	 */
+	@NotNull
 	@Column(name="cfName")
 	@Field(name="organisationUnitName", index=Index.YES, store=Store.YES)
 	private String name;	
@@ -232,6 +233,15 @@ public class OrganisationUnitName implements CerifMultipleLanguageFeature {
 				return false; //different organisations
 			}
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnitName [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", name=" + name + "]";
 	}	
 	
 	

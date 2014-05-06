@@ -72,6 +72,7 @@ public class OrganisationUnitResearchActivity implements CerifMultipleLanguageFe
 	/**
 	 * The organisation unit research activity.
 	 */
+	@NotNull
 	@Column(name="cfResAct")
 	private String researchActivity;	
 
@@ -166,4 +167,15 @@ public class OrganisationUnitResearchActivity implements CerifMultipleLanguageFe
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrganisationUnitResearchActivity [id=" + id + ", language="
+				+ language + ", translation=" + translation
+				+ ", researchActivity=" + researchActivity + "]";
+	}
+	
 }

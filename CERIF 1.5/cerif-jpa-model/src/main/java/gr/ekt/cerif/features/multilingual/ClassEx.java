@@ -72,13 +72,14 @@ public class ClassEx implements CerifMultipleLanguageFeature {
 	/**
 	 * The class ex.
 	 */
-	@Column(name="cfEx")
+	@NotNull
+	@Column(name="cfEx", length=10600)
 	private String ex;
 	
 	/**
 	 * The class ex source.
 	 */
-	@Column(name="cfExSrc")
+	@Column(name="cfExSrc", length=10600)
 	private String exSrc;
 
 
@@ -213,4 +214,16 @@ public class ClassEx implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ClassEx [id=" + id + ", classScheme=" + classScheme
+				+ ", language=" + language + ", translation=" + translation
+				+ ", ex=" + ex + ", exSrc=" + exSrc + "]";
+	}
+	
+	
 }

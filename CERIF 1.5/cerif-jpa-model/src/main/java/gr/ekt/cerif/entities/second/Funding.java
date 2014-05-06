@@ -113,13 +113,13 @@ public class Funding implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="funding")
-	private Set<FundingName> names;
+	private Set<FundingName> fundingNames;
 	
 	@OneToMany(mappedBy="funding")
-	private Set<FundingKeyword> keywords;
+	private Set<FundingKeyword> fundingKeywords;
 	
 	@OneToMany(mappedBy="funding")
-	private Set<FundingDescription> descriptions;
+	private Set<FundingDescription> fundingDescriptions;
 	
 	
 	/**
@@ -196,7 +196,7 @@ public class Funding implements CerifSecondLevelEntity {
 	 * @param descriptions
 	 */
 	public Funding(Currency currency, Date startDate, Date endDate,
-			String acronym, Double amount, String uri, Set<FundingName> names,
+			String acronym, Double amount, String uri, Set<FundingName> fundingNames,
 			Set<FundingKeyword> keywords, Set<FundingDescription> descriptions) {
 		this.currency = currency;
 		this.startDate = startDate;
@@ -204,9 +204,9 @@ public class Funding implements CerifSecondLevelEntity {
 		this.acronym = acronym;
 		this.amount = amount;
 		this.uri = uri;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
+		this.fundingNames = fundingNames;
+		this.fundingKeywords = keywords;
+		this.fundingDescriptions = descriptions;
 	}
 
 	/**
@@ -320,6 +320,18 @@ public class Funding implements CerifSecondLevelEntity {
 		this.uuid = uuid;
 	}
 	/**
+	 * @return the fundingNames
+	 */
+	public Set<FundingName> getFundingNames() {
+		return fundingNames;
+	}
+	/**
+	 * @param fundingNames the fundingNames to set
+	 */
+	public void setFundingNames(Set<FundingName> fundingNames) {
+		this.fundingNames = fundingNames;
+	}
+	/**
 	 * @return the projects_fundings
 	 */
 	public Set<Project_Funding> getProjects_fundings() {
@@ -346,48 +358,31 @@ public class Funding implements CerifSecondLevelEntity {
 			Set<OrganisationUnit_Funding> organisationUnits_fundings) {
 		this.organisationUnits_fundings = organisationUnits_fundings;
 	}
-	/**
-	 * @return the names
-	 */
-	public Set<FundingName> getNames() {
-		return names;
-	}
-
-	/**
-	 * @param names the names to set
-	 */
-	public void setNames(Set<FundingName> names) {
-		this.names = names;
-	}
-
-	/**
-	 * @return the keywords
-	 */
-	public Set<FundingKeyword> getKeywords() {
-		return keywords;
-	}
-
-	/**
-	 * @param keywords the keywords to set
-	 */
-	public void setKeywords(Set<FundingKeyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	/**
-	 * @return the descriptions
-	 */
-	public Set<FundingDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	/**
-	 * @param descriptions the descriptions to set
-	 */
-	public void setDescriptions(Set<FundingDescription> descriptions) {
-		this.descriptions = descriptions;
-	}
 	
+	/**
+	 * @return the fundingKeywords
+	 */
+	public Set<FundingKeyword> getFundingKeywords() {
+		return fundingKeywords;
+	}
+	/**
+	 * @param fundingKeywords the fundingKeywords to set
+	 */
+	public void setFundingKeywords(Set<FundingKeyword> fundingKeywords) {
+		this.fundingKeywords = fundingKeywords;
+	}
+	/**
+	 * @return the fundingDescriptions
+	 */
+	public Set<FundingDescription> getFundingDescriptions() {
+		return fundingDescriptions;
+	}
+	/**
+	 * @param fundingDescriptions the fundingDescriptions to set
+	 */
+	public void setFundingDescriptions(Set<FundingDescription> fundingDescriptions) {
+		this.fundingDescriptions = fundingDescriptions;
+	}
 	/**
 	 * @return the persons_fundings
 	 */

@@ -72,6 +72,7 @@ public class ResultPublicationNameAbbreviation implements CerifMultipleLanguageF
 	/**
 	 * The nameAbbreviation.
 	 */
+	@NotNull
 	@Column(name="cfNameAbbrev")
 	private String nameAbbreviation;
 	
@@ -174,6 +175,16 @@ public class ResultPublicationNameAbbreviation implements CerifMultipleLanguageF
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublicationNameAbbreviation [id=" + id
+				+ ", resultPublication=" + resultPublication + ", language="
+				+ language + ", nameAbbreviation=" + nameAbbreviation + "]";
 	}
 	
 }

@@ -71,6 +71,7 @@ public class ResultPublicationBibliographicNote implements CerifMultipleLanguage
 	/**
 	 * The bibliographicNote.
 	 */
+	@NotNull
 	@Column(name="cfBiblNote")
 	private String bibliographicNote;
 	
@@ -173,6 +174,16 @@ public class ResultPublicationBibliographicNote implements CerifMultipleLanguage
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublicationBibliographicNote [id=" + id
+				+ ", resultPublication=" + resultPublication + ", language="
+				+ language + ", bibliographicNote=" + bibliographicNote + "]";
 	}
 	
 }
