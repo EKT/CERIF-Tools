@@ -72,6 +72,7 @@ public class CountryName implements CerifMultipleLanguageFeature {
 	/**
 	 * The country name.
 	 */
+	@NotNull
 	@Column(name="cfName")
 	private String name;
 	
@@ -168,6 +169,15 @@ public class CountryName implements CerifMultipleLanguageFeature {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CountryName [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", name=" + name + "]";
 	}
 
 }

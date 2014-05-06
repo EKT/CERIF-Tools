@@ -163,4 +163,14 @@ public class MetricsDescription implements CerifMultipleLanguageFeature {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MetricsDescription [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", description="
+				+ description + "]";
+	}
+
 }

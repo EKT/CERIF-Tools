@@ -65,6 +65,7 @@ public class IndicatorName implements CerifMultipleLanguageFeature {
 	/**
 	 * The indicator name.
 	 */
+	@NotNull
 	@Column(name="cfName")
 	private String name;
 	
@@ -162,4 +163,14 @@ public class IndicatorName implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "IndicatorName [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", name=" + name + "]";
+	}
+	
 }

@@ -164,4 +164,13 @@ public class ServiceKeyword implements CerifMultipleLanguageFeature {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ServiceKeyword [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", keyword=" + keyword + "]";
+	}
+
 }

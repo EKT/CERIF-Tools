@@ -79,13 +79,13 @@ public class Equipment implements CerifInfrastructureEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="equipment")
-	private Set<EquipmentName> names;
+	private Set<EquipmentName> equipmentNames;
 	
 	@OneToMany(mappedBy="equipment")
-	private Set<EquipmentKeyword> keywords;
+	private Set<EquipmentKeyword> equipmentKeywords;
 	
 	@OneToMany(mappedBy="equipment")
-	private Set<EquipmentDescription> descriptions;
+	private Set<EquipmentDescription> equipmentDescriptions;
 
 	
 	/**
@@ -162,18 +162,18 @@ public class Equipment implements CerifInfrastructureEntity {
 	 * 
 	 * @param acronym
 	 * @param uri
-	 * @param names
-	 * @param keywords
-	 * @param descriptions
+	 * @param equipmentNames
+	 * @param equipmentKeywords
+	 * @param equipmentDescriptions
 	 */
 	public Equipment(String acronym, String uri,
-			Set<EquipmentName> names, Set<EquipmentKeyword> keywords,
-			Set<EquipmentDescription> descriptions) {
+			Set<EquipmentName> equipmentNames, Set<EquipmentKeyword> equipmentKeywords,
+			Set<EquipmentDescription> equipmentDescriptions) {
 		this.acronym = acronym;
 		this.uri = uri;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
+		this.equipmentNames = equipmentNames;
+		this.equipmentKeywords = equipmentKeywords;
+		this.equipmentDescriptions = equipmentDescriptions;
 	}
 
 	/**
@@ -235,6 +235,49 @@ public class Equipment implements CerifInfrastructureEntity {
 	}
 
 	/**
+	 * @return the equipmentNames
+	 */
+	public Set<EquipmentName> getEquipmentNames() {
+		return equipmentNames;
+	}
+
+	/**
+	 * @param equipmentNames the equipmentNames to set
+	 */
+	public void setEquipmentNames(Set<EquipmentName> equipmentNames) {
+		this.equipmentNames = equipmentNames;
+	}
+
+	/**
+	 * @return the equipmentKeywords
+	 */
+	public Set<EquipmentKeyword> getEquipmentKeywords() {
+		return equipmentKeywords;
+	}
+
+	/**
+	 * @param equipmentKeywords the equipmentKeywords to set
+	 */
+	public void setEquipmentKeywords(Set<EquipmentKeyword> equipmentKeywords) {
+		this.equipmentKeywords = equipmentKeywords;
+	}
+
+	/**
+	 * @return the equipmentDescriptions
+	 */
+	public Set<EquipmentDescription> getEquipmentDescriptions() {
+		return equipmentDescriptions;
+	}
+
+	/**
+	 * @param equipmentDescriptions the equipmentDescriptions to set
+	 */
+	public void setEquipmentDescriptions(
+			Set<EquipmentDescription> equipmentDescriptions) {
+		this.equipmentDescriptions = equipmentDescriptions;
+	}
+
+	/**
 	 * @return the projects_equipments
 	 */
 	public Set<Project_Equipment> getProjects_equipments() {
@@ -246,48 +289,6 @@ public class Equipment implements CerifInfrastructureEntity {
 	 */
 	public void setProjects_equipments(Set<Project_Equipment> projects_equipments) {
 		this.projects_equipments = projects_equipments;
-	}
-
-	/**
-	 * @return the names
-	 */
-	public Set<EquipmentName> getNames() {
-		return names;
-	}
-
-	/**
-	 * @param names the names to set
-	 */
-	public void setNames(Set<EquipmentName> names) {
-		this.names = names;
-	}
-
-	/**
-	 * @return the keywords
-	 */
-	public Set<EquipmentKeyword> getKeywords() {
-		return keywords;
-	}
-
-	/**
-	 * @param keywords the keywords to set
-	 */
-	public void setKeywords(Set<EquipmentKeyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	/**
-	 * @return the descriptions
-	 */
-	public Set<EquipmentDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	/**
-	 * @param descriptions the descriptions to set
-	 */
-	public void setDescriptions(Set<EquipmentDescription> descriptions) {
-		this.descriptions = descriptions;
 	}
 
 	/**

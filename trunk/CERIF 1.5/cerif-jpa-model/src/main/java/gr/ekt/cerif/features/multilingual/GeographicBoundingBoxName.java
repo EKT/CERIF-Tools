@@ -64,6 +64,7 @@ public class GeographicBoundingBoxName implements CerifMultipleLanguageFeature {
 	/**
 	 * The result product name.
 	 */
+	@NotNull
 	@Column(name="cfName")
 	private String name;
 	
@@ -158,5 +159,16 @@ public class GeographicBoundingBoxName implements CerifMultipleLanguageFeature {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GeographicBoundingBoxName [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", name=" + name + "]";
 	}	
+	
+	
 }

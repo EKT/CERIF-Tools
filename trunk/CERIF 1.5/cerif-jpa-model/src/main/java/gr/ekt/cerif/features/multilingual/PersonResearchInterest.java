@@ -64,7 +64,8 @@ public class PersonResearchInterest implements CerifMultipleLanguageFeature {
 	/**
 	 * The person's research interests.
 	 */
-	@Column(name="cfResInt")
+	@NotNull
+	@Column(name="cfResInt", length=20000)
 	private String researchInterests;
 	
 	/**
@@ -166,6 +167,15 @@ public class PersonResearchInterest implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PersonResearchInterest [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", researchInterests="
+				+ researchInterests + "]";
+	}
 	
 }

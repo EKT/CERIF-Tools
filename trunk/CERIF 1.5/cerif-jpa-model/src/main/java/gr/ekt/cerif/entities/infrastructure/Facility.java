@@ -91,13 +91,13 @@ public class Facility implements CerifInfrastructureEntity {
 	 */
 	@OneToMany(mappedBy="facility")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<FacilityName> names;
+	private Set<FacilityName> facilityNames;
 	
 	@OneToMany(mappedBy="facility")
-	private Set<FacilityKeyword> keywords;
+	private Set<FacilityKeyword> facilityKeywords;
 	
 	@OneToMany(mappedBy="facility")
-	private Set<FacilityDescription> descriptions;
+	private Set<FacilityDescription> facilityDescriptions;
 	
 	
 	/**
@@ -168,19 +168,19 @@ public class Facility implements CerifInfrastructureEntity {
 	 * 
 	 * @param acronym
 	 * @param uri
-	 * @param names
-	 * @param keywords
-	 * @param descriptions
+	 * @param facilityNames
+	 * @param facilityKeywords
+	 * @param facilityDescriptions
 	 */
 	public Facility(String acronym, String uri, 
-			Set<FacilityName> names,
-			Set<FacilityKeyword> keywords,
-			Set<FacilityDescription> descriptions) {
+			Set<FacilityName> facilityNames,
+			Set<FacilityKeyword> facilityKeywords,
+			Set<FacilityDescription> facilityDescriptions) {
 		this.acronym = acronym;
 		this.uri = uri;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
+		this.facilityNames = facilityNames;
+		this.facilityKeywords = facilityKeywords;
+		this.facilityDescriptions = facilityDescriptions;
 	}
 
 	/**
@@ -242,6 +242,49 @@ public class Facility implements CerifInfrastructureEntity {
 	}
 
 	/**
+	 * @return the facilityNames
+	 */
+	public Set<FacilityName> getFacilityNames() {
+		return facilityNames;
+	}
+
+	/**
+	 * @param facilityNames the facilityNames to set
+	 */
+	public void setFacilityNames(Set<FacilityName> facilityNames) {
+		this.facilityNames = facilityNames;
+	}
+
+	/**
+	 * @return the facilityKeywords
+	 */
+	public Set<FacilityKeyword> getFacilityKeywords() {
+		return facilityKeywords;
+	}
+
+	/**
+	 * @param facilityKeywords the facilityKeywords to set
+	 */
+	public void setFacilityKeywords(Set<FacilityKeyword> facilityKeywords) {
+		this.facilityKeywords = facilityKeywords;
+	}
+
+	/**
+	 * @return the facilityDescriptions
+	 */
+	public Set<FacilityDescription> getFacilityDescriptions() {
+		return facilityDescriptions;
+	}
+
+	/**
+	 * @param facilityDescriptions the facilityDescriptions to set
+	 */
+	public void setFacilityDescriptions(
+			Set<FacilityDescription> facilityDescriptions) {
+		this.facilityDescriptions = facilityDescriptions;
+	}
+
+	/**
 	 * @return the projects_facilities
 	 */
 	public Set<Project_Facility> getProjects_facilities() {
@@ -270,48 +313,6 @@ public class Facility implements CerifInfrastructureEntity {
 		this.organisationUnits_facilities = organisationUnits_facilities;
 	}
 
-	/**
-	 * @return the names
-	 */
-	public Set<FacilityName> getNames() {
-		return names;
-	}
-
-	/**
-	 * @param names the names to set
-	 */
-	public void setNames(Set<FacilityName> names) {
-		this.names = names;
-	}
-
-	/**
-	 * @return the keywords
-	 */
-	public Set<FacilityKeyword> getKeywords() {
-		return keywords;
-	}
-
-	/**
-	 * @param keywords the keywords to set
-	 */
-	public void setKeywords(Set<FacilityKeyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	/**
-	 * @return the descriptions
-	 */
-	public Set<FacilityDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	/**
-	 * @param descriptions the descriptions to set
-	 */
-	public void setDescriptions(Set<FacilityDescription> descriptions) {
-		this.descriptions = descriptions;
-	}
-	
 	/**
 	 * @return the persons_facilities
 	 */

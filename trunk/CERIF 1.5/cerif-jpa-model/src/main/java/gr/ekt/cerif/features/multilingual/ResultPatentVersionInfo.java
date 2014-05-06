@@ -65,6 +65,7 @@ public class ResultPatentVersionInfo implements CerifMultipleLanguageFeature {
 	/**
 	 * The result patent versionInfo.
 	 */
+	@NotNull
 	@Column(name="cfVersInfo")
 	private String versionInfo;
 
@@ -159,6 +160,17 @@ public class ResultPatentVersionInfo implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPatentVersionInfo [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", versionInfo="
+				+ versionInfo + "]";
+	}
+	
 }
 
 

@@ -23,6 +23,7 @@ import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ResultProductDescription;
 import gr.ekt.cerif.features.multilingual.ResultProductKeyword;
 import gr.ekt.cerif.features.multilingual.ResultProductName;
+import gr.ekt.cerif.features.multilingual.ResultProductVersionInfo;
 import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class ResultProduct implements CerifResultEntity {
 	private Set<ResultProductKeyword> resultProductKeywords;
 	
 	@OneToMany(mappedBy="resultProduct")
-	private Set<ResultProductKeyword> resultProductVersionInfos;
+	private Set<ResultProductVersionInfo> resultProductVersionInfos;
 	
 	
 	/**
@@ -171,7 +172,7 @@ public class ResultProduct implements CerifResultEntity {
 	public ResultProduct(String uri, Set<ResultProductDescription> resultProductDescriptions,
 			Set<ResultProductName> resultProductNames,
 			Set<ResultProductKeyword> resultProductKeywords,
-			Set<ResultProductKeyword> resultProductVersionInfos) {
+			Set<ResultProductVersionInfo> resultProductVersionInfos) {
 		this.uri = uri;
 		this.resultProductDescriptions = resultProductDescriptions;
 		this.resultProductNames = resultProductNames;
@@ -250,12 +251,12 @@ public class ResultProduct implements CerifResultEntity {
 		this.resultProductKeywords = resultProductKeywords;
 	}
 
-	public Set<ResultProductKeyword> getResultProductVersionInfos() {
+	public Set<ResultProductVersionInfo> getResultProductVersionInfos() {
 		return resultProductVersionInfos;
 	}
 
 	public void setResultProductVersionInfos(
-			Set<ResultProductKeyword> resultProductVersionInfos) {
+			Set<ResultProductVersionInfo> resultProductVersionInfos) {
 		this.resultProductVersionInfos = resultProductVersionInfos;
 	}
 

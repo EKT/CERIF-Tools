@@ -172,5 +172,14 @@ public class PersonKeyword implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PersonKeyword [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", keyword=" + keyword + "]";
+	}
 	
 }

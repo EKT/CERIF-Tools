@@ -77,6 +77,7 @@ public class ResultPublicationTitle implements CerifMultipleLanguageFeature {
 	/**
 	 * The title.
 	 */
+	@NotNull
 	@Column(name="cfTitle")
 	@Field(name="resultPublicationTitle", index=Index.YES, store=Store.YES)
 	private String title;
@@ -167,16 +168,6 @@ public class ResultPublicationTitle implements CerifMultipleLanguageFeature {
 		this.title = title;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return String
-				.format("ResultPublicationTitle [translation=%s, resultPublication=%s, language=%s, title=%s]",
-						translation, resultPublication, language, title);
-	}
-
 	/**
 	 * @return the id
 	 */
@@ -250,6 +241,16 @@ public class ResultPublicationTitle implements CerifMultipleLanguageFeature {
 				return false; //different result publications
 			}
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultPublicationTitle [id=" + id + ", resultPublication="
+				+ resultPublication + ", language=" + language + ", title="
+				+ title + "]";
 	}
 
 		

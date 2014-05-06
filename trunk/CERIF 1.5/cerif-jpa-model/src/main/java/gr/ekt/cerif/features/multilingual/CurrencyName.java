@@ -64,6 +64,7 @@ public class CurrencyName implements CerifMultipleLanguageFeature {
 	/**
 	 * The currency name.
 	 */
+	@NotNull
 	@Column(name="cfName")
 	private String name;
 	
@@ -160,6 +161,15 @@ public class CurrencyName implements CerifMultipleLanguageFeature {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CurrencyName [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", name=" + name + "]";
 	}
 
 }

@@ -167,5 +167,17 @@ public class ResultProductDescription implements CerifMultipleLanguageFeature, C
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResultProductDescription [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", description="
+				+ description + "]";
+	}
+	
+	
 }
 

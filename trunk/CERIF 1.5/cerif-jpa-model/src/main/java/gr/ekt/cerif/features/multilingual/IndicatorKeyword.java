@@ -164,4 +164,13 @@ public class IndicatorKeyword implements CerifMultipleLanguageFeature {
 		this.id = id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "IndicatorKeyword [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", keyword=" + keyword + "]";
+	}
+
 }

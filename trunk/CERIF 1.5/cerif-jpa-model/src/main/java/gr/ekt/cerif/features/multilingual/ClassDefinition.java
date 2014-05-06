@@ -72,6 +72,7 @@ public class ClassDefinition implements CerifMultipleLanguageFeature {
 	/**
 	 * The class description.
 	 */
+	@NotNull
 	@Column(name="cfDef", length=10600)
 	private String definition;
 	
@@ -213,4 +214,16 @@ public class ClassDefinition implements CerifMultipleLanguageFeature {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ClassDefinition [id=" + id + ", classScheme=" + classScheme
+				+ ", language=" + language + ", translation=" + translation
+				+ ", definition=" + definition + ", definitionSrc="
+				+ definitionSrc + "]";
+	}
+	
 }

@@ -166,4 +166,16 @@ public class ClassSchemeDescription implements CerifMultipleLanguageFeature {
 	public void setDescriptionSrc(String descriptionSrc) {
 		this.descriptionSrc = descriptionSrc;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ClassSchemeDescription [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", description="
+				+ description + ", descriptionSrc=" + descriptionSrc + "]";
+	}
+	
+	
 }

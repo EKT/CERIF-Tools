@@ -65,6 +65,7 @@ public class MediumTitle implements CerifMultipleLanguageFeature {
 	/**
 	 * The medium title.
 	 */
+	@NotNull
 	@Column(name="cfTitle")
 	private String title;
 	
@@ -161,6 +162,15 @@ public class MediumTitle implements CerifMultipleLanguageFeature {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MediumTitle [id=" + id + ", language=" + language
+				+ ", translation=" + translation + ", title=" + title + "]";
 	}
 
 }

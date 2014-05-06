@@ -29,7 +29,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * 
  */
 @Entity
-@Table(name="cfPers_EAddr", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersonId","cfEAddrId","cfClassId","cfStartDate","cfEndDate"}))
+@Table(name="cfPers_EAddr", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfEAddrId","cfClassId","cfStartDate","cfEndDate"}))
 public class Person_ElectronicAddress implements CerifLinkEntity {
 	
 	/**
@@ -48,7 +48,7 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 	 * The person.
 	 */
 	@ManyToOne(optional=false)
-	@JoinColumn(name="cfPersonId")
+	@JoinColumn(name="cfPersId")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person;
 
