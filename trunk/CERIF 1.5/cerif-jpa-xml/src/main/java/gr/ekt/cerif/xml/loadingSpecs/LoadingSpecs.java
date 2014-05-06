@@ -15,6 +15,7 @@ public class LoadingSpecs extends DataLoadingSpec {
 	private Integer windowSize = 0;
 	private Integer windowOffset = 0;
 	private boolean links = true;
+	private boolean showFedIds = false;
 
 	@Override
 	public DataLoadingSpec generateNextLoadingSpec() {
@@ -71,6 +72,20 @@ public class LoadingSpecs extends DataLoadingSpec {
 	}
 
 	/**
+	 * @return the showFedIds
+	 */
+	public boolean isShowFedIds() {
+		return showFedIds;
+	}
+
+	/**
+	 * @param showFedIds the showFedIds to set
+	 */
+	public void setShowFedIds(boolean showFedIds) {
+		this.showFedIds = showFedIds;
+	}
+
+	/**
 	 * @param links the links to set
 	 */
 	public void setLinks(boolean links) {
@@ -82,10 +97,10 @@ public class LoadingSpecs extends DataLoadingSpec {
 	 */
 	@Override
 	public String toString() {
-		return "LoadingSpecs [listOfEntitiesExported=" + 
-				listOfEntitiesExported
+		return "LoadingSpecs [listOfEntitiesExported=" + listOfEntitiesExported
 				+ ", windowSize=" + windowSize + ", windowOffset="
-				+ windowOffset + ", links=" + links + "]";
+				+ windowOffset + ", links=" + links + ", showFedIds="
+				+ showFedIds + "]";
 	}
 
 	

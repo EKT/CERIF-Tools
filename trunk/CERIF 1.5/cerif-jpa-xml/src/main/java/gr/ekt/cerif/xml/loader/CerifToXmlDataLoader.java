@@ -4,7 +4,6 @@
 package gr.ekt.cerif.xml.loader;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -26,9 +25,11 @@ import gr.ekt.cerif.entities.link.Facility_Equipment;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.Facility_Service;
+import gr.ekt.cerif.entities.link.FederatedIdentifier_Class;
 import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.Service_Class;
+import gr.ekt.cerif.entities.link.Service_FederatedIdentifier;
 import gr.ekt.cerif.entities.link.Service_Funding;
 import gr.ekt.cerif.entities.link.Service_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
@@ -73,27 +74,47 @@ import gr.ekt.cerif.entities.link.result.ResultPublication_Service;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.enumerations.semantics.ClassEnum;
 import gr.ekt.cerif.features.additional.PersonName;
+import gr.ekt.cerif.features.multilingual.ClassDefinition;
+import gr.ekt.cerif.features.multilingual.ClassDescription;
+import gr.ekt.cerif.features.multilingual.ClassEx;
 import gr.ekt.cerif.features.multilingual.ClassSchemeDescription;
 import gr.ekt.cerif.features.multilingual.ClassSchemeName;
 import gr.ekt.cerif.features.multilingual.ClassTerm;
+import gr.ekt.cerif.features.multilingual.EquipmentDescription;
+import gr.ekt.cerif.features.multilingual.EquipmentKeyword;
 import gr.ekt.cerif.features.multilingual.EquipmentName;
+import gr.ekt.cerif.features.multilingual.FacilityDescription;
+import gr.ekt.cerif.features.multilingual.FacilityKeyword;
 import gr.ekt.cerif.features.multilingual.FacilityName;
 import gr.ekt.cerif.features.multilingual.FundingDescription;
+import gr.ekt.cerif.features.multilingual.FundingKeyword;
 import gr.ekt.cerif.features.multilingual.FundingName;
+import gr.ekt.cerif.features.multilingual.OrganisationUnitKeyword;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitName;
+import gr.ekt.cerif.features.multilingual.OrganisationUnitResearchActivity;
+import gr.ekt.cerif.features.multilingual.PersonKeyword;
+import gr.ekt.cerif.features.multilingual.PersonResearchInterest;
 import gr.ekt.cerif.features.multilingual.ProjectAbstract;
 import gr.ekt.cerif.features.multilingual.ProjectKeyword;
 import gr.ekt.cerif.features.multilingual.ProjectTitle;
 import gr.ekt.cerif.features.multilingual.ResultProductDescription;
+import gr.ekt.cerif.features.multilingual.ResultProductKeyword;
 import gr.ekt.cerif.features.multilingual.ResultProductName;
+import gr.ekt.cerif.features.multilingual.ResultProductVersionInfo;
 import gr.ekt.cerif.features.multilingual.ResultPublicationAbstract;
+import gr.ekt.cerif.features.multilingual.ResultPublicationBibliographicNote;
 import gr.ekt.cerif.features.multilingual.ResultPublicationKeyword;
+import gr.ekt.cerif.features.multilingual.ResultPublicationNameAbbreviation;
 import gr.ekt.cerif.features.multilingual.ResultPublicationSubtitle;
 import gr.ekt.cerif.features.multilingual.ResultPublicationTitle;
+import gr.ekt.cerif.features.multilingual.ResultPublicationVersionInfo;
+import gr.ekt.cerif.features.multilingual.ServiceDescription;
+import gr.ekt.cerif.features.multilingual.ServiceKeyword;
 import gr.ekt.cerif.features.multilingual.ServiceName;
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.features.semantics.ClassScheme;
@@ -107,6 +128,7 @@ import gr.ekt.cerif.xml.records.infrastructure.CerifServiceRecord;
 import gr.ekt.cerif.xml.records.result.CerifResultProductRecord;
 import gr.ekt.cerif.xml.records.result.CerifResultPublicationRecord;
 import gr.ekt.cerif.xml.records.second.CerifElectronicAddressRecord;
+import gr.ekt.cerif.xml.records.second.CerifFederatedIdentifierRecord;
 import gr.ekt.cerif.xml.records.second.CerifFundingRecord;
 import gr.ekt.cerif.xml.records.second.CerifPostalAddressRecord;
 import gr.ekt.cerif.xml.records.semantics.CerifClassRecord;
@@ -155,8 +177,10 @@ public class CerifToXmlDataLoader extends DataLoader {
 	Iterator<ResultProduct> iterResultProduct;
 	List<Service> services;
 	Iterator<Service> iterService;
-	List<Equipment> equipment;
+	List<Equipment> equipments;
 	Iterator<Equipment> iterEquipment;
+	List<FederatedIdentifier> federatedIdentifiers;
+	Iterator<FederatedIdentifier> iterFederatedIdentifier;
 
 	public CerifToXmlDataLoader() {
 		super();
@@ -168,7 +192,12 @@ public class CerifToXmlDataLoader extends DataLoader {
 		Integer windowSize = ((LoadingSpecs)this.getLoadingSpec()).getWindowSize();
 		Integer windowOffset = ((LoadingSpecs)this.getLoadingSpec()).getWindowOffset();
 		boolean links = ((LoadingSpecs)this.getLoadingSpec()).isLinks();
+		boolean showFedIds = ((LoadingSpecs)this.getLoadingSpec()).isShowFedIds();
 
+		
+		/*
+		 * Entities
+		 */
 		if (((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains(ClassEnum.PROJECT.getName()) || 
 				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains("all") ||
 				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().isEmpty()) {
@@ -180,9 +209,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				projects = projectsPage.getContent();
 			}
 			iterProject = projects.iterator();
-			if (projects instanceof Collection)
+			/*if (projects instanceof Collection)
 				size = ((Collection<Project>)projects).size();
-			System.out.println("projects: "+size);
+			System.out.println("projects: "+size);*/
 		}
 		
 		
@@ -197,9 +226,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				organisations = organisationUnitPage.getContent();
 			}
 			iterOrganisationUnit = organisations.iterator();
-			if (organisations instanceof Collection)
+			/*if (organisations instanceof Collection)
 				size = ((Collection<OrganisationUnit>)organisations).size();
-			System.out.println("organisations: "+size);
+			System.out.println("organisations: "+size);*/
 		}
 		
 		
@@ -214,9 +243,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				persons = personPage.getContent();
 			}
 			iterPerson = persons.iterator();
-			if (persons instanceof Collection)
+			/*if (persons instanceof Collection)
 				size = ((Collection<Person>)persons).size();
-			System.out.println("persons: "+size);
+			System.out.println("persons: "+size);*/
 		}
 		
 		
@@ -231,9 +260,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				electronicAddresses = electronicAddressPage.getContent();
 			}
 			iterElectronicAddress = electronicAddresses.iterator();
-			if (electronicAddresses instanceof Collection)
+			/*if (electronicAddresses instanceof Collection)
 				size = ((Collection<ElectronicAddress>)electronicAddresses).size();
-			System.out.println("electronicAddresses: "+size);
+			System.out.println("electronicAddresses: "+size);*/
 		}
 		
 		
@@ -248,9 +277,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				postalAddresses = postalAddressPage.getContent();
 			}
 			iterPostalAddress = postalAddresses.iterator();
-			if (postalAddresses instanceof Collection)
+			/*if (postalAddresses instanceof Collection)
 				size = ((Collection<PostalAddress>)postalAddresses).size();
-			System.out.println("postalAddresses: "+size);
+			System.out.println("postalAddresses: "+size);*/
 		}
 		
 		
@@ -265,9 +294,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				fundings = fundingPage.getContent();
 			}
 			iterFunding = fundings.iterator();
-			if (fundings instanceof Collection)
+			/*if (fundings instanceof Collection)
 				size = ((Collection<Funding>)fundings).size();
-			System.out.println("fundings: "+size);
+			System.out.println("fundings: "+size);*/
 		}
 		
 		
@@ -282,9 +311,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				theClasses = classPage.getContent();
 			}
 			iterClass = theClasses.iterator();
-			if (theClasses instanceof Collection)
+			/*if (theClasses instanceof Collection)
 				size = ((Collection<Class>)theClasses).size();
-			System.out.println("classes: "+size);
+			System.out.println("classes: "+size);*/
 		}
 		
 		
@@ -299,9 +328,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				classSchemes = classSchemePage.getContent();
 			}
 			iterClassSchemes = classSchemes.iterator();
-			if (classSchemes instanceof Collection)
+			/*if (classSchemes instanceof Collection)
 				size = ((Collection<ClassScheme>)classSchemes).size();
-			System.out.println("classSchemes: "+size);
+			System.out.println("classSchemes: "+size);*/
 		}
 
 		
@@ -316,9 +345,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				resultPublications = resultPublicationPage.getContent();
 			}
 			iterResultPublication = resultPublications.iterator();
-			if (resultPublications instanceof Collection)
+			/*if (resultPublications instanceof Collection)
 				size = ((Collection<ResultPublication>)resultPublications).size();
-			System.out.println("resultPublications: "+size);
+			System.out.println("resultPublications: "+size);*/
 		}
 
 		
@@ -333,9 +362,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				facilities = facilityPage.getContent();
 			}
 			iterFacility = facilities.iterator();
-			if (facilities instanceof Collection)
+			/*if (facilities instanceof Collection)
 				size = ((Collection<Facility>)facilities).size();
-			System.out.println("facilities: "+size);
+			System.out.println("facilities: "+size);*/
 		}
 
 		
@@ -350,9 +379,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				resultProducts = productPage.getContent();
 			}
 			iterResultProduct = resultProducts.iterator();
-			if (resultProducts instanceof Collection)
+			/*if (resultProducts instanceof Collection)
 				size = ((Collection<ResultProduct>)resultProducts).size();
-			System.out.println("resultProducts: "+size);
+			System.out.println("resultProducts: "+size);*/
 		}
 
 		
@@ -367,9 +396,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 				services = servicePage.getContent();
 			}
 			iterService = services.iterator();
-			if (services instanceof Collection)
+			/*if (services instanceof Collection)
 				size = ((Collection<Service>)services).size();
-			System.out.println("services: "+size);
+			System.out.println("services: "+size);*/
 		}
 		
 		
@@ -378,15 +407,31 @@ public class CerifToXmlDataLoader extends DataLoader {
 				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().isEmpty()) {
 			
 			if (windowSize == 0) {
-				equipment = service.getInfrastructureService().getEquipmentRepository().findAll();
+				equipments = service.getInfrastructureService().getEquipmentRepository().findAll();
 			} else {
 				Page<Equipment> equipmentPage =service.getInfrastructureService().getEquipmentRepository().findAll(new PageRequest(windowOffset/windowSize, windowSize));
-				equipment = equipmentPage.getContent();
+				equipments = equipmentPage.getContent();
 			}
-			iterEquipment = equipment.iterator();
-			if (equipment instanceof Collection)
-				size = ((Collection<Equipment>)equipment).size();
-			System.out.println("equipment: "+size);
+			iterEquipment = equipments.iterator();
+			/*if (equipments instanceof Collection)
+				size = ((Collection<Equipment>)equipments).size();
+			System.out.println("equipment: "+size);*/
+		}
+		
+		if (((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains(ClassEnum.FEDERATED_IDENTIFIER.getName()) || 
+				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().contains("all") ||
+				((LoadingSpecs)this.getLoadingSpec()).getListOfEntitiesExported().isEmpty()) {
+			
+			if (windowSize == 0) {
+				federatedIdentifiers = service.getSecondService().getFederatedIdentifierRepository().findAll();
+			} else {
+				Page<FederatedIdentifier> federatedIdentifierPage =service.getSecondService().getFederatedIdentifierRepository().findAll(new PageRequest(windowOffset/windowSize, windowSize));
+				federatedIdentifiers = federatedIdentifierPage.getContent();
+			}
+			iterFederatedIdentifier = federatedIdentifiers.iterator();
+			/*if (federatedIdentifiers instanceof Collection)
+				size = ((Collection<FederatedIdentifier>)federatedIdentifiers).size();
+			System.out.println("federatedIdentifiers: "+size);*/
 		}
 
 		
@@ -401,7 +446,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//titles
 				List<ProjectTitle> projTitles = service.getTranslationService().getProjectTitleRepository().findByProject(project);
 				for (ProjectTitle t:projTitles) {
-					t.setTitle(t.getTitle().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					t.setTitle(cleanSpecialCharacters(t.getTitle()));
 				}
 				Set<ProjectTitle> titles = new HashSet<ProjectTitle>(projTitles);
 				project.setProjectTitles(titles);
@@ -409,7 +454,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//abstract
 				List<ProjectAbstract> projAbs = service.getTranslationService().getProjectAbstractRepository().findByProject(project);
 				for (ProjectAbstract a:projAbs) {
-					a.setAbstractText(a.getAbstractText().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					a.setAbstractText(cleanSpecialCharacters(a.getAbstractText()));
 				}
 				Set<ProjectAbstract> abs = new HashSet<ProjectAbstract>(projAbs);
 				project.setProjectAbstracts(abs);
@@ -417,7 +462,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//keywords
 				List<ProjectKeyword> projKeys = service.getTranslationService().getProjectKeywordRepository().findByProject(project);
 				for (ProjectKeyword k:projKeys) {
-					k.setKeyword(k.getKeyword().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					k.setKeyword(cleanSpecialCharacters(k.getKeyword()));
 				}
 				Set<ProjectKeyword> keys = new HashSet<ProjectKeyword>(projKeys);
 				project.setProjectKeywords(keys);
@@ -496,10 +541,16 @@ public class CerifToXmlDataLoader extends DataLoader {
 				project.setProjects_equipments(equipments);
 				
 				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					project.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PROJECT.getUri(), project.getId()));
+				}
+				
+				
 				CerifProjectRecord projectRecord = new CerifProjectRecord(project);
 				rs.addRecord(projectRecord);
-				c++;
-				System.out.println("project: "+project.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("project: "+project.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -514,10 +565,26 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//names
 				List<OrganisationUnitName> orgNames = service.getTranslationService().getOrganisationUnitNameRepository().findByOrganisationUnit(organisation);
 				for (OrganisationUnitName on:orgNames) {
-					on.setName(on.getName().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					on.setName(cleanSpecialCharacters(on.getName()));
 				}
 				Set<OrganisationUnitName> names = new HashSet<OrganisationUnitName>(orgNames);
 				organisation.setOrganisationUnitNames(names);
+				
+				//Research Activities
+				List<OrganisationUnitResearchActivity> orgResearchActivities = service.getTranslationService().getOrganisationUnitResearchActivityRepository().findByOrganisationUnit(organisation);
+				for (OrganisationUnitResearchActivity ora: orgResearchActivities) {
+					ora.setResearchActivity(cleanSpecialCharacters(ora.getResearchActivity()));
+				}
+				Set<OrganisationUnitResearchActivity> researchActivities = new HashSet<OrganisationUnitResearchActivity>(orgResearchActivities);
+				organisation.setOrganisationUnitResearchActivities(researchActivities);
+				
+				//Keywords
+				List<OrganisationUnitKeyword> orgKeywords = service.getTranslationService().getOrganisationUnitKeywordRepository().findByOrganisationUnit(organisation);
+				for (OrganisationUnitKeyword ork: orgKeywords) {
+					ork.setKeyword(cleanSpecialCharacters(ork.getKeyword()));
+				}
+				Set<OrganisationUnitKeyword> keywords = new HashSet<OrganisationUnitKeyword>(orgKeywords);
+				organisation.setOrganisationUnitKeywords(keywords);
 				
 				List<OrganisationUnit_Class> orgclass = new ArrayList<OrganisationUnit_Class>();
 				List<OrganisationUnit_Equipment> equipmentOrgs = new ArrayList<OrganisationUnit_Equipment>();
@@ -609,10 +676,16 @@ public class CerifToXmlDataLoader extends DataLoader {
 				organisation.setOrganisationUnits_services(srvs);
 						
 				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					organisation.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.ORGANISATION.getUri(), organisation.getId()));
+				}
+				
+				
 				CerifOrganisationUnitRecord organisationUnitRecord = new CerifOrganisationUnitRecord(organisation);
 				rs.addRecord(organisationUnitRecord);
-				c++;
-				System.out.println("organisation: "+organisation.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("organisation: "+organisation.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -629,6 +702,22 @@ public class CerifToXmlDataLoader extends DataLoader {
 				List<PersonName> persNames = service.getAdditionalService().getPersonNameRepository().findByPerson(person);
 				Set<PersonName> names = new HashSet<PersonName>(persNames);
 				person.setPersonNames(names);
+				
+				//Research Interests
+				List<PersonResearchInterest> persResearchActivities = service.getTranslationService().getPersonResearchInterestRepository().findByPerson(person);
+				for (PersonResearchInterest perri: persResearchActivities) {
+					perri.setResearchInterests(cleanSpecialCharacters(perri.getResearchInterests()));
+				}
+				Set<PersonResearchInterest> researchInterests = new HashSet<PersonResearchInterest>(persResearchActivities);
+				person.setPersonResearchInterests(researchInterests);
+				
+				//Keywords
+				List<PersonKeyword> persKeywords = service.getTranslationService().getPersonKeywordRepository().findByPerson(person);
+				for (PersonKeyword perk: persKeywords) {
+					perk.setKeyword(cleanSpecialCharacters(perk.getKeyword()));
+				}
+				Set<PersonKeyword> keywords = new HashSet<PersonKeyword>(persKeywords);
+				person.setPersonKeywords(keywords);
 				
 				List<Person_ElectronicAddress> persEaddrs = new ArrayList<Person_ElectronicAddress>();
 				List<Person_Class> persClas = new ArrayList<Person_Class>();
@@ -720,10 +809,16 @@ public class CerifToXmlDataLoader extends DataLoader {
 				person.setPersons_services(srvs);
 				
 				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					person.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PERSON.getUri(), person.getId()));
+				}
+				
+				
 				CerifPersonRecord personRecord = new CerifPersonRecord(person);
 				rs.addRecord(personRecord);		
-				c++;
-				System.out.println("person: "+person.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("person: "+person.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -761,11 +856,17 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<ElectronicAddress_Class> classes = new HashSet<ElectronicAddress_Class>(eaddrClass);
 				electronicAddress.setClasses(classes);
 				
+				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					electronicAddress.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.ELECTRONIC_ADDRESS.getUri(), electronicAddress.getId()));
+				}
+				
 								
 				CerifElectronicAddressRecord electronicAddressRecord = new CerifElectronicAddressRecord(electronicAddress);
 				rs.addRecord(electronicAddressRecord);	
-				c++;
-				System.out.println("postalAddress: "+electronicAddress.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("postalAddress: "+electronicAddress.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -826,12 +927,16 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//services
 				Set<Service_PostalAddress> srvs = new HashSet<Service_PostalAddress>(servicePaddrs);
 				postalAddress.setServices_postalAddresses(srvs);
-			
 				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					postalAddress.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.POSTAL_ADDRESS.getUri(), postalAddress.getId()));
+				}
+							
 				CerifPostalAddressRecord postalAddressRecord = new CerifPostalAddressRecord(postalAddress);
 				rs.addRecord(postalAddressRecord);	
-				c++;
-				System.out.println("postalAddress: "+postalAddress.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("postalAddress: "+postalAddress.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -847,18 +952,26 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//names
 				List<FundingName> fundNames = service.getTranslationService().getFundingNameRepository().findByFunding(funding);
 				for (FundingName name:fundNames) {
-					name.setName(name.getName().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					name.setName(cleanSpecialCharacters(name.getName()));
 				}
 				Set<FundingName> names = new HashSet<FundingName>(fundNames);
-				funding.setNames(names);
+				funding.setFundingNames(names);
+				
+				//Keywords
+				List<FundingKeyword> fundKeywords = service.getTranslationService().getFundingKeywordRepository().findByFunding(funding);
+				for (FundingKeyword funk:fundKeywords) {
+					funk.setKeyword(cleanSpecialCharacters(funk.getKeyword()));
+				}
+				Set<FundingKeyword> keywords = new HashSet<FundingKeyword>(fundKeywords);
+				funding.setFundingKeywords(keywords);
 		
 				//descriptions
 				List<FundingDescription> fundDescr = service.getTranslationService().getFundingDescriptionRepository().findByFunding(funding);
 				for (FundingDescription descr:fundDescr) {
-					descr.setDescription(descr.getDescription().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					descr.setDescription(cleanSpecialCharacters(descr.getDescription()));
 				}
 				Set<FundingDescription> descrs = new HashSet<FundingDescription>(fundDescr);
-				funding.setDescriptions(descrs);
+				funding.setFundingDescriptions(descrs);
 				
 				List<Equipment_Funding> equipmentFunds = new ArrayList<Equipment_Funding>();
 				List<Facility_Funding> facilityFunds = new ArrayList<Facility_Funding>();
@@ -933,11 +1046,15 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<Service_Funding> srvs = new HashSet<Service_Funding>(serviceFunds);
 				funding.setServices_fundings(srvs);
 
+				//FederatedIdentifiers
+				if (showFedIds) {
+					funding.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.FUNDING.getUri(), funding.getId()));
+				}
 				
 				CerifFundingRecord fundingRecord = new CerifFundingRecord(funding);
 				rs.addRecord(fundingRecord);	
-				c++;
-				System.out.println("funding: "+funding.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("funding: "+funding.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -950,16 +1067,65 @@ public class CerifToXmlDataLoader extends DataLoader {
 			while (iterClass.hasNext()) {
 				Class theClass = iterClass.next(); 
 				
+				//descriptions
+				List<ClassDescription> classDescriptions = service.getTranslationService().getClassDescriptionRepository().findByTheClass(theClass);
+				for (ClassDescription descr: classDescriptions) {
+					descr.setDescription(cleanSpecialCharacters(descr.getDescription()));
+					if (descr.getDescriptionSrc()!=null) {
+						descr.setDescriptionSrc(cleanSpecialCharacters(descr.getDescriptionSrc()));
+					}
+				}
+				Set<ClassDescription> descriptions = new HashSet<ClassDescription>(classDescriptions);
+				theClass.setDescriptions(descriptions);
+				
 				//terms
 				List<ClassTerm> classTerms = service.getTranslationService().getClassTermRepository().findByTheClass(theClass);
+				for (ClassTerm clt: classTerms) {
+					clt.setTerm(cleanSpecialCharacters(clt.getTerm()));
+					if (clt.getRoleExpr()!=null) {
+						clt.setRoleExpr(cleanSpecialCharacters(clt.getRoleExpr()));
+					}
+					if (clt.getRoleExprOpp()!=null) {
+						clt.setRoleExprOpp(cleanSpecialCharacters(clt.getRoleExprOpp()));
+					}
+					if (clt.getTermSrc()!=null) {
+						clt.setTermSrc(cleanSpecialCharacters(clt.getTermSrc()));
+					}
+				}
 				Set<ClassTerm> terms = new HashSet<ClassTerm>(classTerms);
 				theClass.setTerms(terms);
 				
+				//definitions
+				List<ClassDefinition> classDefinitions = service.getTranslationService().getClassDefinitionRepository().findByTheClass(theClass);
+				for (ClassDefinition cldef: classDefinitions) {
+					cldef.setDefinition(cleanSpecialCharacters(cldef.getDefinition()));
+					if (cldef.getDefinitionSrc()!=null) {
+						cldef.setDefinitionSrc(cleanSpecialCharacters(cldef.getDefinitionSrc()));
+					}
+				}
+				Set<ClassDefinition> definitions = new HashSet<ClassDefinition>(classDefinitions);
+				theClass.setDefinitions(definitions);
 				
+				//ex
+				List<ClassEx> classExs = service.getTranslationService().getClassExRepository().findByTheClass(theClass);
+				for (ClassEx cle: classExs) {
+					cle.setEx(cleanSpecialCharacters(cle.getEx()));
+					if (cle.getExSrc()!=null) {
+						cle.setExSrc(cleanSpecialCharacters(cle.getExSrc()));
+					}
+				}
+				Set<ClassEx> examples = new HashSet<ClassEx>(classExs);
+				theClass.setExs(examples);
+								
+				//FederatedIdentifiers
+				if (showFedIds) {
+					theClass.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION.getUri(), theClass.getId()));
+				}
+								
 				CerifClassRecord classRecord = new CerifClassRecord(theClass);
 				rs.addRecord(classRecord);	
-				c++;
-				System.out.println("class: "+theClass.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("class: "+theClass.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -973,19 +1139,35 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//Description
 				List<ClassSchemeDescription> classSchemeDescriptions = service.getTranslationService().getClassSchemeDescriptionRepository().findByScheme(classScheme);
+				for (ClassSchemeDescription clsd: classSchemeDescriptions) {
+					clsd.setDescription(cleanSpecialCharacters(clsd.getDescription()));
+					if (clsd.getDescriptionSrc()!=null) {
+						clsd.setDescriptionSrc(cleanSpecialCharacters(clsd.getDescriptionSrc()));
+					}
+				}
 				Set<ClassSchemeDescription> descriptions = new HashSet<ClassSchemeDescription>(classSchemeDescriptions);
 				classScheme.setDescriptions(descriptions);
 				
 				//Name
 				List<ClassSchemeName> classSchemeNames = service.getTranslationService().getClassSchemeNameRepository().findByScheme(classScheme);
+				for (ClassSchemeName clsn: classSchemeNames) {
+					clsn.setName(cleanSpecialCharacters(clsn.getName()));
+					if (clsn.getNameSrc()!=null) {
+						clsn.setNameSrc(cleanSpecialCharacters(clsn.getNameSrc()));
+					}
+				}
 				Set<ClassSchemeName> names = new HashSet<ClassSchemeName>(classSchemeNames);
 				classScheme.setNames(names);
 				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					classScheme.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION_SCHEME.getUri(), classScheme.getId()));
+				}				
 				
 				CerifClassSchemeRecord classSchemeRecord = new CerifClassSchemeRecord(classScheme);
 				rs.addRecord(classSchemeRecord);	
-				c++;
-				System.out.println("classScheme: "+classScheme.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("classScheme: "+classScheme.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -997,6 +1179,62 @@ public class CerifToXmlDataLoader extends DataLoader {
 			c=0;
 			while (iterResultPublication.hasNext()) {
 				ResultPublication resultPublication = iterResultPublication.next(); 
+				
+				//titles
+				List<ResultPublicationTitle> respublTitles = service.getTranslationService().getResultPublicationTitleRepository().findByResultPublication(resultPublication);
+				for (ResultPublicationTitle title:respublTitles) {
+					title.setTitle(cleanSpecialCharacters(title.getTitle()));
+				}
+				Set<ResultPublicationTitle> titles = new HashSet<ResultPublicationTitle>(respublTitles);
+				resultPublication.setResultPublicationTitles(titles);
+				
+				//subtitles
+				List<ResultPublicationSubtitle> respublSubtitles = service.getTranslationService().getResultPublicationSubtitleRepository().findByResultPublication(resultPublication);
+				for (ResultPublicationSubtitle subtitle:respublSubtitles) {
+					subtitle.setSubtitle(cleanSpecialCharacters(subtitle.getSubtitle()));
+				}
+				Set<ResultPublicationSubtitle> subtitles = new HashSet<ResultPublicationSubtitle>(respublSubtitles);
+				resultPublication.setResultPublicationSubtitles(subtitles);
+				
+				//keywords
+				List<ResultPublicationKeyword> respublKeywords = service.getTranslationService().getResultPublicationKeywordRepository().findByResultPublication(resultPublication);
+				for (ResultPublicationKeyword keyword:respublKeywords) {
+					keyword.setKeyword(cleanSpecialCharacters(keyword.getKeyword()));
+				}
+				Set<ResultPublicationKeyword> keywords = new HashSet<ResultPublicationKeyword>(respublKeywords);
+				resultPublication.setResultPublicationKeywords(keywords);
+				
+				//Bibliographic Notes
+				List<ResultPublicationBibliographicNote> respublBibliographicNotes = service.getTranslationService().getResultPublicationBibliographicNoteRepository().findByResultPublication(resultPublication);
+				for (ResultPublicationBibliographicNote rpubbn: respublBibliographicNotes) {
+					rpubbn.setBibliographicNote(cleanSpecialCharacters(rpubbn.getBibliographicNote()));
+				}
+				Set<ResultPublicationBibliographicNote> bibliographicNotes = new HashSet<ResultPublicationBibliographicNote>(respublBibliographicNotes);
+				resultPublication.setResultPublicationBibliographicNotes(bibliographicNotes);
+				
+				//Name Abbreviations
+				List<ResultPublicationNameAbbreviation> respublNameAbbreviations = service.getTranslationService().getResultPublicationNameAbbreviationRepository().findByResultPublication(resultPublication);
+				for (ResultPublicationNameAbbreviation rpubna: respublNameAbbreviations) {
+					rpubna.setNameAbbreviation(cleanSpecialCharacters(rpubna.getNameAbbreviation()));
+				}
+				Set<ResultPublicationNameAbbreviation> nameAbbreviations = new HashSet<ResultPublicationNameAbbreviation>(respublNameAbbreviations);
+				resultPublication.setResultPublicationNameAbbreviations(nameAbbreviations);
+				
+				//abstracts
+				List<ResultPublicationAbstract> respublAbstracts = service.getTranslationService().getResultPublicationAbstractRepository().findByResultPublication(resultPublication);
+				for (ResultPublicationAbstract abstractInst:respublAbstracts) {
+					abstractInst.setAbstractText(cleanSpecialCharacters(abstractInst.getAbstractText()));
+				}
+				Set<ResultPublicationAbstract> abstracts = new HashSet<ResultPublicationAbstract>(respublAbstracts);
+				resultPublication.setResultPublicationAbstracts(abstracts);
+				
+				//version Infos
+				List<ResultPublicationVersionInfo> respublVersionInfos = service.getTranslationService().getResultPublicationVersionInfoRepository().findByResultPublication(resultPublication);
+				for (ResultPublicationVersionInfo respubvi: respublVersionInfos) {
+					respubvi.setVersionInfo(cleanSpecialCharacters(respubvi.getVersionInfo()));
+				}
+				Set<ResultPublicationVersionInfo> versionInfos = new HashSet<ResultPublicationVersionInfo>(respublVersionInfos);
+				resultPublication.setResultPublicationVersionInfos(versionInfos);
 				
 				List<ResultPublication_Class> respublClas = new ArrayList<ResultPublication_Class>();
 				List<Person_ResultPublication> persRespubl = new ArrayList<Person_ResultPublication>();
@@ -1071,43 +1309,16 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<ResultPublication_Service> srvs = new HashSet<ResultPublication_Service>(serviceRespubls);
 				resultPublication.setResultPublications_services(srvs);
 				
-				//titles
-				List<ResultPublicationTitle> respublTitles = service.getTranslationService().getResultPublicationTitleRepository().findByResultPublication(resultPublication);
-				for (ResultPublicationTitle title:respublTitles) {
-					title.setTitle(title.getTitle().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
-				}
-				Set<ResultPublicationTitle> titles = new HashSet<ResultPublicationTitle>(respublTitles);
-				resultPublication.setResultPublicationTitles(titles);
 				
-				//subtitles
-				List<ResultPublicationSubtitle> respublSubtitles = service.getTranslationService().getResultPublicationSubtitleRepository().findByResultPublication(resultPublication);
-				for (ResultPublicationSubtitle subtitle:respublSubtitles) {
-					subtitle.setSubtitle(subtitle.getSubtitle().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+				//FederatedIdentifiers
+				if (showFedIds) {
+					resultPublication.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PUBLICATION.getUri(), resultPublication.getId()));
 				}
-				Set<ResultPublicationSubtitle> subtitles = new HashSet<ResultPublicationSubtitle>(respublSubtitles);
-				resultPublication.setResultPublicationSubtitles(subtitles);
-				
-				//keywords
-				List<ResultPublicationKeyword> respublKeywords = service.getTranslationService().getResultPublicationKeywordRepository().findByResultPublication(resultPublication);
-				for (ResultPublicationKeyword keyword:respublKeywords) {
-					keyword.setKeyword(keyword.getKeyword().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
-				}
-				Set<ResultPublicationKeyword> keywords = new HashSet<ResultPublicationKeyword>(respublKeywords);
-				resultPublication.setResultPublicationKeywords(keywords);
-				
-				//abstracts
-				List<ResultPublicationAbstract> respublAbstracts = service.getTranslationService().getResultPublicationAbstractRepository().findByResultPublication(resultPublication);
-				for (ResultPublicationAbstract abstractInst:respublAbstracts) {
-					abstractInst.setAbstractText(abstractInst.getAbstractText().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
-				}
-				Set<ResultPublicationAbstract> abstracts = new HashSet<ResultPublicationAbstract>(respublAbstracts);
-				resultPublication.setResultPublicationAbstracts(abstracts);
-				
 				
 				CerifResultPublicationRecord resultPublicationRecord = new CerifResultPublicationRecord(resultPublication);
 				rs.addRecord(resultPublicationRecord);	
-				c++;
-				System.out.println("resultPublication: "+resultPublication.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("resultPublication: "+resultPublication.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -1123,7 +1334,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//names
 				List<ResultProductName> resprodNames = service.getTranslationService().getResultProductNameRepository().findByResultProduct(resultProduct);
 				for (ResultProductName name:resprodNames) {
-					name.setName(name.getName().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					name.setName(cleanSpecialCharacters(name.getName()));
 				}
 				Set<ResultProductName> names = new HashSet<ResultProductName>(resprodNames);
 				resultProduct.setResultProductNames(names);
@@ -1131,10 +1342,26 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//descriptions
 				List<ResultProductDescription> resprodDescr = service.getTranslationService().getResultProductDescriptionRepository().findByResultProduct(resultProduct);
 				for (ResultProductDescription descr:resprodDescr) {
-					descr.setDescription(descr.getDescription().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					descr.setDescription(cleanSpecialCharacters(descr.getDescription()));
 				}
 				Set<ResultProductDescription> descrs = new HashSet<ResultProductDescription>(resprodDescr);
 				resultProduct.setResultProductDescriptions(descrs);
+				
+				//keywords
+				List<ResultProductKeyword> resprodKeywords = service.getTranslationService().getResultProductKeywordRepository().findByResultProduct(resultProduct);
+				for (ResultProductKeyword resprodk: resprodKeywords) {
+					resprodk.setKeyword(cleanSpecialCharacters(resprodk.getKeyword()));
+				}
+				Set<ResultProductKeyword> keywords = new HashSet<ResultProductKeyword>(resprodKeywords);
+				resultProduct.setResultProductKeywords(keywords);
+				
+				//Version Info
+				List<ResultProductVersionInfo> resprodVersionInfo = service.getTranslationService().getResultProductVersionInfoRepository().findByResultProduct(resultProduct);
+				for (ResultProductVersionInfo resprodvi: resprodVersionInfo) {
+					resprodvi.setVersionInfo(cleanSpecialCharacters(resprodvi.getVersionInfo()));
+				}
+				Set<ResultProductVersionInfo> versionInfos = new HashSet<ResultProductVersionInfo>(resprodVersionInfo);
+				resultProduct.setResultProductVersionInfos(versionInfos);
 				
 				List<OrganisationUnit_ResultProduct> orgResprod = new ArrayList<OrganisationUnit_ResultProduct>();
 				List<Person_ResultProduct> persResprod = new ArrayList<Person_ResultProduct>();
@@ -1209,11 +1436,15 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<ResultProduct_Equipment> equipments = new HashSet<ResultProduct_Equipment>(equipmentResultProd);
 				resultProduct.setResultProducts_equipments(equipments);
 				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					resultProduct.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PRODUCT.getUri(), resultProduct.getId()));
+				}
 				
 				CerifResultProductRecord resultProductRecord = new CerifResultProductRecord(resultProduct);
 				rs.addRecord(resultProductRecord);
-				c++;
-				System.out.println("resultProduct: "+resultProduct.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("resultProduct: "+resultProduct.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -1229,10 +1460,26 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//names
 				List<FacilityName> facilityNames = service.getTranslationService().getFacilityNameRepository().findByFacility(facility);
 				for (FacilityName name:facilityNames) {
-					name.setName(name.getName().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					name.setName(cleanSpecialCharacters(name.getName()));
 				}
 				Set<FacilityName> names = new HashSet<FacilityName>(facilityNames);
-				facility.setNames(names);
+				facility.setFacilityNames(names);
+				
+				//descriptions
+				List<FacilityDescription> facilityDescr = service.getTranslationService().getFacilityDescriptionRepository().findByFacility(facility);
+				for (FacilityDescription fd: facilityDescr) {
+					fd.setDescription(cleanSpecialCharacters(fd.getDescription()));
+				}
+				Set<FacilityDescription> descriptions = new HashSet<FacilityDescription>(facilityDescr);
+				facility.setFacilityDescriptions(descriptions);
+				
+				//keywords
+				List<FacilityKeyword> facilityKeywords = service.getTranslationService().getFacilityKeywordRepository().findByFacility(facility);
+				for (FacilityKeyword fk: facilityKeywords) {
+					fk.setKeyword(cleanSpecialCharacters(fk.getKeyword()));
+				}
+				Set<FacilityKeyword> keywords = new HashSet<FacilityKeyword>(facilityKeywords);
+				facility.setFacilityKeywords(keywords);
 				
 				List<Facility_Class> facilityClass = new ArrayList<Facility_Class>();
 				List<OrganisationUnit_Facility> orgFacilities = new ArrayList<OrganisationUnit_Facility>();
@@ -1315,11 +1562,16 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<ResultProduct_Facility> resultProds = new HashSet<ResultProduct_Facility>(resprodFacilities);
 				facility.setResultProducts_facilities(resultProds);
 				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					facility.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.FACILITY.getUri(), facility.getId()));
+				}
+				
 				
 				CerifFacilityRecord facilityRecord = new CerifFacilityRecord(facility);
 				rs.addRecord(facilityRecord);	
-				c++;
-				System.out.println("facility: "+facility.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("facility: "+facility.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -1335,10 +1587,26 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//names
 				List<ServiceName> serviceNames = service.getTranslationService().getServiceNameRepository().findByService(serviceInst);
 				for (ServiceName name:serviceNames) {
-					name.setName(name.getName().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					name.setName(cleanSpecialCharacters(name.getName()));
 				}
 				Set<ServiceName> names = new HashSet<ServiceName>(serviceNames);
-				serviceInst.setNames(names);
+				serviceInst.setServiceNames(names);
+				
+				//descriptions
+				List<ServiceDescription> serviceDescr = service.getTranslationService().getServiceDescriptionRepository().findByService(serviceInst);
+				for (ServiceDescription sd: serviceDescr) {
+					sd.setDescription(cleanSpecialCharacters(sd.getDescription()));
+				}
+				Set<ServiceDescription> descriptions = new HashSet<ServiceDescription>(serviceDescr);
+				serviceInst.setServiceDescriptions(descriptions);
+				
+				//keywords
+				List<ServiceKeyword> serviceKeywords = service.getTranslationService().getServiceKeywordRepository().findByService(serviceInst);
+				for (ServiceKeyword sk: serviceKeywords) {
+					sk.setKeyword(cleanSpecialCharacters(sk.getKeyword()));
+				}
+				Set<ServiceKeyword> keywords = new HashSet<ServiceKeyword>(serviceKeywords);
+				serviceInst.setServiceKeywords(keywords);
 				
 				List<OrganisationUnit_Service> serviceOrgs = new ArrayList<OrganisationUnit_Service>();
 				List<Person_Service> servicePers = new ArrayList<Person_Service>();
@@ -1421,11 +1689,15 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<Project_Service> projs = new HashSet<Project_Service>(serviceProj);
 				serviceInst.setProjects_services(projs);
 				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					serviceInst.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.SERVICE.getUri(), serviceInst.getId()));
+				}
 				
 				CerifServiceRecord serviceRecord = new CerifServiceRecord(serviceInst);
 				rs.addRecord(serviceRecord);
-				c++;
-				System.out.println("service: "+serviceInst.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("service: "+serviceInst.getId()+", ("+c+")");*/
 			}
 		}
 		
@@ -1441,10 +1713,26 @@ public class CerifToXmlDataLoader extends DataLoader {
 				//names
 				List<EquipmentName> equipmentNames = service.getTranslationService().getEquipmentNameRepository().findByEquipment(equipment);
 				for (EquipmentName name:equipmentNames) {
-					name.setName(name.getName().replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", ""));
+					name.setName(cleanSpecialCharacters(name.getName()));
 				}
 				Set<EquipmentName> names = new HashSet<EquipmentName>(equipmentNames);
-				equipment.setNames(names);
+				equipment.setEquipmentNames(names);
+				
+				//descriptions
+				List<EquipmentDescription> equipmentDescr = service.getTranslationService().getEquipmentDescriptionRepository().findByEquipment(equipment);
+				for (EquipmentDescription ed: equipmentDescr) {
+					ed.setDescription(cleanSpecialCharacters(ed.getDescription()));
+				}
+				Set<EquipmentDescription> descriptions = new HashSet<EquipmentDescription>(equipmentDescr);
+				equipment.setEquipmentDescriptions(descriptions);
+				
+				//keywords
+				List<EquipmentKeyword> equipmentKeywords = service.getTranslationService().getEquipmentKeywordRepository().findByEquipment(equipment);
+				for (EquipmentKeyword ek: equipmentKeywords) {
+					ek.setKeyword(cleanSpecialCharacters(ek.getKeyword()));
+				}
+				Set<EquipmentKeyword> keywords = new HashSet<EquipmentKeyword>(equipmentKeywords);
+				equipment.setEquipmentKeywords(keywords);
 				
 				List<Equipment_Funding> equipmentFunds = new ArrayList<Equipment_Funding>();
 				List<Equipment_Class> equipmentClass = new ArrayList<Equipment_Class>();
@@ -1527,15 +1815,79 @@ public class CerifToXmlDataLoader extends DataLoader {
 				Set<ResultProduct_Equipment> resultProds = new HashSet<ResultProduct_Equipment>(equipmentResultProd);
 				equipment.setResultProducts_equipments(resultProds);
 				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					equipment.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.EQUIPMENT.getUri(), equipment.getId()));
+				}
 				
 				CerifEquipmentRecord equipmentRecord = new CerifEquipmentRecord(equipment);
 				rs.addRecord(equipmentRecord);
-				c++;
-				System.out.println("service: "+equipment.getId()+", ("+c+")");
+				/*c++;
+				System.out.println("equipment: "+equipment.getId()+", ("+c+")");*/
 			}
 		}
 		
 		
+		/*
+		 * FederatedIdentifier 
+		 */
+		if (iterFederatedIdentifier != null) {
+			c=0;
+			while (iterFederatedIdentifier.hasNext()) {
+				FederatedIdentifier federatedIdentifier = iterFederatedIdentifier.next(); 
+				
+				List<FederatedIdentifier_Class> federatedIdentifierClasses = new ArrayList<FederatedIdentifier_Class>();
+				List<Service_FederatedIdentifier> federatedIdentifierServices = new ArrayList<Service_FederatedIdentifier>();
+				if (links) {
+					//classes
+					federatedIdentifierClasses = service.getLinkService().getFederatedIdentifierClassRepository().findByFedId(federatedIdentifier);
+					
+					//services
+					federatedIdentifierServices = service.getLinkService().getServiceFederatedIdentifierRepository().findByFedId(federatedIdentifier);
+				}
+				//classes
+				Set<FederatedIdentifier_Class> classes = new HashSet<FederatedIdentifier_Class>(federatedIdentifierClasses);
+				federatedIdentifier.setFedIds_classes(classes);
+				
+				//services
+				Set<Service_FederatedIdentifier> services = new HashSet<Service_FederatedIdentifier>(federatedIdentifierServices);
+				federatedIdentifier.setServices_fedids(services);
+				
+				CerifFederatedIdentifierRecord federatedIdentifierRecord = new CerifFederatedIdentifierRecord(federatedIdentifier);
+				rs.addRecord(federatedIdentifierRecord);
+				/*c++;
+				System.out.println("federatedIdentifier: "+federatedIdentifier.getId()+", ("+c+")");*/
+			}
+		}
+		
+		
+		// ------ Return ------- //
 		return rs;
 	}
+	
+	
+	private List<FederatedIdentifier> addFederatedIdentifier(String entityTypeUri, Long entityId) {
+		List<FederatedIdentifier> fedIds = service.getSecondService().getFederatedIdentifierRepository().findFedIdByClassUriAndInstId(entityTypeUri, entityId);
+		for (FederatedIdentifier fedId: fedIds) {
+			//classes
+			List<FederatedIdentifier_Class> federatedIdentifierClasses = service.getLinkService().getFederatedIdentifierClassRepository().findByFedId(fedId);
+			Set<FederatedIdentifier_Class> fedClasses = new HashSet<FederatedIdentifier_Class>(federatedIdentifierClasses);
+			fedId.setFedIds_classes(fedClasses);
+				
+			//services
+			List<Service_FederatedIdentifier> federatedIdentifierServices = service.getLinkService().getServiceFederatedIdentifierRepository().findByFedId(fedId);
+			Set<Service_FederatedIdentifier> fedServices = new HashSet<Service_FederatedIdentifier>(federatedIdentifierServices);
+			fedId.setServices_fedids(fedServices);
+		}
+
+		return fedIds;
+	}
+	
+	
+	private String cleanSpecialCharacters(String stringToClean) {
+		if (stringToClean!=null) {
+			return stringToClean.replaceAll("\n", " ").replaceAll("\t", "").replaceAll("\r", " ").replaceAll("\\v", "");
+		} else return null;
+	}
+	
 }

@@ -34,14 +34,6 @@ public class CerifProjectRecord extends Record {
 	public void removeField(String fieldName) {
 	}
 	
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
 	@Override
 	public void addField(String arg0, ArrayList<Object> arg1) {
 	}
@@ -53,4 +45,13 @@ public class CerifProjectRecord extends Record {
 	@Override
 	public void removeValueFromField(String arg0, Object arg1) {
 	}
+	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 }
