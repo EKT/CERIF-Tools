@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.equipment;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.features.multilingual.EquipmentDescription;
 
 
@@ -41,6 +44,11 @@ public class EquipmentDescriptionRepositoryImpl implements EquipmentDescriptionR
 	@Override
 	public EquipmentDescription save(EquipmentDescription entity) {
 		return equipmentDescriptionCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<EquipmentDescription> findByEquipment(Equipment equipment) {
+		return equipmentDescriptionCrudRepository.findByEquipment(equipment);
 	}
 
 }

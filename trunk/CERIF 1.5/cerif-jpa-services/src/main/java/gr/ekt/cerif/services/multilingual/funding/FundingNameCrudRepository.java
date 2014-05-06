@@ -21,9 +21,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface FundingNameCrudRepository extends CrudRepository<FundingName, Long>  {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	FundingName findByName(String title);
-	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<FundingName> findByFunding(Funding funding);
 	
 	

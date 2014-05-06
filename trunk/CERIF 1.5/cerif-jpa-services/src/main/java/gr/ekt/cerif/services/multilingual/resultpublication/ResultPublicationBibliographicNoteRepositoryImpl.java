@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.resultpublication;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.multilingual.ResultPublicationBibliographicNote;
 
 /**
@@ -40,6 +43,12 @@ public class ResultPublicationBibliographicNoteRepositoryImpl implements ResultP
 	@Override
 	public ResultPublicationBibliographicNote save(ResultPublicationBibliographicNote entity) {
 		return resultPublicationBibliographicNoteCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ResultPublicationBibliographicNote> findByResultPublication(
+			ResultPublication resultPublication) {
+		return resultPublicationBibliographicNoteCrudRepository.findByResultPublication(resultPublication);
 	}
 
 }

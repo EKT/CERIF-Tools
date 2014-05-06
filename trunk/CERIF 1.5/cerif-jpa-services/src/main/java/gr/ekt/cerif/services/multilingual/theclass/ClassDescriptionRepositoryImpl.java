@@ -3,12 +3,15 @@
  */
 package gr.ekt.cerif.services.multilingual.theclass;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.multilingual.ClassDescription;
+import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * @author bonisv
@@ -40,6 +43,11 @@ public class ClassDescriptionRepositoryImpl implements ClassDescriptionRepositor
 	@Override
 	public ClassDescription save(ClassDescription entity) {
 		return classDescriptionCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ClassDescription> findByTheClass(Class theClass) {
+		return classDescriptionCrudRepository.findByTheClass(theClass);
 	}
 
 }

@@ -3,7 +3,10 @@
  */
 package gr.ekt.cerif.services.multilingual.theclass;
 
+import java.util.List;
+
 import gr.ekt.cerif.features.multilingual.ClassDescription;
+import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * @author bonisv
@@ -18,4 +21,6 @@ public interface ClassDescriptionRepository {
 	public Iterable<ClassDescription> save(Iterable<ClassDescription> entities); 
 	
 	public ClassDescription save(ClassDescription entity);
+	
+	List<ClassDescription> findByTheClass(Class theClass);
 }

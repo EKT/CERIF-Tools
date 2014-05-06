@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.organisationunit;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitResearchActivity;
 
 /**
@@ -18,5 +21,7 @@ public interface OrganisationUnitResearchActivityRepository {
 	public Iterable<OrganisationUnitResearchActivity> save(Iterable<OrganisationUnitResearchActivity> entities); 
 	
 	public OrganisationUnitResearchActivity save(OrganisationUnitResearchActivity entity);
+	
+	List<OrganisationUnitResearchActivity> findByOrganisationUnit(OrganisationUnit organisationUnit);
 	
 }

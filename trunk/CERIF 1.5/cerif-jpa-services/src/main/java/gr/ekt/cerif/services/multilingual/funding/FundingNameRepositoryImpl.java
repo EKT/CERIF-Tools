@@ -46,11 +46,6 @@ public class FundingNameRepositoryImpl implements FundingNameRepository {
 	}
 
 	@Override
-	public FundingName findByName(String title) {
-		return fundingNameCrudRepository.findByName(title);
-	}
-
-	@Override
 	public List<FundingName> findByFunding(Funding funding) {
 		return fundingNameCrudRepository.findByFunding(funding);
 	}

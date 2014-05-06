@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.multilingual.person;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.features.multilingual.PersonResearchInterest;
 
 public interface PersonResearchInterestRepository {
@@ -11,4 +14,6 @@ public interface PersonResearchInterestRepository {
 	public void delete(PersonResearchInterest entity);
 	
 	public void delete(Iterable<PersonResearchInterest> entities);
+	
+	List<PersonResearchInterest> findByPerson(Person person);
 }

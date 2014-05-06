@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.organisationunit;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitKeyword;
 
 /**
@@ -18,4 +21,6 @@ public interface OrganisationUnitKeywordRepository {
 	public Iterable<OrganisationUnitKeyword> save(Iterable<OrganisationUnitKeyword> entities); 
 	
 	public OrganisationUnitKeyword save(OrganisationUnitKeyword entity);
+	
+	List<OrganisationUnitKeyword> findByOrganisationUnit(OrganisationUnit organisationUnit);
 }
