@@ -79,3 +79,23 @@ The services’ package pom.xml file and the client’s project pom.xml must inc
     <version>parent’s version</version>
 </parent>
 }}}
+
+Depending on the type of database that is used, the appropriate JDBC driver should be included as a dependency in the The services’ package pom.xml. The file includes the following
+
+{{{
+<dependency>
+    <groupId>postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>9.1-901-1.jdbc4</version>
+    <type>jar</type>
+    <scope>compile</scope>
+</dependency>
+		
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.18</version>
+    <type>jar</type>
+    <scope>compile</scope>
+</dependency>
+}}}
