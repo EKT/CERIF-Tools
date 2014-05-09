@@ -434,25 +434,25 @@ public enum ClassEnum {
 	CHECKED("c3c8c96f-cc0f-47e6-9c6d-4f86949ab984","Checked"),
 	UNCHECKED("9b5e9d79-c332-40cb-b888-8a37bdef9f1f","Unchecked");
 	
-	private final String uri;
+	private final String uuid;
 
 	private final String name;
 	
 	
 	/**
-	 * @param uri
+	 * @param uuid
 	 * @param name
 	 */
-	private ClassEnum(String uri, String name) {
-		this.uri = uri;
+	private ClassEnum(String uuid, String name) {
+		this.uuid = uuid;
 		this.name = name;
 	}
 
 	/**
-	 * @return the uri
+	 * @return the uuid
 	 */
-	public String getUri() {
-		return uri;
+	public String getUuid() {
+		return uuid;
 	}
 
 	/**
@@ -463,15 +463,15 @@ public enum ClassEnum {
 	}
 	
 	
-	public static ClassEnum fromUri(String uri) {
+	public static ClassEnum fromUuid(String uuid) {
 		for (ClassEnum c : ClassEnum.values()) {
-			if (c.getUri()!=null) {
-				if (c.uri.equals(uri)) {
+			if (c.getUuid()!=null) {
+				if (c.uuid.equals(uuid)) {
 					return c;
 				}
 			}
 		}
-		throw new IllegalArgumentException(uri);
+		return null;
 	}
 
 	/**
@@ -481,7 +481,7 @@ public enum ClassEnum {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("ClassEnum [");
-		sb.append("uri=" + uri + ", name=" + name);
+		sb.append("uuid=" + uuid + ", name=" + name);
 		sb.append("]");
 		return sb.toString();
 	}

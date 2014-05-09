@@ -72,25 +72,25 @@ public enum ClassSchemeEnum {
 	VERIFICATION_STATUSES("2ad984e8-33ae-4f0b-927e-d292c28750e3","Verification Statuses");
 
 	
-	private final String uri;
+	private final String uuid;
 
 	private final String name;
 	
 	
 	/**
-	 * @param uri
+	 * @param uuid
 	 * @param name
 	 */
-	private ClassSchemeEnum(String uri, String name) {
-		this.uri = uri;
+	private ClassSchemeEnum(String uuid, String name) {
+		this.uuid = uuid;
 		this.name = name;
 	}
-
+	
 	/**
-	 * @return the uri
+	 * @return the uuid
 	 */
-	public String getUri() {
-		return uri;
+	public String getUuid() {
+		return uuid;
 	}
 
 	/**
@@ -101,13 +101,13 @@ public enum ClassSchemeEnum {
 	}
 	
 	
-	public static ClassSchemeEnum fromUri(String uri) {
+	public static ClassSchemeEnum fromUuid(String uuid) {
 		for (ClassSchemeEnum c : ClassSchemeEnum.values()) {
-			if (c.uri.equals(uri)) {
+			if (c.uuid.equals(uuid)) {
 				return c;
 			}
 		}
-		throw new IllegalArgumentException(uri);
+		return null;
 	}
 
 	/**
@@ -117,7 +117,7 @@ public enum ClassSchemeEnum {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("ClassEnum [");
-		sb.append("uri=" + uri + ", name=" + name);
+		sb.append("uuid=" + uuid + ", name=" + name);
 		sb.append("]");
 		return sb.toString();
 	}
