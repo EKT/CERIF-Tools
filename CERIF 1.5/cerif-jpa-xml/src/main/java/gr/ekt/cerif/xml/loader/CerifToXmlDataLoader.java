@@ -543,7 +543,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					project.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PROJECT.getUri(), project.getId()));
+					project.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PROJECT.getUuid(), project.getId()));
 				}
 				
 				
@@ -678,7 +678,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					organisation.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.ORGANISATION.getUri(), organisation.getId()));
+					organisation.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.ORGANISATION.getUuid(), organisation.getId()));
 				}
 				
 				
@@ -811,7 +811,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					person.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PERSON.getUri(), person.getId()));
+					person.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PERSON.getUuid(), person.getId()));
 				}
 				
 				
@@ -859,7 +859,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					electronicAddress.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.ELECTRONIC_ADDRESS.getUri(), electronicAddress.getId()));
+					electronicAddress.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.ELECTRONIC_ADDRESS.getUuid(), electronicAddress.getId()));
 				}
 				
 								
@@ -930,7 +930,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					postalAddress.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.POSTAL_ADDRESS.getUri(), postalAddress.getId()));
+					postalAddress.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.POSTAL_ADDRESS.getUuid(), postalAddress.getId()));
 				}
 							
 				CerifPostalAddressRecord postalAddressRecord = new CerifPostalAddressRecord(postalAddress);
@@ -1048,7 +1048,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 
 				//FederatedIdentifiers
 				if (showFedIds) {
-					funding.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.FUNDING.getUri(), funding.getId()));
+					funding.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.FUNDING.getUuid(), funding.getId()));
 				}
 				
 				CerifFundingRecord fundingRecord = new CerifFundingRecord(funding);
@@ -1119,7 +1119,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 								
 				//FederatedIdentifiers
 				if (showFedIds) {
-					theClass.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION.getUri(), theClass.getId()));
+					theClass.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION.getUuid(), theClass.getId()));
 				}
 								
 				CerifClassRecord classRecord = new CerifClassRecord(theClass);
@@ -1161,7 +1161,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					classScheme.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION_SCHEME.getUri(), classScheme.getId()));
+					classScheme.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION_SCHEME.getUuid(), classScheme.getId()));
 				}				
 				
 				CerifClassSchemeRecord classSchemeRecord = new CerifClassSchemeRecord(classScheme);
@@ -1312,7 +1312,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					resultPublication.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PUBLICATION.getUri(), resultPublication.getId()));
+					resultPublication.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PUBLICATION.getUuid(), resultPublication.getId()));
 				}
 				
 				CerifResultPublicationRecord resultPublicationRecord = new CerifResultPublicationRecord(resultPublication);
@@ -1438,7 +1438,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					resultProduct.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PRODUCT.getUri(), resultProduct.getId()));
+					resultProduct.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.PRODUCT.getUuid(), resultProduct.getId()));
 				}
 				
 				CerifResultProductRecord resultProductRecord = new CerifResultProductRecord(resultProduct);
@@ -1564,7 +1564,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					facility.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.FACILITY.getUri(), facility.getId()));
+					facility.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.FACILITY.getUuid(), facility.getId()));
 				}
 				
 				
@@ -1691,7 +1691,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					serviceInst.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.SERVICE.getUri(), serviceInst.getId()));
+					serviceInst.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.SERVICE.getUuid(), serviceInst.getId()));
 				}
 				
 				CerifServiceRecord serviceRecord = new CerifServiceRecord(serviceInst);
@@ -1817,7 +1817,7 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					equipment.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.EQUIPMENT.getUri(), equipment.getId()));
+					equipment.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.EQUIPMENT.getUuid(), equipment.getId()));
 				}
 				
 				CerifEquipmentRecord equipmentRecord = new CerifEquipmentRecord(equipment);
@@ -1866,8 +1866,8 @@ public class CerifToXmlDataLoader extends DataLoader {
 	}
 	
 	
-	private List<FederatedIdentifier> addFederatedIdentifier(String entityTypeUri, Long entityId) {
-		List<FederatedIdentifier> fedIds = service.getSecondService().getFederatedIdentifierRepository().findFedIdByClassUriAndInstId(entityTypeUri, entityId);
+	private List<FederatedIdentifier> addFederatedIdentifier(String entityTypeUuid, Long entityId) {
+		List<FederatedIdentifier> fedIds = service.getSecondService().getFederatedIdentifierRepository().findFedIdByClassUuidAndInstId(entityTypeUuid, entityId);
 		for (FederatedIdentifier fedId: fedIds) {
 			//classes
 			List<FederatedIdentifier_Class> federatedIdentifierClasses = service.getLinkService().getFederatedIdentifierClassRepository().findByFedId(fedId);
