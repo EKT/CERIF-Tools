@@ -54,4 +54,9 @@ public class LanguageRepositoryImpl implements LanguageRepository {
 		return languageCrudRepository.save(entity);
 	}
 
+	@Override
+	public Language findByCode(String code) {
+		return languageCrudRepository.findByCode(code);
+	}
+
 }

@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
-import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.features.semantics.ClassScheme;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +26,13 @@ public interface FederatedIdentifierCrudRepository extends CrudRepository<Federa
 			+ "  join fedId.theClass cl            	"
 			+ "  where cl.uri = ?1 and fedId.instanceId = ?2 ")
 	List<FederatedIdentifier> findFedIdByClassUriAndInstId(String classUri, Long instanceId);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	@Query(value = "select fedId "
+			+ "  from FederatedIdentifier fedId          	"
+			+ "  join fedId.theClass cl            	"
+			+ "  where cl.uuid = ?1 and fedId.instanceId = ?2 ")
+	List<FederatedIdentifier> findFedIdByClassUuidAndInstId(String classUuid, Long instanceId);
 	
 	
 }

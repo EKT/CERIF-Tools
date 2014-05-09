@@ -74,4 +74,10 @@ public class FederatedIdentifierRepositoryImpl implements FederatedIdentifierRep
 		return federatedIdentifierCrudRepository.findFedIdByClassUriAndInstId(classUri, instanceId);
 	}
 
+	@Override
+	public List<FederatedIdentifier> findFedIdByClassUuidAndInstId(
+			String classUuid, Long instanceId) {
+		return federatedIdentifierCrudRepository.findFedIdByClassUuidAndInstId(classUuid, instanceId);
+	}
+
 }

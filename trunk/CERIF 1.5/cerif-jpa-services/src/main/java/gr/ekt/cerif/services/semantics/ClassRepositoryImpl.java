@@ -63,4 +63,9 @@ public class ClassRepositoryImpl implements ClassRepository {
 		return classCrudRepository.findAll(page);
 	}
 
+	@Override
+	public List<Class> findByUuid(String uuid) {
+		return classCrudRepository.findByUuid(uuid);
+	}
+
 }

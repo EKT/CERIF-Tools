@@ -28,4 +28,6 @@ public interface FederatedIdentifierRepository {
 	Page<FederatedIdentifier> findAll(Pageable page);
 	
 	List<FederatedIdentifier> findFedIdByClassUriAndInstId(String classUri, Long instanceId);
+	
+	List<FederatedIdentifier> findFedIdByClassUuidAndInstId(String classUuid, Long instanceId);
 }

@@ -19,6 +19,8 @@ public interface ClassSchemeRepository {
 
 	Page<ClassScheme> findAll(Pageable page);
 	
+	ClassScheme findByUuid(String uuid);
+	
 	public ClassScheme save(ClassScheme entity);
 
 	public Iterable<ClassScheme> save(Iterable<ClassScheme> entities);

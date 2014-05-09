@@ -22,4 +22,7 @@ public interface ClassSchemeCrudRepository extends CrudRepository<ClassScheme, L
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Page<ClassScheme> findAll(Pageable page);
 	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	ClassScheme findByUuid(String uuid);
+	
 }

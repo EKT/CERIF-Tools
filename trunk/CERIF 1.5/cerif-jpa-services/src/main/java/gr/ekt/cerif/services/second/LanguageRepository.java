@@ -18,4 +18,6 @@ public interface LanguageRepository {
 	public Iterable<Language> save(Iterable<Language> entities); 
 	
 	public Language save(Language entity);
+	
+	Language findByCode(String code);
 }

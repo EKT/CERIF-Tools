@@ -21,6 +21,9 @@ public interface ClassCrudRepository extends CrudRepository<Class, Long> {
 	List<Class> findByUri(String uri);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<Class> findByUuid(String uuid);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Class> findByScheme(ClassScheme scheme);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
