@@ -288,7 +288,12 @@
 	<cfHeadcount>$organisation.headCount</cfHeadcount>
 #end
 #if ($organisation.turn)
-	<cfTurn>$organisation.turn</cfTurn>
+#if (!$organisation.currency.code)
+#set ($currency = "default")
+#else
+#set ($currency = $organisation.currency.code)
+#end
+	<cfTurn cfCurrCode=$esc.quote$currency$esc.quote>$organisation.turn</cfTurn>
 #end
 #if ($organisation.uri && $organisation.uri != "")
 	<cfURI>$esc.xml($organisation.uri)</cfURI>
@@ -331,16 +336,16 @@
 		<cfClassSchemeId>$organisationFacil.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationFacil.startDate)T$date.format('HH:mm:ss',$organisationFacil.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationFacil.endDate)T$date.format('HH:mm:ss',$organisationFacil.endDate)</cfEndDate>
-		#if ($organisationFacil.fraction)
+#if ($organisationFacil.fraction)
 		<cfFraction>$organisationFacil.fraction</cfFraction>
-		#end
-		#if ($organisationFacil.availability)
+#end
+#if ($organisationFacil.availability)
 		<cfAvailability>$organisationFacil.availability</cfAvailability>
-		#end
-		#if ($organisationFacil.conditions)
+#end
+#if ($organisationFacil.conditions)
 		<cfConditions>$organisationFacil.conditions</cfConditions>
-		#end
-		#if ($organisationFacil.price)
+#end
+#if ($organisationFacil.price)
 #if (!$organisationFacil.currency.code)
 #set ($currency = "default")
 #else
@@ -357,9 +362,9 @@
 		<cfClassSchemeId>$organisationClass.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationClass.startDate)T$date.format('HH:mm:ss',$organisationClass.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationClass.endDate)T$date.format('HH:mm:ss',$organisationClass.endDate)</cfEndDate>
-		#if ($organisationClass.fraction)
+#if ($organisationClass.fraction)
 		<cfFraction>$organisationClass.fraction</cfFraction>
-		#end
+#end
 	</cfOrgUnit_Class>
 	
 #end
@@ -370,23 +375,23 @@
 		<cfClassSchemeId>$equipmentOrgs.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$equipmentOrgs.startDate)T$date.format('HH:mm:ss',$equipmentOrgs.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentOrgs.endDate)T$date.format('HH:mm:ss',$equipmentOrgs.endDate)</cfEndDate>
-		#if ($equipmentOrgs.fraction)
+#if ($equipmentOrgs.fraction)
 		<cfFraction>$equipmentOrgs.fraction</cfFraction>
-		#end
-		#if ($equipmentOrgs.availability)
+#end
+#if ($equipmentOrgs.availability)
 		<cfAvailability>$equipmentOrgs.availability</cfAvailability>
-		#end
-		#if ($equipmentOrgs.conditions)
+#end
+#if ($equipmentOrgs.conditions)
 		<cfConditions>$equipmentOrgs.conditions</cfConditions>
-		#end
-		#if ($equipmentOrgs.price)
+#end
+#if ($equipmentOrgs.price)
 #if (!$equipmentOrgs.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $equipmentOrgs.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentOrgs.price</cfPrice>
-		#end
+#end
 	</cfOrgUnit_Equip>
 	
 #end
@@ -397,9 +402,9 @@
 		<cfClassSchemeId>$organisationEAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationEAddress.startDate)T$date.format('HH:mm:ss',$organisationEAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationEAddress.endDate)T$date.format('HH:mm:ss',$organisationEAddress.endDate)</cfEndDate>
-		#if ($organisationEAddress.fraction)
+#if ($organisationEAddress.fraction)
 		<cfFraction>$organisationEAddress.fraction</cfFraction>
-        #end
+#end
 	</cfOrgUnit_EAddr>
 	
 #end
@@ -410,17 +415,17 @@
 		<cfClassSchemeId>$organisationFund.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationFund.startDate)T$date.format('HH:mm:ss',$organisationFund.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationFund.endDate)T$date.format('HH:mm:ss',$organisationFund.endDate)</cfEndDate>
-		#if ($organisationFund.fraction)
+#if ($organisationFund.fraction)
 		<cfFraction>$organisationFund.fraction</cfFraction>
-		#end
-		#if ($organisationFund.amount)
+#end
+#if ($organisationFund.amount)
 #if (!$organisationFund.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $organisationFund.currency.code)
 #end
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$organisationFund.amount</cfAmount>
-		#end
+#end
 	</cfOrgUnit_Fund>
 	
 #end
@@ -431,23 +436,23 @@
 		<cfClassSchemeId>$organisationResProd.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationResProd.startDate)T$date.format('HH:mm:ss',$organisationResProd.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationResProd.endDate)T$date.format('HH:mm:ss',$organisationResProd.endDate)</cfEndDate>
-		#if ($organisationResProd.fraction)
+#if ($organisationResProd.fraction)
 		<cfFraction>$organisationResProd.fraction</cfFraction>
-		#end
-		#if ($organisationResProd.availability)
+#end
+#if ($organisationResProd.availability)
 		<cfAvailability>$organisationResProd.availability</cfAvailability>
-		#end
-		#if ($organisationResProd.conditions)
+#end
+#if ($organisationResProd.conditions)
 		<cfConditions>$organisationResProd.conditions</cfConditions>
-		#end
-		#if ($organisationResProd.price)
+#end
+#if ($organisationResProd.price)
 #if (!$organisationResProd.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $organisationResProd.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$organisationResProd.price</cfPrice>
-		#end
+#end
 	</cfOrgUnit_ResProd>
 	
 #end
@@ -458,12 +463,12 @@
 		<cfClassSchemeId>$organisationRespubl.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationRespubl.startDate)T$date.format('HH:mm:ss',$organisationRespubl.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationRespubl.endDate)T$date.format('HH:mm:ss',$organisationRespubl.endDate)</cfEndDate>
-		#if ($organisationRespubl.fraction)
+#if ($organisationRespubl.fraction)
 		<cfFraction>$organisationRespubl.fraction</cfFraction>
-		#end
-		#if ($organisationRespubl.copyright)
+#end
+#if ($organisationRespubl.copyright)
 		<cfCopyright>$organisationRespubl.copyright</cfCopyright>
-		#end
+#end
 	</cfOrgUnit_ResPubl>
 	
 #end
@@ -474,23 +479,23 @@
 		<cfClassSchemeId>$serviceOrgs.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$serviceOrgs.startDate)T$date.format('HH:mm:ss',$serviceOrgs.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceOrgs.endDate)T$date.format('HH:mm:ss',$serviceOrgs.endDate)</cfEndDate>
-		#if ($serviceOrgs.fraction)
+#if ($serviceOrgs.fraction)
 		<cfFraction>$serviceOrgs.fraction</cfFraction>
-		#end
-		#if ($serviceOrgs.availability)
+#end
+#if ($serviceOrgs.availability)
 		<cfAvailability>$serviceOrgs.availability</cfAvailability>
-		#end
-		#if ($serviceOrgs.conditions)
+#end
+#if ($serviceOrgs.conditions)
 		<cfConditions>$serviceOrgs.conditions</cfConditions>
-		#end
-		#if ($serviceOrgs.price)
+#end
+#if ($serviceOrgs.price)
 #if (!$serviceOrgs.currency.code)
 #set ($currency = "default")
 #else
 #set ($currency = $serviceOrgs.currency.code)
 #end
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$serviceOrgs.price</cfPrice>
-		#end
+#end
 	</cfOrgUnit_Srv>
 	
 #end
@@ -501,9 +506,9 @@
 		<cfClassSchemeId>$organisationPers.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationPers.startDate)T$date.format('HH:mm:ss',$organisationPers.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationPers.endDate)T$date.format('HH:mm:ss',$organisationPers.endDate)</cfEndDate>
-		#if ($organisationPers.fraction)
+#if ($organisationPers.fraction)
 		<cfFraction>$organisationPers.fraction</cfFraction>
-        #end
+#end
 	</cfPers_OrgUnit>
 	
 #end
@@ -514,9 +519,9 @@
 		<cfClassSchemeId>$organisationProject.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationProject.startDate)T$date.format('HH:mm:ss',$organisationProject.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationProject.endDate)T$date.format('HH:mm:ss',$organisationProject.endDate)</cfEndDate>
-		#if ($organisationProject.fraction)
+#if ($organisationProject.fraction)
 		<cfFraction>$organisationProject.fraction</cfFraction>
-        #end
+#end
 	</cfProj_OrgUnit>
 	
 #end
@@ -527,9 +532,9 @@
 		<cfClassSchemeId>$organisationPAddress.theClass.scheme.id</cfClassSchemeId>
 		<cfStartDate>$date.format('yyyy-MM-dd',$organisationPAddress.startDate)T$date.format('HH:mm:ss',$organisationPAddress.startDate)</cfStartDate>
 		<cfEndDate>$date.format('yyyy-MM-dd',$organisationPAddress.endDate)T$date.format('HH:mm:ss',$organisationPAddress.endDate)</cfEndDate>
-		#if ($organisationPAddress.fraction)
+#if ($organisationPAddress.fraction)
 		<cfFraction>$organisationPAddress.fraction</cfFraction>
-        #end
+#end
 	</cfOrgUnit_PAddr>
 	
 #end
