@@ -42,4 +42,19 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
 		return currencyCrudRepository.save(entity);
 	}
 
+	@Override
+	public Currency findByCode(String code) {
+		return currencyCrudRepository.findByCode(code);
+	}
+
+	@Override
+	public Currency findByUri(String uri) {
+		return currencyCrudRepository.findByUri(uri);
+	}
+
+	@Override
+	public Currency findByUuid(String uuid) {
+		return currencyCrudRepository.findByUuid(uuid);
+	}
+
 }

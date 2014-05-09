@@ -32,4 +32,10 @@ public interface FundingCrudRepository extends CrudRepository<Funding, Long> {
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Page<Funding> findAll(Pageable page);
 	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Funding findByUri(String Uri);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Funding findByUuid(String uuid);
+	
 }

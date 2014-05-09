@@ -24,5 +24,9 @@ public interface FundingRepository {
 	List<Funding> findAll();
 	
 	Page<Funding> findAll(Pageable page);
+	
+	Funding findByUri(String Uri);
+	
+	Funding findByUuid(String uuid);
 			   	
 }

@@ -19,4 +19,10 @@ public interface CurrencyRepository {
 	public Iterable<Currency> save(Iterable<Currency> entities); 
 	
 	public Currency save(Currency entity);
+	
+	Currency findByCode(String code);
+	
+	Currency findByUri(String uri);
+	
+	Currency findByUuid(String uuid);
 }

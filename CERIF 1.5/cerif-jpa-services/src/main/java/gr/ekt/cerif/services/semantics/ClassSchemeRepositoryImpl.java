@@ -4,15 +4,10 @@ import java.util.List;
 
 import gr.ekt.cerif.features.semantics.ClassScheme;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 @Component
 public class ClassSchemeRepositoryImpl implements ClassSchemeRepository {
@@ -53,6 +48,11 @@ public class ClassSchemeRepositoryImpl implements ClassSchemeRepository {
 	@Override
 	public Page<ClassScheme> findAll(Pageable page) {
 		return classSchemeCrudRepository.findAll(page);
+	}
+
+	@Override
+	public ClassScheme findByUuid(String uuid) {
+		return classSchemeCrudRepository.findByUuid(uuid);
 	}
 	
 	

@@ -23,6 +23,8 @@ public interface ClassRepository {
     
 	List<Class> findByUri(String uri);
 	
+	List<Class> findByUuid(String uuid);
+	
 	List<Class> findByScheme(ClassScheme scheme);
 	
 	public void delete(Class entity);

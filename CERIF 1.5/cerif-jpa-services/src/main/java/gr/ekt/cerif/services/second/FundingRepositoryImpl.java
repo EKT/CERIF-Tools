@@ -88,4 +88,14 @@ public class FundingRepositoryImpl implements FundingRepository {
 		return fundingCrudRepository.findAll(page);
 	}
 
+	@Override
+	public Funding findByUri(String Uri) {
+		return fundingCrudRepository.findByUri(Uri);
+	}
+
+	@Override
+	public Funding findByUuid(String uuid) {
+		return fundingCrudRepository.findByUuid(uuid);
+	}
+
 }
