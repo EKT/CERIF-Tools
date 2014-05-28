@@ -597,6 +597,21 @@ public class Class implements CerifSemanticFeature {
 		this.resultProduct_GeographicBoundingBoxes = resultProduct_GeographicBoundingBoxes;
 	}
 	
+	/**
+	 * @return the organisationUnits_electronicAddresses
+	 */
+	public Set<OrganisationUnit_ElectronicAddress> getOrganisationUnits_electronicAddresses() {
+		return organisationUnits_electronicAddresses;
+	}
+
+	/**
+	 * @param organisationUnits_electronicAddresses the organisationUnits_electronicAddresses to set
+	 */
+	public void setOrganisationUnits_electronicAddresses(
+			Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses) {
+		this.organisationUnits_electronicAddresses = organisationUnits_electronicAddresses;
+	}
+
 	public Set<ClassDescription> getDescriptions() {
 		return descriptions;
 	}
@@ -619,6 +634,34 @@ public class Class implements CerifSemanticFeature {
 
 	public void setExs(Set<ClassEx> exs) {
 		this.exs = exs;
+	}
+
+	/**
+	 * @return the class_class1
+	 */
+	public Set<Class_Class> getClass_class1() {
+		return class_class1;
+	}
+
+	/**
+	 * @param class_class1 the class_class1 to set
+	 */
+	public void setClass_class1(Set<Class_Class> class_class1) {
+		this.class_class1 = class_class1;
+	}
+
+	/**
+	 * @return the class_class2
+	 */
+	public Set<Class_Class> getClass_class2() {
+		return class_class2;
+	}
+
+	/**
+	 * @param class_class2 the class_class2 to set
+	 */
+	public void setClass_class2(Set<Class_Class> class_class2) {
+		this.class_class2 = class_class2;
 	}
 
 	public Set<ClassDefinition> getDefinitions() {
@@ -829,21 +872,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the organisationUnits_electronicAddresses
-	 */
-	public Set<OrganisationUnit_ElectronicAddress> getOrganisationUnit_electronicAddresses() {
-		return organisationUnits_electronicAddresses;
-	}
-
-	/**
-	 * @param organisationUnits_electronicAddresses the organisationUnits_electronicAddresses to set
-	 */
-	public void setOrganisationUnit_electronicAddresses(
-			Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses) {
-		this.organisationUnits_electronicAddresses = organisationUnits_electronicAddresses;
-	}
-
-	/**
 	 * @return the organisationUnits
 	 */
 	public Set<OrganisationUnit_OrganisationUnit> getOrganisationUnits() {
@@ -873,21 +901,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the organisationUnits_resultProducts
-	 */
-	public Set<OrganisationUnit_ResultProduct> getOrganisationUnit_resultProducts() {
-		return organisationUnits_resultProducts;
-	}
-
-	/**
-	 * @param organisationUnits_resultProducts the organisationUnits_resultProducts to set
-	 */
-	public void setOrganisationUnit_resultProducts(
-			Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts) {
-		this.organisationUnits_resultProducts = organisationUnits_resultProducts;
-	}
-
-	/**
 	 * @return the organisationUnits_resultPublications
 	 */
 	public Set<OrganisationUnit_ResultPublication> getOrganisationUnits_resultPublications() {
@@ -902,6 +915,21 @@ public class Class implements CerifSemanticFeature {
 		this.organisationUnits_resultPublications = organisationUnits_resultPublications;
 	}
 	
+	/**
+	 * @return the organisationUnits_resultProducts
+	 */
+	public Set<OrganisationUnit_ResultProduct> getOrganisationUnits_resultProducts() {
+		return organisationUnits_resultProducts;
+	}
+
+	/**
+	 * @param organisationUnits_resultProducts the organisationUnits_resultProducts to set
+	 */
+	public void setOrganisationUnits_resultProducts(
+			Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts) {
+		this.organisationUnits_resultProducts = organisationUnits_resultProducts;
+	}
+
 	/**
 	 * @return the resultPatents_classes
 	 */
@@ -1163,15 +1191,6 @@ public class Class implements CerifSemanticFeature {
 		this.organisationUnits_classes = organisationUnits_classes;
 	}
 
-	public Set<OrganisationUnit_ElectronicAddress> getOrganisationUnits_electronicAddresses() {
-		return organisationUnits_electronicAddresses;
-	}
-
-	public void setOrganisationUnits_electronicAddresses(
-			Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses) {
-		this.organisationUnits_electronicAddresses = organisationUnits_electronicAddresses;
-	}
-
 	public Set<OrganisationUnit_PostalAddress> getOrganisationUnits_postalAddresses() {
 		return organisationUnits_postalAddresses;
 	}
@@ -1179,15 +1198,6 @@ public class Class implements CerifSemanticFeature {
 	public void setOrganisationUnits_postalAddresses(
 			Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses) {
 		this.organisationUnits_postalAddresses = organisationUnits_postalAddresses;
-	}
-
-	public Set<OrganisationUnit_ResultProduct> getOrganisationUnits_resultProducts() {
-		return organisationUnits_resultProducts;
-	}
-
-	public void setOrganisationUnits_resultProducts(
-			Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts) {
-		this.organisationUnits_resultProducts = organisationUnits_resultProducts;
 	}
 
 	public Set<Citation_Class> getCitations() {
