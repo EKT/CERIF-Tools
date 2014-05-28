@@ -409,6 +409,7 @@ public class OrganisationUnit implements CerifBaseEntity {
 		this.postalAddresses = postalAddresses;
 	}
 
+
 	/**
 	 * @return the electronicAddresses
 	 */
@@ -424,8 +425,6 @@ public class OrganisationUnit implements CerifBaseEntity {
 		this.electronicAddresses = electronicAddresses;
 	}
 
-	
-	
 	/**
 	 * @return the organisationUnits1
 	 */
