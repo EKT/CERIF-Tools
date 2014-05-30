@@ -121,4 +121,9 @@ public class FacilityRepositoryImpl implements FacilityRepository {
 		return facilityCrudRepository.findAll(page);
 	}
 
+	@Override
+	public Facility findByUUID(String uuid) {
+		return facilityCrudRepository.findByUuid(uuid);
+	}
+
 }

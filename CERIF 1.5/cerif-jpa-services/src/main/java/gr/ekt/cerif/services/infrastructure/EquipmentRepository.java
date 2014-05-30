@@ -9,6 +9,8 @@ import gr.ekt.cerif.entities.infrastructure.Equipment;
 
 public interface EquipmentRepository {
 	
+	public Equipment findById(Long id);
+	
 	public void delete(Equipment entity); 
 	
 	public void delete(Iterable<Equipment> entities); 
@@ -21,4 +23,6 @@ public interface EquipmentRepository {
 
 	Page<Equipment> findAll(Pageable page);
 
+	Equipment findByUUID(String uuid);
+	
 }

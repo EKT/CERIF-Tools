@@ -31,4 +31,6 @@ public interface ResultPublicationRepository {
 	List<ResultPublication> findAll();
 	
 	Page<ResultPublication> findAll(Pageable page);
+	
+	ResultPublication findByUUID(String uuid);
 }

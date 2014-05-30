@@ -37,5 +37,7 @@ public interface ElectronicAddressCrudRepository extends CrudRepository<Electron
 			"join orgs.organisationUnit org " +
 			"where org=?1 ")
 	List<ElectronicAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
+
+	ElectronicAddress findByUuid(String uuid);
 	
 }

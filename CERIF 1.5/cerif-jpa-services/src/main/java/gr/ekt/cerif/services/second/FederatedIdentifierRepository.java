@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
  */
 public interface FederatedIdentifierRepository {
 
+	public FederatedIdentifier findById(Long id);
+	
 	public void delete(FederatedIdentifier entity); 
 	
 	public void delete(Iterable<FederatedIdentifier> entities); 
@@ -30,4 +32,6 @@ public interface FederatedIdentifierRepository {
 	List<FederatedIdentifier> findFedIdByClassUriAndInstId(String classUri, Long instanceId);
 	
 	List<FederatedIdentifier> findFedIdByClassUuidAndInstId(String classUuid, Long instanceId);
+	
+	FederatedIdentifier findByUUID(String uuid);
 }

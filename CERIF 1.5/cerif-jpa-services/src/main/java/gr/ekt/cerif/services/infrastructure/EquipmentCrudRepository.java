@@ -26,4 +26,6 @@ public interface EquipmentCrudRepository extends CrudRepository<Equipment, Long>
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Page<Equipment> findAll(Pageable page);
 
+	Equipment findByUuid(String uuid);
+
 }

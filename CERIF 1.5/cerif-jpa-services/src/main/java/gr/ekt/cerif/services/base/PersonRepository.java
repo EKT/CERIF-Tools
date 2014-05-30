@@ -16,6 +16,8 @@ import gr.ekt.cerif.services.GenericSuperRepository;
  */
 public interface PersonRepository {
 
+	Person findById(Long id);
+	
 	Person findPersonById(Long id);
 	
 	Person findPersonName(String familyNames);
@@ -40,5 +42,6 @@ public interface PersonRepository {
 	
 	Page<Person> findAll(Pageable page);
 
+	Person findByUUID(String uuid);
 	
 }

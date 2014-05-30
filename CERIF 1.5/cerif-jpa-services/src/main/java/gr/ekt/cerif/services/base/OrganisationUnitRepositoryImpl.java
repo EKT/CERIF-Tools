@@ -185,5 +185,10 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 		return organisationUnitCrudRepository.findAll(page);
 	}
 
+	@Override
+	public OrganisationUnit findByUUID(String uuid) {
+		return organisationUnitCrudRepository.findByUuid(uuid);
+	}
+
 
 }

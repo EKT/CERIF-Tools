@@ -24,4 +24,6 @@ public interface ResultPublicationCrudRepository extends CrudRepository<ResultPu
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Page<ResultPublication> findAll(Pageable page);
+
+	ResultPublication findByUuid(String uuid);
 }

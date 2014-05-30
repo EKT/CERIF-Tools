@@ -49,4 +49,14 @@ public class EquipmentRepositoryImpl implements EquipmentRepository {
 		return equipmentCrudRepository.findAll(page);
 	}
 
+	@Override
+	public Equipment findById(Long id) {
+		return equipmentCrudRepository.findOne(id);
+	}
+
+	@Override
+	public Equipment findByUUID(String uuid) {
+		return equipmentCrudRepository.findByUuid(uuid);
+	}
+
 }

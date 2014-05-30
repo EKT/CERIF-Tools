@@ -16,6 +16,8 @@ import gr.ekt.cerif.entities.result.ResultProduct;
  */
 public interface ResultProductRepository {
 
+	public ResultProduct findById(Long id);
+	
 	public void delete(ResultProduct entity); 
 	
 	public void delete(Iterable<ResultProduct> entities); 
@@ -27,5 +29,7 @@ public interface ResultProductRepository {
 	List<ResultProduct> findAll();
 	
 	Page<ResultProduct> findAll(Pageable page);
+	
+	ResultProduct findByUUID(String uuid);
 	
 }

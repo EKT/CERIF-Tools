@@ -26,5 +26,6 @@ public Project findByAcronym(String acronym);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Page<Project> findAll(Pageable page);
-		
+	
+	Project findByUuid(String uuid);
 }

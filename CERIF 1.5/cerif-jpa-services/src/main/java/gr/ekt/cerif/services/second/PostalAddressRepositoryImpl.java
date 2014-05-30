@@ -115,4 +115,16 @@ public class PostalAddressRepositoryImpl implements PostalAddressRepository {
 		return postalAddressCrudRepository.findAll(page);
 	}
 
+
+	@Override
+	public PostalAddress findById(Long id) {
+		return postalAddressCrudRepository.findOne(id);
+	}
+
+
+	@Override
+	public PostalAddress findByUUID(String uuid) {
+		return postalAddressCrudRepository.findByUuid(uuid);
+	}
+
 }

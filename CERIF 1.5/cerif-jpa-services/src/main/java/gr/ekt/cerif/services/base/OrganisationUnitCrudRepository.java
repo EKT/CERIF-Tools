@@ -46,5 +46,6 @@ public interface OrganisationUnitCrudRepository extends CrudRepository<Organisat
 	@Query(value="select o from gr.ekt.cerif.entities.base.OrganisationUnit o join o.organisationUnitNames oname where oname.name= ?1 ")
 	OrganisationUnit findByOrganisationUnitName(String organisationUnitName);
 	
+	OrganisationUnit findByUuid(String uuid);
 
 }

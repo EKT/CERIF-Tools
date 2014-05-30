@@ -17,6 +17,8 @@ import gr.ekt.cerif.entities.second.ElectronicAddress;
  */
 public interface ElectronicAddressRepository {
 	
+	ElectronicAddress findById(Long id);
+	
 	ElectronicAddress findByUri(String uri);
 	
 	List<ElectronicAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
@@ -32,5 +34,7 @@ public interface ElectronicAddressRepository {
 	Iterable<ElectronicAddress> findAll();
 	
 	Page<ElectronicAddress> findAll(Pageable page);
+	
+	ElectronicAddress findByUUID(String uuid);
 
 }

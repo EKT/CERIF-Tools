@@ -36,6 +36,8 @@ public interface ProjectRepository {
 	Iterable<Project> findAll();
 	
 	Page<Project> findAll(Pageable page);
+	
+	Project findByUUID(String uuid);
 		
 }
 

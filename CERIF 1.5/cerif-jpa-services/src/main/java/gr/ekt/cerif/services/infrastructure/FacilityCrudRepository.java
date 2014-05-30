@@ -24,4 +24,6 @@ public interface FacilityCrudRepository extends CrudRepository<Facility, Long> {
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Page<Facility> findAll(Pageable page);
+
+	Facility findByUuid(String uuid);
 }

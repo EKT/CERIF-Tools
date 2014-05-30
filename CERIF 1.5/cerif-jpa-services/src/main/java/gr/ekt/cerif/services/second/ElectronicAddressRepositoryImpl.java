@@ -68,4 +68,14 @@ public class ElectronicAddressRepositoryImpl implements ElectronicAddressReposit
 		return electronicAddressCrudRepository.findAll(page);
 	}
 
+	@Override
+	public ElectronicAddress findById(Long id) {
+		return electronicAddressCrudRepository.findOne(id);
+	}
+
+	@Override
+	public ElectronicAddress findByUUID(String uuid) {
+		return electronicAddressCrudRepository.findByUuid(uuid);
+	}
+
 }
