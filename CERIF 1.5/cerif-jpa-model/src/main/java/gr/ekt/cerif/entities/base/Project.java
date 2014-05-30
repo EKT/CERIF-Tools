@@ -9,6 +9,7 @@ import gr.ekt.cerif.entities.link.project.Project_Event;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
 import gr.ekt.cerif.entities.link.project.Project_Indicator;
+import gr.ekt.cerif.entities.link.project.Project_Measurement;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.entities.link.project.Project_Prize;
@@ -122,10 +123,10 @@ public class Project implements CerifBaseEntity {
 	private Set<Project_OrganisationUnit> organisationUnits;
 	
 	@OneToMany(mappedBy="project1")
-	private Set<Project_Project> projects1;
+	private Set<Project_Project> projects_projects1;
 	
 	@OneToMany(mappedBy="project2")
-	private Set<Project_Project> projects2;
+	private Set<Project_Project> projects_projects2;
 	
 	@OneToMany(mappedBy="project")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
@@ -165,6 +166,9 @@ public class Project implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="project")
 	private Set<Project_Indicator> projects_indicators;
+	
+	@OneToMany(mappedBy="project")
+	private Set<Project_Measurement> projects_measurements;
 	
 	
 	/**
@@ -367,34 +371,6 @@ public class Project implements CerifBaseEntity {
 	}
 
 	/**
-	 * @return the projects1
-	 */
-	public Set<Project_Project> getProjects1() {
-		return projects1;
-	}
-
-	/**
-	 * @param projects1 the projects1 to set
-	 */
-	public void setProjects1(Set<Project_Project> projects1) {
-		this.projects1 = projects1;
-	}
-
-	/**
-	 * @return the projects2
-	 */
-	public Set<Project_Project> getProjects2() {
-		return projects2;
-	}
-
-	/**
-	 * @param projects2 the projects2 to set
-	 */
-	public void setProjects2(Set<Project_Project> projects2) {
-		this.projects2 = projects2;
-	}	
-
-	/**
 	 * @return the persons
 	 */
 	public Set<Project_Person> getPersons() {
@@ -562,6 +538,49 @@ public class Project implements CerifBaseEntity {
 	 */
 	public void setProjects_indicators(Set<Project_Indicator> projects_indicators) {
 		this.projects_indicators = projects_indicators;
+	}
+
+	/**
+	 * @return the projects_measurements
+	 */
+	public Set<Project_Measurement> getProjects_measurements() {
+		return projects_measurements;
+	}
+
+	/**
+	 * @param projects_measurements the projects_measurements to set
+	 */
+	public void setProjects_measurements(
+			Set<Project_Measurement> projects_measurements) {
+		this.projects_measurements = projects_measurements;
+	}
+
+	/**
+	 * @return the projects_projects1
+	 */
+	public Set<Project_Project> getProjects_projects1() {
+		return projects_projects1;
+	}
+
+	/**
+	 * @param projects_projects1 the projects_projects1 to set
+	 */
+	public void setProjects_projects1(Set<Project_Project> projects_projects1) {
+		this.projects_projects1 = projects_projects1;
+	}
+
+	/**
+	 * @return the projects_projects2
+	 */
+	public Set<Project_Project> getProjects_projects2() {
+		return projects_projects2;
+	}
+
+	/**
+	 * @param projects_projects2 the projects_projects2 to set
+	 */
+	public void setProjects_projects2(Set<Project_Project> projects_projects2) {
+		this.projects_projects2 = projects_projects2;
 	}
 
 	/**

@@ -150,10 +150,10 @@ public class Funding implements CerifSecondLevelEntity {
 	private Set<Facility_Funding> facilities_fundings;
 	
 	@OneToMany(mappedBy="funding1")
-	private Set<Funding_Funding> funding1_fundings;
+	private Set<Funding_Funding> fundings_fundings1;
 
 	@OneToMany(mappedBy="funding2")
-	private Set<Funding_Funding> funding2_fundings;
+	private Set<Funding_Funding> funding_fundings2;
 	
 	@OneToMany(mappedBy="funding")
 	private Set<Service_Funding> services_fundings;
@@ -313,24 +313,28 @@ public class Funding implements CerifSecondLevelEntity {
 	public String getUuid() {
 		return uuid;
 	}
+	
 	/**
 	 * @param uuid the uuid to set
 	 */
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
+	
 	/**
 	 * @return the fundingNames
 	 */
 	public Set<FundingName> getFundingNames() {
 		return fundingNames;
 	}
+	
 	/**
 	 * @param fundingNames the fundingNames to set
 	 */
 	public void setFundingNames(Set<FundingName> fundingNames) {
 		this.fundingNames = fundingNames;
 	}
+	
 	/**
 	 * @return the projects_fundings
 	 */
@@ -365,36 +369,42 @@ public class Funding implements CerifSecondLevelEntity {
 	public Set<FundingKeyword> getFundingKeywords() {
 		return fundingKeywords;
 	}
+	
 	/**
 	 * @param fundingKeywords the fundingKeywords to set
 	 */
 	public void setFundingKeywords(Set<FundingKeyword> fundingKeywords) {
 		this.fundingKeywords = fundingKeywords;
 	}
+	
 	/**
 	 * @return the fundingDescriptions
 	 */
 	public Set<FundingDescription> getFundingDescriptions() {
 		return fundingDescriptions;
 	}
+	
 	/**
 	 * @param fundingDescriptions the fundingDescriptions to set
 	 */
 	public void setFundingDescriptions(Set<FundingDescription> fundingDescriptions) {
 		this.fundingDescriptions = fundingDescriptions;
 	}
+	
 	/**
 	 * @return the persons_fundings
 	 */
 	public Set<Person_Funding> getPersons_fundings() {
 		return persons_fundings;
 	}
+	
 	/**
 	 * @param persons_fundings the persons_fundings to set
 	 */
 	public void setPersons_fundings(Set<Person_Funding> persons_fundings) {
 		this.persons_fundings = persons_fundings;
 	}
+	
 	/**
 	 * @return the resultPatents_fundings
 	 */
@@ -458,45 +468,21 @@ public class Funding implements CerifSecondLevelEntity {
 	public Set<Facility_Funding> getFacilities_fundings() {
 		return facilities_fundings;
 	}
+	
 	/**
 	 * @param facilities_fundings the facilities_fundings to set
 	 */
 	public void setFacilities_fundings(Set<Facility_Funding> facilities_fundings) {
 		this.facilities_fundings = facilities_fundings;
 	}
-	/**
-	 * @return the funding1_fundings
-	 */
-	public Set<Funding_Funding> getFunding1_fundings() {
-		return funding1_fundings;
-	}
-	
-	/**
-	 * @param funding1_fundings the funding1_fundings to set
-	 */
-	public void setFunding1_fundings(Set<Funding_Funding> funding1_fundings) {
-		this.funding1_fundings = funding1_fundings;
-	}
-	
-	/**
-	 * @return the funding2_fundings
-	 */
-	public Set<Funding_Funding> getFunding2_fundings() {
-		return funding2_fundings;
-	}
-	
-	/**
-	 * @param funding2_fundings the funding2_fundings to set
-	 */
-	public void setFunding2_fundings(Set<Funding_Funding> funding2_fundings) {
-		this.funding2_fundings = funding2_fundings;
-	}
+
 	/**
 	 * @return the services_fundings
 	 */
 	public Set<Service_Funding> getServices_fundings() {
 		return services_fundings;
 	}
+	
 	/**
 	 * @param services_fundings the services_fundings to set
 	 */
@@ -510,24 +496,28 @@ public class Funding implements CerifSecondLevelEntity {
 	public Set<Equipment_Funding> getEquipments_fundings() {
 		return equipments_fundings;
 	}
+	
 	/**
 	 * @param equipments_fundings the equipments_fundings to set
 	 */
 	public void setEquipments_fundings(Set<Equipment_Funding> equipments_fundings) {
 		this.equipments_fundings = equipments_fundings;
 	}
+	
 	/**
 	 * @return the mediums_fundings
 	 */
 	public Set<Medium_Funding> getMediums_fundings() {
 		return mediums_fundings;
 	}
+	
 	/**
 	 * @param mediums_fundings the mediums_fundings to set
 	 */
 	public void setMediums_fundings(Set<Medium_Funding> mediums_fundings) {
 		this.mediums_fundings = mediums_fundings;
 	}
+	
 	/**
 	 * @return the fundings_indicators
 	 */
@@ -540,12 +530,38 @@ public class Funding implements CerifSecondLevelEntity {
 	public void setFundings_indicators(Set<Funding_Indicator> fundings_indicators) {
 		this.fundings_indicators = fundings_indicators;
 	}
+	
+	/**
+	 * @return the fundings_fundings1
+	 */
+	public Set<Funding_Funding> getFundings_fundings1() {
+		return fundings_fundings1;
+	}
+	/**
+	 * @param fundings_fundings1 the fundings_fundings1 to set
+	 */
+	public void setFundings_fundings1(Set<Funding_Funding> fundings_fundings1) {
+		this.fundings_fundings1 = fundings_fundings1;
+	}
+	/**
+	 * @return the funding_fundings2
+	 */
+	public Set<Funding_Funding> getFunding_fundings2() {
+		return funding_fundings2;
+	}
+	/**
+	 * @param funding_fundings2 the funding_fundings2 to set
+	 */
+	public void setFunding_fundings2(Set<Funding_Funding> funding_fundings2) {
+		this.funding_fundings2 = funding_fundings2;
+	}
 	/**
 	 * @return the federatedIdentifiers
 	 */
 	public List<FederatedIdentifier> getFederatedIdentifiers() {
 		return federatedIdentifiers;
 	}
+	
 	/**
 	 * @param federatedIdentifiers the federatedIdentifiers to set
 	 */
@@ -553,6 +569,7 @@ public class Funding implements CerifSecondLevelEntity {
 			List<FederatedIdentifier> federatedIdentifiers) {
 		this.federatedIdentifiers = federatedIdentifiers;
 	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

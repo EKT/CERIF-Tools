@@ -129,10 +129,10 @@ public class ResultPatent implements CerifResultEntity {
 	private Set<ResultPatent_Measurement> resultPatents_measurements;
 	
 	@OneToMany(mappedBy="resultPatent1")
-	private Set<ResultPatent_ResultPatent> resultPatents1_resultPatents;
+	private Set<ResultPatent_ResultPatent> resultPatents_resultPatents1;
 
 	@OneToMany(mappedBy="resultPatent2")
-	private Set<ResultPatent_ResultPatent> resultPatents2_resultPatents;
+	private Set<ResultPatent_ResultPatent> resultPatents_resultPatents2;
 	
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPublication_ResultPatent> resultPublications_resultPatents;
@@ -421,37 +421,7 @@ public class ResultPatent implements CerifResultEntity {
 			Set<ResultPatent_Measurement> resultPatents_measurements) {
 		this.resultPatents_measurements = resultPatents_measurements;
 	}
-	
-	/**
-	 * @return the resultPatents1_resultPatents
-	 */
-	public Set<ResultPatent_ResultPatent> getResultPatents1_resultPatents() {
-		return resultPatents1_resultPatents;
-	}
-	
-	/**
-	 * @param resultPatents1_resultPatents the resultPatents1_resultPatents to set
-	 */
-	public void setResultPatents1_resultPatents(
-			Set<ResultPatent_ResultPatent> resultPatents1_resultPatents) {
-		this.resultPatents1_resultPatents = resultPatents1_resultPatents;
-	}
-	
-	/**
-	 * @return the resultPatents2_resultPatents
-	 */
-	public Set<ResultPatent_ResultPatent> getResultPatents2_resultPatents() {
-		return resultPatents2_resultPatents;
-	}
-	
-	/**
-	 * @param resultPatents2_resultPatents the resultPatents2_resultPatents to set
-	 */
-	public void setResultPatents2_resultPatents(
-			Set<ResultPatent_ResultPatent> resultPatents2_resultPatents) {
-		this.resultPatents2_resultPatents = resultPatents2_resultPatents;
-	}
-	
+
 	/**
 	 * @return the resultPublications_resultPatents
 	 */
@@ -510,6 +480,36 @@ public class ResultPatent implements CerifResultEntity {
 	public void setResultPatents_facilities(
 			Set<ResultPatent_Facility> resultPatents_facilities) {
 		this.resultPatents_facilities = resultPatents_facilities;
+	}
+
+	/**
+	 * @return the resultPatents_resultPatents1
+	 */
+	public Set<ResultPatent_ResultPatent> getResultPatents_resultPatents1() {
+		return resultPatents_resultPatents1;
+	}
+
+	/**
+	 * @param resultPatents_resultPatents1 the resultPatents_resultPatents1 to set
+	 */
+	public void setResultPatents_resultPatents1(
+			Set<ResultPatent_ResultPatent> resultPatents_resultPatents1) {
+		this.resultPatents_resultPatents1 = resultPatents_resultPatents1;
+	}
+
+	/**
+	 * @return the resultPatents_resultPatents2
+	 */
+	public Set<ResultPatent_ResultPatent> getResultPatents_resultPatents2() {
+		return resultPatents_resultPatents2;
+	}
+
+	/**
+	 * @param resultPatents_resultPatents2 the resultPatents_resultPatents2 to set
+	 */
+	public void setResultPatents_resultPatents2(
+			Set<ResultPatent_ResultPatent> resultPatents_resultPatents2) {
+		this.resultPatents_resultPatents2 = resultPatents_resultPatents2;
 	}
 
 	/**

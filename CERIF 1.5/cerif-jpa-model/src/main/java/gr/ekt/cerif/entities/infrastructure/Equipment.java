@@ -119,10 +119,10 @@ public class Equipment implements CerifInfrastructureEntity {
 	private Set<Equipment_PostalAddress> equipments_postalAddresses;
 	
 	@OneToMany(mappedBy="equipment1")
-	private Set<Equipment_Equipment> equipment_equipment1;
+	private Set<Equipment_Equipment> equipments_equipments1;
 	
 	@OneToMany(mappedBy="equipment2")
-	private Set<Equipment_Equipment> equipment_equipment2;
+	private Set<Equipment_Equipment> equipments_equipments2;
 	
 	@OneToMany(mappedBy="equipment")
 	private Set<Facility_Equipment> facilities_equipments;
@@ -407,36 +407,6 @@ public class Equipment implements CerifInfrastructureEntity {
 	}
 
 	/**
-	 * @return the equipment_equipment1
-	 */
-	public Set<Equipment_Equipment> getEquipment_equipment1() {
-		return equipment_equipment1;
-	}
-
-	/**
-	 * @param equipment_equipment1 the equipment_equipment1 to set
-	 */
-	public void setEquipment_equipment1(
-			Set<Equipment_Equipment> equipment_equipment1) {
-		this.equipment_equipment1 = equipment_equipment1;
-	}
-
-	/**
-	 * @return the equipment_equipment2
-	 */
-	public Set<Equipment_Equipment> getEquipment_equipment2() {
-		return equipment_equipment2;
-	}
-
-	/**
-	 * @param equipment_equipment2 the equipment_equipment2 to set
-	 */
-	public void setEquipment_equipment2(
-			Set<Equipment_Equipment> equipment_equipment2) {
-		this.equipment_equipment2 = equipment_equipment2;
-	}
-
-	/**
 	 * @return the facilities_equipments
 	 */
 	public Set<Facility_Equipment> getFacilities_equipments() {
@@ -523,6 +493,36 @@ public class Equipment implements CerifInfrastructureEntity {
 	public void setEquipments_measurements(
 			Set<Equipment_Measurement> equipments_measurements) {
 		this.equipments_measurements = equipments_measurements;
+	}
+
+	/**
+	 * @return the equipments_equipments1
+	 */
+	public Set<Equipment_Equipment> getEquipments_equipments1() {
+		return equipments_equipments1;
+	}
+
+	/**
+	 * @param equipments_equipments1 the equipments_equipments1 to set
+	 */
+	public void setEquipments_equipments1(
+			Set<Equipment_Equipment> equipments_equipments1) {
+		this.equipments_equipments1 = equipments_equipments1;
+	}
+
+	/**
+	 * @return the equipments_equipments2
+	 */
+	public Set<Equipment_Equipment> getEquipments_equipments2() {
+		return equipments_equipments2;
+	}
+
+	/**
+	 * @param equipments_equipments2 the equipments_equipments2 to set
+	 */
+	public void setEquipments_equipments2(
+			Set<Equipment_Equipment> equipments_equipments2) {
+		this.equipments_equipments2 = equipments_equipments2;
 	}
 
 	/**

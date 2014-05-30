@@ -8,10 +8,12 @@ import gr.ekt.cerif.entities.link.ClassScheme_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Equipment;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Event;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ExpertiseAndSkills;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Indicator;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Measurement;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Medium;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
@@ -151,10 +153,10 @@ public class OrganisationUnit implements CerifBaseEntity {
 	private Set<OrganisationUnit_ElectronicAddress> electronicAddresses;	
 	
 	@OneToMany(mappedBy="organisationUnit1")
-	private Set<OrganisationUnit_OrganisationUnit> organisationUnits1;
+	private Set<OrganisationUnit_OrganisationUnit> organisationUnits_organisationUnits1;
 	
 	@OneToMany(mappedBy="organisationUnit2")
-	private Set<OrganisationUnit_OrganisationUnit> organisationUnits2;	
+	private Set<OrganisationUnit_OrganisationUnit> organisationUnits_organisationUnits2;	
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<Person_OrganisationUnit> persons_organisationUnits;
@@ -188,6 +190,12 @@ public class OrganisationUnit implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnit_Prize> organisationUnits_prizes;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_Measurement> organisationUnits_measurements;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_Event> organisationUnits_events;
 
 	
 	/**
@@ -426,31 +434,33 @@ public class OrganisationUnit implements CerifBaseEntity {
 	}
 
 	/**
-	 * @return the organisationUnits1
+	 * @return the organisationUnits_organisationUnits1
 	 */
-	public Set<OrganisationUnit_OrganisationUnit> getOrganisationUnits1() {
-		return organisationUnits1;
+	public Set<OrganisationUnit_OrganisationUnit> getOrganisationUnits_organisationUnits1() {
+		return organisationUnits_organisationUnits1;
 	}
 
 	/**
-	 * @param organisationUnits1 the organisationUnits1 to set
+	 * @param organisationUnits_organisationUnits1 the organisationUnits_organisationUnits1 to set
 	 */
-	public void setOrganisationUnits1(Set<OrganisationUnit_OrganisationUnit> organisationUnits1) {
-		this.organisationUnits1 = organisationUnits1;
+	public void setOrganisationUnits_organisationUnits1(
+			Set<OrganisationUnit_OrganisationUnit> organisationUnits_organisationUnits1) {
+		this.organisationUnits_organisationUnits1 = organisationUnits_organisationUnits1;
 	}
 
 	/**
-	 * @return the organisationUnits2
+	 * @return the organisationUnits_organisationUnits2
 	 */
-	public Set<OrganisationUnit_OrganisationUnit> getOrganisationUnits2() {
-		return organisationUnits2;
+	public Set<OrganisationUnit_OrganisationUnit> getOrganisationUnits_organisationUnits2() {
+		return organisationUnits_organisationUnits2;
 	}
 
 	/**
-	 * @param organisationUnits2 the organisationUnits2 to set
+	 * @param organisationUnits_organisationUnits2 the organisationUnits_organisationUnits2 to set
 	 */
-	public void setOrganisationUnits2(Set<OrganisationUnit_OrganisationUnit> organisationUnits2) {
-		this.organisationUnits2 = organisationUnits2;
+	public void setOrganisationUnits_organisationUnits2(
+			Set<OrganisationUnit_OrganisationUnit> organisationUnits_organisationUnits2) {
+		this.organisationUnits_organisationUnits2 = organisationUnits_organisationUnits2;
 	}
 
 	/**
@@ -741,6 +751,36 @@ public class OrganisationUnit implements CerifBaseEntity {
 	public void setOrganisationUnits_prizes(
 			Set<OrganisationUnit_Prize> organisationUnits_prizes) {
 		this.organisationUnits_prizes = organisationUnits_prizes;
+	}
+
+	/**
+	 * @return the organisationUnits_measurements
+	 */
+	public Set<OrganisationUnit_Measurement> getOrganisationUnits_measurements() {
+		return organisationUnits_measurements;
+	}
+
+	/**
+	 * @param organisationUnits_measurements the organisationUnits_measurements to set
+	 */
+	public void setOrganisationUnits_measurements(
+			Set<OrganisationUnit_Measurement> organisationUnits_measurements) {
+		this.organisationUnits_measurements = organisationUnits_measurements;
+	}
+
+	/**
+	 * @return the organisationUnits_events
+	 */
+	public Set<OrganisationUnit_Event> getOrganisationUnits_events() {
+		return organisationUnits_events;
+	}
+
+	/**
+	 * @param organisationUnits_events the organisationUnits_events to set
+	 */
+	public void setOrganisationUnits_events(
+			Set<OrganisationUnit_Event> organisationUnits_events) {
+		this.organisationUnits_events = organisationUnits_events;
 	}
 
 	/**

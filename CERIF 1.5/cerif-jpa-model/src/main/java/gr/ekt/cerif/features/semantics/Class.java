@@ -27,6 +27,7 @@ import gr.ekt.cerif.entities.link.Funding_Indicator;
 import gr.ekt.cerif.entities.link.Funding_Measurement;
 import gr.ekt.cerif.entities.link.GeographicBoundingBox_Class;
 import gr.ekt.cerif.entities.link.Indicator_Class;
+import gr.ekt.cerif.entities.link.Measurement_Class;
 import gr.ekt.cerif.entities.link.Metrics_Class;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.Prize_Class;
@@ -313,8 +314,11 @@ public class Class implements CerifSemanticFeature {
 	@OneToMany(mappedBy="theClass")
 	private Set<Prize_Class> prizes;
 	
-	@OneToMany(mappedBy="qualification")
+	@OneToMany(mappedBy="theClass")
 	private Set<Qualification_Class> qualifications;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Measurement_Class> measurements;
 	
 	
 	/**
@@ -1381,6 +1385,20 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setQualifications(Set<Qualification_Class> qualifications) {
 		this.qualifications = qualifications;
+	}
+
+	/**
+	 * @return the measurements
+	 */
+	public Set<Measurement_Class> getMeasurements() {
+		return measurements;
+	}
+
+	/**
+	 * @param measurements the measurements to set
+	 */
+	public void setMeasurements(Set<Measurement_Class> measurements) {
+		this.measurements = measurements;
 	}
 
 	/* (non-Javadoc)

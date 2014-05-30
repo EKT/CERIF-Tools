@@ -170,8 +170,6 @@ public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 		this.id = id;
 	}
 
-	
-	
 	/**
 	 * Returns the organisation.
 	 * @return the organisation.
@@ -179,8 +177,6 @@ public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 	public OrganisationUnit getOrganisationUnit() {
 		return organisationUnit;
 	}
-
-	
 
 	/**
 	 * Sets the organisation.
@@ -330,15 +326,6 @@ public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 	 */
 	public void setTheClass(Class theClass) {
 		this.theClass = theClass;
-	}
-
-	/**
-	 * Returns whether it defines the source organisation unit.
-	 * @return whether it defines the source organisation unit.
-	 */
-	public boolean isSource() {
-		return theClass != null && 
-			   SOURCE_URI.equalsIgnoreCase(theClass.getUri());
 	}
 	
 	/**
