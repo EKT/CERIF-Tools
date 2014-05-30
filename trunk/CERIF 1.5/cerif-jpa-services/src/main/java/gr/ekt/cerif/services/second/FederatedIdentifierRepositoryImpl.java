@@ -80,4 +80,14 @@ public class FederatedIdentifierRepositoryImpl implements FederatedIdentifierRep
 		return federatedIdentifierCrudRepository.findFedIdByClassUuidAndInstId(classUuid, instanceId);
 	}
 
+	@Override
+	public FederatedIdentifier findById(Long id) {
+		return federatedIdentifierCrudRepository.findOne(id);
+	}
+
+	@Override
+	public FederatedIdentifier findByUUID(String uuid) {
+		return federatedIdentifierCrudRepository.findByUuid(uuid);
+	}
+
 }

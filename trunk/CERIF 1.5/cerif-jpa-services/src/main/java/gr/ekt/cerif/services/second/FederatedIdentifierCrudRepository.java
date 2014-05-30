@@ -33,6 +33,8 @@ public interface FederatedIdentifierCrudRepository extends CrudRepository<Federa
 			+ "  join fedId.theClass cl            	"
 			+ "  where cl.uuid = ?1 and fedId.instanceId = ?2 ")
 	List<FederatedIdentifier> findFedIdByClassUuidAndInstId(String classUuid, Long instanceId);
+
+	FederatedIdentifier findByUuid(String uuid);
 	
 	
 }

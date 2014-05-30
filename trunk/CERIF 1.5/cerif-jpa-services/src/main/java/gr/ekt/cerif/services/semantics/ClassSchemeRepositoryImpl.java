@@ -54,6 +54,11 @@ public class ClassSchemeRepositoryImpl implements ClassSchemeRepository {
 	public ClassScheme findByUuid(String uuid) {
 		return classSchemeCrudRepository.findByUuid(uuid);
 	}
+
+	@Override
+	public ClassScheme findById(Long id) {
+		return classSchemeCrudRepository.findOne(id);
+	}
 	
 	
 }

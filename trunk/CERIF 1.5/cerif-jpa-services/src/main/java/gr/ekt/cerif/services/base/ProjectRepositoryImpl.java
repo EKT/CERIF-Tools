@@ -118,11 +118,11 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		
 		List<Project_Project> pp1 = linkProjectProjectRepository.findByProject1(entity);
 		if (pp1 != null) linkProjectProjectRepository.delete(pp1);
-		entity.setProjects1(null);
+		entity.setProjects_projects1(null);
 		
 		List<Project_Project> pp2 = linkProjectProjectRepository.findByProject2(entity);
 		if (pp2 != null) linkProjectProjectRepository.delete(pp2);
-		entity.setProjects2(null);
+		entity.setProjects_projects2(null);
 		
 		entity = projectCrudRepository.save(entity);
 		projectCrudRepository.delete(entity);
@@ -154,6 +154,11 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	@Override
 	public Page<Project> findAll(Pageable page) {
 		return projectCrudRepository.findAll(page);
+	}
+
+	@Override
+	public Project findByUUID(String uuid) {
+		return projectCrudRepository.findByUuid(uuid);
 	}
 
 

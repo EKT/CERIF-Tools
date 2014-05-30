@@ -31,5 +31,5 @@ public interface OrganisationUnitRepository {
 	
 	Page<OrganisationUnit> findAll(Pageable page);
 	
-	
+	OrganisationUnit findByUUID(String uuid);
 }

@@ -51,4 +51,14 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 		return resultProductCrudRepository.findAll(page);
 	}
 
+	@Override
+	public ResultProduct findById(Long id) {
+		return resultProductCrudRepository.findOne(id);
+	}
+
+	@Override
+	public ResultProduct findByUUID(String uuid) {
+		return resultProductCrudRepository.findByUuid(uuid);
+	}
+
 }

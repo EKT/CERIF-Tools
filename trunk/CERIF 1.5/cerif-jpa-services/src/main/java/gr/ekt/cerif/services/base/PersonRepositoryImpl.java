@@ -133,12 +133,12 @@ public class PersonRepositoryImpl implements PersonRepository {
 		//delete the relations where the person is the first in the relation
 		List<Person_Person> p2a = linkPersonPersonRepository.findByPerson1(entity);
 		if (p2a != null) linkPersonPersonRepository.delete(p2a);
-		entity.setPerson1_persons(null);
+		entity.setPersons_persons1(null);
 		
 		//delete the relations where the person is the second in the relation
 		List<Person_Person> p2b = linkPersonPersonRepository.findByPerson2(entity);
 		if (p2b != null) linkPersonPersonRepository.delete(p2b);
-		entity.setPerson2_persons(null);
+		entity.setPersons_persons1(null);
 		
 		List<Person_Medium> pm = linkPersonMediumRepository.findByPerson(entity);
 		if (pm != null) linkPersonMediumRepository.delete(pm);
@@ -189,6 +189,16 @@ public class PersonRepositoryImpl implements PersonRepository {
 	@Override
 	public Page<Person> findAll(Pageable page) {
 		return personCrudRepository.findAll(page);
+	}
+
+	@Override
+	public Person findById(Long id) {
+		return personCrudRepository.findOne(id);
+	}
+
+	@Override
+	public Person findByUUID(String uuid) {
+		return personCrudRepository.findByUuid(uuid);
 	}
 	
 	

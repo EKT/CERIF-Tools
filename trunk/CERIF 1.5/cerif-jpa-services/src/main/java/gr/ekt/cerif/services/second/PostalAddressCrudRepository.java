@@ -54,5 +54,7 @@ public interface PostalAddressCrudRepository extends CrudRepository<PostalAddres
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Page<PostalAddress> findAll(Pageable page);
+
+	PostalAddress findByUuid(String uuid);
 	
 }

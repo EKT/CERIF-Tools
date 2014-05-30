@@ -50,4 +50,14 @@ public class ServiceRepositoryImpl implements ServiceRepository {
 		return serviceCrudRepository.findAll(page);
 	}
 
+	@Override
+	public Service findById(Long id) {
+		return serviceCrudRepository.findOne(id);
+	}
+
+	@Override
+	public Service findByUUID(String uuid) {
+		return serviceCrudRepository.findByUuid(uuid);
+	}
+
 }

@@ -41,5 +41,7 @@ public interface PersonCrudRepository extends CrudRepository<Person, Long> {
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Page<Person> findAll(Pageable page);
 
+	Person findByUuid(String uuid);
+
 	
 }

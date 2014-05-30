@@ -13,6 +13,8 @@ import gr.ekt.cerif.features.semantics.ClassScheme;
 
 public interface ClassSchemeRepository {
 	
+	ClassScheme findById(Long id);
+	
 	ClassScheme findByUri(String uri);
 	
 	List<ClassScheme> findAll();

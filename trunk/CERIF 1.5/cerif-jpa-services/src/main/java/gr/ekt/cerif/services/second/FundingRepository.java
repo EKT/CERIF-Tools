@@ -27,6 +27,6 @@ public interface FundingRepository {
 	
 	Funding findByUri(String Uri);
 	
-	Funding findByUuid(String uuid);
+	Funding findByUUID(String uuid);
 			   	
 }

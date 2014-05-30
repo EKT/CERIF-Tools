@@ -19,6 +19,8 @@ import gr.ekt.cerif.entities.second.PostalAddress;
  */
 public interface PostalAddressRepository {
 	
+	PostalAddress findById(Long id);
+	
 	List<PostalAddress> findByCountry(Country country);
 	
     PostalAddress findByOrganisationUnitNameAndCountryCode(String organisationUnitName, String ccode);
@@ -42,6 +44,8 @@ public interface PostalAddressRepository {
 	Iterable<PostalAddress> findAll();
 	
 	Page<PostalAddress> findAll(Pageable page);
+	
+	PostalAddress findByUUID(String uuid);
 	
 }
 

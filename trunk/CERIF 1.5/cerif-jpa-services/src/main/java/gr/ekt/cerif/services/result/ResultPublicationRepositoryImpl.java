@@ -133,4 +133,9 @@ public class ResultPublicationRepositoryImpl implements ResultPublicationReposit
 		return resultPublicationCrudRepository.findAll(page);
 	}
 
+	@Override
+	public ResultPublication findByUUID(String uuid) {
+		return resultPublicationCrudRepository.findByUuid(uuid);
+	}
+
 }
