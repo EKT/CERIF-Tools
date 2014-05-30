@@ -233,10 +233,10 @@ public class ResultPublication implements CerifResultEntity {
 	private Set<ResultPublication_ResultPatent> resultPublications_resultPatents;
 	
 	@OneToMany(mappedBy="resultPublication1")
-	private Set<ResultPublication_ResultPublication> resultPublications1_resultPublications;
+	private Set<ResultPublication_ResultPublication> resultPublications_resultPublications1;
 	
 	@OneToMany(mappedBy="resultPublication2")
-	private Set<ResultPublication_ResultPublication> resultPublications2_resultPublications;
+	private Set<ResultPublication_ResultPublication> resultPublications_resultPublications2;
     
 	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublication_Service> resultPublications_services;
@@ -832,36 +832,6 @@ public class ResultPublication implements CerifResultEntity {
 	}
 
 	/**
-	 * @return the resultPublications1_resultPublications
-	 */
-	public Set<ResultPublication_ResultPublication> getResultPublications1_resultPublications() {
-		return resultPublications1_resultPublications;
-	}
-
-	/**
-	 * @param resultPublications1_resultPublications the resultPublications1_resultPublications to set
-	 */
-	public void setResultPublications1_resultPublications(
-			Set<ResultPublication_ResultPublication> resultPublications1_resultPublications) {
-		this.resultPublications1_resultPublications = resultPublications1_resultPublications;
-	}
-
-	/**
-	 * @return the resultPublications2_resultPublications
-	 */
-	public Set<ResultPublication_ResultPublication> getResultPublications2_resultPublications() {
-		return resultPublications2_resultPublications;
-	}
-
-	/**
-	 * @param resultPublications2_resultPublications the resultPublications2_resultPublications to set
-	 */
-	public void setResultPublications2_resultPublications(
-			Set<ResultPublication_ResultPublication> resultPublications2_resultPublications) {
-		this.resultPublications2_resultPublications = resultPublications2_resultPublications;
-	}
-
-	/**
 	 * @return the resultPublications_services
 	 */
 	public Set<ResultPublication_Service> getResultPublications_services() {
@@ -892,6 +862,36 @@ public class ResultPublication implements CerifResultEntity {
 	}
 
 	/**
+	 * @return the resultPublications_resultPublications1
+	 */
+	public Set<ResultPublication_ResultPublication> getResultPublications_resultPublications1() {
+		return resultPublications_resultPublications1;
+	}
+
+	/**
+	 * @param resultPublications_resultPublications1 the resultPublications_resultPublications1 to set
+	 */
+	public void setResultPublications_resultPublications1(
+			Set<ResultPublication_ResultPublication> resultPublications_resultPublications1) {
+		this.resultPublications_resultPublications1 = resultPublications_resultPublications1;
+	}
+
+	/**
+	 * @return the resultPublications_resultPublications2
+	 */
+	public Set<ResultPublication_ResultPublication> getResultPublications_resultPublications2() {
+		return resultPublications_resultPublications2;
+	}
+
+	/**
+	 * @param resultPublications_resultPublications2 the resultPublications_resultPublications2 to set
+	 */
+	public void setResultPublications_resultPublications2(
+			Set<ResultPublication_ResultPublication> resultPublications_resultPublications2) {
+		this.resultPublications_resultPublications2 = resultPublications_resultPublications2;
+	}
+
+	/**
 	 * @return the federatedIdentifiers
 	 */
 	public List<FederatedIdentifier> getFederatedIdentifiers() {
@@ -904,20 +904,6 @@ public class ResultPublication implements CerifResultEntity {
 	public void setFederatedIdentifiers(
 			List<FederatedIdentifier> federatedIdentifiers) {
 		this.federatedIdentifiers = federatedIdentifiers;
-	}
-
-	public ResultPublicationTitle findOriginalTranslation() {
-		for (ResultPublicationTitle translation : resultPublicationTitles) {
-			if (translation.getTranslation().equals(Translation.ORIGINAL)) return translation;
-		}
-		return null;
-	}
-	
-	public ResultPublicationTitle findTranslationByLanguage(String language) {
-		for (ResultPublicationTitle translation : resultPublicationTitles) {
-			if (translation.getLanguage().getCode().equalsIgnoreCase(language)) return translation;
-		}
-		return null;
 	}
 
 	/* (non-Javadoc)

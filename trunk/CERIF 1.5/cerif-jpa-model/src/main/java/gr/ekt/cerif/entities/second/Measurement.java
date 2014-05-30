@@ -4,10 +4,16 @@
 package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.link.Equipment_Measurement;
+import gr.ekt.cerif.entities.link.Event_Measurement;
 import gr.ekt.cerif.entities.link.Facility_Measurement;
 import gr.ekt.cerif.entities.link.Indicator_Measurement;
+import gr.ekt.cerif.entities.link.Measurement_Class;
+import gr.ekt.cerif.entities.link.Measurement_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Service_Measurement;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Measurement;
+import gr.ekt.cerif.entities.link.person.Person_Measurement;
+import gr.ekt.cerif.entities.link.project.Project_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Measurement;
@@ -127,13 +133,16 @@ public class Measurement implements CerifSecondLevelEntity {
 	 * Links.
 	 */
 	@OneToMany(mappedBy="measurement")
+	private Set<Measurement_Class> measurements_classes;
+	
+	@OneToMany(mappedBy="measurement")
 	private Set<ResultPatent_Measurement> resultPatents_measurements;
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<ResultProduct_Measurement> resultProducts_measurements;
 	
 	@OneToMany(mappedBy="measurement")
-	private Set<Facility_Measurement> facility_measurements;
+	private Set<Facility_Measurement> facilities_measurements;
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<ResultPublication_Measurement> resultPublications_measurements;
@@ -149,6 +158,24 @@ public class Measurement implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<Indicator_Measurement> indicators_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<Person_Measurement> persons_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<OrganisationUnit_Measurement> organisationUnits_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<Project_Measurement> projects_measurements;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<Event_Measurement> events_measurements;
+	
+	@OneToMany(mappedBy="measurement1")
+	private Set<Measurement_Measurement> measurements_measurements1;
+	
+	@OneToMany(mappedBy="measurement2")
+	private Set<Measurement_Measurement> measurements_measurements2;
 
 	
 	/**
@@ -409,6 +436,20 @@ public class Measurement implements CerifSecondLevelEntity {
 	}
 	
 	/**
+	 * @return the measurements_classes
+	 */
+	public Set<Measurement_Class> getMeasurements_classes() {
+		return measurements_classes;
+	}
+
+	/**
+	 * @param measurements_classes the measurements_classes to set
+	 */
+	public void setMeasurements_classes(Set<Measurement_Class> measurements_classes) {
+		this.measurements_classes = measurements_classes;
+	}
+
+	/**
 	 * @return the resultPatents_measurements
 	 */
 	public Set<ResultPatent_Measurement> getResultPatents_measurements() {
@@ -438,6 +479,21 @@ public class Measurement implements CerifSecondLevelEntity {
 		this.resultProducts_measurements = resultProducts_measurements;
 	}
 	
+	/**
+	 * @return the facilities_measurements
+	 */
+	public Set<Facility_Measurement> getFacilities_measurements() {
+		return facilities_measurements;
+	}
+
+	/**
+	 * @param facilities_measurements the facilities_measurements to set
+	 */
+	public void setFacilities_measurements(
+			Set<Facility_Measurement> facilities_measurements) {
+		this.facilities_measurements = facilities_measurements;
+	}
+
 	/**
 	 * @return the resultPublications_measurements
 	 */
@@ -510,6 +566,94 @@ public class Measurement implements CerifSecondLevelEntity {
 	public void setIndicators_measurements(
 			Set<Indicator_Measurement> indicators_measurements) {
 		this.indicators_measurements = indicators_measurements;
+	}
+
+	/**
+	 * @return the persons_measurements
+	 */
+	public Set<Person_Measurement> getPersons_measurements() {
+		return persons_measurements;
+	}
+
+	/**
+	 * @param persons_measurements the persons_measurements to set
+	 */
+	public void setPersons_measurements(Set<Person_Measurement> persons_measurements) {
+		this.persons_measurements = persons_measurements;
+	}
+
+	/**
+	 * @return the organisationUnits_measurements
+	 */
+	public Set<OrganisationUnit_Measurement> getOrganisationUnits_measurements() {
+		return organisationUnits_measurements;
+	}
+
+	/**
+	 * @param organisationUnits_measurements the organisationUnits_measurements to set
+	 */
+	public void setOrganisationUnits_measurements(
+			Set<OrganisationUnit_Measurement> organisationUnits_measurements) {
+		this.organisationUnits_measurements = organisationUnits_measurements;
+	}
+
+	/**
+	 * @return the projects_measurements
+	 */
+	public Set<Project_Measurement> getProjects_measurements() {
+		return projects_measurements;
+	}
+
+	/**
+	 * @param projects_measurements the projects_measurements to set
+	 */
+	public void setProjects_measurements(
+			Set<Project_Measurement> projects_measurements) {
+		this.projects_measurements = projects_measurements;
+	}
+
+	/**
+	 * @return the events_measurements
+	 */
+	public Set<Event_Measurement> getEvents_measurements() {
+		return events_measurements;
+	}
+
+	/**
+	 * @param events_measurements the events_measurements to set
+	 */
+	public void setEvents_measurements(Set<Event_Measurement> events_measurements) {
+		this.events_measurements = events_measurements;
+	}
+
+	/**
+	 * @return the measurements_measurements1
+	 */
+	public Set<Measurement_Measurement> getMeasurements_measurements1() {
+		return measurements_measurements1;
+	}
+
+	/**
+	 * @param measurements_measurements1 the measurements_measurements1 to set
+	 */
+	public void setMeasurements_measurements1(
+			Set<Measurement_Measurement> measurements_measurements1) {
+		this.measurements_measurements1 = measurements_measurements1;
+	}
+
+	/**
+	 * @return the measurements_measurements2
+	 */
+	public Set<Measurement_Measurement> getMeasurements_measurements2() {
+		return measurements_measurements2;
+	}
+
+	/**
+	 * @param measurements_measurements2 the measurements_measurements2 to set
+	 */
+	public void setMeasurements_measurements2(
+			Set<Measurement_Measurement> measurements_measurements2) {
+		this.measurements_measurements2 = measurements_measurements2;
 	}
 
 	/**

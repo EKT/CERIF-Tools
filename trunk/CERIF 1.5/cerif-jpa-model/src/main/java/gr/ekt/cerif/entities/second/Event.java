@@ -5,7 +5,9 @@ package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.link.Equipment_Event;
 import gr.ekt.cerif.entities.link.Event_Class;
+import gr.ekt.cerif.entities.link.Event_Event;
 import gr.ekt.cerif.entities.link.Event_Indicator;
+import gr.ekt.cerif.entities.link.Event_Measurement;
 import gr.ekt.cerif.entities.link.Event_Medium;
 import gr.ekt.cerif.entities.link.Service_Event;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Event;
@@ -126,7 +128,7 @@ public class Event implements CerifSecondLevelEntity {
 	private Set<Event_Class> classes;
 	
 	@OneToMany(mappedBy="event")
-	private Set<OrganisationUnit_Event> organisationUnit_events;
+	private Set<OrganisationUnit_Event> organisationUnits_events;
 	
 	@OneToMany(mappedBy="event")
 	private Set<Service_Event> services_events;
@@ -139,6 +141,15 @@ public class Event implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="event")
 	private Set<Event_Indicator> events_indicators;
+	
+	@OneToMany(mappedBy="event")
+	private Set<Event_Measurement> events_measurements;
+	
+	@OneToMany(mappedBy="event1")
+	private Set<Event_Event> events_events1;
+	
+	@OneToMany(mappedBy="event2")
+	private Set<Event_Event> events_events2;
 	
 	
 	/**
@@ -173,7 +184,7 @@ public class Event implements CerifSecondLevelEntity {
 	public Event(Country country, String cityTown, String feeOrFree,
 			Date startDate, Date endDate, String uri, Set<EventName> names,
 			Set<EventKeyword> keywords, Set<EventDescription> descriptions,
-			Set<Event_Class> classes, Set<OrganisationUnit_Event> organisationUnit_events) {
+			Set<Event_Class> classes, Set<OrganisationUnit_Event> organisationUnits_events) {
 		this.country = country;
 		this.cityTown = cityTown;
 		this.feeOrFree = feeOrFree;
@@ -184,7 +195,7 @@ public class Event implements CerifSecondLevelEntity {
 		this.keywords = keywords;
 		this.descriptions = descriptions;
 		this.classes = classes;
-		this.organisationUnit_events = organisationUnit_events;
+		this.organisationUnits_events = organisationUnits_events;
 	}
 
 	/**
@@ -401,20 +412,6 @@ public class Event implements CerifSecondLevelEntity {
 	}
 	
 	/**
-	 * @return the organisationUnit_events
-	 */
-	public Set<OrganisationUnit_Event> getOrganisationUnit_Event() {
-		return organisationUnit_events;
-	}
-
-	/**
-	 * @param organisationUnit_events the organisationUnit_events to set
-	 */
-	public void setOrganisationUnit_Event(Set<OrganisationUnit_Event> organisationUnit_events) {
-		this.organisationUnit_events = organisationUnit_events;
-	}
-
-	/**
 	 * @return the services_events
 	 */
 	public Set<Service_Event> getServices_events() {
@@ -468,6 +465,63 @@ public class Event implements CerifSecondLevelEntity {
 	 */
 	public void setEvents_indicators(Set<Event_Indicator> events_indicators) {
 		this.events_indicators = events_indicators;
+	}
+
+	/**
+	 * @return the events_measurements
+	 */
+	public Set<Event_Measurement> getEvents_measurements() {
+		return events_measurements;
+	}
+
+	/**
+	 * @param events_measurements the events_measurements to set
+	 */
+	public void setEvents_measurements(Set<Event_Measurement> events_measurements) {
+		this.events_measurements = events_measurements;
+	}
+
+	/**
+	 * @return the events_events1
+	 */
+	public Set<Event_Event> getEvents_events1() {
+		return events_events1;
+	}
+
+	/**
+	 * @param events_events1 the events_events1 to set
+	 */
+	public void setEvents_events1(Set<Event_Event> events_events1) {
+		this.events_events1 = events_events1;
+	}
+
+	/**
+	 * @return the events_events2
+	 */
+	public Set<Event_Event> getEvents_events2() {
+		return events_events2;
+	}
+
+	/**
+	 * @param events_events2 the events_events2 to set
+	 */
+	public void setEvents_events2(Set<Event_Event> events_events2) {
+		this.events_events2 = events_events2;
+	}
+
+	/**
+	 * @return the organisationUnits_events
+	 */
+	public Set<OrganisationUnit_Event> getOrganisationUnits_events() {
+		return organisationUnits_events;
+	}
+
+	/**
+	 * @param organisationUnits_events the organisationUnits_events to set
+	 */
+	public void setOrganisationUnits_events(
+			Set<OrganisationUnit_Event> organisationUnits_events) {
+		this.organisationUnits_events = organisationUnits_events;
 	}
 
 	/**

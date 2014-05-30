@@ -11,6 +11,7 @@ import gr.ekt.cerif.entities.link.Facility_Equipment;
 import gr.ekt.cerif.entities.link.Facility_Facility;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Facility_Indicator;
+import gr.ekt.cerif.entities.link.Facility_Measurement;
 import gr.ekt.cerif.entities.link.Facility_Medium;
 import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.Facility_Service;
@@ -147,6 +148,9 @@ public class Facility implements CerifInfrastructureEntity {
 	
 	@OneToMany(mappedBy="facility")
 	private Set<Facility_Indicator> facilities_indicators;
+	
+	@OneToMany(mappedBy="facility")
+	private Set<Facility_Measurement> facilities_measurements;
 	
 	
 	/**
@@ -493,6 +497,21 @@ public class Facility implements CerifInfrastructureEntity {
 	public void setFacilities_indicators(
 			Set<Facility_Indicator> facilities_indicators) {
 		this.facilities_indicators = facilities_indicators;
+	}
+
+	/**
+	 * @return the facilities_measurements
+	 */
+	public Set<Facility_Measurement> getFacilities_measurements() {
+		return facilities_measurements;
+	}
+
+	/**
+	 * @param facilities_measurements the facilities_measurements to set
+	 */
+	public void setFacilities_measurements(
+			Set<Facility_Measurement> facilities_measurements) {
+		this.facilities_measurements = facilities_measurements;
 	}
 
 	/**

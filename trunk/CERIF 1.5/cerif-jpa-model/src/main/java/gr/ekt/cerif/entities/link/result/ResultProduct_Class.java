@@ -201,16 +201,6 @@ public class ResultProduct_Class implements CerifLinkEntity {
 		this.fraction = fraction;
 	}
 
-	/**
-	 * Returns whether this class represents temporal coverage information.
-	 * @return whether this class represents temporal coverage information.
-	 */
-	public boolean getTemporalCoverage() {
-		return theClass != null && 
-			   theClass.getScheme() != null && 
-			   "Temporal Coverage".equals(theClass.getScheme().getUri());
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

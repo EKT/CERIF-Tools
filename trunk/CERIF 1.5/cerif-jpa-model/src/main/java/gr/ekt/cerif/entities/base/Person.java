@@ -15,6 +15,7 @@ import gr.ekt.cerif.entities.link.person.Person_Facility;
 import gr.ekt.cerif.entities.link.person.Person_Funding;
 import gr.ekt.cerif.entities.link.person.Person_Indicator;
 import gr.ekt.cerif.entities.link.person.Person_Language;
+import gr.ekt.cerif.entities.link.person.Person_Measurement;
 import gr.ekt.cerif.entities.link.person.Person_Medium;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.person.Person_Person;
@@ -163,10 +164,10 @@ public class Person implements CerifBaseEntity {
 	private Set<Person_OrganisationUnit> persons_organisationUnits;
 	
 	@OneToMany(mappedBy="person1")
-	private Set<Person_Person> person1_persons;
+	private Set<Person_Person> persons_persons1;
 	
 	@OneToMany(mappedBy="person2")
-	private Set<Person_Person> person2_persons;
+	private Set<Person_Person> persons_persons2;
 
 	@OneToMany(mappedBy="person")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
@@ -196,6 +197,9 @@ public class Person implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="person")
 	private Set<Person_Indicator> persons_indicators;
+	
+	@OneToMany(mappedBy="person")
+	private Set<Person_Measurement> persons_measurements;
 	
 	
 	/**
@@ -538,34 +542,6 @@ public class Person implements CerifBaseEntity {
 	}
 	
 	/**
-	 * @return the person1_persons
-	 */
-	public Set<Person_Person> getPerson1_persons() {
-		return person1_persons;
-	}
-	
-	/**
-	 * @param person1_persons the person1_persons to set
-	 */
-	public void setPerson1_persons(Set<Person_Person> person1_persons) {
-		this.person1_persons = person1_persons;
-	}
-	
-	/**
-	 * @return the person2_persons
-	 */
-	public Set<Person_Person> getPerson2_persons() {
-		return person2_persons;
-	}
-	
-	/**
-	 * @param person2_persons the person2_persons to set
-	 */
-	public void setPerson2_persons(Set<Person_Person> person2_persons) {
-		this.person2_persons = person2_persons;
-	}
-	
-	/**
 	 * @return the persons_postalAddresses
 	 */
 	public Set<Person_PostalAddress> getPersons_postalAddresses() {
@@ -691,6 +667,42 @@ public class Person implements CerifBaseEntity {
 	 */
 	public void setPersons_indicators(Set<Person_Indicator> persons_indicators) {
 		this.persons_indicators = persons_indicators;
+	}
+	/**
+	 * @return the persons_measurements
+	 */
+	public Set<Person_Measurement> getPersons_measurements() {
+		return persons_measurements;
+	}
+	/**
+	 * @param persons_measurements the persons_measurements to set
+	 */
+	public void setPersons_measurements(Set<Person_Measurement> persons_measurements) {
+		this.persons_measurements = persons_measurements;
+	}
+	/**
+	 * @return the persons_persons1
+	 */
+	public Set<Person_Person> getPersons_persons1() {
+		return persons_persons1;
+	}
+	/**
+	 * @param persons_persons1 the persons_persons1 to set
+	 */
+	public void setPersons_persons1(Set<Person_Person> persons_persons1) {
+		this.persons_persons1 = persons_persons1;
+	}
+	/**
+	 * @return the persons_persons2
+	 */
+	public Set<Person_Person> getPersons_persons2() {
+		return persons_persons2;
+	}
+	/**
+	 * @param persons_persons2 the persons_persons2 to set
+	 */
+	public void setPersons_persons2(Set<Person_Person> persons_persons2) {
+		this.persons_persons2 = persons_persons2;
 	}
 	/**
 	 * @return the federatedIdentifiers

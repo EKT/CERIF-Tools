@@ -112,7 +112,7 @@ public class ResultProduct implements CerifResultEntity {
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Facility> resultProducts_facilities;
 	
-	@OneToMany(mappedBy = "resultProduct")
+	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Class> classes;
 	
 	@OneToMany(mappedBy="resultProduct")
@@ -134,10 +134,10 @@ public class ResultProduct implements CerifResultEntity {
 	private Set<ResultProduct_Measurement> resultProducts_measurements;
 	
 	@OneToMany(mappedBy="resultProduct1")
-	private Set<ResultProduct_ResultProduct> resultProducts1_resultProducts;
+	private Set<ResultProduct_ResultProduct> resultProducts_resultProducts1;
 	
 	@OneToMany(mappedBy="resultProduct2")
-	private Set<ResultProduct_ResultProduct> resultProducts2_resultProducts;
+	private Set<ResultProduct_ResultProduct> resultProducts_resultProducts2;
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Equipment> resultProducts_equipments;
@@ -379,211 +379,6 @@ public class ResultProduct implements CerifResultEntity {
 		this.resultProducts_measurements = resultProducts_measurements;
 	}
 
-	/**
-	 * @return the resultProducts1_resultProducts
-	 */
-	public Set<ResultProduct_ResultProduct> getResultProducts1_resultProducts() {
-		return resultProducts1_resultProducts;
-	}
-
-	/**
-	 * @param resultProducts1_resultProducts the resultProducts1_resultProducts to set
-	 */
-	public void setResultProducts1_resultProducts(
-			Set<ResultProduct_ResultProduct> resultProducts1_resultProducts) {
-		this.resultProducts1_resultProducts = resultProducts1_resultProducts;
-	}
-
-	/**
-	 * @return the resultProducts2_resultProducts
-	 */
-	public Set<ResultProduct_ResultProduct> getResultProducts2_resultProducts() {
-		return resultProducts2_resultProducts;
-	}
-
-	/**
-	 * @param resultProducts2_resultProducts the resultProducts2_resultProducts to set
-	 */
-	public void setResultProducts2_resultProducts(
-			Set<ResultProduct_ResultProduct> resultProducts2_resultProducts) {
-		this.resultProducts2_resultProducts = resultProducts2_resultProducts;
-	}
-
-	/**
-	 * Returns the number of linked organisations.
-	 * @return the number of linked organisations.
-	 */
-	public int getOrganisationCount() {
-		int result = 0;
-		if (organisationUnits_resultProducts != null) {
-			result = organisationUnits_resultProducts.size();
-		}
-		return result;
-	}
-	
-	/**
-	 * Returns the number of linked persons.
-	 * @return the number of linked persons.
-	 */
-	public int getPersonCount() {
-		int result = 0;
-		if (persons_resultProducts != null) {
-			result = persons_resultProducts.size();
-		}
-		return result;
-	}
-	
-	/**
-	 * Returns the number of linked publications.
-	 * @return the number of linked publications.
-	 */
-	public int getPublicationCount() {
-		int result = 0;
-		if (resultPublications != null) {
-			result = resultPublications.size();
-		}
-		return result;
-	}
-	
-	/**
-	 * Returns the number of linked classes.
-	 * @return the number of linked classes.
-	 */
-	public int getClassesCount() {
-		int result = 0;
-		if (classes != null) {
-			result = classes.size();
-		}
-		return result;
-	}
-	
-	
-	public ResultProductName getFirstTranslationName() {
-		ResultProductName result = null;
-		if (resultProductNames != null && resultProductNames.size() > 0) {
-			for (ResultProductName translation : resultProductNames) {
-				if (StringUtils.hasText(translation.getName())) {
-					result = translation;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public ResultProductDescription getFirstTranslationDescription() {
-		ResultProductDescription result = null;
-		if (resultProductDescriptions != null && resultProductDescriptions.size() > 0) {
-			for (ResultProductDescription translation : resultProductDescriptions) {
-				if (StringUtils.hasText(translation.getDescription())) {
-					result = translation;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public ResultProductKeyword getFirstTranslationKeywords() {
-		ResultProductKeyword result = null;
-		if (resultProductKeywords != null && resultProductKeywords.size() > 0) {
-			for (ResultProductKeyword translation : resultProductKeywords) {
-				if (StringUtils.hasText(translation.getKeyword()) && translation.getLanguage().equals(Language.ENGLISH)) {
-					result = translation;
-					break;
-				}
-			}
-			if (result == null) {
-				for (ResultProductKeyword translation : resultProductKeywords) {
-					if (StringUtils.hasText(translation.getKeyword())) {
-						result = translation;
-						break;
-					}
-				}
-			}
-			
-		}
-		return result;
-	}
-	
-	/**
-	 * Returns the owner.
-	 * @return the owner.
-	 */
-	public OrganisationUnit getOwner() {
-		OrganisationUnit result = null;
-		if (organisationUnits_resultProducts != null && organisationUnits_resultProducts.size() > 0) {
-			for (OrganisationUnit_ResultProduct organisation : organisationUnits_resultProducts) {
-				if (organisation.isSource()) {
-					result = organisation.getOrganisationUnit();
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	
-	/**
-	 * Returns the country code.
-	 * @return the country code.
-	 */
-	public String getCountryCode() {
-		String result = null;
-		if (countries != null && countries.size() > 0) {
-			result = countries.iterator().next().getCountry().getCode().toLowerCase();
-		}
-		return result;
-	}
-	
-	/**
-	 * Returns the country code.
-	 * @return the country code.
-	 */
-	public String getCountryName() {
-		String result = null;
-		if (countries != null && countries.size() > 0) {
-			result = countries.iterator().next().getCountry().getUri();
-		}
-		return result;
-	}
-	
-	/**
-	 * Returns the country code.
-	 * @return the country code.
-	 */
-	public Country getFirstCountry() {
-		Country result = null;
-		if (countries != null && countries.size() > 0) {
-			result = countries.iterator().next().getCountry();
-		}
-		return result;
-	}
-	
-	public Class getTemporalCoverageClass() {
-		Class result = null;
-		if (classes != null) {
-			for (ResultProduct_Class element : classes) {
-				if (element.getTemporalCoverage()) {
-					result = element.getTheClass();
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public Set<Class> getNormalClasses() {
-		Set<Class> result = new LinkedHashSet<Class>();
-		if (classes != null) {
-			for (ResultProduct_Class element : classes) {
-				if (!element.getTemporalCoverage()) {
-					result.add(element.getTheClass());
-				}
-			}
-		}
-		return result;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -748,6 +543,36 @@ public class ResultProduct implements CerifResultEntity {
 	public void setResultProducts_equipments(
 			Set<ResultProduct_Equipment> resultProducts_equipments) {
 		this.resultProducts_equipments = resultProducts_equipments;
+	}
+
+	/**
+	 * @return the resultProducts_resultProducts1
+	 */
+	public Set<ResultProduct_ResultProduct> getResultProducts_resultProducts1() {
+		return resultProducts_resultProducts1;
+	}
+
+	/**
+	 * @param resultProducts_resultProducts1 the resultProducts_resultProducts1 to set
+	 */
+	public void setResultProducts_resultProducts1(
+			Set<ResultProduct_ResultProduct> resultProducts_resultProducts1) {
+		this.resultProducts_resultProducts1 = resultProducts_resultProducts1;
+	}
+
+	/**
+	 * @return the resultProducts_resultProducts2
+	 */
+	public Set<ResultProduct_ResultProduct> getResultProducts_resultProducts2() {
+		return resultProducts_resultProducts2;
+	}
+
+	/**
+	 * @param resultProducts_resultProducts2 the resultProducts_resultProducts2 to set
+	 */
+	public void setResultProducts_resultProducts2(
+			Set<ResultProduct_ResultProduct> resultProducts_resultProducts2) {
+		this.resultProducts_resultProducts2 = resultProducts_resultProducts2;
 	}
 
 	/**
