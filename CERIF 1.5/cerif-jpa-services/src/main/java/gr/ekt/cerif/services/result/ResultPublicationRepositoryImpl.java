@@ -86,7 +86,7 @@ public class ResultPublicationRepositoryImpl implements ResultPublicationReposit
 		
 		List<OrganisationUnit_ResultPublication> or = linkOrganisationUnitResultPublicationRepository.findByResultPublication(entity);
 		if (or != null) linkOrganisationUnitResultPublicationRepository.delete(or);
-		entity.setOrganisationUnit_resultPublications(null);
+		entity.setOrganisationUnits_resultPublications(null);
 		
 		List<Project_ResultPublication> pr = linkProjectResultPublicationRepository.findByResultPublication(entity);
 		if (pr != null) linkProjectResultPublicationRepository.delete(pr);

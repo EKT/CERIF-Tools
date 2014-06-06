@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.result;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_Measurement;
+import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.Measurement;
 
 @Component
 public class LinkResultPublicationMeasurementRepositoryImpl implements
@@ -36,6 +40,18 @@ public class LinkResultPublicationMeasurementRepositoryImpl implements
 	public ResultPublication_Measurement save(
 			ResultPublication_Measurement entity) {
 		return linkResultPublicationMeasurementCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ResultPublication_Measurement> findByMeasurement(
+			Measurement measurement) {
+		return linkResultPublicationMeasurementCrudRepository.findByMeasurement(measurement);
+	}
+
+	@Override
+	public List<ResultPublication_Measurement> findByResultPublication(
+			ResultPublication resultPublication) {
+		return linkResultPublicationMeasurementCrudRepository.findByResultPublication(resultPublication);
 	}
 
 }

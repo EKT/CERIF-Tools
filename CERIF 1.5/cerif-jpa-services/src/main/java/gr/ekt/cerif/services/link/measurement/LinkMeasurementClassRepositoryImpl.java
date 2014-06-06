@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.measurement;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.link.Measurement_Class;
+import gr.ekt.cerif.entities.second.Measurement;
+import gr.ekt.cerif.features.semantics.Class;
 
 @Component
 public class LinkMeasurementClassRepositoryImpl implements LinkMeasurementClassRepository {
@@ -33,6 +37,16 @@ public class LinkMeasurementClassRepositoryImpl implements LinkMeasurementClassR
 	@Override
 	public Measurement_Class save(Measurement_Class entity) {
 		return linkMeasurementClassCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Measurement_Class> findByMeasurement(Measurement measurement) {
+		return linkMeasurementClassCrudRepository.findByMeasurement(measurement);
+	}
+
+	@Override
+	public List<Measurement_Class> findBytheClass(Class theClass) {
+		return linkMeasurementClassCrudRepository.findBytheClass(theClass);
 	}
 
 }
