@@ -5,6 +5,7 @@ package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.link.person.Person_Country;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Country;
+import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.features.multilingual.CountryName;
 
 import java.util.List;
@@ -72,6 +73,9 @@ public class Country implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="country")
 	private Set<Event> events;
+	
+	@OneToMany(mappedBy="country")
+	private Set<ResultPatent> patents;
 	
 	@OneToMany(mappedBy="country")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
@@ -183,6 +187,20 @@ public class Country implements CerifSecondLevelEntity {
 	 */
 	public void setEvents(Set<Event> events) {
 		this.events = events;
+	}
+
+	/**
+	 * @return the patents
+	 */
+	public Set<ResultPatent> getPatents() {
+		return patents;
+	}
+
+	/**
+	 * @param patents the patents to set
+	 */
+	public void setPatents(Set<ResultPatent> patents) {
+		this.patents = patents;
 	}
 
 	/**

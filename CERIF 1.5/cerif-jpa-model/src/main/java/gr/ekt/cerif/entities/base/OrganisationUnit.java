@@ -136,21 +136,21 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 * Links.
 	 */
 	@OneToMany(mappedBy="organisationUnit")
-	private Set<OrganisationUnit_ResultProduct> resultProducts;
+	private Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts;
 	
 	@OneToMany(mappedBy="organisationUnit")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<OrganisationUnit_ResultPublication> resultPublications;
+	private Set<OrganisationUnit_ResultPublication> organisationUnits_resultPublications;
 
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<Project_OrganisationUnit> projects;
 	
 	@OneToMany(mappedBy="organisationUnit")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<OrganisationUnit_PostalAddress> postalAddresses;
+	private Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses;
 	
 	@OneToMany(mappedBy="organisationUnit")
-	private Set<OrganisationUnit_ElectronicAddress> electronicAddresses;	
+	private Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses;	
 	
 	@OneToMany(mappedBy="organisationUnit1")
 	private Set<OrganisationUnit_OrganisationUnit> organisationUnits_organisationUnits1;
@@ -177,7 +177,7 @@ public class OrganisationUnit implements CerifBaseEntity {
 	private Set<OrganisationUnit_Service> organisationUnits_services;
 	
 	@OneToMany(mappedBy="organisationUnit")
-	private Set<OrganisationUnit_Medium> organisationUnits_medium;
+	private Set<OrganisationUnit_Medium> organisationUnits_mediums;
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<ClassScheme_OrganisationUnit> classScheme_organisationUnits;
@@ -357,33 +357,33 @@ public class OrganisationUnit implements CerifBaseEntity {
 	}
 
 	/**
-	 * Returns the result products.
-	 * @return the result products.
+	 * @return the organisationUnits_resultProducts
 	 */
-	public Set<OrganisationUnit_ResultProduct> getResultProducts() {
-		return resultProducts;
+	public Set<OrganisationUnit_ResultProduct> getOrganisationUnits_resultProducts() {
+		return organisationUnits_resultProducts;
 	}
 
 	/**
-	 * Sets the result products.
-	 * @param resultProducts the result products.
+	 * @param organisationUnits_resultProducts the organisationUnits_resultProducts to set
 	 */
-	public void setResultProducts(Set<OrganisationUnit_ResultProduct> resultProducts) {
-		this.resultProducts = resultProducts;
+	public void setOrganisationUnits_resultProducts(
+			Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts) {
+		this.organisationUnits_resultProducts = organisationUnits_resultProducts;
 	}
 
 	/**
-	 * @return the resultPublications
+	 * @return the organisationUnits_resultPublications
 	 */
-	public Set<OrganisationUnit_ResultPublication> getResultPublications() {
-		return resultPublications;
+	public Set<OrganisationUnit_ResultPublication> getOrganisationUnits_resultPublications() {
+		return organisationUnits_resultPublications;
 	}
 
 	/**
-	 * @param resultPublications the resultPublications to set
+	 * @param organisationUnits_resultPublications the organisationUnits_resultPublications to set
 	 */
-	public void setResultPublications(Set<OrganisationUnit_ResultPublication> resultPublications) {
-		this.resultPublications = resultPublications;
+	public void setOrganisationUnits_resultPublications(
+			Set<OrganisationUnit_ResultPublication> organisationUnits_resultPublications) {
+		this.organisationUnits_resultPublications = organisationUnits_resultPublications;
 	}
 
 	/**
@@ -403,34 +403,33 @@ public class OrganisationUnit implements CerifBaseEntity {
 	}
 
 	/**
-	 * @return the postalAddresses
+	 * @return the organisationUnits_postalAddresses
 	 */
-	public Set<OrganisationUnit_PostalAddress> getPostalAddresses() {
-		return postalAddresses;
+	public Set<OrganisationUnit_PostalAddress> getOrganisationUnits_postalAddresses() {
+		return organisationUnits_postalAddresses;
 	}
 
 	/**
-	 * @param postalAddresses the postalAddresses to set
+	 * @param organisationUnits_postalAddresses the organisationUnits_postalAddresses to set
 	 */
-	public void setPostalAddresses(
-			Set<OrganisationUnit_PostalAddress> postalAddresses) {
-		this.postalAddresses = postalAddresses;
-	}
-
-
-	/**
-	 * @return the electronicAddresses
-	 */
-	public Set<OrganisationUnit_ElectronicAddress> getElectronicAddresses() {
-		return electronicAddresses;
+	public void setOrganisationUnits_postalAddresses(
+			Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses) {
+		this.organisationUnits_postalAddresses = organisationUnits_postalAddresses;
 	}
 
 	/**
-	 * @param electronicAddresses the electronicAddresses to set
+	 * @return the organisationUnits_electronicAddresses
 	 */
-	public void setElectronicAddresses(
-			Set<OrganisationUnit_ElectronicAddress> electronicAddresses) {
-		this.electronicAddresses = electronicAddresses;
+	public Set<OrganisationUnit_ElectronicAddress> getOrganisationUnits_electronicAddresses() {
+		return organisationUnits_electronicAddresses;
+	}
+
+	/**
+	 * @param organisationUnits_electronicAddresses the organisationUnits_electronicAddresses to set
+	 */
+	public void setOrganisationUnits_electronicAddresses(
+			Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses) {
+		this.organisationUnits_electronicAddresses = organisationUnits_electronicAddresses;
 	}
 
 	/**
@@ -679,18 +678,18 @@ public class OrganisationUnit implements CerifBaseEntity {
 	}
 
 	/**
-	 * @return the organisationUnits_medium
+	 * @return the organisationUnits_mediums
 	 */
-	public Set<OrganisationUnit_Medium> getOrganisationUnits_medium() {
-		return organisationUnits_medium;
+	public Set<OrganisationUnit_Medium> getOrganisationUnits_mediums() {
+		return organisationUnits_mediums;
 	}
 
 	/**
-	 * @param organisationUnits_medium the organisationUnits_medium to set
+	 * @param organisationUnits_mediums the organisationUnits_mediums to set
 	 */
-	public void setOrganisationUnits_medium(
-			Set<OrganisationUnit_Medium> organisationUnits_medium) {
-		this.organisationUnits_medium = organisationUnits_medium;
+	public void setOrganisationUnits_mediums(
+			Set<OrganisationUnit_Medium> organisationUnits_mediums) {
+		this.organisationUnits_mediums = organisationUnits_mediums;
 	}
 
 	/**

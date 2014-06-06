@@ -29,7 +29,6 @@ import gr.ekt.cerif.features.multilingual.ResultPublicationNameAbbreviation;
 import gr.ekt.cerif.features.multilingual.ResultPublicationSubtitle;
 import gr.ekt.cerif.features.multilingual.ResultPublicationTitle;
 import gr.ekt.cerif.features.multilingual.ResultPublicationVersionInfo;
-import gr.ekt.cerif.features.multilingual.Translation;
 
 import java.util.Date;
 import java.util.List;
@@ -194,7 +193,7 @@ public class ResultPublication implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultPublication")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<OrganisationUnit_ResultPublication> organisationUnit_resultPublications;
+	private Set<OrganisationUnit_ResultPublication> organisationUnits_resultPublications;
 	
 	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublication_Citation> resultPublications_citations;
@@ -652,6 +651,21 @@ public class ResultPublication implements CerifResultEntity {
 	}
 
 	/**
+	 * @return the organisationUnits_resultPublications
+	 */
+	public Set<OrganisationUnit_ResultPublication> getOrganisationUnits_resultPublications() {
+		return organisationUnits_resultPublications;
+	}
+
+	/**
+	 * @param organisationUnits_resultPublications the organisationUnits_resultPublications to set
+	 */
+	public void setOrganisationUnits_resultPublications(
+			Set<OrganisationUnit_ResultPublication> organisationUnits_resultPublications) {
+		this.organisationUnits_resultPublications = organisationUnits_resultPublications;
+	}
+
+	/**
 	 * @return the resultPublications_citations
 	 */
 	public Set<ResultPublication_Citation> getResultPublications_citations() {
@@ -844,21 +858,6 @@ public class ResultPublication implements CerifResultEntity {
 	public void setResultPublications_services(
 			Set<ResultPublication_Service> resultPublications_services) {
 		this.resultPublications_services = resultPublications_services;
-	}
-
-	/**
-	 * @return the organisationUnit_resultPublications
-	 */
-	public Set<OrganisationUnit_ResultPublication> getOrganisationUnit_resultPublications() {
-		return organisationUnit_resultPublications;
-	}
-
-	/**
-	 * @param organisationUnit_resultPublications the organisationUnit_resultPublications to set
-	 */
-	public void setOrganisationUnit_resultPublications(
-			Set<OrganisationUnit_ResultPublication> organisationUnit_resultPublications) {
-		this.organisationUnit_resultPublications = organisationUnit_resultPublications;
 	}
 
 	/**

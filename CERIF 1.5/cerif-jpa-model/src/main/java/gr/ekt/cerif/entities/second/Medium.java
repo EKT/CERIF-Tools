@@ -6,12 +6,14 @@ package gr.ekt.cerif.entities.second;
 import gr.ekt.cerif.entities.link.Equipment_Medium;
 import gr.ekt.cerif.entities.link.Event_Medium;
 import gr.ekt.cerif.entities.link.Facility_Medium;
+import gr.ekt.cerif.entities.link.Medium_Class;
 import gr.ekt.cerif.entities.link.Medium_Funding;
 import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Medium;
 import gr.ekt.cerif.entities.link.Service_Medium;
 import gr.ekt.cerif.entities.link.person.Person_Medium;
+import gr.ekt.cerif.entities.link.project.Project_Medium;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.features.multilingual.MediumDescription;
 import gr.ekt.cerif.features.multilingual.MediumKeyword;
@@ -136,6 +138,12 @@ public class Medium implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="medium2")
 	private Set<Medium_Medium> mediums_mediums2;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<Project_Medium> projects_mediums;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<Medium_Class> mediums_classes;
 
 	
 	/**
@@ -457,6 +465,34 @@ public class Medium implements CerifSecondLevelEntity {
 	 */
 	public void setMediums_mediums2(Set<Medium_Medium> mediums_mediums2) {
 		this.mediums_mediums2 = mediums_mediums2;
+	}
+
+	/**
+	 * @return the projects_mediums
+	 */
+	public Set<Project_Medium> getProjects_mediums() {
+		return projects_mediums;
+	}
+
+	/**
+	 * @param projects_mediums the projects_mediums to set
+	 */
+	public void setProjects_mediums(Set<Project_Medium> projects_mediums) {
+		this.projects_mediums = projects_mediums;
+	}
+
+	/**
+	 * @return the mediums_classes
+	 */
+	public Set<Medium_Class> getMediums_classes() {
+		return mediums_classes;
+	}
+
+	/**
+	 * @param mediums_classes the mediums_classes to set
+	 */
+	public void setMediums_classes(Set<Medium_Class> mediums_classes) {
+		this.mediums_classes = mediums_classes;
 	}
 
 	/**

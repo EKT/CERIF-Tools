@@ -28,6 +28,7 @@ import gr.ekt.cerif.entities.link.Funding_Measurement;
 import gr.ekt.cerif.entities.link.GeographicBoundingBox_Class;
 import gr.ekt.cerif.entities.link.Indicator_Class;
 import gr.ekt.cerif.entities.link.Measurement_Class;
+import gr.ekt.cerif.entities.link.Medium_Class;
 import gr.ekt.cerif.entities.link.Metrics_Class;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.Prize_Class;
@@ -225,7 +226,7 @@ public class Class implements CerifSemanticFeature {
 	private Set<ElectronicAddress_Class> electronicAddresses;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Facility_Class> facilities;
+	private Set<Facility_Class> facilities_classes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Facility_Equipment> facilities_equipments;
@@ -319,6 +320,9 @@ public class Class implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Measurement_Class> measurements;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Medium_Class> mediums_classes;
 	
 	
 	/**
@@ -890,21 +894,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the organisationUnits_postalAddresses
-	 */
-	public Set<OrganisationUnit_PostalAddress> getOrganisationUnit_postalAddresses() {
-		return organisationUnits_postalAddresses;
-	}
-
-	/**
-	 * @param organisationUnits_postalAddresses the organisationUnits_postalAddresses to set
-	 */
-	public void setOrganisationUnit_postalAddresses(
-			Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses) {
-		this.organisationUnits_postalAddresses = organisationUnits_postalAddresses;
-	}
-
-	/**
 	 * @return the organisationUnits_resultPublications
 	 */
 	public Set<OrganisationUnit_ResultPublication> getOrganisationUnits_resultPublications() {
@@ -962,20 +951,6 @@ public class Class implements CerifSemanticFeature {
 	public void setResultPublications_classes(
 			Set<ResultPublication_Class> resultPublications_classes) {
 		this.resultPublications_classes = resultPublications_classes;
-	}
-
-	/**
-	 * @return the facilities
-	 */
-	public Set<Facility_Class> getFacilities() {
-		return facilities;
-	}
-
-	/**
-	 * @param facilities the facilities to set
-	 */
-	public void setFacilities(Set<Facility_Class> facilities) {
-		this.facilities = facilities;
 	}
 	
 	/**
@@ -1400,6 +1375,34 @@ public class Class implements CerifSemanticFeature {
 	public void setMeasurements(Set<Measurement_Class> measurements) {
 		this.measurements = measurements;
 	}
+	
+	/**
+	 * @return the facilities_classes
+	 */
+	public Set<Facility_Class> getFacilities_classes() {
+		return facilities_classes;
+	}
+
+	/**
+	 * @param facilities_classes the facilities_classes to set
+	 */
+	public void setFacilities_classes(Set<Facility_Class> facilities_classes) {
+		this.facilities_classes = facilities_classes;
+	}
+
+	/**
+	 * @return the mediums_classes
+	 */
+	public Set<Medium_Class> getMediums_classes() {
+		return mediums_classes;
+	}
+
+	/**
+	 * @param mediums_classes the mediums_classes to set
+	 */
+	public void setMediums_classes(Set<Medium_Class> mediums_classes) {
+		this.mediums_classes = mediums_classes;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -1408,35 +1411,30 @@ public class Class implements CerifSemanticFeature {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (!(obj instanceof Class)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Class other = (Class) obj;
-		if (uri == null) {
-			if (other.uri != null) {
+		if (id == null) {
+			if (other.id != null)
 				return false;
-			}
-		} else if (!uri.equals(other.uri)) {
+		} else if (!id.equals(other.id))
 			return false;
-		}
 		return true;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

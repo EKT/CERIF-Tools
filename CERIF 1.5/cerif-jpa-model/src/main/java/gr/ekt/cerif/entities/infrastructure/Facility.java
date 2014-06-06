@@ -123,7 +123,7 @@ public class Facility implements CerifInfrastructureEntity {
 	private Set<ResultPatent_Facility> resultPatents_facilities;
 	
 	@OneToMany(mappedBy="facility")
-	private Set<Facility_Class> classes;
+	private Set<Facility_Class> facilities_classes;
 	
 	@OneToMany(mappedBy="facility")
 	private Set<Facility_Funding> facilities_fundings;
@@ -377,17 +377,17 @@ public class Facility implements CerifInfrastructureEntity {
 	}
 
 	/**
-	 * @return the classes
+	 * @return the facilities_classes
 	 */
-	public Set<Facility_Class> getClasses() {
-		return classes;
+	public Set<Facility_Class> getFacilities_classes() {
+		return facilities_classes;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param facilities_classes the facilities_classes to set
 	 */
-	public void setClasses(Set<Facility_Class> classes) {
-		this.classes = classes;
+	public void setFacilities_classes(Set<Facility_Class> facilities_classes) {
+		this.facilities_classes = facilities_classes;
 	}
 
 	public Set<Facility_Funding> getFacilities_fundings() {
