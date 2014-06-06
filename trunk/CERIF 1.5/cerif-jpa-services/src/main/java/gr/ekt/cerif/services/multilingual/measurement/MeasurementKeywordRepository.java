@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.measurement;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.features.multilingual.MeasurementKeyword;
 
 /**
@@ -18,5 +21,7 @@ public interface MeasurementKeywordRepository {
 	public Iterable<MeasurementKeyword> save(Iterable<MeasurementKeyword> entities); 
 	
 	public MeasurementKeyword save(MeasurementKeyword entity);
+	
+	List<MeasurementKeyword> findByMeasurement(Measurement measurement);
 
 }

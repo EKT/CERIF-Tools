@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.person;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_Measurement;
+import gr.ekt.cerif.entities.second.Measurement;
 
 @Component
 public class LinkPersonMeasurementRepositoryImpl implements
@@ -35,6 +39,17 @@ public class LinkPersonMeasurementRepositoryImpl implements
 	@Override
 	public Person_Measurement save(Person_Measurement entity) {
 		return linkPersonMeasurementCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Person_Measurement> findByPerson(Person person) {
+		return linkPersonMeasurementCrudRepository.findByPerson(person);
+	}
+
+	@Override
+	public List<Person_Measurement> findByMeasurement(Measurement measurement) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

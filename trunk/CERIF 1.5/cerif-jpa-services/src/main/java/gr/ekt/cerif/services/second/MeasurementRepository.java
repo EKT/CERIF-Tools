@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.Measurement;
 
 /**
@@ -18,5 +23,9 @@ public interface MeasurementRepository {
 	public Iterable<Measurement> save(Iterable<Measurement> entities); 
 	
 	public Measurement save(Measurement entity);
+	
+	List<Measurement> findAll();
+	
+	Page<Measurement> findAll(Pageable page);
 	
 }

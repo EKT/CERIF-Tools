@@ -124,7 +124,7 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 	public void delete(OrganisationUnit entity) {
 		List<OrganisationUnit_PostalAddress> oup = linkOrganisationUnitPostalAddressRepository.findByOrganisationUnit(entity);
 		if (oup != null) linkOrganisationUnitPostalAddressRepository.delete(oup);
-		entity.setPostalAddresses(null);
+		entity.setOrganisationUnits_postalAddresses(null);
 		
 		List<PostalAddress> lpa = postalAddressRepository.findByOrganisationUnit(entity);
 		if (lpa!=null) {
@@ -135,7 +135,7 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 		
 		List<OrganisationUnit_ElectronicAddress> oue = linkOrganisationUnitElectronicAddressRepository.findByOrganisationUnit(entity);
 		if (oue != null) linkOrganisationUnitElectronicAddressRepository.delete(oue);
-		entity.setElectronicAddresses(null);
+		entity.setOrganisationUnits_electronicAddresses(null);
 		
 		List<ElectronicAddress> ea = electronicAddressRepository.findByOrganisationUnit(entity);
 		if (ea != null) electronicAddressRepository.delete(ea);
@@ -153,7 +153,7 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 
 		List<OrganisationUnit_ResultPublication> ourp = linkOrganisationUnitResultPublicationRepository.findByOrganisationUnit(entity);
 		if (ourp != null) linkOrganisationUnitResultPublicationRepository.delete(ourp);
-		entity.setResultPublications(null);
+		entity.setOrganisationUnits_resultPublications(null);
 		
 		List<OrganisationUnit_Class> ouc = linkOrganisationUnitClassRepository.findByOrganisationUnit(entity);
 		if (ouc != null) linkOrganisationUnitClassRepository.delete(ouc);

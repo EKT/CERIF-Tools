@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.measurement;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.features.multilingual.MeasurementKeyword;
 
 /**
@@ -40,6 +43,11 @@ public class MeasurementKeywordRepositoryImpl implements MeasurementKeywordRepos
 	@Override
 	public MeasurementKeyword save(MeasurementKeyword entity) {
 		return measurementKeywordCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<MeasurementKeyword> findByMeasurement(Measurement measurement) {
+		return measurementKeywordCrudRepository.findByMeasurement(measurement);
 	}
 
 }
