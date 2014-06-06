@@ -10,6 +10,7 @@ import gr.ekt.cerif.entities.link.project.Project_Facility;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
 import gr.ekt.cerif.entities.link.project.Project_Indicator;
 import gr.ekt.cerif.entities.link.project.Project_Measurement;
+import gr.ekt.cerif.entities.link.project.Project_Medium;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.entities.link.project.Project_Prize;
@@ -169,6 +170,9 @@ public class Project implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="project")
 	private Set<Project_Measurement> projects_measurements;
+	
+	@OneToMany(mappedBy="project")
+	private Set<Project_Medium> projects_mediums;
 	
 	
 	/**
@@ -581,6 +585,20 @@ public class Project implements CerifBaseEntity {
 	 */
 	public void setProjects_projects2(Set<Project_Project> projects_projects2) {
 		this.projects_projects2 = projects_projects2;
+	}
+
+	/**
+	 * @return the projects_mediums
+	 */
+	public Set<Project_Medium> getProjects_mediums() {
+		return projects_mediums;
+	}
+
+	/**
+	 * @param projects_mediums the projects_mediums to set
+	 */
+	public void setProjects_mediums(Set<Project_Medium> projects_mediums) {
+		this.projects_mediums = projects_mediums;
 	}
 
 	/**

@@ -193,7 +193,7 @@ public class Person implements CerifBaseEntity {
 	private Set<Person_Service> persons_services;
 	
 	@OneToMany(mappedBy="person")
-	private Set<Person_Medium> persons_medium;
+	private Set<Person_Medium> persons_mediums;
 	
 	@OneToMany(mappedBy="person")
 	private Set<Person_Indicator> persons_indicators;
@@ -643,19 +643,17 @@ public class Person implements CerifBaseEntity {
 	}
 	
 	/**
-	 * @return the persons_medium
+	 * @return the persons_mediums
 	 */
-	public Set<Person_Medium> getPersons_medium() {
-		return persons_medium;
+	public Set<Person_Medium> getPersons_mediums() {
+		return persons_mediums;
 	}
-	
 	/**
-	 * @param persons_medium the persons_services to set
+	 * @param persons_mediums the persons_mediums to set
 	 */
-	public void setPersons_medium(Set<Person_Medium> persons_medium) {
-		this.persons_medium = persons_medium;
+	public void setPersons_mediums(Set<Person_Medium> persons_mediums) {
+		this.persons_mediums = persons_mediums;
 	}
-	
 	/**
 	 * @return the persons_indicators
 	 */

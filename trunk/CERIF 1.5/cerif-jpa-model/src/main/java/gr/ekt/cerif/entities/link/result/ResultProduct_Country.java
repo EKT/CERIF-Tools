@@ -17,8 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -32,11 +30,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfResProd_Country", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId","cfCountryId","cfClassId","cfStartDate","cfEndDate"}))
-@NamedQueries({
-	@NamedQuery(name="ResultProduct_Country.getProductsByCountry", query="SELECT a.country, count(a.country) FROM ResultProduct_Country a GROUP BY a.country"),
-	@NamedQuery(name="ResultProduct_Country.getProductsByCountryCode", query="SELECT a.resultProduct FROM ResultProduct_Country a WHERE a.country.code LIKE :code OR a.country.uri LIKE :code")
-})
-
 public class ResultProduct_Country implements CerifLinkEntity {
 	
 	/**

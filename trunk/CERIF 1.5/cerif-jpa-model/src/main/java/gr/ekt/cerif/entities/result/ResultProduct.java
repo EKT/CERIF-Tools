@@ -3,7 +3,6 @@
  */
 package gr.ekt.cerif.entities.result;
 
-import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
 import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
@@ -13,24 +12,18 @@ import gr.ekt.cerif.entities.link.result.ResultProduct_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Facility;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
 import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultProduct_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
-import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
-import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ResultProductDescription;
 import gr.ekt.cerif.features.multilingual.ResultProductKeyword;
 import gr.ekt.cerif.features.multilingual.ResultProductName;
 import gr.ekt.cerif.features.multilingual.ResultProductVersionInfo;
-import gr.ekt.cerif.features.semantics.Class;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -42,7 +35,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.util.StringUtils;
 
 /**
  * Represents a result product entity.
@@ -104,7 +96,7 @@ public class ResultProduct implements CerifResultEntity {
 	private Set<Person_ResultProduct> persons_resultProducts;
 	
 	@OneToMany(mappedBy="resultProduct")
-	private Set<ResultPublication_ResultProduct> resultPublications;
+	private Set<ResultPublication_ResultProduct> resultPublications_resultProducts;
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Service> resultProducts_services;
@@ -113,13 +105,13 @@ public class ResultProduct implements CerifResultEntity {
 	private Set<ResultProduct_Facility> resultProducts_facilities;
 	
 	@OneToMany(mappedBy="resultProduct")
-	private Set<ResultProduct_Class> classes;
+	private Set<ResultProduct_Class> resultProducts_classes;
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<Project_ResultProduct> projects_resultProducts;	
 	
 	@OneToMany(mappedBy="resultProduct")
-	private Set<ResultProduct_Country> countries;
+	private Set<ResultProduct_Country> resultProducts_countries;
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_GeographicBoundingBox> geographicBoundingBox;
@@ -128,7 +120,7 @@ public class ResultProduct implements CerifResultEntity {
 	private Set<ResultProduct_Funding> resultProducts_fundings;
 	
 	@OneToMany(mappedBy="resultProduct")
-	private Set<ResultProduct_Funding> resultProducts_indicators;
+	private Set<ResultProduct_Indicator> resultProducts_indicators;
 
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Measurement> resultProducts_measurements;
@@ -276,6 +268,21 @@ public class ResultProduct implements CerifResultEntity {
 	}
 
 	/**
+	 * @return the resultPublications_resultProducts
+	 */
+	public Set<ResultPublication_ResultProduct> getResultPublications_resultProducts() {
+		return resultPublications_resultProducts;
+	}
+
+	/**
+	 * @param resultPublications_resultProducts the resultPublications_resultProducts to set
+	 */
+	public void setResultPublications_resultProducts(
+			Set<ResultPublication_ResultProduct> resultPublications_resultProducts) {
+		this.resultPublications_resultProducts = resultPublications_resultProducts;
+	}
+
+	/**
 	 * @return the organisationUnits_resultProducts
 	 */
 	public Set<OrganisationUnit_ResultProduct> getOrganisationUnits_resultProducts() {
@@ -288,35 +295,6 @@ public class ResultProduct implements CerifResultEntity {
 	public void setOrganisationUnits_resultProducts(
 			Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts) {
 		this.organisationUnits_resultProducts = organisationUnits_resultProducts;
-	}
-
-	/**
-	 * @return the resultPublications
-	 */
-	public Set<ResultPublication_ResultProduct> getResultPublications() {
-		return resultPublications;
-	}
-
-	/**
-	 * @param resultPublications the resultPublications to set
-	 */
-	public void setResultPublications(
-			Set<ResultPublication_ResultProduct> resultPublications) {
-		this.resultPublications = resultPublications;
-	}
-			
-	/**
-	 * @return the countries
-	 */
-	public Set<ResultProduct_Country> getCountries() {
-		return countries;
-	}
-
-	/**
-	 * @param countries the countries to set
-	 */
-	public void setCountries(Set<ResultProduct_Country> countries) {
-		this.countries = countries;
 	}
 
 	/**
@@ -352,7 +330,7 @@ public class ResultProduct implements CerifResultEntity {
 	/**
 	 * @return the resultProducts_indicators
 	 */
-	public Set<ResultProduct_Funding> getResultProducts_indicators() {
+	public Set<ResultProduct_Indicator> getResultProducts_indicators() {
 		return resultProducts_indicators;
 	}
 
@@ -360,7 +338,7 @@ public class ResultProduct implements CerifResultEntity {
 	 * @param resultProducts_indicators the resultProducts_indicators to set
 	 */
 	public void setResultProducts_indicators(
-			Set<ResultProduct_Funding> resultProducts_indicators) {
+			Set<ResultProduct_Indicator> resultProducts_indicators) {
 		this.resultProducts_indicators = resultProducts_indicators;
 	}
 
@@ -414,62 +392,6 @@ public class ResultProduct implements CerifResultEntity {
 		}
 		return true;
 	}
-	
-	/**
-	 * Groups links between products and classes by scheme.
-	 * @return a map.
-	 */
-	public Map<String, List<ResultProduct_Class>> getUniqueClassSchemes() {
-		Map<String, List<ResultProduct_Class>> map = new HashMap<String, List<ResultProduct_Class>>();
-		if (getClasses() != null) {
-			for (ResultProduct_Class element : getClasses()) {
-				final String uri = element.getTheClass().getScheme().getUri();
-				if (!"Temporal Coverage".equals(uri)) {
-					if (!map.containsKey(uri)) {
-						map.put(uri, new ArrayList<ResultProduct_Class>());
-					}
-					map.get(uri).add(element);
-				}
-			}
-		}
-		return map;
-	}
-	
-	/**
-	 * Groups links between products and persons by class.
-	 * @return a map.
-	 */
-	public Map<String, List<Person_ResultProduct>> getUniquePersonClasses() {
-		Map<String, List<Person_ResultProduct>> map = new HashMap<String, List<Person_ResultProduct>>();
-		if (persons_resultProducts != null) {
-			for (Person_ResultProduct element : persons_resultProducts) {
-				final String uri = element.getTheClass().getOriginalTranslation().getTerm();
-				if (!map.containsKey(uri)) {
-					map.put(uri, new ArrayList<Person_ResultProduct>());
-				}
-				map.get(uri).add(element);
-			}
-		}
-		return map;
-	}
-	
-	/**
-	 * Groups links between products and projects by class.
-	 * @return a map.
-	 */
-	public Map<String, List<Project_ResultProduct>> getUniqueProjectClasses() {
-		Map<String, List<Project_ResultProduct>> map = new HashMap<String, List<Project_ResultProduct>>();
-		if (projects_resultProducts != null) {
-			for (Project_ResultProduct element : projects_resultProducts) {
-				final String uri = element.getTheClass().getOriginalTranslation().getTerm();
-				if (!map.containsKey(uri)) {
-					map.put(uri, new ArrayList<Project_ResultProduct>());
-				}
-				map.get(uri).add(element);
-			}
-		}
-		return map;
-	}
 
 	/**
 	 * @return the resultProducts_services
@@ -502,17 +424,18 @@ public class ResultProduct implements CerifResultEntity {
 	}
 
 	/**
-	 * @return the classes
+	 * @return the resultProducts_classes
 	 */
-	public Set<ResultProduct_Class> getClasses() {
-		return classes;
+	public Set<ResultProduct_Class> getResultProducts_classes() {
+		return resultProducts_classes;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param resultProducts_classes the resultProducts_classes to set
 	 */
-	public void setClasses(Set<ResultProduct_Class> classes) {
-		this.classes = classes;
+	public void setResultProducts_classes(
+			Set<ResultProduct_Class> resultProducts_classes) {
+		this.resultProducts_classes = resultProducts_classes;
 	}
 
 	/**
@@ -528,6 +451,21 @@ public class ResultProduct implements CerifResultEntity {
 	public void setProjects_resultProducts(
 			Set<Project_ResultProduct> projects_resultProducts) {
 		this.projects_resultProducts = projects_resultProducts;
+	}
+
+	/**
+	 * @return the resultProducts_countries
+	 */
+	public Set<ResultProduct_Country> getResultProducts_countries() {
+		return resultProducts_countries;
+	}
+
+	/**
+	 * @param resultProducts_countries the resultProducts_countries to set
+	 */
+	public void setResultProducts_countries(
+			Set<ResultProduct_Country> resultProducts_countries) {
+		this.resultProducts_countries = resultProducts_countries;
 	}
 
 	/**

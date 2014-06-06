@@ -19,6 +19,7 @@ import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.ResultPatentAbstract;
 import gr.ekt.cerif.features.multilingual.ResultPatentKeyword;
 import gr.ekt.cerif.features.multilingual.ResultPatentTitle;
+import gr.ekt.cerif.features.multilingual.ResultPatentVersionInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -57,7 +60,8 @@ public class ResultPatent implements CerifResultEntity {
 	/**
 	 * The patent country.
 	 */
-	@Column(name="cfCountryCode")
+	@ManyToOne
+	@JoinColumn(name="cfCountryCode")
 	private Country country;
 	
 	/**
@@ -104,7 +108,7 @@ public class ResultPatent implements CerifResultEntity {
 	private Set<ResultPatentKeyword> resultPatentKeywords;
 	
 	@OneToMany(mappedBy="resultPatent")
-	private Set<ResultPatentKeyword> resultPatentVersionInfos;
+	private Set<ResultPatentVersionInfo> resultPatentVersionInfos;
 	
 	
 	/**
@@ -179,7 +183,7 @@ public class ResultPatent implements CerifResultEntity {
 			Set<ResultPatentTitle> resultPatentTitles,
 			Set<ResultPatentAbstract> resultPatentAbstracts,
 			Set<ResultPatentKeyword> resultPatentKeywords,
-			Set<ResultPatentKeyword> resultPatentVersionInfos) {
+			Set<ResultPatentVersionInfo> resultPatentVersionInfos) {
 		this.country = country;
 		this.registrationDate = registrationDate;
 		this.approvalDate = approvalDate;
@@ -325,11 +329,11 @@ public class ResultPatent implements CerifResultEntity {
 		this.resultPatentKeywords = resultPatentKeywords;
 	}
 
-	public Set<ResultPatentKeyword> getResultPatentVersionInfos() {
+	public Set<ResultPatentVersionInfo> getResultPatentVersionInfos() {
 		return resultPatentVersionInfos;
 	}
 
-	public void setResultPatentVersionInfos(Set<ResultPatentKeyword> resultPatentVersionInfos) {
+	public void setResultPatentVersionInfos(Set<ResultPatentVersionInfo> resultPatentVersionInfos) {
 		this.resultPatentVersionInfos = resultPatentVersionInfos;
 	}
 

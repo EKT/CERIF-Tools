@@ -125,7 +125,7 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	 */
 	@OneToMany(mappedBy="postalAddress")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<OrganisationUnit_PostalAddress> organisationUnits;
+	private Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses;
 	
 	@OneToMany(mappedBy="postalAddress")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
@@ -378,20 +378,18 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the organisationUnits
+	 * @return the organisationUnits_postalAddresses
 	 */
-	public Set<OrganisationUnit_PostalAddress> getOrganisationUnits() {
-		return organisationUnits;
+	public Set<OrganisationUnit_PostalAddress> getOrganisationUnits_postalAddresses() {
+		return organisationUnits_postalAddresses;
 	}
-
 	/**
-	 * @param organisationUnits the organisationUnits to set
+	 * @param organisationUnits_postalAddresses the organisationUnits_postalAddresses to set
 	 */
-	public void setOrganisationUnits(
-			Set<OrganisationUnit_PostalAddress> organisationUnits) {
-		this.organisationUnits = organisationUnits;
+	public void setOrganisationUnits_postalAddresses(
+			Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses) {
+		this.organisationUnits_postalAddresses = organisationUnits_postalAddresses;
 	}
-	
 	/**
 	 * @return the persons_postalAddresses
 	 */
