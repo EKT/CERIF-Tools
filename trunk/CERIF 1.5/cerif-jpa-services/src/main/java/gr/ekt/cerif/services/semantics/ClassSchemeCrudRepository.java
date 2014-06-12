@@ -12,6 +12,9 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ClassSchemeCrudRepository extends CrudRepository<ClassScheme, Long> {
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	ClassScheme findById(Long id);
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	ClassScheme findByUri(String uri);
