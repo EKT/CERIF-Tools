@@ -190,8 +190,6 @@ public class ResultPublicationKeyword implements CerifMultipleLanguageFeature {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((keyword == null) ? 0 : keyword.hashCode());
 		result = prime * result
 				+ ((language == null) ? 0 : language.hashCode());
 		result = prime
@@ -214,33 +212,20 @@ public class ResultPublicationKeyword implements CerifMultipleLanguageFeature {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		if (!(obj instanceof ResultPublicationKeyword)) {
-			return false;
-		}
 		ResultPublicationKeyword other = (ResultPublicationKeyword) obj;
-		
-		if (id != null && other.id != null) { //check only the ids
-			if (id.equals(other.id)) {
-				return true;
-			} else {
+		if (language == null) {
+			if (other.language != null)
 				return false;
-			}
-		} else {
-			if (resultPublication == null || other.resultPublication == null) {
-				return false; //no reason to check further
-			}
-			if (resultPublication.equals(other.resultPublication)) {
-				if (language.equals(other.language) && 
-						translation.equals(other.translation) && 
-						keyword.equals(other.keyword)) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return false; //different result publications
-			}
-		}
+		} else if (!language.equals(other.language))
+			return false;
+		if (resultPublication == null) {
+			if (other.resultPublication != null)
+				return false;
+		} else if (!resultPublication.equals(other.resultPublication))
+			return false;
+		if (translation != other.translation)
+			return false;
+		return true;
 	}
 
 	/* (non-Javadoc)

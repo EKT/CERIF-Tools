@@ -141,7 +141,7 @@ public class Facility implements CerifInfrastructureEntity {
 	private Set<Facility_Equipment> facilities_equipments;
 	
 	@OneToMany(mappedBy="facility")
-	private Set<Facility_PostalAddress> postalAddresses;
+	private Set<Facility_PostalAddress> facilities_postalAddresses;
 	
 	@OneToMany(mappedBy="facility")
 	private Set<Facility_Medium> facilities_medium;
@@ -456,18 +456,18 @@ public class Facility implements CerifInfrastructureEntity {
 	}
 
 	/**
-	 * @return the postalAddresses
+	 * @return the facilities_postalAddresses
 	 */
-	public Set<Facility_PostalAddress> getPostalAddresses() {
-		return postalAddresses;
+	public Set<Facility_PostalAddress> getFacilities_postalAddresses() {
+		return facilities_postalAddresses;
 	}
 
 	/**
-	 * @param postalAddresses the postalAddresses to set
+	 * @param facilities_postalAddresses the facilities_postalAddresses to set
 	 */
-	public void setPostalAddresses(
-			Set<Facility_PostalAddress> postalAddresses) {
-		this.postalAddresses = postalAddresses;
+	public void setFacilities_postalAddresses(
+			Set<Facility_PostalAddress> facilities_postalAddresses) {
+		this.facilities_postalAddresses = facilities_postalAddresses;
 	}
 
 	/**
