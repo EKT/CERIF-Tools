@@ -147,17 +147,60 @@ public class FundingName implements CerifMultipleLanguageFeature {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	/**
 	 * @return the id
 	 */
 	public Long getId() {
 		return id;
 	}
+	
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((funding == null) ? 0 : funding.hashCode());
+		result = prime * result
+				+ ((language == null) ? 0 : language.hashCode());
+		result = prime * result
+				+ ((translation == null) ? 0 : translation.hashCode());
+		return result;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FundingName other = (FundingName) obj;
+		if (funding == null) {
+			if (other.funding != null)
+				return false;
+		} else if (!funding.equals(other.funding))
+			return false;
+		if (language == null) {
+			if (other.language != null)
+				return false;
+		} else if (!language.equals(other.language))
+			return false;
+		if (translation != other.translation)
+			return false;
+		return true;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

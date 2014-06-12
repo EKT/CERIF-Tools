@@ -163,6 +163,50 @@ public class EquipmentName implements CerifMultipleLanguageFeature {
 		this.id = id;
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((equipment == null) ? 0 : equipment.hashCode());
+		result = prime * result
+				+ ((language == null) ? 0 : language.hashCode());
+		result = prime * result
+				+ ((translation == null) ? 0 : translation.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EquipmentName other = (EquipmentName) obj;
+		if (equipment == null) {
+			if (other.equipment != null)
+				return false;
+		} else if (!equipment.equals(other.equipment))
+			return false;
+		if (language == null) {
+			if (other.language != null)
+				return false;
+		} else if (!language.equals(other.language))
+			return false;
+		if (translation != other.translation)
+			return false;
+		return true;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

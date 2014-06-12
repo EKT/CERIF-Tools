@@ -27,12 +27,6 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfResProdKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId","cfLangCode","cfTrans"}))
-@NamedQueries ({
-	@NamedQuery(name="ResultProductTranslation.findByKeyword", 
-				query="select resultProduct " +
-					  "  from ResultProductKeyword" +
-					  " where cfKeyw like :input")
-})
 public class ResultProductKeyword implements CerifMultipleLanguageFeature, Comparable<ResultProductKeyword> {
 
 	/**
@@ -174,6 +168,49 @@ public class ResultProductKeyword implements CerifMultipleLanguageFeature, Compa
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((language == null) ? 0 : language.hashCode());
+		result = prime * result
+				+ ((resultProduct == null) ? 0 : resultProduct.hashCode());
+		result = prime * result
+				+ ((translation == null) ? 0 : translation.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ResultProductKeyword other = (ResultProductKeyword) obj;
+		if (language == null) {
+			if (other.language != null)
+				return false;
+		} else if (!language.equals(other.language))
+			return false;
+		if (resultProduct == null) {
+			if (other.resultProduct != null)
+				return false;
+		} else if (!resultProduct.equals(other.resultProduct))
+			return false;
+		if (translation != other.translation)
+			return false;
+		return true;
 	}
 
 	/* (non-Javadoc)

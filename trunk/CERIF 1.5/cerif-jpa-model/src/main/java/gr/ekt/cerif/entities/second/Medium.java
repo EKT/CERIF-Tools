@@ -509,7 +509,7 @@ public class Medium implements CerifSecondLevelEntity {
 			List<FederatedIdentifier> federatedIdentifiers) {
 		this.federatedIdentifiers = federatedIdentifiers;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -518,7 +518,6 @@ public class Medium implements CerifSecondLevelEntity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
 		return result;
 	}
 
@@ -538,11 +537,6 @@ public class Medium implements CerifSecondLevelEntity {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (uri == null) {
-			if (other.uri != null)
-				return false;
-		} else if (!uri.equals(other.uri))
 			return false;
 		return true;
 	}

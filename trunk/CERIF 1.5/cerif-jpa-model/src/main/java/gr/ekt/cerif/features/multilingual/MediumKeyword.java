@@ -170,6 +170,48 @@ public class MediumKeyword implements CerifMultipleLanguageFeature {
 	}
 
 	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((language == null) ? 0 : language.hashCode());
+		result = prime * result + ((medium == null) ? 0 : medium.hashCode());
+		result = prime * result
+				+ ((translation == null) ? 0 : translation.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MediumKeyword other = (MediumKeyword) obj;
+		if (language == null) {
+			if (other.language != null)
+				return false;
+		} else if (!language.equals(other.language))
+			return false;
+		if (medium == null) {
+			if (other.medium != null)
+				return false;
+		} else if (!medium.equals(other.medium))
+			return false;
+		if (translation != other.translation)
+			return false;
+		return true;
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

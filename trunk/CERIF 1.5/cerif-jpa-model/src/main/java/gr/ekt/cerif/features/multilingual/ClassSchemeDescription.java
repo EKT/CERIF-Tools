@@ -167,6 +167,49 @@ public class ClassSchemeDescription implements CerifMultipleLanguageFeature {
 		this.descriptionSrc = descriptionSrc;
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((language == null) ? 0 : language.hashCode());
+		result = prime * result + ((scheme == null) ? 0 : scheme.hashCode());
+		result = prime * result
+				+ ((translation == null) ? 0 : translation.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ClassSchemeDescription other = (ClassSchemeDescription) obj;
+		if (language == null) {
+			if (other.language != null)
+				return false;
+		} else if (!language.equals(other.language))
+			return false;
+		if (scheme == null) {
+			if (other.scheme != null)
+				return false;
+		} else if (!scheme.equals(other.scheme))
+			return false;
+		if (translation != other.translation)
+			return false;
+		return true;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
