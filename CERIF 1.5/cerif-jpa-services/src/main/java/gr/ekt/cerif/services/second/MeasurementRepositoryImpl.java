@@ -68,4 +68,9 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 		return measurementCrudRepository.findAll(page);
 	}
 
+	@Override
+	public Measurement findByUuid(String uuid) {
+		return measurementCrudRepository.findByUuid(uuid);
+	}
+
 }

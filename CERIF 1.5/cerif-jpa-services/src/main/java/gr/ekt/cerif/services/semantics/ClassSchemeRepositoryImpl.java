@@ -57,7 +57,7 @@ public class ClassSchemeRepositoryImpl implements ClassSchemeRepository {
 
 	@Override
 	public ClassScheme findById(Long id) {
-		return classSchemeCrudRepository.findOne(id);
+		return classSchemeCrudRepository.findById(id);
 	}
 	
 	

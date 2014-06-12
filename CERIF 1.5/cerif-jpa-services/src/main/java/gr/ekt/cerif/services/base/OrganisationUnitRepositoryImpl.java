@@ -7,6 +7,7 @@ import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
@@ -17,6 +18,7 @@ import gr.ekt.cerif.features.multilingual.OrganisationUnitName;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitClassRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitElectronicAddressRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitFacilityRepository;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitFundingRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitPostalAddressRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitResultPublicationRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonOrganisationUnitRepository;
@@ -89,6 +91,9 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 	
 	@Autowired
 	private LinkOrganisationUnitFacilityRepository linkOrganisationUnitFacilityRepository;
+	
+	@Autowired
+	private LinkOrganisationUnitFundingRepository linkOrganisationUnitFundingRepository;
 
 	@Transactional
 	public OrganisationUnit save(OrganisationUnit organisation) {
@@ -161,6 +166,11 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 
 		List<OrganisationUnit_Facility> ouf = linkOrganisationUnitFacilityRepository.findByOrganisationUnit(entity);
 		if (ouf != null) linkOrganisationUnitFacilityRepository.delete(ouf);
+		entity.setOrganisationUnits_facilities(null);
+		
+		List<OrganisationUnit_Funding> oufun = linkOrganisationUnitFundingRepository.findByOrganisationUnit(entity);
+		if (oufun != null) linkOrganisationUnitFundingRepository.delete(oufun);
+		entity.setOrganisationUnits_fundings(null);
 		
 		entity = organisationUnitCrudRepository.save(entity);
 		organisationUnitCrudRepository.delete(entity);
