@@ -67,7 +67,7 @@ public class Currency implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="currency")
-	private Set<CurrencyName> names;
+	private Set<CurrencyName> currencyNames;
 	
 	@OneToMany(mappedBy="currency")
 	private Set<CurrencyEntityName> entityNames;
@@ -80,7 +80,7 @@ public class Currency implements CerifSecondLevelEntity {
 	private Set<OrganisationUnit> organisationUnits;
 	
 	@OneToMany(mappedBy="currency")
-	private Set<OrganisationUnit_ResultProduct> organisationUnitResultProducts;
+	private Set<OrganisationUnit_ResultProduct> organisationUnits_ResultProducts;
 	
 	@OneToMany(mappedBy="currency")
 	private Set<Funding> fundings;
@@ -112,24 +112,6 @@ public class Currency implements CerifSecondLevelEntity {
 		
 	}
 	
-	/**
-	 * 
-	 * @param code
-	 * @param numeric
-	 * @param uri
-	 * @param names
-	 * @param entityNames
-	 */
-	public Currency(String code, String numeric, String uri,
-			Set<CurrencyName> names,
-			Set<CurrencyEntityName> entityNames) {
-		this.code = code;
-		this.numeric = numeric;
-		this.uri = uri;
-		this.names = names;
-		this.entityNames = entityNames;
-	}
-
 	/**
 	 * Returns the code.
 	 * @return the code.
@@ -191,6 +173,20 @@ public class Currency implements CerifSecondLevelEntity {
 	}
 
 	/**
+	 * @return the currencyNames
+	 */
+	public Set<CurrencyName> getCurrencyNames() {
+		return currencyNames;
+	}
+
+	/**
+	 * @param currencyNames the currencyNames to set
+	 */
+	public void setCurrencyNames(Set<CurrencyName> currencyNames) {
+		this.currencyNames = currencyNames;
+	}
+
+	/**
 	 * @return the organisationUnits
 	 */
 	public Set<OrganisationUnit> getOrganisationUnits() {
@@ -205,18 +201,18 @@ public class Currency implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the organisationUnitResultProducts
+	 * @return the organisationUnits_ResultProducts
 	 */
-	public Set<OrganisationUnit_ResultProduct> getOrganisationUnitResultProducts() {
-		return organisationUnitResultProducts;
+	public Set<OrganisationUnit_ResultProduct> getOrganisationUnits_ResultProducts() {
+		return organisationUnits_ResultProducts;
 	}
 
 	/**
-	 * @param organisationUnitResultProducts the organisationUnitResultProducts to set
+	 * @param organisationUnits_ResultProducts the organisationUnits_ResultProducts to set
 	 */
-	public void setOrganisationUnitResultProducts(
-			Set<OrganisationUnit_ResultProduct> organisationUnitResultProducts) {
-		this.organisationUnitResultProducts = organisationUnitResultProducts;
+	public void setOrganisationUnits_ResultProducts(
+			Set<OrganisationUnit_ResultProduct> organisationUnits_ResultProducts) {
+		this.organisationUnits_ResultProducts = organisationUnits_ResultProducts;
 	}
 
 	/**
@@ -287,20 +283,6 @@ public class Currency implements CerifSecondLevelEntity {
 	 */
 	public void setProjects_fundings(Set<Project_Funding> projects_fundings) {
 		this.projects_fundings = projects_fundings;
-	}
-
-	/**
-	 * @return the names
-	 */
-	public Set<CurrencyName> getNames() {
-		return names;
-	}
-
-	/**
-	 * @param names the names to set
-	 */
-	public void setNames(Set<CurrencyName> names) {
-		this.names = names;
 	}
 
 	/**

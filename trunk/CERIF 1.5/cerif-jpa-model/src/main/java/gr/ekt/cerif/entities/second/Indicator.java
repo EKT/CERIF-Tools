@@ -72,13 +72,13 @@ public class Indicator implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="indicator")
-	private Set<IndicatorName> names;
+	private Set<IndicatorName> indicatorNames;
 	
 	@OneToMany(mappedBy="indicator")
-	private Set<IndicatorKeyword> keywords;
+	private Set<IndicatorKeyword> indicatorKeywords;
 	
 	@OneToMany(mappedBy="indicator")
-	private Set<IndicatorDescription> descriptions;
+	private Set<IndicatorDescription> indicatorDescriptions;
 	
 	
 	/**
@@ -106,7 +106,7 @@ public class Indicator implements CerifSecondLevelEntity {
 	private Set<Indicator_Measurement> indicators_measurements;
 	
 	@OneToMany(mappedBy="indicator")
-	private Set<Indicator_Class> classes;
+	private Set<Indicator_Class> indicators_classes;
 	
 	@OneToMany(mappedBy="indicator")
 	private Set<Person_Indicator> persons_indicators;
@@ -149,31 +149,6 @@ public class Indicator implements CerifSecondLevelEntity {
 		
 	}
 	
-	/**
-	 * 
-	 * @param uri
-	 * @param resultPatents_indicators
-	 * @param resultProducts_indicators
-	 * @param names
-	 * @param keywords
-	 * @param descriptions
-	 * @param resultPublications_indicators
-	 */
-	public Indicator(String uri,
-			Set<ResultPatent_Indicator> resultPatents_indicators,
-			Set<ResultProduct_Indicator> resultProducts_indicators,
-			Set<IndicatorName> names, Set<IndicatorKeyword> keywords,
-			Set<IndicatorDescription> descriptions,
-			Set<ResultPublication_Indicator> resultPublications_indicators) {
-		this.uri = uri;
-		this.resultPatents_indicators = resultPatents_indicators;
-		this.resultProducts_indicators = resultProducts_indicators;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
-		this.resultPublications_indicators = resultPublications_indicators;
-	}
-
 	/**
 	 * @return the id
 	 */
@@ -219,6 +194,49 @@ public class Indicator implements CerifSecondLevelEntity {
 	}
 
 	/**
+	 * @return the indicatorNames
+	 */
+	public Set<IndicatorName> getIndicatorNames() {
+		return indicatorNames;
+	}
+
+	/**
+	 * @param indicatorNames the indicatorNames to set
+	 */
+	public void setIndicatorNames(Set<IndicatorName> indicatorNames) {
+		this.indicatorNames = indicatorNames;
+	}
+
+	/**
+	 * @return the indicatorKeywords
+	 */
+	public Set<IndicatorKeyword> getIndicatorKeywords() {
+		return indicatorKeywords;
+	}
+
+	/**
+	 * @param indicatorKeywords the indicatorKeywords to set
+	 */
+	public void setIndicatorKeywords(Set<IndicatorKeyword> indicatorKeywords) {
+		this.indicatorKeywords = indicatorKeywords;
+	}
+
+	/**
+	 * @return the indicatorDescriptions
+	 */
+	public Set<IndicatorDescription> getIndicatorDescriptions() {
+		return indicatorDescriptions;
+	}
+
+	/**
+	 * @param indicatorDescriptions the indicatorDescriptions to set
+	 */
+	public void setIndicatorDescriptions(
+			Set<IndicatorDescription> indicatorDescriptions) {
+		this.indicatorDescriptions = indicatorDescriptions;
+	}
+
+	/**
 	 * @return the resultPatents_indicators
 	 */
 	public Set<ResultPatent_Indicator> getResultPatents_indicators() {
@@ -246,48 +264,6 @@ public class Indicator implements CerifSecondLevelEntity {
 	public void setResultProducts_indicators(
 			Set<ResultProduct_Indicator> resultProducts_indicators) {
 		this.resultProducts_indicators = resultProducts_indicators;
-	}
-	
-	/**
-	 * @return the names
-	 */
-	public Set<IndicatorName> getNames() {
-		return names;
-	}
-
-	/**
-	 * @param names the names to set
-	 */
-	public void setNames(Set<IndicatorName> names) {
-		this.names = names;
-	}
-
-	/**
-	 * @return the keywords
-	 */
-	public Set<IndicatorKeyword> getKeywords() {
-		return keywords;
-	}
-
-	/**
-	 * @param keywords the keywords to set
-	 */
-	public void setKeywords(Set<IndicatorKeyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	/**
-	 * @return the descriptions
-	 */
-	public Set<IndicatorDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	/**
-	 * @param descriptions the descriptions to set
-	 */
-	public void setDescriptions(Set<IndicatorDescription> descriptions) {
-		this.descriptions = descriptions;
 	}
 
 	/**
@@ -364,17 +340,17 @@ public class Indicator implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the classes
+	 * @return the indicators_classes
 	 */
-	public Set<Indicator_Class> getClasses() {
-		return classes;
+	public Set<Indicator_Class> getIndicators_classes() {
+		return indicators_classes;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param indicators_classes the indicators_classes to set
 	 */
-	public void setClasses(Set<Indicator_Class> classes) {
-		this.classes = classes;
+	public void setIndicators_classes(Set<Indicator_Class> indicators_classes) {
+		this.indicators_classes = indicators_classes;
 	}
 
 	/**

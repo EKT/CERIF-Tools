@@ -107,13 +107,13 @@ public class Equipment implements CerifInfrastructureEntity {
 	private Set<Equipment_Funding> equipments_fundings;
 	
 	@OneToMany(mappedBy="equipment")
-	private Set<Equipment_Class> classes;
+	private Set<Equipment_Class> equipments_classes;
 	
 	@OneToMany(mappedBy="equipment")
 	private Set<OrganisationUnit_Equipment> organisationUnits_equipments;
 	
 	@OneToMany(mappedBy="equipment")
-	private Set<Equipment_Medium> equipments_medium;
+	private Set<Equipment_Medium> equipments_mediums;
 	
 	@OneToMany(mappedBy="equipment")
 	private Set<Equipment_PostalAddress> equipments_postalAddresses;
@@ -349,17 +349,17 @@ public class Equipment implements CerifInfrastructureEntity {
 	}
 
 	/**
-	 * @return the classes
+	 * @return the equipments_classes
 	 */
-	public Set<Equipment_Class> getClasses() {
-		return classes;
+	public Set<Equipment_Class> getEquipments_classes() {
+		return equipments_classes;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param equipments_classes the equipments_classes to set
 	 */
-	public void setClasses(Set<Equipment_Class> classes) {
-		this.classes = classes;
+	public void setEquipments_classes(Set<Equipment_Class> equipments_classes) {
+		this.equipments_classes = equipments_classes;
 	}
 
 	/**
@@ -378,17 +378,17 @@ public class Equipment implements CerifInfrastructureEntity {
 	}
 
 	/**
-	 * @return the equipments_medium
+	 * @return the equipments_mediums
 	 */
-	public Set<Equipment_Medium> getEquipments_medium() {
-		return equipments_medium;
+	public Set<Equipment_Medium> getEquipments_mediums() {
+		return equipments_mediums;
 	}
 
 	/**
-	 * @param equipments_medium the equipments_medium to set
+	 * @param equipments_mediums the equipments_mediums to set
 	 */
-	public void setEquipments_medium(Set<Equipment_Medium> equipments_medium) {
-		this.equipments_medium = equipments_medium;
+	public void setEquipments_mediums(Set<Equipment_Medium> equipments_mediums) {
+		this.equipments_mediums = equipments_mediums;
 	}
 
 	/**

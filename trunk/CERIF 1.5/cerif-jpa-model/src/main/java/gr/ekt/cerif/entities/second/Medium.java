@@ -94,35 +94,35 @@ public class Medium implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="medium")
-	private Set<MediumTitle> names;
+	private Set<MediumTitle> mediumNames;
 	
 	@OneToMany(mappedBy="medium")
-	private Set<MediumKeyword> keywords;
+	private Set<MediumKeyword> mediumKeywords;
 	
 	@OneToMany(mappedBy="medium")
-	private Set<MediumDescription> descriptions;
+	private Set<MediumDescription> mediumDescriptions;
 	
 	
 	/**
 	 * Links.
 	 */
 	@OneToMany(mappedBy="medium")
-	private Set<Person_Medium> persons_medium;
+	private Set<Person_Medium> persons_mediums;
 	
 	@OneToMany(mappedBy="medium")
-	private Set<ResultPublication_Medium> resultPublications_medium;
+	private Set<ResultPublication_Medium> resultPublications_mediums;
 	
 	@OneToMany(mappedBy="medium")
 	private Set<Service_Medium> services_mediums;
 	
 	@OneToMany(mappedBy="medium")
-	private Set<Equipment_Medium> equipments_medium;
+	private Set<Equipment_Medium> equipments_mediums;
 	
 	@OneToMany(mappedBy="medium")
-	private Set<Event_Medium> events_medium;
+	private Set<Event_Medium> events_mediums;
 	
 	@OneToMany(mappedBy="medium")
-	private Set<Facility_Medium> facilities_medium;
+	private Set<Facility_Medium> facilities_mediums;
 	
 	@OneToMany(mappedBy="medium")
 	private Set<Medium_Funding> mediums_fundings;
@@ -159,28 +159,6 @@ public class Medium implements CerifSecondLevelEntity {
 	 */
 	public Medium() {
 		
-	}
-	
-	/**
-	 * 
-	 * @param mediumCreationDate
-	 * @param size
-	 * @param mimeType
-	 * @param uri
-	 * @param names
-	 * @param keywords
-	 * @param descriptions
-	 */
-	public Medium(String mediumCreationDate, Double size, String mimeType,
-			String uri, Set<MediumTitle> names, Set<MediumKeyword> keywords,
-			Set<MediumDescription> descriptions) {
-		this.mediumCreationDate = mediumCreationDate;
-		this.size = size;
-		this.mimeType = mimeType;
-		this.uri = uri;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
 	}
 
 	/**
@@ -242,6 +220,48 @@ public class Medium implements CerifSecondLevelEntity {
 	}
 
 	/**
+	 * @return the mediumNames
+	 */
+	public Set<MediumTitle> getMediumNames() {
+		return mediumNames;
+	}
+
+	/**
+	 * @param mediumNames the mediumNames to set
+	 */
+	public void setMediumNames(Set<MediumTitle> mediumNames) {
+		this.mediumNames = mediumNames;
+	}
+
+	/**
+	 * @return the mediumKeywords
+	 */
+	public Set<MediumKeyword> getMediumKeywords() {
+		return mediumKeywords;
+	}
+
+	/**
+	 * @param mediumKeywords the mediumKeywords to set
+	 */
+	public void setMediumKeywords(Set<MediumKeyword> mediumKeywords) {
+		this.mediumKeywords = mediumKeywords;
+	}
+
+	/**
+	 * @return the mediumDescriptions
+	 */
+	public Set<MediumDescription> getMediumDescriptions() {
+		return mediumDescriptions;
+	}
+
+	/**
+	 * @param mediumDescriptions the mediumDescriptions to set
+	 */
+	public void setMediumDescriptions(Set<MediumDescription> mediumDescriptions) {
+		this.mediumDescriptions = mediumDescriptions;
+	}
+
+	/**
 	 * @return the size
 	 */
 	public Double getSize() {
@@ -270,75 +290,32 @@ public class Medium implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the names
+	 * @return the persons_mediums
 	 */
-	public Set<MediumTitle> getNames() {
-		return names;
+	public Set<Person_Medium> getPersons_mediums() {
+		return persons_mediums;
 	}
 
 	/**
-	 * @param names the names to set
+	 * @param persons_mediums the persons_mediums to set
 	 */
-	public void setNames(Set<MediumTitle> names) {
-		this.names = names;
+	public void setPersons_mediums(Set<Person_Medium> persons_mediums) {
+		this.persons_mediums = persons_mediums;
 	}
 
 	/**
-	 * @return the keywords
+	 * @return the resultPublications_mediums
 	 */
-	public Set<MediumKeyword> getKeywords() {
-		return keywords;
+	public Set<ResultPublication_Medium> getResultPublications_mediums() {
+		return resultPublications_mediums;
 	}
 
 	/**
-	 * @param keywords the keywords to set
+	 * @param resultPublications_mediums the resultPublications_mediums to set
 	 */
-	public void setKeywords(Set<MediumKeyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	/**
-	 * @return the descriptions
-	 */
-	public Set<MediumDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	/**
-	 * @param descriptions the descriptions to set
-	 */
-	public void setDescriptions(Set<MediumDescription> descriptions) {
-		this.descriptions = descriptions;
-	}
-	
-	/**
-	 * @return the persons_medium
-	 */
-	public Set<Person_Medium> getPersons_medium() {
-		return persons_medium;
-	}
-	
-	/**
-	 * @param persons_medium the persons_medium to set
-	 */
-	public void setPersons_medium(
-			Set<Person_Medium> persons_medium) {
-		this.persons_medium = persons_medium;
-	}
-	
-	/**
-	 * @return the resultPublications_medium
-	 */
-	public Set<ResultPublication_Medium> getResultPublications_medium() {
-		return resultPublications_medium;
-	}
-
-	/**
-	 * @param resultPublications_medium the resultPublications_medium to set
-	 */
-	public void setResultPublications_medium(
-			Set<ResultPublication_Medium> resultPublications_medium) {
-		this.resultPublications_medium = resultPublications_medium;
+	public void setResultPublications_mediums(
+			Set<ResultPublication_Medium> resultPublications_mediums) {
+		this.resultPublications_mediums = resultPublications_mediums;
 	}
 
 	/**
@@ -356,45 +333,45 @@ public class Medium implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the equipments_medium
+	 * @return the equipments_mediums
 	 */
-	public Set<Equipment_Medium> getEquipments_medium() {
-		return equipments_medium;
+	public Set<Equipment_Medium> getEquipments_mediums() {
+		return equipments_mediums;
 	}
 
 	/**
-	 * @param equipments_medium the equipments_medium to set
+	 * @param equipments_mediums the equipments_mediums to set
 	 */
-	public void setEquipments_medium(Set<Equipment_Medium> equipments_medium) {
-		this.equipments_medium = equipments_medium;
+	public void setEquipments_mediums(Set<Equipment_Medium> equipments_mediums) {
+		this.equipments_mediums = equipments_mediums;
 	}
 
 	/**
-	 * @return the events_medium
+	 * @return the events_mediums
 	 */
-	public Set<Event_Medium> getEvents_medium() {
-		return events_medium;
+	public Set<Event_Medium> getEvents_mediums() {
+		return events_mediums;
 	}
 
 	/**
-	 * @param events_medium the events_medium to set
+	 * @param events_mediums the events_mediums to set
 	 */
-	public void setEvents_medium(Set<Event_Medium> events_medium) {
-		this.events_medium = events_medium;
+	public void setEvents_mediums(Set<Event_Medium> events_mediums) {
+		this.events_mediums = events_mediums;
 	}
 
 	/**
-	 * @return the facilities_medium
+	 * @return the facilities_mediums
 	 */
-	public Set<Facility_Medium> getFacilities_medium() {
-		return facilities_medium;
+	public Set<Facility_Medium> getFacilities_mediums() {
+		return facilities_mediums;
 	}
 
 	/**
-	 * @param facilities_medium the facilities_medium to set
+	 * @param facilities_mediums the facilities_mediums to set
 	 */
-	public void setFacilities_medium(Set<Facility_Medium> facilities_medium) {
-		this.facilities_medium = facilities_medium;
+	public void setFacilities_mediums(Set<Facility_Medium> facilities_mediums) {
+		this.facilities_mediums = facilities_mediums;
 	}
 
 	/**

@@ -96,7 +96,7 @@ public class Service implements CerifInfrastructureEntity {
 	private Set<Service_Class> services_classes;
 	
 	@OneToMany(mappedBy="service")
-	private Set<OrganisationUnit_Service> organisationUnit_services;
+	private Set<OrganisationUnit_Service> organisationUnits_services;
 	
 	@OneToMany(mappedBy="service")
 	private Set<Person_Service> persons_services;
@@ -123,7 +123,7 @@ public class Service implements CerifInfrastructureEntity {
 	private Set<Facility_Service> facilities_services;
 	
 	@OneToMany(mappedBy="service")
-	private Set<Equipment_Service> equipment_services;
+	private Set<Equipment_Service> equipments_services;
 	
 	@OneToMany(mappedBy="service")
 	private Set<Service_Event> services_events;
@@ -292,18 +292,18 @@ public class Service implements CerifInfrastructureEntity {
 	}
 
 	/**
-	 * @return the organisationUnit_services
+	 * @return the organisationUnits_services
 	 */
-	public Set<OrganisationUnit_Service> getOrganisationUnit_services() {
-		return organisationUnit_services;
+	public Set<OrganisationUnit_Service> getOrganisationUnits_services() {
+		return organisationUnits_services;
 	}
 
 	/**
-	 * @param organisationUnit_services the organisationUnit_services to set
+	 * @param organisationUnits_services the organisationUnits_services to set
 	 */
-	public void setOrganisationUnit_services(
-			Set<OrganisationUnit_Service> organisationUnit_services) {
-		this.organisationUnit_services = organisationUnit_services;
+	public void setOrganisationUnits_services(
+			Set<OrganisationUnit_Service> organisationUnits_services) {
+		this.organisationUnits_services = organisationUnits_services;
 	}
 
 	/**
@@ -420,17 +420,17 @@ public class Service implements CerifInfrastructureEntity {
 	}
 
 	/**
-	 * @return the equipment_services
+	 * @return the equipments_services
 	 */
-	public Set<Equipment_Service> getEquipment_services() {
-		return equipment_services;
+	public Set<Equipment_Service> getEquipments_services() {
+		return equipments_services;
 	}
 
 	/**
-	 * @param equipment_services the equipment_services to set
+	 * @param equipments_services the equipments_services to set
 	 */
-	public void setEquipment_services(Set<Equipment_Service> equipment_services) {
-		this.equipment_services = equipment_services;
+	public void setEquipments_services(Set<Equipment_Service> equipments_services) {
+		this.equipments_services = equipments_services;
 	}
 
 	/**

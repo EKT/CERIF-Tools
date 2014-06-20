@@ -62,14 +62,14 @@ public class Country implements CerifSecondLevelEntity {
 	 */
 	@OneToMany(mappedBy="country")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<CountryName> names;
+	private Set<CountryName> countryNames;
 	
 	
 	/**
 	 * Links.
 	 */
 	@OneToMany(mappedBy="country")
-	private Set<ResultProduct_Country> resultProducts;
+	private Set<ResultProduct_Country> resultProducts_countries;
 	
 	@OneToMany(mappedBy="country")
 	private Set<Event> events;
@@ -161,32 +161,32 @@ public class Country implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the resultProducts
+	 * @return the countryNames
 	 */
-	public Set<ResultProduct_Country> getResultProducts() {
-		return resultProducts;
+	public Set<CountryName> getCountryNames() {
+		return countryNames;
 	}
 
 	/**
-	 * @param resultProducts the resultProducts to set
+	 * @param countryNames the countryNames to set
 	 */
-	public void setOrganisationUnits(
-			Set<ResultProduct_Country> resultProducts) {
-		this.resultProducts = resultProducts;
+	public void setCountryNames(Set<CountryName> countryNames) {
+		this.countryNames = countryNames;
 	}
 
 	/**
-	 * @return the events
+	 * @return the resultProducts_countries
 	 */
-	public Set<Event> getEvents() {
-		return events;
+	public Set<ResultProduct_Country> getResultProducts_countries() {
+		return resultProducts_countries;
 	}
 
 	/**
-	 * @param events the events to set
+	 * @param resultProducts_countries the resultProducts_countries to set
 	 */
-	public void setEvents(Set<Event> events) {
-		this.events = events;
+	public void setResultProducts_countries(
+			Set<ResultProduct_Country> resultProducts_countries) {
+		this.resultProducts_countries = resultProducts_countries;
 	}
 
 	/**
@@ -229,20 +229,6 @@ public class Country implements CerifSecondLevelEntity {
 	 */
 	public void setPersons_countries(Set<Person_Country> persons_countries) {
 		this.persons_countries = persons_countries;
-	}
-
-	/**
-	 * @return the names
-	 */
-	public Set<CountryName> getNames() {
-		return names;
-	}
-
-	/**
-	 * @param names the names to set
-	 */
-	public void setNames(Set<CountryName> names) {
-		this.names = names;
 	}
 
 	/**

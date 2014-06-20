@@ -226,7 +226,7 @@ public class ResultPublication implements CerifResultEntity {
 	private Set<ResultPublication_Metrics> resultPublications_metrics;
 	
 	@OneToMany(mappedBy="resultPublication")
-	private Set<ResultPublication_Medium> resultPublications_medium;
+	private Set<ResultPublication_Medium> resultPublications_mediums;
 	
 	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublication_ResultPatent> resultPublications_resultPatents;
@@ -257,70 +257,6 @@ public class ResultPublication implements CerifResultEntity {
 		
 	}
 	
-	/**
-	 * 
-	 * @param date
-	 * @param num
-	 * @param vol
-	 * @param edition
-	 * @param series
-	 * @param issue
-	 * @param startPage
-	 * @param endPage
-	 * @param totalPages
-	 * @param isbn
-	 * @param issn
-	 * @param uri
-	 * @param resultPublicationTitles
-	 * @param resultPublicationSubtitles
-	 * @param resultPublicationAbstracts
-	 * @param resultPublicationKeywords
-	 * @param resultPublicationBibliographicNotes
-	 * @param resultPublicationNameAbbreviations
-	 * @param resultPublicationVersionInfos
-	 */
-	public ResultPublication(
-			Date date,
-			String num,
-			String vol,
-			String edition,
-			String series,
-			String issue,
-			String startPage,
-			String endPage,
-			String totalPages,
-			String isbn,
-			String issn,
-			String uri,
-			Set<ResultPublicationTitle> resultPublicationTitles,
-			Set<ResultPublicationSubtitle> resultPublicationSubtitles,
-			Set<ResultPublicationAbstract> resultPublicationAbstracts,
-			Set<ResultPublicationKeyword> resultPublicationKeywords,
-			Set<ResultPublicationBibliographicNote> resultPublicationBibliographicNotes,
-			Set<ResultPublicationNameAbbreviation> resultPublicationNameAbbreviations,
-			Set<ResultPublicationVersionInfo> resultPublicationVersionInfos
-			) {
-		this.date = date;
-		this.num = num;
-		this.vol = vol;
-		this.edition = edition;
-		this.series = series;
-		this.issue = issue;
-		this.startPage = startPage;
-		this.endPage = endPage;
-		this.totalPages = totalPages;
-		this.isbn = isbn;
-		this.issn = issn;
-		this.uri = uri;
-		this.resultPublicationTitles = resultPublicationTitles;
-		this.resultPublicationSubtitles = resultPublicationSubtitles;
-		this.resultPublicationAbstracts = resultPublicationAbstracts;
-		this.resultPublicationKeywords = resultPublicationKeywords;
-		this.resultPublicationBibliographicNotes = resultPublicationBibliographicNotes;
-		this.resultPublicationNameAbbreviations = resultPublicationNameAbbreviations;
-		this.resultPublicationVersionInfos = resultPublicationVersionInfos;
-	}
-
 	/**
 	 * Returns the unique identifier.
 	 * @return the unique identifier.
@@ -814,21 +750,6 @@ public class ResultPublication implements CerifResultEntity {
 			Set<ResultPublication_Metrics> resultPublications_metrics) {
 		this.resultPublications_metrics = resultPublications_metrics;
 	}
-	
-	/**
-	 * @return the resultPublications_medium
-	 */
-	public Set<ResultPublication_Medium> getResultPublications_medium() {
-		return resultPublications_medium;
-	}
-
-	/**
-	 * @param resultPublications_medium the resultPublications_medium to set
-	 */
-	public void setResultPublications_medium(
-			Set<ResultPublication_Medium> resultPublications_medium) {
-		this.resultPublications_medium = resultPublications_medium;
-	}
 
 	/**
 	 * @return the resultPublications_resultPatents
@@ -888,6 +809,21 @@ public class ResultPublication implements CerifResultEntity {
 	public void setResultPublications_resultPublications2(
 			Set<ResultPublication_ResultPublication> resultPublications_resultPublications2) {
 		this.resultPublications_resultPublications2 = resultPublications_resultPublications2;
+	}
+
+	/**
+	 * @return the resultPublications_mediums
+	 */
+	public Set<ResultPublication_Medium> getResultPublications_mediums() {
+		return resultPublications_mediums;
+	}
+
+	/**
+	 * @param resultPublications_mediums the resultPublications_mediums to set
+	 */
+	public void setResultPublications_mediums(
+			Set<ResultPublication_Medium> resultPublications_mediums) {
+		this.resultPublications_mediums = resultPublications_mediums;
 	}
 
 	/**
