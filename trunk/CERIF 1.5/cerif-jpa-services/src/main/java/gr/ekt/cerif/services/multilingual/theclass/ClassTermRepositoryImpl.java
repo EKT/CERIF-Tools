@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClassTermRepositoryImpl implements ClassTermRepository {
 
-	private static final Logger log = LoggerFactory.getLogger(ProjectRepositoryImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ClassTermRepositoryImpl.class);
 	
 	@Autowired
 	private ClassTermCrudRepository classTermCrudRepository;

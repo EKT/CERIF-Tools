@@ -50,6 +50,10 @@
         </property>
         <property name="jpaVendorAdapter" ref="vendorAdapter" />
     </bean>
+    
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    	<constructor-arg ref="entityManagerFactory" />
+    </bean>
 
 	<bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 	    <property name="showSql" value="false"/>
@@ -63,7 +67,7 @@
 
 	<context:component-scan base-package="gr.ekt.cerif" />
 
-	<jpa:repositories base-package="gr.ekt.cerif" />
+	<jpa:repositories base-package="gr.ekt.*" />
 	
 <!-- 	<bean id="openSessionInViewInterceptor" class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">   -->
 <!-- 	    <property name="sessionFactory">   -->

@@ -20,5 +20,8 @@ public interface ServiceCrudRepository extends CrudRepository<Service, Long> {
 	Page<Service> findAll(Pageable page);
 
 	Service findByUuid(String uuid);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Service findById(Long Id);
 
 }

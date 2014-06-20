@@ -52,7 +52,7 @@ public class ServiceRepositoryImpl implements ServiceRepository {
 
 	@Override
 	public Service findById(Long id) {
-		return serviceCrudRepository.findOne(id);
+		return serviceCrudRepository.findById(id);
 	}
 
 	@Override

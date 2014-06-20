@@ -102,7 +102,7 @@ public class ResultPublicationRepositoryImpl implements ResultPublicationReposit
 		
 		List<ResultPublication_Medium> rm = linkResultPublicationMediumRepository.findByResultPublication(entity);
 		if (rm != null) linkResultPublicationMediumRepository.delete(rm);
-		entity.setResultPublications_medium(null);
+		entity.setResultPublications_mediums(null);
 		
 		entity = resultPublicationCrudRepository.save(entity);
 		resultPublicationCrudRepository.delete(entity);
