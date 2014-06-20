@@ -61,13 +61,13 @@ public class Prize implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="prize")
-	private Set<PrizeName> names;
+	private Set<PrizeName> prizeNames;
 	
 	@OneToMany(mappedBy="prize")
-	private Set<PrizeKeyword> keywords;
+	private Set<PrizeKeyword> prizeKeywords;
 	
 	@OneToMany(mappedBy="prize")
-	private Set<PrizeDescription> descriptions;
+	private Set<PrizeDescription> prizeDescriptions;
 	
 	
 	/**
@@ -83,7 +83,7 @@ public class Prize implements CerifSecondLevelEntity {
 	private Set<Project_Prize> projects_prizes;
 	
 	@OneToMany(mappedBy="prize")
-	private Set<Prize_Class> classes;
+	private Set<Prize_Class> prizes_classes;
 
 	
 	/**
@@ -101,23 +101,6 @@ public class Prize implements CerifSecondLevelEntity {
 		
 	}
 	
-	/**
-	 * 
-	 * @param uri
-	 * @param names
-	 * @param keywords
-	 * @param descriptions
-	 * @param persons_prizes
-	 */
-	public Prize(String uri, Set<PrizeName> names, Set<PrizeKeyword> keywords,
-			Set<PrizeDescription> descriptions, Set<Person_Prize> persons_prizes) {
-		this.uri = uri;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
-		this.persons_prizes = persons_prizes;
-	}
-
 	/**
 	 * @return the id
 	 */
@@ -162,30 +145,62 @@ public class Prize implements CerifSecondLevelEntity {
 		this.uuid = uuid;
 	}
 
-	public Set<PrizeName> getNames() {
-		return names;
+	/**
+	 * @return the prizeNames
+	 */
+	public Set<PrizeName> getPrizeNames() {
+		return prizeNames;
 	}
 
-	public void setNames(Set<PrizeName> names) {
-		this.names = names;
+	/**
+	 * @param prizeNames the prizeNames to set
+	 */
+	public void setPrizeNames(Set<PrizeName> prizeNames) {
+		this.prizeNames = prizeNames;
 	}
 
-	public Set<PrizeKeyword> getKeywords() {
-		return keywords;
+	/**
+	 * @return the prizeKeywords
+	 */
+	public Set<PrizeKeyword> getPrizeKeywords() {
+		return prizeKeywords;
 	}
 
-	public void setKeywords(Set<PrizeKeyword> keywords) {
-		this.keywords = keywords;
+	/**
+	 * @param prizeKeywords the prizeKeywords to set
+	 */
+	public void setPrizeKeywords(Set<PrizeKeyword> prizeKeywords) {
+		this.prizeKeywords = prizeKeywords;
 	}
 
-	public Set<PrizeDescription> getDescriptions() {
-		return descriptions;
+	/**
+	 * @return the prizeDescriptions
+	 */
+	public Set<PrizeDescription> getPrizeDescriptions() {
+		return prizeDescriptions;
 	}
 
-	public void setDescriptions(Set<PrizeDescription> descriptions) {
-		this.descriptions = descriptions;
+	/**
+	 * @param prizeDescriptions the prizeDescriptions to set
+	 */
+	public void setPrizeDescriptions(Set<PrizeDescription> prizeDescriptions) {
+		this.prizeDescriptions = prizeDescriptions;
 	}
-	
+
+	/**
+	 * @return the prizes_classes
+	 */
+	public Set<Prize_Class> getPrizes_classes() {
+		return prizes_classes;
+	}
+
+	/**
+	 * @param prizes_classes the prizes_classes to set
+	 */
+	public void setPrizes_classes(Set<Prize_Class> prizes_classes) {
+		this.prizes_classes = prizes_classes;
+	}
+
 	/**
 	 * @return the persons_prizes
 	 */
@@ -227,20 +242,6 @@ public class Prize implements CerifSecondLevelEntity {
 	 */
 	public void setProjects_prizes(Set<Project_Prize> projects_prizes) {
 		this.projects_prizes = projects_prizes;
-	}
-
-	/**
-	 * @return the classes
-	 */
-	public Set<Prize_Class> getClasses() {
-		return classes;
-	}
-
-	/**
-	 * @param classes the classes to set
-	 */
-	public void setClasses(Set<Prize_Class> classes) {
-		this.classes = classes;
 	}
 
 	/**

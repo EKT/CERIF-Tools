@@ -44,7 +44,7 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	 * The electronic address unique identifier.
 	 */
 	@Id
-	@Column(name="cfEaddrId")
+	@Column(name="cfEAddrId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 
@@ -72,13 +72,13 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	 * Links.
 	 */
 	@OneToMany(mappedBy="electronicAddress")
-	private Set<OrganisationUnit_ElectronicAddress> organisationUnits;
+	private Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses;
 	
 	@OneToMany(mappedBy="electronicAddress")
 	private Set<Person_ElectronicAddress> persons_electronicAddresses;
 	
 	@OneToMany(mappedBy="electronicAddress")
-	private Set<ElectronicAddress_Class> classes;
+	private Set<ElectronicAddress_Class> electronicAddresses_classes;
 	
 	
 	/**
@@ -168,22 +168,6 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-
-	/**
-	 * @return the organisationUnits
-	 */
-	public Set<OrganisationUnit_ElectronicAddress> getOrganisationUnits() {
-		return organisationUnits;
-	}
-
-	/**
-	 * @param organisationUnits the organisationUnits to set
-	 */
-	public void setOrganisationUnits(
-			Set<OrganisationUnit_ElectronicAddress> organisationUnits) {
-		this.organisationUnits = organisationUnits;
-	}
-
 	
 	/**
 	 * @return the persons_electronicAddresses
@@ -201,17 +185,33 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the classes
+	 * @return the organisationUnits_electronicAddresses
 	 */
-	public Set<ElectronicAddress_Class> getClasses() {
-		return classes;
+	public Set<OrganisationUnit_ElectronicAddress> getOrganisationUnits_electronicAddresses() {
+		return organisationUnits_electronicAddresses;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param organisationUnits_electronicAddresses the organisationUnits_electronicAddresses to set
 	 */
-	public void setClasses(Set<ElectronicAddress_Class> classes) {
-		this.classes = classes;
+	public void setOrganisationUnits_electronicAddresses(
+			Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses) {
+		this.organisationUnits_electronicAddresses = organisationUnits_electronicAddresses;
+	}
+
+	/**
+	 * @return the electronicAddresses_classes
+	 */
+	public Set<ElectronicAddress_Class> getElectronicAddresses_classes() {
+		return electronicAddresses_classes;
+	}
+
+	/**
+	 * @param electronicAddresses_classes the electronicAddresses_classes to set
+	 */
+	public void setElectronicAddresses_classes(
+			Set<ElectronicAddress_Class> electronicAddresses_classes) {
+		this.electronicAddresses_classes = electronicAddresses_classes;
 	}
 
 	/**
@@ -227,6 +227,37 @@ public class ElectronicAddress implements CerifSecondLevelEntity {
 	public void setFederatedIdentifiers(
 			List<FederatedIdentifier> federatedIdentifiers) {
 		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ElectronicAddress other = (ElectronicAddress) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	/* (non-Javadoc)

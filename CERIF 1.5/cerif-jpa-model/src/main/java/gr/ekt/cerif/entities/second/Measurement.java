@@ -120,13 +120,13 @@ public class Measurement implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="measurement")
-	private Set<MeasurementName> names;
+	private Set<MeasurementName> measurementNames;
 	
 	@OneToMany(mappedBy="measurement")
-	private Set<MeasurementKeyword> keywords;
+	private Set<MeasurementKeyword> measurementKeywords;
 	
 	@OneToMany(mappedBy="measurement")
-	private Set<MeasurementDescription> descriptions;
+	private Set<MeasurementDescription> measurementDescriptions;
 	
 	
 	/**
@@ -193,50 +193,6 @@ public class Measurement implements CerifSecondLevelEntity {
 		
 	}
 	
-	/**
-	 * 
-	 * @param counter
-	 * @param valFloatP
-	 * @param valJudgeNum
-	 * @param countIntChange
-	 * @param countFloatPChange
-	 * @param valJudgeNumChange
-	 * @param valJudgeText
-	 * @param valJudgeTextChange
-	 * @param uri
-	 * @param resultPatents_measurements
-	 * @param resultProducts_measurements
-	 * @param names
-	 * @param keywords
-	 * @param descriptions
-	 * @param resultPublications_measurements
-	 */
-	public Measurement(Integer counter, Double valFloatP, Double valJudgeNum,
-			Integer countIntChange, Double countFloatPChange,
-			Double valJudgeNumChange, String valJudgeText,
-			String valJudgeTextChange, String uri,
-			Set<ResultPatent_Measurement> resultPatents_measurements,
-			Set<ResultProduct_Measurement> resultProducts_measurements,
-			Set<MeasurementName> names, Set<MeasurementKeyword> keywords,
-			Set<MeasurementDescription> descriptions,
-			Set<ResultPublication_Measurement> resultPublications_measurements) {
-		this.counter = counter;
-		this.valFloatP = valFloatP;
-		this.valJudgeNum = valJudgeNum;
-		this.countIntChange = countIntChange;
-		this.countFloatPChange = countFloatPChange;
-		this.valJudgeNumChange = valJudgeNumChange;
-		this.valJudgeText = valJudgeText;
-		this.valJudgeTextChange = valJudgeTextChange;
-		this.uri = uri;
-		this.resultPatents_measurements = resultPatents_measurements;
-		this.resultProducts_measurements = resultProducts_measurements;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
-		this.resultPublications_measurements = resultPublications_measurements;
-	}
-
 	/**
 	 * @return the id
 	 */
@@ -394,47 +350,48 @@ public class Measurement implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the names
+	 * @return the measurementNames
 	 */
-	public Set<MeasurementName> getNames() {
-		return names;
+	public Set<MeasurementName> getMeasurementNames() {
+		return measurementNames;
 	}
 
 	/**
-	 * @param names the names to set
+	 * @param measurementNames the measurementNames to set
 	 */
-	public void setNames(Set<MeasurementName> names) {
-		this.names = names;
+	public void setMeasurementNames(Set<MeasurementName> measurementNames) {
+		this.measurementNames = measurementNames;
 	}
 
 	/**
-	 * @return the keywords
+	 * @return the measurementKeywords
 	 */
-	public Set<MeasurementKeyword> getKeywords() {
-		return keywords;
+	public Set<MeasurementKeyword> getMeasurementKeywords() {
+		return measurementKeywords;
 	}
 
 	/**
-	 * @param keywords the keywords to set
+	 * @param measurementKeywords the measurementKeywords to set
 	 */
-	public void setKeywords(Set<MeasurementKeyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	/**
-	 * @return the descriptions
-	 */
-	public Set<MeasurementDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	/**
-	 * @param descriptions the descriptions to set
-	 */
-	public void setDescriptions(Set<MeasurementDescription> descriptions) {
-		this.descriptions = descriptions;
+	public void setMeasurementKeywords(Set<MeasurementKeyword> measurementKeywords) {
+		this.measurementKeywords = measurementKeywords;
 	}
 	
+	/**
+	 * @return the measurementDescriptions
+	 */
+	public Set<MeasurementDescription> getMeasurementDescriptions() {
+		return measurementDescriptions;
+	}
+
+	/**
+	 * @param measurementDescriptions the measurementDescriptions to set
+	 */
+	public void setMeasurementDescriptions(
+			Set<MeasurementDescription> measurementDescriptions) {
+		this.measurementDescriptions = measurementDescriptions;
+	}
+
 	/**
 	 * @return the measurements_classes
 	 */

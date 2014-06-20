@@ -38,7 +38,7 @@ public class Metrics implements CerifSecondLevelEntity {
 	 * The metrics id.
 	 */
 	@Id
-	@Column(name="cfCMetricsId")
+	@Column(name="cfMetricsId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
@@ -59,13 +59,13 @@ public class Metrics implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="metrics")
-	private Set<MetricsName> names;
+	private Set<MetricsName> metricsNames;
 	
 	@OneToMany(mappedBy="metrics")
-	private Set<MetricsKeyword> keywords;
+	private Set<MetricsKeyword> metricsKeywords;
 	
 	@OneToMany(mappedBy="metrics")
-	private Set<MetricsDescription> descriptions;
+	private Set<MetricsDescription> metricsDescriptions;
 	
 	
 	/**
@@ -75,7 +75,7 @@ public class Metrics implements CerifSecondLevelEntity {
 	private Set<ResultPublication_Metrics> resultPublications_metrics;
 	
 	@OneToMany(mappedBy="metrics")
-	private Set<Metrics_Class> classes;
+	private Set<Metrics_Class> metrics_classes;
 
 	
 	/**
@@ -91,24 +91,6 @@ public class Metrics implements CerifSecondLevelEntity {
 	 */
 	public Metrics() {
 		
-	}
-	
-	/**
-	 * 
-	 * @param uri
-	 * @param names
-	 * @param keywords
-	 * @param descriptions
-	 * @param resultPublications_metrics
-	 */
-	public Metrics(String uri, Set<MetricsName> names,
-			Set<MetricsKeyword> keywords, Set<MetricsDescription> descriptions,
-			Set<ResultPublication_Metrics> resultPublications_metrics) {
-		this.uri = uri;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
-		this.resultPublications_metrics = resultPublications_metrics;
 	}
 
 	/**
@@ -144,30 +126,48 @@ public class Metrics implements CerifSecondLevelEntity {
 		this.uuid = uuid;
 	}
 
-	public Set<MetricsName> getNames() {
-		return names;
+	/**
+	 * @return the metricsNames
+	 */
+	public Set<MetricsName> getMetricsNames() {
+		return metricsNames;
 	}
 
-	public void setNames(Set<MetricsName> names) {
-		this.names = names;
+	/**
+	 * @param metricsNames the metricsNames to set
+	 */
+	public void setMetricsNames(Set<MetricsName> metricsNames) {
+		this.metricsNames = metricsNames;
 	}
 
-	public Set<MetricsKeyword> getKeywords() {
-		return keywords;
+	/**
+	 * @return the metricsKeywords
+	 */
+	public Set<MetricsKeyword> getMetricsKeywords() {
+		return metricsKeywords;
 	}
 
-	public void setKeywords(Set<MetricsKeyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	public Set<MetricsDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	public void setDescriptions(Set<MetricsDescription> descriptions) {
-		this.descriptions = descriptions;
+	/**
+	 * @param metricsKeywords the metricsKeywords to set
+	 */
+	public void setMetricsKeywords(Set<MetricsKeyword> metricsKeywords) {
+		this.metricsKeywords = metricsKeywords;
 	}
 	
+	/**
+	 * @return the metricsDescriptions
+	 */
+	public Set<MetricsDescription> getMetricsDescriptions() {
+		return metricsDescriptions;
+	}
+
+	/**
+	 * @param metricsDescriptions the metricsDescriptions to set
+	 */
+	public void setMetricsDescriptions(Set<MetricsDescription> metricsDescriptions) {
+		this.metricsDescriptions = metricsDescriptions;
+	}
+
 	/**
 	 * @return the resultPublications_metrics
 	 */
@@ -184,17 +184,17 @@ public class Metrics implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the classes
+	 * @return the metrics_classes
 	 */
-	public Set<Metrics_Class> getClasses() {
-		return classes;
+	public Set<Metrics_Class> getMetrics_classes() {
+		return metrics_classes;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param metrics_classes the metrics_classes to set
 	 */
-	public void setClasses(Set<Metrics_Class> classes) {
-		this.classes = classes;
+	public void setMetrics_classes(Set<Metrics_Class> metrics_classes) {
+		this.metrics_classes = metrics_classes;
 	}
 
 	/**

@@ -59,10 +59,10 @@ public class Citation implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="citation")
-	private Set<CitationDescription> descriptions;
+	private Set<CitationDescription> citationDescriptions;
 	
 	@OneToMany(mappedBy="citation")
-	private Set<CitationTitle> titles;
+	private Set<CitationTitle> citationTitles;
 	
 	
 	/**
@@ -91,19 +91,6 @@ public class Citation implements CerifSecondLevelEntity {
 	 */
 	public Citation() {
 		
-	}
-	
-	/**
-	 * 
-	 * @param uri
-	 * @param descriptions
-	 * @param titles
-	 */
-	public Citation(String uri, Set<CitationDescription> descriptions,
-			Set<CitationTitle> titles) {
-		this.uri = uri;
-		this.descriptions = descriptions;
-		this.titles = titles;
 	}
 
 	/**
@@ -151,33 +138,34 @@ public class Citation implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the descriptions
+	 * @return the citationDescriptions
 	 */
-	public Set<CitationDescription> getDescriptions() {
-		return descriptions;
+	public Set<CitationDescription> getCitationDescriptions() {
+		return citationDescriptions;
 	}
 
 	/**
-	 * @param descriptions the descriptions to set
+	 * @param citationDescriptions the citationDescriptions to set
 	 */
-	public void setDescriptions(Set<CitationDescription> descriptions) {
-		this.descriptions = descriptions;
+	public void setCitationDescriptions(
+			Set<CitationDescription> citationDescriptions) {
+		this.citationDescriptions = citationDescriptions;
 	}
 
 	/**
-	 * @return the titles
+	 * @return the citationTitles
 	 */
-	public Set<CitationTitle> getTitles() {
-		return titles;
+	public Set<CitationTitle> getCitationTitles() {
+		return citationTitles;
 	}
 
 	/**
-	 * @param titles the titles to set
+	 * @param citationTitles the citationTitles to set
 	 */
-	public void setTitles(Set<CitationTitle> titles) {
-		this.titles = titles;
+	public void setCitationTitles(Set<CitationTitle> citationTitles) {
+		this.citationTitles = citationTitles;
 	}
-	
+
 	/**
 	 * @return the resultPublications_citations
 	 */

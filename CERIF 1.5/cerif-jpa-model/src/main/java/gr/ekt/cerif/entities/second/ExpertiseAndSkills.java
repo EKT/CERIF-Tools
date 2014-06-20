@@ -60,13 +60,13 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="expertiseAndSkills")
-	private Set<ExpertiseAndSkillsName> names;
+	private Set<ExpertiseAndSkillsName> expertiseAndSkillsNames;
 	
 	@OneToMany(mappedBy="expertiseAndSkills")
-	private Set<ExpertiseAndSkillsKeyword> keywords;
+	private Set<ExpertiseAndSkillsKeyword> expertiseAndSkillsKeywords;
 	
 	@OneToMany(mappedBy="expertiseAndSkills")
-	private Set<ExpertiseAndSkillsDescription> descriptions;
+	private Set<ExpertiseAndSkillsDescription> expertiseAndSkillsDescriptions;
 	
 	
 	/**
@@ -79,7 +79,7 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 	private Set<OrganisationUnit_ExpertiseAndSkills> organisationUnits_expertiseAndSkills;
 	
 	@OneToMany(mappedBy="expertiseAndSkills")
-	private Set<ExpertiseAndSkills_Class> classes;
+	private Set<ExpertiseAndSkills_Class> expertiseAndSkillsClasses;
 
 	
 	/**
@@ -95,23 +95,6 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 	 */
 	public ExpertiseAndSkills() {
 		
-	}
-	
-	/**
-	 * 
-	 * @param uri
-	 * @param names
-	 * @param keywords
-	 * @param descriptions
-	 * @param persons_expertiseAndSkills
-	 */
-	public ExpertiseAndSkills(String uri, Set<ExpertiseAndSkillsName> names,
-			Set<ExpertiseAndSkillsKeyword> keywords,
-			Set<ExpertiseAndSkillsDescription> descriptions) {
-		this.uri = uri;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
 	}
 
 	/**
@@ -157,49 +140,67 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-
-	/**
-	 * @return the names
-	 */
-	public Set<ExpertiseAndSkillsName> getNames() {
-		return names;
-	}
-
-	/**
-	 * @param names the names to set
-	 */
-	public void setNames(Set<ExpertiseAndSkillsName> names) {
-		this.names = names;
-	}
-
-	/**
-	 * @return the keywords
-	 */
-	public Set<ExpertiseAndSkillsKeyword> getKeywords() {
-		return keywords;
-	}
-
-	/**
-	 * @param keywords the keywords to set
-	 */
-	public void setKeywords(Set<ExpertiseAndSkillsKeyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	/**
-	 * @return the descriptions
-	 */
-	public Set<ExpertiseAndSkillsDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	/**
-	 * @param descriptions the descriptions to set
-	 */
-	public void setDescriptions(Set<ExpertiseAndSkillsDescription> descriptions) {
-		this.descriptions = descriptions;
-	}
 	
+	/**
+	 * @return the expertiseAndSkillsNames
+	 */
+	public Set<ExpertiseAndSkillsName> getExpertiseAndSkillsNames() {
+		return expertiseAndSkillsNames;
+	}
+
+	/**
+	 * @param expertiseAndSkillsNames the expertiseAndSkillsNames to set
+	 */
+	public void setExpertiseAndSkillsNames(
+			Set<ExpertiseAndSkillsName> expertiseAndSkillsNames) {
+		this.expertiseAndSkillsNames = expertiseAndSkillsNames;
+	}
+
+	/**
+	 * @return the expertiseAndSkillsKeywords
+	 */
+	public Set<ExpertiseAndSkillsKeyword> getExpertiseAndSkillsKeywords() {
+		return expertiseAndSkillsKeywords;
+	}
+
+	/**
+	 * @param expertiseAndSkillsKeywords the expertiseAndSkillsKeywords to set
+	 */
+	public void setExpertiseAndSkillsKeywords(
+			Set<ExpertiseAndSkillsKeyword> expertiseAndSkillsKeywords) {
+		this.expertiseAndSkillsKeywords = expertiseAndSkillsKeywords;
+	}
+
+	/**
+	 * @return the expertiseAndSkillsDescriptions
+	 */
+	public Set<ExpertiseAndSkillsDescription> getExpertiseAndSkillsDescriptions() {
+		return expertiseAndSkillsDescriptions;
+	}
+
+	/**
+	 * @param expertiseAndSkillsDescriptions the expertiseAndSkillsDescriptions to set
+	 */
+	public void setExpertiseAndSkillsDescriptions(
+			Set<ExpertiseAndSkillsDescription> expertiseAndSkillsDescriptions) {
+		this.expertiseAndSkillsDescriptions = expertiseAndSkillsDescriptions;
+	}
+
+	/**
+	 * @return the expertiseAndSkillsClasses
+	 */
+	public Set<ExpertiseAndSkills_Class> getExpertiseAndSkillsClasses() {
+		return expertiseAndSkillsClasses;
+	}
+
+	/**
+	 * @param expertiseAndSkillsClasses the expertiseAndSkillsClasses to set
+	 */
+	public void setExpertiseAndSkillsClasses(
+			Set<ExpertiseAndSkills_Class> expertiseAndSkillsClasses) {
+		this.expertiseAndSkillsClasses = expertiseAndSkillsClasses;
+	}
+
 	/**
 	 * @return the persons_expertiseAndSkills
 	 */
@@ -228,20 +229,6 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 	public void setOrganisationUnits_expertiseAndSkills(
 			Set<OrganisationUnit_ExpertiseAndSkills> organisationUnits_expertiseAndSkills) {
 		this.organisationUnits_expertiseAndSkills = organisationUnits_expertiseAndSkills;
-	}
-
-	/**
-	 * @return the classes
-	 */
-	public Set<ExpertiseAndSkills_Class> getClasses() {
-		return classes;
-	}
-
-	/**
-	 * @param classes the classes to set
-	 */
-	public void setClasses(Set<ExpertiseAndSkills_Class> classes) {
-		this.classes = classes;
 	}
 
 	/**

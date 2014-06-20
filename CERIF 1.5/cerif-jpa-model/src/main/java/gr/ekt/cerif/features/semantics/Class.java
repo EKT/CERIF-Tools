@@ -550,28 +550,6 @@ public class Class implements CerifSemanticFeature {
 		this.persons = persons;
 	}
 
-	
-	public ClassTerm getOriginalTranslation() {
-		ClassTerm result = null;
-		if (terms != null && terms.iterator().hasNext()) {
-			result = terms.iterator().next();
-		}
-		return result;
-	}
-	
-	public ClassTerm getTranslation(Language language) {
-		ClassTerm result = null;
-		if (terms != null) {
-			for (ClassTerm translation : terms) {
-				if (translation.getLanguage().equals(language)) {
-					result = translation;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	
 	/**
 	 * Returns the orgUnit_resultProducts.
 	 * @return the orgUnit_resultProducts.

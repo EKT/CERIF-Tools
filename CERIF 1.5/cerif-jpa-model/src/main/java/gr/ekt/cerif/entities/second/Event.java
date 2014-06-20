@@ -103,13 +103,13 @@ public class Event implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="event")
-	private Set<EventName> names;
+	private Set<EventName> eventNames;
 	
 	@OneToMany(mappedBy="event")
-	private Set<EventKeyword> keywords;
+	private Set<EventKeyword> eventKeywords;
 	
 	@OneToMany(mappedBy="event")
-	private Set<EventDescription> descriptions;
+	private Set<EventDescription> eventDescriptions;
 	
 	
 	/**
@@ -125,7 +125,7 @@ public class Event implements CerifSecondLevelEntity {
 	private Set<ResultPublication_Event> resultPublications_events;
 	
 	@OneToMany(mappedBy="event")
-	private Set<Event_Class> classes;
+	private Set<Event_Class> events_classes;
 	
 	@OneToMany(mappedBy="event")
 	private Set<OrganisationUnit_Event> organisationUnits_events;
@@ -137,7 +137,7 @@ public class Event implements CerifSecondLevelEntity {
 	private Set<Equipment_Event> equipments_events;
 	
 	@OneToMany(mappedBy="event")
-	private Set<Event_Medium> events_medium;
+	private Set<Event_Medium> events_mediums;
 	
 	@OneToMany(mappedBy="event")
 	private Set<Event_Indicator> events_indicators;
@@ -166,36 +166,6 @@ public class Event implements CerifSecondLevelEntity {
 	 */
 	public Event() {
 		
-	}
-	
-	/**
-	 * 
-	 * @param country
-	 * @param cityTown
-	 * @param feeOrFree
-	 * @param startDate
-	 * @param endDate
-	 * @param uri
-	 * @param names
-	 * @param keywords
-	 * @param descriptions
-	 * @param classes
-	 */
-	public Event(Country country, String cityTown, String feeOrFree,
-			Date startDate, Date endDate, String uri, Set<EventName> names,
-			Set<EventKeyword> keywords, Set<EventDescription> descriptions,
-			Set<Event_Class> classes, Set<OrganisationUnit_Event> organisationUnits_events) {
-		this.country = country;
-		this.cityTown = cityTown;
-		this.feeOrFree = feeOrFree;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.uri = uri;
-		this.names = names;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
-		this.classes = classes;
-		this.organisationUnits_events = organisationUnits_events;
 	}
 
 	/**
@@ -311,6 +281,48 @@ public class Event implements CerifSecondLevelEntity {
 	}
 
 	/**
+	 * @return the eventNames
+	 */
+	public Set<EventName> getEventNames() {
+		return eventNames;
+	}
+
+	/**
+	 * @param eventNames the eventNames to set
+	 */
+	public void setEventNames(Set<EventName> eventNames) {
+		this.eventNames = eventNames;
+	}
+
+	/**
+	 * @return the eventKeywords
+	 */
+	public Set<EventKeyword> getEventKeywords() {
+		return eventKeywords;
+	}
+
+	/**
+	 * @param eventKeywords the eventKeywords to set
+	 */
+	public void setEventKeywords(Set<EventKeyword> eventKeywords) {
+		this.eventKeywords = eventKeywords;
+	}
+
+	/**
+	 * @return the eventDescriptions
+	 */
+	public Set<EventDescription> getEventDescriptions() {
+		return eventDescriptions;
+	}
+
+	/**
+	 * @param eventDescriptions the eventDescriptions to set
+	 */
+	public void setEventDescriptions(Set<EventDescription> eventDescriptions) {
+		this.eventDescriptions = eventDescriptions;
+	}
+
+	/**
 	 * @return the projects_events
 	 */
 	public Set<Project_Event> getProjects_events() {
@@ -323,50 +335,6 @@ public class Event implements CerifSecondLevelEntity {
 	public void setProjects_events(Set<Project_Event> projects_events) {
 		this.projects_events = projects_events;
 	}
-	
-	
-	/**
-	 * @return the names
-	 */
-	public Set<EventName> getNames() {
-		return names;
-	}
-
-	/**
-	 * @param names the names to set
-	 */
-	public void setNames(Set<EventName> names) {
-		this.names = names;
-	}
-
-	/**
-	 * @return the keywords
-	 */
-	public Set<EventKeyword> getKeywords() {
-		return keywords;
-	}
-
-	/**
-	 * @param keywords the keywords to set
-	 */
-	public void setKeywords(Set<EventKeyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	/**
-	 * @return the descriptions
-	 */
-	public Set<EventDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	/**
-	 * @param descriptions the descriptions to set
-	 */
-	public void setDescriptions(Set<EventDescription> descriptions) {
-		this.descriptions = descriptions;
-	}
-
 	
 	/**
 	 * @return the persons_events
@@ -398,19 +366,19 @@ public class Event implements CerifSecondLevelEntity {
 	}
 	
 	/**
-	 * @return the classes
+	 * @return the events_classes
 	 */
-	public Set<Event_Class> getClasses() {
-		return classes;
+	public Set<Event_Class> getEvents_classes() {
+		return events_classes;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param events_classes the events_classes to set
 	 */
-	public void setClasses(Set<Event_Class> classes) {
-		this.classes = classes;
+	public void setEvents_classes(Set<Event_Class> events_classes) {
+		this.events_classes = events_classes;
 	}
-	
+
 	/**
 	 * @return the services_events
 	 */
@@ -440,17 +408,17 @@ public class Event implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the events_medium
+	 * @return the events_mediums
 	 */
-	public Set<Event_Medium> getEvents_medium() {
-		return events_medium;
+	public Set<Event_Medium> getEvents_mediums() {
+		return events_mediums;
 	}
 
 	/**
-	 * @param events_medium the events_medium to set
+	 * @param events_mediums the events_mediums to set
 	 */
-	public void setEvents_medium(Set<Event_Medium> events_medium) {
-		this.events_medium = events_medium;
+	public void setEvents_mediums(Set<Event_Medium> events_mediums) {
+		this.events_mediums = events_mediums;
 	}
 
 	/**

@@ -59,13 +59,13 @@ public class Qualification implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="qualification")
-	private Set<QualificationTitle> titles;
+	private Set<QualificationTitle> qualificationTitles;
 	
 	@OneToMany(mappedBy="qualification")
-	private Set<QualificationKeyword> keywords;
+	private Set<QualificationKeyword> qualificationKeywords;
 	
 	@OneToMany(mappedBy="qualification")
-	private Set<QualificationDescription> descriptions;
+	private Set<QualificationDescription> qualificationDescriptions;
 	
 	
 	/**
@@ -75,7 +75,7 @@ public class Qualification implements CerifSecondLevelEntity {
 	private Set<Person_Qualification> persons_qualifications;
 	
 	@OneToMany(mappedBy="qualification")
-	private Set<Qualification_Class> classes;
+	private Set<Qualification_Class> qualifications_classes;
 
 	
 	/**
@@ -91,22 +91,6 @@ public class Qualification implements CerifSecondLevelEntity {
 	 */
 	public Qualification() {
 		
-	}
-	
-	/**
-	 * 
-	 * @param uri
-	 * @param titles
-	 * @param keywords
-	 * @param descriptions
-	 */
-	public Qualification(String uri, Set<QualificationTitle> titles,
-			Set<QualificationKeyword> keywords,
-			Set<QualificationDescription> descriptions) {
-		this.uri = uri;
-		this.titles = titles;
-		this.keywords = keywords;
-		this.descriptions = descriptions;
 	}
 
 	/**
@@ -153,30 +137,65 @@ public class Qualification implements CerifSecondLevelEntity {
 		this.uuid = uuid;
 	}
 
-	public Set<QualificationTitle> getTitles() {
-		return titles;
+	/**
+	 * @return the qualificationTitles
+	 */
+	public Set<QualificationTitle> getQualificationTitles() {
+		return qualificationTitles;
 	}
 
-	public void setTitles(Set<QualificationTitle> titles) {
-		this.titles = titles;
+	/**
+	 * @param qualificationTitles the qualificationTitles to set
+	 */
+	public void setQualificationTitles(Set<QualificationTitle> qualificationTitles) {
+		this.qualificationTitles = qualificationTitles;
 	}
 
-	public Set<QualificationKeyword> getKeywords() {
-		return keywords;
+	/**
+	 * @return the qualificationKeywords
+	 */
+	public Set<QualificationKeyword> getQualificationKeywords() {
+		return qualificationKeywords;
 	}
 
-	public void setKeywords(Set<QualificationKeyword> keywords) {
-		this.keywords = keywords;
+	/**
+	 * @param qualificationKeywords the qualificationKeywords to set
+	 */
+	public void setQualificationKeywords(
+			Set<QualificationKeyword> qualificationKeywords) {
+		this.qualificationKeywords = qualificationKeywords;
 	}
 
-	public Set<QualificationDescription> getDescriptions() {
-		return descriptions;
+	/**
+	 * @return the qualificationDescriptions
+	 */
+	public Set<QualificationDescription> getQualificationDescriptions() {
+		return qualificationDescriptions;
 	}
 
-	public void setDescriptions(Set<QualificationDescription> descriptions) {
-		this.descriptions = descriptions;
+	/**
+	 * @param qualificationDescriptions the qualificationDescriptions to set
+	 */
+	public void setQualificationDescriptions(
+			Set<QualificationDescription> qualificationDescriptions) {
+		this.qualificationDescriptions = qualificationDescriptions;
 	}
-	
+
+	/**
+	 * @return the qualifications_classes
+	 */
+	public Set<Qualification_Class> getQualifications_classes() {
+		return qualifications_classes;
+	}
+
+	/**
+	 * @param qualifications_classes the qualifications_classes to set
+	 */
+	public void setQualifications_classes(
+			Set<Qualification_Class> qualifications_classes) {
+		this.qualifications_classes = qualifications_classes;
+	}
+
 	/**
 	 * @return the persons_qualifications
 	 */
