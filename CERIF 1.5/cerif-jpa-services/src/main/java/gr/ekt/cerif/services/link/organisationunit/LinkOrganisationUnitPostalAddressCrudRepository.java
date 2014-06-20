@@ -21,7 +21,7 @@ public interface LinkOrganisationUnitPostalAddressCrudRepository extends CrudRep
 	List<OrganisationUnit_PostalAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	@Query("select op from OrganisationUnit_PostalAddress op join op.organisationUnit org join org.organisationUnitNames uname join op.postalAddress pa join pa.country cname join cname.names countryName where uname.name=?1 and countryName.name=?2 ")
+	@Query("select op from OrganisationUnit_PostalAddress op join op.organisationUnit org join org.organisationUnitNames uname join op.postalAddress pa join pa.country cname join cname.countryNames countryName where uname.name=?1 and countryName.name=?2 ")
 	OrganisationUnit_PostalAddress findByOrganisationUnitNameAndCountryName(String organisationUnitName, String cName);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })

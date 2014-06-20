@@ -19,7 +19,7 @@ public interface LinkResultPublicationMediumCrudRepository extends CrudRepositor
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = " select mediumrespub from ResultPublication respub "+
-			"  left join respub.resultPublications_medium mediumrespub " +
+			"  left join respub.resultPublications_mediums mediumrespub " +
 			"  where respub.id = ?1   ")
 	List<ResultPublication_Medium> finfByResPubId(Long respubId);
 	

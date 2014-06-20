@@ -33,7 +33,7 @@ public interface ElectronicAddressCrudRepository extends CrudRepository<Electron
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select ea from ElectronicAddress ea " +
-			"join ea.organisationUnits orgs " +
+			"join ea.organisationUnits_electronicAddresses orgs " +
 			"join orgs.organisationUnit org " +
 			"where org=?1 ")
 	List<ElectronicAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);

@@ -21,7 +21,7 @@ import gr.ekt.cerif.services.base.ProjectRepositoryImpl;
 @Component
 public class FundingDescriptionRepositoryImpl implements FundingDescriptionRepository {
 
-	private static final Logger log = LoggerFactory.getLogger(ProjectRepositoryImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(FundingDescriptionRepositoryImpl.class);
 	
 	@Autowired
 	private FundingDescriptionCrudRepository fundingDescriptionCrudRepository;
