@@ -18,8 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -32,9 +30,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * 
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(name="OrganisationUnit_ResultProduct.countProductsBySchemeURI", query="SELECT rpc.organisationUnit, count(rpc.resultProduct) FROM OrganisationUnit_ResultProduct rpc WHERE rpc.theClass.uri = :uri group by rpc.organisationUnit")
-})
 @Table(name="cfOrgUnit_ResProd", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId", "cfResProdId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 	
