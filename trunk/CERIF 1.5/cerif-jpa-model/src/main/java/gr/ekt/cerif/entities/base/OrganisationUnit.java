@@ -494,36 +494,6 @@ public class OrganisationUnit implements CerifBaseEntity {
 	}
 	
 	/**
-	 * Returns the organisation translations.
-	 * @return the organisation translations.
-	 */
-	public OrganisationUnitName getOrganisationUnitNameTranslation(Language language) {
-		OrganisationUnitName result = null; 
-		if (organisationUnitNames != null) {
-			for (OrganisationUnitName translation : organisationUnitNames) {
-				if (language.equals(translation.getLanguage())) {
-					result = translation;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public OrganisationUnitName getFirstTranslationName() {
-		OrganisationUnitName name = null;
-		if (organisationUnitNames != null && organisationUnitNames.size() > 0) {
-			for (OrganisationUnitName translation : organisationUnitNames) {
-				if (StringUtils.hasText(translation.getName())) {
-					name = translation;
-					break;
-				}
-			}
-		}
-		return name;
-	}
-	
-	/**
 	 * Returns the organisation Research Activities.
 	 * @return the organisation Research Activities.
 	 */
@@ -540,36 +510,6 @@ public class OrganisationUnit implements CerifBaseEntity {
 	}
 	
 	/**
-	 * Returns the organisation Research Activities translations.
-	 * @return the organisation Research Activities translations.
-	 */
-	public OrganisationUnitResearchActivity getOrganisationUnitResearchActivityTranslation(Language language) {
-		OrganisationUnitResearchActivity result = null; 
-		if (organisationUnitResearchActivities != null) {
-			for (OrganisationUnitResearchActivity translation : organisationUnitResearchActivities) {
-				if (language.equals(translation.getLanguage())) {
-					result = translation;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public OrganisationUnitResearchActivity getFirstTranslationResearchActivity() {
-		OrganisationUnitResearchActivity result = null;
-		if (organisationUnitResearchActivities != null && organisationUnitResearchActivities.size() > 0) {
-			for (OrganisationUnitResearchActivity translation : organisationUnitResearchActivities) {
-				if (StringUtils.hasText(translation.getResearchActivity())) {
-					result = translation;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	
-	/**
 	 * Returns the organisation Keywords.
 	 * @return the organisation Keywords.
 	 */
@@ -583,36 +523,6 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 */
 	public void setOrganisationUnitKeywords(Set<OrganisationUnitKeyword> organisationUnitKeywords) {
 		this.organisationUnitKeywords = organisationUnitKeywords;
-	}
-	
-	/**
-	 * Returns the organisation Keywords translations.
-	 * @return the organisation Keywords translations.
-	 */
-	public OrganisationUnitKeyword getOrganisationUnitKeywordsTranslation(Language language) {
-		OrganisationUnitKeyword result = null; 
-		if (organisationUnitKeywords != null) {
-			for (OrganisationUnitKeyword translation : organisationUnitKeywords) {
-				if (language.equals(translation.getLanguage())) {
-					result = translation;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public OrganisationUnitKeyword getFirstTranslationKeyword() {
-		OrganisationUnitKeyword result = null;
-		if (organisationUnitKeywords != null && organisationUnitKeywords.size() > 0) {
-			for (OrganisationUnitKeyword translation : organisationUnitKeywords) {
-				if (StringUtils.hasText(translation.getKeyword())) {
-					result = translation;
-					break;
-				}
-			}
-		}
-		return result;
 	}
 	
 	public Set<OrganisationUnit_Facility> getOrganisationUnits_facilities() {
