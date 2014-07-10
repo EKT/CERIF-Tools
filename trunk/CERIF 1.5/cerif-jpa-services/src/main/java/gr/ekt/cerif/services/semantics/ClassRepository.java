@@ -41,4 +41,6 @@ public interface ClassRepository {
 	
 	Page<Class> findAll(Pageable page);
 	
+	List<Class> findByUuidAndScheme(String uuid, ClassScheme scheme);
+	
 }

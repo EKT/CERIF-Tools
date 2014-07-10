@@ -17,33 +17,40 @@ public class ClassRepositoryImpl implements ClassRepository {
 	@Autowired
 	private ClassCrudRepository classCrudRepository;
 	
+	@Override
 	public Class findById(Long id) {
 		return classCrudRepository.findById(id);
 	}
 
+	@Override
 	public List<Class> findByUri(String uri) {
 		return classCrudRepository.findByUri(uri);
 	}
 	
+	@Override
 	public List<Class> findByScheme(ClassScheme scheme) {
 		return classCrudRepository.findByScheme(scheme);
 	}
 
 	@Transactional
+	@Override
 	public void delete(Class entity) {
 		classCrudRepository.delete(entity);		
 	}
 
 	@Transactional
+	@Override
 	public Iterable<Class> save(Iterable<Class> entityList) {
 		return classCrudRepository.save(entityList);
 	}
 
 	@Transactional
+	@Override
 	public Class save(Class entity) {
 		return classCrudRepository.save(entity);
 	}
 
+	@Override
 	public Class findOne(Long id) {
 		return classCrudRepository.findOne(id);
 	}
@@ -66,6 +73,11 @@ public class ClassRepositoryImpl implements ClassRepository {
 	@Override
 	public List<Class> findByUuid(String uuid) {
 		return classCrudRepository.findByUuid(uuid);
+	}
+
+	@Override
+	public List<Class> findByUuidAndScheme(String uuid, ClassScheme scheme) {
+		return classCrudRepository.findByUuidAndScheme(uuid, scheme);
 	}
 
 }

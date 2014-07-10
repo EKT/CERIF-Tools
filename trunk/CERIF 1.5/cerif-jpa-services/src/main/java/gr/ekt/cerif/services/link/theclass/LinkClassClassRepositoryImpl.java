@@ -1,5 +1,7 @@
 package gr.ekt.cerif.services.link.theclass;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,16 @@ public class LinkClassClassRepositoryImpl implements LinkClassClassRepository {
 	@Override
 	public Class_Class save(Class_Class entity) {
 		return linkClassClassCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Class_Class> findByTheClass1(Class theClass) {
+		return linkClassClassCrudRepository.findByTheClass1(theClass);
+	}
+
+	@Override
+	public List<Class_Class> findByTheClass2(Class theClass) {
+		return linkClassClassCrudRepository.findByTheClass2(theClass);
 	}
 
 }

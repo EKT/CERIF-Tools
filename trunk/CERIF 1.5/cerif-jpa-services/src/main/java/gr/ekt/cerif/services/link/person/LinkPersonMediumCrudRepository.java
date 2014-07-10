@@ -15,12 +15,5 @@ public interface LinkPersonMediumCrudRepository extends CrudRepository<Person_Me
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Person_Medium> findByPerson(Person person);
-	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	@Query(value = "select pm from Person_Medium pm " +
-			   "  left join pm.person p 			" +
-   		"  left join pm.theClass pmtcl						" +   
-   		"  where p.id=?1 and pmtcl.uri='images' group by p.id ")
-	Person_Medium findProfilePhotoByPersonId(Long id);
 
 }

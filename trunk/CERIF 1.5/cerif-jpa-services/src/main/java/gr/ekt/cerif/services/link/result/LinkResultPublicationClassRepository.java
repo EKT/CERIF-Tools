@@ -6,11 +6,6 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
-import javax.persistence.QueryHint;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
-
 /**
  * A repository for links between resultPublications and classes.
  * 

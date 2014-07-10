@@ -11,15 +11,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LinkPersonClassRepositoryImpl implements LinkPersonClassRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(LinkPersonClassRepositoryImpl.class);
 	
 	@Autowired
 	private LinkPersonClassCrudRepository linkPersonClassCrudRepository;

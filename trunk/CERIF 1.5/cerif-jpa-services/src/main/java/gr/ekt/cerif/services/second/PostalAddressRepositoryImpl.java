@@ -93,7 +93,7 @@ public class PostalAddressRepositoryImpl implements PostalAddressRepository {
 
 
 	@Override
-	public PostalAddress findByPerson(Person person) {
+	public List<PostalAddress> findByPerson(Person person) {
 		return postalAddressCrudRepository.findByPerson(person);
 	}
 

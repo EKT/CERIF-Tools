@@ -1,5 +1,7 @@
 package gr.ekt.cerif.services.link.theclass;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.link.Class_Class;
 import gr.ekt.cerif.features.semantics.Class;
 
@@ -14,4 +16,8 @@ public interface LinkClassClassRepository {
 	public Iterable<Class_Class> save(Iterable<Class_Class> entities); 
 	
 	public Class_Class save(Class_Class entity);
+	
+	List<Class_Class> findByTheClass1(Class theClass);
+	
+	List<Class_Class> findByTheClass2(Class theClass);
 }

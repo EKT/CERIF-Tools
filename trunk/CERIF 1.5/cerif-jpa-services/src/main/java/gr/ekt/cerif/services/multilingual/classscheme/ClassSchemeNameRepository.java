@@ -3,7 +3,9 @@ package gr.ekt.cerif.services.multilingual.classscheme;
 
 import java.util.List;
 
+import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ClassSchemeName;
+import gr.ekt.cerif.features.multilingual.Translation;
 import gr.ekt.cerif.features.semantics.ClassScheme;
 
 
@@ -24,5 +26,7 @@ public interface ClassSchemeNameRepository {
 	public ClassSchemeName save(ClassSchemeName entity);
 	
 	List<ClassSchemeName> findByScheme(ClassScheme scheme);
+	
+	ClassSchemeName findByLanguageAndTranslationAndScheme(Language language, Translation translation, ClassScheme classScheme);
 	
 }

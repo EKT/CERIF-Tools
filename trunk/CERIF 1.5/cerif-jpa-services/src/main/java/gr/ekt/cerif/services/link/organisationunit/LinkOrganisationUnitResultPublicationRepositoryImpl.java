@@ -9,12 +9,16 @@ import gr.ekt.cerif.services.semantics.ClassRepository;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LinkOrganisationUnitResultPublicationRepositoryImpl implements LinkOrganisationUnitResultPublicationRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(LinkOrganisationUnitResultPublicationRepositoryImpl.class);
 	
 	@Autowired
 	OrganisationUnitRepository organisationRepository;
@@ -30,18 +34,6 @@ public class LinkOrganisationUnitResultPublicationRepositoryImpl implements Link
 	
 	@Transactional
 	public OrganisationUnit_ResultPublication save(OrganisationUnit_ResultPublication entity) {
-		if (entity.getOrganisationUnit() == null) {
-			throw new IllegalArgumentException("Please provide an organisation.");
-		}
-		if (entity.getResultPublication() == null) {
-			throw new IllegalArgumentException("Please provide a result publication.");
-		}
-		if (entity.getOrganisationUnit().getId() == null) {
-			organisationRepository.save(entity.getOrganisationUnit());
-		}
-		if (entity.getResultPublication().getId() == null) {
-			resultPublicationRepository.save(entity.getResultPublication());
-		}
 		return linkOrganisationUnitResultPublicationCrudRepository.save(entity);
 	}
 	
@@ -69,7 +61,6 @@ public class LinkOrganisationUnitResultPublicationRepositoryImpl implements Link
 	public List<OrganisationUnit_ResultPublication> findByResultPublication(ResultPublication resultPublication) {
 		return linkOrganisationUnitResultPublicationCrudRepository.findByResultPublication(resultPublication);
 	}
-
 
 	@Override
 	public OrganisationUnit_ResultPublication findById(Long orgunitrespubId) {

@@ -2,20 +2,44 @@ package gr.ekt.cerif.services.base;
 
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.project.Project_Class;
+import gr.ekt.cerif.entities.link.project.Project_Equipment;
+import gr.ekt.cerif.entities.link.project.Project_Event;
+import gr.ekt.cerif.entities.link.project.Project_Facility;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
+import gr.ekt.cerif.entities.link.project.Project_Indicator;
+import gr.ekt.cerif.entities.link.project.Project_Measurement;
+import gr.ekt.cerif.entities.link.project.Project_Medium;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_Person;
+import gr.ekt.cerif.entities.link.project.Project_Prize;
 import gr.ekt.cerif.entities.link.project.Project_Project;
+import gr.ekt.cerif.entities.link.project.Project_ResultPatent;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
+import gr.ekt.cerif.entities.link.project.Project_Service;
 import gr.ekt.cerif.features.multilingual.ProjectAbstract;
+import gr.ekt.cerif.features.multilingual.ProjectKeyword;
 import gr.ekt.cerif.features.multilingual.ProjectTitle;
 import gr.ekt.cerif.services.link.project.LinkProjectClassRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectEquipmentRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectEventRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectFacilityRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectFundingRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectIndicatorRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectMeasurementRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectMediumCrudRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectMediumRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectOrganisationUnitRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectPersonRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectPrizeCrudRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectPrizeRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectProjectRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectResultPatentCrudRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectResultPatentRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectResultPublicationRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectServiceCrudRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectServiceRepository;
 import gr.ekt.cerif.services.multilingual.project.ProjectAbstractRepository;
+import gr.ekt.cerif.services.multilingual.project.ProjectKeywordRepository;
 import gr.ekt.cerif.services.multilingual.project.ProjectTitleRepository;
 import gr.ekt.cerif.services.second.FundingRepository;
 import gr.ekt.cerif.services.semantics.ClassRepository;
@@ -71,6 +95,36 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	@Autowired
 	private LinkProjectProjectRepository linkProjectProjectRepository;
 	
+	@Autowired
+	private ProjectKeywordRepository projectKeywordRepository;
+	
+	@Autowired
+	private LinkProjectEquipmentRepository linkProjectEquipmentRepository;
+	
+	@Autowired
+	private LinkProjectEventRepository linkProjectEventRepository;
+	
+	@Autowired
+	private LinkProjectFacilityRepository linkProjectFacilityRepository;
+	
+	@Autowired
+	private LinkProjectIndicatorRepository linkProjectIndicatorRepository;
+	
+	@Autowired
+	private LinkProjectMeasurementRepository linkProjectMeasurementRepository;
+	
+	@Autowired
+	private LinkProjectMediumRepository linkProjectMediumRepository;
+	
+	@Autowired
+	private LinkProjectPrizeRepository linkProjectPrizeRepository;
+	
+	@Autowired
+	private LinkProjectResultPatentRepository linkProjectResultPatentRepository;
+	
+	@Autowired
+	private LinkProjectServiceRepository linkProjectServiceRepository;
+	
 	
 	
 	public Project findByAcronym(String acronym) {
@@ -123,6 +177,46 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		List<Project_Project> pp2 = linkProjectProjectRepository.findByProject2(entity);
 		if (pp2 != null) linkProjectProjectRepository.delete(pp2);
 		entity.setProjects_projects2(null);
+		
+		List<ProjectKeyword> pk = projectKeywordRepository.findByProject(entity);
+		if (pk != null) projectKeywordRepository.delete(pk);
+		entity.setProjectKeywords(null);
+		
+		List<Project_Equipment> peq = linkProjectEquipmentRepository.findByProject(entity);
+		if (peq != null) linkProjectEquipmentRepository.delete(peq);
+		entity.setProjects_equipments(null);
+		
+		List<Project_Event> pev = linkProjectEventRepository.findByProject(entity);
+		if (pev != null) linkProjectEventRepository.delete(pev);
+		entity.setProjects_events(null);
+		
+		List<Project_Facility> pfac = linkProjectFacilityRepository.findByProject(entity);
+		if (pfac != null) linkProjectFacilityRepository.delete(pfac);
+		entity.setProjects_facilities(null);
+		
+		List<Project_Indicator> pin = linkProjectIndicatorRepository.findByProject(entity);
+		if (pin != null) linkProjectIndicatorRepository.delete(pin);
+		entity.setProjects_indicators(null);
+		
+		List<Project_Measurement> pmeas = linkProjectMeasurementRepository.findByProject(entity);
+		if (pmeas != null) linkProjectMeasurementRepository.delete(pmeas);
+		entity.setProjects_measurements(null);
+		
+		List<Project_Medium> pmed = linkProjectMediumRepository.findByProject(entity);
+		if (pmed != null) linkProjectMediumRepository.delete(pmed);
+		entity.setProjects_mediums(null);
+		
+		List<Project_Prize> ppr = linkProjectPrizeRepository.findByProject(entity);
+		if (ppr != null) linkProjectPrizeRepository.delete(ppr);
+		entity.setProjects_prizes(null);
+		
+		List<Project_ResultPatent> prespat = linkProjectResultPatentRepository.findByProject(entity);
+		if (prespat != null) linkProjectResultPatentRepository.delete(prespat);
+		entity.setProjects_resultPatents(null);
+		
+		List<Project_Service> pser = linkProjectServiceRepository.findByProject(entity);
+		if (pser != null) linkProjectServiceRepository.delete(pser);
+		entity.setProjects_services(null);
 		
 		entity = projectCrudRepository.save(entity);
 		projectCrudRepository.delete(entity);

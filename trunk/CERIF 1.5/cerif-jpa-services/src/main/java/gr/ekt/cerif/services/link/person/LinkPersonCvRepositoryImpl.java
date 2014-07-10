@@ -8,12 +8,16 @@ import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.services.base.PersonRepository;
 import gr.ekt.cerif.services.second.CVRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LinkPersonCvRepositoryImpl implements LinkPersonCvRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(LinkPersonCvRepositoryImpl.class);
 	
 	@Autowired
 	private PersonRepository personRepository;
@@ -26,15 +30,6 @@ public class LinkPersonCvRepositoryImpl implements LinkPersonCvRepository {
 	
 	@Transactional
 	public Person_Cv save(Person_Cv entity) {
-		if (entity.getPerson() == null || entity.getCv() == null) {
-			throw new IllegalArgumentException("Please provide both a person and a cv.");
-		}
-		if (entity.getPerson().getId() == null) {
-			personRepository.save(entity.getPerson());
-		}
-		if (entity.getCv().getId() == null) {
-			cvRepository.save(entity.getCv());
-		}
 		return linkPersonCvCrudRepository.save(entity);
 	}
 	

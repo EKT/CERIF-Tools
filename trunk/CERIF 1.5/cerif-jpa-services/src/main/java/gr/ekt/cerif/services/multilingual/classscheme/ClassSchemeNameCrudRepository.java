@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.persistence.QueryHint;
 
+import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ClassSchemeName;
+import gr.ekt.cerif.features.multilingual.Translation;
 import gr.ekt.cerif.features.semantics.ClassScheme;
 
 import org.springframework.data.jpa.repository.QueryHints;
@@ -17,5 +19,8 @@ public interface ClassSchemeNameCrudRepository extends CrudRepository<ClassSchem
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ClassSchemeName> findByScheme(ClassScheme scheme);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	ClassSchemeName findByLanguageAndTranslationAndScheme(Language language, Translation translation, ClassScheme classScheme);
 	
 }

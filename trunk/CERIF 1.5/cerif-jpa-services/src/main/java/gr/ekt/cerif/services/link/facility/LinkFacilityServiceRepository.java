@@ -2,10 +2,6 @@ package gr.ekt.cerif.services.link.facility;
 
 import java.util.List;
 
-import javax.persistence.QueryHint;
-
-import org.springframework.data.jpa.repository.QueryHints;
-
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.link.Facility_Service;

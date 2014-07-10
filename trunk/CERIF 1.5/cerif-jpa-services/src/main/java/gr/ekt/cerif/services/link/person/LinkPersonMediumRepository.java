@@ -17,8 +17,6 @@ public interface LinkPersonMediumRepository {
 	
 	List<Person_Medium> findByPerson(Person person);
 	
-	Person_Medium findProfilePhotoByPersonId(Long id);
-	
 	void delete(Person_Medium entity);
 	
 	void delete(Iterable<? extends Person_Medium> entities);
