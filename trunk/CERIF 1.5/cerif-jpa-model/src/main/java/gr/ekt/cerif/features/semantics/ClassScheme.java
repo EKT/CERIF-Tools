@@ -5,6 +5,7 @@ package gr.ekt.cerif.features.semantics;
 
 
 import gr.ekt.cerif.entities.link.ClassScheme_Class;
+import gr.ekt.cerif.entities.link.ClassScheme_ClassScheme;
 import gr.ekt.cerif.entities.link.ClassScheme_OrganisationUnit;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.features.multilingual.ClassSchemeDescription;
@@ -85,6 +86,12 @@ public class ClassScheme implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="scheme")
 	private Set<ClassScheme_OrganisationUnit> classScheme_organisationUnits;
+	
+	@OneToMany(mappedBy="classScheme1")
+	private Set<ClassScheme_ClassScheme> classSchemes_classSchemes1;
+	
+	@OneToMany(mappedBy="classScheme2")
+	private Set<ClassScheme_ClassScheme> classSchemes_classSchemes2;
 	
 	@OneToMany(mappedBy="relatedClassScheme")
 	private Set<ClassScheme_Class> classScheme_classes;
@@ -221,6 +228,36 @@ public class ClassScheme implements CerifSemanticFeature {
 	public void setClassScheme_organisationUnits(
 			Set<ClassScheme_OrganisationUnit> classScheme_organisationUnits) {
 		this.classScheme_organisationUnits = classScheme_organisationUnits;
+	}
+
+	/**
+	 * @return the classSchemes_classSchemes1
+	 */
+	public Set<ClassScheme_ClassScheme> getClassSchemes_classSchemes1() {
+		return classSchemes_classSchemes1;
+	}
+
+	/**
+	 * @param classSchemes_classSchemes1 the classSchemes_classSchemes1 to set
+	 */
+	public void setClassSchemes_classSchemes1(
+			Set<ClassScheme_ClassScheme> classSchemes_classSchemes1) {
+		this.classSchemes_classSchemes1 = classSchemes_classSchemes1;
+	}
+
+	/**
+	 * @return the classSchemes_classSchemes2
+	 */
+	public Set<ClassScheme_ClassScheme> getClassSchemes_classSchemes2() {
+		return classSchemes_classSchemes2;
+	}
+
+	/**
+	 * @param classSchemes_classSchemes2 the classSchemes_classSchemes2 to set
+	 */
+	public void setClassSchemes_classSchemes2(
+			Set<ClassScheme_ClassScheme> classSchemes_classSchemes2) {
+		this.classSchemes_classSchemes2 = classSchemes_classSchemes2;
 	}
 
 	/**

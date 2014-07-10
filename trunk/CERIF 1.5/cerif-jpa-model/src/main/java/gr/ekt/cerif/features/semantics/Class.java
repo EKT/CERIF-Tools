@@ -60,7 +60,6 @@ import gr.ekt.cerif.entities.link.result.ResultProduct_Class;
 import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Class;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
-import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ClassDefinition;
 import gr.ekt.cerif.features.multilingual.ClassDescription;
 import gr.ekt.cerif.features.multilingual.ClassEx;

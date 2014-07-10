@@ -25,7 +25,6 @@ import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
-import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitKeyword;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitName;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitResearchActivity;
@@ -52,7 +51,6 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
-import org.springframework.util.StringUtils;
 
 /**
  * Represents an organization unit base entity.
