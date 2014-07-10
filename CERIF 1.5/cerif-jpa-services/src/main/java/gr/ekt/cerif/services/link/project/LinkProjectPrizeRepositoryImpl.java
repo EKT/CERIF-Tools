@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.project;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.project.Project_Prize;
+import gr.ekt.cerif.entities.second.Prize;
 
 @Component
 public class LinkProjectPrizeRepositoryImpl implements
@@ -35,6 +39,16 @@ public class LinkProjectPrizeRepositoryImpl implements
 	@Override
 	public Project_Prize save(Project_Prize entity) {
 		return linkProjectPrizeCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Project_Prize> findByProject(Project project) {
+		return linkProjectPrizeCrudRepository.findByProject(project);
+	}
+
+	@Override
+	public List<Project_Prize> findByPrize(Prize Prize) {
+		return linkProjectPrizeCrudRepository.findByPrize(Prize);
 	}
 
 }

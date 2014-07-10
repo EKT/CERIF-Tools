@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.person;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_Prize;
+import gr.ekt.cerif.entities.second.Prize;
 
 @Component
 public class LinkPersonPrizeRepositoryImpl implements LinkPersonPrizeRepository {
@@ -33,6 +37,16 @@ public class LinkPersonPrizeRepositoryImpl implements LinkPersonPrizeRepository 
 	@Override
 	public Person_Prize save(Person_Prize entity) {
 		return linkPersonPrizeCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Person_Prize> findByPerson(Person person) {
+		return linkPersonPrizeCrudRepository.findByPerson(person);
+	}
+
+	@Override
+	public List<Person_Prize> findByPrize(Prize prize) {
+		return linkPersonPrizeCrudRepository.findByPrize(prize);
 	}
 
 }

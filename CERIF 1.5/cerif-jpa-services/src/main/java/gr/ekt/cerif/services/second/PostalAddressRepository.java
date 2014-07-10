@@ -29,7 +29,7 @@ public interface PostalAddressRepository {
 
 	PostalAddress findByOrganisationUnitAndCountryCode(OrganisationUnit organisationUnit, String ccode);
 
-	PostalAddress findByPerson(Person person);
+	List<PostalAddress> findByPerson(Person person);
 	
 	PostalAddress findByOrganisationUnitName(String organisationUnitName);
 	

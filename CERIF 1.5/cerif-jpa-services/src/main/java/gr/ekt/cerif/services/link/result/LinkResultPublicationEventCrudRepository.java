@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.QueryHint;
 
-import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Event;
 import gr.ekt.cerif.entities.result.ResultPublication;
 

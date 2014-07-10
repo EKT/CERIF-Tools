@@ -6,12 +6,16 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LinkFundingClassRepositoryImpl implements LinkFundingClassRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(LinkFundingClassRepositoryImpl.class);
 
 	@Autowired
 	private LinkFundingClassCrudRepository linkFundingClassCrudRepository;

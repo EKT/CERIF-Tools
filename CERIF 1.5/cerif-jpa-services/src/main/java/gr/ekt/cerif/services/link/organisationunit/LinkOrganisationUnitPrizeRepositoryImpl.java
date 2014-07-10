@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.organisationunit;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Prize;
+import gr.ekt.cerif.entities.second.Prize;
 
 @Component
 public class LinkOrganisationUnitPrizeRepositoryImpl implements
@@ -35,6 +39,17 @@ public class LinkOrganisationUnitPrizeRepositoryImpl implements
 	@Override
 	public OrganisationUnit_Prize save(OrganisationUnit_Prize entity) {
 		return linkOrganisationUnitPrizeCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<OrganisationUnit_Prize> findByOrganisationUnit(
+			OrganisationUnit organisationUnit) {
+		return linkOrganisationUnitPrizeCrudRepository.findByOrganisationUnit(organisationUnit);
+	}
+
+	@Override
+	public List<OrganisationUnit_Prize> findByPrize(Prize prize) {
+		return linkOrganisationUnitPrizeCrudRepository.findByPrize(prize);
 	}
 
 }

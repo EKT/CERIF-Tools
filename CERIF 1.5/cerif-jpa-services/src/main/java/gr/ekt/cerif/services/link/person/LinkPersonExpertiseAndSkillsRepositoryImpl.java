@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.person;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_ExpertiseAndSkills;
+import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 
 @Component
 public class LinkPersonExpertiseAndSkillsRepositoryImpl implements
@@ -36,5 +40,11 @@ public class LinkPersonExpertiseAndSkillsRepositoryImpl implements
 	public Person_ExpertiseAndSkills save(Person_ExpertiseAndSkills entity) {
 		return linkPersonExpertiseAndSkillsCrudRepository.save(entity);
 	}
+
+	@Override
+	public List<Person_ExpertiseAndSkills> findByPerson(Person person) {
+		return linkPersonExpertiseAndSkillsCrudRepository.findByPerson(person);
+	}
+
 
 }

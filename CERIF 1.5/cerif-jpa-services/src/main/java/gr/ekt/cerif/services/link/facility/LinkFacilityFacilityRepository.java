@@ -1,5 +1,6 @@
 package gr.ekt.cerif.services.link.facility;
 
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.Facility_Facility;
 import gr.ekt.cerif.features.semantics.Class;
 
@@ -20,5 +21,9 @@ public interface LinkFacilityFacilityRepository {
 	public void delete(Facility_Facility entity);
 	
 	public void delete(Iterable<Facility_Facility> entities);
+	
+	List<Facility_Facility> findByFacility1(Facility facility);
+	
+	List<Facility_Facility> findByFacility2(Facility facility);
 	
 }

@@ -7,15 +7,16 @@ import gr.ekt.cerif.services.second.MediumRepository;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LinkPersonMediumRepositoryImpl implements LinkPersonMediumRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(LinkPersonMediumRepositoryImpl.class);
 
 	@Autowired
 	private PersonRepository personRepository;
@@ -28,23 +29,6 @@ public class LinkPersonMediumRepositoryImpl implements LinkPersonMediumRepositor
 	
 	@Transactional
 	public Person_Medium save(Person_Medium entity) {
-		if (entity.getPerson() == null) {
-			throw new IllegalArgumentException("Please provide a person.");
-		}
-		if (entity.getMedium() == null) {
-			throw new IllegalArgumentException("Please provide a medium.");
-		}
-		/**
-		if (entity.getPerson() == null || entity.getMedium() == null) {
-			throw new IllegalArgumentException("Please provide both a person and a medium.");
-		}
-		*/
-		if (entity.getPerson().getId() == null) {
-			personRepository.save(entity.getPerson());
-		}
-		if (entity.getMedium().getId() == null) {
-			mediumRepository.save(entity.getMedium());
-		}
 		return linkPersonMediumCrudRepository.save(entity);
 	}
 
@@ -55,10 +39,6 @@ public class LinkPersonMediumRepositoryImpl implements LinkPersonMediumRepositor
 	
 	public List<Person_Medium> findByPerson(Person person) {
 		return linkPersonMediumCrudRepository.findByPerson(person);
-	}
-	
-	public Person_Medium findProfilePhotoByPersonId(Long id) {
-		return linkPersonMediumCrudRepository.findProfilePhotoByPersonId(id);
 	}
 
 	@Transactional

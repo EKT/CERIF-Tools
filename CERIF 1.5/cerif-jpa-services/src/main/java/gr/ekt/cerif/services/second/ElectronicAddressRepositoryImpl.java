@@ -6,6 +6,7 @@ package gr.ekt.cerif.services.second;
 import java.util.List;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 
 import org.slf4j.Logger;
@@ -76,6 +77,11 @@ public class ElectronicAddressRepositoryImpl implements ElectronicAddressReposit
 	@Override
 	public ElectronicAddress findByUUID(String uuid) {
 		return electronicAddressCrudRepository.findByUuid(uuid);
+	}
+
+	@Override
+	public List<ElectronicAddress> findByPerson(Person person) {
+		return electronicAddressCrudRepository.findByPerson(person);
 	}
 
 }

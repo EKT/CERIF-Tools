@@ -1,6 +1,10 @@
 package gr.ekt.cerif.services.link.classscheme;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.link.ClassScheme_Class;
+import gr.ekt.cerif.features.semantics.Class;
+import gr.ekt.cerif.features.semantics.ClassScheme;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +37,17 @@ public class LinkClassSchemeClassRepositoryImpl implements LinkClassSchemeClassR
 	@Override
 	public ClassScheme_Class save(ClassScheme_Class entity) {
 		return linkClassSchemeClassCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ClassScheme_Class> findByRelatedClassScheme(
+			ClassScheme classScheme) {
+		return linkClassSchemeClassCrudRepository.findByRelatedClassScheme(classScheme);
+	}
+
+	@Override
+	public List<ClassScheme_Class> findByRelatedClass(Class theClass) {
+		return linkClassSchemeClassCrudRepository.findByRelatedClass(theClass);
 	}
 
 }

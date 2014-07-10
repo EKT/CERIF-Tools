@@ -1,5 +1,6 @@
 package gr.ekt.cerif.services.link.facility;
 
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.Facility_Facility;
 import gr.ekt.cerif.features.semantics.Class;
 
@@ -14,5 +15,11 @@ public interface LinkFacilityFacilityCrudRepository extends CrudRepository<Facil
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Facility_Facility> findByTheClass(Class theClass);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<Facility_Facility> findByFacility1(Facility facility);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<Facility_Facility> findByFacility2(Facility facility);
 	
 }

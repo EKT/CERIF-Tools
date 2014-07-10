@@ -22,12 +22,12 @@ public class LinkPersonFacilityRepositoryImpl implements
 
 	@Override
 	public void delete(Person_Facility entity) {
-		linkPersonFacilityCrudRepository.save(entity);
+		linkPersonFacilityCrudRepository.delete(entity);
 	}
 
 	@Override
 	public void delete(Iterable<Person_Facility> entities) {
-		linkPersonFacilityCrudRepository.save(entities);
+		linkPersonFacilityCrudRepository.delete(entities);
 	}
 
 	@Override

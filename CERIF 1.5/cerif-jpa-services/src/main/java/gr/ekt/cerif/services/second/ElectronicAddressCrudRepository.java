@@ -6,6 +6,7 @@ package gr.ekt.cerif.services.second;
 import java.util.List;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 
 import javax.persistence.QueryHint;
@@ -37,6 +38,13 @@ public interface ElectronicAddressCrudRepository extends CrudRepository<Electron
 			"join orgs.organisationUnit org " +
 			"where org=?1 ")
 	List<ElectronicAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	@Query("select ea from ElectronicAddress ea " +
+			"join ea.persons_electronicAddresses pers " +
+			"join pers.person p " +
+			"where p=?1 ")
+	List<ElectronicAddress> findByPerson(Person person);
 
 	ElectronicAddress findByUuid(String uuid);
 	
