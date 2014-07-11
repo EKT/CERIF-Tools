@@ -7,29 +7,29 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 	
 	<context:annotation-config/>
-	<context:component-scan base-package="gr.ekt" />
+	<context:component-scan base-package="gr.ekt.cerif.xml" />
 	
-	<bean id="cerifToXmlTransformationEngine" class="gr.ekt.transformationengine.core.TransformationEngine">
+	<bean id="cerifToXmlTransformationEngine" class="gr.ekt.transformationengine.core.TransformationEngine" scope="prototype">
 		<property name="dataLoader" ref="cerifToXmlDataLoader" />
 		<property name="workflow" ref="cerifToXmlConjunctionTransformationWorkflow" />
-		<property name="outputGenerator" ref="cerifToXmlOutputGenerator" />
+		<!-- Not needed -->
+		<!-- <property name="outputGenerator" ref="cerifToXmlOutputGenerator" /> -->
 	</bean>
 	
-	<bean id="cerifToXmlDataLoader" class="gr.ekt.cerif.xml.loader.CerifToXmlDataLoader">
+	<bean id="cerifToXmlDataLoader" class="gr.ekt.cerif.xml.loader.CerifToXmlDataLoader" scope="prototype">
 		<property name="loadingSpec" ref="cerifToXmlLoadindSpecs" />
 	</bean>
 	
-	<bean id="cerifToXmlLoadindSpecs" class="gr.ekt.cerif.xml.loadingSpecs.LoadingSpecs"/>
+	<bean id="cerifToXmlLoadindSpecs" class="gr.ekt.cerif.xml.loadingSpecs.LoadingSpecs" scope="prototype"/>
 
 	<bean id="cerifToXmlConjunctionTransformationWorkflow"
-		class="gr.ekt.transformationengine.core.ConjunctionTransformationWorkflow">
+		class="gr.ekt.transformationengine.core.ConjunctionTransformationWorkflow" scope="prototype">
 	</bean>
 
-	<bean id="cerifToXmlOutputGenerator" class="gr.ekt.cerif.xml.output.CerifToXmlOutputGenerator">
+	<bean id="cerifToXmlOutputGenerator" class="gr.ekt.cerif.xml.output.CerifToXmlOutputGenerator" scope="prototype">
 		<property name="velocityEngine" ref="cerifToXmlVelocityEngine" />
-		<property name="outputDir" value="${xml.outputDir}" />
-		<property name="outputFileName" value="${xml.outputFileName}" />
 		<property name="template" value="${xml.template}" />
+		<property name="xmlSourceDatabase" value="${xml.xmlSourceDatabase}" />
 	</bean>
 	
 	<bean id="cerifToXmlVelocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
