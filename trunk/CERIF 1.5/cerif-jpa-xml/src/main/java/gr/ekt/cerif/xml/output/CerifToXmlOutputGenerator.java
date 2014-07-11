@@ -11,6 +11,7 @@ import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Funding;
+import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.features.semantics.ClassScheme;
@@ -29,14 +30,13 @@ import gr.ekt.cerif.xml.records.result.CerifResultPublicationRecord;
 import gr.ekt.cerif.xml.records.second.CerifElectronicAddressRecord;
 import gr.ekt.cerif.xml.records.second.CerifFederatedIdentifierRecord;
 import gr.ekt.cerif.xml.records.second.CerifFundingRecord;
+import gr.ekt.cerif.xml.records.second.CerifMeasurementRecord;
 import gr.ekt.cerif.xml.records.second.CerifPostalAddressRecord;
 import gr.ekt.cerif.xml.records.semantics.CerifClassRecord;
 import gr.ekt.cerif.xml.records.semantics.CerifClassSchemeRecord;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -46,7 +46,6 @@ import org.apache.velocity.tools.generic.DateTool;
 import org.apache.velocity.tools.generic.EscapeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.velocity.VelocityEngineUtils;
-import org.apache.commons.io.FileUtils;
 
 /**
  * @author bonisv
@@ -55,9 +54,10 @@ import org.apache.commons.io.FileUtils;
 public class CerifToXmlOutputGenerator extends OutputGenerator {
 
 	private VelocityEngine cerifToXmlVelocityEngine;
-	private String outputDir;
-	private String outputFileName;
 	private String template;
+	private String xmlSourceDatabase;
+	
+	private String resultText;
 
 	@Autowired
 	PersistenceService service;
@@ -90,6 +90,7 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 		ArrayList<Service> services = new ArrayList<Service>();
 		ArrayList<Equipment> equipments = new ArrayList<Equipment>();
 		ArrayList<FederatedIdentifier> federatedIdentifiers = new ArrayList<FederatedIdentifier>();
+		ArrayList<Measurement> measurements = new ArrayList<Measurement>();
 
 		Iterator<Record> it = recordSet.getRecords().iterator();
 		while (it.hasNext()) {
@@ -122,6 +123,8 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 		    	equipments.add(((CerifEquipmentRecord)tmpRecord).getEquipment());
 		    } else if (tmpRecord instanceof CerifFederatedIdentifierRecord) {
 		    	federatedIdentifiers.add(((CerifFederatedIdentifierRecord)tmpRecord).getFederatedIdentifier());
+		    } else if (tmpRecord instanceof CerifMeasurementRecord) {
+		    	measurements.add(((CerifMeasurementRecord)tmpRecord).getMeasurement());
 		    }
 		}
 
@@ -142,19 +145,15 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 		map.put("services", services);
 		map.put("equipments", equipments);
 		map.put("federatedIdentifiers", federatedIdentifiers);
+		map.put("measurements", measurements);
 		
-		try {
-			File file_out = new File(outputDir+outputFileName);
-			@SuppressWarnings("deprecation")
-			String text = VelocityEngineUtils.mergeTemplateIntoString(cerifToXmlVelocityEngine, template, map);
+		map.put("xmlDate", new Date());
+		map.put("xmlSourceDatabase", xmlSourceDatabase);
+		
+		@SuppressWarnings("deprecation")
+		String text = VelocityEngineUtils.mergeTemplateIntoString(cerifToXmlVelocityEngine, template, map);
 
-			FileUtils.writeStringToFile(file_out, text);
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		
+		resultText = text;
 
 		return true;
 	}
@@ -165,21 +164,6 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 
 	public void setVelocityEngine(VelocityEngine velocityEngine) {
 		this.cerifToXmlVelocityEngine = velocityEngine;
-	}
-
-	
-	/**
-	 * @return the outputDir
-	 */
-	public String getOutputDir() {
-		return outputDir;
-	}
-
-	/**
-	 * @param outputDir the outputDir to set
-	 */
-	public void setOutputDir(String outputDir) {
-		this.outputDir = outputDir;
 	}
 
 	/**
@@ -197,16 +181,32 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 	}
 
 	/**
-	 * @return the outputFileName
+	 * @return the resultText
 	 */
-	public String getOutputFileName() {
-		return outputFileName;
+	public String getResultText() {
+		return resultText;
 	}
 
 	/**
-	 * @param outputFileName the outputFileName to set
+	 * @param resultText the resultText to set
 	 */
-	public void setOutputFileName(String outputFileName) {
-		this.outputFileName = outputFileName;
+	public void setResultText(String resultText) {
+		this.resultText = resultText;
 	}
+
+	/**
+	 * @return the xmlSourceDatabase
+	 */
+	public String getXmlSourceDatabase() {
+		return xmlSourceDatabase;
+	}
+
+	/**
+	 * @param xmlSourceDatabase the xmlSourceDatabase to set
+	 */
+	public void setXmlSourceDatabase(String xmlSourceDatabase) {
+		this.xmlSourceDatabase = xmlSourceDatabase;
+	}
+	
+	
 }
