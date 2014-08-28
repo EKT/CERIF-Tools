@@ -34,6 +34,7 @@ public interface FederatedIdentifierCrudRepository extends CrudRepository<Federa
 			+ "  where cl.uuid = ?1 and fedId.instanceId = ?2 ")
 	List<FederatedIdentifier> findFedIdByClassUuidAndInstId(String classUuid, Long instanceId);
 
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	FederatedIdentifier findByUuid(String uuid);
 	
 	

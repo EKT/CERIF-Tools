@@ -4,6 +4,8 @@ import java.util.List;
 
 import gr.ekt.cerif.features.semantics.ClassScheme;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ClassSchemeRepositoryImpl implements ClassSchemeRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(ClassSchemeRepositoryImpl.class);
 
 	@Autowired
 	private ClassSchemeCrudRepository classSchemeCrudRepository;

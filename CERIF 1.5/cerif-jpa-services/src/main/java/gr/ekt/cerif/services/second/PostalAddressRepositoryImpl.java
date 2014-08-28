@@ -5,8 +5,13 @@ package gr.ekt.cerif.services.second;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.infrastructure.Equipment;
+import gr.ekt.cerif.entities.infrastructure.Facility;
+import gr.ekt.cerif.entities.infrastructure.Service;
+import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.entities.second.PostalAddress;
+import gr.ekt.cerif.services.link.postaladdress.LinkPostalAddressClassRepository;
 
 import java.util.List;
 
@@ -28,6 +33,9 @@ public class PostalAddressRepositoryImpl implements PostalAddressRepository {
 	
 	@Autowired
 	private PostalAddressCrudRepository postalAddressCrudRepository;
+	
+	@Autowired
+	private LinkPostalAddressClassRepository linkPostalAddressClassRepository;
 
 	/* (non-Javadoc)
 	 * @see gr.ekt.cerif.services.second.PostalAddressRepository#findByCountry(gr.ekt.cerif.entities.second.Country)
@@ -43,6 +51,11 @@ public class PostalAddressRepositoryImpl implements PostalAddressRepository {
 	 */
 	@Override
 	public void delete(PostalAddress entity) {
+		List<PostalAddress_Class> paddrcl = linkPostalAddressClassRepository.findByPostalAddress(entity);
+		if (paddrcl != null) linkPostalAddressClassRepository.delete(paddrcl);
+		entity.setPostalAddresses_classes(null);
+		
+		entity = postalAddressCrudRepository.save(entity);
 		postalAddressCrudRepository.delete(entity);
 	}
 
@@ -125,6 +138,24 @@ public class PostalAddressRepositoryImpl implements PostalAddressRepository {
 	@Override
 	public PostalAddress findByUUID(String uuid) {
 		return postalAddressCrudRepository.findByUuid(uuid);
+	}
+
+
+	@Override
+	public List<PostalAddress> findByEquipment(Equipment equipment) {
+		return postalAddressCrudRepository.findByEquipment(equipment);
+	}
+
+
+	@Override
+	public List<PostalAddress> findByFacility(Facility facility) {
+		return postalAddressCrudRepository.findByFacility(facility);
+	}
+
+
+	@Override
+	public List<PostalAddress> findByService(Service service) {
+		return postalAddressCrudRepository.findByService(null);
 	}
 
 }

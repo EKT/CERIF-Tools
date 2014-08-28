@@ -14,6 +14,7 @@ import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.entities.link.project.Project_Prize;
 import gr.ekt.cerif.entities.link.project.Project_Project;
 import gr.ekt.cerif.entities.link.project.Project_ResultPatent;
+import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.link.project.Project_Service;
 import gr.ekt.cerif.features.multilingual.ProjectAbstract;
@@ -26,17 +27,14 @@ import gr.ekt.cerif.services.link.project.LinkProjectFacilityRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectFundingRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectIndicatorRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectMeasurementRepository;
-import gr.ekt.cerif.services.link.project.LinkProjectMediumCrudRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectMediumRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectOrganisationUnitRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectPersonRepository;
-import gr.ekt.cerif.services.link.project.LinkProjectPrizeCrudRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectPrizeRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectProjectRepository;
-import gr.ekt.cerif.services.link.project.LinkProjectResultPatentCrudRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectResultPatentRepository;
+import gr.ekt.cerif.services.link.project.LinkProjectResultProductRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectResultPublicationRepository;
-import gr.ekt.cerif.services.link.project.LinkProjectServiceCrudRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectServiceRepository;
 import gr.ekt.cerif.services.multilingual.project.ProjectAbstractRepository;
 import gr.ekt.cerif.services.multilingual.project.ProjectKeywordRepository;
@@ -125,23 +123,28 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	@Autowired
 	private LinkProjectServiceRepository linkProjectServiceRepository;
 	
+	@Autowired
+	private LinkProjectResultProductRepository linkProjectResultProductRepository;
 	
 	
+	@Override
 	public Project findByAcronym(String acronym) {
 		return projectCrudRepository.findByAcronym(acronym);
 	}
 
+	@Override
 	public Project findById(Long id) {
 		return projectCrudRepository.findById(id);
 	}
 
+	@Override
 	public List<Project> findByUri(String uri) {
 		return projectCrudRepository.findByUri(uri);
 	}
 
+	@Override
 	@Transactional
-	public void delete(Project entity) {
-		
+	public void delete(Project entity) {		
 		List<ProjectAbstract> pa = projectAbstractRepository.findByProject(entity);
 		if (pa != null) projectAbstractRepository.delete(pa);
 		entity.setProjectAbstracts(null);
@@ -169,6 +172,10 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		List<Project_ResultPublication> pr = linkProjectResultPublicationRepository.findByProject(entity);
 		if (pr != null) linkProjectResultPublicationRepository.delete(pr);
 		entity.setProjects_resultPublications(null);
+		
+		List<Project_ResultProduct> projresprod = linkProjectResultProductRepository.findByProject(entity);
+		if (projresprod != null) linkProjectResultProductRepository.delete(projresprod);
+		entity.setProjects_resultProducts(null);
 		
 		List<Project_Project> pp1 = linkProjectProjectRepository.findByProject1(entity);
 		if (pp1 != null) linkProjectProjectRepository.delete(pp1);

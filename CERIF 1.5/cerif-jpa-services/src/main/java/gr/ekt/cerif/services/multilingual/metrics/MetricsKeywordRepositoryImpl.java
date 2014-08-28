@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.metrics;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.Metrics;
 import gr.ekt.cerif.features.multilingual.MetricsKeyword;
 
 /**
@@ -40,6 +43,11 @@ public class MetricsKeywordRepositoryImpl implements MetricsKeywordRepository {
 	@Override
 	public MetricsKeyword save(MetricsKeyword entity) {
 		return metricsKeywordCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<MetricsKeyword> findByMetrics(Metrics metrics) {
+		return metricsKeywordCrudRepository.findByMetrics(metrics);
 	}
 
 }

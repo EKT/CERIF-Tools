@@ -85,6 +85,9 @@ public class PersistenceServiceImpl implements PersistenceService {
 	@Autowired
 	private GenericQuery genericQuery;
 	
+	@Autowired
+	private SelectionService selectionService;
+	
 	/**
 	 * Deletes the provided CERIF component.
 	 * @param component The CERIF component.
@@ -288,6 +291,13 @@ public class PersistenceServiceImpl implements PersistenceService {
 	 */
 	public GenericQuery getGenericQuery() {
 		return genericQuery;
+	}
+
+	/**
+	 * @return the selectionService
+	 */
+	public SelectionService getSelectionService() {
+		return selectionService;
 	}
 	
 	

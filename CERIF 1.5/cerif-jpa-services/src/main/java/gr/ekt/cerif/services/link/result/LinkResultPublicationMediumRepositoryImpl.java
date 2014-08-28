@@ -2,6 +2,7 @@ package gr.ekt.cerif.services.link.result;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.services.result.ResultPublicationRepository;
 import gr.ekt.cerif.services.second.MediumRepository;
 
@@ -30,15 +31,6 @@ public class LinkResultPublicationMediumRepositoryImpl implements LinkResultPubl
 
 	@Transactional
 	public ResultPublication_Medium save(ResultPublication_Medium entity) {
-		if (entity.getResultPublication() == null || entity.getMedium() == null) {
-			throw new IllegalArgumentException("Please provide both a resultPublication and a medium.");
-		}
-		if (entity.getResultPublication().getId() == null) {
-			resultPublicationRepository.save(entity.getResultPublication());
-		}
-		if (entity.getMedium().getId() == null) {
-			mediumRepository.save(entity.getMedium());
-		}
 		return linkResultPublicationMediumCrudRepository.save(entity);
 	}
 	
@@ -88,5 +80,10 @@ public class LinkResultPublicationMediumRepositoryImpl implements LinkResultPubl
 			String mediumUri, String mediumMimeType, Long resPublId,
 			String classUri) {
 		return linkResultPublicationMediumCrudRepository.findByMediumUriAndMediumMimeTypeAndResPublIdAndClassUri(mediumUri, mediumMimeType, resPublId, classUri);
+	}
+
+	@Override
+	public List<ResultPublication_Medium> findByMedium(Medium medium) {
+		return linkResultPublicationMediumCrudRepository.findByMedium(medium);
 	}
 }

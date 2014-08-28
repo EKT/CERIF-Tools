@@ -12,7 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.link.FederatedIdentifier_Class;
+import gr.ekt.cerif.entities.link.Service_FederatedIdentifier;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
+import gr.ekt.cerif.services.link.federatedidentifier.LinkFederatedIdentifierClassRepository;
+import gr.ekt.cerif.services.link.service.LinkServiceFederatedIdentifierRepository;
 
 /**
  * @author bonisv
@@ -25,12 +29,28 @@ public class FederatedIdentifierRepositoryImpl implements FederatedIdentifierRep
 	
 	@Autowired
 	private FederatedIdentifierCrudRepository federatedIdentifierCrudRepository;
+	
+	@Autowired
+	private LinkFederatedIdentifierClassRepository linkFederatedIdentifierClassRepository;
+	
+	@Autowired
+	private LinkServiceFederatedIdentifierRepository linkServiceFederatedIdentifierRepository;
+	
 
 	/* (non-Javadoc)
 	 * @see gr.ekt.cerif.services.second.FederatedIdentifierRepository#delete(gr.ekt.cerif.entities.second.FederatedIdentifier)
 	 */
 	@Override
 	public void delete(FederatedIdentifier entity) {
+		List<FederatedIdentifier_Class> fedcl = linkFederatedIdentifierClassRepository.findByFedId(entity);
+		if (fedcl != null) linkFederatedIdentifierClassRepository.delete(fedcl);
+		entity.setFedIds_classes(null);
+		
+		List<Service_FederatedIdentifier> srvfed = linkServiceFederatedIdentifierRepository.findByFedId(entity);
+		if (srvfed != null) linkServiceFederatedIdentifierRepository.delete(srvfed);
+		entity.setServices_fedIds(null);
+		
+		entity = federatedIdentifierCrudRepository.save(entity);
 		federatedIdentifierCrudRepository.delete(entity);
 	}
 

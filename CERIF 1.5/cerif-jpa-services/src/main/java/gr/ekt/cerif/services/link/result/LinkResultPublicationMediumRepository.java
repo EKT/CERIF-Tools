@@ -2,6 +2,7 @@ package gr.ekt.cerif.services.link.result;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.Medium;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface LinkResultPublicationMediumRepository {
 	public List<ResultPublication_Medium> findByMediumId(Long mediumId);
 	
 	public List<ResultPublication_Medium> findByResultPublication(ResultPublication resultPublication);
+	
+	List<ResultPublication_Medium> findByMedium(Medium medium);
 	
 	public List<ResultPublication_Medium> findByMediumIdAndResPublIdAndClassUri(Long mediumId, Long resPublId, String classUri);
 	

@@ -32,7 +32,7 @@ public class MeasurementKeywordRepositoryImpl implements MeasurementKeywordRepos
 
 	@Override
 	public void delete(Iterable<MeasurementKeyword> entities) {
-		measurementKeywordCrudRepository.save(entities);
+		measurementKeywordCrudRepository.delete(entities);
 	}
 
 	@Override

@@ -1,6 +1,10 @@
 package gr.ekt.cerif.services.link.event;
 
+import java.util.List;
+
 import gr.ekt.cerif.entities.link.Event_Funding;
+import gr.ekt.cerif.entities.second.Event;
+import gr.ekt.cerif.entities.second.Funding;
 
 /**
  * A repository for links between events and fundings.
@@ -16,4 +20,7 @@ public interface LinkEventFundingRepository {
 	
 	public Event_Funding save(Event_Funding entity);
 	
+	List<Event_Funding> findByEvent(Event event);
+	
+	List<Event_Funding> findByFunding(Funding funding);
 }

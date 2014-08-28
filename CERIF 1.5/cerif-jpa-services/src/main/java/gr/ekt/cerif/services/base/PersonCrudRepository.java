@@ -13,8 +13,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface PersonCrudRepository extends CrudRepository<Person, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	@Query(value= "select p from Person p where p.id = ?1")
-	Person findPersonById(Long id);
+	Person findById(Long id);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value= "select p from Person p join p.personNames pn where pn.familyNames = ?1")

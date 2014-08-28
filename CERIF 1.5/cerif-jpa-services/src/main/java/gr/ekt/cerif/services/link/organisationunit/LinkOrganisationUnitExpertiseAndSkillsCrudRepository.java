@@ -6,7 +6,6 @@ import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ExpertiseAndSkills;
-import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;

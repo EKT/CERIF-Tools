@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.multilingual.prize;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Prize;
 import gr.ekt.cerif.features.multilingual.PrizeDescription;
 
 public interface PrizeDescriptionRepository {
@@ -11,5 +14,7 @@ public interface PrizeDescriptionRepository {
 	public Iterable<PrizeDescription> save(Iterable<PrizeDescription> entities); 
 	
 	public PrizeDescription save(PrizeDescription entity);
+	
+	List<PrizeDescription> findByPrize(Prize prize);
 
 }

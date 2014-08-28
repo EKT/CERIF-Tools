@@ -6,13 +6,18 @@ import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ClassSchemeName;
 import gr.ekt.cerif.features.multilingual.Translation;
 import gr.ekt.cerif.features.semantics.ClassScheme;
+import gr.ekt.cerif.services.link.result.LinkResultPublicationEquipmentRepositoryImpl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class ClassSchemeNameRepositoryImpl implements ClassSchemeNameRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(ClassSchemeNameRepositoryImpl.class);
 
 	@Autowired
 	ClassSchemeNameCrudRepository classSchemeNameCrudRepository;

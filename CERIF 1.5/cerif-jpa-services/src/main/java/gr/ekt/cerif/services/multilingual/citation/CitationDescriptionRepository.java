@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.citation;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Citation;
 import gr.ekt.cerif.features.multilingual.CitationDescription;
 
 /**
@@ -18,5 +21,7 @@ public interface CitationDescriptionRepository {
 	public Iterable<CitationDescription> save(Iterable<CitationDescription> entities); 
 	
 	public CitationDescription save(CitationDescription entity);
+	
+	List<CitationDescription> findByCitation(Citation citation);
 
 }

@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.medium;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.features.multilingual.MediumTitle;
 
 /**
@@ -18,5 +21,7 @@ public interface MediumTitleRepository {
 	public Iterable<MediumTitle> save(Iterable<MediumTitle> entities); 
 	
 	public MediumTitle save(MediumTitle entity);
+	
+	List<MediumTitle> findByMedium(Medium medium);
 
 }

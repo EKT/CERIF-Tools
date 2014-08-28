@@ -52,4 +52,6 @@ public interface PersistenceService {
 	AdditionalPersistenceService getAdditionalService();
 	
 	GenericQuery getGenericQuery();
+	
+	SelectionService getSelectionService();
 }

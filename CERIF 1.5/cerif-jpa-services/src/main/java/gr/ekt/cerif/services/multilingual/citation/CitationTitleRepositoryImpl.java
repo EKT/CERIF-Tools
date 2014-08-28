@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.citation;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.Citation;
 import gr.ekt.cerif.features.multilingual.CitationTitle;
 
 /**
@@ -40,6 +43,11 @@ public class CitationTitleRepositoryImpl implements CitationTitleRepository {
 	@Override
 	public CitationTitle save(CitationTitle entity) {
 		return citationTitleCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<CitationTitle> findByCitation(Citation citation) {
+		return citationTitleCrudRepository.findByCitation(citation);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_Event;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.Event;
 
 /**
  * A repository for links between resultPublications and events.
@@ -26,5 +27,7 @@ public interface LinkResultPublicationEventRepository {
 	public List<ResultPublication_Event> findByResPublIdAndClassUri(Long respubId, String classUri);
 	
 	public ResultPublication_Event findByResPublIdAndClassUriAndEventId(Long respubId, String classUri, Long eventId);
+	
+	List<ResultPublication_Event> findByEvent(Event event);
 	
 }

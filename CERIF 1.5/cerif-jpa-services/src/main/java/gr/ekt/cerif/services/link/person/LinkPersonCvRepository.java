@@ -4,6 +4,7 @@ import java.util.List;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_Cv;
+import gr.ekt.cerif.entities.second.CV;
 import gr.ekt.cerif.features.semantics.Class;
 
 /**
@@ -25,6 +26,8 @@ public interface LinkPersonCvRepository {
 	void delete(Iterable<Person_Cv> entityList);
 	
 	List<Person_Cv> findByPerson(Person person);
+	
+	List<Person_Cv> findByCv(CV cv);
 	
 	List<Person_Cv> findByPersonAndTheClass(Person person, Class theClass);
 	

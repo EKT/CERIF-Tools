@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.currency;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.link.Currency_Class;
+import gr.ekt.cerif.entities.second.Currency;
+import gr.ekt.cerif.features.semantics.Class;
 
 @Component
 public class LinkCurrencyClassRepositoryImpl implements
@@ -34,6 +38,16 @@ public class LinkCurrencyClassRepositoryImpl implements
 	@Override
 	public Currency_Class save(Currency_Class entity) {
 		return linkCurrencyClassCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Currency_Class> findByCurrency(Currency currency) {
+		return linkCurrencyClassCrudRepository.findByCurrency(currency);
+	}
+
+	@Override
+	public List<Currency_Class> findBytheClass(Class theClass) {
+		return linkCurrencyClassCrudRepository.findBytheClass(theClass);
 	}
 
 }

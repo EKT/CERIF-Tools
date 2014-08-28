@@ -6,6 +6,7 @@ import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.Medium;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
@@ -15,6 +16,9 @@ public interface LinkResultPublicationMediumCrudRepository extends CrudRepositor
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ResultPublication_Medium> findByResultPublication(ResultPublication resultPublication);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<ResultPublication_Medium> findByMedium(Medium medium);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = " select mediumrespub from ResultPublication respub "+

@@ -17,9 +17,7 @@ import gr.ekt.cerif.services.GenericSuperRepository;
 public interface PersonRepository {
 
 	Person findById(Long id);
-	
-	Person findPersonById(Long id);
-	
+
 	Person findPersonName(String familyNames);
 	
 	Person findPersonByOtherName(String otherNames);

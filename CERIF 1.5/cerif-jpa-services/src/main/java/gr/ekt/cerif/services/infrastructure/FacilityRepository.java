@@ -1,7 +1,6 @@
 package gr.ekt.cerif.services.infrastructure;
 
 import gr.ekt.cerif.entities.infrastructure.Facility;
-import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
@@ -15,10 +14,6 @@ public interface FacilityRepository {
 	Facility findByAcronym(String acronym);
 	
 	List<Facility> findAll();
-	
-	public List<Facility> findByClass(Class theClass);
-
-	public List<Facility> findByFundingClass(Class theClass);
 	
 	void delete(Facility entity);
 	

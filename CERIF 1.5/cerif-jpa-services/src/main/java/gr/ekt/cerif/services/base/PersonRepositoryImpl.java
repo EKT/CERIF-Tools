@@ -174,10 +174,8 @@ public class PersonRepositoryImpl implements PersonRepository {
 	
 	private GenericSuperRepository personGenericRepository;
 	
-	public Person findPersonById(Long id) {
-		return personCrudRepository.findPersonById(id);
-	}
 
+	
 	public Person findPersonName(String familyNames) {
 		return personCrudRepository.findPersonName(familyNames);
 	}
@@ -191,6 +189,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 	}
 	
 
+	@Override
 	@Transactional
 	public void delete(Person entity) {
 		List<Person_OrganisationUnit> po = linkPersonOrganisationUnitRepository.findByPerson(entity);
@@ -202,18 +201,14 @@ public class PersonRepositoryImpl implements PersonRepository {
 		entity.setClasses(null);
 		
 		List<Person_ElectronicAddress> pe = linkPersonElectronicAddressRepository.findByPerson(entity);
-		if (pe != null) linkPersonElectronicAddressRepository.delete(pe);
-		entity.setPersons_electronicAddresses(null);
-		
 		List<ElectronicAddress> ea = electronicAddressRepository.findByPerson(entity);
-		if (ea != null) electronicAddressRepository.delete(ea);
+		if (pe != null) linkPersonElectronicAddressRepository.delete(pe);
+		entity.setPersons_electronicAddresses(null);		
 		
 		List<Person_PostalAddress> pp = linkPersonPostalAddressRepository.findByPerson(entity);
-		if (pp != null) linkPersonPostalAddressRepository.delete(pp);
-		entity.setPersons_postalAddresses(null);
-		
 		List<PostalAddress> lpa = postalAddressRepository.findByPerson(entity);
-		if (lpa != null) postalAddressRepository.delete(lpa);
+		if (pp != null) linkPersonPostalAddressRepository.delete(pp);
+		entity.setPersons_postalAddresses(null);		
 
 		List<Person_ResultPublication> pr = linkPersonResultPublicationRepository.findByPerson(entity);
 		if (pr != null) linkPersonResultPublicationRepository.delete(pr);
@@ -243,7 +238,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 		//delete the relations where the person is the second in the relation
 		List<Person_Person> p2b = linkPersonPersonRepository.findByPerson2(entity);
 		if (p2b != null) linkPersonPersonRepository.delete(p2b);
-		entity.setPersons_persons1(null);
+		entity.setPersons_persons2(null);
 		
 		List<Person_Medium> pm = linkPersonMediumRepository.findByPerson(entity);
 		if (pm != null) linkPersonMediumRepository.delete(pm);
@@ -309,9 +304,11 @@ public class PersonRepositoryImpl implements PersonRepository {
 		if (pser != null) linkPersonServiceRepository.delete(pser);
 		entity.setPersons_services(null);
 		
-		//save it before deleting it to commit all other changes
 		entity = personCrudRepository.save(entity);
 		personCrudRepository.delete(entity);
+		
+		if (ea != null) electronicAddressRepository.delete(ea);
+		if (lpa != null) postalAddressRepository.delete(lpa);
 	}
 
 	@Transactional

@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.currency;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.features.multilingual.CurrencyName;
 
 
@@ -41,6 +44,11 @@ public class CurrencyNameRepositoryImpl implements CurrencyNameRepository{
 	@Override
 	public CurrencyName save(CurrencyName entity) {
 		return currencyNameCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<CurrencyName> findByCurrency(Currency currency) {
+		return currencyNameCrudRepository.findByCurrency(currency);
 	}
 
 }

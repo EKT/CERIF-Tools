@@ -3,10 +3,13 @@
  */
 package gr.ekt.cerif.services.multilingual.country;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.multilingual.CountryName;
+import gr.ekt.cerif.services.multilingual.currency.CurrencyEntityNameRepositoryImpl;
 
 /**
  * @author bonisv
@@ -14,6 +17,8 @@ import gr.ekt.cerif.features.multilingual.CountryName;
  */
 @Component
 public class CountryNameRepositoryImpl implements CountryNameRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(CountryNameRepositoryImpl.class);
 
 	@Autowired
 	CountryNameCrudRepository countryNameCrudRepository;

@@ -9,6 +9,9 @@ import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.infrastructure.Equipment;
+import gr.ekt.cerif.entities.infrastructure.Facility;
+import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.entities.second.PostalAddress;
 
@@ -37,6 +40,27 @@ public interface PostalAddressCrudRepository extends CrudRepository<PostalAddres
 			"join orgs.organisationUnit org " +
 			"where org=?1 ")
     List<PostalAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	@Query("select pa from PostalAddress pa " +
+			"join pa.equipments_postalAddresses equips " +
+			"join equips.equipment equip " +
+			"where equip=?1 ")
+    List<PostalAddress> findByEquipment(Equipment equipment);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	@Query("select pa from PostalAddress pa " +
+			"join pa.facilities_postalAddresses facs " +
+			"join facs.facility fac " +
+			"where fac=?1 ")
+    List<PostalAddress> findByFacility(Facility facility);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	@Query("select pa from PostalAddress pa " +
+			"join pa.services_postalAddresses srvs " +
+			"join srvs.service serv " +
+			"where serv=?1 ")
+    List<PostalAddress> findByService(Service service);
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select pa from PostalAddress pa join pa.organisationUnits_postalAddresses orgs join orgs.organisationUnit org join pa.country cname where org=?1 and cname.code=?2 ")

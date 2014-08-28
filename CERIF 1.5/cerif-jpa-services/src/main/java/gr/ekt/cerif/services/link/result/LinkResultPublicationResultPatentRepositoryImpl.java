@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.result;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPatent;
+import gr.ekt.cerif.entities.result.ResultPatent;
+import gr.ekt.cerif.entities.result.ResultPublication;
 
 @Component
 public class LinkResultPublicationResultPatentRepositoryImpl implements
@@ -36,6 +40,18 @@ public class LinkResultPublicationResultPatentRepositoryImpl implements
 	public ResultPublication_ResultPatent save(
 			ResultPublication_ResultPatent entity) {
 		return linkResultPublicationResultPatentCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ResultPublication_ResultPatent> findByResultPatent(
+			ResultPatent resultPatent) {
+		return linkResultPublicationResultPatentCrudRepository.findByResultPatent(resultPatent);
+	}
+
+	@Override
+	public List<ResultPublication_ResultPatent> findByResultPublication(
+			ResultPublication resultPublication) {
+		return linkResultPublicationResultPatentCrudRepository.findByResultPublication(resultPublication);
 	}
 
 }

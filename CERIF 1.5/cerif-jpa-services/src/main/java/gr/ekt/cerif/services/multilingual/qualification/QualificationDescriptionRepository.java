@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.multilingual.qualification;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Qualification;
 import gr.ekt.cerif.features.multilingual.QualificationDescription;
 
 public interface QualificationDescriptionRepository {
@@ -11,5 +14,7 @@ public interface QualificationDescriptionRepository {
 	public Iterable<QualificationDescription> save(Iterable<QualificationDescription> entities); 
 	
 	public QualificationDescription save(QualificationDescription entity);
+	
+	List<QualificationDescription> findByQualification(Qualification qualification);
 
 }

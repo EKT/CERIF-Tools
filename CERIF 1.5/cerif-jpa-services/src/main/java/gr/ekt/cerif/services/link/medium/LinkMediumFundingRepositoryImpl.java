@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.medium;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.link.Medium_Funding;
+import gr.ekt.cerif.entities.second.Funding;
+import gr.ekt.cerif.entities.second.Medium;
 
 @Component
 public class LinkMediumFundingRepositoryImpl implements
@@ -34,6 +38,16 @@ public class LinkMediumFundingRepositoryImpl implements
 	@Override
 	public Medium_Funding save(Medium_Funding entity) {
 		return linkMediumFundingCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Medium_Funding> findByFunding(Funding funding) {
+		return linkMediumFundingCrudRepository.findByFunding(funding);
+	}
+
+	@Override
+	public List<Medium_Funding> findByMedium(Medium medium) {
+		return linkMediumFundingCrudRepository.findByMedium(medium);
 	}
 
 }

@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.event;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.features.multilingual.EventDescription;
 
 /**
@@ -52,6 +55,11 @@ public class EventDescriptionRepositoryImpl implements EventDescriptionRepositor
 	@Override
 	public EventDescription save(EventDescription entity) {
 		return eventDescriptionCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<EventDescription> findByEvent(Event event) {
+		return eventDescriptionCrudRepository.findByEvent(event);
 	}
 
 }
