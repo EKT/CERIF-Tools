@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.indicator;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.features.multilingual.IndicatorDescription;
 
 /**
@@ -18,4 +21,6 @@ public interface IndicatorDescriptionRepository {
 	public Iterable<IndicatorDescription> save(Iterable<IndicatorDescription> entities); 
 	
 	public IndicatorDescription save(IndicatorDescription entity);
+	
+	List<IndicatorDescription> findByIndicator(Indicator indicator);
 }

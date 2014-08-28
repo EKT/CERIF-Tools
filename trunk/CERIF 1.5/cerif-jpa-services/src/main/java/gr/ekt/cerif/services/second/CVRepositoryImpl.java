@@ -3,14 +3,19 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import gr.ekt.cerif.entities.link.Cv_Class;
+import gr.ekt.cerif.entities.link.person.Person_Cv;
 import gr.ekt.cerif.entities.second.CV;
-import gr.ekt.cerif.services.base.ProjectRepositoryImpl;
+import gr.ekt.cerif.services.link.cv.LinkCvClassRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonCvRepository;
 
 /**
  * @author bonisv
@@ -24,9 +29,13 @@ public class CVRepositoryImpl implements CVRepository {
 	@Autowired
 	private CVCrudRepository cvCrudRepository;
 	
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.second.CVRepository#findById(java.lang.Long)
-	 */
+	@Autowired
+	private LinkPersonCvRepository linkPersonCvRepository;
+	
+	@Autowired
+	private LinkCvClassRepository linkCvClassRepository;
+	
+	
 	@Override
 	public CV findById(Long id) {
 		return cvCrudRepository.findById(id);
@@ -34,6 +43,15 @@ public class CVRepositoryImpl implements CVRepository {
 
 	@Transactional
 	public void delete(CV entity) {
+		List<Person_Cv> pcv = linkPersonCvRepository.findByCv(entity);
+		if (pcv != null) linkPersonCvRepository.delete(pcv);
+		entity.setPersons_cvs(null);
+		
+		List<Cv_Class> cvcl = linkCvClassRepository.findByCv(entity);
+		if (cvcl != null) linkCvClassRepository.delete(cvcl);
+		entity.setCvs_classes(null);
+		
+		entity = cvCrudRepository.save(entity);
 		cvCrudRepository.delete(entity);
 	}
 	

@@ -4,7 +4,6 @@ import java.util.List;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_ExpertiseAndSkills;
-import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 
 /**
  * A repository for links between persons and expertiseAndSkills.

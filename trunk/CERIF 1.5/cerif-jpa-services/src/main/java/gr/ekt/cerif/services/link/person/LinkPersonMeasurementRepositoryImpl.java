@@ -48,8 +48,7 @@ public class LinkPersonMeasurementRepositoryImpl implements
 
 	@Override
 	public List<Person_Measurement> findByMeasurement(Measurement measurement) {
-		// TODO Auto-generated method stub
-		return null;
+		return linkPersonMeasurementCrudRepository.findByMeasurement(measurement);
 	}
 
 }

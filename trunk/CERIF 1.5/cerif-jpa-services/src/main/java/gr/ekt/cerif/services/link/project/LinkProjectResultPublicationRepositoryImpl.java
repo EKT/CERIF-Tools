@@ -9,12 +9,16 @@ import gr.ekt.cerif.services.semantics.ClassRepository;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LinkProjectResultPublicationRepositoryImpl implements LinkProjectResultPublicationRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(LinkProjectResultPublicationRepositoryImpl.class);
 
 	@Autowired
 	private ProjectRepository projectRepository;
@@ -31,15 +35,6 @@ public class LinkProjectResultPublicationRepositoryImpl implements LinkProjectRe
 
 	@Transactional
 	public Project_ResultPublication save(Project_ResultPublication entity) {
-		if (entity.getProject() == null || entity.getResultPublication() == null) {
-			throw new IllegalArgumentException("Please provide both a project and a ResultPublication.");
-		}
-		if (entity.getProject().getId() == null) {
-			projectRepository.save(entity.getProject());
-		}
-		if (entity.getResultPublication().getId() == null) {
-			resultPublicationRepository.save(entity.getResultPublication());
-		}
 		return linkProjectResultPublicationCrudRepository.save(entity);
 	}
 	

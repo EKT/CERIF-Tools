@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.metrics;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Metrics;
 import gr.ekt.cerif.features.multilingual.MetricsName;
 
 /**
@@ -18,5 +21,7 @@ public interface MetricsNameRepository {
 	public Iterable<MetricsName> save(Iterable<MetricsName> entities); 
 	
 	public MetricsName save(MetricsName entity);
+	
+	List<MetricsName> findByMetrics(Metrics metrics);
 
 }

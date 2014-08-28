@@ -1,6 +1,10 @@
 package gr.ekt.cerif.services.link.facility;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.Facility_Medium;
+import gr.ekt.cerif.entities.second.Medium;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +37,16 @@ public class LinkFacilityMediumRepositoryImpl implements LinkFacilityMediumRepos
 	@Override
 	public Facility_Medium save(Facility_Medium entity) {
 		return linkFacilityMediumCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Facility_Medium> findByMedium(Medium medium) {
+		return linkFacilityMediumCrudRepository.findByMedium(medium);
+	}
+
+	@Override
+	public List<Facility_Medium> findByFacility(Facility facility) {
+		return linkFacilityMediumCrudRepository.findByFacility(facility);
 	}
 
 }

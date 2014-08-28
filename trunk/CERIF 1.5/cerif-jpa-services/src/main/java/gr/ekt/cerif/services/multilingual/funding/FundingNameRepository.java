@@ -16,9 +16,9 @@ public interface FundingNameRepository {
 
 	public void delete(FundingName entity); 
 	
-	public void delete(Iterable<FundingName> entities); 
+	public void delete(List<FundingName> entities); 
 
-	public Iterable<FundingName> save(Iterable<FundingName> entities); 
+	public Iterable<FundingName> save(List<FundingName> entities); 
 	
 	public FundingName save(FundingName entity);
 	

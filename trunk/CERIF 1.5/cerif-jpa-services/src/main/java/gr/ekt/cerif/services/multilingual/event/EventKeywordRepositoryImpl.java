@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.event;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.features.multilingual.EventKeyword;
 
 /**
@@ -40,6 +43,11 @@ public class EventKeywordRepositoryImpl implements EventKeywordRepository {
 	@Override
 	public EventKeyword save(EventKeyword entity) {
 		return eventKeywordCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<EventKeyword> findByEvent(Event event) {
+		return eventKeywordCrudRepository.findByEvent(event);
 	}
 
 }

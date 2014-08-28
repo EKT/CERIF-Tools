@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.prize;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.link.Prize_Class;
+import gr.ekt.cerif.entities.second.Prize;
+import gr.ekt.cerif.features.semantics.Class;
 
 @Component
 public class LinkPrizeClassRepositoryImpl implements LinkPrizeClassRepository {
@@ -33,6 +37,16 @@ public class LinkPrizeClassRepositoryImpl implements LinkPrizeClassRepository {
 	@Override
 	public Prize_Class save(Prize_Class entity) {
 		return LinkPrizeClassCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Prize_Class> findByPrize(Prize prize) {
+		return LinkPrizeClassCrudRepository.findByPrize(prize);
+	}
+
+	@Override
+	public List<Prize_Class> findBytheClass(Class theClass) {
+		return LinkPrizeClassCrudRepository.findBytheClass(theClass);
 	}
 
 }

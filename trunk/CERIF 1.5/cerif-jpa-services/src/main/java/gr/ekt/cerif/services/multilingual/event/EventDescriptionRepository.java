@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.event;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.features.multilingual.EventDescription;
 
 /**
@@ -18,4 +21,6 @@ public interface EventDescriptionRepository {
 	public Iterable<EventDescription> save(Iterable<EventDescription> entities); 
 	
 	public EventDescription save(EventDescription entity);
+	
+	List<EventDescription> findByEvent(Event event);
 }

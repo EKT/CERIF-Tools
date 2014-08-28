@@ -29,5 +29,7 @@ public interface MeasurementRepository {
 	Page<Measurement> findAll(Pageable page);
 	
 	Measurement findByUuid(String uuid);
+
+	Measurement findById(Long id);
 	
 }

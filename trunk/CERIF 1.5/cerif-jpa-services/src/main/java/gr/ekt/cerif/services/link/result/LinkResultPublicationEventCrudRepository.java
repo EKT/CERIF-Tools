@@ -6,6 +6,7 @@ import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_Event;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.Event;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
@@ -15,6 +16,9 @@ public interface LinkResultPublicationEventCrudRepository extends CrudRepository
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ResultPublication_Event> findByResultPublication(ResultPublication resultPublication);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<ResultPublication_Event> findByEvent(Event event);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select respubev" +

@@ -1,11 +1,15 @@
 package gr.ekt.cerif.services.link.facility;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.Facility_Indicator;
+import gr.ekt.cerif.entities.second.Indicator;
 
 @Component
 public class LinkFacilityIndicatorRepositoryImpl implements
@@ -35,6 +39,16 @@ public class LinkFacilityIndicatorRepositoryImpl implements
 	@Override
 	public Facility_Indicator save(Facility_Indicator entity) {
 		return linkFacilityIndicatorCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Facility_Indicator> findByIndicator(Indicator indicator) {
+		return linkFacilityIndicatorCrudRepository.findByIndicator(indicator);
+	}
+
+	@Override
+	public List<Facility_Indicator> findByFacility(Facility facility) {
+		return linkFacilityIndicatorCrudRepository.findByFacility(facility);
 	}
 
 }

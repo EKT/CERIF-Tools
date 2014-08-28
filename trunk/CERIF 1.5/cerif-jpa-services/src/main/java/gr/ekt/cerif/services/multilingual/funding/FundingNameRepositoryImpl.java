@@ -31,12 +31,12 @@ public class FundingNameRepositoryImpl implements FundingNameRepository {
 	}
 
 	@Override
-	public void delete(Iterable<FundingName> entities) {
+	public void delete(List<FundingName> entities) {
 		fundingNameCrudRepository.delete(entities);		
 	}
 
 	@Override
-	public Iterable<FundingName> save(Iterable<FundingName> entities) {
+	public Iterable<FundingName> save(List<FundingName> entities) {
 		return fundingNameCrudRepository.save(entities);
 	}
 

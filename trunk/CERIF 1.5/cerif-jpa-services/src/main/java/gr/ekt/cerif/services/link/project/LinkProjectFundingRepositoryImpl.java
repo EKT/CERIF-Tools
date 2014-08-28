@@ -9,12 +9,16 @@ import gr.ekt.cerif.services.base.ProjectRepository;
 import gr.ekt.cerif.services.second.FundingRepository;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LinkProjectFundingRepositoryImpl implements LinkProjectFundingRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(LinkProjectFundingRepositoryImpl.class);
 
 	@Autowired
 	private ProjectRepository projectRepository;
@@ -27,15 +31,6 @@ public class LinkProjectFundingRepositoryImpl implements LinkProjectFundingRepos
 	
 	@Transactional
 	public Project_Funding save(Project_Funding entity) {
-		if (entity.getProject() == null || entity.getFunding() == null) {
-			throw new IllegalArgumentException("Please provide both a project and a funding.");
-		}
-		if (entity.getProject().getId() == null) {
-			projectRepository.save(entity.getProject());
-		}
-		if (entity.getFunding().getId() == null) {
-			fundingRepository.save(entity.getFunding());
-		}
 		return linkProjectFundingCrudRepository.save(entity);
 	}
 	

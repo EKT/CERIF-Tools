@@ -28,4 +28,7 @@ public interface MeasurementCrudRepository extends CrudRepository<Measurement, S
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Measurement findByUuid(String uuid);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	Measurement findById(Long id);
 }

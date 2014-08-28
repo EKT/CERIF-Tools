@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.multilingual.resultpatent;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.features.multilingual.ResultPatentAbstract;
 
 public interface ResultPatentAbstractRepository {
@@ -11,5 +14,7 @@ public interface ResultPatentAbstractRepository {
 	public Iterable<ResultPatentAbstract> save(Iterable<ResultPatentAbstract> entities); 
 	
 	public ResultPatentAbstract save(ResultPatentAbstract entity);
+	
+	List<ResultPatentAbstract> findByResultPatent(ResultPatent resultPatent);
 
 }

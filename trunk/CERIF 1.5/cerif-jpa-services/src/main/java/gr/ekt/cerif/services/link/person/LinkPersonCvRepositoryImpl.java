@@ -4,9 +4,8 @@ import java.util.List;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_Cv;
+import gr.ekt.cerif.entities.second.CV;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.services.base.PersonRepository;
-import gr.ekt.cerif.services.second.CVRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class LinkPersonCvRepositoryImpl implements LinkPersonCvRepository {
 	
 	private static final Logger log = LoggerFactory.getLogger(LinkPersonCvRepositoryImpl.class);
-	
-	@Autowired
-	private PersonRepository personRepository;
-	
-	@Autowired
-	private CVRepository cvRepository;
 	
 	@Autowired
 	private LinkPersonCvCrudRepository linkPersonCvCrudRepository;
@@ -66,6 +59,11 @@ public class LinkPersonCvRepositoryImpl implements LinkPersonCvRepository {
 	public Person_Cv findPersonCVByPersonIdAndClassUri(Long personId,
 			String theClassUri) {
 		return linkPersonCvCrudRepository.findPersonCVByPersonIdAndClassUri(personId, theClassUri);
+	}
+
+	@Override
+	public List<Person_Cv> findByCv(CV cv) {
+		return linkPersonCvCrudRepository.findByCv(cv);
 	}
 	
 }

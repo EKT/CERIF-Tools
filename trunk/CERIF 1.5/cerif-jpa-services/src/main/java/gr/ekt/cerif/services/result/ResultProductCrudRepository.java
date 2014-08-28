@@ -21,4 +21,6 @@ public interface ResultProductCrudRepository extends CrudRepository<ResultProduc
 
 	ResultProduct findByUuid(String uuid);
 	
+	ResultProduct findById(Long id);
+	
 }

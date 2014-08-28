@@ -6,6 +6,7 @@ import javax.persistence.QueryHint;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_Cv;
+import gr.ekt.cerif.entities.second.CV;
 import gr.ekt.cerif.features.semantics.Class;
 
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,9 @@ public interface LinkPersonCvCrudRepository extends CrudRepository<Person_Cv, Lo
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Person_Cv> findByPerson(Person person);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<Person_Cv> findByCv(CV cv);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Person_Cv> findByPersonAndTheClass(Person person, Class theClass);
