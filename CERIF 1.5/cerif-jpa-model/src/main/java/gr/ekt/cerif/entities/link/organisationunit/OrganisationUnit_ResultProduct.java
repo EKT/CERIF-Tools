@@ -323,11 +323,6 @@ public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 		this.theClass = theClass;
 	}
 	
-	/**
-	 * Source classification.
-	 */
-	private final static String SOURCE_URI = "Source-URI";
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

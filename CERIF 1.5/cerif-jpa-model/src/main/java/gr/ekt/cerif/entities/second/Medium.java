@@ -94,7 +94,7 @@ public class Medium implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="medium")
-	private Set<MediumTitle> mediumNames;
+	private Set<MediumTitle> mediumTitles;
 	
 	@OneToMany(mappedBy="medium")
 	private Set<MediumKeyword> mediumKeywords;
@@ -220,17 +220,17 @@ public class Medium implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the mediumNames
+	 * @return the mediumTitles
 	 */
-	public Set<MediumTitle> getMediumNames() {
-		return mediumNames;
+	public Set<MediumTitle> getMediumTitles() {
+		return mediumTitles;
 	}
 
 	/**
-	 * @param mediumNames the mediumNames to set
+	 * @param mediumTitles the mediumTitles to set
 	 */
-	public void setMediumNames(Set<MediumTitle> mediumNames) {
-		this.mediumNames = mediumNames;
+	public void setMediumTitles(Set<MediumTitle> mediumTitles) {
+		this.mediumTitles = mediumTitles;
 	}
 
 	/**

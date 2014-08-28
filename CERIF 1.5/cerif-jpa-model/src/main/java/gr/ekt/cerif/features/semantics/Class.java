@@ -6,6 +6,8 @@ package gr.ekt.cerif.features.semantics;
 import gr.ekt.cerif.entities.link.Citation_Class;
 import gr.ekt.cerif.entities.link.ClassScheme_Class;
 import gr.ekt.cerif.entities.link.Class_Class;
+import gr.ekt.cerif.entities.link.Country_Class;
+import gr.ekt.cerif.entities.link.Currency_Class;
 import gr.ekt.cerif.entities.link.Cv_Class;
 import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.Equipment_Class;
@@ -27,6 +29,7 @@ import gr.ekt.cerif.entities.link.Funding_Indicator;
 import gr.ekt.cerif.entities.link.Funding_Measurement;
 import gr.ekt.cerif.entities.link.GeographicBoundingBox_Class;
 import gr.ekt.cerif.entities.link.Indicator_Class;
+import gr.ekt.cerif.entities.link.Language_Class;
 import gr.ekt.cerif.entities.link.Measurement_Class;
 import gr.ekt.cerif.entities.link.Medium_Class;
 import gr.ekt.cerif.entities.link.Metrics_Class;
@@ -153,16 +156,16 @@ public class Class implements CerifSemanticFeature {
 	private Set<Person_ResultProduct> orgUnit_resultProducts;	
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<ResultProduct_Class> resultProducts;
+	private Set<ResultProduct_Class> resultProducts_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Person_Class> persons;
+	private Set<Person_Class> persons_classes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<ResultProduct_GeographicBoundingBox> resultProduct_GeographicBoundingBoxes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Project_Project> projects;
+	private Set<Project_Project> projects_projects;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Project_Class> projects_classes;
@@ -204,7 +207,7 @@ public class Class implements CerifSemanticFeature {
 	private Set<OrganisationUnit_ElectronicAddress> organisationUnits_electronicAddresses;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<OrganisationUnit_OrganisationUnit> organisationUnits;
+	private Set<OrganisationUnit_OrganisationUnit> organisationUnits_organisationUnits;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses;
@@ -222,7 +225,7 @@ public class Class implements CerifSemanticFeature {
 	private Set<ResultPublication_Class> resultPublications_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<ElectronicAddress_Class> electronicAddresses;
+	private Set<ElectronicAddress_Class> electronicAddresses_classes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Facility_Class> facilities_classes;
@@ -255,10 +258,10 @@ public class Class implements CerifSemanticFeature {
 	private Set<Facility_Service> facilities_services;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Funding_Class> fundings;
+	private Set<Funding_Class> fundings_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Equipment_Class> equipments;
+	private Set<Equipment_Class> equipments_classes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Funding_Indicator> fundings_indicators;
@@ -270,31 +273,31 @@ public class Class implements CerifSemanticFeature {
 	private Set<Funding_Funding> fundings_fundings;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Citation_Class> citations;
+	private Set<Citation_Class> citations_classes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<FederatedIdentifier_Class> federeratedIdentifier_class;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<FederatedIdentifier> federeratedIdentifier;
+	private Set<FederatedIdentifier> federeratedIdentifiers;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<PostalAddress_Class> postalAddresses;
+	private Set<PostalAddress_Class> postalAddresses_classes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Service_Class> services_Classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<ExpertiseAndSkills_Class> expertiseAndSkills;
+	private Set<ExpertiseAndSkills_Class> expertiseAndSkills_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<GeographicBoundingBox_Class> geographicBoundingBoxes;
+	private Set<GeographicBoundingBox_Class> geographicBoundingBoxes_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Indicator_Class> indicators;
+	private Set<Indicator_Class> indicators_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Cv_Class> cvs;
+	private Set<Cv_Class> cvs_classes;
 	
 	@OneToMany(mappedBy="theClass1")
 	private Set<Class_Class> class_class1;
@@ -309,19 +312,28 @@ public class Class implements CerifSemanticFeature {
 	private Set<ClassScheme_Class> relatedClassScheme_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Metrics_Class> metrics;
+	private Set<Metrics_Class> metrics_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Prize_Class> prizes;
+	private Set<Prize_Class> prizes_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Qualification_Class> qualifications;
+	private Set<Qualification_Class> qualifications_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Measurement_Class> measurements;
+	private Set<Measurement_Class> measurements_classes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Medium_Class> mediums_classes;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Currency_Class> currencies_classes;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Language_Class> languages_classes;
+	
+	@OneToMany(mappedBy="country")
+	private Set<Country_Class> countries_classes;
 	
 	
 	/**
@@ -520,34 +532,6 @@ public class Class implements CerifSemanticFeature {
 	public void setProject_organisationUnits(Set<Project_OrganisationUnit> project_organisationUnits) {
 		this.project_organisationUnits = project_organisationUnits;
 	}
-	
-	/**
-	 * @return the resultProducts
-	 */
-	public Set<ResultProduct_Class> getResultProducts() {
-		return resultProducts;
-	}
-
-	/**
-	 * @param resultProducts the resultProducts to set
-	 */
-	public void setResultProducts(Set<ResultProduct_Class> resultProducts) {
-		this.resultProducts = resultProducts;
-	}
-
-	/**
-	 * @return the persons
-	 */
-	public Set<Person_Class> getPersons() {
-		return persons;
-	}
-
-	/**
-	 * @param persons the persons to set
-	 */
-	public void setPersons(Set<Person_Class> persons) {
-		this.persons = persons;
-	}
 
 	/**
 	 * Returns the orgUnit_resultProducts.
@@ -655,50 +639,6 @@ public class Class implements CerifSemanticFeature {
 
 	public void setDefinitions(Set<ClassDefinition> definitions) {
 		this.definitions = definitions;
-	}
-
-	/**
-	 * @return the electronicAddresses
-	 */
-	public Set<ElectronicAddress_Class> getElectronicAddresses() {
-		return electronicAddresses;
-	}
-
-	/**
-	 * @param electronicAddresses the electronicAddresses to set
-	 */
-	public void setElectronicAddresses(
-			Set<ElectronicAddress_Class> electronicAddresses) {
-		this.electronicAddresses = electronicAddresses;
-	}
-
-	/**
-	 * @return the geographicBoundingBoxes
-	 */
-	public Set<GeographicBoundingBox_Class> getGeographicBoundingBoxes() {
-		return geographicBoundingBoxes;
-	}
-
-	/**
-	 * @param geographicBoundingBoxes the geographicBoundingBoxes to set
-	 */
-	public void setGeographicBoundingBoxes(
-			Set<GeographicBoundingBox_Class> geographicBoundingBoxes) {
-		this.geographicBoundingBoxes = geographicBoundingBoxes;
-	}
-
-	/**
-	 * @return the projects
-	 */
-	public Set<Project_Project> getProjects() {
-		return projects;
-	}
-
-	/**
-	 * @param projects the projects to set
-	 */
-	public void setProjects(Set<Project_Project> projects) {
-		this.projects = projects;
 	}
 
 	/**
@@ -854,20 +794,6 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setProjects_persons(Set<Project_Person> projects_persons) {
 		this.projects_persons = projects_persons;
-	}
-
-	/**
-	 * @return the organisationUnits
-	 */
-	public Set<OrganisationUnit_OrganisationUnit> getOrganisationUnits() {
-		return organisationUnits;
-	}
-
-	/**
-	 * @param organisationUnits the organisationUnits to set
-	 */
-	public void setOrganisationUnits(Set<OrganisationUnit_OrganisationUnit> organisationUnits) {
-		this.organisationUnits = organisationUnits;
 	}
 
 	/**
@@ -1062,34 +988,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the fundings
-	 */
-	public Set<Funding_Class> getFundings() {
-		return fundings;
-	}
-
-	/**
-	 * @param fundings the fundings to set
-	 */
-	public void setFundings(Set<Funding_Class> fundings) {
-		this.fundings = fundings;
-	}
-	
-	/**
-	 * @return the equipments
-	 */
-	public Set<Equipment_Class> getEquipments() {
-		return equipments;
-	}
-
-	/**
-	 * @param equipments the equipments to set
-	 */
-	public void setEquipments(Set<Equipment_Class> equipments) {
-		this.equipments = equipments;
-	}
-
-	/**
 	 * @return the fundings_indicators
 	 */
 	public Set<Funding_Indicator> getFundings_indicators() {
@@ -1156,14 +1054,6 @@ public class Class implements CerifSemanticFeature {
 		this.organisationUnits_postalAddresses = organisationUnits_postalAddresses;
 	}
 
-	public Set<Citation_Class> getCitations() {
-		return citations;
-	}
-
-	public void setCitations(Set<Citation_Class> citations) {
-		this.citations = citations;
-	}
-
 	public Set<FederatedIdentifier_Class> getFedereratedIdentifier_class() {
 		return federeratedIdentifier_class;
 	}
@@ -1171,29 +1061,6 @@ public class Class implements CerifSemanticFeature {
 	public void setFedereratedIdentifier_class(
 			Set<FederatedIdentifier_Class> federeratedIdentifier_class) {
 		this.federeratedIdentifier_class = federeratedIdentifier_class;
-	}
-
-	public Set<FederatedIdentifier> getFedereratedIdentifier() {
-		return federeratedIdentifier;
-	}
-
-	public void setFedereratedIdentifier(
-			Set<FederatedIdentifier> federeratedIdentifier) {
-		this.federeratedIdentifier = federeratedIdentifier;
-	}
-
-	/**
-	 * @return the postalAddresses
-	 */
-	public Set<PostalAddress_Class> getPostalAddresses() {
-		return postalAddresses;
-	}
-
-	/**
-	 * @param postalAddresses the postalAddresses to set
-	 */
-	public void setPostalAddresses(Set<PostalAddress_Class> postalAddresses) {
-		this.postalAddresses = postalAddresses;
 	}
 
 	/**
@@ -1208,49 +1075,6 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setServices_Classes(Set<Service_Class> services_Classes) {
 		this.services_Classes = services_Classes;
-	}
-
-	/**
-	 * @return the indicators
-	 */
-	public Set<Indicator_Class> getIndicators() {
-		return indicators;
-	}
-
-	/**
-	 * @param indicators the indicators to set
-	 */
-	public void setIndicators(Set<Indicator_Class> indicators) {
-		this.indicators = indicators;
-	}
-
-	/**
-	 * @return the expertiseAndSkills
-	 */
-	public Set<ExpertiseAndSkills_Class> getExpertiseAndSkills() {
-		return expertiseAndSkills;
-	}
-
-	/**
-	 * @param expertiseAndSkills the expertiseAndSkills to set
-	 */
-	public void setExpertiseAndSkills(
-			Set<ExpertiseAndSkills_Class> expertiseAndSkills) {
-		this.expertiseAndSkills = expertiseAndSkills;
-	}
-
-	/**
-	 * @return the cvs
-	 */
-	public Set<Cv_Class> getCvs() {
-		return cvs;
-	}
-
-	/**
-	 * @param cvs the cvs to set
-	 */
-	public void setCvs(Set<Cv_Class> cvs) {
-		this.cvs = cvs;
 	}
 
 	/**
@@ -1296,62 +1120,6 @@ public class Class implements CerifSemanticFeature {
 			Set<ClassScheme_Class> relatedClassScheme_classes) {
 		this.relatedClassScheme_classes = relatedClassScheme_classes;
 	}
-
-	/**
-	 * @return the metrics
-	 */
-	public Set<Metrics_Class> getMetrics() {
-		return metrics;
-	}
-
-	/**
-	 * @param metrics the metrics to set
-	 */
-	public void setMetrics(Set<Metrics_Class> metrics) {
-		this.metrics = metrics;
-	}
-
-	/**
-	 * @return the prizes
-	 */
-	public Set<Prize_Class> getPrizes() {
-		return prizes;
-	}
-
-	/**
-	 * @param prizes the prizes to set
-	 */
-	public void setPrizes(Set<Prize_Class> prizes) {
-		this.prizes = prizes;
-	}
-
-	/**
-	 * @return the qualifications
-	 */
-	public Set<Qualification_Class> getQualifications() {
-		return qualifications;
-	}
-
-	/**
-	 * @param qualifications the qualifications to set
-	 */
-	public void setQualifications(Set<Qualification_Class> qualifications) {
-		this.qualifications = qualifications;
-	}
-
-	/**
-	 * @return the measurements
-	 */
-	public Set<Measurement_Class> getMeasurements() {
-		return measurements;
-	}
-
-	/**
-	 * @param measurements the measurements to set
-	 */
-	public void setMeasurements(Set<Measurement_Class> measurements) {
-		this.measurements = measurements;
-	}
 	
 	/**
 	 * @return the facilities_classes
@@ -1379,6 +1147,309 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setMediums_classes(Set<Medium_Class> mediums_classes) {
 		this.mediums_classes = mediums_classes;
+	}
+
+
+	/**
+	 * @return the currencies_classes
+	 */
+	public Set<Currency_Class> getCurrencies_classes() {
+		return currencies_classes;
+	}
+
+	/**
+	 * @param currencies_classes the currencies_classes to set
+	 */
+	public void setCurrencies_classes(Set<Currency_Class> currencies_classes) {
+		this.currencies_classes = currencies_classes;
+	}
+
+	/**
+	 * @return the languages_classes
+	 */
+	public Set<Language_Class> getLanguages_classes() {
+		return languages_classes;
+	}
+
+	/**
+	 * @param languages_classes the languages_classes to set
+	 */
+	public void setLanguages_classes(Set<Language_Class> languages_classes) {
+		this.languages_classes = languages_classes;
+	}
+
+	/**
+	 * @return the countries_classes
+	 */
+	public Set<Country_Class> getCountries_classes() {
+		return countries_classes;
+	}
+
+	/**
+	 * @param countries_classes the countries_classes to set
+	 */
+	public void setCountries_classes(Set<Country_Class> countries_classes) {
+		this.countries_classes = countries_classes;
+	}
+
+	/**
+	 * @return the resultProducts_classes
+	 */
+	public Set<ResultProduct_Class> getResultProducts_classes() {
+		return resultProducts_classes;
+	}
+
+	/**
+	 * @param resultProducts_classes the resultProducts_classes to set
+	 */
+	public void setResultProducts_classes(
+			Set<ResultProduct_Class> resultProducts_classes) {
+		this.resultProducts_classes = resultProducts_classes;
+	}
+
+	/**
+	 * @return the persons_classes
+	 */
+	public Set<Person_Class> getPersons_classes() {
+		return persons_classes;
+	}
+
+	/**
+	 * @param persons_classes the persons_classes to set
+	 */
+	public void setPersons_classes(Set<Person_Class> persons_classes) {
+		this.persons_classes = persons_classes;
+	}
+
+	/**
+	 * @return the projects_projects
+	 */
+	public Set<Project_Project> getProjects_projects() {
+		return projects_projects;
+	}
+
+	/**
+	 * @param projects_projects the projects_projects to set
+	 */
+	public void setProjects_projects(Set<Project_Project> projects_projects) {
+		this.projects_projects = projects_projects;
+	}
+
+	/**
+	 * @return the organisationUnits_organisationUnits
+	 */
+	public Set<OrganisationUnit_OrganisationUnit> getOrganisationUnits_organisationUnits() {
+		return organisationUnits_organisationUnits;
+	}
+
+	/**
+	 * @param organisationUnits_organisationUnits the organisationUnits_organisationUnits to set
+	 */
+	public void setOrganisationUnits_organisationUnits(
+			Set<OrganisationUnit_OrganisationUnit> organisationUnits_organisationUnits) {
+		this.organisationUnits_organisationUnits = organisationUnits_organisationUnits;
+	}
+
+	/**
+	 * @return the electronicAddresses_classes
+	 */
+	public Set<ElectronicAddress_Class> getElectronicAddresses_classes() {
+		return electronicAddresses_classes;
+	}
+
+	/**
+	 * @param electronicAddresses_classes the electronicAddresses_classes to set
+	 */
+	public void setElectronicAddresses_classes(
+			Set<ElectronicAddress_Class> electronicAddresses_classes) {
+		this.electronicAddresses_classes = electronicAddresses_classes;
+	}
+
+	/**
+	 * @return the fundings_classes
+	 */
+	public Set<Funding_Class> getFundings_classes() {
+		return fundings_classes;
+	}
+
+	/**
+	 * @param fundings_classes the fundings_classes to set
+	 */
+	public void setFundings_classes(Set<Funding_Class> fundings_classes) {
+		this.fundings_classes = fundings_classes;
+	}
+
+	/**
+	 * @return the equipments_classes
+	 */
+	public Set<Equipment_Class> getEquipments_classes() {
+		return equipments_classes;
+	}
+
+	/**
+	 * @param equipments_classes the equipments_classes to set
+	 */
+	public void setEquipments_classes(Set<Equipment_Class> equipments_classes) {
+		this.equipments_classes = equipments_classes;
+	}
+
+	/**
+	 * @return the citations_classes
+	 */
+	public Set<Citation_Class> getCitations_classes() {
+		return citations_classes;
+	}
+
+	/**
+	 * @param citations_classes the citations_classes to set
+	 */
+	public void setCitations_classes(Set<Citation_Class> citations_classes) {
+		this.citations_classes = citations_classes;
+	}
+
+	/**
+	 * @return the federeratedIdentifiers
+	 */
+	public Set<FederatedIdentifier> getFedereratedIdentifiers() {
+		return federeratedIdentifiers;
+	}
+
+	/**
+	 * @param federeratedIdentifiers the federeratedIdentifiers to set
+	 */
+	public void setFedereratedIdentifiers(
+			Set<FederatedIdentifier> federeratedIdentifiers) {
+		this.federeratedIdentifiers = federeratedIdentifiers;
+	}
+
+	/**
+	 * @return the postalAddresses_classes
+	 */
+	public Set<PostalAddress_Class> getPostalAddresses_classes() {
+		return postalAddresses_classes;
+	}
+
+	/**
+	 * @param postalAddresses_classes the postalAddresses_classes to set
+	 */
+	public void setPostalAddresses_classes(
+			Set<PostalAddress_Class> postalAddresses_classes) {
+		this.postalAddresses_classes = postalAddresses_classes;
+	}
+
+	/**
+	 * @return the expertiseAndSkills_classes
+	 */
+	public Set<ExpertiseAndSkills_Class> getExpertiseAndSkills_classes() {
+		return expertiseAndSkills_classes;
+	}
+
+	/**
+	 * @param expertiseAndSkills_classes the expertiseAndSkills_classes to set
+	 */
+	public void setExpertiseAndSkills_classes(
+			Set<ExpertiseAndSkills_Class> expertiseAndSkills_classes) {
+		this.expertiseAndSkills_classes = expertiseAndSkills_classes;
+	}
+
+	/**
+	 * @return the geographicBoundingBoxes_classes
+	 */
+	public Set<GeographicBoundingBox_Class> getGeographicBoundingBoxes_classes() {
+		return geographicBoundingBoxes_classes;
+	}
+
+	/**
+	 * @param geographicBoundingBoxes_classes the geographicBoundingBoxes_classes to set
+	 */
+	public void setGeographicBoundingBoxes_classes(
+			Set<GeographicBoundingBox_Class> geographicBoundingBoxes_classes) {
+		this.geographicBoundingBoxes_classes = geographicBoundingBoxes_classes;
+	}
+
+	/**
+	 * @return the indicators_classes
+	 */
+	public Set<Indicator_Class> getIndicators_classes() {
+		return indicators_classes;
+	}
+
+	/**
+	 * @param indicators_classes the indicators_classes to set
+	 */
+	public void setIndicators_classes(Set<Indicator_Class> indicators_classes) {
+		this.indicators_classes = indicators_classes;
+	}
+
+	/**
+	 * @return the cvs_classes
+	 */
+	public Set<Cv_Class> getCvs_classes() {
+		return cvs_classes;
+	}
+
+	/**
+	 * @param cvs_classes the cvs_classes to set
+	 */
+	public void setCvs_classes(Set<Cv_Class> cvs_classes) {
+		this.cvs_classes = cvs_classes;
+	}
+
+	/**
+	 * @return the metrics_classes
+	 */
+	public Set<Metrics_Class> getMetrics_classes() {
+		return metrics_classes;
+	}
+
+	/**
+	 * @param metrics_classes the metrics_classes to set
+	 */
+	public void setMetrics_classes(Set<Metrics_Class> metrics_classes) {
+		this.metrics_classes = metrics_classes;
+	}
+
+	/**
+	 * @return the prizes_classes
+	 */
+	public Set<Prize_Class> getPrizes_classes() {
+		return prizes_classes;
+	}
+
+	/**
+	 * @param prizes_classes the prizes_classes to set
+	 */
+	public void setPrizes_classes(Set<Prize_Class> prizes_classes) {
+		this.prizes_classes = prizes_classes;
+	}
+
+	/**
+	 * @return the qualifications_classes
+	 */
+	public Set<Qualification_Class> getQualifications_classes() {
+		return qualifications_classes;
+	}
+
+	/**
+	 * @param qualifications_classes the qualifications_classes to set
+	 */
+	public void setQualifications_classes(
+			Set<Qualification_Class> qualifications_classes) {
+		this.qualifications_classes = qualifications_classes;
+	}
+
+	/**
+	 * @return the measurements_classes
+	 */
+	public Set<Measurement_Class> getMeasurements_classes() {
+		return measurements_classes;
+	}
+
+	/**
+	 * @param measurements_classes the measurements_classes to set
+	 */
+	public void setMeasurements_classes(Set<Measurement_Class> measurements_classes) {
+		this.measurements_classes = measurements_classes;
 	}
 
 	/* (non-Javadoc)

@@ -98,7 +98,6 @@ public class Person_Country implements CerifLinkEntity {
 	}
 	
 	/**
-	 * 
 	 * @param person
 	 * @param country
 	 * @param theClass
@@ -114,6 +113,22 @@ public class Person_Country implements CerifLinkEntity {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.fraction = fraction;
+	}
+	
+	/**
+	 * @param person
+	 * @param country
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public Person_Country(Person person, Country country, Class theClass,
+			Date startDate, Date endDate) {
+		this.person = person;
+		this.country = country;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 	/**

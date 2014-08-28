@@ -72,7 +72,7 @@ public class Citation implements CerifSecondLevelEntity {
 	private Set<ResultPublication_Citation> resultPublications_citations;
 	
 	@OneToMany(mappedBy="citation")
-	private Set<Citation_Class> classes;
+	private Set<Citation_Class> citations_classes;
 	
 	@OneToMany(mappedBy="citation")
 	private Set<Citation_Medium> citations_mediums;
@@ -182,17 +182,17 @@ public class Citation implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the classes
+	 * @return the citations_classes
 	 */
-	public Set<Citation_Class> getClasses() {
-		return classes;
+	public Set<Citation_Class> getCitations_classes() {
+		return citations_classes;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param citations_classes the citations_classes to set
 	 */
-	public void setClasses(Set<Citation_Class> classes) {
-		this.classes = classes;
+	public void setCitations_classes(Set<Citation_Class> citations_classes) {
+		this.citations_classes = citations_classes;
 	}
 
 	/**

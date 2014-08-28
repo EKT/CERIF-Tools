@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -69,12 +70,14 @@ public class ResultPublication_ResultProduct implements CerifLinkEntity {
 	/**
 	 * The start date.
 	 */
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	

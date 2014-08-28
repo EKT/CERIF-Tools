@@ -118,7 +118,7 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 	private Set<PostalAddress_GeographicBoundingBox> postalAddresses_geographicBoundingBoxes;
 	
 	@OneToMany(mappedBy="geographicBoundingBox")
-	private Set<GeographicBoundingBox_Class> classes;
+	private Set<GeographicBoundingBox_Class> geographicBoundingBoxes_classes;
 	
 	@OneToMany(mappedBy="geographicBoundingBox1")
 	private Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes1;
@@ -382,17 +382,18 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the classes
+	 * @return the geographicBoundingBoxes_classes
 	 */
-	public Set<GeographicBoundingBox_Class> getClasses() {
-		return classes;
+	public Set<GeographicBoundingBox_Class> getGeographicBoundingBoxes_classes() {
+		return geographicBoundingBoxes_classes;
 	}
 
 	/**
-	 * @param classes the classes to set
+	 * @param geographicBoundingBoxes_classes the geographicBoundingBoxes_classes to set
 	 */
-	public void setClasses(Set<GeographicBoundingBox_Class> classes) {
-		this.classes = classes;
+	public void setGeographicBoundingBoxes_classes(
+			Set<GeographicBoundingBox_Class> geographicBoundingBoxes_classes) {
+		this.geographicBoundingBoxes_classes = geographicBoundingBoxes_classes;
 	}
 
 	/**

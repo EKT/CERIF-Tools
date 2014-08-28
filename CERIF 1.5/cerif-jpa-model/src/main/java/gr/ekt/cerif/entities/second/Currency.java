@@ -4,6 +4,7 @@
 package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.link.Currency_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
@@ -96,6 +97,9 @@ public class Currency implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="currency")
 	private Set<Project_Funding> projects_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Currency_Class> currencies_classes;
 	
 	/**
 	 * FederatedIdentifier entities related to Currency instance.
@@ -297,6 +301,20 @@ public class Currency implements CerifSecondLevelEntity {
 	 */
 	public void setEntityNames(Set<CurrencyEntityName> entityNames) {
 		this.entityNames = entityNames;
+	}
+
+	/**
+	 * @return the currencies_classes
+	 */
+	public Set<Currency_Class> getCurrencies_classes() {
+		return currencies_classes;
+	}
+
+	/**
+	 * @param currencies_classes the currencies_classes to set
+	 */
+	public void setCurrencies_classes(Set<Currency_Class> currencies_classes) {
+		this.currencies_classes = currencies_classes;
 	}
 
 	/**
