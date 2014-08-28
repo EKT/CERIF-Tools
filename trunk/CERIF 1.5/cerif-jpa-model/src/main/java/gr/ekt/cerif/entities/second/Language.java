@@ -4,6 +4,7 @@
 package gr.ekt.cerif.entities.second;
 
 
+import gr.ekt.cerif.entities.link.Language_Class;
 import gr.ekt.cerif.entities.link.person.Person_Language;
 import gr.ekt.cerif.features.multilingual.CitationDescription;
 import gr.ekt.cerif.features.multilingual.CitationTitle;
@@ -375,6 +376,9 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 
 	@OneToMany(mappedBy="language")
 	private Set<Person_Language> persons_languages;
+	
+	@OneToMany(mappedBy="language")
+	private Set<Language_Class> languages_classes;
 
 	
 	/**
@@ -1300,6 +1304,22 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	public void setServiceDescriptions(Set<ServiceDescription> serviceDescriptions) {
 		this.serviceDescriptions = serviceDescriptions;
 	}
+
+	/**
+	 * @return the languages_classes
+	 */
+	public Set<Language_Class> getLanguages_classes() {
+		return languages_classes;
+	}
+
+
+	/**
+	 * @param languages_classes the languages_classes to set
+	 */
+	public void setLanguages_classes(Set<Language_Class> languages_classes) {
+		this.languages_classes = languages_classes;
+	}
+
 
 	/**
 	 * @return the federatedIdentifiers

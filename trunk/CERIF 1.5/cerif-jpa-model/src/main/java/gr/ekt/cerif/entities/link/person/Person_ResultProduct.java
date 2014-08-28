@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -70,12 +71,14 @@ public class Person_ResultProduct implements CerifLinkEntity {
 	/**
 	 * The start date.
 	 */
+	@NotNull
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
+	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
@@ -94,7 +97,7 @@ public class Person_ResultProduct implements CerifLinkEntity {
 	/**
 	 * The currency code.
 	 */
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="cfCurrCode")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Currency currency;

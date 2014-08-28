@@ -99,7 +99,7 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 	private Set<FederatedIdentifier_Class> fedIds_classes;	
 	
 	@OneToMany(mappedBy="fedId")
-	private Set<Service_FederatedIdentifier> services_fedids;
+	private Set<Service_FederatedIdentifier> services_fedIds;
 	
 	
 	
@@ -111,13 +111,10 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @param id
 	 * @param instanceId
 	 * @param fedId
 	 * @param startDate
 	 * @param endDate
-	 * @param fedIds_classes
-	 * @param services_fedids
 	 */
 	public FederatedIdentifier(Long instanceId, String fedId,
 			Date startDate, Date endDate) {
@@ -239,17 +236,17 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 	}
 	
 	/**
-	 * @return the services_fedids
+	 * @return the services_fedIds
 	 */
-	public Set<Service_FederatedIdentifier> getServices_fedids() {
-		return services_fedids;
+	public Set<Service_FederatedIdentifier> getServices_fedIds() {
+		return services_fedIds;
 	}
 
 	/**
-	 * @param services_fedids the services_fedids to set
+	 * @param services_fedIds the services_fedIds to set
 	 */
-	public void setServices_fedids(Set<Service_FederatedIdentifier> services_fedids) {
-		this.services_fedids = services_fedids;
+	public void setServices_fedIds(Set<Service_FederatedIdentifier> services_fedIds) {
+		this.services_fedIds = services_fedIds;
 	}
 
 	public Class getTheClass() {

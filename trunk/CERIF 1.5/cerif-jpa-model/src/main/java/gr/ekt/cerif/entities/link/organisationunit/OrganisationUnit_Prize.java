@@ -28,7 +28,7 @@ import gr.ekt.cerif.features.semantics.Class;
  * 
  */
 @Entity
-@Table(name="cfOrgUnit_Prize", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId","cfPrizeId","cfClassId","cfClassId","cfPrizeDate"}))
+@Table(name="cfOrgUnit_Prize", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId","cfPrizeId","cfClassId","cfClassId","cfStartDate","cfEndDate"}))
 public class OrganisationUnit_Prize implements CerifLinkEntity {
 
 	/**
@@ -68,11 +68,18 @@ public class OrganisationUnit_Prize implements CerifLinkEntity {
 	private Class theClass;
 	
 	/**
-	 * The prize date.
+	 * The start date.
 	 */
 	@NotNull
-	@Column (name="cfPrizeDate")
-	private Date prizeDate;
+	@Column (name="cfStartDate")
+	private Date startDate;
+	
+	/**
+	 * The end date.
+	 */
+	@NotNull
+	@Column (name="cfEndDate")
+	private Date endDate;
 	
 	/**
 	 * The fraction.
@@ -88,21 +95,22 @@ public class OrganisationUnit_Prize implements CerifLinkEntity {
 	}
 	
 	/**
-	 * 
 	 * @param organisationUnit
 	 * @param prize
 	 * @param theClass
-	 * @param prizeDate
-	 * @param fraction
+	 * @param startDate
+	 * @param endDate
 	 */
 	public OrganisationUnit_Prize(OrganisationUnit organisationUnit,
-			Prize prize, Class theClass, Date prizeDate, Double fraction) {
+			Prize prize, Class theClass, Date startDate, Date endDate) {
+		super();
 		this.organisationUnit = organisationUnit;
 		this.prize = prize;
 		this.theClass = theClass;
-		this.prizeDate = prizeDate;
-		this.fraction = fraction;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
+
 
 	/**
 	 * @return the organisationUnit
@@ -147,20 +155,6 @@ public class OrganisationUnit_Prize implements CerifLinkEntity {
 	}
 
 	/**
-	 * @return the prizeDate
-	 */
-	public Date getPrizeDate() {
-		return prizeDate;
-	}
-
-	/**
-	 * @param prizeDate the prizeDate to set
-	 */
-	public void setPrizeDate(Date prizeDate) {
-		this.prizeDate = prizeDate;
-	}
-
-	/**
 	 * @return the fraction
 	 */
 	public Double getFraction() {
@@ -188,6 +182,38 @@ public class OrganisationUnit_Prize implements CerifLinkEntity {
 		this.id = id;
 	}
 
+
+	/**
+	 * @return the startDate
+	 */
+	public Date getStartDate() {
+		return startDate;
+	}
+
+
+	/**
+	 * @param startDate the startDate to set
+	 */
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+
+	/**
+	 * @return the endDate
+	 */
+	public Date getEndDate() {
+		return endDate;
+	}
+
+
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -195,8 +221,9 @@ public class OrganisationUnit_Prize implements CerifLinkEntity {
 	public String toString() {
 		return "OrganisationUnit_Prize [id=" + id + ", organisationUnit="
 				+ organisationUnit + ", prize=" + prize + ", theClass="
-				+ theClass + ", prizeDate=" + prizeDate + ", fraction="
-				+ fraction + "]";
+				+ theClass + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", fraction=" + fraction + "]";
 	}
+	
 	
 }

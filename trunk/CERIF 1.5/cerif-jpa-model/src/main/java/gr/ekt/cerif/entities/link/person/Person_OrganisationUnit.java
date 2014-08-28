@@ -98,7 +98,6 @@ public class Person_OrganisationUnit implements CerifLinkEntity {
 	}
 	
 	/**
-	 * 
 	 * @param person
 	 * @param organisationUnit
 	 * @param theClass
@@ -118,7 +117,6 @@ public class Person_OrganisationUnit implements CerifLinkEntity {
 	}
 	
 	/**
-	 * 
 	 * @param person
 	 * @param organisationUnit
 	 * @param startDate
@@ -132,6 +130,24 @@ public class Person_OrganisationUnit implements CerifLinkEntity {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+	
+	/**
+	 * @param person
+	 * @param organisationUnit
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public Person_OrganisationUnit(Person person,
+			OrganisationUnit organisationUnit, Class theClass, Date startDate,
+			Date endDate) {
+		this.person = person;
+		this.organisationUnit = organisationUnit;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
 
 	/**
 	 * @return the id
