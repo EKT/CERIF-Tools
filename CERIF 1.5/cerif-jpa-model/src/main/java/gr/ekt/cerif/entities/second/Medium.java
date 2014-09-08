@@ -12,6 +12,7 @@ import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Medium;
 import gr.ekt.cerif.entities.link.Service_Medium;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Medium;
 import gr.ekt.cerif.entities.link.person.Person_Medium;
 import gr.ekt.cerif.entities.link.project.Project_Medium;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
@@ -141,6 +142,9 @@ public class Medium implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="medium")
 	private Set<Project_Medium> projects_mediums;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<OrganisationUnit_Medium> organisationUnits_mediums;
 	
 	@OneToMany(mappedBy="medium")
 	private Set<Medium_Class> mediums_classes;
@@ -470,6 +474,21 @@ public class Medium implements CerifSecondLevelEntity {
 	 */
 	public void setMediums_classes(Set<Medium_Class> mediums_classes) {
 		this.mediums_classes = mediums_classes;
+	}
+
+	/**
+	 * @return the organisationUnits_mediums
+	 */
+	public Set<OrganisationUnit_Medium> getOrganisationUnits_mediums() {
+		return organisationUnits_mediums;
+	}
+
+	/**
+	 * @param organisationUnits_mediums the organisationUnits_mediums to set
+	 */
+	public void setOrganisationUnits_mediums(
+			Set<OrganisationUnit_Medium> organisationUnits_mediums) {
+		this.organisationUnits_mediums = organisationUnits_mediums;
 	}
 
 	/**
