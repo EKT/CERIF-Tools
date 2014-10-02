@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPatent;
 import gr.ekt.cerif.entities.link.person.Person_ResultPatent;
 import gr.ekt.cerif.entities.link.project.Project_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Class;
@@ -16,6 +17,7 @@ import gr.ekt.cerif.entities.link.result.ResultPatent_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Funding;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Measurement;
+import gr.ekt.cerif.entities.link.result.ResultPatent_Medium;
 import gr.ekt.cerif.entities.link.result.ResultPatent_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPatent;
@@ -24,6 +26,7 @@ import gr.ekt.cerif.features.multilingual.ResultPatentAbstract;
 import gr.ekt.cerif.features.multilingual.ResultPatentKeyword;
 import gr.ekt.cerif.features.multilingual.ResultPatentTitle;
 import gr.ekt.cerif.features.multilingual.ResultPatentVersionInfo;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitResultPatentRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonResultPatentRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectResultPatentRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentClassRepository;
@@ -32,6 +35,7 @@ import gr.ekt.cerif.services.link.result.LinkResultPatentFacilityRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentFundingRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentIndicatorRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentMeasurementRepository;
+import gr.ekt.cerif.services.link.result.LinkResultPatentMediumRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentResultPatentRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentServiceRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPublicationResultPatentRepository;
@@ -96,6 +100,13 @@ public class ResultPatentRepositoryImpl implements ResultPatentRepository {
 	
 	@Autowired
 	private LinkResultPatentFacilityRepository linkResultPatentFacilityRepository;
+	
+	@Autowired
+	private LinkOrganisationUnitResultPatentRepository linkOrganisationUnitResultPatentRepository;
+	
+	@Autowired
+	private LinkResultPatentMediumRepository linkResultPatentMediumRepository;
+	
 	
 	@Override
 	@Transactional
@@ -163,6 +174,14 @@ public class ResultPatentRepositoryImpl implements ResultPatentRepository {
 		List<ResultPatent_Facility> respatflfac = linkResultPatentFacilityRepository.findByResultPatent(entity);
 		if (respatflfac != null) linkResultPatentFacilityRepository.delete(respatflfac);
 		entity.setResultPatents_facilities(null);
+		
+		List<OrganisationUnit_ResultPatent> pats = linkOrganisationUnitResultPatentRepository.findByResultPatent(entity);
+		if (pats != null) linkOrganisationUnitResultPatentRepository.delete(pats);
+		entity.setOrganisationUnits_resultPatents(null);
+		
+		List<ResultPatent_Medium> respatMed = linkResultPatentMediumRepository.findByResultPatent(entity);
+		if (respatMed != null) linkResultPatentMediumRepository.delete(respatMed);
+		entity.setResultPatents_mediums(null);
 		
 		entity = resultPatentCrudRepository.save(entity);
 		resultPatentCrudRepository.delete(entity);

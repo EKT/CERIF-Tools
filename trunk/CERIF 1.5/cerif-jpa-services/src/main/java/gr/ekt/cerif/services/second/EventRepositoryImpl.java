@@ -5,9 +5,11 @@ import java.util.List;
 import gr.ekt.cerif.entities.link.Equipment_Event;
 import gr.ekt.cerif.entities.link.Event_Class;
 import gr.ekt.cerif.entities.link.Event_Event;
+import gr.ekt.cerif.entities.link.Event_Funding;
 import gr.ekt.cerif.entities.link.Event_Indicator;
 import gr.ekt.cerif.entities.link.Event_Measurement;
 import gr.ekt.cerif.entities.link.Event_Medium;
+import gr.ekt.cerif.entities.link.Facility_Event;
 import gr.ekt.cerif.entities.link.Service_Event;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Event;
 import gr.ekt.cerif.entities.link.person.Person_Event;
@@ -20,9 +22,11 @@ import gr.ekt.cerif.features.multilingual.EventName;
 import gr.ekt.cerif.services.link.equipment.LinkEquipmentEventRepository;
 import gr.ekt.cerif.services.link.event.LinkEventClassRepository;
 import gr.ekt.cerif.services.link.event.LinkEventEventRepository;
+import gr.ekt.cerif.services.link.event.LinkEventFundingRepository;
 import gr.ekt.cerif.services.link.event.LinkEventIndicatorRepository;
 import gr.ekt.cerif.services.link.event.LinkEventMeasurementRepository;
 import gr.ekt.cerif.services.link.event.LinkEventMediumRepository;
+import gr.ekt.cerif.services.link.facility.LinkFacilityEventRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitEventRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonEventRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectEventRepository;
@@ -87,6 +91,12 @@ public class EventRepositoryImpl implements EventRepository {
 	
 	@Autowired
 	private LinkEventEventRepository linkEventEventRepository;
+	
+	@Autowired
+	private LinkEventFundingRepository linkEventFundingRepository;
+	
+	@Autowired
+	private LinkFacilityEventRepository linkFacilityEventRepository;
 	
 	
 	
@@ -157,6 +167,14 @@ public class EventRepositoryImpl implements EventRepository {
 		List<Event_Event> evev2 = linkEventEventRepository.findByEvent2(entity);
 		if (evev2 != null) linkEventEventRepository.delete(evev2);
 		entity.setEvents_events2(null);
+		
+		List<Event_Funding> evFund = linkEventFundingRepository.findByEvent(entity);
+		if (evFund != null) linkEventFundingRepository.delete(evFund);
+		entity.setEvents_fundings(null);
+		
+		List<Facility_Event> facEv = linkFacilityEventRepository.findByEvent(entity);
+		if (facEv != null) linkFacilityEventRepository.delete(facEv);
+		entity.setFacilities_events(null);
 		
 		entity = eventCrudRepository.save(entity);
 		eventCrudRepository.delete(entity);

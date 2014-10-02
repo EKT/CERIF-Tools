@@ -26,7 +26,7 @@ public class LinkOrganisationUnitResultProductRepositoryImpl implements LinkOrga
 
 	@Override
 	public void delete(Iterable<OrganisationUnit_ResultProduct> entities) {
-		linkOrganisationUnitResultProductCrudRepository.save(entities);		
+		linkOrganisationUnitResultProductCrudRepository.delete(entities);		
 	}
 
 	@Override

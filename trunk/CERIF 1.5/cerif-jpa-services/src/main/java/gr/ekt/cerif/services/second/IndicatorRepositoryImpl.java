@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -225,6 +227,26 @@ public class IndicatorRepositoryImpl implements IndicatorRepository {
 	@Override
 	public Indicator save(Indicator entity) {
 		return indicatorCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Indicator> findAll() {
+		return indicatorCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<Indicator> findAll(Pageable page) {
+		return indicatorCrudRepository.findAll(page);
+	}
+
+	@Override
+	public Indicator findByUuid(String uuid) {
+		return indicatorCrudRepository.findByUuid(uuid);
+	}
+
+	@Override
+	public Indicator findById(Long id) {
+		return indicatorCrudRepository.findById(id);
 	}
 
 }

@@ -10,8 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ClassDefinition;
+import gr.ekt.cerif.features.multilingual.Translation;
 import gr.ekt.cerif.features.semantics.Class;
+import gr.ekt.cerif.features.semantics.ClassScheme;
 
 /**
  * @author bonisv
@@ -48,6 +51,19 @@ public class ClassDefinitionRepositoryImpl implements ClassDefinitionRepository 
 	@Override
 	public List<ClassDefinition> findByTheClass(Class theClass) {
 		return classDefinitionCrudRepository.findByTheClass(theClass);
+	}
+
+	@Override
+	public List<ClassDefinition> findByDefinitionAndClassSchemeAndTranslationAndLanguage(
+			String definition, ClassScheme scheme, Translation tra, Language lan) {
+		return classDefinitionCrudRepository.findByDefinitionAndClassSchemeAndTranslationAndLanguage(definition, scheme, tra, lan);
+	}
+
+	@Override
+	public List<ClassDefinition> findByTheClassAndDefinitionAndClassSchemeAndTranslationAndLanguage(
+			Class theClass, String definition, ClassScheme scheme,
+			Translation tra, Language lan) {
+		return classDefinitionCrudRepository.findByTheClassAndDefinitionAndClassSchemeAndTranslationAndLanguage(theClass, definition, scheme, tra, lan);
 	}
 
 }

@@ -46,8 +46,8 @@ public class LinkEventMeasurementRepositoryImpl implements
 	}
 
 	@Override
-	public List<Event_Measurement> findByMeasurement(Measurement mkeasurement) {
-		return linkEventMeasurementCrudRepository.findByMeasurement(mkeasurement);
+	public List<Event_Measurement> findByMeasurement(Measurement measurement) {
+		return linkEventMeasurementCrudRepository.findByMeasurement(measurement);
 	}
 
 }

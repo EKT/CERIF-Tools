@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author bonisv
@@ -45,6 +46,7 @@ public class ElectronicAddressRepositoryImpl implements ElectronicAddressReposit
 	
 
 	@Override
+	@Transactional
 	public void delete(ElectronicAddress entity) {
 		List<OrganisationUnit_ElectronicAddress> oue = linkOrganisationUnitElectronicAddressRepository.findByElectronicAddress(entity);
 		if (oue != null) linkOrganisationUnitElectronicAddressRepository.delete(oue);

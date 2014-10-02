@@ -2,6 +2,7 @@ package gr.ekt.cerif.services.second;
 
 import java.util.List;
 
+import gr.ekt.cerif.entities.link.Citation_Medium;
 import gr.ekt.cerif.entities.link.Equipment_Medium;
 import gr.ekt.cerif.entities.link.Event_Medium;
 import gr.ekt.cerif.entities.link.Facility_Medium;
@@ -11,12 +12,16 @@ import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Medium;
 import gr.ekt.cerif.entities.link.Service_Medium;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Medium;
+import gr.ekt.cerif.entities.link.person.Person_Medium;
 import gr.ekt.cerif.entities.link.project.Project_Medium;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Medium;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.features.multilingual.MediumDescription;
 import gr.ekt.cerif.features.multilingual.MediumKeyword;
 import gr.ekt.cerif.features.multilingual.MediumTitle;
+import gr.ekt.cerif.services.link.citation.LinkCitationMediumRepository;
 import gr.ekt.cerif.services.link.equipment.LinkEquipmentMediumRepository;
 import gr.ekt.cerif.services.link.event.LinkEventMediumRepository;
 import gr.ekt.cerif.services.link.facility.LinkFacilityMediumRepository;
@@ -25,7 +30,10 @@ import gr.ekt.cerif.services.link.medium.LinkMediumFundingRepository;
 import gr.ekt.cerif.services.link.medium.LinkMediumIndicatorRepository;
 import gr.ekt.cerif.services.link.medium.LinkMediumMeasurementRepository;
 import gr.ekt.cerif.services.link.medium.LinkMediumMediumRepository;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitMediumRepository;
+import gr.ekt.cerif.services.link.person.LinkPersonMediumRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectMediumRepository;
+import gr.ekt.cerif.services.link.result.LinkResultProductMediumRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPublicationMediumRepository;
 import gr.ekt.cerif.services.link.service.LinkServiceMediumRepository;
 import gr.ekt.cerif.services.multilingual.medium.MediumDescriptionRepository;
@@ -92,6 +100,17 @@ public class MediumRepositoryImpl implements MediumRepository {
 	@Autowired
 	private LinkMediumClassRepository linkMediumClassRepository;
 	
+	@Autowired
+	private LinkResultProductMediumRepository linkResultProductMediumRepository;
+	
+	@Autowired
+	private LinkPersonMediumRepository linkPersonMediumRepository;
+	
+	@Autowired
+	private LinkOrganisationUnitMediumRepository linkOrganisationUnitMediumRepository;
+	
+	@Autowired
+	private LinkCitationMediumRepository linkCitationMediumRepository;
 	
 
 	@Override
@@ -162,6 +181,22 @@ public class MediumRepositoryImpl implements MediumRepository {
 		if (medcl != null) linkMediumClassRepository.delete(medcl);
 		entity.setMediums_classes(null);
 		
+		List<ResultProduct_Medium> resprodmed = linkResultProductMediumRepository.findByMedium(entity);
+		if (resprodmed != null) linkResultProductMediumRepository.delete(resprodmed);
+		entity.setResultProducts_mediums(null);
+		
+		List<Person_Medium> pm = linkPersonMediumRepository.findByMedium(entity);
+		if (pm != null) linkPersonMediumRepository.delete(pm);
+		entity.setPersons_mediums(null);
+		
+		List<OrganisationUnit_Medium> orgMed = linkOrganisationUnitMediumRepository.findByMedium(entity);
+		if (orgMed != null) linkOrganisationUnitMediumRepository.delete(orgMed);
+		entity.setOrganisationUnits_mediums(null);
+		
+		List<Citation_Medium> citmed = linkCitationMediumRepository.findByMedium(entity);
+		if (citmed != null) linkCitationMediumRepository.delete(citmed);
+		entity.setCitations_mediums(null);
+		
 		entity = mediumCrudRepository.save(entity);
 		mediumCrudRepository.delete(entity);
 	}
@@ -184,6 +219,21 @@ public class MediumRepositoryImpl implements MediumRepository {
 	@Override
 	public Medium findById(Long id) {
 		return mediumCrudRepository.findById(id);
+	}
+
+	@Override
+	public Medium findMediumByProjectIdAndClassUUID(Long id, String uuid) {
+		return mediumCrudRepository.findMediumByProjectIdAndClassUUID(id, uuid);
+	}
+
+	@Override
+	public Medium findMediumByOrgIdAndClassUUID(Long id, String uuid) {
+		return mediumCrudRepository.findMediumByOrgIdAndClassUUID(id, uuid);
+	}
+
+	@Override
+	public Medium findMediumByPersonIdAndClassUUID(Long id, String uuid) {
+		return mediumCrudRepository.findMediumByPersonIdAndClassUUID(id, uuid);
 	}
 
 

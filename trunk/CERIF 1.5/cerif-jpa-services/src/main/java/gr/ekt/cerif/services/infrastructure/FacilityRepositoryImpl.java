@@ -3,6 +3,7 @@ package gr.ekt.cerif.services.infrastructure;
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Equipment;
+import gr.ekt.cerif.entities.link.Facility_Event;
 import gr.ekt.cerif.entities.link.Facility_Facility;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Facility_Indicator;
@@ -22,6 +23,7 @@ import gr.ekt.cerif.features.multilingual.FacilityKeyword;
 import gr.ekt.cerif.features.multilingual.FacilityName;
 import gr.ekt.cerif.services.link.facility.LinkFacilityClassRepository;
 import gr.ekt.cerif.services.link.facility.LinkFacilityEquipmentRepository;
+import gr.ekt.cerif.services.link.facility.LinkFacilityEventRepository;
 import gr.ekt.cerif.services.link.facility.LinkFacilityFacilityRepository;
 import gr.ekt.cerif.services.link.facility.LinkFacilityFundingRepository;
 import gr.ekt.cerif.services.link.facility.LinkFacilityIndicatorRepository;
@@ -119,6 +121,9 @@ public class FacilityRepositoryImpl implements FacilityRepository {
 	@Autowired
 	private LinkFacilityMeasurementRepository linkFacilityMeasurementRepository;
 	
+	@Autowired
+	private LinkFacilityEventRepository linkFacilityEventRepository;
+	
 	
 	
 	@Override
@@ -210,6 +215,10 @@ public class FacilityRepositoryImpl implements FacilityRepository {
 		List<Facility_Measurement> facmeas = linkFacilityMeasurementRepository.findByFacility(entity);
 		if (facmeas != null) linkFacilityMeasurementRepository.delete(facmeas);
 		entity.setFacilities_measurements(null);
+		
+		List<Facility_Event> faceve = linkFacilityEventRepository.findByFacility(entity);
+		if (faceve != null) linkFacilityEventRepository.delete(faceve);
+		entity.setFacilities_events(null);
 		
 		entity = facilityCrudRepository.save(entity);
 		facilityCrudRepository.delete(entity);

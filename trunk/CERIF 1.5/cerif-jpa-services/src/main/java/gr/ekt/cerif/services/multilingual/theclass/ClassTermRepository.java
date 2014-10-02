@@ -32,4 +32,6 @@ public interface ClassTermRepository {
 	ClassTerm findByTheClassAndClassSchemeAndLanguageAndTranslation(Class theClass, ClassScheme classScheme, Language language, Translation translation);
 	
 	List<ClassTerm> findByTermAndClassSchemeAndTranslationAndLanguage(String term, ClassScheme scheme, Translation tra, Language lan);
+	
+	List<ClassTerm> findByTheClassAndTermAndClassSchemeAndTranslationAndLanguage(Class theClass, String term, ClassScheme scheme, Translation tra, Language lan);
 }

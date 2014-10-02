@@ -44,7 +44,7 @@ public interface OrganisationUnitCrudRepository extends CrudRepository<Organisat
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value="select o from gr.ekt.cerif.entities.base.OrganisationUnit o join o.organisationUnitNames oname where oname.name= ?1 ")
-	OrganisationUnit findByOrganisationUnitName(String organisationUnitName);
+	List<OrganisationUnit> findByOrganisationUnitName(String organisationUnitName);
 	
 	OrganisationUnit findByUuid(String uuid);
 

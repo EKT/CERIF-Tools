@@ -50,4 +50,10 @@ public class LinkClassSchemeClassRepositoryImpl implements LinkClassSchemeClassR
 		return linkClassSchemeClassCrudRepository.findByRelatedClass(theClass);
 	}
 
+	@Override
+	public List<ClassScheme_Class> findByRelatedClassSchemeAndRelatedClassAndTheClass(
+			ClassScheme classScheme, Class relatedClass, Class theClass) {
+		return linkClassSchemeClassCrudRepository.findByRelatedClassSchemeAndRelatedClassAndTheClass(classScheme, relatedClass, theClass);
+	}
+
 }

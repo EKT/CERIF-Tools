@@ -14,6 +14,7 @@ import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
 import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Medium;
 import gr.ekt.cerif.entities.link.result.ResultProduct_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
@@ -33,6 +34,7 @@ import gr.ekt.cerif.services.link.result.LinkResultProductFundingRepository;
 import gr.ekt.cerif.services.link.result.LinkResultProductGeographicBoundingBoxRepository;
 import gr.ekt.cerif.services.link.result.LinkResultProductIndicatorRepository;
 import gr.ekt.cerif.services.link.result.LinkResultProductMeasurementRepository;
+import gr.ekt.cerif.services.link.result.LinkResultProductMediumRepository;
 import gr.ekt.cerif.services.link.result.LinkResultProductResultProductRepository;
 import gr.ekt.cerif.services.link.result.LinkResultProductServiceRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPublicationResultProductRepository;
@@ -117,6 +119,9 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 	@Autowired
 	private LinkResultProductEquipmentRepository linkResultProductEquipmentRepository;
 	
+	@Autowired
+	private LinkResultProductMediumRepository linkResultProductMediumRepository;
+	
 
 	@Override
 	@Transactional
@@ -196,6 +201,10 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 		List<ResultProduct_Equipment> resprodequip = linkResultProductEquipmentRepository.findByResultProduct(entity);
 		if (resprodequip != null) linkResultProductEquipmentRepository.delete(resprodequip);
 		entity.setResultProducts_equipments(null);
+		
+		List<ResultProduct_Medium> resprodmed = linkResultProductMediumRepository.findByResultProduct(entity);
+		if (resprodmed != null) linkResultProductMediumRepository.delete(resprodmed);
+		entity.setResultProducts_mediums(null);
 		
 		entity = resultProductCrudRepository.save(entity);
 		resultProductCrudRepository.delete(entity);		

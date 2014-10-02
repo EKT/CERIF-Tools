@@ -27,7 +27,7 @@ public class LinkPersonResultProductRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<Person_ResultProduct> entities) {
-		linkPersonResultProductCrudRepository.save(entities);
+		linkPersonResultProductCrudRepository.delete(entities);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public interface OrganisationUnitRepository {
 	
 	OrganisationUnit findByAcronym(String acronym);
 	
-	OrganisationUnit findByOrganisationUnitName(String organisationUnitName);
+	List<OrganisationUnit> findByOrganisationUnitName(String organisationUnitName);
 	
 	void delete(OrganisationUnit entity);
 	

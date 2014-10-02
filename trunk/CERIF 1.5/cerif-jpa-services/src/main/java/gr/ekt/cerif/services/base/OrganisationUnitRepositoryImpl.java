@@ -18,6 +18,7 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Medium;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Prize;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPatent;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Service;
@@ -42,6 +43,7 @@ import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitMediumRep
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitOrganisationUnitRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitPostalAddressRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitPrizeRepository;
+import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitResultPatentRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitResultProductRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitResultPublicationRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitServiceRepository;
@@ -119,6 +121,9 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 	private LinkOrganisationUnitResultPublicationRepository linkOrganisationUnitResultPublicationRepository;
 	
 	@Autowired
+	private LinkOrganisationUnitResultPatentRepository linkOrganisationUnitResultPatentRepository;
+	
+	@Autowired
 	private LinkOrganisationUnitClassRepository linkOrganisationUnitClassRepository;
 	
 	@Autowired
@@ -188,7 +193,7 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 	}
 	
 	@Override
-	public OrganisationUnit findByOrganisationUnitName(String organisationUnitName) {
+	public List<OrganisationUnit> findByOrganisationUnitName(String organisationUnitName) {
 		return organisationUnitCrudRepository.findByOrganisationUnitName(organisationUnitName);
 	}
 
@@ -280,6 +285,10 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 		List<OrganisationUnit_ResultProduct> prods = linkOrganisationUnitResultProductRepository.findByOrganisationUnit(entity);
 		if (prods != null) linkOrganisationUnitResultProductRepository.delete(prods);
 		entity.setOrganisationUnits_resultProducts(null);
+		
+		List<OrganisationUnit_ResultPatent> pats = linkOrganisationUnitResultPatentRepository.findByOrganisationUnit(entity);
+		if (pats != null) linkOrganisationUnitResultPatentRepository.delete(pats);
+		entity.setOrganisationUnits_resultPatents(null);
 		
 		List<OrganisationUnit_Service> servs = linkOrganisationUnitServiceRepository.findByOrganisationUnit(entity);
 		if (servs != null) linkOrganisationUnitServiceRepository.delete(servs);

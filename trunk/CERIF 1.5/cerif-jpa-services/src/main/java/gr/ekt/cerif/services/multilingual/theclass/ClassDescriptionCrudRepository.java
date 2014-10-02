@@ -7,8 +7,11 @@ import java.util.List;
 
 import javax.persistence.QueryHint;
 
+import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ClassDescription;
+import gr.ekt.cerif.features.multilingual.Translation;
 import gr.ekt.cerif.features.semantics.Class;
+import gr.ekt.cerif.features.semantics.ClassScheme;
 
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
@@ -21,5 +24,11 @@ public interface ClassDescriptionCrudRepository extends CrudRepository<ClassDesc
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ClassDescription> findByTheClass(Class theClass);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<ClassDescription> findByDescriptionAndClassSchemeAndTranslationAndLanguage(String description, ClassScheme scheme, Translation tra, Language lan);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<ClassDescription> findByTheClassAndDescriptionAndClassSchemeAndTranslationAndLanguage(Class theClass, String description, ClassScheme scheme, Translation tra, Language lan);
 
 }

@@ -4,10 +4,12 @@
 package gr.ekt.cerif.services.second;
 
 import gr.ekt.cerif.entities.link.Equipment_Funding;
+import gr.ekt.cerif.entities.link.Event_Funding;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.Funding_Funding;
 import gr.ekt.cerif.entities.link.Funding_Indicator;
+import gr.ekt.cerif.entities.link.Funding_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Funding;
 import gr.ekt.cerif.entities.link.Service_Funding;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
@@ -21,10 +23,12 @@ import gr.ekt.cerif.features.multilingual.FundingDescription;
 import gr.ekt.cerif.features.multilingual.FundingKeyword;
 import gr.ekt.cerif.features.multilingual.FundingName;
 import gr.ekt.cerif.services.link.equipment.LinkEquipmentFundingRepository;
+import gr.ekt.cerif.services.link.event.LinkEventFundingRepository;
 import gr.ekt.cerif.services.link.facility.LinkFacilityFundingRepository;
 import gr.ekt.cerif.services.link.funding.LinkFundingClassRepository;
 import gr.ekt.cerif.services.link.funding.LinkFundingFundingRepository;
 import gr.ekt.cerif.services.link.funding.LinkFundingIndicatorRepository;
+import gr.ekt.cerif.services.link.funding.LinkFundingMeasurementRepository;
 import gr.ekt.cerif.services.link.medium.LinkMediumFundingRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitFundingRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonFundingRepository;
@@ -108,6 +112,11 @@ public class FundingRepositoryImpl implements FundingRepository {
 	@Autowired
 	private LinkFundingIndicatorRepository linkFundingIndicatorRepository;
 	
+	@Autowired
+	private LinkEventFundingRepository linkEventFundingRepository;	
+	
+	@Autowired
+	private LinkFundingMeasurementRepository linkFundingMeasurementRepository;
 	
 	
 	/* (non-Javadoc)
@@ -183,6 +192,14 @@ public class FundingRepositoryImpl implements FundingRepository {
 		List<Funding_Indicator> fundind = linkFundingIndicatorRepository.findByFunding(entity);
 		if (fundind != null) linkFundingIndicatorRepository.delete(fundind);
 		entity.setFundings_indicators(null);
+		
+		List<Event_Funding> evFund = linkEventFundingRepository.findByFunding(entity);
+		if (evFund != null) linkEventFundingRepository.delete(evFund);
+		entity.setEvents_fundings(null);
+		
+		List<Funding_Measurement> fundMeas = linkFundingMeasurementRepository.findByFunding(entity);
+		if (fundMeas != null) linkFundingMeasurementRepository.delete(fundMeas);
+		entity.setFundings_measurement(null);
 		
 		entity = fundingCrudRepository.save(entity);
 		fundingCrudRepository.delete(entity);

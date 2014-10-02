@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.language;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.LanguageName;
 
 /**
@@ -18,5 +21,9 @@ public interface LanguageNameRepository {
 	public Iterable<LanguageName> save(Iterable<LanguageName> entities); 
 	
 	public LanguageName save(LanguageName entity);
+	
+	List<LanguageName> findByLanguage(Language language);
+	
+	List<LanguageName> findByLanguageOfName(Language language);
 
 }
