@@ -6,9 +6,11 @@ package gr.ekt.cerif.entities.second;
 import gr.ekt.cerif.entities.link.Equipment_Event;
 import gr.ekt.cerif.entities.link.Event_Class;
 import gr.ekt.cerif.entities.link.Event_Event;
+import gr.ekt.cerif.entities.link.Event_Funding;
 import gr.ekt.cerif.entities.link.Event_Indicator;
 import gr.ekt.cerif.entities.link.Event_Measurement;
 import gr.ekt.cerif.entities.link.Event_Medium;
+import gr.ekt.cerif.entities.link.Facility_Event;
 import gr.ekt.cerif.entities.link.Service_Event;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Event;
 import gr.ekt.cerif.entities.link.person.Person_Event;
@@ -150,6 +152,12 @@ public class Event implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="event2")
 	private Set<Event_Event> events_events2;
+	
+	@OneToMany(mappedBy="event")
+	private Set<Facility_Event> facilities_events;
+	
+	@OneToMany(mappedBy="event")
+	private Set<Event_Funding> events_fundings;
 	
 	
 	/**
@@ -490,6 +498,34 @@ public class Event implements CerifSecondLevelEntity {
 	public void setOrganisationUnits_events(
 			Set<OrganisationUnit_Event> organisationUnits_events) {
 		this.organisationUnits_events = organisationUnits_events;
+	}
+
+	/**
+	 * @return the facilities_events
+	 */
+	public Set<Facility_Event> getFacilities_events() {
+		return facilities_events;
+	}
+
+	/**
+	 * @param facilities_events the facilities_events to set
+	 */
+	public void setFacilities_events(Set<Facility_Event> facilities_events) {
+		this.facilities_events = facilities_events;
+	}
+
+	/**
+	 * @return the events_fundings
+	 */
+	public Set<Event_Funding> getEvents_fundings() {
+		return events_fundings;
+	}
+
+	/**
+	 * @param events_fundings the events_fundings to set
+	 */
+	public void setEvents_fundings(Set<Event_Funding> events_fundings) {
+		this.events_fundings = events_fundings;
 	}
 
 	/**

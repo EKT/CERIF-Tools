@@ -6,6 +6,7 @@ package gr.ekt.cerif.entities.second;
 import gr.ekt.cerif.entities.link.Equipment_Measurement;
 import gr.ekt.cerif.entities.link.Event_Measurement;
 import gr.ekt.cerif.entities.link.Facility_Measurement;
+import gr.ekt.cerif.entities.link.Funding_Measurement;
 import gr.ekt.cerif.entities.link.Indicator_Measurement;
 import gr.ekt.cerif.entities.link.Measurement_Class;
 import gr.ekt.cerif.entities.link.Measurement_Measurement;
@@ -176,6 +177,9 @@ public class Measurement implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="measurement2")
 	private Set<Measurement_Measurement> measurements_measurements2;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<Funding_Measurement> fundings_measurement;
 
 	
 	/**
@@ -611,6 +615,21 @@ public class Measurement implements CerifSecondLevelEntity {
 	public void setMeasurements_measurements2(
 			Set<Measurement_Measurement> measurements_measurements2) {
 		this.measurements_measurements2 = measurements_measurements2;
+	}
+
+	/**
+	 * @return the fundings_measurement
+	 */
+	public Set<Funding_Measurement> getFundings_measurement() {
+		return fundings_measurement;
+	}
+
+	/**
+	 * @param fundings_measurement the fundings_measurement to set
+	 */
+	public void setFundings_measurement(
+			Set<Funding_Measurement> fundings_measurement) {
+		this.fundings_measurement = fundings_measurement;
 	}
 
 	/**

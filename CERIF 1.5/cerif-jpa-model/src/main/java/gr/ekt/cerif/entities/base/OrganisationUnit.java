@@ -18,6 +18,7 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Medium;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Prize;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPatent;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Service;
@@ -137,7 +138,9 @@ public class OrganisationUnit implements CerifBaseEntity {
 	private Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts;
 	
 	@OneToMany(mappedBy="organisationUnit")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private Set<OrganisationUnit_ResultPatent> organisationUnits_resultPatents;
+	
+	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnit_ResultPublication> organisationUnits_resultPublications;
 
 	@OneToMany(mappedBy="organisationUnit")
@@ -688,6 +691,21 @@ public class OrganisationUnit implements CerifBaseEntity {
 	public void setOrganisationUnits_events(
 			Set<OrganisationUnit_Event> organisationUnits_events) {
 		this.organisationUnits_events = organisationUnits_events;
+	}
+
+	/**
+	 * @return the organisationUnits_resultPatents
+	 */
+	public Set<OrganisationUnit_ResultPatent> getOrganisationUnits_resultPatents() {
+		return organisationUnits_resultPatents;
+	}
+
+	/**
+	 * @param organisationUnits_resultPatents the organisationUnits_resultPatents to set
+	 */
+	public void setOrganisationUnits_resultPatents(
+			Set<OrganisationUnit_ResultPatent> organisationUnits_resultPatents) {
+		this.organisationUnits_resultPatents = organisationUnits_resultPatents;
 	}
 
 	/**

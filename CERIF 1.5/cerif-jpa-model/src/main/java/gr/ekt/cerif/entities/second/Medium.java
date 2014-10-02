@@ -3,6 +3,7 @@
  */
 package gr.ekt.cerif.entities.second;
 
+import gr.ekt.cerif.entities.link.Citation_Medium;
 import gr.ekt.cerif.entities.link.Equipment_Medium;
 import gr.ekt.cerif.entities.link.Event_Medium;
 import gr.ekt.cerif.entities.link.Facility_Medium;
@@ -15,6 +16,8 @@ import gr.ekt.cerif.entities.link.Service_Medium;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Medium;
 import gr.ekt.cerif.entities.link.person.Person_Medium;
 import gr.ekt.cerif.entities.link.project.Project_Medium;
+import gr.ekt.cerif.entities.link.result.ResultPatent_Medium;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Medium;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.features.multilingual.MediumDescription;
 import gr.ekt.cerif.features.multilingual.MediumKeyword;
@@ -148,6 +151,15 @@ public class Medium implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="medium")
 	private Set<Medium_Class> mediums_classes;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<ResultPatent_Medium> resultPatents_mediums;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<ResultProduct_Medium> resultProducts_mediums;
+	
+	@OneToMany(mappedBy="medium")
+	private Set<Citation_Medium> citations_mediums;
 
 	
 	/**
@@ -489,6 +501,50 @@ public class Medium implements CerifSecondLevelEntity {
 	public void setOrganisationUnits_mediums(
 			Set<OrganisationUnit_Medium> organisationUnits_mediums) {
 		this.organisationUnits_mediums = organisationUnits_mediums;
+	}
+
+	/**
+	 * @return the resultPatents_mediums
+	 */
+	public Set<ResultPatent_Medium> getResultPatents_mediums() {
+		return resultPatents_mediums;
+	}
+
+	/**
+	 * @param resultPatents_mediums the resultPatents_mediums to set
+	 */
+	public void setResultPatents_mediums(
+			Set<ResultPatent_Medium> resultPatents_mediums) {
+		this.resultPatents_mediums = resultPatents_mediums;
+	}
+
+	/**
+	 * @return the resultProducts_mediums
+	 */
+	public Set<ResultProduct_Medium> getResultProducts_mediums() {
+		return resultProducts_mediums;
+	}
+
+	/**
+	 * @param resultProducts_mediums the resultProducts_mediums to set
+	 */
+	public void setResultProducts_mediums(
+			Set<ResultProduct_Medium> resultProducts_mediums) {
+		this.resultProducts_mediums = resultProducts_mediums;
+	}
+
+	/**
+	 * @return the citations_mediums
+	 */
+	public Set<Citation_Medium> getCitations_mediums() {
+		return citations_mediums;
+	}
+
+	/**
+	 * @param citations_mediums the citations_mediums to set
+	 */
+	public void setCitations_mediums(Set<Citation_Medium> citations_mediums) {
+		this.citations_mediums = citations_mediums;
 	}
 
 	/**

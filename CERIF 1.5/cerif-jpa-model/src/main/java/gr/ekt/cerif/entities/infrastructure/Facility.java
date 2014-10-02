@@ -8,6 +8,7 @@ import java.util.Set;
 
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Equipment;
+import gr.ekt.cerif.entities.link.Facility_Event;
 import gr.ekt.cerif.entities.link.Facility_Facility;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Facility_Indicator;
@@ -151,6 +152,9 @@ public class Facility implements CerifInfrastructureEntity {
 	
 	@OneToMany(mappedBy="facility")
 	private Set<Facility_Measurement> facilities_measurements;
+	
+	@OneToMany(mappedBy="facility")
+	private Set<Facility_Event> facilities_events;
 	
 	
 	/**
@@ -512,6 +516,20 @@ public class Facility implements CerifInfrastructureEntity {
 	public void setFacilities_measurements(
 			Set<Facility_Measurement> facilities_measurements) {
 		this.facilities_measurements = facilities_measurements;
+	}
+
+	/**
+	 * @return the facilities_events
+	 */
+	public Set<Facility_Event> getFacilities_events() {
+		return facilities_events;
+	}
+
+	/**
+	 * @param facilities_events the facilities_events to set
+	 */
+	public void setFacilities_events(Set<Facility_Event> facilities_events) {
+		this.facilities_events = facilities_events;
 	}
 
 	/**

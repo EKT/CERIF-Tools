@@ -14,6 +14,7 @@ import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
 import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Medium;
 import gr.ekt.cerif.entities.link.result.ResultProduct_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
@@ -133,6 +134,9 @@ public class ResultProduct implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Equipment> resultProducts_equipments;
+	
+	@OneToMany(mappedBy="resultProduct")
+	private Set<ResultProduct_Medium> resultProducts_mediums;
 	
 	
 	/**
@@ -475,6 +479,21 @@ public class ResultProduct implements CerifResultEntity {
 	public void setResultProducts_resultProducts2(
 			Set<ResultProduct_ResultProduct> resultProducts_resultProducts2) {
 		this.resultProducts_resultProducts2 = resultProducts_resultProducts2;
+	}
+
+	/**
+	 * @return the resultProducts_mediums
+	 */
+	public Set<ResultProduct_Medium> getResultProducts_mediums() {
+		return resultProducts_mediums;
+	}
+
+	/**
+	 * @param resultProducts_mediums the resultProducts_mediums to set
+	 */
+	public void setResultProducts_mediums(
+			Set<ResultProduct_Medium> resultProducts_mediums) {
+		this.resultProducts_mediums = resultProducts_mediums;
 	}
 
 	/**

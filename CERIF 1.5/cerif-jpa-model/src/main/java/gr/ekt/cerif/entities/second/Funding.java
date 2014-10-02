@@ -5,10 +5,12 @@ package gr.ekt.cerif.entities.second;
 
 
 import gr.ekt.cerif.entities.link.Equipment_Funding;
+import gr.ekt.cerif.entities.link.Event_Funding;
 import gr.ekt.cerif.entities.link.Facility_Funding;
 import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.Funding_Funding;
 import gr.ekt.cerif.entities.link.Funding_Indicator;
+import gr.ekt.cerif.entities.link.Funding_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Funding;
 import gr.ekt.cerif.entities.link.Service_Funding;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
@@ -166,6 +168,12 @@ public class Funding implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="funding")
 	private Set<Funding_Indicator> fundings_indicators;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<Funding_Measurement> fundings_measurement;
+	
+	@OneToMany(mappedBy="funding")
+	private Set<Event_Funding> events_fundings;
 	
 	
 	/**
@@ -554,6 +562,31 @@ public class Funding implements CerifSecondLevelEntity {
 	 */
 	public void setFundings_fundings2(Set<Funding_Funding> fundings_fundings2) {
 		this.fundings_fundings2 = fundings_fundings2;
+	}
+	/**
+	 * @return the fundings_measurement
+	 */
+	public Set<Funding_Measurement> getFundings_measurement() {
+		return fundings_measurement;
+	}
+	/**
+	 * @param fundings_measurement the fundings_measurement to set
+	 */
+	public void setFundings_measurement(
+			Set<Funding_Measurement> fundings_measurement) {
+		this.fundings_measurement = fundings_measurement;
+	}
+	/**
+	 * @return the events_fundings
+	 */
+	public Set<Event_Funding> getEvents_fundings() {
+		return events_fundings;
+	}
+	/**
+	 * @param events_fundings the events_fundings to set
+	 */
+	public void setEvents_fundings(Set<Event_Funding> events_fundings) {
+		this.events_fundings = events_fundings;
 	}
 	/**
 	 * @return the federatedIdentifiers
