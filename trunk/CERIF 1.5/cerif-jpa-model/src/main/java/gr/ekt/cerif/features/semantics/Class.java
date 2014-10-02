@@ -572,10 +572,10 @@ public class Class implements CerifSemanticFeature {
 	private Set<Citation_Medium> citations_mediums;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<FederatedIdentifier_Class> federeratedIdentifiers_classes;
+	private Set<FederatedIdentifier_Class> federatedIdentifiers_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<FederatedIdentifier> federeratedIdentifiers;
+	private Set<FederatedIdentifier> inFedFederatedIdentifiers;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<PostalAddress_Class> postalAddresses_classes;
@@ -736,7 +736,7 @@ public class Class implements CerifSemanticFeature {
 	 * FederatedIdentifier entities related to Class instance.
 	 */
 	@Transient
-	private List<FederatedIdentifier> transientFederatedIdentifiers;	
+	private List<FederatedIdentifier> federatedIdentifiers;	
 	
 	// ---------------------------------------------------------------------- //
 	
@@ -1234,21 +1234,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the federeratedIdentifiers_classes
-	 */
-	public Set<FederatedIdentifier_Class> getFedereratedIdentifiers_classes() {
-		return federeratedIdentifiers_classes;
-	}
-
-	/**
-	 * @param federeratedIdentifiers_classes the federeratedIdentifiers_classes to set
-	 */
-	public void setFedereratedIdentifiers_classes(
-			Set<FederatedIdentifier_Class> federeratedIdentifiers_classes) {
-		this.federeratedIdentifiers_classes = federeratedIdentifiers_classes;
-	}
-
-	/**
 	 * @return the facilities_fundings
 	 */
 	public Set<Facility_Funding> getFacilities_fundings() {
@@ -1630,21 +1615,6 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setCitations_classes(Set<Citation_Class> citations_classes) {
 		this.citations_classes = citations_classes;
-	}
-
-	/**
-	 * @return the federeratedIdentifiers
-	 */
-	public Set<FederatedIdentifier> getFedereratedIdentifiers() {
-		return federeratedIdentifiers;
-	}
-
-	/**
-	 * @param federeratedIdentifiers the federeratedIdentifiers to set
-	 */
-	public void setFedereratedIdentifiers(
-			Set<FederatedIdentifier> federeratedIdentifiers) {
-		this.federeratedIdentifiers = federeratedIdentifiers;
 	}
 
 	/**
@@ -3214,18 +3184,48 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the transientFederatedIdentifiers
+	 * @return the federatedIdentifiers_classes
 	 */
-	public List<FederatedIdentifier> getTransientFederatedIdentifiers() {
-		return transientFederatedIdentifiers;
+	public Set<FederatedIdentifier_Class> getFederatedIdentifiers_classes() {
+		return federatedIdentifiers_classes;
 	}
 
 	/**
-	 * @param transientFederatedIdentifiers the transientFederatedIdentifiers to set
+	 * @param federatedIdentifiers_classes the federatedIdentifiers_classes to set
 	 */
-	public void setTransientFederatedIdentifiers(
-			List<FederatedIdentifier> transientFederatedIdentifiers) {
-		this.transientFederatedIdentifiers = transientFederatedIdentifiers;
+	public void setFederatedIdentifiers_classes(
+			Set<FederatedIdentifier_Class> federatedIdentifiers_classes) {
+		this.federatedIdentifiers_classes = federatedIdentifiers_classes;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
+	}
+
+	/**
+	 * @return the inFedFederatedIdentifiers
+	 */
+	public Set<FederatedIdentifier> getInFedFederatedIdentifiers() {
+		return inFedFederatedIdentifiers;
+	}
+
+	/**
+	 * @param inFedFederatedIdentifiers the inFedFederatedIdentifiers to set
+	 */
+	public void setInFedFederatedIdentifiers(
+			Set<FederatedIdentifier> inFedFederatedIdentifiers) {
+		this.inFedFederatedIdentifiers = inFedFederatedIdentifiers;
 	}
 
 	/* (non-Javadoc)
