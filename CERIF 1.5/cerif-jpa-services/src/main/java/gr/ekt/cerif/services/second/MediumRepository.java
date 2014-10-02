@@ -15,4 +15,10 @@ public interface MediumRepository {
 	public Iterable<Medium> save(Iterable<Medium> entities);
 	
 	public Medium save(Medium entity);
+	
+	Medium findMediumByProjectIdAndClassUUID(Long id, String uuid);
+	
+	Medium findMediumByOrgIdAndClassUUID(Long id, String uuid);
+	
+	Medium findMediumByPersonIdAndClassUUID(Long id, String uuid);
 }

@@ -2,8 +2,7 @@ package gr.ekt.cerif.services.link.person;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_Medium;
-import gr.ekt.cerif.services.base.PersonRepository;
-import gr.ekt.cerif.services.second.MediumRepository;
+import gr.ekt.cerif.entities.second.Medium;
 
 import java.util.List;
 
@@ -19,13 +18,8 @@ public class LinkPersonMediumRepositoryImpl implements LinkPersonMediumRepositor
 	private static final Logger log = LoggerFactory.getLogger(LinkPersonMediumRepositoryImpl.class);
 
 	@Autowired
-	private PersonRepository personRepository;
-	
-	@Autowired
-	private MediumRepository mediumRepository;
-	
-	@Autowired
 	private LinkPersonMediumCrudRepository linkPersonMediumCrudRepository;
+	
 	
 	@Transactional
 	public Person_Medium save(Person_Medium entity) {
@@ -49,6 +43,11 @@ public class LinkPersonMediumRepositoryImpl implements LinkPersonMediumRepositor
 	@Transactional
 	public void delete(Iterable<? extends Person_Medium> entities) {
 		linkPersonMediumCrudRepository.delete(entities);
+	}
+
+	@Override
+	public List<Person_Medium> findByMedium(Medium medium) {
+		return linkPersonMediumCrudRepository.findByMedium(medium);
 	}
 	
 }

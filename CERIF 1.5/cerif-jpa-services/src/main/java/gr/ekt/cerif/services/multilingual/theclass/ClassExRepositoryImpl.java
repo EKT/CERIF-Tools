@@ -10,8 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.ClassEx;
+import gr.ekt.cerif.features.multilingual.Translation;
 import gr.ekt.cerif.features.semantics.Class;
+import gr.ekt.cerif.features.semantics.ClassScheme;
 
 /**
  * @author bonisv
@@ -48,6 +51,19 @@ public class ClassExRepositoryImpl implements ClassExRepository {
 	@Override
 	public List<ClassEx> findByTheClass(Class theClass) {
 		return classExCrudRepository.findByTheClass(theClass);
+	}
+
+	@Override
+	public List<ClassEx> findByExAndClassSchemeAndTranslationAndLanguage(
+			String example, ClassScheme scheme, Translation tra, Language lan) {
+		return classExCrudRepository.findByExAndClassSchemeAndTranslationAndLanguage(example, scheme, tra, lan);
+	}
+
+	@Override
+	public List<ClassEx> findByTheClassAndExAndClassSchemeAndTranslationAndLanguage(
+			Class theClass, String example, ClassScheme scheme,
+			Translation tra, Language lan) {
+		return classExCrudRepository.findByTheClassAndExAndClassSchemeAndTranslationAndLanguage(theClass, example, scheme, tra, lan);
 	}
 
 }

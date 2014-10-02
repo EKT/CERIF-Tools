@@ -22,6 +22,6 @@ public interface LinkEventMeasurementRepository {
 	
 	List<Event_Measurement> findByEvent(Event event);
 	
-	List<Event_Measurement> findByMeasurement(Measurement mkeasurement);
+	List<Event_Measurement> findByMeasurement(Measurement measurement);
 	
 }

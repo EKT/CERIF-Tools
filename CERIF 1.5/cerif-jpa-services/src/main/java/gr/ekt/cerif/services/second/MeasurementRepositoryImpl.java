@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import gr.ekt.cerif.entities.link.Equipment_Measurement;
 import gr.ekt.cerif.entities.link.Event_Measurement;
 import gr.ekt.cerif.entities.link.Facility_Measurement;
+import gr.ekt.cerif.entities.link.Funding_Measurement;
 import gr.ekt.cerif.entities.link.Indicator_Measurement;
 import gr.ekt.cerif.entities.link.Measurement_Class;
 import gr.ekt.cerif.entities.link.Measurement_Measurement;
@@ -34,6 +35,7 @@ import gr.ekt.cerif.features.multilingual.MeasurementName;
 import gr.ekt.cerif.services.link.equipment.LinkEquipmentMeasurementRepository;
 import gr.ekt.cerif.services.link.event.LinkEventMeasurementRepository;
 import gr.ekt.cerif.services.link.facility.LinkFacilityMeasurementRepository;
+import gr.ekt.cerif.services.link.funding.LinkFundingMeasurementRepository;
 import gr.ekt.cerif.services.link.indicator.LinkIndicatorMeasurementRepository;
 import gr.ekt.cerif.services.link.measurement.LinkMeasurementClassRepository;
 import gr.ekt.cerif.services.link.measurement.LinkMeasurementMeasurementRepository;
@@ -111,6 +113,9 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 	
 	@Autowired
 	private LinkMeasurementMeasurementRepository linkMeasurementMeasurementRepository;
+	
+	@Autowired
+	private LinkFundingMeasurementRepository linkFundingMeasurementRepository;
 	
 	
 
@@ -192,7 +197,11 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 		if (measmeas2 != null) linkMeasurementMeasurementRepository.delete(measmeas2);
 		entity.setMeasurements_measurements2(null);
 		
+		List<Funding_Measurement> fundMeas = linkFundingMeasurementRepository.findByMeasurement(entity);
+		if (fundMeas != null) linkFundingMeasurementRepository.delete(fundMeas);
+		entity.setFundings_measurement(null);
 		
+		entity = measurementCrudRepository.save(entity);
 		measurementCrudRepository.delete(entity);
 	}
 

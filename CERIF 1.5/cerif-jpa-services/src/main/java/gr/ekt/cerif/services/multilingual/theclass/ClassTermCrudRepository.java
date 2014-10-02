@@ -27,4 +27,7 @@ public interface ClassTermCrudRepository extends CrudRepository<ClassTerm, Long>
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ClassTerm> findByTermAndClassSchemeAndTranslationAndLanguage(String term, ClassScheme scheme, Translation tra, Language lan);
 	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<ClassTerm> findByTheClassAndTermAndClassSchemeAndTranslationAndLanguage(Class theClass, String term, ClassScheme scheme, Translation tra, Language lan);
+	
 }

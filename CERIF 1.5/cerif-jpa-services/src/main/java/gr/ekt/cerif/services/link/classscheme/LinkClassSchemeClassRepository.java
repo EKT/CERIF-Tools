@@ -23,5 +23,7 @@ public interface LinkClassSchemeClassRepository {
 	List<ClassScheme_Class> findByRelatedClassScheme(ClassScheme classScheme);
 	
 	List<ClassScheme_Class> findByRelatedClass(Class theClass);
+	
+	List<ClassScheme_Class> findByRelatedClassSchemeAndRelatedClassAndTheClass(ClassScheme classScheme, Class relatedClass, Class theClass);
 
 }

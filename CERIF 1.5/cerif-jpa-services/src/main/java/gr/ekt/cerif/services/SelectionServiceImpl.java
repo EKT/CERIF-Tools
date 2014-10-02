@@ -12,6 +12,7 @@ import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.Equipment_Class;
 import gr.ekt.cerif.entities.link.Equipment_Equipment;
 import gr.ekt.cerif.entities.link.Equipment_Funding;
+import gr.ekt.cerif.entities.link.Equipment_Indicator;
 import gr.ekt.cerif.entities.link.Equipment_Measurement;
 import gr.ekt.cerif.entities.link.Equipment_PostalAddress;
 import gr.ekt.cerif.entities.link.Equipment_Service;
@@ -25,11 +26,15 @@ import gr.ekt.cerif.entities.link.Facility_Service;
 import gr.ekt.cerif.entities.link.FederatedIdentifier_Class;
 import gr.ekt.cerif.entities.link.Funding_Class;
 import gr.ekt.cerif.entities.link.Funding_Funding;
+import gr.ekt.cerif.entities.link.Indicator_Class;
+import gr.ekt.cerif.entities.link.Indicator_Measurement;
 import gr.ekt.cerif.entities.link.Measurement_Class;
+import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.Service_Class;
 import gr.ekt.cerif.entities.link.Service_FederatedIdentifier;
 import gr.ekt.cerif.entities.link.Service_Funding;
+import gr.ekt.cerif.entities.link.Service_Indicator;
 import gr.ekt.cerif.entities.link.Service_Measurement;
 import gr.ekt.cerif.entities.link.Service_PostalAddress;
 import gr.ekt.cerif.entities.link.Service_Service;
@@ -45,6 +50,7 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduc
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Service;
 import gr.ekt.cerif.entities.link.person.Person_Class;
+import gr.ekt.cerif.entities.link.person.Person_Country;
 import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
 import gr.ekt.cerif.entities.link.person.Person_Equipment;
 import gr.ekt.cerif.entities.link.person.Person_Facility;
@@ -67,10 +73,12 @@ import gr.ekt.cerif.entities.link.project.Project_Project;
 import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.link.project.Project_Service;
+import gr.ekt.cerif.entities.link.result.ResultPatent_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Class;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Facility;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultProduct_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
@@ -78,6 +86,7 @@ import gr.ekt.cerif.entities.link.result.ResultPublication_Class;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Funding;
+import gr.ekt.cerif.entities.link.result.ResultPublication_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPublication;
@@ -87,6 +96,7 @@ import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Funding;
+import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.enumerations.semantics.ClassEnum;
@@ -106,6 +116,9 @@ import gr.ekt.cerif.features.multilingual.FacilityName;
 import gr.ekt.cerif.features.multilingual.FundingDescription;
 import gr.ekt.cerif.features.multilingual.FundingKeyword;
 import gr.ekt.cerif.features.multilingual.FundingName;
+import gr.ekt.cerif.features.multilingual.IndicatorDescription;
+import gr.ekt.cerif.features.multilingual.IndicatorKeyword;
+import gr.ekt.cerif.features.multilingual.IndicatorName;
 import gr.ekt.cerif.features.multilingual.MeasurementDescription;
 import gr.ekt.cerif.features.multilingual.MeasurementKeyword;
 import gr.ekt.cerif.features.multilingual.MeasurementName;
@@ -144,6 +157,7 @@ import gr.ekt.cerif.services.result.ResultPublicationRepository;
 import gr.ekt.cerif.services.second.ElectronicAddressRepository;
 import gr.ekt.cerif.services.second.FederatedIdentifierRepository;
 import gr.ekt.cerif.services.second.FundingRepository;
+import gr.ekt.cerif.services.second.IndicatorRepository;
 import gr.ekt.cerif.services.second.MeasurementRepository;
 import gr.ekt.cerif.services.second.PostalAddressRepository;
 import gr.ekt.cerif.services.semantics.ClassRepository;
@@ -201,6 +215,7 @@ public class SelectionServiceImpl implements SelectionService {
 		Iterator<Equipment> iterEquipment = null;
 		Iterator<FederatedIdentifier> iterFederatedIdentifier = null;	
 		Iterator<Measurement> iterMeasurement = null;
+		Iterator<Indicator> iterIndicator = null;
 		
 		boolean links = options.isLinks();
 		boolean showFedIds = options.isShowFedIds();
@@ -284,7 +299,12 @@ public class SelectionServiceImpl implements SelectionService {
 			MeasurementRepository repository = service.getSecondService().getMeasurementRepository();
 			iterMeasurement = retrieveEntities(repository, options);
 		}
-
+		
+		if (hasEntities(ClassEnum.INDICATOR, options)) {
+			IndicatorRepository repository = service.getSecondService().getIndicatorRepository();
+			iterIndicator = retrieveEntities(repository, options);
+		}
+		
 		long end = System.currentTimeMillis();
 		long duration = end - start;
 		logger.info(duration);
@@ -600,6 +620,7 @@ public class SelectionServiceImpl implements SelectionService {
 				List<Person_Measurement> persMeass = new ArrayList<Person_Measurement>();
 				List<Person_ResultPublication> persRespubls = new ArrayList<Person_ResultPublication>();
 				List<Person_Service> servicePers = new ArrayList<Person_Service>();
+				List<Person_Country> persCountries = new ArrayList<Person_Country>();
 				if (links) {
 					//Person 1
 					persPers1 = service.getLinkService().getPersonPersonRepository().findByPerson2(person);
@@ -621,6 +642,9 @@ public class SelectionServiceImpl implements SelectionService {
 					
 					//funding
 					persFunds = service.getLinkService().getPersonFundingRepository().findByPerson(person);
+					
+					//Countries
+					persCountries = service.getLinkService().getPersonCountryRepository().findByPerson(person);
 					
 					//organisations
 					persOrg = service.getLinkService().getPersonOrganisationUnitRepository().findByPerson(person);
@@ -670,6 +694,10 @@ public class SelectionServiceImpl implements SelectionService {
 				//funding
 				Set<Person_Funding> funds = new HashSet<Person_Funding>(persFunds);
 				person.setPersons_fundings(funds);
+				
+				//Countries
+				Set<Person_Country> couns = new HashSet<Person_Country>(persCountries);
+				person.setPersons_countries(couns);
 				
 				//organisations
 				Set<Person_OrganisationUnit> pers = new HashSet<Person_OrganisationUnit>(persOrg);
@@ -969,7 +997,7 @@ public class SelectionServiceImpl implements SelectionService {
 								
 				//FederatedIdentifiers
 				if (showFedIds) {
-					theClass.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION.getUuid(), theClass.getId()));
+					theClass.setTransientFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION.getUuid(), theClass.getId()));
 				}
 								
 				result.add(theClass);
@@ -996,7 +1024,7 @@ public class SelectionServiceImpl implements SelectionService {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					classScheme.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION_SCHEME.getUuid(), classScheme.getId()));
+					classScheme.setTransientFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION_SCHEME.getUuid(), classScheme.getId()));
 				}	
 				
 				if (embedClasses) {
@@ -1070,6 +1098,7 @@ public class SelectionServiceImpl implements SelectionService {
 				List<ResultPublication_Measurement> respublMeass = new ArrayList<ResultPublication_Measurement>();
 				List<ResultPublication_ResultPublication> respublRespubl1 = new ArrayList<ResultPublication_ResultPublication>();
 				List<ResultPublication_ResultPublication> respublRespubl2 = new ArrayList<ResultPublication_ResultPublication>();
+				List<ResultPublication_Indicator> resPublInd = new ArrayList<ResultPublication_Indicator>();
 				if (links) {
 					//classes
 					respublClas = service.getLinkService().getResultPublicationClassRepository().findByResultPublication(resultPublication);
@@ -1106,6 +1135,9 @@ public class SelectionServiceImpl implements SelectionService {
 					
 					//measurements
 					respublMeass = service.getLinkService().getResultPublicationMeasurementRepository().findByResultPublication(resultPublication);
+					
+					//indicators
+					resPublInd = service.getLinkService().getResultPublicationIndicatorRepository().findByResultPublication(resultPublication);
 				}
 
 				//classes
@@ -1155,6 +1187,10 @@ public class SelectionServiceImpl implements SelectionService {
 				//measurements
 				Set<ResultPublication_Measurement> meass = new HashSet<ResultPublication_Measurement>(respublMeass);
 				resultPublication.setResultPublications_measurements(meass);
+				
+				//indicators
+				Set<ResultPublication_Indicator> indics = new HashSet<ResultPublication_Indicator>(resPublInd);
+				resultPublication.setResultPublications_indicators(indics);
 				
 				
 				//FederatedIdentifiers
@@ -1206,6 +1242,7 @@ public class SelectionServiceImpl implements SelectionService {
 				List<ResultProduct_Service> serviceResultProd = new ArrayList<ResultProduct_Service>();
 				List<ResultProduct_Equipment> equipmentResultProd = new ArrayList<ResultProduct_Equipment>();
 				List<ResultProduct_Measurement> resProdMeass = new ArrayList<ResultProduct_Measurement>();
+				List<ResultProduct_Indicator> resProdInd = new ArrayList<ResultProduct_Indicator>();
 				if (links) {
 					//OrganisationUnits
 					orgResprod = service.getLinkService().getOrganisationUnitResultProductRepository().findByResultProduct(resultProduct);
@@ -1242,6 +1279,9 @@ public class SelectionServiceImpl implements SelectionService {
 					
 					//measurements
 					resProdMeass = service.getLinkService().getResultProductMeasurementRepository().findByResultProduct(resultProduct);
+					
+					//indicators
+					resProdInd = service.getLinkService().getResultProductIndicatorRepository().findByResultProduct(resultProduct);
 				}
 				//OrganisationUnits
 				Set<OrganisationUnit_ResultProduct> resultProds = new HashSet<OrganisationUnit_ResultProduct>(orgResprod);
@@ -1290,6 +1330,10 @@ public class SelectionServiceImpl implements SelectionService {
 				//measurements
 				Set<ResultProduct_Measurement> meass = new HashSet<ResultProduct_Measurement>(resProdMeass);
 				resultProduct.setResultProducts_measurements(meass);
+				
+				//indicators
+				Set<ResultProduct_Indicator> indics = new HashSet<ResultProduct_Indicator>(resProdInd);
+				resultProduct.setResultProducts_indicators(indics);
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
@@ -1473,6 +1517,7 @@ public class SelectionServiceImpl implements SelectionService {
 				List<Service_Measurement> serviceMeass = new ArrayList<Service_Measurement>();	
 				List<Service_Class> serviceClass = new ArrayList<Service_Class>();
 				List<Project_Service> serviceProj = new ArrayList<Project_Service>();
+				List<Service_Indicator> servIndic = new ArrayList<Service_Indicator>();
 				if (links) {
 					//OrganisationUnits
 					serviceOrgs = service.getLinkService().getOrganisationUnitServiceRepository().findByService(serviceInst);
@@ -1512,6 +1557,9 @@ public class SelectionServiceImpl implements SelectionService {
 					
 					//projects
 					serviceProj = service.getLinkService().getProjectServiceRepository().findByService(serviceInst);
+					
+					//indicators
+					servIndic = service.getLinkService().getServiceIndicatorRepository().findByService(serviceInst);
 				}
 				//OrganisationUnits
 				Set<OrganisationUnit_Service> orgs = new HashSet<OrganisationUnit_Service>(serviceOrgs);
@@ -1527,7 +1575,7 @@ public class SelectionServiceImpl implements SelectionService {
 				
 				//addresses
 				Set<Service_PostalAddress> paddrs = new HashSet<Service_PostalAddress>(servicePaddrs);
-				serviceInst.setServices_postalAdresses(paddrs);
+				serviceInst.setServices_postalAddresses(paddrs);
 				
 				//Services 1
 				Set<Service_Service> services1 = new HashSet<Service_Service>(serviceService1);
@@ -1564,6 +1612,10 @@ public class SelectionServiceImpl implements SelectionService {
 				//projects
 				Set<Project_Service> projs = new HashSet<Project_Service>(serviceProj);
 				serviceInst.setProjects_services(projs);
+				
+				//indicators
+				Set<Service_Indicator> indics = new HashSet<Service_Indicator>(servIndic);
+				serviceInst.setServices_indicators(indics);
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
@@ -1610,6 +1662,7 @@ public class SelectionServiceImpl implements SelectionService {
 				List<Equipment_Service> equipmentServices = new ArrayList<Equipment_Service>();
 				List<ResultProduct_Equipment> equipmentResultProd = new ArrayList<ResultProduct_Equipment>();
 				List<Equipment_Measurement> equipmentMeass = new ArrayList<Equipment_Measurement>();
+				List<Equipment_Indicator> equipIndic = new ArrayList<Equipment_Indicator>();
 				if (links) {
 					//fundings
 					equipmentFunds = service.getLinkService().getEquipmentFundingRepository().findByEquipment(equipment);
@@ -1649,6 +1702,9 @@ public class SelectionServiceImpl implements SelectionService {
 					
 					//measurements
 					equipmentMeass = service.getLinkService().getEquipmentMeasurementRepository().findByEquipment(equipment);
+					
+					//indicators
+					equipIndic = service.getLinkService().getEquipmentIndicatorRepository().findByEquipment(equipment);
 				}
 				//fundings
 				Set<Equipment_Funding> funds = new HashSet<Equipment_Funding>(equipmentFunds);
@@ -1701,6 +1757,10 @@ public class SelectionServiceImpl implements SelectionService {
 				//measurements
 				Set<Equipment_Measurement> meass = new HashSet<Equipment_Measurement>(equipmentMeass);
 				equipment.setEquipments_measurements(meass);
+				
+				//indicators
+				Set<Equipment_Indicator> indics = new HashSet<Equipment_Indicator>(equipIndic);
+				equipment.setEquipments_indicators(indics);
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
@@ -1772,6 +1832,7 @@ public class SelectionServiceImpl implements SelectionService {
 				List<Service_Measurement> serviceMeass = new ArrayList<Service_Measurement>();
 				List<Equipment_Measurement> equipmentMeass = new ArrayList<Equipment_Measurement>();
 				List<ResultPublication_Measurement> respublMeass = new ArrayList<ResultPublication_Measurement>();
+				List<Indicator_Measurement> indicMeas = new ArrayList<Indicator_Measurement>();
 				if (links) {
 					//products
 					resProdMeass = service.getLinkService().getResultProductMeasurementRepository().findByMeasurement(measurement);
@@ -1799,6 +1860,9 @@ public class SelectionServiceImpl implements SelectionService {
 					
 					//equipments
 					equipmentMeass = service.getLinkService().getEquipmentMeasurementRepository().findByMeasurement(measurement);
+					
+					//indicators
+					indicMeas = service.getLinkService().getIndicatorMeasurementRepository().findByMeasurement(measurement);
 				}
 				//products
 				Set<ResultProduct_Measurement> resProds = new HashSet<ResultProduct_Measurement>(resProdMeass);
@@ -1836,6 +1900,10 @@ public class SelectionServiceImpl implements SelectionService {
 				Set<Equipment_Measurement> equipments = new HashSet<Equipment_Measurement>(equipmentMeass);
 				measurement.setEquipments_measurements(equipments);
 				
+				//indicators
+				Set<Indicator_Measurement> indics = new HashSet<Indicator_Measurement>(indicMeas);
+				measurement.setIndicators_measurements(indics);
+				
 			
 				//FederatedIdentifiers
 				if (showFedIds) {
@@ -1843,6 +1911,103 @@ public class SelectionServiceImpl implements SelectionService {
 				}
 							
 				result.add(measurement);	
+
+			}
+		}
+		
+		/*
+		 * Indicator 
+		 */
+		if (iterIndicator != null) {
+			while (iterIndicator.hasNext()) {
+				Indicator indicator = iterIndicator.next(); 
+				
+				//names
+				List<IndicatorName> indicatorNames = service.getTranslationService().getIndicatorNameRepository().findByIndicator(indicator);
+				Set<IndicatorName> names = new HashSet<IndicatorName>(indicatorNames);
+				indicator.setIndicatorNames(names);
+				
+				//keywords
+				List<IndicatorKeyword> indicatorKeywords = service.getTranslationService().getIndicatorKeywordRepository().findByIndicator(indicator);
+				Set<IndicatorKeyword> keys = new HashSet<IndicatorKeyword>(indicatorKeywords);
+				indicator.setIndicatorKeywords(keys);
+				
+				//descriptions
+				List<IndicatorDescription> indicatorDescriptions = service.getTranslationService().getIndicatorDescriptionRepository().findByIndicator(indicator);
+				Set<IndicatorDescription> descrs = new HashSet<IndicatorDescription>(indicatorDescriptions);
+				indicator.setIndicatorDescriptions(descrs);
+				
+				List<ResultPatent_Indicator> resPatInd = new ArrayList<ResultPatent_Indicator>();
+				List<ResultProduct_Indicator> resProdInd = new ArrayList<ResultProduct_Indicator>();
+				List<ResultPublication_Indicator> resPublInd = new ArrayList<ResultPublication_Indicator>();
+				List<Service_Indicator> servIndic = new ArrayList<Service_Indicator>();
+				List<Equipment_Indicator> equipIndic = new ArrayList<Equipment_Indicator>();
+				List<Medium_Indicator> medIndic = new ArrayList<Medium_Indicator>();
+				List<Indicator_Measurement> indicMeas = new ArrayList<Indicator_Measurement>();
+				List<Indicator_Class> indicCl = new ArrayList<Indicator_Class>();
+				if (links) {
+					//patents
+					resPatInd = service.getLinkService().getResultPatentIndicatorRepository().findByIndicator(indicator);
+					
+					//products
+					resProdInd = service.getLinkService().getResultProductIndicatorRepository().findByIndicator(indicator);
+					
+					//publications
+					resPublInd = service.getLinkService().getResultPublicationIndicatorRepository().findByIndicator(indicator);
+					
+					//services
+					servIndic = service.getLinkService().getServiceIndicatorRepository().findByIndicator(indicator);
+					
+					//Equipments
+					equipIndic = service.getLinkService().getEquipmentIndicatorRepository().findByIndicator(indicator);
+					
+					//mediums
+					medIndic = service.getLinkService().getMediumIndicatorRepository().findByIndicator(indicator);		
+					
+					//measurements
+					indicMeas = service.getLinkService().getIndicatorMeasurementRepository().findByIndicator(indicator);
+					
+					//classes
+					indicCl = service.getLinkService().getIndicatorClassRepository().findByIndicator(indicator);
+				}
+				//patents
+				Set<ResultPatent_Indicator> resPats = new HashSet<ResultPatent_Indicator>(resPatInd);
+				indicator.setResultPatents_indicators(resPats);
+				
+				//products
+				Set<ResultProduct_Indicator> resProds = new HashSet<ResultProduct_Indicator>(resProdInd);
+				indicator.setResultProducts_indicators(resProds);
+				
+				//publications
+				Set<ResultPublication_Indicator> resPubls = new HashSet<ResultPublication_Indicator>(resPublInd);
+				indicator.setResultPublications_indicators(resPubls);
+				
+				//services
+				Set<Service_Indicator> servs = new HashSet<Service_Indicator>(servIndic);
+				indicator.setServices_indicators(servs);
+				
+				//Equipments
+				Set<Equipment_Indicator> equips = new HashSet<Equipment_Indicator>(equipIndic);
+				indicator.setEquipments_indicators(equips);	
+				
+				//mediums
+				Set<Medium_Indicator> meds = new HashSet<Medium_Indicator>(medIndic);
+				indicator.setMediums_indicators(meds);	
+				
+				//measurements
+				Set<Indicator_Measurement> meass = new HashSet<Indicator_Measurement>(indicMeas);
+				indicator.setIndicators_measurements(meass);
+				
+				//classes
+				Set<Indicator_Class> cls = new HashSet<Indicator_Class>(indicCl);
+				indicator.setIndicators_classes(cls);
+				
+				//FederatedIdentifiers
+				if (showFedIds) {
+					indicator.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.INDICATOR.getUuid(), indicator.getId()));
+				}
+							
+				result.add(indicator);	
 
 			}
 		}

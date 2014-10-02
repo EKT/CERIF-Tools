@@ -7,7 +7,6 @@ import gr.ekt.cerif.features.multilingual.ClassTerm;
 import gr.ekt.cerif.features.multilingual.Translation;
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.features.semantics.ClassScheme;
-import gr.ekt.cerif.services.base.ProjectRepositoryImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +62,13 @@ public class ClassTermRepositoryImpl implements ClassTermRepository {
 	public List<ClassTerm> findByTermAndClassSchemeAndTranslationAndLanguage(
 			String term, ClassScheme scheme, Translation tra, Language lan) {
 		return classTermCrudRepository.findByTermAndClassSchemeAndTranslationAndLanguage(term, scheme, tra, lan);
+	}
+
+	@Override
+	public List<ClassTerm> findByTheClassAndTermAndClassSchemeAndTranslationAndLanguage(
+			Class theClass, String term, ClassScheme scheme, Translation tra,
+			Language lan) {
+		return classTermCrudRepository.findByTheClassAndTermAndClassSchemeAndTranslationAndLanguage(theClass, term, scheme, tra, lan);
 	}
 
 }

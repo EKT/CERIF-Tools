@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import gr.ekt.cerif.entities.link.FederatedIdentifier_Class;
 import gr.ekt.cerif.entities.link.Service_FederatedIdentifier;
@@ -41,6 +42,7 @@ public class FederatedIdentifierRepositoryImpl implements FederatedIdentifierRep
 	 * @see gr.ekt.cerif.services.second.FederatedIdentifierRepository#delete(gr.ekt.cerif.entities.second.FederatedIdentifier)
 	 */
 	@Override
+	@Transactional
 	public void delete(FederatedIdentifier entity) {
 		List<FederatedIdentifier_Class> fedcl = linkFederatedIdentifierClassRepository.findByFedId(entity);
 		if (fedcl != null) linkFederatedIdentifierClassRepository.delete(fedcl);

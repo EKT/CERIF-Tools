@@ -17,6 +17,6 @@ public interface LinkEventMeasurementCrudRepository extends CrudRepository<Event
 	List<Event_Measurement> findByEvent(Event event);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<Event_Measurement> findByMeasurement(Measurement mkeasurement);
+	List<Event_Measurement> findByMeasurement(Measurement measurement);
 
 }

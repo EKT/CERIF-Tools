@@ -18,5 +18,8 @@ public interface LinkClassSchemeClassCrudRepository extends CrudRepository<Class
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ClassScheme_Class> findByRelatedClass(Class theClass);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<ClassScheme_Class> findByRelatedClassSchemeAndRelatedClassAndTheClass(ClassScheme classScheme, Class relatedClass, Class theClass);
 
 }

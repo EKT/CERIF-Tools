@@ -171,8 +171,8 @@ public class ServiceRepositoryImpl implements ServiceRepository {
 		
 		List<Service_PostalAddress> servpaddr = linkServicePostalAddressRepository.findByService(entity);
 		List<PostalAddress> lpa = postalAddressRepository.findByService(entity);
-		if (servmed != null) linkServicePostalAddressRepository.delete(servpaddr);
-		entity.setServices_postalAdresses(null);
+		if (servpaddr != null) linkServicePostalAddressRepository.delete(servpaddr);
+		entity.setServices_postalAddresses(null);
 		
 		List<Service_Service> servserv1 = linkServiceServiceRepository.findByService1(entity);
 		if (servserv1 != null) linkServiceServiceRepository.delete(servserv1);
