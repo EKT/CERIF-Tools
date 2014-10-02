@@ -101,7 +101,7 @@ public class ClassScheme implements CerifSemanticFeature {
 	 * FederatedIdentifier entities related to ClassScheme instance.
 	 */
 	@Transient
-	private List<FederatedIdentifier> federatedIdentifiers;	
+	private List<FederatedIdentifier> transientFederatedIdentifiers;	
 	
 	// ---------------------------------------------------------------------- //
 	
@@ -273,22 +273,22 @@ public class ClassScheme implements CerifSemanticFeature {
 	public void setClassScheme_classes(Set<ClassScheme_Class> classScheme_classes) {
 		this.classScheme_classes = classScheme_classes;
 	}
-
-	/**
-	 * @return the federatedIdentifiers
-	 */
-	public List<FederatedIdentifier> getFederatedIdentifiers() {
-		return federatedIdentifiers;
-	}
-
-	/**
-	 * @param federatedIdentifiers the federatedIdentifiers to set
-	 */
-	public void setFederatedIdentifiers(
-			List<FederatedIdentifier> federatedIdentifiers) {
-		this.federatedIdentifiers = federatedIdentifiers;
-	}
 	
+	/**
+	 * @return the transientFederatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getTransientFederatedIdentifiers() {
+		return transientFederatedIdentifiers;
+	}
+
+	/**
+	 * @param transientFederatedIdentifiers the transientFederatedIdentifiers to set
+	 */
+	public void setTransientFederatedIdentifiers(
+			List<FederatedIdentifier> transientFederatedIdentifiers) {
+		this.transientFederatedIdentifiers = transientFederatedIdentifiers;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -325,9 +325,8 @@ public class ClassScheme implements CerifSemanticFeature {
 	 */
 	@Override
 	public String toString() {
-		return "ClassScheme [id=" + id + ", uri=" + uri + "]";
-	}
-
-	
+		return "ClassScheme [id=" + id + ", uri=" + uri + ", uuid=" + uuid
+				+ "]";
+	}	
 	
 }

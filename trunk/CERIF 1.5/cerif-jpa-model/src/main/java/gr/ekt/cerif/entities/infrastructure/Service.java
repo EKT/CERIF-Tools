@@ -111,7 +111,7 @@ public class Service implements CerifInfrastructureEntity {
 	private Set<Service_Medium> services_mediums;
 	
 	@OneToMany(mappedBy="service")
-	private Set<Service_PostalAddress> services_postalAdresses;
+	private Set<Service_PostalAddress> services_postalAddresses;
 	
 	@OneToMany(mappedBy="service1")
 	private Set<Service_Service> services_services1;
@@ -363,21 +363,6 @@ public class Service implements CerifInfrastructureEntity {
 	}
 
 	/**
-	 * @return the services_postalAdresses
-	 */
-	public Set<Service_PostalAddress> getServices_postalAdresses() {
-		return services_postalAdresses;
-	}
-
-	/**
-	 * @param services_postalAdresses the services_postalAdresses to set
-	 */
-	public void setServices_postalAdresses(
-			Set<Service_PostalAddress> services_postalAdresses) {
-		this.services_postalAdresses = services_postalAdresses;
-	}
-
-	/**
 	 * @return the services_services1
 	 */
 	public Set<Service_Service> getServices_services1() {
@@ -534,6 +519,21 @@ public class Service implements CerifInfrastructureEntity {
 	public void setServices_federatedIdentifiers(
 			Set<Service_FederatedIdentifier> services_federatedIdentifiers) {
 		this.services_federatedIdentifiers = services_federatedIdentifiers;
+	}
+
+	/**
+	 * @return the services_postalAddresses
+	 */
+	public Set<Service_PostalAddress> getServices_postalAddresses() {
+		return services_postalAddresses;
+	}
+
+	/**
+	 * @param services_postalAddresses the services_postalAddresses to set
+	 */
+	public void setServices_postalAddresses(
+			Set<Service_PostalAddress> services_postalAddresses) {
+		this.services_postalAddresses = services_postalAddresses;
 	}
 
 	/**

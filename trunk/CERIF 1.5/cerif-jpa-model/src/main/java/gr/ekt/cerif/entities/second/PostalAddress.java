@@ -6,6 +6,7 @@ package gr.ekt.cerif.entities.second;
 import gr.ekt.cerif.entities.link.Equipment_PostalAddress;
 import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
+import gr.ekt.cerif.entities.link.PostalAddress_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.Service_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
 import gr.ekt.cerif.entities.link.person.Person_PostalAddress;
@@ -144,6 +145,9 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="postalAddress")
 	private Set<PostalAddress_Class> postalAddresses_classes;
+	
+	@OneToMany(mappedBy="postalAddress")
+	private Set<PostalAddress_GeographicBoundingBox> postalAddresses_geographicBoundingBoxes;
 	
 	
 	/**
@@ -462,6 +466,19 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	public void setPostalAddresses_classes(
 			Set<PostalAddress_Class> postalAddresses_classes) {
 		this.postalAddresses_classes = postalAddresses_classes;
+	}
+	/**
+	 * @return the postalAddresses_geographicBoundingBoxes
+	 */
+	public Set<PostalAddress_GeographicBoundingBox> getPostalAddresses_geographicBoundingBoxes() {
+		return postalAddresses_geographicBoundingBoxes;
+	}
+	/**
+	 * @param postalAddresses_geographicBoundingBoxes the postalAddresses_geographicBoundingBoxes to set
+	 */
+	public void setPostalAddresses_geographicBoundingBoxes(
+			Set<PostalAddress_GeographicBoundingBox> postalAddresses_geographicBoundingBoxes) {
+		this.postalAddresses_geographicBoundingBoxes = postalAddresses_geographicBoundingBoxes;
 	}
 	/**
 	 * @return the federatedIdentifiers

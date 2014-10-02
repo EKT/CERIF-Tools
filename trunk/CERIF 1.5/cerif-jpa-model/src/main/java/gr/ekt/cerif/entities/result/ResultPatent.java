@@ -3,6 +3,7 @@
  */
 package gr.ekt.cerif.entities.result;
 
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPatent;
 import gr.ekt.cerif.entities.link.person.Person_ResultPatent;
 import gr.ekt.cerif.entities.link.project.Project_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Class;
@@ -11,6 +12,7 @@ import gr.ekt.cerif.entities.link.result.ResultPatent_Facility;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Funding;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Measurement;
+import gr.ekt.cerif.entities.link.result.ResultPatent_Medium;
 import gr.ekt.cerif.entities.link.result.ResultPatent_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPatent;
@@ -149,6 +151,12 @@ public class ResultPatent implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatent_Facility> resultPatents_facilities;
+	
+	@OneToMany(mappedBy="resultPatent")
+	private Set<OrganisationUnit_ResultPatent> organisationUnits_resultPatents;
+	
+	@OneToMany(mappedBy="resultPatent")
+	private Set<ResultPatent_Medium> resultPatents_mediums;
 	
 	
 	/**
@@ -514,6 +522,36 @@ public class ResultPatent implements CerifResultEntity {
 	public void setResultPatents_resultPatents2(
 			Set<ResultPatent_ResultPatent> resultPatents_resultPatents2) {
 		this.resultPatents_resultPatents2 = resultPatents_resultPatents2;
+	}
+
+	/**
+	 * @return the organisationUnits_resultPatents
+	 */
+	public Set<OrganisationUnit_ResultPatent> getOrganisationUnits_resultPatents() {
+		return organisationUnits_resultPatents;
+	}
+
+	/**
+	 * @param organisationUnits_resultPatents the organisationUnits_resultPatents to set
+	 */
+	public void setOrganisationUnits_resultPatents(
+			Set<OrganisationUnit_ResultPatent> organisationUnits_resultPatents) {
+		this.organisationUnits_resultPatents = organisationUnits_resultPatents;
+	}
+
+	/**
+	 * @return the resultPatents_mediums
+	 */
+	public Set<ResultPatent_Medium> getResultPatents_mediums() {
+		return resultPatents_mediums;
+	}
+
+	/**
+	 * @param resultPatents_mediums the resultPatents_mediums to set
+	 */
+	public void setResultPatents_mediums(
+			Set<ResultPatent_Medium> resultPatents_mediums) {
+		this.resultPatents_mediums = resultPatents_mediums;
 	}
 
 	/**
