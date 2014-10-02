@@ -997,7 +997,7 @@ public class SelectionServiceImpl implements SelectionService {
 								
 				//FederatedIdentifiers
 				if (showFedIds) {
-					theClass.setTransientFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION.getUuid(), theClass.getId()));
+					theClass.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION.getUuid(), theClass.getId()));
 				}
 								
 				result.add(theClass);
@@ -1024,7 +1024,7 @@ public class SelectionServiceImpl implements SelectionService {
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
-					classScheme.setTransientFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION_SCHEME.getUuid(), classScheme.getId()));
+					classScheme.setFederatedIdentifiers(addFederatedIdentifier(ClassEnum.CLASSIFICATION_SCHEME.getUuid(), classScheme.getId()));
 				}	
 				
 				if (embedClasses) {
