@@ -82,7 +82,7 @@ public class ClassScheme implements CerifSemanticFeature {
 	private Set<Class> classes;
 	
 	@OneToMany(mappedBy="scheme")
-	private Set<FederatedIdentifier> federeratedIdentifier;
+	private Set<FederatedIdentifier> inFedfederatedIdentifiers;
 	
 	@OneToMany(mappedBy="scheme")
 	private Set<ClassScheme_OrganisationUnit> classScheme_organisationUnits;
@@ -101,7 +101,7 @@ public class ClassScheme implements CerifSemanticFeature {
 	 * FederatedIdentifier entities related to ClassScheme instance.
 	 */
 	@Transient
-	private List<FederatedIdentifier> transientFederatedIdentifiers;	
+	private List<FederatedIdentifier> federatedIdentifiers;	
 	
 	// ---------------------------------------------------------------------- //
 	
@@ -206,15 +206,6 @@ public class ClassScheme implements CerifSemanticFeature {
 		this.names = names;
 	}
 
-	public Set<FederatedIdentifier> getFedereratedIdentifier() {
-		return federeratedIdentifier;
-	}
-
-	public void setFedereratedIdentifier(
-			Set<FederatedIdentifier> federeratedIdentifier) {
-		this.federeratedIdentifier = federeratedIdentifier;
-	}
-
 	/**
 	 * @return the classScheme_organisationUnits
 	 */
@@ -273,20 +264,35 @@ public class ClassScheme implements CerifSemanticFeature {
 	public void setClassScheme_classes(Set<ClassScheme_Class> classScheme_classes) {
 		this.classScheme_classes = classScheme_classes;
 	}
-	
+
 	/**
-	 * @return the transientFederatedIdentifiers
+	 * @return the inFedfederatedIdentifiers
 	 */
-	public List<FederatedIdentifier> getTransientFederatedIdentifiers() {
-		return transientFederatedIdentifiers;
+	public Set<FederatedIdentifier> getInFedfederatedIdentifiers() {
+		return inFedfederatedIdentifiers;
 	}
 
 	/**
-	 * @param transientFederatedIdentifiers the transientFederatedIdentifiers to set
+	 * @param inFedfederatedIdentifiers the inFedfederatedIdentifiers to set
 	 */
-	public void setTransientFederatedIdentifiers(
-			List<FederatedIdentifier> transientFederatedIdentifiers) {
-		this.transientFederatedIdentifiers = transientFederatedIdentifiers;
+	public void setInFedfederatedIdentifiers(
+			Set<FederatedIdentifier> inFedfederatedIdentifiers) {
+		this.inFedfederatedIdentifiers = inFedfederatedIdentifiers;
+	}
+
+	/**
+	 * @return the federatedIdentifiers
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiers() {
+		return federatedIdentifiers;
+	}
+
+	/**
+	 * @param federatedIdentifiers the federatedIdentifiers to set
+	 */
+	public void setFederatedIdentifiers(
+			List<FederatedIdentifier> federatedIdentifiers) {
+		this.federatedIdentifiers = federatedIdentifiers;
 	}
 
 	/* (non-Javadoc)
