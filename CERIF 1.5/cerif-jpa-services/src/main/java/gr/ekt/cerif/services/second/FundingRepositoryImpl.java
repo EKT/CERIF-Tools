@@ -199,7 +199,7 @@ public class FundingRepositoryImpl implements FundingRepository {
 		
 		List<Funding_Measurement> fundMeas = linkFundingMeasurementRepository.findByFunding(entity);
 		if (fundMeas != null) linkFundingMeasurementRepository.delete(fundMeas);
-		entity.setFundings_measurement(null);
+		entity.setFundings_measurements(null);
 		
 		entity = fundingCrudRepository.save(entity);
 		fundingCrudRepository.delete(entity);
