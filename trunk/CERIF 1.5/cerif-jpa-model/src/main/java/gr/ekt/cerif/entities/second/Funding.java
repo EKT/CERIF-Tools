@@ -170,7 +170,7 @@ public class Funding implements CerifSecondLevelEntity {
 	private Set<Funding_Indicator> fundings_indicators;
 	
 	@OneToMany(mappedBy="funding")
-	private Set<Funding_Measurement> fundings_measurement;
+	private Set<Funding_Measurement> fundings_measurements;
 	
 	@OneToMany(mappedBy="funding")
 	private Set<Event_Funding> events_fundings;
@@ -564,19 +564,6 @@ public class Funding implements CerifSecondLevelEntity {
 		this.fundings_fundings2 = fundings_fundings2;
 	}
 	/**
-	 * @return the fundings_measurement
-	 */
-	public Set<Funding_Measurement> getFundings_measurement() {
-		return fundings_measurement;
-	}
-	/**
-	 * @param fundings_measurement the fundings_measurement to set
-	 */
-	public void setFundings_measurement(
-			Set<Funding_Measurement> fundings_measurement) {
-		this.fundings_measurement = fundings_measurement;
-	}
-	/**
 	 * @return the events_fundings
 	 */
 	public Set<Event_Funding> getEvents_fundings() {
@@ -587,6 +574,19 @@ public class Funding implements CerifSecondLevelEntity {
 	 */
 	public void setEvents_fundings(Set<Event_Funding> events_fundings) {
 		this.events_fundings = events_fundings;
+	}
+	/**
+	 * @return the fundings_measurements
+	 */
+	public Set<Funding_Measurement> getFundings_measurements() {
+		return fundings_measurements;
+	}
+	/**
+	 * @param fundings_measurements the fundings_measurements to set
+	 */
+	public void setFundings_measurements(
+			Set<Funding_Measurement> fundings_measurements) {
+		this.fundings_measurements = fundings_measurements;
 	}
 	/**
 	 * @return the federatedIdentifiers
