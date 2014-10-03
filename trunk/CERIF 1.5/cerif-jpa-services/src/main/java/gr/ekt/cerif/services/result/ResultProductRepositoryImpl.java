@@ -176,7 +176,7 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 		
 		List<ResultProduct_GeographicBoundingBox> resprodgeobox = linkResultProductGeographicBoundingBoxRepository.findByResultProduct(entity);
 		if (resprodgeobox != null) linkResultProductGeographicBoundingBoxRepository.delete(resprodgeobox);
-		entity.setGeographicBoundingBox(null);
+		entity.setResultProducts_geographicBoundingBoxes(null);
 		
 		List<ResultProduct_Funding> resprodfund = linkResultProductFundingRepository.findByResultProduct(entity);
 		if (resprodfund != null) linkResultProductFundingRepository.delete(resprodfund);
