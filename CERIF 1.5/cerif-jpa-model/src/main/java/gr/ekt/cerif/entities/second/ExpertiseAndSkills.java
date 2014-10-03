@@ -79,7 +79,7 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 	private Set<OrganisationUnit_ExpertiseAndSkills> organisationUnits_expertiseAndSkills;
 	
 	@OneToMany(mappedBy="expertiseAndSkills")
-	private Set<ExpertiseAndSkills_Class> expertiseAndSkillsClasses;
+	private Set<ExpertiseAndSkills_Class> expertiseAndSkills_classes;
 
 	
 	/**
@@ -187,21 +187,6 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the expertiseAndSkillsClasses
-	 */
-	public Set<ExpertiseAndSkills_Class> getExpertiseAndSkillsClasses() {
-		return expertiseAndSkillsClasses;
-	}
-
-	/**
-	 * @param expertiseAndSkillsClasses the expertiseAndSkillsClasses to set
-	 */
-	public void setExpertiseAndSkillsClasses(
-			Set<ExpertiseAndSkills_Class> expertiseAndSkillsClasses) {
-		this.expertiseAndSkillsClasses = expertiseAndSkillsClasses;
-	}
-
-	/**
 	 * @return the persons_expertiseAndSkills
 	 */
 	public Set<Person_ExpertiseAndSkills> getPersons_expertiseAndSkills() {
@@ -229,6 +214,21 @@ public class ExpertiseAndSkills implements CerifSecondLevelEntity {
 	public void setOrganisationUnits_expertiseAndSkills(
 			Set<OrganisationUnit_ExpertiseAndSkills> organisationUnits_expertiseAndSkills) {
 		this.organisationUnits_expertiseAndSkills = organisationUnits_expertiseAndSkills;
+	}
+
+	/**
+	 * @return the expertiseAndSkills_classes
+	 */
+	public Set<ExpertiseAndSkills_Class> getExpertiseAndSkills_classes() {
+		return expertiseAndSkills_classes;
+	}
+
+	/**
+	 * @param expertiseAndSkills_classes the expertiseAndSkills_classes to set
+	 */
+	public void setExpertiseAndSkills_classes(
+			Set<ExpertiseAndSkills_Class> expertiseAndSkills_classes) {
+		this.expertiseAndSkills_classes = expertiseAndSkills_classes;
 	}
 
 	/**

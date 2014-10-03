@@ -290,7 +290,7 @@ public class Class implements CerifSemanticFeature {
 	private Set<Person_Medium> persons_mediums;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Person_Measurement> persons_measuremenst;
+	private Set<Person_Measurement> persons_measurements;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Person_Prize> persons_prizes;
@@ -554,9 +554,6 @@ public class Class implements CerifSemanticFeature {
 	private Set<Funding_Indicator> fundings_indicators;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Funding_Measurement> fundings_measurement;
-	
-	@OneToMany(mappedBy="theClass")
 	private Set<Medium_Funding> fundings_mediums;
 	
 	@OneToMany(mappedBy="theClass")
@@ -614,10 +611,7 @@ public class Class implements CerifSemanticFeature {
 	private Set<GeographicBoundingBox_Class> geographicBoundingBoxes_classes;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes1;
-	
-	@OneToMany(mappedBy="theClass")
-	private Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes2;
+	private Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Indicator_Class> indicators_classes;
@@ -638,10 +632,10 @@ public class Class implements CerifSemanticFeature {
 	private Set<Class_Class> class_class2;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<ClassScheme_Class> classScheme_classes;
+	private Set<ClassScheme_Class> classSchemes_classes;
 	
 	@OneToMany(mappedBy="relatedClass")
-	private Set<ClassScheme_Class> relatedClassScheme_classes;
+	private Set<ClassScheme_Class> relatedClassSchemes_classes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Metrics_Class> metrics_classes;
@@ -1335,21 +1329,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the fundings_measurement
-	 */
-	public Set<Funding_Measurement> getFundings_measurement() {
-		return fundings_measurement;
-	}
-
-	/**
-	 * @param fundings_measurement the fundings_measurement to set
-	 */
-	public void setFundings_measurement(
-			Set<Funding_Measurement> fundings_measurement) {
-		this.fundings_measurement = fundings_measurement;
-	}
-
-	/**
 	 * @return the fundings_fundings
 	 */
 	public Set<Funding_Funding> getFundings_fundings() {
@@ -1400,35 +1379,6 @@ public class Class implements CerifSemanticFeature {
 	public void setOrganisationUnits_postalAddresses(
 			Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses) {
 		this.organisationUnits_postalAddresses = organisationUnits_postalAddresses;
-	}
-
-	/**
-	 * @return the classScheme_classes
-	 */
-	public Set<ClassScheme_Class> getClassScheme_classes() {
-		return classScheme_classes;
-	}
-
-	/**
-	 * @param classScheme_classes the classScheme_classes to set
-	 */
-	public void setClassScheme_classes(Set<ClassScheme_Class> classScheme_classes) {
-		this.classScheme_classes = classScheme_classes;
-	}
-
-	/**
-	 * @return the relatedClassScheme_classes
-	 */
-	public Set<ClassScheme_Class> getRelatedClassScheme_classes() {
-		return relatedClassScheme_classes;
-	}
-
-	/**
-	 * @param relatedClassScheme_classes the relatedClassScheme_classes to set
-	 */
-	public void setRelatedClassScheme_classes(
-			Set<ClassScheme_Class> relatedClassScheme_classes) {
-		this.relatedClassScheme_classes = relatedClassScheme_classes;
 	}
 	
 	/**
@@ -1821,36 +1771,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the geographicBoundingBoxes_geographicBoundingBoxes1
-	 */
-	public Set<GeographicBoundingBox_GeographicBoundingBox> getGeographicBoundingBoxes_geographicBoundingBoxes1() {
-		return geographicBoundingBoxes_geographicBoundingBoxes1;
-	}
-
-	/**
-	 * @param geographicBoundingBoxes_geographicBoundingBoxes1 the geographicBoundingBoxes_geographicBoundingBoxes1 to set
-	 */
-	public void setGeographicBoundingBoxes_geographicBoundingBoxes1(
-			Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes1) {
-		this.geographicBoundingBoxes_geographicBoundingBoxes1 = geographicBoundingBoxes_geographicBoundingBoxes1;
-	}
-
-	/**
-	 * @return the geographicBoundingBoxes_geographicBoundingBoxes2
-	 */
-	public Set<GeographicBoundingBox_GeographicBoundingBox> getGeographicBoundingBoxes_geographicBoundingBoxes2() {
-		return geographicBoundingBoxes_geographicBoundingBoxes2;
-	}
-
-	/**
-	 * @param geographicBoundingBoxes_geographicBoundingBoxes2 the geographicBoundingBoxes_geographicBoundingBoxes2 to set
-	 */
-	public void setGeographicBoundingBoxes_geographicBoundingBoxes2(
-			Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes2) {
-		this.geographicBoundingBoxes_geographicBoundingBoxes2 = geographicBoundingBoxes_geographicBoundingBoxes2;
-	}
-
-	/**
 	 * @return the organisationUnits_resultPatents
 	 */
 	public Set<OrganisationUnit_ResultPatent> getOrganisationUnits_resultPatents() {
@@ -2082,15 +2002,15 @@ public class Class implements CerifSemanticFeature {
 	/**
 	 * @return the persons_measuremenst
 	 */
-	public Set<Person_Measurement> getPersons_measuremenst() {
-		return persons_measuremenst;
+	public Set<Person_Measurement> getPersons_measurements() {
+		return persons_measurements;
 	}
 
 	/**
 	 * @param persons_measuremenst the persons_measuremenst to set
 	 */
-	public void setPersons_measuremenst(Set<Person_Measurement> persons_measuremenst) {
-		this.persons_measuremenst = persons_measuremenst;
+	public void setPersons_measuremenst(Set<Person_Measurement> persons_measurements) {
+		this.persons_measurements = persons_measurements;
 	}
 
 	/**
@@ -3181,6 +3101,57 @@ public class Class implements CerifSemanticFeature {
 	public void setPersons_organisationUnits(
 			Set<Person_OrganisationUnit> persons_organisationUnits) {
 		this.persons_organisationUnits = persons_organisationUnits;
+	}
+
+	/**
+	 * @return the geographicBoundingBoxes_geographicBoundingBoxes
+	 */
+	public Set<GeographicBoundingBox_GeographicBoundingBox> getGeographicBoundingBoxes_geographicBoundingBoxes() {
+		return geographicBoundingBoxes_geographicBoundingBoxes;
+	}
+
+	/**
+	 * @param geographicBoundingBoxes_geographicBoundingBoxes the geographicBoundingBoxes_geographicBoundingBoxes to set
+	 */
+	public void setGeographicBoundingBoxes_geographicBoundingBoxes(
+			Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes) {
+		this.geographicBoundingBoxes_geographicBoundingBoxes = geographicBoundingBoxes_geographicBoundingBoxes;
+	}
+
+	/**
+	 * @return the classSchemes_classes
+	 */
+	public Set<ClassScheme_Class> getClassSchemes_classes() {
+		return classSchemes_classes;
+	}
+
+	/**
+	 * @param classSchemes_classes the classSchemes_classes to set
+	 */
+	public void setClassSchemes_classes(Set<ClassScheme_Class> classSchemes_classes) {
+		this.classSchemes_classes = classSchemes_classes;
+	}
+
+	/**
+	 * @return the relatedClassSchemes_classes
+	 */
+	public Set<ClassScheme_Class> getRelatedClassSchemes_classes() {
+		return relatedClassSchemes_classes;
+	}
+
+	/**
+	 * @param relatedClassSchemes_classes the relatedClassSchemes_classes to set
+	 */
+	public void setRelatedClassSchemes_classes(
+			Set<ClassScheme_Class> relatedClassSchemes_classes) {
+		this.relatedClassSchemes_classes = relatedClassSchemes_classes;
+	}
+
+	/**
+	 * @param persons_measurements the persons_measurements to set
+	 */
+	public void setPersons_measurements(Set<Person_Measurement> persons_measurements) {
+		this.persons_measurements = persons_measurements;
 	}
 
 	/**

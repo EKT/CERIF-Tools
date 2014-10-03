@@ -115,7 +115,7 @@ public class ResultProduct implements CerifResultEntity {
 	private Set<ResultProduct_Country> resultProducts_countries;
 	
 	@OneToMany(mappedBy="resultProduct")
-	private Set<ResultProduct_GeographicBoundingBox> geographicBoundingBox;
+	private Set<ResultProduct_GeographicBoundingBox> resultProducts_geographicBoundingBoxes;
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Funding> resultProducts_fundings;
@@ -300,21 +300,6 @@ public class ResultProduct implements CerifResultEntity {
 			Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts) {
 		this.organisationUnits_resultProducts = organisationUnits_resultProducts;
 	}
-
-	/**
-	 * @return the geographic bounding box
-	 */
-	public Set<ResultProduct_GeographicBoundingBox> getGeographicBoundingBox() {
-		return geographicBoundingBox;
-	}
-
-	/**
-	 * @param geographicBoundingBox the geographicBoundingBox to set
-	 */
-	public void setGeographicBoundingBox(Set<ResultProduct_GeographicBoundingBox> geographicBoundingBoxes) {
-		this.geographicBoundingBox = geographicBoundingBoxes;
-	}
-	
 	
 	/**
 	 * @return the resultProducts_fundings
@@ -494,6 +479,21 @@ public class ResultProduct implements CerifResultEntity {
 	public void setResultProducts_mediums(
 			Set<ResultProduct_Medium> resultProducts_mediums) {
 		this.resultProducts_mediums = resultProducts_mediums;
+	}
+
+	/**
+	 * @return the resultProducts_geographicBoundingBoxes
+	 */
+	public Set<ResultProduct_GeographicBoundingBox> getResultProducts_geographicBoundingBoxes() {
+		return resultProducts_geographicBoundingBoxes;
+	}
+
+	/**
+	 * @param resultProducts_geographicBoundingBoxes the resultProducts_geographicBoundingBoxes to set
+	 */
+	public void setResultProducts_geographicBoundingBoxes(
+			Set<ResultProduct_GeographicBoundingBox> resultProducts_geographicBoundingBoxes) {
+		this.resultProducts_geographicBoundingBoxes = resultProducts_geographicBoundingBoxes;
 	}
 
 	/**
