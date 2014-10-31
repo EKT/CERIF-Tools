@@ -3,10 +3,12 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
-	<appender name="console" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out" />
+	<appender name="fileAppender" class="org.apache.log4j.FileAppender">
+		<param name="file" value="${log4j.appender.file.File}" />
+		<param name="encoding" value="UTF-8" />
+		<param name="append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<param name="ConversionPattern" value="%d{dd/MM/yyyy HH:mm:ss.SSS} %-5p %40.40c{1} - Line (%L) %m%n" />
 		</layout>
 	</appender>
 	

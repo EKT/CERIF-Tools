@@ -18,7 +18,7 @@
 					<th width="120px">Acronym</th>
 					<th width="370px">Title</th>
 					<th width="220px">Dates</th>
-					<th>Domain</th>
+					<th>Status</th>
 				</tr>
 			</thead>		
 			<tbody>
@@ -29,7 +29,16 @@
 						<td>
 							<fmt:formatDate pattern="dd/MM/yyyy" value="${project.startDate}" /><c:if test="${not empty project.endDate}"> - <fmt:formatDate pattern="dd/MM/yyyy" value="${project.endDate}" /></c:if>
 						</td>
-						<td>${project.scientificDomain.term}</td>
+						<td>
+							<c:choose>
+								<c:when test="${not empty project.status}">
+									${project.status.term}
+								</c:when>
+								<c:otherwise>
+									-
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

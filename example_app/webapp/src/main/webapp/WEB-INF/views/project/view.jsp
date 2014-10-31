@@ -36,11 +36,11 @@
 					</c:if>
 
 
-					<c:if test="${not empty project.scientificDomain}">
+					<c:if test="${not empty project.status}">
 						<tr>
-							<td class="viewLeftColumn">Scientific Domain</td>
+							<td class="viewLeftColumn">Status</td>
 							<td class="viewRightColumn">
-								${project.scientificDomain.term}
+								${project.status.term}
 							</td>
 						</tr>
 					</c:if>
