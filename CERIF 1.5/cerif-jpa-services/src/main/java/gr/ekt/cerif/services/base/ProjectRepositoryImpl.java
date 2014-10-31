@@ -126,21 +126,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	@Autowired
 	private LinkProjectResultProductRepository linkProjectResultProductRepository;
 	
-	
-	@Override
-	public Project findByAcronym(String acronym) {
-		return projectCrudRepository.findByAcronym(acronym);
-	}
-
-	@Override
-	public Project findById(Long id) {
-		return projectCrudRepository.findById(id);
-	}
-
-	@Override
-	public List<Project> findByUri(String uri) {
-		return projectCrudRepository.findByUri(uri);
-	}
 
 	@Override
 	@Transactional
@@ -239,17 +224,19 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		return projectCrudRepository.save(entity);
 	}
 
-	public Iterable<Project> findAll() {
-		return projectCrudRepository.findAll();
-	}
-
-	public Iterable<Project> findAll(List<Long> ids) {
-		return projectCrudRepository.findAll(ids);
+	@Transactional
+	public void delete(Iterable<Project> entities) {
+		projectCrudRepository.delete(entities);		
 	}
 
 	@Override
-	public void delete(Iterable<Project> entities) {
-		projectCrudRepository.delete(entities);		
+	public Project findById(Long id) {
+		return projectCrudRepository.findById(id);
+	}
+
+	@Override
+	public List<Project> findByUri(String uri) {
+		return projectCrudRepository.findByUri(uri);
 	}
 
 	@Override
@@ -258,9 +245,14 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	}
 
 	@Override
-	public Project findByUUID(String uuid) {
+	public Iterable<Project> findAll() {
+		return projectCrudRepository.findAll();
+	}
+
+	@Override
+	public Project findByUuid(String uuid) {
 		return projectCrudRepository.findByUuid(uuid);
 	}
 
-
+	
 }

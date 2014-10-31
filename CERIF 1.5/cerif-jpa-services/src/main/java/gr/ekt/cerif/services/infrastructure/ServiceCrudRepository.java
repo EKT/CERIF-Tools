@@ -14,14 +14,18 @@ import gr.ekt.cerif.entities.infrastructure.Service;
 public interface ServiceCrudRepository extends CrudRepository<Service, Long> {
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<Service> findAll();
+	public List<Service> findAll();
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Page<Service> findAll(Pageable page);
+	public Page<Service> findAll(Pageable page);
 
-	Service findByUuid(String uuid);
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public Service findByUuid(String uuid);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Service findById(Long Id);
+	public Service findById(Long Id);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public List<Service> findByUri(String uri);
 
 }

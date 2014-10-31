@@ -249,4 +249,9 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 		return measurementCrudRepository.findById(id);
 	}
 
+	@Override
+	public List<Measurement> findByUri(String uri) {
+		return measurementCrudRepository.findByUri(uri);
+	}
+
 }

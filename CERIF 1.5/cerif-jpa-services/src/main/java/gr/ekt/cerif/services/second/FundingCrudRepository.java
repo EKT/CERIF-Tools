@@ -21,21 +21,21 @@ import org.springframework.data.repository.CrudRepository;
 public interface FundingCrudRepository extends CrudRepository<Funding, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Funding findByAcronym(String acronym);
+	public Funding findByAcronym(String acronym);
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Funding findById(Long id);	
+	public Funding findById(Long id);	
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<Funding> findAll();
+	public List<Funding> findAll();
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Page<Funding> findAll(Pageable page);
+	public Page<Funding> findAll(Pageable page);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Funding findByUri(String Uri);
+	public Funding findByUri(String Uri);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Funding findByUuid(String uuid);
+	public Funding findByUuid(String uuid);
 	
 }

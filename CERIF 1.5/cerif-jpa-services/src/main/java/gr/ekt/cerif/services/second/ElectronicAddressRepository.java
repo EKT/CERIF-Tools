@@ -26,13 +26,13 @@ public interface ElectronicAddressRepository {
 	
 	List<ElectronicAddress> findByPerson(Person person);
 
-	public void delete(ElectronicAddress entity); 
+	void delete(ElectronicAddress entity); 
 	
-	public void delete(Iterable<ElectronicAddress> entities); 
+	void delete(Iterable<ElectronicAddress> entities); 
 
-	public Iterable<ElectronicAddress> save(Iterable<ElectronicAddress> entities); 
+	Iterable<ElectronicAddress> save(Iterable<ElectronicAddress> entities); 
 	
-	public ElectronicAddress save(ElectronicAddress entity);
+	ElectronicAddress save(ElectronicAddress entity);
 	
 	Iterable<ElectronicAddress> findAll();
 	

@@ -18,12 +18,6 @@ public interface PersonRepository {
 
 	Person findById(Long id);
 
-	Person findPersonName(String familyNames);
-	
-	Person findPersonByOtherName(String otherNames);
-	
-	Object findPersonNameByPersonId(Long id);
-	
 	void delete(Person entity);
 	
 	void delete(Iterable<Person> entities);
@@ -32,14 +26,16 @@ public interface PersonRepository {
 	
 	Person save(Person entity);
 	
-	public GenericSuperRepository getPersonGenericRepository();
+	GenericSuperRepository getPersonGenericRepository();
 	
-	public void setPersonGenericRepository(GenericSuperRepository personGenericRepository);
+	void setPersonGenericRepository(GenericSuperRepository personGenericRepository);
 	
 	Iterable<Person> findAll();
 	
 	Page<Person> findAll(Pageable page);
 
 	Person findByUUID(String uuid);
+	
+	Person findByUri(String uri);
 	
 }

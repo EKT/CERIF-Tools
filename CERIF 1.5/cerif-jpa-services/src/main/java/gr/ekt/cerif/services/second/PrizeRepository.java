@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.Prize;
 
 /**
@@ -11,11 +16,21 @@ import gr.ekt.cerif.entities.second.Prize;
  */
 public interface PrizeRepository {
 
-	public void delete(Prize entity); 
+	void delete(Prize entity); 
 	
-	public void delete(Iterable<Prize> entities); 
+	void delete(Iterable<Prize> entities); 
 
-	public Iterable<Prize> save(Iterable<Prize> entities); 
+	Iterable<Prize> save(Iterable<Prize> entities); 
 	
-	public Prize save(Prize entity);
+	Prize save(Prize entity);
+	
+	List<Prize> findAll();
+	
+	Page<Prize> findAll(Pageable page);
+
+	Prize findById(Long id);
+
+	List<Prize> findByUri(String uri);
+
+	Prize findByUuid(String uuid);
 }

@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.Metrics;
 
 /**
@@ -11,11 +16,21 @@ import gr.ekt.cerif.entities.second.Metrics;
  */
 public interface MetricsRepository {
 
-	public void delete(Metrics entity); 
+	void delete(Metrics entity); 
 	
-	public void delete(Iterable<Metrics> entities); 
+	void delete(Iterable<Metrics> entities); 
 
-	public Iterable<Metrics> save(Iterable<Metrics> entities); 
+	Iterable<Metrics> save(Iterable<Metrics> entities); 
 	
-	public Metrics save(Metrics entity);
+	Metrics save(Metrics entity);
+	
+	List<Metrics> findAll();
+	
+	Page<Metrics> findAll(Pageable page);
+
+	Metrics findById(Long id);
+
+	List<Metrics> findByUri(String uri);
+
+	Metrics findByUuid(String uuid);
 }

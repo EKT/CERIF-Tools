@@ -245,4 +245,9 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 		return resultProductCrudRepository.findByUuid(uuid);
 	}
 
+	@Override
+	public List<ResultProduct> findByUri(String uri) {
+		return resultProductCrudRepository.findByUri(uri);
+	}
+
 }

@@ -14,13 +14,18 @@ import org.springframework.data.repository.CrudRepository;
 public interface ResultProductCrudRepository extends CrudRepository<ResultProduct, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<ResultProduct> findAll();
+	public List<ResultProduct> findAll();
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Page<ResultProduct> findAll(Pageable page);
+	public Page<ResultProduct> findAll(Pageable page);
 
-	ResultProduct findByUuid(String uuid);
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public ResultProduct findByUuid(String uuid);
 	
-	ResultProduct findById(Long id);
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public ResultProduct findById(Long id);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public List<ResultProduct> findByUri(String uri);
 	
 }

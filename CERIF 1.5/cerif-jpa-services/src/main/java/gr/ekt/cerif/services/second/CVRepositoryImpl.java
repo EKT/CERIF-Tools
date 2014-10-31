@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,6 +70,26 @@ public class CVRepositoryImpl implements CVRepository {
 	@Transactional
 	public CV save(CV entity) {
 		return cvCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<CV> findAll() {
+		return cvCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<CV> findAll(Pageable page) {
+		return cvCrudRepository.findAll(page);
+	}
+
+	@Override
+	public List<CV> findByUri(String uri) {
+		return cvCrudRepository.findByUri(uri);
+	}
+
+	@Override
+	public CV findByUuid(String uuid) {
+		return cvCrudRepository.findByUuid(uuid);
 	}
 
 

@@ -259,4 +259,9 @@ public class ServiceRepositoryImpl implements ServiceRepository {
 		return serviceCrudRepository.findByUuid(uuid);
 	}
 
+	@Override
+	public List<Service> findByUri(String uri) {
+		return serviceCrudRepository.findByUri(uri);
+	}
+
 }

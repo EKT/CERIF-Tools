@@ -20,13 +20,13 @@ public interface ResultPublicationRepository {
 	
 	ResultPublication findById(Long id);
 
-	public void delete(ResultPublication entity); 
+	void delete(ResultPublication entity); 
 	
-	public void delete(Iterable<ResultPublication> entities); 
+	void delete(Iterable<ResultPublication> entities); 
 
-	public Iterable<ResultPublication> save(Iterable<ResultPublication> entities); 
+	Iterable<ResultPublication> save(Iterable<ResultPublication> entities); 
 	
-	public ResultPublication save(ResultPublication entity);
+	ResultPublication save(ResultPublication entity);
 	
 	List<ResultPublication> findAll();
 	

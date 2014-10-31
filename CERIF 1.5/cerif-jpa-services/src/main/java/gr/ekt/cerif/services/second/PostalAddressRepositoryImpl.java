@@ -13,10 +13,8 @@ import gr.ekt.cerif.entities.link.Facility_PostalAddress;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.Service_PostalAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_PostalAddress;
-import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
 import gr.ekt.cerif.entities.link.person.Person_PostalAddress;
 import gr.ekt.cerif.entities.second.Country;
-import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.services.link.equipment.LinkEquipmentPostalAddressRepository;
 import gr.ekt.cerif.services.link.facility.LinkFacilityPostalAddressRepository;
@@ -73,7 +71,6 @@ public class PostalAddressRepositoryImpl implements PostalAddressRepository {
 	public List<PostalAddress> findByCountry(Country country) {
 		return postalAddressCrudRepository.findByCountry(country);
 	}
-
 	
 	/* (non-Javadoc)
 	 * @see gr.ekt.cerif.services.second.PostalAddressRepository#delete(gr.ekt.cerif.entities.second.PostalAddress)
@@ -109,37 +106,45 @@ public class PostalAddressRepositoryImpl implements PostalAddressRepository {
 		postalAddressCrudRepository.delete(entity);
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.second.PostalAddressRepository#delete(java.lang.Iterable)
-	 */
 	@Override
 	public void delete(Iterable<PostalAddress> entities) {
 		postalAddressCrudRepository.delete(entities);
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.second.PostalAddressRepository#save(java.lang.Iterable)
-	 */
 	@Override
 	public Iterable<PostalAddress> save(Iterable<PostalAddress> entities) {
 		return postalAddressCrudRepository.save(entities);
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.ekt.cerif.services.second.PostalAddressRepository#save(gr.ekt.cerif.entities.second.PostalAddress)
-	 */
 	@Override
 	public PostalAddress save(PostalAddress entity) {
 		return postalAddressCrudRepository.save(entity);
 	}
 
-
 	@Override
-	public PostalAddress findByOrganisationUnitNameAndCountryCode(
-			String organisationUnitName, String ccode) {
-		return postalAddressCrudRepository.findByOrganisationUnitNameAndCountryCode(organisationUnitName, ccode);
+	public Iterable<PostalAddress> findAll() {
+		return postalAddressCrudRepository.findAll();
 	}
 
+	@Override
+	public Page<PostalAddress> findAll(Pageable page) {
+		return postalAddressCrudRepository.findAll(page);
+	}
+
+	@Override
+	public PostalAddress findByUuid(String uuid) {
+		return postalAddressCrudRepository.findByUuid(uuid);
+	}
+
+	@Override
+	public PostalAddress findById(Long id) {
+		return postalAddressCrudRepository.findById(id);
+	}
+
+	@Override
+	public List<PostalAddress> findByUri(String uri) {
+		return postalAddressCrudRepository.findByUri(uri);
+	}
 
 	@Override
 	public List<PostalAddress> findByOrganisationUnit(
@@ -147,65 +152,26 @@ public class PostalAddressRepositoryImpl implements PostalAddressRepository {
 		return postalAddressCrudRepository.findByOrganisationUnit(organisationUnit);
 	}
 
-
-	@Override
-	public PostalAddress findByOrganisationUnitAndCountryCode(
-			OrganisationUnit organisationUnit, String ccode) {
-		return postalAddressCrudRepository.findByOrganisationUnitAndCountryCode(organisationUnit, ccode);
-	}
-
-
-	@Override
-	public List<PostalAddress> findByPerson(Person person) {
-		return postalAddressCrudRepository.findByPerson(person);
-	}
-
-
-	@Override
-	public PostalAddress findByOrganisationUnitName(String organisationUnitName) {
-		return postalAddressCrudRepository.findByOrganisationUnitName(organisationUnitName);
-	}
-
-
-	@Override
-	public Iterable<PostalAddress> findAll() {
-		return postalAddressCrudRepository.findAll();
-	}
-
-
-	@Override
-	public Page<PostalAddress> findAll(Pageable page) {
-		return postalAddressCrudRepository.findAll(page);
-	}
-
-
-	@Override
-	public PostalAddress findById(Long id) {
-		return postalAddressCrudRepository.findOne(id);
-	}
-
-
-	@Override
-	public PostalAddress findByUUID(String uuid) {
-		return postalAddressCrudRepository.findByUuid(uuid);
-	}
-
-
 	@Override
 	public List<PostalAddress> findByEquipment(Equipment equipment) {
 		return postalAddressCrudRepository.findByEquipment(equipment);
 	}
-
 
 	@Override
 	public List<PostalAddress> findByFacility(Facility facility) {
 		return postalAddressCrudRepository.findByFacility(facility);
 	}
 
-
 	@Override
 	public List<PostalAddress> findByService(Service service) {
-		return postalAddressCrudRepository.findByService(null);
+		return postalAddressCrudRepository.findByService(service);
 	}
+
+	@Override
+	public List<PostalAddress> findByPerson(Person person) {
+		return postalAddressCrudRepository.findByPerson(person);
+	}
+
+	
 
 }

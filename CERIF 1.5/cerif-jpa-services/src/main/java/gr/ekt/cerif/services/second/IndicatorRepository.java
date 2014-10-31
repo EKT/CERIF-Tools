@@ -16,13 +16,13 @@ import gr.ekt.cerif.entities.second.Indicator;
  */
 public interface IndicatorRepository {
 
-	public void delete(Indicator entity); 
+	void delete(Indicator entity); 
 	
-	public void delete(Iterable<Indicator> entities); 
+	void delete(Iterable<Indicator> entities); 
 
-	public Iterable<Indicator> save(Iterable<Indicator> entities); 
+	Iterable<Indicator> save(Iterable<Indicator> entities); 
 	
-	public Indicator save(Indicator entity);
+	Indicator save(Indicator entity);
 	
 	List<Indicator> findAll();
 	
@@ -31,4 +31,7 @@ public interface IndicatorRepository {
 	Indicator findByUuid(String uuid);
 	
 	Indicator findById(Long id);
+	
+	List<Indicator> findByUri(String uri);
+
 }

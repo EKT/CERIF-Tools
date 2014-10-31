@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.Qualification;
 
 /**
@@ -11,11 +16,21 @@ import gr.ekt.cerif.entities.second.Qualification;
  */
 public interface QualificationRepository {
 
-	public void delete(Qualification entity); 
+	void delete(Qualification entity); 
 	
-	public void delete(Iterable<Qualification> entities); 
+	void delete(Iterable<Qualification> entities); 
 
-	public Iterable<Qualification> save(Iterable<Qualification> entities); 
+	Iterable<Qualification> save(Iterable<Qualification> entities); 
 	
-	public Qualification save(Qualification entity);
+	Qualification save(Qualification entity);
+	
+	List<Qualification> findAll();
+	
+	Page<Qualification> findAll(Pageable page);
+
+	Qualification findById(Long id);
+
+	List<Qualification> findByUri(String uri);
+
+	Qualification findByUuid(String uuid);
 }

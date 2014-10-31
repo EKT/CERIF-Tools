@@ -119,6 +119,7 @@ public class FundingRepositoryImpl implements FundingRepository {
 	private LinkFundingMeasurementRepository linkFundingMeasurementRepository;
 	
 	
+	
 	/* (non-Javadoc)
 	 * @see gr.ekt.cerif.services.second.FundingRepository#delete(gr.ekt.cerif.entities.second.Funding)
 	 */

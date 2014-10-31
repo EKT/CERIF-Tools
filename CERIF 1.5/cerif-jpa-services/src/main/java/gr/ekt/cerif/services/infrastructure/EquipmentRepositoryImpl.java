@@ -241,12 +241,18 @@ public class EquipmentRepositoryImpl implements EquipmentRepository {
 
 	@Override
 	public Equipment findById(Long id) {
-		return equipmentCrudRepository.findOne(id);
+		return equipmentCrudRepository.findById(id);
 	}
 
 	@Override
-	public Equipment findByUUID(String uuid) {
+	public List<Equipment> findByUri(String uri) {
+		return equipmentCrudRepository.findByUri(uri);
+	}
+
+	@Override
+	public Equipment findByUuid(String uuid) {
 		return equipmentCrudRepository.findByUuid(uuid);
 	}
 
+	
 }

@@ -27,15 +27,15 @@ public interface ClassRepository {
 	
 	List<Class> findByScheme(ClassScheme scheme);
 	
-	public void delete(Class entity);
+	void delete(Class entity);
 	
-	public void delete(Iterable<Class> entityList);
+	void delete(Iterable<Class> entityList);
 	
-	public Iterable<Class> save(Iterable<Class> entityList);
+	Iterable<Class> save(Iterable<Class> entityList);
 	
-	public Class save(Class entity);
+	Class save(Class entity);
 	
-	public Class findOne(Long id);
+	Class findOne(Long id);
 	
 	List<Class> findAll();
 	

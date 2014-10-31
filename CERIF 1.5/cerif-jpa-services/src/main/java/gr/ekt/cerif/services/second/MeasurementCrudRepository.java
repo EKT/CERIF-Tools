@@ -21,14 +21,17 @@ import org.springframework.data.repository.CrudRepository;
 public interface MeasurementCrudRepository extends CrudRepository<Measurement, String> {
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<Measurement> findAll();
+	public List<Measurement> findAll();
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Page<Measurement> findAll(Pageable page);
+	public Page<Measurement> findAll(Pageable page);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Measurement findByUuid(String uuid);
+	public Measurement findByUuid(String uuid);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Measurement findById(Long id);
+	public Measurement findById(Long id);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public List<Measurement> findByUri(String uri);
 }

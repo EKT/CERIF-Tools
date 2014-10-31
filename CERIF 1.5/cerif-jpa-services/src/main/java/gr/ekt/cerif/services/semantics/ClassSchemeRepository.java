@@ -23,12 +23,12 @@ public interface ClassSchemeRepository {
 	
 	ClassScheme findByUuid(String uuid);
 	
-	public ClassScheme save(ClassScheme entity);
+	ClassScheme save(ClassScheme entity);
 
-	public Iterable<ClassScheme> save(Iterable<ClassScheme> entities);
+	Iterable<ClassScheme> save(Iterable<ClassScheme> entities);
 	
-	public void delete(ClassScheme entity);
+	void delete(ClassScheme entity);
 	
-	public void delete(Iterable<ClassScheme> entities);
+	void delete(Iterable<ClassScheme> entities);
 	
 }

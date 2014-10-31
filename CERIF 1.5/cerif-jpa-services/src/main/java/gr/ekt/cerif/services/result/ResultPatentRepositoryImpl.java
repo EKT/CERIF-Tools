@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -186,7 +188,7 @@ public class ResultPatentRepositoryImpl implements ResultPatentRepository {
 		entity = resultPatentCrudRepository.save(entity);
 		resultPatentCrudRepository.delete(entity);
 	}
-
+	
 	@Transactional
 	public Iterable<ResultPatent> save(Iterable<ResultPatent> entities) {
 		return resultPatentCrudRepository.save(entities);
@@ -200,6 +202,31 @@ public class ResultPatentRepositoryImpl implements ResultPatentRepository {
 	@Override
 	public void delete(Iterable<ResultPatent> entities) {
 		resultPatentCrudRepository.delete(entities);		
+	}
+
+	@Override
+	public List<ResultPatent> findAll() {
+		return resultPatentCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<ResultPatent> findAll(Pageable page) {
+		return resultPatentCrudRepository.findAll(page);
+	}
+
+	@Override
+	public ResultPatent findById(Long id) {
+		return resultPatentCrudRepository.findById(id);
+	}
+
+	@Override
+	public List<ResultPatent> findByUri(String uri) {
+		return resultPatentCrudRepository.findByUri(uri);
+	}
+
+	@Override
+	public ResultPatent findByUuid(String uuid) {
+		return resultPatentCrudRepository.findByUuid(uuid);
 	}
 	
 

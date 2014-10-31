@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -104,6 +106,31 @@ public class MetricsRepositoryImpl implements MetricsRepository {
 	@Override
 	public Metrics save(Metrics entity) {
 		return metricsCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Metrics> findAll() {
+		return metricsCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<Metrics> findAll(Pageable page) {
+		return metricsCrudRepository.findAll(page);
+	}
+
+	@Override
+	public Metrics findById(Long id) {
+		return metricsCrudRepository.findById(id);
+	}
+
+	@Override
+	public List<Metrics> findByUri(String uri) {
+		return metricsCrudRepository.findByUri(uri);
+	}
+
+	@Override
+	public Metrics findByUuid(String uuid) {
+		return metricsCrudRepository.findByUuid(uuid);
 	}
 
 }

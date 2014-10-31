@@ -30,5 +30,4 @@ public interface ClassDefinitionRepository {
 	List<ClassDefinition> findByDefinitionAndClassSchemeAndTranslationAndLanguage(String definition, ClassScheme scheme, Translation tra, Language lan);
 	
 	List<ClassDefinition> findByTheClassAndDefinitionAndClassSchemeAndTranslationAndLanguage(Class theClass, String definition, ClassScheme scheme, Translation tra, Language lan);
-
 }

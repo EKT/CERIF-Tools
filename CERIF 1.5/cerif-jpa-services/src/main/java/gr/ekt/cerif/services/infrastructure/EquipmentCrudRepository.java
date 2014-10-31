@@ -21,11 +21,18 @@ import org.springframework.data.repository.CrudRepository;
 public interface EquipmentCrudRepository extends CrudRepository<Equipment, Long> {
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<Equipment> findAll();
+	public List<Equipment> findAll();
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Page<Equipment> findAll(Pageable page);
+	public Page<Equipment> findAll(Pageable page);
 
-	Equipment findByUuid(String uuid);
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public Equipment findById(Long id);
+
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public List<Equipment> findByUri(String uri);
+
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public Equipment findByUuid(String uuid);
 
 }

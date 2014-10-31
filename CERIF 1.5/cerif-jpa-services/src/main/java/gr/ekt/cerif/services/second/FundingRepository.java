@@ -9,13 +9,13 @@ import org.springframework.data.domain.Pageable;
 
 public interface FundingRepository {
 
-	public void delete(Funding entity); 
+	void delete(Funding entity); 
 	
-	public void delete(Iterable<Funding> entities); 
+	void delete(Iterable<Funding> entities); 
 
-	public Iterable<Funding> save(Iterable<Funding> entities); 
+	Iterable<Funding> save(Iterable<Funding> entities); 
 	
-	public Funding save(Funding entity);
+	Funding save(Funding entity);
 	
 	Funding findByAcronym(String acronym);
 

@@ -1,5 +1,11 @@
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.Citation;
 
 /**
@@ -9,11 +15,21 @@ import gr.ekt.cerif.entities.second.Citation;
  */
 public interface CitationRepository {
 
-	public void delete(Citation entity); 
+	void delete(Citation entity); 
 	
-	public void delete(Iterable<Citation> entities); 
+	void delete(Iterable<Citation> entities); 
 
-	public Iterable<Citation> save(Iterable<Citation> entities); 
+	Iterable<Citation> save(Iterable<Citation> entities); 
 	
-	public Citation save(Citation entity);
+	Citation save(Citation entity);
+	
+	List<Citation> findAll();
+	
+	Page<Citation> findAll(Pageable page);
+
+	Citation findById(Long id);
+
+	List<Citation> findByUri(String uri);
+
+	Citation findByUuid(String uuid);
 }

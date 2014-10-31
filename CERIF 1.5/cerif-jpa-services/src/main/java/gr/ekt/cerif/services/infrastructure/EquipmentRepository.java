@@ -9,20 +9,21 @@ import gr.ekt.cerif.entities.infrastructure.Equipment;
 
 public interface EquipmentRepository {
 	
-	public Equipment findById(Long id);
+	void delete(Equipment entity); 
 	
-	public void delete(Equipment entity); 
-	
-	public void delete(Iterable<Equipment> entities); 
+	void delete(Iterable<Equipment> entities); 
 
-	public Iterable<Equipment> save(Iterable<Equipment> entities); 
+	Iterable<Equipment> save(Iterable<Equipment> entities); 
 	
-	public Equipment save(Equipment entity);
+	Equipment save(Equipment entity);
 	
 	List<Equipment> findAll();
-
+	
 	Page<Equipment> findAll(Pageable page);
 
-	Equipment findByUUID(String uuid);
-	
+	Equipment findById(Long id);
+
+	List<Equipment> findByUri(String uri);
+
+	Equipment findByUuid(String uuid);
 }
