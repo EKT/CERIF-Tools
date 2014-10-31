@@ -18,7 +18,9 @@ import gr.ekt.cerif.entities.link.Service_FederatedIdentifier;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.services.link.federatedidentifier.LinkFederatedIdentifierClassRepository;
 import gr.ekt.cerif.services.link.service.LinkServiceFederatedIdentifierRepository;
-
+import gr.ekt.cerif.features.semantics.Class;
+import gr.ekt.cerif.features.semantics.ClassScheme;
+
 /**
  * @author bonisv
  *
@@ -108,7 +110,20 @@ public class FederatedIdentifierRepositoryImpl implements FederatedIdentifierRep
 	}
 
 	@Override
-	public FederatedIdentifier findByUUID(String uuid) {
+	public List<FederatedIdentifier> findFedIdByClassClassSchemeInstIdAndFedId(
+			Class theClass, ClassScheme classScheme, Long instanceId,
+			String fedId) {
+		return federatedIdentifierCrudRepository.findFedIdByClassClassSchemeInstIdAndFedId(theClass, classScheme, instanceId, fedId);
+	}
+
+	@Override
+	public List<FederatedIdentifier> findFedIdByClassClassSchemeAndFedId(
+			Class theClass, ClassScheme classScheme, String fedId, Class fedType) {
+		return federatedIdentifierCrudRepository.findFedIdByClassClassSchemeAndFedId(theClass, classScheme, fedId, fedType);
+	}
+
+	@Override
+	public FederatedIdentifier findByUuid(String uuid) {
 		return federatedIdentifierCrudRepository.findByUuid(uuid);
 	}
 

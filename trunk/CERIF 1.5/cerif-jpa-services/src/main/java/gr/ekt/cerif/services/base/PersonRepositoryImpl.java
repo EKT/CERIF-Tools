@@ -174,21 +174,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 	
 	private GenericSuperRepository personGenericRepository;
 	
-
 	
-	public Person findPersonName(String familyNames) {
-		return personCrudRepository.findPersonName(familyNames);
-	}
-	
-	public Person findPersonByOtherName(String otherNames) {
-		return personCrudRepository.findPersonByOtherName(otherNames);
-	}
-	
-	public Object findPersonNameByPersonId(Long id) {
-		return personCrudRepository.findPersonNameByPersonId(id);
-	}
-	
-
 	@Override
 	@Transactional
 	public void delete(Person entity) {
@@ -359,6 +345,11 @@ public class PersonRepositoryImpl implements PersonRepository {
 	@Override
 	public Person findByUUID(String uuid) {
 		return personCrudRepository.findByUuid(uuid);
+	}
+
+	@Override
+	public Person findByUri(String uri) {
+		return personCrudRepository.findByUri(uri);
 	}
 	
 	

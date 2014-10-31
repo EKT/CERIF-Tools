@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -104,6 +106,31 @@ public class QualificationRepositoryImpl implements QualificationRepository {
 	@Override
 	public Qualification save(Qualification entity) {
 		return qualificationCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Qualification> findAll() {
+		return qualificationCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<Qualification> findAll(Pageable page) {
+		return qualificationCrudRepository.findAll(page);
+	}
+
+	@Override
+	public Qualification findById(Long id) {
+		return qualificationCrudRepository.findById(id);
+	}
+
+	@Override
+	public List<Qualification> findByUri(String uri) {
+		return qualificationCrudRepository.findByUri(uri);
+	}
+
+	@Override
+	public Qualification findByUuid(String uuid) {
+		return qualificationCrudRepository.findByUuid(uuid);
 	}
 
 }

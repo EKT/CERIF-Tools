@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -121,6 +123,31 @@ public class PrizeRepositoryImpl implements PrizeRepository {
 	@Override
 	public Prize save(Prize entity) {
 		return prizeCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Prize> findAll() {
+		return prizeCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<Prize> findAll(Pageable page) {
+		return prizeCrudRepository.findAll(page);
+	}
+
+	@Override
+	public Prize findById(Long id) {
+		return prizeCrudRepository.findById(id);
+	}
+
+	@Override
+	public List<Prize> findByUri(String uri) {
+		return prizeCrudRepository.findByUri(uri);
+	}
+
+	@Override
+	public Prize findByUuid(String uuid) {
+		return prizeCrudRepository.findByUuid(uuid);
 	}
 
 }

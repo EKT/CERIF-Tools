@@ -21,15 +21,18 @@ import org.springframework.data.repository.CrudRepository;
 public interface IndicatorCrudRepository extends CrudRepository<Indicator, Long> {
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<Indicator> findAll();
+	public List<Indicator> findAll();
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Page<Indicator> findAll(Pageable page);
+	public Page<Indicator> findAll(Pageable page);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Indicator findByUuid(String uuid);
+	public Indicator findByUuid(String uuid);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Indicator findById(Long id);
+	public Indicator findById(Long id);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public List<Indicator> findByUri(String uri);
 
 }

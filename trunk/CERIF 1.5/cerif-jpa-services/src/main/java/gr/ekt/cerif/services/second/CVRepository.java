@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.CV;
 
 /**
@@ -13,12 +18,20 @@ public interface CVRepository {
 	
 	CV findById(Long id);
 	
-	public void delete(CV entity); 
+	List<CV> findAll();
 	
-	public void delete(Iterable<CV> entities); 
+	Page<CV> findAll(Pageable page);
 
-	public Iterable<CV> save(Iterable<CV> entities); 
+	List<CV> findByUri(String uri);
+
+	CV findByUuid(String uuid);
 	
-	public CV save(CV entity);
+	void delete(CV entity); 
+	
+	void delete(Iterable<CV> entities); 
+
+	Iterable<CV> save(Iterable<CV> entities); 
+	
+	CV save(CV entity);
 
 }

@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.services.result;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.result.ResultPatent;
 
 
@@ -12,11 +17,21 @@ import gr.ekt.cerif.entities.result.ResultPatent;
  */
 public interface ResultPatentRepository {
 
-	public void delete(ResultPatent entity); 
+	void delete(ResultPatent entity); 
 	
-	public void delete(Iterable<ResultPatent> entities); 
+	void delete(Iterable<ResultPatent> entities); 
 
-	public Iterable<ResultPatent> save(Iterable<ResultPatent> entities); 
+	Iterable<ResultPatent> save(Iterable<ResultPatent> entities); 
 	
-	public ResultPatent save(ResultPatent entity);
+	ResultPatent save(ResultPatent entity);
+	
+	List<ResultPatent> findAll();
+	
+	Page<ResultPatent> findAll(Pageable page);
+	
+	ResultPatent findById(Long id);
+
+	List<ResultPatent> findByUri(String uri);
+
+	ResultPatent findByUuid(String uuid);
 }

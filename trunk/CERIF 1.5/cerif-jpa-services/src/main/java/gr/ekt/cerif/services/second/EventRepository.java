@@ -1,17 +1,30 @@
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.Event;
 
 public interface EventRepository {
 	
-	public Event findById(Long id);
+	Event findById(Long id);
 	
-	public void delete(Event entity); 
+	void delete(Event entity); 
 	
-	public void delete(Iterable<Event> entities); 
+	void delete(Iterable<Event> entities); 
 
-	public Iterable<Event> save(Iterable<Event> entities); 
+	Iterable<Event> save(Iterable<Event> entities); 
 	
-	public Event save(Event entity);
+	Event save(Event entity);
+	
+	List<Event> findAll();
+	
+	Page<Event> findAll(Pageable page);
+
+	List<Event> findByUri(String uri);
+
+	Event findByUuid(String uuid);
 	
 }

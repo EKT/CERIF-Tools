@@ -2,8 +2,6 @@ package gr.ekt.cerif.services.base;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,13 +9,9 @@ public interface OrganisationUnitRepository {
 	
 	OrganisationUnit findById(Long id);
 	
-	List<OrganisationUnit> findById(List<Long> ids);
-	
 	OrganisationUnit findByUri(String uri);
 	
 	OrganisationUnit findByAcronym(String acronym);
-	
-	List<OrganisationUnit> findByOrganisationUnitName(String organisationUnitName);
 	
 	void delete(OrganisationUnit entity);
 	

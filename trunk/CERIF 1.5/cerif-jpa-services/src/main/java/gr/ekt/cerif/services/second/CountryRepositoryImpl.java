@@ -10,6 +10,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -57,6 +59,16 @@ public class CountryRepositoryImpl implements CountryRepository {
 	@Override
 	public Country save(Country entity) {
 		return countryCrudRepository.save(entity);
+	}
+
+	@Override
+	public Page<Country> findAll(Pageable page) {
+		return countryCrudRepository.findAll(page);
+	}
+
+	@Override
+	public Country findByUuid(String uuid) {
+		return countryCrudRepository.findByUuid(uuid);
 	}
 
 }

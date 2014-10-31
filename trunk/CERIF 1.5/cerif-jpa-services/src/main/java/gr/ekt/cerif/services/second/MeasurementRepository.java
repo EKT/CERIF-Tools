@@ -16,13 +16,13 @@ import gr.ekt.cerif.entities.second.Measurement;
  */
 public interface MeasurementRepository {
 
-	public void delete(Measurement entity); 
+	void delete(Measurement entity); 
 	
-	public void delete(Iterable<Measurement> entities); 
+	void delete(Iterable<Measurement> entities); 
 
-	public Iterable<Measurement> save(Iterable<Measurement> entities); 
+	Iterable<Measurement> save(Iterable<Measurement> entities); 
 	
-	public Measurement save(Measurement entity);
+	Measurement save(Measurement entity);
 	
 	List<Measurement> findAll();
 	
@@ -31,5 +31,7 @@ public interface MeasurementRepository {
 	Measurement findByUuid(String uuid);
 
 	Measurement findById(Long id);
+	
+	List<Measurement> findByUri(String uri);
 	
 }

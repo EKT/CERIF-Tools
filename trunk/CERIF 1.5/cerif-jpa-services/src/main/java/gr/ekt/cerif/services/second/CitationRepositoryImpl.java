@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,6 +94,31 @@ public class CitationRepositoryImpl implements CitationRepository {
 	@Override
 	public Citation save(Citation entity) {
 		return citationCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Citation> findAll() {
+		return citationCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<Citation> findAll(Pageable page) {
+		return citationCrudRepository.findAll(page);
+	}
+
+	@Override
+	public Citation findById(Long id) {
+		return citationCrudRepository.findById(id);
+	}
+
+	@Override
+	public List<Citation> findByUri(String uri) {
+		return citationCrudRepository.findByUri(uri);
+	}
+
+	@Override
+	public Citation findByUuid(String uuid) {
+		return citationCrudRepository.findByUuid(uuid);
 	}
 
 }

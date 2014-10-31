@@ -16,15 +16,6 @@ import org.springframework.data.domain.Pageable;
  */
 public interface ProjectRepository {
 
-	
-	public Project findByAcronym(String acronym);
-	
-	public Project findById(Long id);
-	
-	Iterable<Project> findAll(List<Long> ids);
-
-	public List<Project> findByUri(String uri);
-		
 	void delete(Project entity);
 	
 	void delete(Iterable<Project> entities);
@@ -33,12 +24,15 @@ public interface ProjectRepository {
 	
 	Project save(Project entity);
 	
-	Iterable<Project> findAll();
-	
+	Project findById(Long id);
+
+	List<Project> findByUri(String uri);
+
 	Page<Project> findAll(Pageable page);
-	
-	Project findByUUID(String uuid);
-		
+
+	Iterable<Project> findAll();
+
+	Project findByUuid(String uuid);	
 }
 
 	

@@ -192,10 +192,6 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 		return organisationUnitCrudRepository.findByAcronym(acronym);
 	}
 	
-	@Override
-	public List<OrganisationUnit> findByOrganisationUnitName(String organisationUnitName) {
-		return organisationUnitCrudRepository.findByOrganisationUnitName(organisationUnitName);
-	}
 
 	@Override
 	@Transactional
@@ -310,11 +306,6 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 		return organisationUnitCrudRepository.findAll();
 	}
 	
-	@Override
-	public List<OrganisationUnit> findById(List<Long> ids) {
-		return organisationUnitCrudRepository.findById(ids);
-	}
-
 	@Override
 	public void delete(Iterable<OrganisationUnit> entities) {
 		organisationUnitCrudRepository.delete(entities);		

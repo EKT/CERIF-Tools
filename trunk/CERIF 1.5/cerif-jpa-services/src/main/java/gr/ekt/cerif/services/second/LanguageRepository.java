@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.Language;
 
 /**
@@ -11,13 +16,21 @@ import gr.ekt.cerif.entities.second.Language;
  */
 public interface LanguageRepository {
 
-	public void delete(Language entity); 
+	void delete(Language entity); 
 	
-	public void delete(Iterable<Language> entities); 
+	void delete(Iterable<Language> entities); 
 
-	public Iterable<Language> save(Iterable<Language> entities); 
+	Iterable<Language> save(Iterable<Language> entities); 
 	
-	public Language save(Language entity);
+	Language save(Language entity);
 	
 	Language findByCode(String code);
+	
+	List<Language> findAll();
+	
+	Page<Language> findAll(Pageable page);
+
+	List<Language> findByUri(String uri);
+
+	Language findByUuid(String uuid);
 }

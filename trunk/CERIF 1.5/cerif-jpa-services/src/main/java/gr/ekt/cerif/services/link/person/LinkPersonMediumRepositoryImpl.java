@@ -20,7 +20,6 @@ public class LinkPersonMediumRepositoryImpl implements LinkPersonMediumRepositor
 	@Autowired
 	private LinkPersonMediumCrudRepository linkPersonMediumCrudRepository;
 	
-	
 	@Transactional
 	public Person_Medium save(Person_Medium entity) {
 		return linkPersonMediumCrudRepository.save(entity);

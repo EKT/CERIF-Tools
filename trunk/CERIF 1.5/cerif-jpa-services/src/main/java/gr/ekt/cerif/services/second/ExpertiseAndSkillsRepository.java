@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.services.second;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 
 /**
@@ -11,11 +16,21 @@ import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
  */
 public interface ExpertiseAndSkillsRepository {
 
-	public void delete(ExpertiseAndSkills entity); 
+	void delete(ExpertiseAndSkills entity); 
 	
-	public void delete(Iterable<ExpertiseAndSkills> entities); 
+	void delete(Iterable<ExpertiseAndSkills> entities); 
 
-	public Iterable<ExpertiseAndSkills> save(Iterable<ExpertiseAndSkills> entities); 
+	Iterable<ExpertiseAndSkills> save(Iterable<ExpertiseAndSkills> entities); 
 	
-	public ExpertiseAndSkills save(ExpertiseAndSkills entity);
+	ExpertiseAndSkills save(ExpertiseAndSkills entity);
+	
+	List<ExpertiseAndSkills> findAll();
+	
+	Page<ExpertiseAndSkills> findAll(Pageable page);
+
+	ExpertiseAndSkills findById(Long id);
+
+	List<ExpertiseAndSkills> findByUri(String uri);
+
+	ExpertiseAndSkills findByUuid(String uuid);
 }

@@ -5,8 +5,12 @@ package gr.ekt.cerif.services.second;
 
 import java.util.List;
 
+import javax.persistence.QueryHint;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.base.Person;
@@ -22,12 +26,26 @@ import gr.ekt.cerif.entities.second.PostalAddress;
  */
 public interface PostalAddressRepository {
 	
-	PostalAddress findById(Long id);
+	void delete(PostalAddress entity); 
+	
+	void delete(Iterable<PostalAddress> entities); 
+
+	Iterable<PostalAddress> save(Iterable<PostalAddress> entities); 
+	
+	PostalAddress save(PostalAddress entity);
 	
 	List<PostalAddress> findByCountry(Country country);
 	
-    PostalAddress findByOrganisationUnitNameAndCountryCode(String organisationUnitName, String ccode);
+	Iterable<PostalAddress> findAll();
+	
+	Page<PostalAddress> findAll(Pageable page);
 
+	PostalAddress findByUuid(String uuid);
+	
+	PostalAddress findById(Long id);
+
+	List<PostalAddress> findByUri(String uri);
+	
 	List<PostalAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
 	
 	List<PostalAddress> findByEquipment(Equipment equipment);
@@ -36,26 +54,7 @@ public interface PostalAddressRepository {
 	
 	List<PostalAddress> findByService(Service service);
 
-	PostalAddress findByOrganisationUnitAndCountryCode(OrganisationUnit organisationUnit, String ccode);
-
 	List<PostalAddress> findByPerson(Person person);
-	
-	PostalAddress findByOrganisationUnitName(String organisationUnitName);
-	
-	public void delete(PostalAddress entity); 
-	
-	public void delete(Iterable<PostalAddress> entities); 
-
-	public Iterable<PostalAddress> save(Iterable<PostalAddress> entities); 
-	
-	public PostalAddress save(PostalAddress entity);
-	
-	Iterable<PostalAddress> findAll();
-	
-	Page<PostalAddress> findAll(Pageable page);
-	
-	PostalAddress findByUUID(String uuid);
-	
 }
 
 

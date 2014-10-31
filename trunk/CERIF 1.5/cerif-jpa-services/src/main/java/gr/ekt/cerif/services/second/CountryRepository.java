@@ -5,6 +5,9 @@ package gr.ekt.cerif.services.second;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.entities.second.Country;
 
 /**
@@ -26,5 +29,9 @@ public interface CountryRepository {
 	public Iterable<Country> save(Iterable<Country> entities); 
 	
 	public Country save(Country entity);
+	
+	Page<Country> findAll(Pageable page);
+
+	Country findByUuid(String uuid);
 		
 }

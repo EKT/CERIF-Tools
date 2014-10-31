@@ -39,6 +39,8 @@ import gr.ekt.cerif.services.multilingual.event.EventNameRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -193,6 +195,26 @@ public class EventRepositoryImpl implements EventRepository {
 	@Override
 	public Event save(Event entity) {
 		return eventCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Event> findAll() {
+		return eventCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<Event> findAll(Pageable page) {
+		return eventCrudRepository.findAll(page);
+	}
+
+	@Override
+	public List<Event> findByUri(String uri) {
+		return eventCrudRepository.findByUri(uri);
+	}
+
+	@Override
+	public Event findByUuid(String uuid) {
+		return eventCrudRepository.findByUuid(uuid);
 	}
 
 }

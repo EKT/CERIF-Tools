@@ -43,6 +43,8 @@ import gr.ekt.cerif.services.multilingual.medium.MediumTitleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -111,6 +113,7 @@ public class MediumRepositoryImpl implements MediumRepository {
 	
 	@Autowired
 	private LinkCitationMediumRepository linkCitationMediumRepository;
+	
 	
 
 	@Override
@@ -234,6 +237,21 @@ public class MediumRepositoryImpl implements MediumRepository {
 	@Override
 	public Medium findMediumByPersonIdAndClassUUID(Long id, String uuid) {
 		return mediumCrudRepository.findMediumByPersonIdAndClassUUID(id, uuid);
+	}
+
+	@Override
+	public List<Medium> findAll() {
+		return mediumCrudRepository.findAll();
+	}
+
+	@Override
+	public Page<Medium> findAll(Pageable page) {
+		return mediumCrudRepository.findAll(page);
+	}
+
+	@Override
+	public Medium findByUuid(String uuid) {
+		return mediumCrudRepository.findByUuid(uuid);
 	}
 
 

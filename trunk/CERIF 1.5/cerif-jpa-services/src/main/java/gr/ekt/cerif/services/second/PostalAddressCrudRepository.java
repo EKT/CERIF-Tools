@@ -28,57 +28,54 @@ import org.springframework.data.repository.CrudRepository;
 public interface PostalAddressCrudRepository extends CrudRepository<PostalAddress, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<PostalAddress> findByCountry(Country country);
+	public List<PostalAddress> findByCountry(Country country);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	@Query("select pa from PostalAddress pa join pa.organisationUnits_postalAddresses orgs join orgs.organisationUnit org join org.organisationUnitNames uname join pa.country cname where uname.name=?1 and cname.code=?2 ")
-    PostalAddress findByOrganisationUnitNameAndCountryCode(String organisationUnitName, String ccode);
+	public Iterable<PostalAddress> findAll();
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public Page<PostalAddress> findAll(Pageable page);
 
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public PostalAddress findByUuid(String uuid);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public PostalAddress findById(Long id);
+
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	public List<PostalAddress> findByUri(String uri);
+	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select pa from PostalAddress pa " +
 			"join pa.organisationUnits_postalAddresses orgs " +
 			"join orgs.organisationUnit org " +
 			"where org=?1 ")
-    List<PostalAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
+	public List<PostalAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select pa from PostalAddress pa " +
 			"join pa.equipments_postalAddresses equips " +
 			"join equips.equipment equip " +
 			"where equip=?1 ")
-    List<PostalAddress> findByEquipment(Equipment equipment);
+	public  List<PostalAddress> findByEquipment(Equipment equipment);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select pa from PostalAddress pa " +
 			"join pa.facilities_postalAddresses facs " +
 			"join facs.facility fac " +
 			"where fac=?1 ")
-    List<PostalAddress> findByFacility(Facility facility);
+	public List<PostalAddress> findByFacility(Facility facility);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select pa from PostalAddress pa " +
 			"join pa.services_postalAddresses srvs " +
 			"join srvs.service serv " +
 			"where serv=?1 ")
-    List<PostalAddress> findByService(Service service);
-
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	@Query("select pa from PostalAddress pa join pa.organisationUnits_postalAddresses orgs join orgs.organisationUnit org join pa.country cname where org=?1 and cname.code=?2 ")
-	PostalAddress findByOrganisationUnitAndCountryCode(OrganisationUnit organisationUnit, String ccode);
+	public List<PostalAddress> findByService(Service service);
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select pa from PostalAddress pa join pa.persons_postalAddresses pp join pp.person per where per=?1")
-	List<PostalAddress> findByPerson(Person person);
-	
-	@Query("select pa from PostalAddress pa join pa.organisationUnits_postalAddresses orgs join orgs.organisationUnit org join org.organisationUnitNames uname where uname.name=?1")
-    PostalAddress findByOrganisationUnitName(String organisationUnitName);
-	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Iterable<PostalAddress> findAll();
-	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	Page<PostalAddress> findAll(Pageable page);
+	public List<PostalAddress> findByPerson(Person person);
 
-	PostalAddress findByUuid(String uuid);
 	
 }

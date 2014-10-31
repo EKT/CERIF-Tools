@@ -249,4 +249,9 @@ public class IndicatorRepositoryImpl implements IndicatorRepository {
 		return indicatorCrudRepository.findById(id);
 	}
 
+	@Override
+	public List<Indicator> findByUri(String uri) {
+		return indicatorCrudRepository.findByUri(uri);
+	}
+
 }
