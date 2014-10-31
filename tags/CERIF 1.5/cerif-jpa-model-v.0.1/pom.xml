@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>gr.ekt</groupId>
+	<artifactId>cerif-jpa-model</artifactId>
+	<version>0.1</version>
+	<packaging>jar</packaging>
+	<name>CERIF JPA Data Model</name>
+	<url>http://www.ekt.gr</url>
+	
+	<description>
+		<![CDATA[This project is the persistence layer for CERIF entities.]]>
+	</description>
+	
+	<properties>
+		<maven.test.skip>true</maven.test.skip>
+		<maven.test.failure.ignore>true</maven.test.failure.ignore>
+		<spring.framework.version>3.2.8.RELEASE</spring.framework.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<profiles>
+		<!-- <profile>
+			<id>euroris-utf-mysql1</id>
+                 <activation>
+                       <activeByDefault>false</activeByDefault>
+                 </activation>
+                 <properties>
+                       <target.version>euroris-0.1</target.version>
+                       <db.driver>com.mysql.jdbc.Driver</db.driver>
+                       <db.url>jdbc:mysql://localhost:3306/db?characterEncoding=utf8</db.url>
+                       <db.username>root</db.username>
+                       <db.password>pass</db.password>
+                       
+                       validate | update | create | create-drop
+                       <hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
+                       <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+                       <hibernate.show_sql>true</hibernate.show_sql>
+                       <hibernate.indexBase>/usr/local/lucene</hibernate.indexBase>
+                       set to "manual" to disable lucene indexing
+                       <hibernate.search.indexing_strategy>manual</hibernate.search.indexing_strategy>
+                       
+                       <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
+                       <hibernate.cache.use_query_cache>true</hibernate.cache.use_query_cache>
+                       <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
+                       
+                        <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
+                       <hibernate.cache.use_query_cache>false</hibernate.cache.use_query_cache>
+                       <hibernate.cache.region.factory_class>net.sf.ehcache.hibernate.EhCacheRegionFactory</hibernate.cache.region.factory_class>
+                       <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
+                 </properties>
+          </profile>  -->        
+	</profiles>
+	
+	<dependencies>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-entitymanager</artifactId>
+		<version>4.3.5.Final</version>
+	</dependency>
+	<dependency>
+		<groupId>javax.validation</groupId>
+		<artifactId>validation-api</artifactId>
+		<version>1.0.0.GA</version>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-validator</artifactId>
+		<version>4.3.0.Final</version>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-ehcache</artifactId>
+		<version>4.3.5.Final</version>
+		<type>jar</type>
+		<scope>compile</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.7</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${spring.framework.version}</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<version>${spring.framework.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+		<version>${spring.framework.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+		<version>${spring.framework.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.16</version>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-search</artifactId>
+		<version>4.5.1.Final</version>
+		<type>jar</type>
+		<scope>compile</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<version>1.6.4</version>
+		<scope>test</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>commons-collections</groupId>
+		<artifactId>commons-collections</artifactId>
+		<version>3.2.1</version>
+	</dependency>
+	<dependency>
+		<groupId>org.jdom</groupId>
+		<artifactId>jdom</artifactId>
+		<version>1.1.3</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.codehaus.jettison</groupId>
+		<artifactId>jettison</artifactId>
+		<version>1.3.3</version>
+	</dependency>
+
+</dependencies>
+
+	<issueManagement>
+		<system>Mantis</system>
+		<url>bt.ekt.gr</url>
+	</issueManagement>
+	<scm>
+		<url>svn.ekt.gr</url>
+	</scm>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<!--forkMode>pertest</forkMode -->
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+					<excludes>
+						<exclude>**/Abstract*.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<!-- resources that will be filtered -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<!-- <resource> <directory>src/test/resources</directory> <filtering>true</filtering> 
+				</resource> -->
+		</resources>
+
+	</build>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Codehaus</id>
+			<url>http://repository.codehaus.org/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<repositories>
+		<repository>
+			<id>org.jboss.repository.releases</id>
+			<name>JBoss Maven Release Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<downloadUrl>http://www.springframework.org/download</downloadUrl>
+		<site>
+			<id>staging</id>
+			<url>file:///${user.dir}/target/staging/org.springframework.batch.archetype/${project.artifactId}</url>
+		</site>
+		<repository>
+			<id>spring-release</id>
+			<name>Spring Release Repository</name>
+			<url>file:///${user.dir}/target/staging/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>spring-snapshot</id>
+			<name>Spring Snapshot Repository</name>
+			<url>file:///${user.dir}/target/staging/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<developers>
+		<developer>
+			<name>Nikolaos Konstantinou</name>
+			<email>nkons at ekt.gr</email>
+			<url>http://www.cn.ntua.gr/~nkons/</url>
+			<organization>National Documentation Centre/NHRF</organization>
+			<organizationUrl>http://www.ekt.gr</organizationUrl>
+			<roles>
+				<role>commiter</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Nikos Pougounias</name>
+			<email>pougounias at ekt.gr</email>
+			<url>http://nikojava.wordpress.com</url>
+			<organization>National Documentation Centre/NHRF</organization>
+			<organizationUrl>http://www.ekt.gr</organizationUrl>
+			<roles>
+				<role>commiter</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Christina Paschou</name>
+			<email>cpaschou at ekt.gr</email>
+			<url>http://www.linkedin.com/pub/christine-paschou/2/245/275</url>
+			<organization>National Documentation Centre/NHRF</organization>
+			<organizationUrl>http://www.ekt.gr</organizationUrl>
+			<roles>
+				<role>commiter</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Anastasia Manta</name>
+			<email>amanta at ekt.gr</email>
+			<organization>National Documentation Centre/NHRF</organization>
+			<organizationUrl>http://www.ekt.gr</organizationUrl>
+			<roles>
+				<role>commiter</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Vasilis Bonis</name>
+			<email>bonisv at ekt.gr</email>
+			<organization>National Documentation Centre/NHRF</organization>
+			<organizationUrl>http://www.ekt.gr</organizationUrl>
+			<roles>
+				<role>commiter</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Nikos Mastoris</name>
+			<email>nmast at ekt.gr</email>
+			<organization>National Documentation Centre/NHRF</organization>
+			<organizationUrl>http://www.ekt.gr</organizationUrl>
+			<roles>
+				<role>commiter</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Dimitris Karaiskos</name>
+			<email>karaiskos at ekt.gr</email>
+			<organization>National Documentation Centre/NHRF</organization>
+			<organizationUrl>http://www.ekt.gr</organizationUrl>
+			<roles>
+				<role>commiter</role>
+			</roles>
+		</developer>
+	</developers>
+</project>
