@@ -144,7 +144,7 @@ public class OrganisationUnit implements CerifBaseEntity {
 	private Set<OrganisationUnit_ResultPublication> organisationUnits_resultPublications;
 
 	@OneToMany(mappedBy="organisationUnit")
-	private Set<Project_OrganisationUnit> projects;
+	private Set<Project_OrganisationUnit> projects_organisationUnits;
 	
 	@OneToMany(mappedBy="organisationUnit")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
@@ -172,7 +172,7 @@ public class OrganisationUnit implements CerifBaseEntity {
 	private Set<OrganisationUnit_Equipment> organisationUnits_equipments;
 	
 	@OneToMany(mappedBy="organisationUnit")
-	private Set<OrganisationUnit_Class> classes;
+	private Set<OrganisationUnit_Class> organisationUnits_classes;
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnit_Service> organisationUnits_services;
@@ -388,22 +388,6 @@ public class OrganisationUnit implements CerifBaseEntity {
 	}
 
 	/**
-	 * Returns the projects.
-	 * @return the projects.
-	 */
-	public Set<Project_OrganisationUnit> getProjects() {
-		return projects;
-	}
-
-	/**
-	 * Sets the projects.
-	 * @param projects the projects.
-	 */
-	public void setProjects(Set<Project_OrganisationUnit> projects) {
-		this.projects = projects;
-	}
-
-	/**
 	 * @return the organisationUnits_postalAddresses
 	 */
 	public Set<OrganisationUnit_PostalAddress> getOrganisationUnits_postalAddresses() {
@@ -560,20 +544,6 @@ public class OrganisationUnit implements CerifBaseEntity {
 	}
 
 	/**
-	 * @return the classes
-	 */
-	public Set<OrganisationUnit_Class> getClasses() {
-		return classes;
-	}
-
-	/**
-	 * @param classes the classes to set
-	 */
-	public void setClasses(Set<OrganisationUnit_Class> classes) {
-		this.classes = classes;
-	}
-
-	/**
 	 * @return the organisationUnits_services
 	 */
 	public Set<OrganisationUnit_Service> getOrganisationUnits_services() {
@@ -706,6 +676,36 @@ public class OrganisationUnit implements CerifBaseEntity {
 	public void setOrganisationUnits_resultPatents(
 			Set<OrganisationUnit_ResultPatent> organisationUnits_resultPatents) {
 		this.organisationUnits_resultPatents = organisationUnits_resultPatents;
+	}
+
+	/**
+	 * @return the projects_organisationUnits
+	 */
+	public Set<Project_OrganisationUnit> getProjects_organisationUnits() {
+		return projects_organisationUnits;
+	}
+
+	/**
+	 * @param projects_organisationUnits the projects_organisationUnits to set
+	 */
+	public void setProjects_organisationUnits(
+			Set<Project_OrganisationUnit> projects_organisationUnits) {
+		this.projects_organisationUnits = projects_organisationUnits;
+	}
+
+	/**
+	 * @return the organisationUnits_classes
+	 */
+	public Set<OrganisationUnit_Class> getOrganisationUnits_classes() {
+		return organisationUnits_classes;
+	}
+
+	/**
+	 * @param organisationUnits_classes the organisationUnits_classes to set
+	 */
+	public void setOrganisationUnits_classes(
+			Set<OrganisationUnit_Class> organisationUnits_classes) {
+		this.organisationUnits_classes = organisationUnits_classes;
 	}
 
 	/**

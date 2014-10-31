@@ -67,11 +67,11 @@ public class ClassScheme implements CerifSemanticFeature {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="scheme")
-	private Set<ClassSchemeDescription> descriptions;
+	private Set<ClassSchemeDescription> classSchemeDescriptions;
 	
 	@OneToMany(mappedBy="scheme")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<ClassSchemeName> names;
+	private Set<ClassSchemeName> classSchemeNames;
 	
 
 	/**
@@ -111,21 +111,6 @@ public class ClassScheme implements CerifSemanticFeature {
 	 */
 	public ClassScheme() {
 		
-	}
-	
-	/**
-	 * 
-	 * @param uri
-	 * @param classes
-	 * @param descriptions
-	 * @param names
-	 */
-	public ClassScheme(String uri, Set<Class> classes,
-			Set<ClassSchemeDescription> descriptions, Set<ClassSchemeName> names) {
-		this.uri = uri;
-		this.classes = classes;
-		this.descriptions = descriptions;
-		this.names = names;
 	}
 
 	/**
@@ -190,20 +175,33 @@ public class ClassScheme implements CerifSemanticFeature {
 		this.classes = classes;
 	}
 
-	public Set<ClassSchemeDescription> getDescriptions() {
-		return descriptions;
+	/**
+	 * @return the classSchemeDescriptions
+	 */
+	public Set<ClassSchemeDescription> getClassSchemeDescriptions() {
+		return classSchemeDescriptions;
 	}
 
-	public void setDescriptions(Set<ClassSchemeDescription> descriptions) {
-		this.descriptions = descriptions;
+	/**
+	 * @param classSchemeDescriptions the classSchemeDescriptions to set
+	 */
+	public void setClassSchemeDescriptions(
+			Set<ClassSchemeDescription> classSchemeDescriptions) {
+		this.classSchemeDescriptions = classSchemeDescriptions;
 	}
 
-	public Set<ClassSchemeName> getNames() {
-		return names;
+	/**
+	 * @return the classSchemeNames
+	 */
+	public Set<ClassSchemeName> getClassSchemeNames() {
+		return classSchemeNames;
 	}
 
-	public void setNames(Set<ClassSchemeName> names) {
-		this.names = names;
+	/**
+	 * @param classSchemeNames the classSchemeNames to set
+	 */
+	public void setClassSchemeNames(Set<ClassSchemeName> classSchemeNames) {
+		this.classSchemeNames = classSchemeNames;
 	}
 
 	/**

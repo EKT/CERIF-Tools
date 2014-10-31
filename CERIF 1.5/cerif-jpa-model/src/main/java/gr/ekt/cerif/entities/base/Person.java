@@ -3,6 +3,7 @@
  */
 package gr.ekt.cerif.entities.base;
 
+import gr.ekt.cerif.entities.link.PersonName_Person;
 import gr.ekt.cerif.entities.link.person.Person_Class;
 import gr.ekt.cerif.entities.link.person.Person_Country;
 import gr.ekt.cerif.entities.link.person.Person_Cv;
@@ -29,7 +30,6 @@ import gr.ekt.cerif.entities.link.person.Person_Service;
 import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.enumerations.Gender;
-import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.multilingual.PersonKeyword;
 import gr.ekt.cerif.features.multilingual.PersonResearchInterest;
 
@@ -114,19 +114,15 @@ public class Person implements CerifBaseEntity {
 	@OneToMany(mappedBy="person")
 	private Set<PersonResearchInterest> personResearchInterests;
 	
-	@OneToMany(mappedBy="person")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<PersonName> personNames;
-	
 	
 	/**
 	 * Links.
 	 */
 	@OneToMany(mappedBy="person")
-	private Set<Person_Class> classes;
+	private Set<Person_Class> persons_classes;
 	
 	@OneToMany(mappedBy="person")
-	private Set<Project_Person> projects;
+	private Set<Project_Person> projects_persons;
 	
 	@OneToMany(mappedBy="person")
 	private Set<Person_Country> persons_countries;
@@ -201,6 +197,9 @@ public class Person implements CerifBaseEntity {
 	@OneToMany(mappedBy="person")
 	private Set<Person_Measurement> persons_measurements;
 	
+	@OneToMany(mappedBy="person")
+	private Set<PersonName_Person> personNames_persons;
+	
 	
 	/**
 	 * FederatedIdentifier entities related to Person instance.
@@ -215,28 +214,6 @@ public class Person implements CerifBaseEntity {
 	 */
 	public Person(){
 		
-	}
-	/**
-	 * Constructor
-	 * @param id
-	 * @param birthDate
-	 * @param gender
-	 * @param uri
-	 * @param personResearchInterests
-	 * @param personKeywords
-	 * @param personName
-	 */
-	public Person(Long id, Date birthDate, Gender gender, String uri,
-			Set<PersonResearchInterest> personResearchInterests,
-			Set<PersonKeyword> personKeywords,
-			Set<PersonName> personNames) {
-		this.id = id;
-		this.birthDate = birthDate;
-		this.gender = gender;
-		this.uri = uri;
-		this.personResearchInterests = personResearchInterests;
-		this.personKeywords = personKeywords;
-		this.personNames = personNames;
 	}
 
 	/**
@@ -346,43 +323,35 @@ public class Person implements CerifBaseEntity {
 	public void setPersonKeywords(Set<PersonKeyword> personKeywords) {
 		this.personKeywords = personKeywords;
 	}
-
-	/**
-	 * @return the classes
-	 */
-	public Set<Person_Class> getClasses() {
-		return classes;
-	}
-
-	/**
-	 * @param classes the classes to set
-	 */
-	public void setClasses(Set<Person_Class> classes) {
-		this.classes = classes;
-	}
-	
-	public Set<PersonName> getPersonNames() {
-		return personNames;
-	}
-	
-	public void setPersonNames(Set<PersonName> personNames) {
-		this.personNames = personNames;
-	}
 	
 	/**
-	 * @return the projects
+	 * @return the persons_classes
 	 */
-	public Set<Project_Person> getProjects() {
-		return projects;
+	public Set<Person_Class> getPersons_classes() {
+		return persons_classes;
 	}
 
 	/**
-	 * @param projects the projects to set
+	 * @param persons_classes the persons_classes to set
 	 */
-	public void setProjects(Set<Project_Person> projects) {
-		this.projects = projects;
+	public void setPersons_classes(Set<Person_Class> persons_classes) {
+		this.persons_classes = persons_classes;
 	}
-	
+
+	/**
+	 * @return the projects_persons
+	 */
+	public Set<Project_Person> getProjects_persons() {
+		return projects_persons;
+	}
+
+	/**
+	 * @param projects_persons the projects_persons to set
+	 */
+	public void setProjects_persons(Set<Project_Person> projects_persons) {
+		this.projects_persons = projects_persons;
+	}
+
 	/**
 	 * @return the persons_countries
 	 */
@@ -702,6 +671,20 @@ public class Person implements CerifBaseEntity {
 	public void setPersons_persons2(Set<Person_Person> persons_persons2) {
 		this.persons_persons2 = persons_persons2;
 	}
+	/**
+	 * @return the personNames_persons
+	 */
+	public Set<PersonName_Person> getPersonNames_persons() {
+		return personNames_persons;
+	}
+
+	/**
+	 * @param personNames_persons the personNames_persons to set
+	 */
+	public void setPersonNames_persons(Set<PersonName_Person> personNames_persons) {
+		this.personNames_persons = personNames_persons;
+	}
+
 	/**
 	 * @return the federatedIdentifiers
 	 */

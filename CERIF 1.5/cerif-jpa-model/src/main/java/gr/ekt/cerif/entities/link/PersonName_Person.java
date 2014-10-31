@@ -1,14 +1,10 @@
-/**
- * 
- */
-package gr.ekt.cerif.entities.link.project;
-
-import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.base.Project;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.features.semantics.Class;
+package gr.ekt.cerif.entities.link;
 
 import java.util.Date;
+
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.features.additional.PersonName;
+import gr.ekt.cerif.features.semantics.Class;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -29,16 +25,16 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * 
  */
 @Entity
-@Table(name="cfProj_Pers", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId", "cfPersId", "cfClassId", "cfStartDate", "cfEndDate"}) )
+@Table(name="cfPersName_Pers", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersNameId", "cfPersId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class Project_Person implements CerifLinkEntity {
-	
-	/**
-	 * Serialization version.
-	 */
-	private static final long serialVersionUID = -3052891621307942145L;
+public class PersonName_Person implements CerifLinkEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5297112532583363162L;
+	
 	/**
 	 * 
 	 */
@@ -47,20 +43,20 @@ public class Project_Person implements CerifLinkEntity {
 	private Long id;
 	
 	/**
-	 * The project.
-	 */
-	@ManyToOne(optional=false)
-	@JoinColumn(name="cfProjId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Project project;
-	
-	/**
 	 * The person.
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person;
+	
+	/**
+	 * The person name.
+	 */
+	@ManyToOne(optional=false)
+	@JoinColumn(name="cfPersNameId")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private PersonName personName;
 	
 	/**
 	 * The class.
@@ -89,31 +85,48 @@ public class Project_Person implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
-	
+
 	/**
 	 * Default Constructor
 	 */
-	public Project_Person() {
-		
+	public PersonName_Person() {
+		super();
 	}
 	
 	/**
-	 * 
-	 * @param project
 	 * @param person
+	 * @param personName
 	 * @param theClass
 	 * @param startDate
 	 * @param endDate
 	 * @param fraction
 	 */
-	public Project_Person(Project project, Person person, Class theClass,
-			Date startDate, Date endDate, Double fraction) {
-		this.project = project;
+	public PersonName_Person(Person person, PersonName personName,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		super();
 		this.person = person;
+		this.personName = personName;
 		this.theClass = theClass;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.fraction = fraction;
+	}
+
+	/**
+	 * @param person
+	 * @param personName
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public PersonName_Person(Person person, PersonName personName,
+			Class theClass, Date startDate, Date endDate) {
+		super();
+		this.person = person;
+		this.personName = personName;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 	/**
@@ -131,99 +144,87 @@ public class Project_Person implements CerifLinkEntity {
 	}
 
 	/**
-	 * Returns the person.
-	 * @return the person.
+	 * @return the person
 	 */
 	public Person getPerson() {
 		return person;
 	}
 
 	/**
-	 * Sets the person.
-	 * @param person the person.
+	 * @param person the person to set
 	 */
 	public void setPerson(Person person) {
 		this.person = person;
 	}
 
 	/**
-	 * Returns the start date.
-	 * @return the start date.
+	 * @return the personName
 	 */
-	public Date getStartDate() {
-		return startDate;
+	public PersonName getPersonName() {
+		return personName;
 	}
 
 	/**
-	 * Sets the start date.
-	 * @param startDate the start date.
+	 * @param personName the personName to set
 	 */
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setPersonName(PersonName personName) {
+		this.personName = personName;
 	}
 
 	/**
-	 * Returns the end date.
-	 * @return the end date.
-	 */
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	/**
-	 * Sets the end date.
-	 * @param endDate the end date.
-	 */
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	/**
-	 * Returns the fraction.
-	 * @return the fraction.
-	 */
-	public Double getFraction() {
-		return fraction;
-	}
-
-	/**
-	 * Sets the fraction.
-	 * @param fraction the fraction.
-	 */
-	public void setFraction(Double fraction) {
-		this.fraction = fraction;
-	}
-
-	/**
-	 * Returns the project.
-	 * @return the project.
-	 */
-	public Project getProject() {
-		return project;
-	}
-
-	/**
-	 * Sets the project.
-	 * @param project the project.
-	 */
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
-	/**
-	 * Returns the class.
-	 * @return the class.
+	 * @return the theClass
 	 */
 	public Class getTheClass() {
 		return theClass;
 	}
 
 	/**
-	 * Sets the class.
-	 * @param theClass the class.
+	 * @param theClass the theClass to set
 	 */
 	public void setTheClass(Class theClass) {
 		this.theClass = theClass;
+	}
+
+	/**
+	 * @return the startDate
+	 */
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	/**
+	 * @param startDate the startDate to set
+	 */
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	/**
+	 * @return the endDate
+	 */
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	/**
+	 * @return the fraction
+	 */
+	public Double getFraction() {
+		return fraction;
+	}
+
+	/**
+	 * @param fraction the fraction to set
+	 */
+	public void setFraction(Double fraction) {
+		this.fraction = fraction;
 	}
 
 	/* (non-Javadoc)
@@ -231,11 +232,11 @@ public class Project_Person implements CerifLinkEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Project_Person [id=" + id + ", project=" + project
-				+ ", person=" + person + ", theClass=" + theClass
+		return "PersonName_Person [id=" + id + ", person=" + person
+				+ ", personName=" + personName + ", theClass=" + theClass
 				+ ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", fraction=" + fraction + "]";
 	}
-	
+
 	
 }

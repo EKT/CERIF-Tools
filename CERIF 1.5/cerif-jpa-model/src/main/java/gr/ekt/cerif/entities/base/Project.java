@@ -121,7 +121,7 @@ public class Project implements CerifBaseEntity {
 	 */
 	@OneToMany(mappedBy="project")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<Project_OrganisationUnit> organisationUnits;
+	private Set<Project_OrganisationUnit> projects_organisationUnits;
 	
 	@OneToMany(mappedBy="project1")
 	private Set<Project_Project> projects_projects1;
@@ -131,7 +131,7 @@ public class Project implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="project")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Set<Project_Person> persons;
+	private Set<Project_Person> projects_persons;
 	
 	@OneToMany(mappedBy="project")
 	private Set<Project_ResultProduct> projects_resultProducts;
@@ -357,37 +357,6 @@ public class Project implements CerifBaseEntity {
 		this.projectKeywords = projectKeywords;
 	}
 
-
-	/**
-	 * Returns the organisations.
-	 * @return the organisations.
-	 */
-	public Set<Project_OrganisationUnit> getOrganisationUnits() {
-		return organisationUnits;
-	}
-
-	/**
-	 * Sets the organisations.
-	 * @param organisationUnits the organisations.
-	 */
-	public void setOrganisationUnits(Set<Project_OrganisationUnit> organisationUnits) {
-		this.organisationUnits = organisationUnits;
-	}
-
-	/**
-	 * @return the persons
-	 */
-	public Set<Project_Person> getPersons() {
-		return persons;
-	}
-
-	/**
-	 * @param persons the persons to set
-	 */
-	public void setPersons(Set<Project_Person> persons) {
-		this.persons = persons;
-	}
-
 	/**
 	 * @return the projects_resultProducts
 	 */
@@ -599,6 +568,35 @@ public class Project implements CerifBaseEntity {
 	 */
 	public void setProjects_mediums(Set<Project_Medium> projects_mediums) {
 		this.projects_mediums = projects_mediums;
+	}
+
+	/**
+	 * @return the projects_organisationUnits
+	 */
+	public Set<Project_OrganisationUnit> getProjects_organisationUnits() {
+		return projects_organisationUnits;
+	}
+
+	/**
+	 * @param projects_organisationUnits the projects_organisationUnits to set
+	 */
+	public void setProjects_organisationUnits(
+			Set<Project_OrganisationUnit> projects_organisationUnits) {
+		this.projects_organisationUnits = projects_organisationUnits;
+	}
+
+	/**
+	 * @return the projects_persons
+	 */
+	public Set<Project_Person> getProjects_persons() {
+		return projects_persons;
+	}
+
+	/**
+	 * @param projects_persons the projects_persons to set
+	 */
+	public void setProjects_persons(Set<Project_Person> projects_persons) {
+		this.projects_persons = projects_persons;
 	}
 
 	/**

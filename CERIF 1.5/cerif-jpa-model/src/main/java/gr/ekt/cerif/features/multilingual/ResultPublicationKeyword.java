@@ -183,13 +183,13 @@ public class ResultPublicationKeyword implements CerifMultipleLanguageFeature {
 		this.id = id;
 	}
 
-	
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((keyword == null) ? 0 : keyword.hashCode());
 		result = prime * result
 				+ ((language == null) ? 0 : language.hashCode());
 		result = prime
@@ -201,6 +201,9 @@ public class ResultPublicationKeyword implements CerifMultipleLanguageFeature {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -210,11 +213,6 @@ public class ResultPublicationKeyword implements CerifMultipleLanguageFeature {
 		if (getClass() != obj.getClass())
 			return false;
 		ResultPublicationKeyword other = (ResultPublicationKeyword) obj;
-		if (keyword == null) {
-			if (other.keyword != null)
-				return false;
-		} else if (!keyword.equalsIgnoreCase(other.keyword))
-			return false;
 		if (language == null) {
 			if (other.language != null)
 				return false;
