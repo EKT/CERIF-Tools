@@ -21,18 +21,8 @@ public class LinkPersonPostalAddressRepositoryImpl implements
 	private LinkPersonPostalAddressCrudRepository linkPersonPostalAddressCrudRepository;
 
 	@Override
-	public Person_PostalAddress findByPersonName(String personName) {
-		return linkPersonPostalAddressCrudRepository.findByPersonName(personName);
-	}
-
-	@Override
 	public List<Person_PostalAddress> findByPerson(Person person) {
 		return linkPersonPostalAddressCrudRepository.findByPerson(person);
-	}
-
-	@Override
-	public List<Person_PostalAddress> findByPerson2(Person person) {
-		return linkPersonPostalAddressCrudRepository.findByPerson2(person);
 	}
 
 	@Override

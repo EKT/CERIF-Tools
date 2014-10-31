@@ -216,7 +216,7 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 		
 		List<Project_OrganisationUnit> pro = linkProjectOrganisationUnitRepository.findByOrganisationUnit(entity);
 		if (pro != null) linkProjectOrganisationUnitRepository.delete(pro);
-		entity.setProjects(null);
+		entity.setProjects_organisationUnits(null);
 
 		List<OrganisationUnit_ResultPublication> ourp = linkOrganisationUnitResultPublicationRepository.findByOrganisationUnit(entity);
 		if (ourp != null) linkOrganisationUnitResultPublicationRepository.delete(ourp);
@@ -224,7 +224,7 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 		
 		List<OrganisationUnit_Class> ouc = linkOrganisationUnitClassRepository.findByOrganisationUnit(entity);
 		if (ouc != null) linkOrganisationUnitClassRepository.delete(ouc);
-		entity.setClasses(null);
+		entity.setOrganisationUnits_classes(null);
 
 		List<OrganisationUnit_Facility> ouf = linkOrganisationUnitFacilityRepository.findByOrganisationUnit(entity);
 		if (ouf != null) linkOrganisationUnitFacilityRepository.delete(ouf);

@@ -2,21 +2,27 @@ package gr.ekt.cerif.services.additional;
 
 import java.util.List;
 
-import gr.ekt.cerif.entities.base.Person;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import gr.ekt.cerif.features.additional.PersonName;
 
 public interface PersonNameRepository {
 	
-	List<PersonName> findByPerson(Person person);
+	void delete(PersonName entity); 
 	
-	List<PersonName> findPersonNamesByPersonId(Long id);
-	
-	public void delete(PersonName entity); 
-	
-	public void delete(Iterable<PersonName> entities); 
+	void delete(Iterable<PersonName> entities); 
 
-	public Iterable<PersonName> save(Iterable<PersonName> entities); 
+	Iterable<PersonName> save(Iterable<PersonName> entities); 
 	
-	public PersonName save(PersonName entity);
+	PersonName save(PersonName entity);
+	
+	List<PersonName> findAll();
+	
+	Page<PersonName> findAll(Pageable page);
+	
+	PersonName findById(Long id);
+	
+	List<PersonName> findAllNamesByPersonId(Long id);
 
 }

@@ -20,18 +20,10 @@ import org.springframework.data.repository.CrudRepository;
 public interface LinkPersonPostalAddressCrudRepository extends CrudRepository<Person_PostalAddress, Long>{
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	@Query("Select pa from gr.ekt.cerif.entities.link.person.Person_PostalAddress pa join pa.person p join p.personNames pn where pn.familyNames=?1")
-	Person_PostalAddress findByPersonName(String personName);
-	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Person_PostalAddress> findByPerson(Person person);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Person_PostalAddress> findByPostalAddress(PostalAddress postalAddress);
-	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	@Query("Select pa from gr.ekt.cerif.entities.link.person.Person_PostalAddress pa join pa.person p where p=?1")
-	List<Person_PostalAddress> findByPerson2(Person person);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	Person_PostalAddress findByPersonAndPostalAddress (Person person, PostalAddress postalAddress);

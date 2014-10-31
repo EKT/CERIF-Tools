@@ -140,7 +140,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		
 		List<Project_OrganisationUnit> po = linkProjectOrganisationUnitRepository.findByProject(entity);
 		if (po != null) linkProjectOrganisationUnitRepository.delete(po);
-		entity.setOrganisationUnits(null);
+		entity.setProjects_organisationUnits(null);
 		
 		List<Project_Class> pc = linkProjectClassRepository.findByProject(entity);
 		if (pc != null) linkProjectClassRepository.delete(pc);
@@ -152,7 +152,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
 		List<Project_Person> pp = linkProjectPersonRepository.findByProject(entity);
 		if (pp != null) linkProjectPersonRepository.delete(pp);
-		entity.setPersons(null);
+		entity.setProjects_persons(null);
 		
 		List<Project_ResultPublication> pr = linkProjectResultPublicationRepository.findByProject(entity);
 		if (pr != null) linkProjectResultPublicationRepository.delete(pr);
