@@ -55,14 +55,7 @@
 							<td class="viewRightColumn">${organisation.address}</td>
 						</tr>
 					</c:if>
-					
-					<c:if test="${not empty organisation.telephone}">
-						<tr>
-							<td class="viewLeftColumn">Telephone Number</td>
-							<td class="viewRightColumn">${organisation.telephone}</td>
-						</tr>
-					</c:if>
-					
+				
 					<c:if test="${not empty organisation.type}">
 						<tr>
 							<td class="viewLeftColumn">Type</td>
@@ -87,6 +80,16 @@
 							<td class="viewLeftColumn">Coordinator to Projects</td>				  
 							<td class="viewRightColumn">
 								<c:forEach items="${organisation.projects['Coordinator']}" var="coordinator" varStatus="status"><a href='<s:url value="/projects/view/${coordinator.id}"/>'>${coordinator.title}</a><c:if test="${!status.last}">, </c:if>	
+								</c:forEach>				
+							</td>				  
+			  			</tr>
+	  	  			</c:if>
+	  	  			
+	  	  			<c:if test="${not empty organisation.persons}">
+	  	  				<tr>
+							<td class="viewLeftColumn">Persons</td>				  
+							<td class="viewRightColumn">
+								<c:forEach items="${organisation.persons}" var="per" varStatus="status"><a href='<s:url value="/persons/view/${per.id}"/>'>${per.lastName} ${per.firstName}</a> (${per.roleInOrg})<c:if test="${!status.last}">, </c:if>	
 								</c:forEach>				
 							</td>				  
 			  			</tr>

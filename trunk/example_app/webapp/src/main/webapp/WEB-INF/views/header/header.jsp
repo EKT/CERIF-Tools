@@ -19,8 +19,10 @@
 		<ul>
 			<li style="width: 100px"><a class="simple"
 				href='<s:url value="/projects/browse" />'>Projects</a></li>
-			<li style="width: 120px"><a class="simple"
+			<li style="width: 150px"><a class="simple"
 				href='<s:url value="/organisations/browse" />'>Organisations</a></li>
+			<li style="width: 120px"><a class="simple"
+				href='<s:url value="/persons/browse" />'>Persons</a></li>
 		</ul>
 	</div>
 
