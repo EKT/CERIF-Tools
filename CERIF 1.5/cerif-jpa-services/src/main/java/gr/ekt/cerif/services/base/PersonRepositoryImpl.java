@@ -1,6 +1,7 @@
 package gr.ekt.cerif.services.base;
 
 import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.link.PersonName_Person;
 import gr.ekt.cerif.entities.link.person.Person_Class;
 import gr.ekt.cerif.entities.link.person.Person_Country;
 import gr.ekt.cerif.entities.link.person.Person_Cv;
@@ -26,10 +27,8 @@ import gr.ekt.cerif.entities.link.person.Person_Service;
 import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.PostalAddress;
-import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.multilingual.PersonKeyword;
 import gr.ekt.cerif.features.multilingual.PersonResearchInterest;
-import gr.ekt.cerif.services.GenericSuperRepository;
 import gr.ekt.cerif.services.additional.PersonNameRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonClassRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonCountryRepository;
@@ -53,6 +52,7 @@ import gr.ekt.cerif.services.link.person.LinkPersonResultPatentRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonResultProductRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonResultPublicationRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonServiceRepository;
+import gr.ekt.cerif.services.link.personname.LinkPersonNamePersonRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectPersonRepository;
 import gr.ekt.cerif.services.multilingual.person.PersonKeywordRepository;
 import gr.ekt.cerif.services.multilingual.person.PersonResearchInterestRepository;
@@ -172,9 +172,10 @@ public class PersonRepositoryImpl implements PersonRepository {
 	@Autowired
 	private PersonResearchInterestRepository personResearchInterestRepository;
 	
-	private GenericSuperRepository personGenericRepository;
+	@Autowired
+	private LinkPersonNamePersonRepository linkPersonNamePersonRepository;
 	
-	
+
 	@Override
 	@Transactional
 	public void delete(Person entity) {
@@ -184,7 +185,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 		
 		List<Person_Class> pc = linkPersonClassRepository.findByPerson(entity);
 		if (pc != null) linkPersonClassRepository.delete(pc);
-		entity.setClasses(null);
+		entity.setPersons_classes(null);
 		
 		List<Person_ElectronicAddress> pe = linkPersonElectronicAddressRepository.findByPerson(entity);
 		List<ElectronicAddress> ea = electronicAddressRepository.findByPerson(entity);
@@ -202,11 +203,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 		
 		List<Project_Person> prp = linkProjectPersonRepository.findByPerson(entity);
 		if (prp != null) linkProjectPersonRepository.delete(prp);
-		entity.setProjects(null);
-		
-		List<PersonName> pn = personNameRepository.findByPerson(entity);
-		if (pn != null) personNameRepository.delete(pn);
-		entity.setPersonNames(null);
+		entity.setProjects_persons(null);		
 		
 		List<PersonKeyword> pk = personKeywordRepository.findByPerson(entity);
 		if (pk != null) personKeywordRepository.delete(pk);
@@ -290,6 +287,11 @@ public class PersonRepositoryImpl implements PersonRepository {
 		if (pser != null) linkPersonServiceRepository.delete(pser);
 		entity.setPersons_services(null);
 		
+		List<PersonName_Person> pnp = linkPersonNamePersonRepository.findByPerson(entity);
+		if (pnp != null) linkPersonNamePersonRepository.delete(pnp);
+		entity.setPersonNames_persons(null);
+		
+		
 		entity = personCrudRepository.save(entity);
 		personCrudRepository.delete(entity);
 		
@@ -310,21 +312,6 @@ public class PersonRepositoryImpl implements PersonRepository {
 	@Override
 	public void delete(Iterable<Person> entities) {
 		personCrudRepository.delete(entities);
-	}
-
-	/**
-	 * @return the personGenericRepository
-	 */
-	public GenericSuperRepository getPersonGenericRepository() {
-		return personGenericRepository;
-	}
-
-	/**
-	 * @param personGenericRepository the personGenericRepository to set
-	 */
-	public void setPersonGenericRepository(
-			GenericSuperRepository personGenericRepository) {
-		this.personGenericRepository = personGenericRepository;
 	}
 
 	@Override
@@ -351,6 +338,6 @@ public class PersonRepositoryImpl implements PersonRepository {
 	public Person findByUri(String uri) {
 		return personCrudRepository.findByUri(uri);
 	}
-	
+
 	
 }

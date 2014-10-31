@@ -49,6 +49,7 @@ import gr.ekt.cerif.entities.link.Medium_Funding;
 import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Medium;
+import gr.ekt.cerif.entities.link.PersonName_Person;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.Service_Class;
 import gr.ekt.cerif.entities.link.Service_Event;
@@ -147,10 +148,8 @@ import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.entities.second.Medium;
-import gr.ekt.cerif.entities.second.Metrics;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.enumerations.semantics.ClassEnum;
-import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.multilingual.CitationDescription;
 import gr.ekt.cerif.features.multilingual.CitationTitle;
 import gr.ekt.cerif.features.multilingual.ClassDefinition;
@@ -285,7 +284,6 @@ public class SelectionServiceImpl implements SelectionService {
 		Iterator<Indicator> iterIndicator = null;
 		Iterator<Medium> iterMedium = null;
 		Iterator<Event> iterEvent = null;
-		Iterator<Metrics> iterMetrics = null;
 		Iterator<Citation> iterCitation = null;
 		
 		boolean links = options.isLinks();
@@ -498,11 +496,11 @@ public class SelectionServiceImpl implements SelectionService {
 				
 				//organisations
 				Set<Project_OrganisationUnit> orgs = new HashSet<Project_OrganisationUnit>(projorgs);
-				project.setOrganisationUnits(orgs);
+				project.setProjects_organisationUnits(orgs);
 				
 				//persons
 				Set<Project_Person> pers = new HashSet<Project_Person>(projpers);
-				project.setPersons(pers);
+				project.setProjects_persons(pers);
 				
 				//projects 1
 				Set<Project_Project> projs1 = new HashSet<Project_Project>(projProj1);
@@ -655,7 +653,7 @@ public class SelectionServiceImpl implements SelectionService {
 				}
 				//classes
 				Set<OrganisationUnit_Class> classes = new HashSet<OrganisationUnit_Class>(orgclass);
-				organisation.setClasses(classes);
+				organisation.setOrganisationUnits_classes(classes);
 				
 				//Equipments
 				Set<OrganisationUnit_Equipment> equipments = new HashSet<OrganisationUnit_Equipment>(equipmentOrgs);
@@ -691,7 +689,7 @@ public class SelectionServiceImpl implements SelectionService {
 				
 				//projects
 				Set<Project_OrganisationUnit> projs = new HashSet<Project_OrganisationUnit>(projorgs);
-				organisation.setProjects(projs);
+				organisation.setProjects_organisationUnits(projs);
 				
 				//addresses
 				Set<OrganisationUnit_PostalAddress> paddrs = new HashSet<OrganisationUnit_PostalAddress>(orgPaddrs);
@@ -739,11 +737,6 @@ public class SelectionServiceImpl implements SelectionService {
 			while (iterPerson.hasNext()) {
 				Person person = iterPerson.next(); 
 				
-				//names
-				List<PersonName> persNames = service.getAdditionalService().getPersonNameRepository().findByPerson(person);
-				Set<PersonName> names = new HashSet<PersonName>(persNames);
-				person.setPersonNames(names);
-				
 				//Research Interests
 				List<PersonResearchInterest> persResearchActivities = service.getTranslationService().getPersonResearchInterestRepository().findByPerson(person);
 				Set<PersonResearchInterest> researchInterests = new HashSet<PersonResearchInterest>(persResearchActivities);
@@ -773,6 +766,7 @@ public class SelectionServiceImpl implements SelectionService {
 				List<Person_Indicator> persIndic = new ArrayList<Person_Indicator>();
 				List<Person_Medium> personMediums = new ArrayList<Person_Medium>();
 				List<Person_Event> persEvents = new ArrayList<Person_Event>();
+				List<PersonName_Person> persNamePers = new ArrayList<PersonName_Person>();
 				if (links) {
 					//Person 1
 					persPers1 = service.getLinkService().getPersonPersonRepository().findByPerson2(person);
@@ -830,6 +824,9 @@ public class SelectionServiceImpl implements SelectionService {
 					
 					//events
 					persEvents = service.getLinkService().getPersonEventRepository().findByPerson(person);
+					
+					//person names
+					persNamePers = service.getLinkService().getPersonNamePersonRepository().findByPerson(person);
 				}
 				//Person 1
 				Set<Person_Person> pers1 = new HashSet<Person_Person>(persPers1);
@@ -845,7 +842,7 @@ public class SelectionServiceImpl implements SelectionService {
 				
 				//classes
 				Set<Person_Class> classes = new HashSet<Person_Class>(persClas);
-				person.setClasses(classes);
+				person.setPersons_classes(classes);
 				
 				//equipments
 				Set<Person_Equipment> equipments = new HashSet<Person_Equipment>(persEquipment);
@@ -877,7 +874,7 @@ public class SelectionServiceImpl implements SelectionService {
 				
 				//projects
 				Set<Project_Person> projs = new HashSet<Project_Person>(persProj);
-				person.setProjects(projs);
+				person.setProjects_persons(projs);
 				
 				//addresses
 				Set<Person_PostalAddress> paddrs = new HashSet<Person_PostalAddress>(persPaddrs);
@@ -906,6 +903,10 @@ public class SelectionServiceImpl implements SelectionService {
 				//events
 				Set<Person_Event> events = new HashSet<Person_Event>(persEvents);
 				person.setPersons_events(events);
+				
+				//person names
+				Set<PersonName_Person> persnames = new HashSet<PersonName_Person>(persNamePers);
+				person.setPersonNames_persons(persnames);
 				
 				
 				//FederatedIdentifiers
@@ -1221,12 +1222,12 @@ public class SelectionServiceImpl implements SelectionService {
 				//Description
 				List<ClassSchemeDescription> classSchemeDescriptions = service.getTranslationService().getClassSchemeDescriptionRepository().findByScheme(classScheme);
 				Set<ClassSchemeDescription> descriptions = new HashSet<ClassSchemeDescription>(classSchemeDescriptions);
-				classScheme.setDescriptions(descriptions);
+				classScheme.setClassSchemeDescriptions(descriptions);
 				
 				//Name
 				List<ClassSchemeName> classSchemeNames = service.getTranslationService().getClassSchemeNameRepository().findByScheme(classScheme);
 				Set<ClassSchemeName> names = new HashSet<ClassSchemeName>(classSchemeNames);
-				classScheme.setNames(names);
+				classScheme.setClassSchemeNames(names);
 				
 				//FederatedIdentifiers
 				if (showFedIds) {
@@ -2966,22 +2967,22 @@ public class SelectionServiceImpl implements SelectionService {
 		//descriptions
 		List<ClassDescription> classDescriptions = service.getTranslationService().getClassDescriptionRepository().findByTheClass(classification);
 		Set<ClassDescription> descriptions = new HashSet<ClassDescription>(classDescriptions);
-		classification.setDescriptions(descriptions);
+		classification.setClassDescriptions(descriptions);
 		
 		//terms
 		List<ClassTerm> classTerms = service.getTranslationService().getClassTermRepository().findByTheClass(classification);
 		Set<ClassTerm> terms = new HashSet<ClassTerm>(classTerms);
-		classification.setTerms(terms);
+		classification.setClassTerms(terms);
 		
 		//definitions
 		List<ClassDefinition> classDefinitions = service.getTranslationService().getClassDefinitionRepository().findByTheClass(classification);
 		Set<ClassDefinition> definitions = new HashSet<ClassDefinition>(classDefinitions);
-		classification.setDefinitions(definitions);
+		classification.setClassDefinitions(definitions);
 		
 		//ex
 		List<ClassEx> classExs = service.getTranslationService().getClassExRepository().findByTheClass(classification);
 		Set<ClassEx> examples = new HashSet<ClassEx>(classExs);
-		classification.setExs(examples);
+		classification.setClassExs(examples);
 	}
 	
 	/**

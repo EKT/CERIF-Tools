@@ -59,6 +59,7 @@ import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Medium;
 import gr.ekt.cerif.entities.link.Metrics_Class;
+import gr.ekt.cerif.entities.link.PersonName_Person;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.PostalAddress_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.Prize_Class;
@@ -260,6 +261,7 @@ import gr.ekt.cerif.services.link.person.LinkPersonResultPatentRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonResultProductRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonResultPublicationRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonServiceRepository;
+import gr.ekt.cerif.services.link.personname.LinkPersonNamePersonRepository;
 import gr.ekt.cerif.services.link.postaladdress.LinkPostalAddressClassRepository;
 import gr.ekt.cerif.services.link.postaladdress.LinkPostalAddressGeographicBoundingBoxRepository;
 import gr.ekt.cerif.services.link.prize.LinkPrizeClassRepository;
@@ -823,6 +825,8 @@ public class LinkPersistenceService {
 	@Autowired
 	private LinkServiceServiceRepository serviceServiceRepository;
 
+	@Autowired
+	private LinkPersonNamePersonRepository personNamePersonRepository;
 	
 	
 	/**
@@ -1153,7 +1157,8 @@ public class LinkPersistenceService {
 		    servicePostalAddressRepository.delete((Service_PostalAddress) entity);
 		} else if (entity instanceof Service_Service) {
 		    serviceServiceRepository.delete((Service_Service) entity);
-
+		} else if (entity instanceof PersonName_Person) {
+			personNamePersonRepository.delete((PersonName_Person) entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid link entity provided. %s", entity));
 		}
@@ -1486,7 +1491,8 @@ public class LinkPersistenceService {
 		    entity = servicePostalAddressRepository.save((Service_PostalAddress) entity);
 		} else if (entity instanceof Service_Service) {
 		    entity = serviceServiceRepository.save((Service_Service) entity);
-
+		} else if (entity instanceof PersonName_Person) {
+		    entity = personNamePersonRepository.save((PersonName_Person) entity);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid link entity provided. %s", entity));
 		}
@@ -1826,7 +1832,8 @@ public class LinkPersistenceService {
 		    servicePostalAddressRepository.delete((List<Service_PostalAddress>) entityList);
 		} else if (entity instanceof Service_Service) {
 		    serviceServiceRepository.delete((List<Service_Service>) entityList);
-
+		} else if (entity instanceof PersonName_Person) {
+			personNamePersonRepository.delete((List<PersonName_Person>) entityList);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid list of link entities provided. %s", entity));
 		}
@@ -2164,7 +2171,8 @@ public class LinkPersistenceService {
 		    entityList = servicePostalAddressRepository.save((List<Service_PostalAddress>) entityList);
 		} else if (entity instanceof Service_Service) {
 		    entityList = serviceServiceRepository.save((List<Service_Service>) entityList);
-
+		} else if (entity instanceof PersonName_Person) {
+		    entityList = personNamePersonRepository.save((List<PersonName_Person>) entityList);
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid list of link entities provided. %s", entityList));
 		}
@@ -3296,6 +3304,13 @@ public class LinkPersistenceService {
 	 */
 	public LinkServiceServiceRepository getServiceServiceRepository() {
 		return serviceServiceRepository;
+	}
+
+	/**
+	 * @return the personNamePersonRepository
+	 */
+	public LinkPersonNamePersonRepository getPersonNamePersonRepository() {
+		return personNamePersonRepository;
 	}
 
 	

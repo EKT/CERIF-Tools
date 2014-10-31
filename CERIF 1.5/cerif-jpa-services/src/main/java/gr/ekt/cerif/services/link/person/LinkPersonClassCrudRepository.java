@@ -1,8 +1,8 @@
 package gr.ekt.cerif.services.link.person;
 
 import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.entities.link.person.Person_Class;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 

@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.services.GenericSuperRepository;
 
 
 /**
@@ -25,10 +24,6 @@ public interface PersonRepository {
 	Iterable<Person> save(Iterable<Person> entities);
 	
 	Person save(Person entity);
-	
-	GenericSuperRepository getPersonGenericRepository();
-	
-	void setPersonGenericRepository(GenericSuperRepository personGenericRepository);
 	
 	Iterable<Person> findAll();
 	
