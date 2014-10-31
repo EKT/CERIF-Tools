@@ -16,18 +16,12 @@ public interface LinkOrganisationUnitPostalAddressRepository {
 	
 	List<OrganisationUnit_PostalAddress> findByOrganisationUnit(OrganisationUnit organisationUnit);
 	
-	OrganisationUnit_PostalAddress findByOrganisationUnitNameAndCountryName(String organisationUnitName, String cName);
+	OrganisationUnit_PostalAddress save(OrganisationUnit_PostalAddress entity);
 	
-	OrganisationUnit_PostalAddress findByOrganisationUnitName(String organisationUnitName);
-
-	OrganisationUnit_PostalAddress findByOrganisationUnitNameAndCountryCode(String organisationUnitName, String ccode);
+	Iterable<? extends OrganisationUnit_PostalAddress> save(Iterable<? extends OrganisationUnit_PostalAddress> entities);
 	
-	public OrganisationUnit_PostalAddress save(OrganisationUnit_PostalAddress entity);
+	void delete(OrganisationUnit_PostalAddress entity);
 	
-	public Iterable<? extends OrganisationUnit_PostalAddress> save(Iterable<? extends OrganisationUnit_PostalAddress> entities);
-	
-	public void delete(OrganisationUnit_PostalAddress entity);
-	
-	public void delete(Iterable<? extends OrganisationUnit_PostalAddress> entityList);
+	void delete(Iterable<? extends OrganisationUnit_PostalAddress> entityList);
 	
 }
