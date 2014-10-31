@@ -178,6 +178,10 @@ public class PersonResearchInterest implements CerifMultipleLanguageFeature {
 		result = prime * result
 				+ ((language == null) ? 0 : language.hashCode());
 		result = prime * result + ((person == null) ? 0 : person.hashCode());
+		result = prime
+				* result
+				+ ((researchInterests == null) ? 0 : researchInterests
+						.hashCode());
 		result = prime * result
 				+ ((translation == null) ? 0 : translation.hashCode());
 		return result;
@@ -204,6 +208,11 @@ public class PersonResearchInterest implements CerifMultipleLanguageFeature {
 			if (other.person != null)
 				return false;
 		} else if (!person.equals(other.person))
+			return false;
+		if (researchInterests == null) {
+			if (other.researchInterests != null)
+				return false;
+		} else if (!researchInterests.equals(other.researchInterests))
 			return false;
 		if (translation != other.translation)
 			return false;
