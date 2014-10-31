@@ -53,6 +53,7 @@ import gr.ekt.cerif.entities.link.Measurement_Class;
 import gr.ekt.cerif.entities.link.Measurement_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Class;
 import gr.ekt.cerif.entities.link.Medium_Funding;
+import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Medium;
 import gr.ekt.cerif.entities.link.Metrics_Class;
@@ -554,10 +555,16 @@ public class Class implements CerifSemanticFeature {
 	private Set<Funding_Indicator> fundings_indicators;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Medium_Funding> fundings_mediums;
+	private Set<Medium_Funding> mediums_fundings;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Medium_Measurement> fundings_measurements;
+	private Set<Medium_Measurement> mediums_measurements;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Medium_Indicator> mediums_indicators;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<Funding_Measurement> fundings_measurements;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Funding_Funding> fundings_fundings;
@@ -1624,6 +1631,34 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setIndicators_classes(Set<Indicator_Class> indicators_classes) {
 		this.indicators_classes = indicators_classes;
+	}
+
+	/**
+	 * @return the mediums_indicators
+	 */
+	public Set<Medium_Indicator> getMediums_indicators() {
+		return mediums_indicators;
+	}
+
+	/**
+	 * @param mediums_indicators the mediums_indicators to set
+	 */
+	public void setMediums_indicators(Set<Medium_Indicator> mediums_indicators) {
+		this.mediums_indicators = mediums_indicators;
+	}
+
+	/**
+	 * @return the mediums_measurements
+	 */
+	public Set<Medium_Measurement> getMediums_measurements() {
+		return mediums_measurements;
+	}
+
+	/**
+	 * @param mediums_measurements the mediums_measurements to set
+	 */
+	public void setMediums_measurements(Set<Medium_Measurement> mediums_measurements) {
+		this.mediums_measurements = mediums_measurements;
 	}
 
 	/**
@@ -2752,23 +2787,9 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the fundings_mediums
-	 */
-	public Set<Medium_Funding> getFundings_mediums() {
-		return fundings_mediums;
-	}
-
-	/**
-	 * @param fundings_mediums the fundings_mediums to set
-	 */
-	public void setFundings_mediums(Set<Medium_Funding> fundings_mediums) {
-		this.fundings_mediums = fundings_mediums;
-	}
-
-	/**
 	 * @return the fundings_measurements
 	 */
-	public Set<Medium_Measurement> getFundings_measurements() {
+	public Set<Funding_Measurement> getFundings_measurements() {
 		return fundings_measurements;
 	}
 
@@ -2776,7 +2797,7 @@ public class Class implements CerifSemanticFeature {
 	 * @param fundings_measurements the fundings_measurements to set
 	 */
 	public void setFundings_measurements(
-			Set<Medium_Measurement> fundings_measurements) {
+			Set<Funding_Measurement> fundings_measurements) {
 		this.fundings_measurements = fundings_measurements;
 	}
 
@@ -3152,6 +3173,20 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setPersons_measurements(Set<Person_Measurement> persons_measurements) {
 		this.persons_measurements = persons_measurements;
+	}
+
+	/**
+	 * @return the mediums_fundings
+	 */
+	public Set<Medium_Funding> getMediums_fundings() {
+		return mediums_fundings;
+	}
+
+	/**
+	 * @param mediums_fundings the mediums_fundings to set
+	 */
+	public void setMediums_fundings(Set<Medium_Funding> mediums_fundings) {
+		this.mediums_fundings = mediums_fundings;
 	}
 
 	/**

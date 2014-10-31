@@ -56,7 +56,7 @@ public class Project_Person implements CerifLinkEntity {
 	private Project project;
 	
 	/**
-	 * The organisation unit.
+	 * The person.
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
