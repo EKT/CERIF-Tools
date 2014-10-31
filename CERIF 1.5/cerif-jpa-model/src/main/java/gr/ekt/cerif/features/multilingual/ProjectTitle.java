@@ -24,6 +24,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
 /**
@@ -32,6 +33,7 @@ import org.hibernate.search.annotations.Store;
  */
 @Entity
 @Table(name="cfProjTitle", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId","cfLangCode","cfTrans"}))
+@Indexed(index="indexes/projectTitles")
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class ProjectTitle implements CerifMultipleLanguageFeature {
