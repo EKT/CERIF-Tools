@@ -57,6 +57,7 @@ import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Medium;
 import gr.ekt.cerif.entities.link.Metrics_Class;
+import gr.ekt.cerif.entities.link.PersonName_Person;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.PostalAddress_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.Prize_Class;
@@ -716,21 +717,24 @@ public class Class implements CerifSemanticFeature {
 	@OneToMany(mappedBy="theClass")
 	private Set<Person_OrganisationUnit> persons_organisationUnits;
 	
+	@OneToMany(mappedBy="theClass")
+	private Set<PersonName_Person> personNames_persons;
+	
 	
 	/**
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="theClass")
-	private Set<ClassDescription> descriptions;
+	private Set<ClassDescription> classDescriptions;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<ClassTerm> terms;
+	private Set<ClassTerm> classTerms;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<ClassEx> exs;
+	private Set<ClassEx> classExs;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<ClassDefinition> definitions;
+	private Set<ClassDefinition> classDefinitions;
 	
 	
 	/**
@@ -748,46 +752,16 @@ public class Class implements CerifSemanticFeature {
 	public Class(){
 		
 	}
-	
+
 	/**
-	 * 
 	 * @param startDate
 	 * @param endDate
-	 * @param uri
-	 * @param scheme
-	 * @param descriptions
-	 * @param terms
-	 * @param exs
-	 * @param definitions
-	 */
-	public Class(String uri){
-		this.uri = uri;
-	}
-	
-	/**
-	 * 
-	 * @param uri
 	 * @param scheme
 	 */
-	public Class(String uri, ClassScheme scheme){
-		this.uri = uri;
-		this.scheme = scheme;
-	}
-	
-	public Class(Date startDate, Date endDate, String uri,
-			ClassScheme scheme,
-			Set<ClassDescription> descriptions, Set<ClassTerm> terms,
-			Set<ClassEx> exs, Set<ClassDefinition> definitions) {
-		super();
+	public Class(Date startDate, Date endDate, ClassScheme scheme) {
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.uri = uri;
 		this.scheme = scheme;
-		this.descriptions = descriptions;
-		this.terms = terms;
-		this.exs = exs;
-		this.definitions = definitions;
-
 	}
 
 	/**
@@ -915,30 +889,6 @@ public class Class implements CerifSemanticFeature {
 		this.organisationUnits_electronicAddresses = organisationUnits_electronicAddresses;
 	}
 
-	public Set<ClassDescription> getDescriptions() {
-		return descriptions;
-	}
-
-	public void setDescriptions(Set<ClassDescription> descriptions) {
-		this.descriptions = descriptions;
-	}
-
-	public Set<ClassTerm> getTerms() {
-		return terms;
-	}
-
-	public void setTerms(Set<ClassTerm> terms) {
-		this.terms = terms;
-	}
-
-	public Set<ClassEx> getExs() {
-		return exs;
-	}
-
-	public void setExs(Set<ClassEx> exs) {
-		this.exs = exs;
-	}
-
 	/**
 	 * @return the class_class1
 	 */
@@ -965,14 +915,6 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setClass_class2(Set<Class_Class> class_class2) {
 		this.class_class2 = class_class2;
-	}
-
-	public Set<ClassDefinition> getDefinitions() {
-		return definitions;
-	}
-
-	public void setDefinitions(Set<ClassDefinition> definitions) {
-		this.definitions = definitions;
 	}
 
 	/**
@@ -3187,6 +3129,76 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setMediums_fundings(Set<Medium_Funding> mediums_fundings) {
 		this.mediums_fundings = mediums_fundings;
+	}
+
+	/**
+	 * @return the personNames_persons
+	 */
+	public Set<PersonName_Person> getPersonNames_persons() {
+		return personNames_persons;
+	}
+
+	/**
+	 * @param personNames_persons the personNames_persons to set
+	 */
+	public void setPersonNames_persons(Set<PersonName_Person> personNames_persons) {
+		this.personNames_persons = personNames_persons;
+	}
+
+	/**
+	 * @return the classDescriptions
+	 */
+	public Set<ClassDescription> getClassDescriptions() {
+		return classDescriptions;
+	}
+
+	/**
+	 * @param classDescriptions the classDescriptions to set
+	 */
+	public void setClassDescriptions(Set<ClassDescription> classDescriptions) {
+		this.classDescriptions = classDescriptions;
+	}
+
+	/**
+	 * @return the classTerms
+	 */
+	public Set<ClassTerm> getClassTerms() {
+		return classTerms;
+	}
+
+	/**
+	 * @param classTerms the classTerms to set
+	 */
+	public void setClassTerms(Set<ClassTerm> classTerms) {
+		this.classTerms = classTerms;
+	}
+
+	/**
+	 * @return the classExs
+	 */
+	public Set<ClassEx> getClassExs() {
+		return classExs;
+	}
+
+	/**
+	 * @param classExs the classExs to set
+	 */
+	public void setClassExs(Set<ClassEx> classExs) {
+		this.classExs = classExs;
+	}
+
+	/**
+	 * @return the classDefinitions
+	 */
+	public Set<ClassDefinition> getClassDefinitions() {
+		return classDefinitions;
+	}
+
+	/**
+	 * @param classDefinitions the classDefinitions to set
+	 */
+	public void setClassDefinitions(Set<ClassDefinition> classDefinitions) {
+		this.classDefinitions = classDefinitions;
 	}
 
 	/**
