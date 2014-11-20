@@ -2,20 +2,17 @@
 
 The application files are located in trunk/example_app/webapp/build. 
 
-Prerequisites to run the application are Tomcat 7.x and MySQL 5.x. Once you have these in place, please follow the steps described below:
+Step 1) Run example_db.sql in your local MySQL installation. This script will create the database and populate it with some dummy data.
 
-Step 1) Run example db.sql in your local MySQL installation. This script will create the database and populate it with some dummy data.
+Step 2) Install exampleapp.war in Tomcat.
 
-Step 2) Shut down Tomcat.
+Step 3) After deploy edit file {Apache Tomcat installation directory}\webapps\exampleapp\WEB-INF\spring\appServlet\servlet-context.xml and change entries username, password and url to the ones required by your local MySQL installation. NOTE: Do not change the name of the database in url. It should be example_db.
 
-Step 3) If the MySQL connector is not included in Tomcat then copy/paste file mysql-connector-java-5.1.21.jar to {Apache Tomcat installation directory}\lib folder.
+Step 4) Restart the application.
 
-Step 4) Change entries username, password and url in file exampleapp.xml to the ones required by your local MySQL installation. NOTE: Do not change the name of the database in url. It should be example_app.
+Step 5) Use http://localhost:{Tomcat port}/exampleapp
 
-Step 5) Put exampleapp.xml in {Apache Tomcat installation directory}\conf\Catalina\localhost.
 
-Step 6) Put exampleapp.war in {Apache Tomcat installation directory}\webapps.
-
-Step 7) Start Tocmat.
-
-Step 8) Use http://localhost:{Tomcat port}/exampleapp
+NOTES:
+1) The application needs Tomcat version 7 and above to run properly.
+2) If the MySQL connector is not included in Tomcat then copy/paste file mysql-connector-java-5.1.29.jar to {Apache Tomcat installation directory}\lib folder.
