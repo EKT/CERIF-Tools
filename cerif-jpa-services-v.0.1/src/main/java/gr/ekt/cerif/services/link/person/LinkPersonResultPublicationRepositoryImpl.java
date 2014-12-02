@@ -3,9 +3,6 @@ package gr.ekt.cerif.services.link.person;
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_ResultPublication;
 import gr.ekt.cerif.entities.result.ResultPublication;
-import gr.ekt.cerif.services.base.PersonRepository;
-import gr.ekt.cerif.services.result.ResultPublicationRepository;
-import gr.ekt.cerif.services.semantics.ClassRepository;
 
 import java.util.List;
 
@@ -21,34 +18,15 @@ public class LinkPersonResultPublicationRepositoryImpl implements LinkPersonResu
 	private static final Logger log = LoggerFactory.getLogger(LinkPersonOrganisationUnitRepositoryImpl.class);
 	
 	@Autowired
-	private PersonRepository personRepository;
-	
-	@Autowired
-	private ResultPublicationRepository resultPublicationRepository;
-	
-	@Autowired
-	private ClassRepository classRepository;
-	
-	@Autowired
 	private LinkPersonResultPublicationCrudRepository linkPersonResultPublicationCrudRepository;
 	
 	@Transactional
 	public Person_ResultPublication save(Person_ResultPublication entity) {
-		if (entity.getPerson() == null || entity.getResultPublication() == null) {
-			throw new IllegalArgumentException("Please provide both a person and a resultPublication.");
-		}
-		if (entity.getPerson().getId() == null) {
-			personRepository.save(entity.getPerson());
-		}
-		if (entity.getResultPublication().getId() == null) {
-			resultPublicationRepository.save(entity.getResultPublication());
-		}
 		return linkPersonResultPublicationCrudRepository.save(entity);
 	}
 	
 	@Transactional
 	public Iterable<Person_ResultPublication> save(Iterable<Person_ResultPublication> entityList) {
-
 		return linkPersonResultPublicationCrudRepository.save(entityList);
 	}
 	

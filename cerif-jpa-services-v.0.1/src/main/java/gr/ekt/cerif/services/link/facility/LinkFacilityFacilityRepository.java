@@ -16,7 +16,7 @@ public interface LinkFacilityFacilityRepository {
 	
 	public Facility_Facility save(Facility_Facility entity);
 	
-	public Iterable<? extends Facility_Facility> save(Iterable<? extends Facility_Facility> entities);
+	public Iterable<Facility_Facility> save(Iterable<Facility_Facility> entities);
 	
 	public void delete(Facility_Facility entity);
 	

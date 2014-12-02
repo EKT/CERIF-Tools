@@ -20,7 +20,7 @@ public interface LinkFundingClassRepository {
 	
 	public Funding_Class save(Funding_Class entity);
 	
-	public Iterable<? extends Funding_Class> save(Iterable<? extends Funding_Class> entities);
+	public Iterable<Funding_Class> save(Iterable<Funding_Class> entities);
 	
 	public void delete(Funding_Class entity);
 	

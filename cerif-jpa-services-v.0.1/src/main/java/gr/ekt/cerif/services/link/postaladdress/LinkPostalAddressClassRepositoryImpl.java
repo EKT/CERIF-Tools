@@ -27,7 +27,7 @@ public class LinkPostalAddressClassRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<PostalAddress_Class> entities) {
-		linkPostalAddressClassCrudRepository.save(entities);
+		linkPostalAddressClassCrudRepository.delete(entities);
 	}
 
 	@Override

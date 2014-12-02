@@ -21,12 +21,12 @@ public class LinkPersonPrizeRepositoryImpl implements LinkPersonPrizeRepository 
 
 	@Override
 	public void delete(Person_Prize entity) {
-		linkPersonPrizeCrudRepository.save(entity);
+		linkPersonPrizeCrudRepository.delete(entity);
 	}
 
 	@Override
 	public void delete(Iterable<Person_Prize> entities) {
-		linkPersonPrizeCrudRepository.save(entities);
+		linkPersonPrizeCrudRepository.delete(entities);
 	}
 
 	@Override

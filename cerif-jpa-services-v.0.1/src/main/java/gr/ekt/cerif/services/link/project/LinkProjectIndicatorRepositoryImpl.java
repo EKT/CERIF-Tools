@@ -22,7 +22,7 @@ public class LinkProjectIndicatorRepositoryImpl implements
 
 	@Override
 	public void delete(Project_Indicator entity) {
-		linkProjectIndicatorCrudRepository.save(entity);
+		linkProjectIndicatorCrudRepository.delete(entity);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class LinkCitationMediumRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<Citation_Medium> entities) {
-		linkCitationMediumCrudRepository.save(entities);
+		linkCitationMediumCrudRepository.delete(entities);
 	}
 
 	@Override

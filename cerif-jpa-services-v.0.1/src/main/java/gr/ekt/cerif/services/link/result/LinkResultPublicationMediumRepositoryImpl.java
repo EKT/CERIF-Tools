@@ -3,8 +3,6 @@ package gr.ekt.cerif.services.link.result;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Medium;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Medium;
-import gr.ekt.cerif.services.result.ResultPublicationRepository;
-import gr.ekt.cerif.services.second.MediumRepository;
 
 import java.util.List;
 
@@ -18,12 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class LinkResultPublicationMediumRepositoryImpl implements LinkResultPublicationMediumRepository {
 	
 	private static final Logger log = LoggerFactory.getLogger(LinkResultPublicationMediumRepositoryImpl.class);
-
-	@Autowired
-	private ResultPublicationRepository resultPublicationRepository;
-	
-	@Autowired
-	private MediumRepository mediumRepository;
 	
 	@Autowired
 	private LinkResultPublicationMediumCrudRepository linkResultPublicationMediumCrudRepository;

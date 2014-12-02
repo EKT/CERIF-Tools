@@ -23,7 +23,7 @@ public class LinkPersonDublinCoreRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<Person_DublinCore> entities) {
-		linkPersonDublinCoreCrudRepository.save(entities);
+		linkPersonDublinCoreCrudRepository.delete(entities);
 	}
 
 	@Override

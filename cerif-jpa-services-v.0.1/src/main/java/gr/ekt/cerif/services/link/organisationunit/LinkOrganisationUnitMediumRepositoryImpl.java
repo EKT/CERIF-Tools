@@ -27,7 +27,7 @@ public class LinkOrganisationUnitMediumRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<OrganisationUnit_Medium> entities) {
-		linkOrganisationUnitMediumCrudRepository.save(entities);
+		linkOrganisationUnitMediumCrudRepository.delete(entities);
 	}
 
 	@Override

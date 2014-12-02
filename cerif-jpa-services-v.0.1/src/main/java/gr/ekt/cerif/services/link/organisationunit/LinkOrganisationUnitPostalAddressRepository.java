@@ -18,7 +18,7 @@ public interface LinkOrganisationUnitPostalAddressRepository {
 	
 	OrganisationUnit_PostalAddress save(OrganisationUnit_PostalAddress entity);
 	
-	Iterable<? extends OrganisationUnit_PostalAddress> save(Iterable<? extends OrganisationUnit_PostalAddress> entities);
+	Iterable<OrganisationUnit_PostalAddress> save(Iterable<OrganisationUnit_PostalAddress> entities);
 	
 	void delete(OrganisationUnit_PostalAddress entity);
 	
