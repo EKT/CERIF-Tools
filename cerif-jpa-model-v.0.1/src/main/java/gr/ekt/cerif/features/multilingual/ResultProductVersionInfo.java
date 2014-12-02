@@ -65,7 +65,7 @@ public class ResultProductVersionInfo implements CerifMultipleLanguageFeature {
 	 * The result product versionInfo.
 	 */
 	@NotNull
-	@Column(name="cfVersInfo")
+	@Column(name="cfVersInfo", length=20000)
 	private String versionInfo;
 
 	/**

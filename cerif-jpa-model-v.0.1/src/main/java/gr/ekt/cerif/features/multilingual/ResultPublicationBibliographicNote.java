@@ -72,7 +72,7 @@ public class ResultPublicationBibliographicNote implements CerifMultipleLanguage
 	 * The bibliographicNote.
 	 */
 	@NotNull
-	@Column(name="cfBiblNote")
+	@Column(name="cfBiblNote", length=20000)
 	private String bibliographicNote;
 	
 	/**

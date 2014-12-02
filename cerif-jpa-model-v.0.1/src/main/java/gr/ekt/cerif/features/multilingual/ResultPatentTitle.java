@@ -66,7 +66,7 @@ public class ResultPatentTitle implements CerifMultipleLanguageFeature {
 	 * The result patent title.
 	 */
 	@NotNull
-	@Column(name="cfTitle")
+	@Column(name="cfTitle", length=20000)
 	private String title;
 
 	/**

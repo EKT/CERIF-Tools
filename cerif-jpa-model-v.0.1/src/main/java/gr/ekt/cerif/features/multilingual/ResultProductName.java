@@ -65,7 +65,7 @@ public class ResultProductName implements CerifMultipleLanguageFeature, Comparab
 	 * The result product name.
 	 */
 	@NotNull
-	@Column(name="cfName")
+	@Column(name="cfName", length=20000)
 	private String name;
 	
 	/**
