@@ -21,7 +21,7 @@ public class LinkPersonCountryRepositorympl implements
 
 	@Override
 	public void delete(Person_Country entity) {
-		linkPersonCountryCrudRepository.save(entity);
+		linkPersonCountryCrudRepository.delete(entity);
 	}
 
 	@Override

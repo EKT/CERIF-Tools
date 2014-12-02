@@ -21,12 +21,12 @@ public class LinkPersonResultPatentRepositoryImpl implements LinkPersonResultPat
 
 	@Override
 	public void delete(Person_ResultPatent entity) {
-		linkPersonResultPatentCrudRepository.save(entity);		
+		linkPersonResultPatentCrudRepository.delete(entity);		
 	}
 
 	@Override
 	public void delete(Iterable<Person_ResultPatent> entities) {
-		linkPersonResultPatentCrudRepository.save(entities);		
+		linkPersonResultPatentCrudRepository.delete(entities);		
 	}
 
 	@Override

@@ -4,10 +4,6 @@ import java.util.List;
 
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.project.Project_Project;
-import gr.ekt.cerif.services.base.ProjectRepository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,24 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LinkProjectProjectRepositoryImpl implements LinkProjectProjectRepository {
-
-	@Autowired
-	private ProjectRepository projectRepository;
 	
 	@Autowired
 	private LinkProjectProjectCrudRepository linkProjectProjectCrudRepository;
 	
 	@Transactional
 	public Project_Project save(Project_Project entity) {
-		if (entity.getProject1() == null || entity.getProject2() == null) {
-			throw new IllegalArgumentException("Please provide both projects you want to connect.");
-		}
-		if (entity.getProject1().getId() == null) {
-			projectRepository.save(entity.getProject1());
-		}
-		if (entity.getProject2().getId() == null) {
-			projectRepository.save(entity.getProject2());
-		}
 		return linkProjectProjectCrudRepository.save(entity);
 	}
 	
@@ -55,7 +39,7 @@ public class LinkProjectProjectRepositoryImpl implements LinkProjectProjectRepos
 	}
 
 	@Transactional
-	public void delete(Iterable<? extends Project_Project> entities) {
+	public void delete(Iterable<Project_Project> entities) {
 		linkProjectProjectCrudRepository.delete(entities);
 	}
 }

@@ -14,13 +14,13 @@ public interface LinkPersonMediumRepository {
 
 	Person_Medium save(Person_Medium entity);
 	
-	Iterable<? extends Person_Medium> save(Iterable<? extends Person_Medium> entityList);
+	Iterable<Person_Medium> save(Iterable<Person_Medium> entityList);
 	
 	List<Person_Medium> findByPerson(Person person);
 	
 	void delete(Person_Medium entity);
 	
-	void delete(Iterable<? extends Person_Medium> entities);
+	void delete(Iterable<Person_Medium> entities);
 	
 	List<Person_Medium> findByMedium(Medium medium);
 	

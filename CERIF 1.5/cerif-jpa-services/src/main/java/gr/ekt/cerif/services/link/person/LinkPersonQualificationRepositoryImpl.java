@@ -21,12 +21,12 @@ public class LinkPersonQualificationRepositoryImpl implements LinkPersonQualific
 
 	@Override
 	public void delete(Person_Qualification entity) {
-		linkPersonQualificationCrudRepository.save(entity);		
+		linkPersonQualificationCrudRepository.delete(entity);		
 	}
 
 	@Override
 	public void delete(Iterable<Person_Qualification> entities) {
-		linkPersonQualificationCrudRepository.save(entities);		
+		linkPersonQualificationCrudRepository.delete(entities);		
 	}
 
 	@Override

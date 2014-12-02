@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ExpertiseAndSkills;
-import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 
 @Component
 public class LinkOrganisationUnitExpertiseAndSkillsRepositoryImpl implements

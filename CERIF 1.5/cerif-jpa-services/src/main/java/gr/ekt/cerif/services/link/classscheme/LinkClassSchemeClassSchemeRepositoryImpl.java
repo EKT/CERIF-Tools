@@ -23,7 +23,7 @@ public class LinkClassSchemeClassSchemeRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<ClassScheme_ClassScheme> entities) {
-		linkClassSchemeClassSchemeCrudRepository.save(entities);
+		linkClassSchemeClassSchemeCrudRepository.delete(entities);
 	}
 
 	@Override

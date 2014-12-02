@@ -26,7 +26,7 @@ public class LinkFundingFundingRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<Funding_Funding> entities) {
-		linkFundingFundingCrudRepository.save(entities);
+		linkFundingFundingCrudRepository.delete(entities);
 	}
 
 	@Override

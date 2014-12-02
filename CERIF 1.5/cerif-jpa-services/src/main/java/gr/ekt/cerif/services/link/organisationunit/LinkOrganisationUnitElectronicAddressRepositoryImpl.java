@@ -3,8 +3,6 @@ package gr.ekt.cerif.services.link.organisationunit;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
-import gr.ekt.cerif.services.base.OrganisationUnitRepository;
-import gr.ekt.cerif.services.second.ElectronicAddressRepository;
 
 import java.util.List;
 
@@ -18,12 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class LinkOrganisationUnitElectronicAddressRepositoryImpl implements LinkOrganisationUnitElectronicAddressRepository {
 	
 	private static final Logger log = LoggerFactory.getLogger(LinkOrganisationUnitElectronicAddressRepositoryImpl.class);
-	
-	@Autowired
-	OrganisationUnitRepository organisationRepository;
-	
-	@Autowired
-	ElectronicAddressRepository EAddrRepository;
 	
 	@Autowired
 	LinkOrganisationUnitElectronicAddressCrudRepository linkOrganisationUnitElectronicAddressCrudRepository;

@@ -32,7 +32,5 @@ public interface LinkResultPublicationClassRepository {
 	
 	public List<ResultPublication_Class> findByResPubId(Long respubId);
 	
-	public void updateResultPublication_ClassList(ResultPublication rp, List<Long> classIds, String classSchemeUri);
-	
 	public ResultPublication_Class findResPubClassBySchemeUriAndResPubId(String schemeUri, Long respubId);
 }

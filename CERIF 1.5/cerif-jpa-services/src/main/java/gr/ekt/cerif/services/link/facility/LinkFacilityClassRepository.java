@@ -19,7 +19,7 @@ public interface LinkFacilityClassRepository {
 	
 	public Facility_Class save(Facility_Class entity);
 	
-	public Iterable<? extends Facility_Class> save(Iterable<? extends Facility_Class> entities);
+	public Iterable<Facility_Class> save(Iterable<Facility_Class> entities);
 	
 	public void delete(Facility_Class entity);
 	

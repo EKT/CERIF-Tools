@@ -26,7 +26,7 @@ public class LinkPersonMediumRepositoryImpl implements LinkPersonMediumRepositor
 	}
 
 	@Transactional
-	public Iterable<? extends Person_Medium> save(Iterable<? extends Person_Medium> entityList) {
+	public Iterable<Person_Medium> save(Iterable<Person_Medium> entityList) {
 		return linkPersonMediumCrudRepository.save(entityList);
 	}
 	
@@ -40,7 +40,7 @@ public class LinkPersonMediumRepositoryImpl implements LinkPersonMediumRepositor
 	}
 
 	@Transactional
-	public void delete(Iterable<? extends Person_Medium> entities) {
+	public void delete(Iterable<Person_Medium> entities) {
 		linkPersonMediumCrudRepository.delete(entities);
 	}
 

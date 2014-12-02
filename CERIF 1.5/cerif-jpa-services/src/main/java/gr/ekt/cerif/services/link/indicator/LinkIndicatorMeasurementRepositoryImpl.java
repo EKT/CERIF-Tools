@@ -26,7 +26,7 @@ public class LinkIndicatorMeasurementRepositoryImpl implements LinkIndicatorMeas
 
 	@Override
 	public void delete(Iterable<Indicator_Measurement> entities) {
-		linkIndicatorMeasurementCrudRepository.save(entities);		
+		linkIndicatorMeasurementCrudRepository.delete(entities);		
 	}
 
 	@Override

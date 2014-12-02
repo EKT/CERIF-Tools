@@ -27,7 +27,7 @@ public class LinkEventIndicatorRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<Event_Indicator> entities) {
-		linkEventIndicatorCrudRepository.save(entities);
+		linkEventIndicatorCrudRepository.delete(entities);
 	}
 
 	@Override

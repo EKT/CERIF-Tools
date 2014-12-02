@@ -27,7 +27,7 @@ public class LinkServiceFederatedIdentifierRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<Service_FederatedIdentifier> entities) {
-		linkServiceFederatedIdentifierCrudRepository.save(entities);
+		linkServiceFederatedIdentifierCrudRepository.delete(entities);
 	}
 
 	@Override

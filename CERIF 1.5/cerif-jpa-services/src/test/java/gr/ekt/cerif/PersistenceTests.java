@@ -1,12 +1,8 @@
 package gr.ekt.cerif;
 
 import java.util.Date;
-import java.util.Set;
 
 import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.link.FederatedIdentifier_Class;
-import gr.ekt.cerif.entities.link.Service_FederatedIdentifier;
-import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.services.PersistenceService;
 import javax.persistence.EntityManager;
@@ -45,7 +41,7 @@ public class PersistenceTests {
 	
 	@Test
 	public void testOne() {
-		Person p = service.getBaseService().getPersonRepository().findPersonById((long)2);
+		Person p = service.getBaseService().getPersonRepository().findById((long)2);
 		System.out.println("Person: "+p.getId());
 		FederatedIdentifier f = new FederatedIdentifier(p.getId(), "asdfvasdf",	new Date(), new Date());
 		System.out.println("FederatedIdentifier: "+f);

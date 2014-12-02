@@ -24,6 +24,6 @@ public interface LinkProjectProjectRepository {
 	
 	public void delete(Project_Project entity);
 	
-	public void delete(Iterable<? extends Project_Project> entities);
+	public void delete(Iterable<Project_Project> entities);
 	
 }

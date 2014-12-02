@@ -22,7 +22,7 @@ public class LinkOrganisationUnitIndicatorRepositoryImpl implements
 
 	@Override
 	public void delete(OrganisationUnit_Indicator entity) {
-		linkOrganisationUnitIndicatorCrudRepository.save(entity);
+		linkOrganisationUnitIndicatorCrudRepository.delete(entity);
 	}
 
 	@Override

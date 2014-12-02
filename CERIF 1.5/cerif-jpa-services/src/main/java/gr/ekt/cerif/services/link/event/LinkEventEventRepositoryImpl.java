@@ -20,7 +20,7 @@ public class LinkEventEventRepositoryImpl implements LinkEventEventRepository {
 
 	@Override
 	public void delete(Event_Event entity) {
-		linkEventEventCrudRepository.save(entity);
+		linkEventEventCrudRepository.delete(entity);
 	}
 
 	@Override

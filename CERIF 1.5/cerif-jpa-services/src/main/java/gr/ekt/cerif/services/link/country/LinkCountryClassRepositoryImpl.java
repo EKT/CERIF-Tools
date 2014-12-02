@@ -23,7 +23,7 @@ public class LinkCountryClassRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<Country_Class> entities) {
-		linkCountryClassCrudRepository.save(entities);
+		linkCountryClassCrudRepository.delete(entities);
 	}
 
 	@Override
