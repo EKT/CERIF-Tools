@@ -147,6 +147,23 @@ public class Person_ResultPublication implements CerifLinkEntity {
 	}
 
 	/**
+	 * @param person
+	 * @param resultPublication
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public Person_ResultPublication(Person person,
+			ResultPublication resultPublication, Class theClass,
+			Date startDate, Date endDate) {
+		this.person = person;
+		this.resultPublication = resultPublication;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	/**
 	 * @return the id
 	 */
 	public Long getId() {

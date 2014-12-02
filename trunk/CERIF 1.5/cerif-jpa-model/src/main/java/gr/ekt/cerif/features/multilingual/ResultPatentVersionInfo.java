@@ -66,7 +66,7 @@ public class ResultPatentVersionInfo implements CerifMultipleLanguageFeature {
 	 * The result patent versionInfo.
 	 */
 	@NotNull
-	@Column(name="cfVersInfo")
+	@Column(name="cfVersInfo", length=20000)
 	private String versionInfo;
 
 	/**

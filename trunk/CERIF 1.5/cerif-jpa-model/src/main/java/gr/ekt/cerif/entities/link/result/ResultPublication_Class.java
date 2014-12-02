@@ -104,6 +104,20 @@ public class ResultPublication_Class implements CerifLinkEntity {
 		this.endDate = endDate;
 		this.fraction = fraction;
 	}
+	
+	/**
+	 * @param resultPublication
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public ResultPublication_Class(ResultPublication resultPublication,
+			Class theClass, Date startDate, Date endDate) {
+		this.resultPublication = resultPublication;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 
 	/**
 	 * @return the resultPublication
