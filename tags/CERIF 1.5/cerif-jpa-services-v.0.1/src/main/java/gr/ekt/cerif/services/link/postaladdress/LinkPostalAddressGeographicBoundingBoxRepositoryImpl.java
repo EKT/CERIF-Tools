@@ -23,7 +23,7 @@ public class LinkPostalAddressGeographicBoundingBoxRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<PostalAddress_GeographicBoundingBox> entities) {
-		linkPostalAddressGeographicBoundingBoxCrudRepository.save(entities);
+		linkPostalAddressGeographicBoundingBoxCrudRepository.delete(entities);
 	}
 
 	@Override

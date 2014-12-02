@@ -18,7 +18,7 @@ public class LinkExpertiseAndSkillsClassRepositoryImpl implements
 
 	@Override
 	public void delete(ExpertiseAndSkills_Class entity) {
-		linkExpertiseAndSkillsClassCrudRepository.save(entity);
+		linkExpertiseAndSkillsClassCrudRepository.delete(entity);
 	}
 
 	@Override

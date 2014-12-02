@@ -26,7 +26,7 @@ public class LinkPersonServiceRepositoryImpl implements LinkPersonServiceReposit
 
 	@Override
 	public void delete(Iterable<Person_Service> entities) {
-		linkPersonServiceCrudRepository.save(entities);		
+		linkPersonServiceCrudRepository.delete(entities);		
 	}
 
 	@Override

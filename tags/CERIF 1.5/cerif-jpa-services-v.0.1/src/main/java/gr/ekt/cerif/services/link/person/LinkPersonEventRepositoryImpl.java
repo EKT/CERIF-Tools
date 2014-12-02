@@ -26,7 +26,7 @@ public class LinkPersonEventRepositoryImpl implements LinkPersonEventRepository 
 
 	@Override
 	public void delete(Iterable<Person_Event> entities) {
-		linkPersonEventCrudRepository.save(entities);
+		linkPersonEventCrudRepository.delete(entities);
 	}
 
 	@Override

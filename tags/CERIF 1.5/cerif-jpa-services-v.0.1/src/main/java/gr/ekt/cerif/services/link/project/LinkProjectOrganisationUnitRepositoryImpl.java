@@ -47,7 +47,7 @@ public class LinkProjectOrganisationUnitRepositoryImpl implements LinkProjectOrg
 	}
 
 	@Transactional
-	public Iterable<? extends Project_OrganisationUnit> save(Iterable<? extends Project_OrganisationUnit> entities) {
+	public Iterable<Project_OrganisationUnit> save(Iterable<Project_OrganisationUnit> entities) {
 		return linkProjectOrganisationUnitCrudRepository.save(entities);
 	}
 
@@ -57,7 +57,7 @@ public class LinkProjectOrganisationUnitRepositoryImpl implements LinkProjectOrg
 	}
 
 	@Transactional
-	public void delete(Iterable<? extends Project_OrganisationUnit> entities) {
+	public void delete(Iterable<Project_OrganisationUnit> entities) {
 		linkProjectOrganisationUnitCrudRepository.delete(entities);
 	}
 	

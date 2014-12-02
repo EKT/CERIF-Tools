@@ -22,7 +22,7 @@ public class LinkOrganisationUnitPostalAddressRepositoryImpl implements LinkOrga
 	}
 	
 	@Transactional
-	public Iterable<? extends OrganisationUnit_PostalAddress> save(Iterable<? extends OrganisationUnit_PostalAddress> entities) {
+	public Iterable<OrganisationUnit_PostalAddress> save(Iterable<OrganisationUnit_PostalAddress> entities) {
 		return linkOrganisationUnitPAddrCrudRepository.save(entities);
 	}
 	

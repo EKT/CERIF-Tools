@@ -15,11 +15,11 @@ public interface LinkOrganisationUnitFacilityRepository {
 	
 	public OrganisationUnit_Facility save(OrganisationUnit_Facility entity);
 	
-	public Iterable<? extends OrganisationUnit_Facility> save(Iterable<? extends OrganisationUnit_Facility> entities);
+	public Iterable<OrganisationUnit_Facility> save(Iterable<OrganisationUnit_Facility> entities);
 			
 	public void delete(OrganisationUnit_Facility entity);
 	
-	public void delete(Iterable<? extends OrganisationUnit_Facility> entityList);
+	public void delete(Iterable<OrganisationUnit_Facility> entityList);
 	
 	List<OrganisationUnit_Facility> findByOrganisationUnit(OrganisationUnit organisationUnit);
 	

@@ -26,7 +26,7 @@ public class LinkCvClassRepositoryImpl implements LinkCvClassRepository {
 
 	@Override
 	public void delete(Iterable<Cv_Class> entities) {
-		linkCvClassCrudRepository.save(entities);
+		linkCvClassCrudRepository.delete(entities);
 	}
 
 	@Override

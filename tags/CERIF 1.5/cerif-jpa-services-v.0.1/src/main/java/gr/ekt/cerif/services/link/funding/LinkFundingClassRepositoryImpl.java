@@ -26,7 +26,7 @@ public class LinkFundingClassRepositoryImpl implements LinkFundingClassRepositor
 	}
 	
 	@Transactional
-	public Iterable<? extends Funding_Class> save(Iterable<? extends Funding_Class> entities) {
+	public Iterable<Funding_Class> save(Iterable<Funding_Class> entities) {
 		return linkFundingClassCrudRepository.save(entities);
 	}
 	

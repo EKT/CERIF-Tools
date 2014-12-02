@@ -26,7 +26,7 @@ public class LinkFacilityFacilityRepositoryImpl implements LinkFacilityFacilityR
 	}
 	
 	@Transactional
-	public Iterable<? extends Facility_Facility> save(Iterable<? extends Facility_Facility> entities) {
+	public Iterable<Facility_Facility> save(Iterable<Facility_Facility> entities) {
 		return linkFacilityFacilityCrudRepository.save(entities);
 	}
 

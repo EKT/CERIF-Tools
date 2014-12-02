@@ -4,8 +4,6 @@ import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.services.base.ProjectRepositoryImpl;
-import gr.ekt.cerif.services.multilingual.theclass.ClassTermCrudRepository;
 
 import java.util.List;
 
