@@ -51,7 +51,7 @@ public class ResultPublicationNameAbbreviation implements CerifMultipleLanguageF
 	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
-	private Translation translation = Translation.MACHINE;
+	private Translation translation;
 	
 	/**
 	 * The publication.
@@ -73,7 +73,7 @@ public class ResultPublicationNameAbbreviation implements CerifMultipleLanguageF
 	 * The nameAbbreviation.
 	 */
 	@NotNull
-	@Column(name="cfNameAbbrev")
+	@Column(name="cfNameAbbrev", length=20000)
 	private String nameAbbreviation;
 	
 	/**

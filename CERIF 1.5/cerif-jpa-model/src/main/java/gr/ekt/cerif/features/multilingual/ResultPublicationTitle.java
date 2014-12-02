@@ -56,7 +56,7 @@ public class ResultPublicationTitle implements CerifMultipleLanguageFeature {
 	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
-	private Translation translation = Translation.MACHINE;
+	private Translation translation;
 	
 	/**
 	 * The publication.
@@ -78,7 +78,7 @@ public class ResultPublicationTitle implements CerifMultipleLanguageFeature {
 	 * The title.
 	 */
 	@NotNull
-	@Column(name="cfTitle")
+	@Column(name="cfTitle", length=20000)
 	@Field(name="resultPublicationTitle", index=Index.YES, store=Store.YES)
 	private String title;
 	

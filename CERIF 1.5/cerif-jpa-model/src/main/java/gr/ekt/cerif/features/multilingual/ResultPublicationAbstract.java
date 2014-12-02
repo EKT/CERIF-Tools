@@ -51,7 +51,7 @@ public class ResultPublicationAbstract implements CerifMultipleLanguageFeature {
 	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
-	private Translation translation = Translation.MACHINE;
+	private Translation translation;
 	
 	/**
 	 * The publication.

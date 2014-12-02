@@ -51,7 +51,7 @@ public class ResultPublicationBibliographicNote implements CerifMultipleLanguage
 	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
-	private Translation translation = Translation.MACHINE;
+	private Translation translation;
 	
 	/**
 	 * The publication.
@@ -72,7 +72,7 @@ public class ResultPublicationBibliographicNote implements CerifMultipleLanguage
 	 * The bibliographicNote.
 	 */
 	@NotNull
-	@Column(name="cfBiblNote")
+	@Column(name="cfBiblNote", length=20000)
 	private String bibliographicNote;
 	
 	/**

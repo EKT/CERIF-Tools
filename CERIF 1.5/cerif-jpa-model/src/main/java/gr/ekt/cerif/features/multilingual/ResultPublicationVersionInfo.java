@@ -45,7 +45,7 @@ public class ResultPublicationVersionInfo implements CerifMultipleLanguageFeatur
 	@NotNull
 	@Column(name="cfTrans")
 	@Enumerated(EnumType.STRING)
-	private Translation translation = Translation.MACHINE;
+	private Translation translation;
 	
 	/**
 	 * The publication.
@@ -65,7 +65,7 @@ public class ResultPublicationVersionInfo implements CerifMultipleLanguageFeatur
 	 * The versionInfo.
 	 */
 	@NotNull
-	@Column(name="cfVersInfo")
+	@Column(name="cfVersInfo", length=20000)
 	private String versionInfo;
 	
 	/**

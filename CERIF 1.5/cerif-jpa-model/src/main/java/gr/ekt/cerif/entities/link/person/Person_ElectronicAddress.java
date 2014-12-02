@@ -101,6 +101,7 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 	 * @param electronicAddress
 	 * @param startDate
 	 * @param endDate
+	 * @param fraction
 	 */
 	public Person_ElectronicAddress(Person person,
 			ElectronicAddress electronicAddress,
@@ -109,6 +110,7 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 		this.electronicAddress = electronicAddress;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.fraction = fraction;
 	}
 	
 	/**
