@@ -21,12 +21,12 @@ public class LinkPersonLanguageRepositoryImpl implements LinkPersonLanguageRepos
 
 	@Override
 	public void delete(Person_Language entity) {
-		linkPersonLanguageCrudRepository.save(entity);		
+		linkPersonLanguageCrudRepository.delete(entity);		
 	}
 
 	@Override
 	public void delete(Iterable<Person_Language> entities) {
-		linkPersonLanguageCrudRepository.save(entities);		
+		linkPersonLanguageCrudRepository.delete(entities);		
 	}
 
 	@Override

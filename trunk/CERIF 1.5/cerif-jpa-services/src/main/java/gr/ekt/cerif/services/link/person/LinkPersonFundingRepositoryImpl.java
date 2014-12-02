@@ -26,7 +26,7 @@ public class LinkPersonFundingRepositoryImpl implements LinkPersonFundingReposit
 
 	@Override
 	public void delete(Iterable<Person_Funding> entities) {
-		linkPersonFundingCrudRepository.save(entities);		
+		linkPersonFundingCrudRepository.delete(entities);		
 	}
 
 	@Override

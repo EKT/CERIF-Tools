@@ -26,7 +26,7 @@ public class LinkEquipmentEquipmentRepositoryImpl implements
 
 	@Override
 	public void delete(Iterable<Equipment_Equipment> entities) {
-		linkEquipmentEquipmentCrudRepository.save(entities);
+		linkEquipmentEquipmentCrudRepository.delete(entities);
 	}
 
 	@Override

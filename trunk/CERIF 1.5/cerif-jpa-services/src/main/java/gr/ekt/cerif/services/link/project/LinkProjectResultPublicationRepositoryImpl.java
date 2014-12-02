@@ -3,9 +3,6 @@ package gr.ekt.cerif.services.link.project;
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.result.ResultPublication;
-import gr.ekt.cerif.services.base.ProjectRepository;
-import gr.ekt.cerif.services.result.ResultPublicationRepository;
-import gr.ekt.cerif.services.semantics.ClassRepository;
 
 import java.util.List;
 
@@ -19,18 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class LinkProjectResultPublicationRepositoryImpl implements LinkProjectResultPublicationRepository {
 	
 	private static final Logger log = LoggerFactory.getLogger(LinkProjectResultPublicationRepositoryImpl.class);
-
-	@Autowired
-	private ProjectRepository projectRepository;
-	
-	@Autowired
-	private ResultPublicationRepository resultPublicationRepository;
 	
 	@Autowired
 	private LinkProjectResultPublicationCrudRepository linkProjectResultPublicationCrudRepository;
-	
-	@Autowired
-	private ClassRepository classRepository;
 	
 
 	@Transactional

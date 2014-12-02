@@ -21,7 +21,7 @@ public interface LinkProjectFundingRepository {
 	
 	public Project_Funding save(Project_Funding entity);
 	
-	public Iterable<? extends Project_Funding> save(Iterable<? extends Project_Funding> entities);
+	public Iterable<Project_Funding> save(Iterable<Project_Funding> entities);
 	
 	public void delete(Project_Funding entity);
 	

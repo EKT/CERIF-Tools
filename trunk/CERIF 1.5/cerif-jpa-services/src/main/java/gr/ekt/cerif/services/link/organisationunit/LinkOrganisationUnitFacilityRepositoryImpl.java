@@ -5,11 +5,6 @@ import java.util.List;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
-import gr.ekt.cerif.services.base.OrganisationUnitRepository;
-import gr.ekt.cerif.services.infrastructure.FacilityRepository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,19 +16,13 @@ public class LinkOrganisationUnitFacilityRepositoryImpl implements LinkOrganisat
 	@Autowired
 	private LinkOrganisationUnitFacilityCrudRepository linkOrganisationUnitFacilityCrudRepository;
 
-	@Autowired
-	OrganisationUnitRepository organisationRepository;
-	
-	@Autowired
-	FacilityRepository facilityRepository;
-
 	@Transactional
 	public OrganisationUnit_Facility save(OrganisationUnit_Facility entity) {
 		return linkOrganisationUnitFacilityCrudRepository.save(entity);
 	}
 	
 	@Transactional
-	public Iterable<? extends OrganisationUnit_Facility> save(Iterable<? extends OrganisationUnit_Facility> entities) {
+	public Iterable<OrganisationUnit_Facility> save(Iterable<OrganisationUnit_Facility> entities) {
 		return linkOrganisationUnitFacilityCrudRepository.save(entities);
 	}
 	
@@ -48,7 +37,7 @@ public class LinkOrganisationUnitFacilityRepositoryImpl implements LinkOrganisat
 	}
 
 	@Transactional
-	public void delete(Iterable<? extends OrganisationUnit_Facility> entityList) {
+	public void delete(Iterable<OrganisationUnit_Facility> entityList) {
 		linkOrganisationUnitFacilityCrudRepository.delete(entityList);
 	}
 

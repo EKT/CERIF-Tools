@@ -5,9 +5,6 @@ import java.util.List;
 import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
 import gr.ekt.cerif.entities.second.Funding;
-import gr.ekt.cerif.services.base.ProjectRepository;
-import gr.ekt.cerif.services.second.FundingRepository;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class LinkProjectFundingRepositoryImpl implements LinkProjectFundingRepository {
 	
 	private static final Logger log = LoggerFactory.getLogger(LinkProjectFundingRepositoryImpl.class);
-
-	@Autowired
-	private ProjectRepository projectRepository;
-	
-	@Autowired
-	private FundingRepository fundingRepository;
 	
 	@Autowired
 	private LinkProjectFundingCrudRepository linkProjectFundingCrudRepository;
@@ -35,7 +26,7 @@ public class LinkProjectFundingRepositoryImpl implements LinkProjectFundingRepos
 	}
 	
 	@Transactional
-	public Iterable<? extends Project_Funding> save(Iterable<? extends Project_Funding> entityList) {
+	public Iterable<Project_Funding> save(Iterable<Project_Funding> entityList) {
 		return linkProjectFundingCrudRepository.save(entityList);
 	}
 
