@@ -3,23 +3,23 @@ package gr.ekt.cerif.xml.records.second;
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.ekt.cerif.entities.second.Measurement;
+import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.transformationengine.core.Record;
 
 /**
  * @author bonisv
  *
  */
-public class CerifMeasurementRecord extends Record {
+public class CerifEventRecord extends Record {
 	
-	private Measurement measurement;
+	private Event event;
 	
 	/**
-	 * @param measurement
+	 * @param event
 	 */
-	public CerifMeasurementRecord(Measurement measurement) {
+	public CerifEventRecord(Event event) {
 		super();
-		this.setMeasurement(measurement);
+		this.event = event;
 	}
 
 	@Override
@@ -48,17 +48,17 @@ public class CerifMeasurementRecord extends Record {
 	}
 
 	/**
-	 * @return the measurement
+	 * @return the event
 	 */
-	public Measurement getMeasurement() {
-		return measurement;
+	public Event getEvent() {
+		return event;
 	}
 
 	/**
-	 * @param measurement the measurement to set
+	 * @param event the event to set
 	 */
-	public void setMeasurement(Measurement measurement) {
-		this.measurement = measurement;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 }

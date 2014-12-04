@@ -1,25 +1,39 @@
-package gr.ekt.cerif.xml.records.second;
+package gr.ekt.cerif.xml.records.result;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.ekt.cerif.entities.second.Measurement;
+import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.transformationengine.core.Record;
 
 /**
  * @author bonisv
  *
  */
-public class CerifMeasurementRecord extends Record {
+public class CerifResultPatentRecord extends Record {
 	
-	private Measurement measurement;
+	private ResultPatent resultPatent;
 	
 	/**
-	 * @param measurement
+	 * @param resultPatent
 	 */
-	public CerifMeasurementRecord(Measurement measurement) {
+	public CerifResultPatentRecord(ResultPatent resultPatent) {
 		super();
-		this.setMeasurement(measurement);
+		this.resultPatent = resultPatent;
+	}
+		
+	/**
+	 * @return the resultPatent
+	 */
+	public ResultPatent getResultPatent() {
+		return resultPatent;
+	}
+
+	/**
+	 * @param resultPatent the resultPatent to set
+	 */
+	public void setResultPatent(ResultPatent resultPatent) {
+		this.resultPatent = resultPatent;
 	}
 
 	@Override
@@ -45,20 +59,6 @@ public class CerifMeasurementRecord extends Record {
 
 	@Override
 	public void addValueToField(String fieldName, Object fieldValue) {
-	}
-
-	/**
-	 * @return the measurement
-	 */
-	public Measurement getMeasurement() {
-		return measurement;
-	}
-
-	/**
-	 * @param measurement the measurement to set
-	 */
-	public void setMeasurement(Measurement measurement) {
-		this.measurement = measurement;
 	}
 
 }
