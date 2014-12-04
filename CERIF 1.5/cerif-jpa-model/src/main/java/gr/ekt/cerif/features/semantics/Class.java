@@ -57,6 +57,7 @@ import gr.ekt.cerif.entities.link.Medium_Indicator;
 import gr.ekt.cerif.entities.link.Medium_Measurement;
 import gr.ekt.cerif.entities.link.Medium_Medium;
 import gr.ekt.cerif.entities.link.Metrics_Class;
+import gr.ekt.cerif.entities.link.PersonName_Class;
 import gr.ekt.cerif.entities.link.PersonName_Person;
 import gr.ekt.cerif.entities.link.PostalAddress_Class;
 import gr.ekt.cerif.entities.link.PostalAddress_GeographicBoundingBox;
@@ -719,6 +720,9 @@ public class Class implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<PersonName_Person> personNames_persons;
+	
+	@OneToMany(mappedBy="theClass")
+	private Set<PersonName_Class> personNames_classes;
 	
 	
 	/**
@@ -3143,6 +3147,20 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setPersonNames_persons(Set<PersonName_Person> personNames_persons) {
 		this.personNames_persons = personNames_persons;
+	}
+
+	/**
+	 * @return the personNames_classes
+	 */
+	public Set<PersonName_Class> getPersonNames_classes() {
+		return personNames_classes;
+	}
+
+	/**
+	 * @param personNames_classes the personNames_classes to set
+	 */
+	public void setPersonNames_classes(Set<PersonName_Class> personNames_classes) {
+		this.personNames_classes = personNames_classes;
 	}
 
 	/**
