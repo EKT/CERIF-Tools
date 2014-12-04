@@ -23,9 +23,6 @@
 		<property name="password" value="${db.password}" />
 	</bean>
 	
-	<!-- or use this -->
-	<!-- <jee:jndi-lookup id="dataSource" jndi-name="jdbc/Euroris" resource-ref="true" /> -->
-
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="cerif-persistence-unit" />
 		<property name="packagesToScan">
@@ -68,16 +65,6 @@
 	<context:component-scan base-package="gr.ekt.cerif" />
 
 	<jpa:repositories base-package="gr.ekt.*" />
-	
-<!-- 	<bean id="openSessionInViewInterceptor" class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">   -->
-<!-- 	    <property name="sessionFactory">   -->
-<!-- 	        <ref local="entityManagerFactory"/>   -->
-<!-- 	    </property>   -->
-<!-- 	    <property name="flushModeName">   -->
-<!-- 	        <value>FLUSH_AUTO</value>   -->
-<!-- 	    </property>   -->
-<!-- 	</bean>   -->
-	
-	
+
 
 </beans>
