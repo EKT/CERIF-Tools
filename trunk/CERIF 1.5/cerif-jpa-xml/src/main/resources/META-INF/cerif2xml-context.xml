@@ -28,8 +28,8 @@
 
 	<bean id="cerifToXmlOutputGenerator" class="gr.ekt.cerif.xml.output.CerifToXmlOutputGenerator" scope="prototype">
 		<property name="velocityEngine" ref="cerifToXmlVelocityEngine" />
-		<property name="template" value="${xml.template}" />
-		<property name="xmlSourceDatabase" value="${xml.xmlSourceDatabase}" />
+		<property name="template" value="/META-INF/cerif2xmlTemplate-uuids.xml" />
+		<!-- <property name="xmlSourceDatabase" value="${xml.xmlSourceDatabase}" /> -->
 	</bean>
 	
 	<bean id="cerifToXmlVelocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">

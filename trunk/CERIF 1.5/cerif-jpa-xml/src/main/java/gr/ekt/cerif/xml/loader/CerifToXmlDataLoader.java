@@ -7,13 +7,18 @@ import gr.ekt.cerif.entities.base.Project;
 import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.entities.infrastructure.Service;
+import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.Citation;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
+import gr.ekt.cerif.entities.second.Event;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Funding;
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.entities.second.Measurement;
+import gr.ekt.cerif.entities.second.Medium;
+import gr.ekt.cerif.entities.second.Metrics;
 import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.features.semantics.ClassScheme;
 import gr.ekt.cerif.xml.loadingSpecs.LoadingSpecs;
@@ -23,13 +28,18 @@ import gr.ekt.cerif.xml.records.base.CerifProjectRecord;
 import gr.ekt.cerif.xml.records.infrastructure.CerifEquipmentRecord;
 import gr.ekt.cerif.xml.records.infrastructure.CerifFacilityRecord;
 import gr.ekt.cerif.xml.records.infrastructure.CerifServiceRecord;
+import gr.ekt.cerif.xml.records.result.CerifResultPatentRecord;
 import gr.ekt.cerif.xml.records.result.CerifResultProductRecord;
 import gr.ekt.cerif.xml.records.result.CerifResultPublicationRecord;
+import gr.ekt.cerif.xml.records.second.CerifCitationRecord;
 import gr.ekt.cerif.xml.records.second.CerifElectronicAddressRecord;
+import gr.ekt.cerif.xml.records.second.CerifEventRecord;
 import gr.ekt.cerif.xml.records.second.CerifFederatedIdentifierRecord;
 import gr.ekt.cerif.xml.records.second.CerifFundingRecord;
 import gr.ekt.cerif.xml.records.second.CerifIndicatorRecord;
 import gr.ekt.cerif.xml.records.second.CerifMeasurementRecord;
+import gr.ekt.cerif.xml.records.second.CerifMediumRecord;
+import gr.ekt.cerif.xml.records.second.CerifMetricsRecord;
 import gr.ekt.cerif.xml.records.second.CerifPostalAddressRecord;
 import gr.ekt.cerif.xml.records.semantics.CerifClassRecord;
 import gr.ekt.cerif.xml.records.semantics.CerifClassSchemeRecord;
@@ -111,6 +121,9 @@ public class CerifToXmlDataLoader extends DataLoader {
 		} else if (entity instanceof ResultProduct) {
 			record = new CerifResultProductRecord((ResultProduct) entity);
 			
+		} else if (entity instanceof ResultPatent) {
+			record = new CerifResultPatentRecord((ResultPatent) entity);
+			
 		} else if (entity instanceof Facility) {
 			record = new CerifFacilityRecord((Facility) entity);
 			
@@ -131,6 +144,18 @@ public class CerifToXmlDataLoader extends DataLoader {
 				
 		} else if (entity instanceof Indicator) {
 			record = new CerifIndicatorRecord((Indicator) entity);
+				
+		} else if (entity instanceof Medium) {
+			record = new CerifMediumRecord((Medium) entity);
+				
+		} else if (entity instanceof Event) {
+			record = new CerifEventRecord((Event) entity);
+				
+		} else if (entity instanceof Metrics) {
+			record = new CerifMetricsRecord((Metrics) entity);
+				
+		} else if (entity instanceof Citation) {
+			record = new CerifCitationRecord((Citation) entity);
 				
 		} else {
 			throw new IllegalArgumentException(String.format("Invalid entity provided. %s is not yet supported.", entity.getClass().getName()));
