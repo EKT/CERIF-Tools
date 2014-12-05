@@ -6187,6 +6187,37 @@ INSERT INTO `cfpersname` VALUES (1,'Family1','First1',NULL),(2,'Family2','First2
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cfpersname_class`
+--
+
+DROP TABLE IF EXISTS `cfpersname_class`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cfpersname_class` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `cfEndDate` datetime NOT NULL,
+  `cfFraction` double DEFAULT NULL,
+  `cfStartDate` datetime NOT NULL,
+  `cfPersNameId` bigint(20) NOT NULL,
+  `cfClassId` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_hf6xotq3rftv3bcw3cv3g7jh1` (`cfPersNameId`,`cfClassId`,`cfStartDate`,`cfEndDate`),
+  KEY `FK_7xoaju1fw1nuv7ijpw46pfj3y` (`cfClassId`),
+  CONSTRAINT `FK_7xoaju1fw1nuv7ijpw46pfj3y` FOREIGN KEY (`cfClassId`) REFERENCES `cfclass` (`cfClassId`),
+  CONSTRAINT `FK_k60c90jk4klo84lu0vc0hucp7` FOREIGN KEY (`cfPersNameId`) REFERENCES `cfpersname` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cfpersname_class`
+--
+
+LOCK TABLES `cfpersname_class` WRITE;
+/*!40000 ALTER TABLE `cfpersname_class` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cfpersname_class` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cfpersname_pers`
 --
 
@@ -9431,4 +9462,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-31 11:10:39
+-- Dump completed on 2014-12-05 14:08:44
