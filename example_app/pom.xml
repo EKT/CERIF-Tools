@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>gr.ekt</groupId>
   <artifactId>example_app</artifactId>
-  <version>0.8</version>
+  <version>0.8.1</version>
   <packaging>pom</packaging>
   <name>Example App</name>
   
@@ -21,11 +21,45 @@
                 		<db.driver>com.mysql.jdbc.Driver</db.driver>
                 		<db.url>jdbc:mysql://localhost:3306/example_db?characterEncoding=utf8</db.url>
                 		<db.username>root</db.username>
-                		<db.password>!123456!</db.password> 
+                		<db.password>pass</db.password> 
                        
                        <!-- validate | update | create | create-drop -->
                        <hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
                        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+                       <hibernate.show_sql>false</hibernate.show_sql>
+                       <hibernate.indexBase>/usr/local/lucene/example_app</hibernate.indexBase>
+                       <!-- set to "manual" to disable lucene indexing -->
+                       <hibernate.search.indexing_strategy>manual</hibernate.search.indexing_strategy>
+                       
+                       <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
+                       <hibernate.cache.use_query_cache>false</hibernate.cache.use_query_cache>
+                       <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
+                       
+                       <log4j.appender.file.File>/usr/local/tomcat/logs/example_app.log</log4j.appender.file.File>
+                       <log4j.propertiesfile.rootLogger>DEBUG, file</log4j.propertiesfile.rootLogger>
+					   <log4j.propertiesfile.logging>DEBUG</log4j.propertiesfile.logging>
+						
+                       <display-name>Example App</display-name>
+                       <servlet-name>Example_App</servlet-name>
+                       <webAppRootKey>example.webapp.root</webAppRootKey>
+                 </properties>
+        </profile>
+        
+        <profile>
+                 <id>example-postgres</id>
+                 <activation>
+                       <activeByDefault>false</activeByDefault>
+                 </activation>
+                 <properties>
+                       <target.version>0.1</target.version>
+                		<db.driver>org.postgresql.Driver</db.driver>
+                		<db.url>jdbc:postgresql://localhost:5432/example_db?characterEncoding=utf8</db.url>
+                		<db.username>postgres</db.username>
+                       <db.password>pass</db.password>
+                       
+                       <!-- validate | update | create | create-drop -->
+                       <hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
+                       <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
                        <hibernate.show_sql>false</hibernate.show_sql>
                        <hibernate.indexBase>/usr/local/lucene/example_app</hibernate.indexBase>
                        <!-- set to "manual" to disable lucene indexing -->
@@ -89,6 +123,14 @@
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- <dependency>
+				<groupId>postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>9.1-901-1.jdbc4</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency> -->
 	</dependencies>
 
 </project>
