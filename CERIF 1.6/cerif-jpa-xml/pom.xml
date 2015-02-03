@@ -5,7 +5,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   <modelVersion>4.0.0</modelVersion>
   <groupId>gr.ekt</groupId>
   <artifactId>cerif-jpa-xml</artifactId>
-  <version>0.1</version>
+  <version>0.9</version>
   <packaging>jar</packaging>
   <url>http://www.ekt.gr</url>
   
@@ -27,10 +27,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   <dependencies>
   	<dependency>
 		<groupId>gr.ekt</groupId>
-		<artifactId>cerif-jpa-services</artifactId>
-		<version>0.1</version>
-		<type>jar</type>
-		<scope>compile</scope>
+		<artifactId>cerif-jpa-model</artifactId>
+		<version>0.9</version>
 	</dependency>
   		
 	<dependency>
@@ -95,7 +93,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     	<version>1.2.16</version>
     	<scope>compile</scope>
     </dependency>
-  	
+    
+  	<dependency>
+  		<groupId>org.apache.commons</groupId>
+  		<artifactId>commons-lang3</artifactId>
+  		<version>3.1</version>
+  	</dependency>
   </dependencies>
   
   <build>

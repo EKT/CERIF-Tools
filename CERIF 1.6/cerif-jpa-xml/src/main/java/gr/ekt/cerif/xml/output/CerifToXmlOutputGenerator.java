@@ -9,16 +9,21 @@ import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.CV;
 import gr.ekt.cerif.entities.second.Citation;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.Event;
+import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
 import gr.ekt.cerif.entities.second.Funding;
+import gr.ekt.cerif.entities.second.GeographicBoundingBox;
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.entities.second.Metrics;
 import gr.ekt.cerif.entities.second.PostalAddress;
+import gr.ekt.cerif.entities.second.Prize;
+import gr.ekt.cerif.entities.second.Qualification;
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.features.semantics.ClassScheme;
 import gr.ekt.cerif.xml.loader.CerifEscapeTool;
@@ -32,15 +37,19 @@ import gr.ekt.cerif.xml.records.result.CerifResultPatentRecord;
 import gr.ekt.cerif.xml.records.result.CerifResultProductRecord;
 import gr.ekt.cerif.xml.records.result.CerifResultPublicationRecord;
 import gr.ekt.cerif.xml.records.second.CerifCitationRecord;
+import gr.ekt.cerif.xml.records.second.CerifCurriculumVitaeRecord;
 import gr.ekt.cerif.xml.records.second.CerifElectronicAddressRecord;
 import gr.ekt.cerif.xml.records.second.CerifEventRecord;
+import gr.ekt.cerif.xml.records.second.CerifExpertiseAndSkillsRecord;
 import gr.ekt.cerif.xml.records.second.CerifFederatedIdentifierRecord;
 import gr.ekt.cerif.xml.records.second.CerifFundingRecord;
+import gr.ekt.cerif.xml.records.second.CerifGeographicBoundingBoxRecord;
 import gr.ekt.cerif.xml.records.second.CerifIndicatorRecord;
 import gr.ekt.cerif.xml.records.second.CerifMeasurementRecord;
 import gr.ekt.cerif.xml.records.second.CerifMediumRecord;
-import gr.ekt.cerif.xml.records.second.CerifMetricsRecord;
 import gr.ekt.cerif.xml.records.second.CerifPostalAddressRecord;
+import gr.ekt.cerif.xml.records.second.CerifPrizeRecord;
+import gr.ekt.cerif.xml.records.second.CerifQualificationRecord;
 import gr.ekt.cerif.xml.records.semantics.CerifClassRecord;
 import gr.ekt.cerif.xml.records.semantics.CerifClassSchemeRecord;
 import gr.ekt.transformationengine.core.OutputGenerator;
@@ -99,6 +108,11 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 	private boolean useByteArray;
 	
 	/**
+	 * Whether to include the default XML declaration.
+	 */
+	private boolean includeDeclaration = true;
+	
+	/**
 	 * The actual result.
 	 */
 	private Object result;
@@ -140,7 +154,12 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 		List<Event> events = new ArrayList<Event>();
 		List<Metrics> metrics = new ArrayList<Metrics>();
 		List<Citation> citations = new ArrayList<Citation>();
-
+		List<CV> curriculaVitae = new ArrayList<CV>();
+		List<Qualification> qualifications = new ArrayList<Qualification>();
+		List<Prize> prizes = new ArrayList<Prize>();
+		List<GeographicBoundingBox> geographicBoundingBoxes = new ArrayList<GeographicBoundingBox>();
+		List<ExpertiseAndSkills> expertiseAndSkills = new ArrayList<ExpertiseAndSkills>();
+		
 		Iterator<Record> it = recordSet.getRecords().iterator();
 		while (it.hasNext()) {
 			Record tmpRecord = it.next();
@@ -186,6 +205,16 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 		    	events.add(((CerifEventRecord)tmpRecord).getEvent());
 		    } else if (tmpRecord instanceof CerifCitationRecord) {
 		    	citations.add(((CerifCitationRecord)tmpRecord).getCitation());
+		    } else if (tmpRecord instanceof CerifCurriculumVitaeRecord) {
+		    	curriculaVitae.add(((CerifCurriculumVitaeRecord)tmpRecord).getCurriculumVitae());
+		    } else if (tmpRecord instanceof CerifQualificationRecord) {
+		    	qualifications.add(((CerifQualificationRecord)tmpRecord).getQualification());
+		    } else if (tmpRecord instanceof CerifPrizeRecord) {
+		    	prizes.add(((CerifPrizeRecord)tmpRecord).getPrize());
+		    } else if (tmpRecord instanceof CerifGeographicBoundingBoxRecord) {
+		    	geographicBoundingBoxes.add(((CerifGeographicBoundingBoxRecord)tmpRecord).getGeographicBoundingBox());
+		    } else if (tmpRecord instanceof CerifExpertiseAndSkillsRecord) {
+		    	expertiseAndSkills.add(((CerifExpertiseAndSkillsRecord)tmpRecord).getExpertiseAndSkills());
 		    }
 		}
 
@@ -215,10 +244,16 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 		map.put("events", events);
 		map.put("metrics", metrics);
 		map.put("citations", citations);
+		map.put("curriculaVitae", curriculaVitae);
+		map.put("qualifications", qualifications);
+		map.put("prizes", prizes);
+		map.put("geographicBoundingBoxes", geographicBoundingBoxes);
+		map.put("expertiseAndSkills", expertiseAndSkills);
 		
 		map.put("xmlDate", new Date());
 		map.put("xmlSourceDatabase", xmlSourceDatabase);
 		map.put("xmlEncoding", xmlEncoding);
+		map.put("includeDeclaration", includeDeclaration);
 		
 		try {
 			if (useByteArray) {
@@ -308,6 +343,10 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 	
 	public void setUseByteArray(boolean useByteArray) {
 		this.useByteArray = useByteArray;
+	}
+	
+	public void setIncludeDeclaration(boolean includeDeclaration) {
+		this.includeDeclaration = includeDeclaration;
 	}
 	
 	

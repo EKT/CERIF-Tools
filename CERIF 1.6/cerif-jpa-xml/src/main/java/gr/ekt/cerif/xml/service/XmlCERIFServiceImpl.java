@@ -126,6 +126,7 @@ public class XmlCERIFServiceImpl implements XmlCERIFService {
 			if (StringUtils.hasText(options.getEncoding())) {
 				cerifToXmlOutputGenerator.setXmlEncoding(options.getEncoding());
 			}
+			cerifToXmlOutputGenerator.setIncludeDeclaration(options.getIncludeDeclaration());
 		}
 	}
 

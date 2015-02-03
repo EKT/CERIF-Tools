@@ -20,6 +20,11 @@ public class XmlCERIFOptions {
 	 * The encoding.
 	 */
 	private String encoding;
+	
+	/**
+	 * Whether to include the default XML declaration.
+	 */
+	private Boolean includeDeclaration = true;
 
 	/**
 	 * Returns the source database.
@@ -67,6 +72,22 @@ public class XmlCERIFOptions {
 	 */
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+	
+	/**
+	 * Returns whether the default XML declaration is included.
+	 * @return false/true.
+	 */
+	public Boolean getIncludeDeclaration() {
+		return includeDeclaration;
+	}
+	
+	/**
+	 * Sets whether the default XML declaration is included.
+	 * @param includeDeclaration false/true.
+	 */
+	public void setIncludeDeclaration(Boolean includeDeclaration) {
+		this.includeDeclaration = includeDeclaration;
 	}
 	
 }
