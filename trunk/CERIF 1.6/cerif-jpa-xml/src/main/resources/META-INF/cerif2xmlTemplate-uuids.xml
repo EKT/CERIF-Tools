@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<CERIF xmlns="urn:xmlns:org:eurocris:cerif-1.5-1" 
-		xsi:schemaLocation="urn:xmlns:org:eurocris:cerif-1.5-1 http://www.eurocris.org/Uploads/Web%20pages/CERIF-1.5/CERIF_1.5_1.xsd" 
+#if ($includeDeclaration)
+<?xml version="1.0" encoding="$xmlEncoding"?>
+#end
+<CERIF xmlns="urn:xmlns:org:eurocris:cerif-1.6-2" 
+		xsi:schemaLocation="urn:xmlns:org:eurocris:cerif-1.6-2 http://www.eurocris.org/Uploads/Web%20pages/CERIF-1.6/CERIF_1.6_2.xsd" 
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		release="1.5" 
 		date=$esc.quote$date.format('yyyy-MM-dd',$xmlDate)$esc.quote 
 		sourceDatabase=$esc.quote$xmlSourceDatabase$esc.quote >	
-
-
 #foreach( $project in $projects )
-<!-- A project record -->
+## <!-- A project record -->
 <cfProj>
+#if ($project.id)
 	<cfProjId>$project.id</cfProjId>
+#end
 #if ($project.startDate && $project.startDate != "")
 	<cfStartDate>$date.format('yyyy-MM-dd',$project.startDate)</cfStartDate>
 #end
@@ -25,36 +25,14 @@
 	<cfURI>$cerif.xml($project.uri)</cfURI>
 #end
 #foreach( $projectTitle in $project.projectTitles )
-#if( $projectTitle.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $projectTitle.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfTitle cfLangCode=$esc.quote$projectTitle.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($projectTitle.title)</cfTitle>
+	<cfTitle cfLangCode=$esc.quote$projectTitle.language.code$esc.quote cfTrans=$esc.quote$projectTitle.translation$esc.quote>$cerif.xml($projectTitle.title)</cfTitle>
 #end
 #foreach( $projectAbstract in $project.projectAbstracts )
-#if( $projectAbstract.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $projectAbstract.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfAbstr cfLangCode=$esc.quote$projectAbstract.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($projectAbstract.abstractText)</cfAbstr>
+	<cfAbstr cfLangCode=$esc.quote$projectAbstract.language.code$esc.quote cfTrans=$esc.quote$projectAbstract.translation$esc.quote>$cerif.xml($projectAbstract.abstractText)</cfAbstr>
 #end
 #foreach( $projectKeyword in $project.projectKeywords )
-#if( $projectKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $projectKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$projectKeyword.language.code$esc.quote cfTrans=$esc.quote$projectKeyword.translation$esc.quote>$cerif.xml($projectKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$projectKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($projectKeyword.keyword)</cfKeyw>
-#end
-
 #foreach( $projectClass in $project.projects_classes )
 	<cfProj_Class>
 		<cfClassId>$projectClass.theClass.uuid</cfClassId>			
@@ -65,7 +43,6 @@
 		<cfFraction>$projectClass.fraction</cfFraction>
 #end
 	</cfProj_Class>
-	
 #end
 #foreach( $equipmentProj in $project.projects_equipments )
 	<cfProj_Equip>
@@ -92,7 +69,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentProj.price</cfPrice>
 #end
 	</cfProj_Equip>
-	
 #end
 #foreach( $projEvent in $project.projects_events )
 	<cfProj_Event>
@@ -105,7 +81,6 @@
 		<cfFraction>$projEvent.fraction</cfFraction>
 #end
 	</cfProj_Event>
-	
 #end
 #foreach( $projectFacil in $project.projects_facilities )
 	<cfProj_Facil>
@@ -132,7 +107,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$projectFacil.price</cfPrice>
 #end
 	</cfProj_Facil>
-	
 #end
 #foreach( $projectFund in $project.projects_fundings )
 	<cfProj_Fund>
@@ -153,9 +127,8 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$projectFund.amount</cfAmount>
 #end
 	</cfProj_Fund>
-	
 #end
-#foreach( $projectOrgUnit in $project.organisationUnits )
+#foreach( $projectOrgUnit in $project.projects_organisationUnits )
 	<cfProj_OrgUnit>
 		<cfOrgUnitId>$projectOrgUnit.organisationUnit.id</cfOrgUnitId>		
 		<cfClassId>$projectOrgUnit.theClass.uuid</cfClassId>			
@@ -166,9 +139,8 @@
 		<cfFraction>$projectOrgUnit.fraction</cfFraction>
 #end
 	</cfProj_OrgUnit>
-	
 #end	
-#foreach( $projectPers in $project.persons )
+#foreach( $projectPers in $project.projects_persons )
 	<cfProj_Pers>
 		<cfPersId>$projectPers.person.id</cfPersId>		
 		<cfClassId>$projectPers.theClass.uuid</cfClassId>			
@@ -179,7 +151,6 @@
 		<cfFraction>$projectPers.fraction</cfFraction>
 #end
 	</cfProj_Pers>
-	
 #end
 #foreach( $projectResPat in $project.projects_resultPatents )
 	<cfProj_ResPat>
@@ -192,7 +163,6 @@
 		<cfFraction>$projectResPat.fraction</cfFraction>
 #end
 	</cfProj_ResPat>
-	
 #end
 #foreach( $projectProject1 in $project.projects_projects1 )
 	<cfProj_Proj>
@@ -205,7 +175,6 @@
 		<cfFraction>$projectProject1.fraction</cfFraction>
 #end
 	</cfProj_Proj>
-	
 #end
 #foreach( $projectProject2 in $project.projects_projects2 )
 	<cfProj_Proj>
@@ -218,7 +187,6 @@
 		<cfFraction>$projectProject2.fraction</cfFraction>
 #end
 	</cfProj_Proj>
-	
 #end		
 #foreach( $projectResProd in $project.projects_resultProducts )
 	<cfProj_ResProd>
@@ -231,7 +199,6 @@
 		<cfFraction>$projectResProd.fraction</cfFraction>
 #end
 	</cfProj_ResProd>
-	
 #end
 #foreach( $projectRespubl in $project.projects_resultPublications )
 	<cfProj_ResPubl>
@@ -247,7 +214,6 @@
 		<cfCopyright>$projectRespubl.copyright</cfCopyright>
 #end
 	</cfProj_ResPubl>
-	
 #end
 #foreach( $serviceProj in $project.projects_services )
 	<cfProj_Srv>
@@ -274,7 +240,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$serviceProj.price</cfPrice>
 #end
 	</cfProj_Srv>
-	
 #end
 #foreach( $projMed in $project.projects_mediums )
 	<cfProj_Medium>
@@ -287,7 +252,6 @@
 		<cfFraction>$projMed.fraction</cfFraction>
 #end
 	</cfProj_Medium>
-	
 #end
 #foreach( $projectMeasurement in $project.projects_measurements )
 	<cfProj_Meas>
@@ -300,7 +264,6 @@
 		<cfFraction>$projectMeasurement.fraction</cfFraction>
 #end
 	</cfProj_Meas>
-	
 #end
 #foreach( $projsIndic in $project.projects_indicators )
 	<cfProj_Indic>
@@ -313,11 +276,12 @@
 		<cfFraction>$projsIndic.fraction</cfFraction>
 #end
 	</cfProj_Indic>
-	
 #end
 #foreach( $projFederatedIdentifiers in $project.federatedIdentifiers )
 	<cfFedId>
+#if ($projFederatedIdentifiers.id)
 		<cfFedIdId>$projFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($projFederatedIdentifiers.fedId && $projFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($projFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -333,18 +297,20 @@
 #if ($projFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$projFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$projFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $projFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $projFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -357,19 +323,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfProj>
-
 #end
-
 #foreach( $organisation in $organisations )
-<!-- An organisation record -->
+## <!-- An organisation record -->
 <cfOrgUnit>
+#if ($organisation.id)
 	<cfOrgUnitId>$organisation.id</cfOrgUnitId>
+#end	
 #if ($organisation.acronym && $organisation.acronym != "")
 	<cfAcro>$cerif.xml($organisation.acronym)</cfAcro>
 #end
@@ -388,36 +352,14 @@
 	<cfURI>$cerif.xml($organisation.uri)</cfURI>
 #end
 #foreach( $organisationUnitName in $organisation.organisationUnitNames )
-#if( $organisationUnitName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $organisationUnitName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$organisationUnitName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($organisationUnitName.name)</cfName>
+	<cfName cfLangCode=$esc.quote$organisationUnitName.language.code$esc.quote cfTrans=$esc.quote$organisationUnitName.translation$esc.quote>$cerif.xml($organisationUnitName.name)</cfName>
 #end
 #foreach( $organisationResearchActivity in $organisation.organisationUnitResearchActivities )
-#if( $organisationResearchActivity.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $organisationResearchActivity.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfResAct cfLangCode=$esc.quote$organisationResearchActivity.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($organisationResearchActivity.researchActivity)</cfResAct>
+	<cfResAct cfLangCode=$esc.quote$organisationResearchActivity.language.code$esc.quote cfTrans=$esc.quote$organisationResearchActivity.translation$esc.quote>$cerif.xml($organisationResearchActivity.researchActivity)</cfResAct>
 #end
 #foreach( $organisationKeyword in $organisation.organisationUnitKeywords )
-#if( $organisationKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $organisationKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$organisationKeyword.language.code$esc.quote cfTrans=$esc.quote$organisationKeyword.translation$esc.quote>$cerif.xml($organisationKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$organisationKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($organisationKeyword.keyword)</cfKeyw>
-#end
-
 #foreach( $organisationFacil in $organisation.organisationUnits_facilities )
 	<cfOrgUnit_Facil>
 		<cfFacilId>$organisationFacil.facility.id</cfFacilId>		
@@ -443,9 +385,8 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$organisationFacil.price</cfPrice>
 #end
 	</cfOrgUnit_Facil>
-	
 #end
-#foreach( $organisationClass in $organisation.classes )
+#foreach( $organisationClass in $organisation.organisationUnits_classes )
 	<cfOrgUnit_Class>
 		<cfClassId>$organisationClass.theClass.uuid</cfClassId>	
 		<cfClassSchemeId>$organisationClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -455,7 +396,6 @@
 		<cfFraction>$organisationClass.fraction</cfFraction>
 #end
 	</cfOrgUnit_Class>
-	
 #end
 #foreach( $equipmentOrgs in $organisation.organisationUnits_equipments )
 	<cfOrgUnit_Equip>
@@ -482,7 +422,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentOrgs.price</cfPrice>
 #end
 	</cfOrgUnit_Equip>
-	
 #end
 #foreach( $organisationEAddress in $organisation.organisationUnits_electronicAddresses )
 	<cfOrgUnit_EAddr>
@@ -495,7 +434,6 @@
 		<cfFraction>$organisationEAddress.fraction</cfFraction>
 #end
 	</cfOrgUnit_EAddr>
-	
 #end
 #foreach( $orgEvent in $organisation.organisationUnits_events )
 	<cfOrgUnit_Event>
@@ -508,7 +446,6 @@
 		<cfFraction>$orgEvent.fraction</cfFraction>
 #end
 	</cfOrgUnit_Event>
-	
 #end
 #foreach( $organisationFund in $organisation.organisationUnits_fundings )
 	<cfOrgUnit_Fund>
@@ -529,7 +466,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$organisationFund.amount</cfAmount>
 #end
 	</cfOrgUnit_Fund>
-	
 #end
 #foreach( $organisationOrganisation1 in $organisation.organisationUnits_organisationUnits1 )
 	<cfOrgUnit_OrgUnit>
@@ -542,7 +478,6 @@
 		<cfFraction>$organisationOrganisation1.fraction</cfFraction>
 #end
 	</cfOrgUnit_OrgUnit>
-	
 #end
 #foreach( $organisationOrganisation2 in $organisation.organisationUnits_organisationUnits2 )
 	<cfOrgUnit_OrgUnit>
@@ -555,7 +490,6 @@
 		<cfFraction>$organisationOrganisation2.fraction</cfFraction>
 #end
 	</cfOrgUnit_OrgUnit>
-	
 #end
 #foreach( $orgResPat in $organisation.organisationUnits_resultPatents )
 	<cfOrgUnit_ResPat>
@@ -568,7 +502,6 @@
 		<cfFraction>$orgResPat.fraction</cfFraction>
 #end
 	</cfOrgUnit_ResPat>
-	
 #end
 #foreach( $organisationResProd in $organisation.organisationUnits_resultProducts )
 	<cfOrgUnit_ResProd>
@@ -595,7 +528,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$organisationResProd.price</cfPrice>
 #end
 	</cfOrgUnit_ResProd>
-	
 #end
 #foreach( $organisationRespubl in $organisation.organisationUnits_resultPublications )
 	<cfOrgUnit_ResPubl>
@@ -611,7 +543,6 @@
 		<cfCopyright>$organisationRespubl.copyright</cfCopyright>
 #end
 	</cfOrgUnit_ResPubl>
-	
 #end
 #foreach( $serviceOrgs in $organisation.organisationUnits_services )
 	<cfOrgUnit_Srv>
@@ -638,7 +569,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$serviceOrgs.price</cfPrice>
 #end
 	</cfOrgUnit_Srv>
-	
 #end
 #foreach( $organisationPers in $organisation.persons_organisationUnits )
 	<cfPers_OrgUnit>
@@ -651,9 +581,8 @@
 		<cfFraction>$organisationPers.fraction</cfFraction>
 #end
 	</cfPers_OrgUnit>
-	
 #end
-#foreach( $organisationProject in $organisation.projects )
+#foreach( $organisationProject in $organisation.projects_organisationUnits )
 	<cfProj_OrgUnit>
 		<cfProjId>$organisationProject.project.id</cfProjId>		
 		<cfClassId>$organisationProject.theClass.uuid</cfClassId>			
@@ -664,7 +593,6 @@
 		<cfFraction>$organisationProject.fraction</cfFraction>
 #end
 	</cfProj_OrgUnit>
-	
 #end
 #foreach( $organisationPAddress in $organisation.organisationUnits_postalAddresses )
 	<cfOrgUnit_PAddr>
@@ -677,7 +605,6 @@
 		<cfFraction>$organisationPAddress.fraction</cfFraction>
 #end
 	</cfOrgUnit_PAddr>
-	
 #end
 #foreach( $orgsMed in $organisation.organisationUnits_mediums )
 	<cfOrgUnit_Medium>
@@ -690,7 +617,6 @@
 		<cfFraction>$orgsMed.fraction</cfFraction>
 #end
 	</cfOrgUnit_Medium>
-	
 #end
 #foreach( $organisationMeasurement in $organisation.organisationUnits_measurements )
 	<cfOrgUnit_Meas>
@@ -703,7 +629,6 @@
 		<cfFraction>$organisationMeasurement.fraction</cfFraction>
 #end
 	</cfOrgUnit_Meas>
-	
 #end
 #foreach( $orgsIndic in $organisation.organisationUnits_indicators )
 	<cfOrgUnit_Indic>
@@ -716,11 +641,12 @@
 		<cfFraction>$orgsIndic.fraction</cfFraction>
 #end
 	</cfOrgUnit_Indic>
-	
 #end
 #foreach( $orgFederatedIdentifiers in $organisation.federatedIdentifiers )
 	<cfFedId>
+#if ($orgFederatedIdentifiers.id)
 		<cfFedIdId>$orgFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($orgFederatedIdentifiers.fedId && $orgFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($orgFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -736,18 +662,20 @@
 #if ($orgFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$orgFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$orgFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $orgFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $orgFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -760,56 +688,32 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfOrgUnit>
-
 #end
-
 #foreach( $person in $persons )
-<!-- A person record -->
+## <!-- A person record -->
 <cfPers>
+#if ($person.id)
 	<cfPersId>$person.id</cfPersId>
+#end
 #if ($person.birthDate && $person.birthDate != "")
 	<cfBirthdate>$date.format('yyyy-MM-dd',$person.birthDate)</cfBirthdate>
 #end
 #if ($person.gender && $person.gender != "")
-#if( $person.gender == "MALE" )
-#set ($gender = "m")
-#elseif( $person.gender == "FEMALE" )
-#set ($gender = "f")
-#else
-#set ($gender = "u")
-#end
-	<cfGender>$gender</cfGender>
+	<cfGender>$person.gender</cfGender>
 #end
 #if ($person.uri)
 	<cfURI>$cerif.xml($person.uri)</cfURI>
 #end
 #foreach( $personResearchInterests in $person.personResearchInterests )
-#if( $personResearchInterests.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $personResearchInterests.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfResInt cfLangCode=$esc.quote$personResearchInterests.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($personResearchInterests.researchInterests)</cfResInt>
+	<cfResInt cfLangCode=$esc.quote$personResearchInterests.language.code$esc.quote cfTrans=$esc.quote$personResearchInterests.translation$esc.quote>$cerif.xml($personResearchInterests.researchInterests)</cfResInt>
 #end
 #foreach( $personKeywords in $person.personKeywords )
-#if( $personKeywords.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $personKeywords.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$personKeywords.language.code$esc.quote cfTrans=$esc.quote$personKeywords.translation$esc.quote>$cerif.xml($personKeywords.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$personKeywords.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($personKeywords.keyword)</cfKeyw>
-#end
-
 #foreach( $personPerson1 in $person.persons_persons1 )
 	<cfPers_Pers>
 		<cfPersId1>$personPerson1.person1.id</cfPersId1>	
@@ -821,7 +725,6 @@
 		<cfFraction>$personPerson1.fraction</cfFraction>
 #end
 	</cfPers_Pers>
-	
 #end
 #foreach( $personPerson2 in $person.persons_persons2 )
 	<cfPers_Pers>
@@ -834,7 +737,6 @@
 		<cfFraction>$personPerson2.fraction</cfFraction>
 #end
 	</cfPers_Pers>
-	
 #end
 #foreach( $personEAddress in $person.persons_electronicAddresses )
 	<cfPers_EAddr>
@@ -847,9 +749,8 @@
 		<cfFraction>$personEAddress.fraction</cfFraction>
 #end
 	</cfPers_EAddr>
-	
 #end
-#foreach( $persClass in $person.classes )
+#foreach( $persClass in $person.persons_classes )
 	<cfPers_Class>
 		<cfClassId>$persClass.theClass.uuid</cfClassId>			
 		<cfClassSchemeId>$persClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -859,7 +760,6 @@
 		<cfFraction>$persClass.fraction</cfFraction>
 #end
 	</cfPers_Class>
-	
 #end
 #foreach( $equipmentPers in $person.persons_equipments )
 	<cfPers_Equip>
@@ -886,7 +786,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentPers.price</cfPrice>
 #end
 	</cfPers_Equip>
-	
 #end
 #foreach( $persEvent in $person.persons_events )
 	<cfPers_Event>
@@ -899,7 +798,6 @@
 		<cfFraction>$persEvent.fraction</cfFraction>
 #end
 	</cfPers_Event>
-	
 #end
 #foreach( $personFacil in $person.persons_facilities )
 	<cfPers_Facil>
@@ -926,7 +824,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$personFacil.price</cfPrice>
 #end
 	</cfPers_Facil>
-	
 #end
 #foreach( $personFund in $person.persons_fundings )
 	<cfPers_Fund>
@@ -947,7 +844,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$personFund.amount</cfAmount>
 #end
 	</cfPers_Fund>
-	
 #end
 #foreach( $personCoun in $person.persons_countries )
 	<cfPers_Country>
@@ -960,7 +856,6 @@
 		<cfFraction>$personCoun.fraction</cfFraction>
 #end
 	</cfPers_Country>
-	
 #end
 #foreach( $organisationPers in $person.persons_organisationUnits )
 	<cfPers_OrgUnit>
@@ -973,7 +868,6 @@
 		<cfFraction>$organisationPers.fraction</cfFraction>
 #end
 	</cfPers_OrgUnit>
-	
 #end
 #foreach( $personResPat in $person.persons_resultPatents )
 	<cfPers_ResPat>
@@ -986,7 +880,6 @@
 		<cfFraction>$personResPat.fraction</cfFraction>
 #end
 	</cfPers_ResPat>
-	
 #end
 #foreach( $personResProd in $person.persons_resultProducts )
 	<cfPers_ResProd>
@@ -1016,7 +909,6 @@
 		<cfIPR>$personResProd.ipr</cfIPR>
 #end
 	</cfPers_ResProd>
-	
 #end
 #foreach( $persRespubl in $person.persons_resultPublications )
 	<cfPers_ResPubl>
@@ -1029,7 +921,6 @@
 		<cfFraction>$persRespubl.fraction</cfFraction>
 #end
 	</cfPers_ResPubl>
-	
 #end
 #foreach( $servicePers in $person.persons_services )
 	<cfPers_Srv>
@@ -1056,9 +947,8 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$servicePers.price</cfPrice>
 #end
 	</cfPers_Srv>
-	
 #end
-#foreach( $projectPers in $person.projects )
+#foreach( $projectPers in $person.projects_persons )
 	<cfProj_Pers>
 		<cfProjId>$projectPers.project.id</cfProjId>		
 		<cfClassId>$projectPers.theClass.uuid</cfClassId>			
@@ -1069,7 +959,6 @@
 		<cfFraction>$projectPers.fraction</cfFraction>
 #end
 	</cfProj_Pers>
-	
 #end
 #foreach( $personPAddress in $person.persons_postalAddresses )
 	<cfPers_PAddr>
@@ -1082,24 +971,24 @@
 		<cfFraction>$personPAddress.fraction</cfFraction>
 #end
 	</cfPers_PAddr>
-	
 #end
-#foreach( $personName in $person.personNames )
+#foreach( $link in $person.personNames_persons )
 	<cfPersName_Pers>
-		<cfPersNameId>$personName.id</cfPersNameId>	
+#if ($link.personName.id)
+		<cfPersNameId>$link.personName.id</cfPersNameId>
+#end
 		<cfClassId>64f0eb00-462d-4737-8033-7efac82decf3</cfClassId>
 		<cfClassSchemeId>7375609d-cfa6-45ce-a803-75de69abe21f</cfClassSchemeId>	
-#if ($personName.familyNames && $personName.familyNames != "")
-		<cfFamilyNames>$cerif.xml($personName.familyNames)</cfFamilyNames>
+#if ($link.personName.familyNames && $link.personName.familyNames != "")
+		<cfFamilyNames>$cerif.xml($link.personName.familyNames)</cfFamilyNames>
 #end
-#if ($personName.firstNames && $personName.firstNames != "")			
-		<cfFirstNames>$cerif.xml($personName.firstNames)</cfFirstNames>
+#if ($link.personName.firstNames && $link.personName.firstNames != "")			
+		<cfFirstNames>$cerif.xml($link.personName.firstNames)</cfFirstNames>
 #end
-#if ($personName.otherNames && $personName.otherNames != "")
-		<cfOtherNames>$cerif.xml($personName.otherNames)</cfOtherNames>
+#if ($link.personName.otherNames && $link.personName.otherNames != "")
+		<cfOtherNames>$cerif.xml($link.personName.otherNames)</cfOtherNames>
 #end
 	</cfPersName_Pers>
-	
 #end	
 #foreach( $persMed in $person.persons_mediums )
 	<cfPers_Medium>
@@ -1112,7 +1001,6 @@
 		<cfFraction>$persMed.fraction</cfFraction>
 #end
 	</cfPers_Medium>
-	
 #end
 #foreach( $measurementPers in $person.persons_measurements )
 	<cfPers_Meas>
@@ -1125,7 +1013,6 @@
 		<cfFraction>$measurementPers.fraction</cfFraction>
 #end
 	</cfPers_Meas>
-	
 #end
 #foreach( $persIndic in $person.persons_indicators )
 	<cfPers_Indic>
@@ -1138,11 +1025,12 @@
 		<cfFraction>$persIndic.fraction</cfFraction>
 #end
 	</cfPers_Indic>
-	
 #end
 #foreach( $personFederatedIdentifiers in $person.federatedIdentifiers )
 	<cfFedId>
+#if ($personFederatedIdentifiers.id)
 		<cfFedIdId>$personFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($personFederatedIdentifiers.fedId && $personFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($personFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -1158,18 +1046,20 @@
 #if ($personFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$personFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$personFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $personFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $personFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -1182,26 +1072,23 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfPers>
-
 #end
-
 #foreach( $electronicAddress in $electronicAddresses )
-<!-- An electronic address record -->
+## <!-- An electronic address record -->
 <cfEAddr>
+#if ($electronicAddress.id)
 	<cfEAddrId>$electronicAddress.id</cfEAddrId>
+#end
 #if ($electronicAddress.postalAddress && $electronicAddress.postalAddress != "")
 	<cfPAddrId>$electronicAddress.postalAddress.id</cfPAddrId>
 #end
 #if ($electronicAddress.uri && $electronicAddress.uri != "")
 	<cfURI>$cerif.xml($electronicAddress.uri)</cfURI>
 #end
-
 #foreach( $organisationEAddress in $electronicAddress.organisationUnits_electronicAddresses )
 	<cfOrgUnit_EAddr>
 		<cfOrgUnitId>$organisationEAddress.organisationUnit.id</cfOrgUnitId>		
@@ -1213,7 +1100,6 @@
 		<cfFraction>$organisationEAddress.fraction</cfFraction>
 #end
 	</cfOrgUnit_EAddr>
-	
 #end
 #foreach( $personEAddress in $electronicAddress.persons_electronicAddresses )
 	<cfPers_EAddr>
@@ -1226,7 +1112,6 @@
 		<cfFraction>$personEAddress.fraction</cfFraction>
 #end
 	</cfPers_EAddr>
-	
 #end
 #foreach( $electronicAddressClass in $electronicAddress.electronicAddresses_classes )
 	<cfEAddr_Class>
@@ -1238,11 +1123,12 @@
 		<cfFraction>$electronicAddressClass.fraction</cfFraction>
 #end
 	</cfEAddr_Class>
-	
 #end
 #foreach( $electronicAddressFederatedIdentifiers in $electronicAddress.federatedIdentifiers )
 	<cfFedId>
+#if ($electronicAddressFederatedIdentifiers.id)
 		<cfFedIdId>$electronicAddressFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($electronicAddressFederatedIdentifiers.fedId && $electronicAddressFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($electronicAddressFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -1258,18 +1144,20 @@
 #if ($electronicAddressFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$electronicAddressFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$electronicAddressFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $electronicAddressFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $electronicAddressFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -1282,20 +1170,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
-
 </cfEAddr>
-
 #end
-
 #foreach( $postalAddress in $postalAddresses )
-<!-- A postal address record -->
+## <!-- A postal address record -->
 <cfPAddr>
+#if ($postalAddress.id)
 	<cfPAddrId>$postalAddress.id</cfPAddrId>
+#end
 #if ($postalAddress.country && $postalAddress.country != "")
 	<cfCountryCode>$postalAddress.country.code</cfCountryCode>
 #end
@@ -1326,7 +1211,6 @@
 #if ($postalAddress.uri && $postalAddress.uri != "")
 	<cfURI>$cerif.xml($postalAddress.uri)</cfURI>
 #end
-
 #foreach( $organisationPAddress in $postalAddress.organisationUnits_postalAddresses )
 	<cfOrgUnit_PAddr>
 		<cfOrgUnitId>$organisationPAddress.organisationUnit.id</cfOrgUnitId>		
@@ -1338,7 +1222,6 @@
 		<cfFraction>$organisationPAddress.fraction</cfFraction>
 #end
 	</cfOrgUnit_PAddr>
-	
 #end
 #foreach( $personPAddress in $postalAddress.persons_postalAddresses )
 	<cfPers_PAddr>
@@ -1351,7 +1234,6 @@
 		<cfFraction>$personPAddress.fraction</cfFraction>
 #end
 	</cfPers_PAddr>
-	
 #end
 #foreach( $postalAddressClass in $postalAddress.postalAddresses_classes )
 	<cfPAddr_Class>
@@ -1363,7 +1245,6 @@
 		<cfFraction>$postalAddressClass.fraction</cfFraction>
 #end
 	</cfPAddr_Class>
-	
 #end
 #foreach( $equipmentPAddress in $postalAddress.equipments_postalAddresses )
 	<cfEquip_PAddr>
@@ -1376,7 +1257,6 @@
 		<cfFraction>$equipmentPAddress.fraction</cfFraction>
 #end
 	</cfEquip_PAddr>
-	
 #end
 #foreach( $facilityPAddress in $postalAddress.facilities_postalAddresses )
 	<cfFacil_PAddr>
@@ -1389,7 +1269,6 @@
 		<cfFraction>$facilityPAddress.fraction</cfFraction>
 #end
 	</cfFacil_PAddr>
-	
 #end
 #foreach( $servicePAddress in $postalAddress.services_postalAddresses )
 	<cfSrv_PAddr>
@@ -1402,11 +1281,12 @@
 		<cfFraction>$servicePAddress.fraction</cfFraction>
 #end
 	</cfSrv_PAddr>
-	
 #end
 #foreach( $postalAddressFederatedIdentifiers in $postalAddress.federatedIdentifiers )
 	<cfFedId>
+#if ($postalAddressFederatedIdentifiers.id)
 		<cfFedIdId>$postalAddressFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($postalAddressFederatedIdentifiers.fedId && $postalAddressFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($postalAddressFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -1422,18 +1302,20 @@
 #if ($postalAddressFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$postalAddressFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$postalAddressFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $postalAddressFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $postalAddressFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -1446,19 +1328,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfPAddr>
-
 #end
-
 #foreach( $funding in $fundings )
-<!-- A funding record -->
+## <!-- A funding record -->
 <cfFund>
+#if ($funding.id)
 	<cfFundId>$funding.id</cfFundId>
+#end
 #if ($funding.startDate && $funding.startDate != "")
 	<cfStartDate>$date.format('yyyy-MM-dd',$funding.startDate)</cfStartDate>
 #end
@@ -1480,36 +1360,14 @@
 	<cfURI>$cerif.xml($funding.uri)</cfURI>
 #end
 #foreach( $fundingName in $funding.fundingNames )
-#if( $fundingName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $fundingName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$fundingName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($fundingName.name)</cfName>
+	<cfName cfLangCode=$esc.quote$fundingName.language.code$esc.quote cfTrans=$esc.quote$fundingName.translation$esc.quote>$cerif.xml($fundingName.name)</cfName>
 #end
 #foreach( $fundingDescr in $funding.fundingDescriptions )
-#if( $fundingDescr.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $fundingDescr.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$fundingDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($fundingDescr.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$fundingDescr.language.code$esc.quote cfTrans=$esc.quote$fundingDescr.translation$esc.quote>$cerif.xml($fundingDescr.description)</cfDescr>
 #end
 #foreach( $fundingKeyword in $funding.fundingKeywords )
-#if( $fundingKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $fundingKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$fundingKeyword.language.code$esc.quote cfTrans=$esc.quote$fundingKeyword.translation$esc.quote>$cerif.xml($fundingKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$fundingKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($fundingKeyword.keyword)</cfKeyw>
-#end
-
 #foreach( $fundingFunding1 in $funding.fundings_fundings1 )
 	<cfFund_Fund>
 		<cfFundId1>$fundingFunding1.funding1.id</cfFundId1>	
@@ -1521,7 +1379,6 @@
 		<cfFraction>$fundingFunding1.fraction</cfFraction>
 #end
 	</cfFund_Fund>
-	
 #end
 #foreach( $fundingFunding2 in $funding.fundings_fundings2 )
 	<cfFund_Fund>
@@ -1534,7 +1391,6 @@
 		<cfFraction>$fundingFunding2.fraction</cfFraction>
 #end
 	</cfFund_Fund>
-	
 #end
 #foreach( $equipmentFund in $funding.equipments_fundings )
 	<cfEquip_Fund>
@@ -1555,7 +1411,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$equipmentFund.amount</cfAmount>
 #end
 	</cfEquip_Fund>
-	
 #end
 #foreach( $eventFund in $funding.events_fundings )
 	<cfEvent_Fund>
@@ -1576,7 +1431,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$eventFund.amount</cfAmount>
 #end
 	</cfEvent_Fund>
-	
 #end
 #foreach( $facilityFund in $funding.facilities_fundings )
 	<cfFacil_Fund>
@@ -1597,7 +1451,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$facilityFund.amount</cfAmount>
 #end
 	</cfFacil_Fund>
-	
 #end
 #foreach( $fundClass in $funding.fundings_classes )
 	<cfFund_Class>
@@ -1609,7 +1462,6 @@
 		<cfFraction>$fundClass.fraction</cfFraction>
 #end
 	</cfFund_Class>
-	
 #end
 #foreach( $organisationFund in $funding.organisationUnits_fundings )
 	<cfOrgUnit_Fund>
@@ -1630,7 +1482,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$organisationFund.amount</cfAmount>
 #end
 	</cfOrgUnit_Fund>
-	
 #end
 #foreach( $personFund in $funding.persons_fundings )
 	<cfPers_Fund>
@@ -1651,7 +1502,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$personFund.amount</cfAmount>
 #end
 	</cfPers_Fund>
-	
 #end
 #foreach( $projectFund in $funding.projects_fundings )
 	<cfProj_Fund>
@@ -1672,7 +1522,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$projectFund.amount</cfAmount>
 #end
 	</cfProj_Fund>
-	
 #end
 #foreach( $resultProductFund in $funding.resultProducts_fundings )
 	<cfResProd_Fund>
@@ -1693,7 +1542,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resultProductFund.amount</cfAmount>
 #end
 	</cfResProd_Fund>
-	
 #end
 #foreach( $resultPublicationFund in $funding.resultPublications_fundings )
 	<cfResPubl_Fund>
@@ -1714,7 +1562,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resultPublicationFund.amount</cfAmount>
 #end
 	</cfResPubl_Fund>
-	
 #end
 #foreach( $resPatFunding in $funding.resultPatents_fundings )
 	<cfResPat_Fund>
@@ -1735,7 +1582,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resPatFunding.amount</cfAmount>
 #end
 	</cfResPat_Fund>
-	
 #end
 #foreach( $serviceFund in $funding.services_fundings )
 	<cfSrv_Fund>
@@ -1756,7 +1602,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$serviceFund.amount</cfAmount>
 #end
 	</cfSrv_Fund>
-	
 #end
 #foreach( $medFund in $funding.mediums_fundings )
 	<cfMedium_Fund>
@@ -1777,7 +1622,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$medFund.amount</cfAmount>
 #end
 	</cfMedium_Fund>
-	
 #end
 #foreach( $fundIndic in $funding.fundings_indicators )
 	<cfFund_Indic>
@@ -1798,11 +1642,12 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$fundIndic.amount</cfAmount>
 #end
 	</cfFund_Indic>
-	
 #end
 #foreach( $fundingFederatedIdentifiers in $funding.federatedIdentifiers )
 	<cfFedId>
+#if ($fundingFederatedIdentifiers.id)
 		<cfFedIdId>$fundingFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($fundingFederatedIdentifiers.fedId && $fundingFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($fundingFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -1818,18 +1663,20 @@
 #if ($fundingFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$fundingFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$fundingFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $fundingFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $fundingFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -1842,20 +1689,20 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfFund>
-
 #end
-
 #foreach( $theClass in $classes )
-<!-- A class record -->
+## <!-- A class record -->
 <cfClass>
+#if ($theClass.uuid)
 	<cfClassId>$theClass.uuid</cfClassId>
+#end
+#if ($theClass.scheme.uuid)
 	<cfClassSchemeId>$theClass.scheme.uuid</cfClassSchemeId>
+#end
 #if ($theClass.startDate && $theClass.startDate != "")
 	<cfStartDate>$date.format('yyyy-MM-dd',$theClass.startDate)</cfStartDate>
 #end
@@ -1866,64 +1713,35 @@
 	<cfURI>$cerif.xml($theClass.uri)</cfURI>
 #end
 #foreach( $classDescription in $theClass.descriptions )
-#if( $classDescription.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classDescription.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classDescription.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$classDescription.translation$esc.quote>$cerif.xml($classDescription.description)</cfDescr>
 #if ($classDescription.descriptionSrc && $classDescription.descriptionSrc != "")	
-	<cfDescrSrc cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classDescription.descriptionSrc)</cfDescrSrc>
+	<cfDescrSrc cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$classDescription.translation$esc.quote>$cerif.xml($classDescription.descriptionSrc)</cfDescrSrc>
 #end
 #end
 #foreach( $classTerm in $theClass.terms )
-#if( $classTerm.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classTerm.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfTerm cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classTerm.term)</cfTerm>
+	<cfTerm cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.term)</cfTerm>
 #if ($classTerm.roleExpr && $classTerm.roleExpr != "")	
-	<cfRoleExpr cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classTerm.roleExpr)</cfRoleExpr>
+	<cfRoleExpr cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.roleExpr)</cfRoleExpr>
 #end
 #if ($classTerm.roleExprOpp && $classTerm.roleExprOpp != "")	
-	<cfRoleExprOpp cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classTerm.roleExprOpp)</cfRoleExprOpp>
+	<cfRoleExprOpp cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.roleExprOpp)</cfRoleExprOpp>
 #end
 #if ($classTerm.termSrc && $classTerm.termSrc != "")	
-	<cfTermSrc cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classTerm.termSrc)</cfTermSrc>
+	<cfTermSrc cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.termSrc)</cfTermSrc>
 #end
 #end
 #foreach( $classDefinition in $theClass.definitions )
-#if( $classDefinition.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classDefinition.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDef cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classDefinition.definition)</cfDef>
+	<cfDef cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$classDefinition.translation$esc.quote>$cerif.xml($classDefinition.definition)</cfDef>
 #if ($classDefinition.definitionSrc && $classDefinition.definitionSrc != "")	
-	<cfDefSrc cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classDefinition.definitionSrc)</cfDefSrc>
+	<cfDefSrc cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$classDefinition.translation$esc.quote>$cerif.xml($classDefinition.definitionSrc)</cfDefSrc>
 #end
 #end
 #foreach( $classEx in $theClass.exs )
-#if( $classEx.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classEx.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfEx cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classEx.ex)</cfEx>
+	<cfEx cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$classEx.translation$esc.quote>$cerif.xml($classEx.ex)</cfEx>
 #if ($classEx.exSrc && $classEx.exSrc != "")	
-	<cfExSrc cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classEx.exSrc)</cfExSrc>
+	<cfExSrc cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$classEx.translation$esc.quote>$cerif.xml($classEx.exSrc)</cfExSrc>
 #end
 #end
-
 #foreach( $classClass1 in $theClass.class_class1 )
 	<cfClass_Class>
 		<cfClassId1>$classClass1.theClass1.uuid</cfClassId1>	
@@ -1936,7 +1754,6 @@
 		<cfFraction>$classClass1.fraction</cfFraction>
 #end
 	</cfClass_Class>
-	
 #end
 #foreach( $classClass2 in $theClass.class_class2 )
 	<cfClass_Class>
@@ -1950,11 +1767,12 @@
 		<cfFraction>$classClass2.fraction</cfFraction>
 #end
 	</cfClass_Class>
-	
 #end
 #foreach( $classFederatedIdentifiers in $theClass.transientFederatedIdentifiers )
 	<cfFedId>
+#if ($classFederatedIdentifiers.id)
 		<cfFedIdId>$classFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($classFederatedIdentifiers.fedId && $classFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($classFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -1970,18 +1788,20 @@
 #if ($classFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$classFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$classFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $classFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $classFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -1994,52 +1814,37 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfClass>
-
 #end
-
 #foreach( $classScheme in $classesSchemes )
-<!-- A class scheme record -->
+## <!-- A class scheme record -->
 <cfClassScheme>
+#if ($classScheme.uuid)
 	<cfClassSchemeId>$classScheme.uuid</cfClassSchemeId>
+#end
 #if ($classScheme.uri && $classScheme.uri != "")
 	<cfURI>$cerif.xml($classScheme.uri)</cfURI>
 #end
-#foreach( $classSchemeDescr in $classScheme.descriptions )
-#if( $classSchemeDescr.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classSchemeDescr.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$classSchemeDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classSchemeDescr.description)</cfDescr>
+#foreach( $classSchemeDescr in $classScheme.classSchemeDescriptions )
+	<cfDescr cfLangCode=$esc.quote$classSchemeDescr.language.code$esc.quote cfTrans=$esc.quote$classSchemeDescr.translation$esc.quote>$cerif.xml($classSchemeDescr.description)</cfDescr>
 #if ($classSchemeDescr.descriptionSrc && $classSchemeDescr.descriptionSrc != "")
-	<cfDescrSrc cfLangCode=$esc.quote$classSchemeDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classSchemeDescr.descriptionSrc)</cfDescrSrc>
+	<cfDescrSrc cfLangCode=$esc.quote$classSchemeDescr.language.code$esc.quote cfTrans=$esc.quote$classSchemeDescr.translation$esc.quote>$cerif.xml($classSchemeDescr.descriptionSrc)</cfDescrSrc>
 #end
 #end
-#foreach( $classSchemeName in $classScheme.names )
-#if( $classSchemeName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classSchemeName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$classSchemeName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classSchemeName.name)</cfName>
+#foreach( $classSchemeName in $classScheme.classSchemeNames )
+	<cfName cfLangCode=$esc.quote$classSchemeName.language.code$esc.quote cfTrans=$esc.quote$classSchemeName.translation$esc.quote>$cerif.xml($classSchemeName.name)</cfName>
 #if ($classSchemeName.nameSrc && $classSchemeName.nameSrc != "")
-	<cfNameSrc cfLangCode=$esc.quote$classSchemeName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classSchemeName.nameSrc)</cfNameSrc>
+	<cfNameSrc cfLangCode=$esc.quote$classSchemeName.language.code$esc.quote cfTrans=$esc.quote$classSchemeName.translation$esc.quote>$cerif.xml($classSchemeName.nameSrc)</cfNameSrc>
 #end
 #end
-
 #foreach( $classSchemeFederatedIdentifiers in $classScheme.transientFederatedIdentifiers )
 	<cfFedId>
+#if ($classSchemeFederatedIdentifiers.id)
 		<cfFedIdId>$classSchemeFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($classSchemeFederatedIdentifiers.fedId && $classSchemeFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($classSchemeFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -2055,18 +1860,20 @@
 #if ($classSchemeFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$classSchemeFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$classSchemeFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $classSchemeFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $classSchemeFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -2079,10 +1886,8 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 ## Embedded classes of scheme
 #foreach($theClass in $classScheme.classes)
@@ -2100,74 +1905,46 @@
 #if ($theClass.uuid && $theClass.uuid != "")
 	<cfUUID>$theClass.uuid</cfUUID>
 #end
-#foreach( $classDescription in $theClass.descriptions )
-#if( $classDescription.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classDescription.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classDescription.description)</cfDescr>
+#foreach( $classDescription in $theClass.classDescriptions )
+	<cfDescr cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$classDescription.translation$esc.quote>$cerif.xml($classDescription.description)</cfDescr>
 #if ($classDescription.descriptionSrc && $classDescription.descriptionSrc != "")	
-	<cfDescrSrc cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classDescription.descriptionSrc)</cfDescrSrc>
+	<cfDescrSrc cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$classDescription.translation$esc.quote>$cerif.xml($classDescription.descriptionSrc)</cfDescrSrc>
 #end
 #end
-#foreach( $classTerm in $theClass.terms )
-#if( $classTerm.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classTerm.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfTerm cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classTerm.term)</cfTerm>
+#foreach( $classTerm in $theClass.classTerms )
+	<cfTerm cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.term)</cfTerm>
 #if ($classTerm.roleExpr && $classTerm.roleExpr != "")	
-	<cfRoleExpr cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classTerm.roleExpr)</cfRoleExpr>
+	<cfRoleExpr cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.roleExpr)</cfRoleExpr>
 #end
 #if ($classTerm.roleExprOpp && $classTerm.roleExprOpp != "")	
-	<cfRoleExprOpp cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classTerm.roleExprOpp)</cfRoleExprOpp>
+	<cfRoleExprOpp cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.roleExprOpp)</cfRoleExprOpp>
 #end
 #if ($classTerm.termSrc && $classTerm.termSrc != "")	
-	<cfTermSrc cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classTerm.termSrc)</cfTermSrc>
+	<cfTermSrc cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.termSrc)</cfTermSrc>
 #end
 #end
-#foreach( $classDefinition in $theClass.definitions )
-#if( $classDefinition.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classDefinition.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDef cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classDefinition.definition)</cfDef>
+#foreach( $classDefinition in $theClass.classDefinitions )
+	<cfDef cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$classDefinition.translation$esc.quote>$cerif.xml($classDefinition.definition)</cfDef>
 #if ($classDefinition.definitionSrc && $classDefinition.definitionSrc != "")	
-	<cfDefSrc cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classDefinition.definitionSrc)</cfDefSrc>
+	<cfDefSrc cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$classDefinition.translation$esc.quote>$cerif.xml($classDefinition.definitionSrc)</cfDefSrc>
 #end
 #end
-#foreach( $classEx in $theClass.exs )
-#if( $classEx.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $classEx.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfEx cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classEx.ex)</cfEx>
+#foreach( $classEx in $theClass.classExs )
+	<cfEx cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$classEx.translation$esc.quote>$cerif.xml($classEx.ex)</cfEx>
 #if ($classEx.exSrc && $classEx.exSrc != "")	
-	<cfExSrc cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($classEx.exSrc)</cfExSrc>
+	<cfExSrc cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$classEx.translation$esc.quote>$cerif.xml($classEx.exSrc)</cfExSrc>
 #end
 #end
 </cfClass>
 #end
 </cfClassScheme>
-
 #end
-
 #foreach( $resultPatent in $resultPatents )
-<!-- A Result Patent record -->
+## <!-- A Result Patent record -->
 <cfResPat>
+#if ($resultPatent.id)
 	<cfResPatId>$resultPatent.id</cfResPatId>
+#end
 #if ($resultPatent.country && $resultPatent.country != "")
 	<cfCountryCode>$cerif.xml($resultPatent.country.code)</cfCountryCode>
 #end
@@ -2184,46 +1961,17 @@
 	<cfURI>$cerif.xml($resultPatent.uri)</cfURI>
 #end
 #foreach( $resultPatentTitle in $resultPatent.resultPatentTitles )
-#if( $resultPatentTitle.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPatentTitle.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfTitle cfLangCode=$esc.quote$resultPatentTitle.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPatentTitle.title)</cfTitle>
+	<cfTitle cfLangCode=$esc.quote$resultPatentTitle.language.code$esc.quote cfTrans=$esc.quote$resultPatentTitle.translation$esc.quote>$cerif.xml($resultPatentTitle.title)</cfTitle>
 #end
 #foreach( $resultPatentAbstr in $resultPatent.resultPatentAbstracts )
-#if( $resultPatentAbstr.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPatentAbstr.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfAbstr cfLangCode=$esc.quote$resultPatentAbstr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPatentAbstr.abstractText)</cfAbstr>
+	<cfAbstr cfLangCode=$esc.quote$resultPatentAbstr.language.code$esc.quote cfTrans=$esc.quote$resultPatentAbstr.translation$esc.quote>$cerif.xml($resultPatentAbstr.abstractText)</cfAbstr>
 #end
 #foreach( $resultPatentKeyword in $resultPatent.resultPatentKeywords )
-#if( $resultPatentKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPatentKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfKeyw cfLangCode=$esc.quote$resultPatentKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPatentKeyword.keyword)</cfKeyw>
+	<cfKeyw cfLangCode=$esc.quote$resultPatentKeyword.language.code$esc.quote cfTrans=$esc.quote$resultPatentKeyword.translation$esc.quote>$cerif.xml($resultPatentKeyword.keyword)</cfKeyw>
 #end
 #foreach( $resultPatentVersionInfo in $resultPatent.resultPatentVersionInfos )
-#if( $resultPatentVersionInfo.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPatentVersionInfo.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfVersInfo cfLangCode=$esc.quote$resultPatentVersionInfo.language.code$esc.quote cfTrans=$esc.quote$resultPatentVersionInfo.translation$esc.quote>$cerif.xml($resultPatentVersionInfo.versionInfo)</cfVersInfo>
 #end
-	<cfVersInfo cfLangCode=$esc.quote$resultPatentVersionInfo.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPatentVersionInfo.versionInfo)</cfVersInfo>
-#end
-
 #foreach( $orgResPat in $resultPatent.organisationUnits_resultPatents )
 	<cfOrgUnit_ResPat>
 		<cfOrgUnitId>$orgResPat.organisationUnit.id</cfOrgUnitId>		
@@ -2235,7 +1983,6 @@
 		<cfFraction>$orgResPat.fraction</cfFraction>
 #end
 	</cfOrgUnit_ResPat>
-	
 #end
 #foreach( $personResPat in $resultPatent.persons_resultPatents )
 	<cfPers_ResPat>
@@ -2248,7 +1995,6 @@
 		<cfFraction>$personResPat.fraction</cfFraction>
 #end
 	</cfPers_ResPat>
-	
 #end
 #foreach( $projectResPat in $resultPatent.projects_resultPatents )
 	<cfProj_ResPat>
@@ -2261,7 +2007,6 @@
 		<cfFraction>$projectResPat.fraction</cfFraction>
 #end
 	</cfProj_ResPat>
-	
 #end
 #foreach( $resPatFunding in $resultPatent.resultPatents_fundings )
 	<cfResPat_Fund>
@@ -2282,7 +2027,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resPatFunding.amount</cfAmount>
 #end
 	</cfResPat_Fund>
-	
 #end
 #foreach( $resPublresPat in $resultPatent.resultPublications_resultPatents )
 	<cfResPubl_ResPat>
@@ -2295,7 +2039,6 @@
 		<cfFraction>$resPublresPat.fraction</cfFraction>
 #end
 	</cfResPubl_ResPat>
-	
 #end
 #foreach( $respatRespat1 in $resultPatent.resultPatents_resultPatents1 )
 	<cfResPat_ResPat>
@@ -2308,7 +2051,6 @@
 		<cfFraction>$respatRespat1.fraction</cfFraction>
 #end
 	</cfResPat_ResPat>
-	
 #end
 #foreach( $respatRespat2 in $resultPatent.resultPatents_resultPatents2 )
 	<cfResPat_ResPat>
@@ -2321,7 +2063,6 @@
 		<cfFraction>$respatRespat2.fraction</cfFraction>
 #end
 	</cfResPat_ResPat>
-	
 #end
 #foreach( $resPatMed in $resultPatent.resultPatents_mediums )
 	<cfResPat_Medium>
@@ -2334,7 +2075,6 @@
 		<cfFraction>$resPatMed.fraction</cfFraction>
 #end
 	</cfResPat_Medium>
-	
 #end
 #foreach( $resPatFacility in $resultPatent.resultPatents_facilities )
 	<cfResPat_Facil>
@@ -2347,7 +2087,6 @@
 		<cfFraction>$resPatFacility.fraction</cfFraction>
 #end
 	</cfResPat_Facil>
-	
 #end
 #foreach( $resPatService in $resultPatent.resultPatents_services )
 	<cfResPat_Srv>
@@ -2360,7 +2099,6 @@
 		<cfFraction>$resPatService.fraction</cfFraction>
 #end
 	</cfResPat_Srv>
-	
 #end
 #foreach( $resPatEquipment in $resultPatent.resultPatents_equipments )
 	<cfResPat_Equip>
@@ -2373,7 +2111,6 @@
 		<cfFraction>$resPatEquipment.fraction</cfFraction>
 #end
 	</cfResPat_Equip>
-	
 #end
 #foreach( $resPatMeasurement in $resultPatent.resultPatents_measurements )
 	<cfResPat_Meas>
@@ -2386,7 +2123,6 @@
 		<cfFraction>$resPatMeasurement.fraction</cfFraction>
 #end
 	</cfResPat_Meas>
-	
 #end
 #foreach( $resPatIndic in $resultPatent.resultPatents_indicators )
 	<cfResPat_Indic>
@@ -2399,11 +2135,12 @@
 		<cfFraction>$resPatIndic.fraction</cfFraction>
 #end
 	</cfResPat_Indic>
-	
 #end
 #foreach( $resPatFederatedIdentifiers in $resultPatent.federatedIdentifiers )
 	<cfFedId>
+#if ($resPatFederatedIdentifiers.id)
 		<cfFedIdId>$resPatFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($resPatFederatedIdentifiers.fedId && $resPatFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($resPatFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -2419,18 +2156,20 @@
 #if ($resPatFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$resPatFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$resPatFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $resPatFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $resPatFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -2443,64 +2182,32 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
-
 </cfResPat>
-
 #end
-
 #foreach( $resultProduct in $resultProducts )
-<!-- A Result Product record -->
+## <!-- A Result Product record -->
 <cfResProd>
+#if ($resultProduct.id)
 	<cfResProdId>$resultProduct.id</cfResProdId>
+#end
 #if ($resultProduct.uri && $resultProduct.uri != "")
 	<cfURI>$cerif.xml($resultProduct.uri)</cfURI>
 #end
 #foreach( $resultProductName in $resultProduct.resultProductNames )
-#if( $resultProductName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultProductName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$resultProductName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultProductName.name)</cfName>
+	<cfName cfLangCode=$esc.quote$resultProductName.language.code$esc.quote cfTrans=$esc.quote$resultProductName.translation$esc.quote>$cerif.xml($resultProductName.name)</cfName>
 #end
 #foreach( $resultProductDescr in $resultProduct.resultProductDescriptions )
-#if( $resultProductDescr.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultProductDescr.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$resultProductDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultProductDescr.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$resultProductDescr.language.code$esc.quote cfTrans=$esc.quote$resultProductDescr.translation$esc.quote>$cerif.xml($resultProductDescr.description)</cfDescr>
 #end
 #foreach( $resultProductKeyword in $resultProduct.resultProductKeywords )
-#if( $resultProductKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultProductKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfKeyw cfLangCode=$esc.quote$resultProductKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultProductKeyword.keyword)</cfKeyw>
+	<cfKeyw cfLangCode=$esc.quote$resultProductKeyword.language.code$esc.quote cfTrans=$esc.quote$resultProductKeyword.translation$esc.quote>$cerif.xml($resultProductKeyword.keyword)</cfKeyw>
 #end
 #foreach( $resultProductVersionInfo in $resultProduct.resultProductVersionInfos )
-#if( $resultProductVersionInfo.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultProductVersionInfo.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfVersInfo cfLangCode=$esc.quote$resultProductVersionInfo.language.code$esc.quote cfTrans=$esc.quote$resultProductVersionInfo.translation$esc.quote>$cerif.xml($resultProductVersionInfo.versionInfo)</cfVersInfo>
 #end
-	<cfVersInfo cfLangCode=$esc.quote$resultProductVersionInfo.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultProductVersionInfo.versionInfo)</cfVersInfo>
-#end
-
 #foreach( $organisationResProd in $resultProduct.organisationUnits_resultProducts )
 	<cfOrgUnit_ResProd>
 		<cfOrgUnitId>$organisationResProd.organisationUnit.id</cfOrgUnitId>		
@@ -2526,7 +2233,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$organisationResProd.price</cfPrice>
 #end
 	</cfOrgUnit_ResProd>
-	
 #end
 #foreach( $personResProd in $resultProduct.persons_resultProducts )
 	<cfPers_ResProd>
@@ -2556,7 +2262,6 @@
 		<cfIPR>$personResProd.ipr</cfIPR>
 #end
 	</cfPers_ResProd>
-	
 #end
 #foreach( $projectResProd in $resultProduct.projects_resultProducts )
 	<cfProj_ResProd>
@@ -2569,7 +2274,6 @@
 		<cfFraction>$projectResProd.fraction</cfFraction>
 #end
 	</cfProj_ResProd>
-	
 #end
 #foreach( $resultProductClass in $resultProduct.resultProducts_classes )
 	<cfResProd_Class>
@@ -2581,7 +2285,6 @@
 		<cfFraction>$resultProductClass.fraction</cfFraction>
 #end
 	</cfResProd_Class>
-	
 #end
 #foreach( $resultProductFund in $resultProduct.resultProducts_fundings )
 	<cfResProd_Fund>
@@ -2602,7 +2305,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resultProductFund.amount</cfAmount>
 #end
 	</cfResProd_Fund>
-	
 #end
 #foreach( $resultPublicationResProd in $resultProduct.resultPublications_resultProducts )
 	<cfResPubl_ResProd>
@@ -2615,7 +2317,6 @@
 		<cfFraction>$resultPublicationResProd.fraction</cfFraction>
 #end
 	</cfResPubl_ResProd>
-	
 #end
 #foreach( $resprodResprod1 in $resultProduct.resultProducts_resultProducts1 )
 	<cfResProd_ResProd>
@@ -2628,7 +2329,6 @@
 		<cfFraction>$resprodResprod1.fraction</cfFraction>
 #end
 	</cfResProd_ResProd>
-	
 #end
 #foreach( $resprodResprod2 in $resultProduct.resultProducts_resultProducts2 )
 	<cfResProd_ResProd>
@@ -2641,7 +2341,6 @@
 		<cfFraction>$resprodResprod2.fraction</cfFraction>
 #end
 	</cfResProd_ResProd>
-	
 #end
 #foreach( $resProdMed in $resultProduct.resultProducts_mediums )
 	<cfResProd_Medium>
@@ -2654,7 +2353,6 @@
 		<cfFraction>$resProdMed.fraction</cfFraction>
 #end
 	</cfResProd_Medium>
-	
 #end
 #foreach( $facilityResProd in $resultProduct.resultProducts_facilities )
 	<cfResProd_Facil>
@@ -2667,7 +2365,6 @@
 		<cfFraction>$facilityResProd.fraction</cfFraction>
 #end
 	</cfResProd_Facil>
-	
 #end
 #foreach( $serviceResProd in $resultProduct.resultProducts_services )
 	<cfResProd_Srv>
@@ -2680,7 +2377,6 @@
 		<cfFraction>$serviceResProd.fraction</cfFraction>
 #end
 	</cfResProd_Srv>
-	
 #end
 #foreach( $equipmentResProd in $resultProduct.resultProducts_equipments )
 	<cfResProd_Equip>
@@ -2693,7 +2389,6 @@
 		<cfFraction>$equipmentResProd.fraction</cfFraction>
 #end
 	</cfResProd_Equip>
-	
 #end
 #foreach( $measurementResProd in $resultProduct.resultProducts_measurements )
 	<cfResProd_Meas>
@@ -2706,7 +2401,6 @@
 		<cfFraction>$measurementResProd.fraction</cfFraction>
 #end
 	</cfResProd_Meas>
-	
 #end
 #foreach( $resProdIndic in $resultProduct.resultProducts_indicators )
 	<cfResProd_Indic>
@@ -2719,11 +2413,12 @@
 		<cfFraction>$resProdIndic.fraction</cfFraction>
 #end
 	</cfResProd_Indic>
-	
 #end
 #foreach( $resultProductFederatedIdentifiers in $resultProduct.federatedIdentifiers )
 	<cfFedId>
+#if ($resultProductFederatedIdentifiers.id)
 		<cfFedIdId>$resultProductFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($resultProductFederatedIdentifiers.fedId && $resultProductFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($resultProductFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -2739,18 +2434,20 @@
 #if ($resultProductFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultProductFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$resultProductFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $resultProductFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $resultProductFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -2763,19 +2460,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfResProd>
-
 #end
-
 #foreach( $resultPublication in $resultPublications )
-<!-- A Result Publication record -->
+## <!-- A Result Publication record -->
 <cfResPubl>
+#if ($resultPublication.id)
 	<cfResPublId>$resultPublication.id</cfResPublId>
+#end
 #if ($resultPublication.date && $resultPublication.date != "")
 	<cfResPublDate>$date.format('yyyy-MM-dd',$resultPublication.date)</cfResPublDate>
 #end
@@ -2813,76 +2508,26 @@
 	<cfURI>$cerif.xml($resultPublication.uri)</cfURI>
 #end
 #foreach( $resultPublicationTitle in $resultPublication.resultPublicationTitles )
-#if( $resultPublicationTitle.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPublicationTitle.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfTitle cfLangCode=$esc.quote$resultPublicationTitle.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPublicationTitle.title)</cfTitle>
+	<cfTitle cfLangCode=$esc.quote$resultPublicationTitle.language.code$esc.quote cfTrans=$esc.quote$resultPublicationTitle.translation$esc.quote>$cerif.xml($resultPublicationTitle.title)</cfTitle>
 #end
 #foreach( $resultPublicationAbstract in $resultPublication.resultPublicationAbstracts )
-#if( $resultPublicationAbstract.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPublicationAbstract.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfAbstr cfLangCode=$esc.quote$resultPublicationAbstract.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPublicationAbstract.abstractText)</cfAbstr>
+	<cfAbstr cfLangCode=$esc.quote$resultPublicationAbstract.language.code$esc.quote cfTrans=$esc.quote$resultPublicationAbstract.translation$esc.quote>$cerif.xml($resultPublicationAbstract.abstractText)</cfAbstr>
 #end
 #foreach( $resultPublicationKeyword in $resultPublication.resultPublicationKeywords )
-#if( $resultPublicationKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPublicationKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfKeyw cfLangCode=$esc.quote$resultPublicationKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPublicationKeyword.keyword)</cfKeyw>
+	<cfKeyw cfLangCode=$esc.quote$resultPublicationKeyword.language.code$esc.quote cfTrans=$esc.quote$resultPublicationKeyword.translation$esc.quote>$cerif.xml($resultPublicationKeyword.keyword)</cfKeyw>
 #end
 #foreach( $resultPublicationBibliographicNote in $resultPublication.resultPublicationBibliographicNotes )
-#if( $resultPublicationBibliographicNote.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPublicationBibliographicNote.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfBiblNote cfLangCode=$esc.quote$resultPublicationBibliographicNote.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPublicationBibliographicNote.bibliographicNote)</cfBiblNote>
+	<cfBiblNote cfLangCode=$esc.quote$resultPublicationBibliographicNote.language.code$esc.quote cfTrans=$esc.quote$resultPublicationBibliographicNote.translation$esc.quote>$cerif.xml($resultPublicationBibliographicNote.bibliographicNote)</cfBiblNote>
 #end
 #foreach( $resultNameAbbreviation in $resultPublication.resultPublicationNameAbbreviations )
-#if( $resultNameAbbreviation.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultNameAbbreviation.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfNameAbbrev cfLangCode=$esc.quote$resultNameAbbreviation.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultNameAbbreviation.nameAbbreviation)</cfNameAbbrev>
+	<cfNameAbbrev cfLangCode=$esc.quote$resultNameAbbreviation.language.code$esc.quote cfTrans=$esc.quote$resultNameAbbreviation.translation$esc.quote>$cerif.xml($resultNameAbbreviation.nameAbbreviation)</cfNameAbbrev>
 #end
 #foreach( $resultPublicationSubtitle in $resultPublication.resultPublicationSubtitles )
-#if( $resultPublicationSubtitle.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPublicationSubtitle.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfSubtitle cfLangCode=$esc.quote$resultPublicationSubtitle.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPublicationSubtitle.subtitle)</cfSubtitle>
+	<cfSubtitle cfLangCode=$esc.quote$resultPublicationSubtitle.language.code$esc.quote cfTrans=$esc.quote$resultPublicationSubtitle.translation$esc.quote>$cerif.xml($resultPublicationSubtitle.subtitle)</cfSubtitle>
 #end
 #foreach( $resultPublicationVersionInfo in $resultPublication.resultPublicationVersionInfos )
-#if( $resultPublicationVersionInfo.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $resultPublicationVersionInfo.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfVersInfo cfLangCode=$esc.quote$resultPublicationVersionInfo.language.code$esc.quote cfTrans=$esc.quote$resultPublicationVersionInfo.translation$esc.quote>$cerif.xml($resultPublicationVersionInfo.versionInfo)</cfVersInfo>
 #end
-	<cfVersInfo cfLangCode=$esc.quote$resultPublicationVersionInfo.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($resultPublicationVersionInfo.versionInfo)</cfVersInfo>
-#end
-
 #foreach( $resPublEvent in $resultPublication.resultPublications_events )
 	<cfResPubl_Event>
 		<cfEventId>$resPublEvent.event.id</cfEventId>		
@@ -2894,7 +2539,6 @@
 		<cfFraction>$resPublEvent.fraction</cfFraction>
 #end
 	</cfResPubl_Event>
-	
 #end	
 #foreach( $organisationRespubl in $resultPublication.organisationUnits_resultPublications )
 	<cfOrgUnit_ResPubl>
@@ -2907,7 +2551,6 @@
 		<cfFraction>$organisationRespubl.fraction</cfFraction>
 #end
 	</cfOrgUnit_ResPubl>
-	
 #end
 #foreach( $persRespubl in $resultPublication.persons_resultPublications )
 	<cfPers_ResPubl>
@@ -2920,7 +2563,6 @@
 		<cfFraction>$persRespubl.fraction</cfFraction>
 #end
 	</cfPers_ResPubl>
-	
 #end
 #foreach( $projectRespubl in $resultPublication.projects_resultPublications )
 	<cfProj_ResPubl>
@@ -2936,7 +2578,6 @@
 		<cfCopyright>$projectRespubl.copyright</cfCopyright>
 #end
 	</cfProj_ResPubl>
-	
 #end
 #foreach( $respublRespubl1 in $resultPublication.resultPublications_resultPublications1 )
 	<cfResPubl_ResPubl>
@@ -2949,7 +2590,6 @@
 		<cfFraction>$respublRespubl1.fraction</cfFraction>
 #end
 	</cfResPubl_ResPubl>
-	
 #end
 #foreach( $respublRespubl2 in $resultPublication.resultPublications_resultPublications2 )
 	<cfResPubl_ResPubl>
@@ -2962,7 +2602,6 @@
 		<cfFraction>$respublRespubl2.fraction</cfFraction>
 #end
 	</cfResPubl_ResPubl>
-	
 #end
 #foreach( $respublClass in $resultPublication.resultPublications_classes )
 	<cfResPubl_Class>
@@ -2974,7 +2613,6 @@
 		<cfFraction>$respublClass.fraction</cfFraction>
 #end
 	</cfResPubl_Class>
-	
 #end
 #foreach( $resultPublicationFund in $resultPublication.resultPublications_fundings )
 	<cfResPubl_Fund>
@@ -2995,7 +2633,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$resultPublicationFund.amount</cfAmount>
 #end
 	</cfResPubl_Fund>
-	
 #end
 #foreach( $resultPublicationFacil in $resultPublication.resultPublications_facilities )
 	<cfResPubl_Facil>
@@ -3008,7 +2645,6 @@
 		<cfFraction>$resultPublicationFacil.fraction</cfFraction>
 #end
 	</cfResPubl_Facil>
-	
 #end
 #foreach( $equipmentRespubl in $resultPublication.resultPublications_equipments )
 	<cfResPubl_Equip>
@@ -3021,7 +2657,6 @@
 		<cfFraction>$equipmentRespubl.fraction</cfFraction>
 #end
 	</cfResPubl_Equip>
-	
 #end
 #foreach( $resultPublicationResProd in $resultPublication.resultPublications_resultProducts )
 	<cfResPubl_ResProd>
@@ -3034,7 +2669,6 @@
 		<cfFraction>$resultPublicationResProd.fraction</cfFraction>
 #end
 	</cfResPubl_ResProd>
-	
 #end
 #foreach( $resPublresPat in $resultPublication.resultPublications_resultPatents )
 	<cfResPubl_ResPat>
@@ -3047,7 +2681,6 @@
 		<cfFraction>$resPublresPat.fraction</cfFraction>
 #end
 	</cfResPubl_ResPat>
-	
 #end
 #foreach( $resPublCite in $resultPublication.resultPublications_citations )
 	<cfResPubl_Cite>
@@ -3066,7 +2699,6 @@
 		<cfCount>$resPublCite.count</cfCount>
 #end
 	</cfResPubl_Cite>
-	
 #end
 #foreach( $resPublMed in $resultPublication.resultPublications_mediums )
 	<cfResPubl_Medium>
@@ -3079,7 +2711,6 @@
 		<cfFraction>$resPublMed.fraction</cfFraction>
 #end
 	</cfResPubl_Medium>
-	
 #end
 #foreach( $serviceRespubl in $resultPublication.resultPublications_services )
 	<cfResPubl_Srv>
@@ -3092,7 +2723,6 @@
 		<cfFraction>$serviceRespubl.fraction</cfFraction>
 #end
 	</cfResPubl_Srv>
-	
 #end
 #foreach( $measurementRespubl in $resultPublication.resultPublications_measurements )
 	<cfResPubl_Meas>
@@ -3105,7 +2735,6 @@
 		<cfFraction>$measurementRespubl.fraction</cfFraction>
 #end
 	</cfResPubl_Meas>
-	
 #end
 #foreach( $resPublIndic in $resultPublication.resultPublications_indicators )
 	<cfResPubl_Indic>
@@ -3118,11 +2747,12 @@
 		<cfFraction>$resPublIndic.fraction</cfFraction>
 #end
 	</cfResPubl_Indic>
-	
 #end
 #foreach( $resultPublicationFederatedIdentifiers in $resultPublication.federatedIdentifiers )
 	<cfFedId>
+#if ($resultPublicationFederatedIdentifiers.id)
 		<cfFedIdId>$resultPublicationFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($resultPublicationFederatedIdentifiers.fedId && $resultPublicationFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($resultPublicationFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -3138,18 +2768,20 @@
 #if ($classSchemeFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultPublicationFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$resultPublicationFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $resultPublicationFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $resultPublicationFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -3162,19 +2794,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfResPubl>
-
 #end
-
 #foreach( $facility in $facilities )
-<!-- A Facility record -->
+## <!-- A Facility record -->
 <cfFacil>
+#if ($facility.id)
 	<cfFacilId>$facility.id</cfFacilId>
+#end
 #if ($facility.acronym && $facility.acronym != "")
 	<cfAcro>$cerif.xml($facility.acronym)</cfAcro>
 #end
@@ -3182,36 +2812,14 @@
 	<cfURI>$cerif.xml($facility.uri)</cfURI>
 #end
 #foreach( $facilityName in $facility.facilityNames )
-#if( $facilityName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $facilityName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$facilityName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($facilityName.name)</cfName>
+	<cfName cfLangCode=$esc.quote$facilityName.language.code$esc.quote cfTrans=$esc.quote$facilityName.translation$esc.quote>$cerif.xml($facilityName.name)</cfName>
 #end
 #foreach( $facilityDescription in $facility.facilityDescriptions )
-#if( $facilityDescription.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $facilityDescription.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$facilityDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($facilityDescription.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$facilityDescription.language.code$esc.quote cfTrans=$esc.quote$facilityDescription.translation$esc.quote>$cerif.xml($facilityDescription.description)</cfDescr>
 #end
 #foreach( $facilityKeyword in $facility.facilityKeywords )
-#if( $facilityKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $facilityKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$facilityKeyword.language.code$esc.quote cfTrans=$esc.quote$facilityKeyword.translation$esc.quote>$cerif.xml($facilityKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$facilityKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($facilityKeyword.keyword)</cfKeyw>
-#end
-	
 #foreach( $facilityClass in $facility.facilities_classes )
 	<cfFacil_Class>
 		<cfClassId>$facilityClass.theClass.uuid</cfClassId>	
@@ -3222,7 +2830,6 @@
 		<cfFraction>$facilityClass.fraction</cfFraction>
 #end
 	</cfFacil_Class>
-	
 #end
 #foreach( $organisationFacil in $facility.organisationUnits_facilities )
 	<cfOrgUnit_Facil>
@@ -3249,7 +2856,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$organisationFacil.price</cfPrice>
 #end
 	</cfOrgUnit_Facil>
-	
 #end
 #foreach( $facilityFund in $facility.facilities_fundings )
 	<cfFacil_Fund>
@@ -3270,7 +2876,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$facilityFund.amount</cfAmount>
 		#end
 	</cfFacil_Fund>
-	
 #end
 #foreach( $personFacil in $facility.persons_facilities )
 	<cfPers_Facil>
@@ -3297,7 +2902,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$personFacil.price</cfPrice>
 #end
 	</cfPers_Facil>
-	
 #end
 #foreach( $projectFacil in $facility.projects_facilities )
 	<cfProj_Facil>
@@ -3324,7 +2928,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$projectFacil.price</cfPrice>
 #end
 	</cfProj_Facil>
-	
 #end
 #foreach( $resultPublicationFacil in $facility.resultPublications_facilities )
 	<cfResPubl_Facil>
@@ -3337,7 +2940,6 @@
 		<cfFraction>$resultPublicationFacil.fraction</cfFraction>
 #end
 	</cfResPubl_Facil>
-	
 #end
 #foreach( $facMed in $facility.facilities_mediums )
 	<cfFacil_Medium>
@@ -3350,7 +2952,6 @@
 		<cfFraction>$facMed.fraction</cfFraction>
 #end
 	</cfFacil_Medium>
-	
 #end
 #foreach( $facilityPAddress in $facility.postalAddresses )
 	<cfFacil_PAddr>
@@ -3363,7 +2964,6 @@
 		<cfFraction>$facilityPAddress.fraction</cfFraction>
 #end
 	</cfFacil_PAddr>
-	
 #end
 #foreach( $facilityFacility1 in $facility.facilities_facilities1 )
 	<cfFacil_Facil>
@@ -3376,7 +2976,6 @@
 		<cfFraction>$facilityFacility1.fraction</cfFraction>
 #end
 	</cfFacil_Facil>
-	
 #end
 #foreach( $facilityFacility2 in $facility.facilities_facilities2 )
 	<cfFacil_Facil>
@@ -3389,7 +2988,6 @@
 		<cfFraction>$facilityFacility2.fraction</cfFraction>
 #end
 	</cfFacil_Facil>
-	
 #end
 #foreach( $equipmentFacility in $facility.facilities_equipments )
 	<cfFacil_Equip>
@@ -3402,7 +3000,6 @@
 		<cfFraction>$equipmentFacility.fraction</cfFraction>
 #end
 	</cfFacil_Equip>
-	
 #end
 #foreach( $serviceFacility in $facility.facilities_services )
 	<cfFacil_Srv>
@@ -3415,7 +3012,6 @@
 		<cfFraction>$serviceFacility.fraction</cfFraction>
 #end
 	</cfFacil_Srv>
-	
 #end
 #foreach( $facEvent in $facility.facilities_events )
 	<cfFacil_Event>
@@ -3428,7 +3024,6 @@
 		<cfFraction>$facEvent.fraction</cfFraction>
 #end
 	</cfFacil_Event>
-	
 #end
 #foreach( $resPatFacility in $facility.resultPatents_facilities )
 	<cfResPat_Facil>
@@ -3441,7 +3036,6 @@
 		<cfFraction>$resPatFacility.fraction</cfFraction>
 #end
 	</cfResPat_Facil>
-	
 #end
 #foreach( $facilityResProd in $facility.resultProducts_facilities )
 	<cfResProd_Facil>
@@ -3454,7 +3048,6 @@
 		<cfFraction>$facilityResProd.fraction</cfFraction>
 #end
 	</cfResProd_Facil>
-	
 #end
 #foreach( $measurementFacility in $facility.facilities_measurements )
 	<cfFacil_Meas>
@@ -3467,7 +3060,6 @@
 		<cfFraction>$measurementFacility.fraction</cfFraction>
 #end
 	</cfFacil_Meas>
-	
 #end
 #foreach( $facilIndic in $facility.facilities_indicators )
 	<cfFacil_Indic>
@@ -3480,11 +3072,12 @@
 		<cfFraction>$servIndic.fraction</cfFraction>
 #end
 	</cfFacil_Indic>
-	
 #end
 #foreach( $facilityFederatedIdentifiers in $facility.federatedIdentifiers )
 	<cfFedId>
+#if ($facilityFederatedIdentifiers.id)
 		<cfFedIdId>$facilityFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($facilityFederatedIdentifiers.fedId && $facilityFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($facilityFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -3500,18 +3093,20 @@
 #if ($facilityFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$facilityFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$facilityFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $facilityFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $facilityFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -3524,19 +3119,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfFacil>
-
 #end
-
 #foreach( $service in $services )
-<!-- A Service record -->
+## <!-- A Service record -->
 <cfSrv>
+#if ($service.id)
 	<cfSrvId>$service.id</cfSrvId>
+#end
 #if ($service.acronym && $service.acronym != "")
 	<cfAcro>$cerif.xml($service.acronym)</cfAcro>
 #end
@@ -3544,36 +3137,14 @@
 	<cfURI>$cerif.xml($service.uri)</cfURI>
 #end
 #foreach( $serviceName in $service.serviceNames )
-#if( $serviceName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $serviceName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$serviceName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($serviceName.name)</cfName>
+	<cfName cfLangCode=$esc.quote$serviceName.language.code$esc.quote cfTrans=$esc.quote$serviceName.translation$esc.quote>$cerif.xml($serviceName.name)</cfName>
 #end
 #foreach( $serviceDescription in $service.serviceDescriptions )
-#if( $serviceDescription.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $serviceDescription.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$serviceDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($serviceDescription.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$serviceDescription.language.code$esc.quote cfTrans=$esc.quote$serviceDescription.translation$esc.quote>$cerif.xml($serviceDescription.description)</cfDescr>
 #end
 #foreach( $serviceKeyword in $service.serviceKeywords )
-#if( $serviceKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $serviceKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$serviceKeyword.language.code$esc.quote cfTrans=$esc.quote$serviceKeyword.translation$esc.quote>$cerif.xml($serviceKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$serviceKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($serviceKeyword.keyword)</cfKeyw>
-#end
-
 #foreach( $serviceOrgs in $service.organisationUnits_services )
 	<cfOrgUnit_Srv>
 		<cfOrgUnitId>$serviceOrgs.organisationUnit.id</cfOrgUnitId>		
@@ -3599,7 +3170,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$serviceOrgs.price</cfPrice>
 #end
 	</cfOrgUnit_Srv>
-	
 #end
 #foreach( $servicePers in $service.persons_services )
 	<cfPers_Srv>
@@ -3626,7 +3196,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$servicePers.price</cfPrice>
 #end
 	</cfPers_Srv>
-	
 #end
 #foreach( $serviceClass in $service.services_classes )
 	<cfSrv_Class>
@@ -3638,7 +3207,6 @@
 		<cfFraction>$serviceClass.fraction</cfFraction>
 #end
 	</cfSrv_Class>
-	
 #end
 #foreach( $serviceProj in $service.projects_services )
 	<cfProj_Srv>
@@ -3665,7 +3233,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$serviceProj.price</cfPrice>
 #end
 	</cfProj_Srv>
-	
 #end
 #foreach( $serviceFund in $service.services_fundings )
 	<cfSrv_Fund>
@@ -3686,7 +3253,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$serviceFund.amount</cfAmount>
 #end
 	</cfSrv_Fund>
-	
 #end
 #foreach( $srvMed in $service.services_mediums )
 	<cfSrv_Medium>
@@ -3699,7 +3265,6 @@
 		<cfFraction>$srvMed.fraction</cfFraction>
 #end
 	</cfSrv_Medium>
-	
 #end
 #foreach( $servicePAddress in $service.services_postalAddresses )
 	<cfSrv_PAddr>
@@ -3712,7 +3277,6 @@
 		<cfFraction>$servicePAddress.fraction</cfFraction>
 #end
 	</cfSrv_PAddr>
-	
 #end
 #foreach( $serviceService1 in $service.services_services1 )
 	<cfSrv_Srv>
@@ -3725,7 +3289,6 @@
 		<cfFraction>$serviceService1.fraction</cfFraction>
 #end
 	</cfSrv_Srv>
-	
 #end
 #foreach( $serviceService2 in $service.services_services2 )
 	<cfSrv_Srv>
@@ -3738,7 +3301,6 @@
 		<cfFraction>$serviceService2.fraction</cfFraction>
 #end
 	</cfSrv_Srv>
-	
 #end
 #foreach( $serviceFacility in $service.facilities_services )
 	<cfFacil_Srv>
@@ -3751,7 +3313,6 @@
 		<cfFraction>$serviceFacility.fraction</cfFraction>
 #end
 	</cfFacil_Srv>
-	
 #end
 #foreach( $equipmentService in $service.equipments_services )
 	<cfEquip_Srv>
@@ -3764,7 +3325,6 @@
 		<cfFraction>$equipmentService.fraction</cfFraction>
 #end
 	</cfEquip_Srv>
-	
 #end
 #foreach( $srvEvent in $service.services_events )
 	<cfSrv_Event>
@@ -3777,7 +3337,6 @@
 		<cfFraction>$srvEvent.fraction</cfFraction>
 #end
 	</cfSrv_Event>
-	
 #end
 #foreach( $serviceRespubl in $service.resultPublications_services )
 	<cfResPubl_Srv>
@@ -3790,7 +3349,6 @@
 		<cfFraction>$serviceRespubl.fraction</cfFraction>
 #end
 	</cfResPubl_Srv>
-	
 #end
 #foreach( $resPatService in $service.resultPatents_services )
 	<cfResPat_Srv>
@@ -3803,7 +3361,6 @@
 		<cfFraction>$resPatService.fraction</cfFraction>
 #end
 	</cfResPat_Srv>
-	
 #end
 #foreach( $serviceResProd in $service.resultProducts_services )
 	<cfResProd_Srv>
@@ -3816,7 +3373,6 @@
 		<cfFraction>$serviceResProd.fraction</cfFraction>
 #end
 	</cfResProd_Srv>
-	
 #end
 #foreach( $measurementService in $service.services_measurements )
 	<cfSrv_Meas>
@@ -3829,7 +3385,6 @@
 		<cfFraction>$measurementService.fraction</cfFraction>
 #end
 	</cfSrv_Meas>
-	
 #end
 #foreach( $servIndic in $service.services_indicators )
 	<cfSrv_Indic>
@@ -3842,11 +3397,12 @@
 		<cfFraction>$servIndic.fraction</cfFraction>
 #end
 	</cfSrv_Indic>
-	
 #end
 #foreach( $serviceFederatedIdentifiers in $service.federatedIdentifiers )
 	<cfFedId>
+#if ($serviceFederatedIdentifiers.id)
 		<cfFedIdId>$serviceFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($serviceFederatedIdentifiers.fedId && $serviceFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($serviceFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -3862,18 +3418,20 @@
 #if ($serviceFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$serviceFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $serviceFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $serviceFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -3886,19 +3444,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfSrv>
-
 #end
-
 #foreach( $equipment in $equipments )
-<!-- An Equipment record -->
+## <!-- An Equipment record -->
 <cfEquip>
+#if ($equipment.id)
 	<cfEquipId>$equipment.id</cfEquipId>
+#end
 #if ($equipment.acronym && $equipment.acronym != "")
 	<cfAcro>$cerif.xml($equipment.acronym)</cfAcro>
 #end
@@ -3906,36 +3462,14 @@
 	<cfURI>$cerif.xml($equipment.uri)</cfURI>
 #end
 #foreach( $equipmentName in $equipment.equipmentNames )
-#if( $equipmentName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $equipmentName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$equipmentName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($equipmentName.name)</cfName>
+	<cfName cfLangCode=$esc.quote$equipmentName.language.code$esc.quote cfTrans=$esc.quote$equipmentName.translation$esc.quote>$cerif.xml($equipmentName.name)</cfName>
 #end
 #foreach( $equipmentDescription in $equipment.equipmentDescriptions )
-#if( $equipmentDescription.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $equipmentDescription.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$equipmentDescription.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($equipmentDescription.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$equipmentDescription.language.code$esc.quote cfTrans=$esc.quote$equipmentDescription.translation$esc.quote>$cerif.xml($equipmentDescription.description)</cfDescr>
 #end
 #foreach( $equipmentKeyword in $equipment.equipmentKeywords )
-#if( $equipmentKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $equipmentKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$equipmentKeyword.language.code$esc.quote cfTrans=$esc.quote$equipmentKeyword.translation$esc.quote>$cerif.xml($equipmentKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$equipmentKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($equipmentKeyword.keyword)</cfKeyw>
-#end
-
 #foreach( $equipmentClass in $equipment.equipments_classes )
 	<cfEquip_Class>
 		<cfClassId>$equipmentClass.theClass.uuid</cfClassId>	
@@ -3946,7 +3480,6 @@
 		<cfFraction>$equipmentClass.fraction</cfFraction>
 #end
 	</cfEquip_Class>
-	
 #end
 #foreach( $equipmentFund in $equipment.equipments_fundings )
 	<cfEquip_Fund>
@@ -3967,7 +3500,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$equipmentFund.amount</cfAmount>
 #end
 	</cfEquip_Fund>
-	
 #end
 #foreach( $equipmentOrgs in $equipment.organisationUnits_equipments )
 	<cfOrgUnit_Equip>
@@ -3994,7 +3526,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentOrgs.price</cfPrice>
 #end
 	</cfOrgUnit_Equip>
-	
 #end
 #foreach( $equipmentPers in $equipment.persons_equipments )
 	<cfPers_Equip>
@@ -4021,7 +3552,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentPers.price</cfPrice>
 #end
 	</cfPers_Equip>
-	
 #end
 #foreach( $equipmentProj in $equipment.projects_equipments )
 	<cfProj_Equip>
@@ -4048,7 +3578,6 @@
 		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$equipmentProj.price</cfPrice>
 #end
 	</cfProj_Equip>
-	
 #end
 #foreach( $equipmentRespubl in $equipment.resultPublications_equipments )
 	<cfResPubl_Equip>
@@ -4061,7 +3590,6 @@
 		<cfFraction>$equipmentRespubl.fraction</cfFraction>
 #end
 	</cfResPubl_Equip>
-	
 #end
 #foreach( $equipMed in $equipment.equipments_mediums )
 	<cfEquip_Medium>
@@ -4074,7 +3602,6 @@
 		<cfFraction>$equipMed.fraction</cfFraction>
 #end
 	</cfEquip_Medium>
-	
 #end
 #foreach( $equipmentPAddress in $equipment.equipments_postalAddresses )
 	<cfEquip_PAddr>
@@ -4087,7 +3614,6 @@
 		<cfFraction>$equipmentPAddress.fraction</cfFraction>
 #end
 	</cfEquip_PAddr>
-	
 #end
 #foreach( $equipmentEquipment1 in $equipment.equipments_equipments1 )
 	<cfEquip_Equip>
@@ -4100,7 +3626,6 @@
 		<cfFraction>$equipmentEquipment1.fraction</cfFraction>
 #end
 	</cfEquip_Equip>
-	
 #end
 #foreach( $equipmentEquipment2 in $equipment.equipments_equipments2 )
 	<cfEquip_Equip>
@@ -4113,7 +3638,6 @@
 		<cfFraction>$equipmentEquipment2.fraction</cfFraction>
 #end
 	</cfEquip_Equip>
-	
 #end
 #foreach( $equipmentFacility in $equipment.facilities_equipments )
 	<cfFacil_Equip>
@@ -4126,7 +3650,6 @@
 		<cfFraction>$equipmentFacility.fraction</cfFraction>
 #end
 	</cfFacil_Equip>
-	
 #end
 #foreach( $equipmentService in $equipment.equipments_services )
 	<cfEquip_Srv>
@@ -4139,7 +3662,6 @@
 		<cfFraction>$equipmentService.fraction</cfFraction>
 #end
 	</cfEquip_Srv>
-	
 #end
 #foreach( $equipEvent in $equipment.equipments_events )
 	<cfEquip_Event>
@@ -4152,7 +3674,6 @@
 		<cfFraction>$equipEvent.fraction</cfFraction>
 #end
 	</cfEquip_Event>
-	
 #end
 #foreach( $resPatEquipment in $equipment.resultPatents_equipments )
 	<cfResPat_Equip>
@@ -4165,7 +3686,6 @@
 		<cfFraction>$resPatEquipment.fraction</cfFraction>
 #end
 	</cfResPat_Equip>
-	
 #end
 #foreach( $equipmentResProd in $equipment.resultProducts_equipments )
 	<cfResProd_Equip>
@@ -4178,7 +3698,6 @@
 		<cfFraction>$equipmentResProd.fraction</cfFraction>
 #end
 	</cfResProd_Equip>
-	
 #end
 #foreach( $equipmentMeasurement in $equipment.equipments_measurements )
 	<cfEquip_Meas>
@@ -4191,7 +3710,6 @@
 		<cfFraction>$equipmentMeasurement.fraction</cfFraction>
 #end
 	</cfEquip_Meas>
-	
 #end
 #foreach( $equipIndic in $equipment.equipments_indicators )
 	<cfEquip_Indic>
@@ -4204,11 +3722,12 @@
 		<cfFraction>$equipIndic.fraction</cfFraction>
 #end
 	</cfEquip_Indic>
-	
 #end
 #foreach( $equipmentFederatedIdentifiers in $equipment.federatedIdentifiers )
 	<cfFedId>
+#if ($equipmentFederatedIdentifiers.id)
 		<cfFedIdId>$equipmentFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($equipmentFederatedIdentifiers.fedId && $equipmentFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($equipmentFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -4224,18 +3743,20 @@
 #if ($equipmentFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$equipmentFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $equipmentFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $equipmentFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -4248,19 +3769,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfEquip>
-
 #end
-
 #foreach( $federatedIdentifier in $federatedIdentifiers )
-<!-- A FederatedIdentifier record -->
+## <!-- A FederatedIdentifier record -->
 <cfFedId>
+#if ($federatedIdentifier.id)
 	<cfFedIdId>$federatedIdentifier.id</cfFedIdId>
+#end
 #if ($federatedIdentifier.instanceId && $federatedIdentifier.instanceId != "")
 	<cfInstId>$cerif.xml($federatedIdentifier.instanceId)</cfInstId>
 #end
@@ -4279,18 +3798,20 @@
 #if ($federatedIdentifier.endDate)
 	<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-
 #foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
 	<cfFedId_Class>
 		<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 		<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 		<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 		<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 	</cfFedId_Class>
-	
 #end
 #foreach( $federatedIdentifierService in $federatedIdentifier.services_fedIds )
 	<cfFedId_Srv>
@@ -4303,16 +3824,15 @@
 		<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 	</cfFedId_Srv>
-	
 #end
 </cfFedId>
-
 #end
-
 #foreach( $measurement in $measurements )
-<!-- A Measurement record -->
+## <!-- A Measurement record -->
 <cfMeas>
+#if ($measurement.id)
 	<cfMeasId>$measurement.id</cfMeasId>
+#end
 #if ($measurement.counter && $measurement.counter != "")
 	<cfCountInt>$cerif.xml($measurement.counter)</cfCountInt>
 #end
@@ -4341,36 +3861,14 @@
 	<cfURI>$cerif.xml($measurement.uri)</cfURI>
 #end
 #foreach( $measurementName in $measurement.measurementNames )
-#if( $measurementName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $measurementName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$measurementName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($measurementName.name)</cfName>
+	<cfName cfLangCode=$esc.quote$measurementName.language.code$esc.quote cfTrans=$esc.quote$measurementName.translation$esc.quote>$cerif.xml($measurementName.name)</cfName>
 #end
 #foreach( $measurementDescr in $measurement.measurementDescriptions )
-#if( $measurementDescr.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $measurementDescr.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$measurementDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($measurementDescr.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$measurementDescr.language.code$esc.quote cfTrans=$esc.quote$measurementDescr.translation$esc.quote>$cerif.xml($measurementDescr.description)</cfDescr>
 #end
 #foreach( $measurementKeyword in $measurement.measurementKeywords )
-#if( $measurementKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $measurementKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$measurementKeyword.language.code$esc.quote cfTrans=$esc.quote$measurementKeyword.translation$esc.quote>$cerif.xml($measurementKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$measurementKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($measurementKeyword.keyword)</cfKeyw>
-#end
-
 #foreach( $indicMeas in $measurement.indicators_measurements )
 	<cfIndic_Meas>
 		<cfIndicId>$indicMeas.indicator.id</cfIndicId>		
@@ -4382,7 +3880,6 @@
 		<cfFraction>$indicMeas.fraction</cfFraction>
 #end
 	</cfIndic_Meas>
-	
 #end
 #foreach( $measurementClass in $measurement.measurements_classes )
 	<cfMeas_Class>
@@ -4394,7 +3891,6 @@
 		<cfFraction>$measurementClass.fraction</cfFraction>
 #end
 	</cfMeas_Class>
-	
 #end
 #foreach( $measurementPers in $measurement.persons_measurements )
 	<cfPers_Meas>
@@ -4407,7 +3903,6 @@
 		<cfFraction>$measurementPers.fraction</cfFraction>
 #end
 	</cfPers_Meas>
-	
 #end
 #foreach( $organisationMeasurement in $measurement.organisationUnits_measurements )
 	<cfOrgUnit_Meas>
@@ -4420,7 +3915,6 @@
 		<cfFraction>$organisationMeasurement.fraction</cfFraction>
 #end
 	</cfOrgUnit_Meas>
-	
 #end
 #foreach( $projectMeasurement in $measurement.projects_measurements )
 	<cfProj_Meas>
@@ -4433,7 +3927,6 @@
 		<cfFraction>$projectMeasurement.fraction</cfFraction>
 #end
 	</cfProj_Meas>
-	
 #end
 #foreach( $measurementRespubl in $measurement.resultPublications_measurements )
 	<cfResPubl_Meas>
@@ -4446,7 +3939,6 @@
 		<cfFraction>$measurementRespubl.fraction</cfFraction>
 #end
 	</cfResPubl_Meas>
-	
 #end
 #foreach( $measurementResPat in $measurement.resultPatents_measurements )
 	<cfResPat_Meas>
@@ -4459,7 +3951,6 @@
 		<cfFraction>$measurementResPat.fraction</cfFraction>
 #end
 	</cfResPat_Meas>
-	
 #end
 #foreach( $measurementResProd in $measurement.resultProducts_measurements )
 	<cfResProd_Meas>
@@ -4472,7 +3963,6 @@
 		<cfFraction>$measurementResProd.fraction</cfFraction>
 #end
 	</cfResProd_Meas>
-	
 #end
 #foreach( $measurementFacility in $measurement.facilities_measurements )
 	<cfFacil_Meas>
@@ -4485,7 +3975,6 @@
 		<cfFraction>$measurementFacility.fraction</cfFraction>
 #end
 	</cfFacil_Meas>
-	
 #end
 #foreach( $measurementService in $measurement.services_measurements )
 	<cfSrv_Meas>
@@ -4498,7 +3987,6 @@
 		<cfFraction>$measurementService.fraction</cfFraction>
 #end
 	</cfSrv_Meas>
-	
 #end
 #foreach( $equipmentMeasurement in $measurement.equipments_measurements )
 	<cfEquip_Meas>
@@ -4511,7 +3999,6 @@
 		<cfFraction>$equipmentMeasurement.fraction</cfFraction>
 #end
 	</cfEquip_Meas>
-	
 #end
 #foreach( $eventMeasurement in $measurement.events_measurements )
 	<cfEvent_Meas>
@@ -4524,7 +4011,6 @@
 		<cfFraction>$eventMeasurement.fraction</cfFraction>
 #end
 	</cfEvent_Meas>
-	
 #end
 #foreach( $mediumMeasurement in $measurement.mediums_measurements )
 	<cfMedium_Meas>
@@ -4537,11 +4023,12 @@
 		<cfFraction>$mediumMeasurement.fraction</cfFraction>
 #end
 	</cfMedium_Meas>
-	
 #end
 #foreach( $measurementFederatedIdentifiers in $measurement.federatedIdentifiers )
 	<cfFedId>
+#if ($measurementFederatedIdentifiers.id)
 		<cfFedIdId>$measurementFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($measurementFederatedIdentifiers.fedId && $measurementFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($measurementFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -4557,18 +4044,20 @@
 #if ($measurementFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$measurementFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$measurementFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $measurementFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $measurementFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -4581,52 +4070,29 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfMeas>
-
 #end
 #foreach( $indicator in $indicators )
-<!-- An Indicator record -->
+## <!-- An Indicator record -->
 <cfIndic>
+#if ($indicator.id)
 	<cfIndicId>$indicator.id</cfIndicId>
+#end
 #if ($indicator.uri && $indicator.uri != "")
 	<cfURI>$cerif.xml($indicator.uri)</cfURI>
 #end
 #foreach( $indicatorName in $indicator.indicatorNames )
-#if( $indicatorName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $indicatorName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$indicatorName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($indicatorName.name)</cfName>
+	<cfName cfLangCode=$esc.quote$indicatorName.language.code$esc.quote cfTrans=$esc.quote$indicatorName.translation$esc.quote>$cerif.xml($indicatorName.name)</cfName>
 #end
 #foreach( $indicatorDescr in $indicator.indicatorDescriptions )
-#if( $indicatorDescr.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $indicatorDescr.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$indicatorDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($indicatorDescr.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$indicatorDescr.language.code$esc.quote cfTrans=$esc.quote$indicatorDescr.translation$esc.quote>$cerif.xml($indicatorDescr.description)</cfDescr>
 #end
 #foreach( $indicatorKeyword in $indicator.indicatorKeywords )
-#if( $indicatorKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $indicatorKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$indicatorKeyword.language.code$esc.quote cfTrans=$esc.quote$indicatorKeyword.translation$esc.quote>$cerif.xml($indicatorKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$indicatorKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($indicatorKeyword.keyword)</cfKeyw>
-#end
-
 #foreach( $indicMeas in $indicator.indicators_measurements )
 	<cfIndic_Meas>
 		<cfMeasId>$indicMeas.measurement.id</cfMeasId>		
@@ -4638,7 +4104,6 @@
 		<cfFraction>$indicMeas.fraction</cfFraction>
 #end
 	</cfIndic_Meas>
-	
 #end
 #foreach( $indicCl in $indicator.indicators_classes )
 	<cfIndic_Class>
@@ -4650,7 +4115,6 @@
 		<cfFraction>$indicCl.fraction</cfFraction>
 #end
 	</cfIndic_Class>
-	
 #end
 #foreach( $persIndic in $indicator.persons_indicators )
 	<cfPers_Indic>
@@ -4663,7 +4127,6 @@
 		<cfFraction>$persIndic.fraction</cfFraction>
 #end
 	</cfPers_Indic>
-	
 #end
 #foreach( $orgsIndic in $indicator.organisationUnits_indicators )
 	<cfOrgUnit_Indic>
@@ -4676,7 +4139,6 @@
 		<cfFraction>$orgsIndic.fraction</cfFraction>
 #end
 	</cfOrgUnit_Indic>
-	
 #end
 #foreach( $projsIndic in $indicator.projects_indicators )
 	<cfProj_Indic>
@@ -4689,7 +4151,6 @@
 		<cfFraction>$projsIndic.fraction</cfFraction>
 #end
 	</cfProj_Indic>
-	
 #end
 #foreach( $resPublIndic in $indicator.resultPublications_indicators )
 	<cfResPubl_Indic>
@@ -4702,7 +4163,6 @@
 		<cfFraction>$resPublIndic.fraction</cfFraction>
 #end
 	</cfResPubl_Indic>
-	
 #end
 #foreach( $resPatIndic in $indicator.resultPatents_indicators )
 	<cfResPat_Indic>
@@ -4715,7 +4175,6 @@
 		<cfFraction>$resPatIndic.fraction</cfFraction>
 #end
 	</cfResPat_Indic>
-	
 #end
 #foreach( $resProdIndic in $indicator.resultProducts_indicators )
 	<cfResProd_Indic>
@@ -4728,7 +4187,6 @@
 		<cfFraction>$resProdIndic.fraction</cfFraction>
 #end
 	</cfResProd_Indic>
-	
 #end
 #foreach( $facilIndic in $indicator.facilities_indicators )
 	<cfFacil_Indic>
@@ -4741,7 +4199,6 @@
 		<cfFraction>$servIndic.fraction</cfFraction>
 #end
 	</cfFacil_Indic>
-	
 #end
 #foreach( $servIndic in $indicator.services_indicators )
 	<cfSrv_Indic>
@@ -4754,7 +4211,6 @@
 		<cfFraction>$servIndic.fraction</cfFraction>
 #end
 	</cfSrv_Indic>
-	
 #end
 #foreach( $equipIndic in $indicator.equipments_indicators )
 	<cfEquip_Indic>
@@ -4767,7 +4223,6 @@
 		<cfFraction>$equipIndic.fraction</cfFraction>
 #end
 	</cfEquip_Indic>
-	
 #end
 #foreach( $eventIndic in $indicator.events_indicators )
 	<cfEvent_Indic>
@@ -4780,7 +4235,6 @@
 		<cfFraction>$eventIndic.fraction</cfFraction>
 #end
 	</cfEvent_Indic>
-	
 #end
 #foreach( $medIndic in $indicator.mediums_indicators )
 	<cfMedium_Indic>
@@ -4793,7 +4247,6 @@
 		<cfFraction>$medIndic.fraction</cfFraction>
 #end
 	</cfMedium_Indic>
-	
 #end
 #foreach( $indicIndic1 in $indicator.indicators_indicators1 )
 	<cfIndic_Indic>
@@ -4806,7 +4259,6 @@
 		<cfFraction>$indicIndic1.fraction</cfFraction>
 #end
 	</cfIndic_Indic>
-	
 #end
 #foreach( $indicIndic2 in $indicator.indicators_indicators2 )
 	<cfIndic_Indic>
@@ -4819,7 +4271,6 @@
 		<cfFraction>$indicIndic2.fraction</cfFraction>
 #end
 	</cfIndic_Indic>
-	
 #end
 #foreach( $fundIndic in $indicator.fundings_indicators )
 	<cfFund_Indic>
@@ -4840,11 +4291,12 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$fundIndic.amount</cfAmount>
 #end
 	</cfFund_Indic>
-	
 #end
 #foreach( $indicatorFederatedIdentifiers in $indicator.federatedIdentifiers )
 	<cfFedId>
+#if ($indicatorFederatedIdentifiers.id)
 		<cfFedIdId>$indicatorFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($indicatorFederatedIdentifiers.fedId && $indicatorFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($indicatorFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -4860,18 +4312,20 @@
 #if ($indicatorFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$indicatorFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$indicatorFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $indicatorFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $indicatorFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -4884,19 +4338,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfIndic>
-
 #end
-
 #foreach( $medium in $mediums )
-<!-- A Medium record -->
+## <!-- A Medium record -->
 <cfMedium>
+#if ($medium.id)
 	<cfMediumId>$medium.id</cfMediumId>
+#end
 #if ($medium.mediumCreationDate && $medium.mediumCreationDate != "")
 	<cfMediumCreationDate>$cerif.xml($medium.mediumCreationDate)</cfMediumCreationDate>
 #end
@@ -4910,36 +4362,14 @@
 	<cfURI>$cerif.xml($medium.uri)</cfURI>
 #end
 #foreach( $mediumTitle in $medium.mediumTitles )
-#if( $mediumTitle.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $mediumTitle.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfTitle cfLangCode=$esc.quote$mediumTitle.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($mediumTitle.title)</cfTitle>
+	<cfTitle cfLangCode=$esc.quote$mediumTitle.language.code$esc.quote cfTrans=$esc.quote$mediumTitle.translation$esc.quote>$cerif.xml($mediumTitle.title)</cfTitle>
 #end
 #foreach( $mediumDescr in $medium.mediumDescriptions )
-#if( $mediumDescr.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $mediumDescr.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$mediumDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($mediumDescr.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$mediumDescr.language.code$esc.quote cfTrans=$esc.quote$mediumDescr.translation$esc.quote>$cerif.xml($mediumDescr.description)</cfDescr>
 #end
 #foreach( $mediumKeyword in $medium.mediumKeywords )
-#if( $mediumKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $mediumKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$mediumKeyword.language.code$esc.quote cfTrans=$esc.quote$mediumKeyword.translation$esc.quote>$cerif.xml($mediumKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$mediumKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($mediumKeyword.keyword)</cfKeyw>
-#end
-
 #foreach( $resPublMed in $medium.resultPublications_mediums )
 	<cfResPubl_Medium>
 		<cfResPublId>$resPublMed.resultPublication.id</cfResPublId>		
@@ -4951,7 +4381,6 @@
 		<cfFraction>$resPublMed.fraction</cfFraction>
 #end
 	</cfResPubl_Medium>
-	
 #end
 #foreach( $resPatMed in $medium.resultPatents_mediums )
 	<cfResPat_Medium>
@@ -4964,7 +4393,6 @@
 		<cfFraction>$resPatMed.fraction</cfFraction>
 #end
 	</cfResPat_Medium>
-	
 #end
 #foreach( $resProdMed in $medium.resultProducts_mediums )
 	<cfResProd_Medium>
@@ -4977,7 +4405,6 @@
 		<cfFraction>$resProdMed.fraction</cfFraction>
 #end
 	</cfResProd_Medium>
-	
 #end
 #foreach( $facMed in $medium.facilities_mediums )
 	<cfFacil_Medium>
@@ -4990,7 +4417,6 @@
 		<cfFraction>$facMed.fraction</cfFraction>
 #end
 	</cfFacil_Medium>
-	
 #end
 #foreach( $equipMed in $medium.equipments_mediums )
 	<cfEquip_Medium>
@@ -5003,7 +4429,6 @@
 		<cfFraction>$equipMed.fraction</cfFraction>
 #end
 	</cfEquip_Medium>
-	
 #end
 #foreach( $srvMed in $medium.services_mediums )
 	<cfSrv_Medium>
@@ -5016,7 +4441,6 @@
 		<cfFraction>$srvMed.fraction</cfFraction>
 #end
 	</cfSrv_Medium>
-	
 #end
 #foreach( $medMed1 in $medium.mediums_mediums1 )
 	<cfMedium_Medium>
@@ -5029,7 +4453,6 @@
 		<cfFraction>$medMed1.fraction</cfFraction>
 #end
 	</cfMedium_Medium>
-	
 #end
 #foreach( $medMed2 in $medium.mediums_mediums2 )
 	<cfMedium_Medium>
@@ -5042,7 +4465,6 @@
 		<cfFraction>$medMed2.fraction</cfFraction>
 #end
 	</cfMedium_Medium>
-	
 #end
 #foreach( $projMed in $medium.projects_mediums )
 	<cfProj_Medium>
@@ -5055,7 +4477,6 @@
 		<cfFraction>$projMed.fraction</cfFraction>
 #end
 	</cfProj_Medium>
-	
 #end
 #foreach( $persMed in $medium.persons_mediums )
 	<cfPers_Medium>
@@ -5068,7 +4489,6 @@
 		<cfFraction>$persMed.fraction</cfFraction>
 #end
 	</cfPers_Medium>
-	
 #end
 #foreach( $orgsMed in $medium.organisationUnits_mediums )
 	<cfOrgUnit_Medium>
@@ -5081,7 +4501,6 @@
 		<cfFraction>$orgsMed.fraction</cfFraction>
 #end
 	</cfOrgUnit_Medium>
-	
 #end
 #foreach( $medClass in $medium.mediums_classes )
 	<cfMedium_Class>
@@ -5093,7 +4512,6 @@
 		<cfFraction>$medClass.fraction</cfFraction>
 #end
 	</cfMedium_Class>
-	
 #end
 #foreach( $eventMed in $medium.events_mediums )
 	<cfEvent_Medium>
@@ -5106,7 +4524,6 @@
 		<cfFraction>$eventMed.fraction</cfFraction>
 #end
 	</cfEvent_Medium>
-	
 #end
 #foreach( $medFund in $medium.mediums_fundings )
 	<cfMedium_Fund>
@@ -5127,7 +4544,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$medFund.amount</cfAmount>
 #end
 	</cfMedium_Fund>
-	
 #end
 #foreach( $citationMed in $medium.citations_mediums )
 	<cfCite_Medium>
@@ -5140,7 +4556,6 @@
 		<cfFraction>$citationMed.fraction</cfFraction>
 #end
 	</cfCite_Medium>
-	
 #end
 #foreach( $medIndic in $medium.mediums_indicators )
 	<cfMedium_Indic>
@@ -5153,7 +4568,6 @@
 		<cfFraction>$medIndic.fraction</cfFraction>
 #end
 	</cfMedium_Indic>
-	
 #end
 #foreach( $mediumMeasurement in $medium.mediums_measurements )
 	<cfMedium_Meas>
@@ -5166,11 +4580,12 @@
 		<cfFraction>$mediumMeasurement.fraction</cfFraction>
 #end
 	</cfMedium_Meas>
-	
 #end
 #foreach( $mediumFederatedIdentifiers in $medium.federatedIdentifiers )
 	<cfFedId>
+#if ($mediumFederatedIdentifiers.id)
 		<cfFedIdId>$mediumFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($mediumFederatedIdentifiers.fedId && $mediumFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($mediumFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -5186,18 +4601,20 @@
 #if ($mediumFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$mediumFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$mediumFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $mediumFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $mediumFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -5210,19 +4627,17 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
 </cfMedium>
-
 #end
-
 #foreach( $event in $events )
-<!-- An Event record -->
+## <!-- An Event record -->
 <cfEvent>
+#if ($event.id)
 	<cfEventId>$event.id</cfEventId>
+#end
 #if ($event.country && $event.country != "")
 	<cfCountryCode>$cerif.xml($event.country.code)</cfCountryCode>
 #end
@@ -5242,36 +4657,14 @@
 	<cfURI>$cerif.xml($event.uri)</cfURI>
 #end
 #foreach( $eventName in $event.eventNames )
-#if( $eventName.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $eventName.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfName cfLangCode=$esc.quote$eventName.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($eventName.name)</cfName>
+	<cfName cfLangCode=$esc.quote$eventName.language.code$esc.quote cfTrans=$esc.quote$eventName.translation$esc.quote>$cerif.xml($eventName.name)</cfName>
 #end
 #foreach( $eventDescr in $event.eventDescriptions )
-#if( $eventDescr.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $eventDescr.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfDescr cfLangCode=$esc.quote$eventDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($eventDescr.description)</cfDescr>
+	<cfDescr cfLangCode=$esc.quote$eventDescr.language.code$esc.quote cfTrans=$esc.quote$eventDescr.translation$esc.quote>$cerif.xml($eventDescr.description)</cfDescr>
 #end
 #foreach( $eventKeyword in $event.eventKeywords )
-#if( $eventKeyword.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $eventKeyword.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfKeyw cfLangCode=$esc.quote$eventKeyword.language.code$esc.quote cfTrans=$esc.quote$eventKeyword.translation$esc.quote>$cerif.xml($eventKeyword.keyword)</cfKeyw>
 #end
-	<cfKeyw cfLangCode=$esc.quote$eventKeyword.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($eventKeyword.keyword)</cfKeyw>
-#end
-
 #foreach( $eventClass in $event.events_classes )
 	<cfEvent_Class>
 		<cfClassId>$eventClass.theClass.uuid</cfClassId>			
@@ -5282,7 +4675,6 @@
 		<cfFraction>$eventClass.fraction</cfFraction>
 #end
 	</cfEvent_Class>
-	
 #end
 #foreach( $eventFund in $event.events_fundings )
 	<cfEvent_Fund>
@@ -5303,7 +4695,6 @@
 		<cfAmount cfCurrCode=$esc.quote$currency$esc.quote>$eventFund.amount</cfAmount>
 #end
 	</cfEvent_Fund>
-	
 #end
 #foreach( $resPublEvent in $event.resultPublications_events )
 	<cfResPubl_Event>
@@ -5316,7 +4707,6 @@
 		<cfFraction>$resPublEvent.fraction</cfFraction>
 #end
 	</cfResPubl_Event>
-	
 #end
 #foreach( $orgEvent in $event.organisationUnits_events )
 	<cfOrgUnit_Event>
@@ -5329,7 +4719,6 @@
 		<cfFraction>$orgEvent.fraction</cfFraction>
 #end
 	</cfOrgUnit_Event>
-	
 #end
 #foreach( $persEvent in $event.persons_events )
 	<cfPers_Event>
@@ -5342,7 +4731,6 @@
 		<cfFraction>$persEvent.fraction</cfFraction>
 #end
 	</cfPers_Event>
-	
 #end
 #foreach( $projEvent in $event.projects_events )
 	<cfProj_Event>
@@ -5355,7 +4743,6 @@
 		<cfFraction>$projEvent.fraction</cfFraction>
 #end
 	</cfProj_Event>
-	
 #end
 #foreach( $eventEvent1 in $event.events_events1 )
 	<cfEvent_Event>
@@ -5368,7 +4755,6 @@
 		<cfFraction>$eventEvent1.fraction</cfFraction>
 #end
 	</cfEvent_Event>
-	
 #end
 #foreach( $eventEvent2 in $event.events_events2 )
 	<cfEvent_Event>
@@ -5381,7 +4767,6 @@
 		<cfFraction>$eventEvent2.fraction</cfFraction>
 #end
 	</cfEvent_Event>
-	
 #end
 #foreach( $eventMed in $event.events_mediums )
 	<cfEvent_Medium>
@@ -5394,7 +4779,6 @@
 		<cfFraction>$eventMed.fraction</cfFraction>
 #end
 	</cfEvent_Medium>
-	
 #end
 #foreach( $facEvent in $event.facilities_events )
 	<cfFacil_Event>
@@ -5407,7 +4791,6 @@
 		<cfFraction>$facEvent.fraction</cfFraction>
 #end
 	</cfFacil_Event>
-	
 #end
 #foreach( $srvEvent in $event.services_events )
 	<cfSrv_Event>
@@ -5420,7 +4803,6 @@
 		<cfFraction>$srvEvent.fraction</cfFraction>
 #end
 	</cfSrv_Event>
-	
 #end
 #foreach( $equipEvent in $event.equipments_events )
 	<cfEquip_Event>
@@ -5433,7 +4815,6 @@
 		<cfFraction>$equipEvent.fraction</cfFraction>
 #end
 	</cfEquip_Event>
-	
 #end
 #foreach( $eventMeasurement in $event.events_measurements )
 	<cfEvent_Meas>
@@ -5446,7 +4827,6 @@
 		<cfFraction>$eventMeasurement.fraction</cfFraction>
 #end
 	</cfEvent_Meas>
-	
 #end
 #foreach( $eventIndic in $event.events_indicators )
 	<cfEvent_Indic>
@@ -5459,11 +4839,12 @@
 		<cfFraction>$eventIndic.fraction</cfFraction>
 #end
 	</cfEvent_Indic>
-	
 #end
 #foreach( $eventFederatedIdentifiers in $event.federatedIdentifiers )
 	<cfFedId>
+#if ($eventFederatedIdentifiers.id)
 		<cfFedIdId>$eventFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($eventFederatedIdentifiers.fedId && $eventFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($eventFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -5479,18 +4860,20 @@
 #if ($eventFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$eventFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$eventFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $eventFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $eventFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -5503,44 +4886,26 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
-
 </cfEvent>
-
 #end
-
 #foreach( $citation in $citations )
-<!-- A Citation record -->
+## <!-- A Citation record -->
 <cfCite>
+#if ($citation.id)
 	<cfCiteId>$citation.id</cfCiteId>
+#end
 #if ($citation.uri && $citation.uri != "")
 	<cfURI>$cerif.xml($citation.uri)</cfURI>
 #end
 #foreach( $citationTitle in $citation.citationTitles )
-#if( $citationTitle.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $citationTitle.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
-#end
-	<cfTitle cfLangCode=$esc.quote$citationTitle.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($citationTitle.title)</cfTitle>
+	<cfTitle cfLangCode=$esc.quote$citationTitle.language.code$esc.quote cfTrans=$esc.quote$citationTitle.translation$esc.quote>$cerif.xml($citationTitle.title)</cfTitle>
 #end
 #foreach( $citationDescr in $citation.citationDescriptions )
-#if( $citationDescr.translation == "HUMAN" )
-#set ($trans = "h")
-#elseif( $citationDescr.translation == "ORIGINAL" )
-#set ($trans = "o")
-#else
-#set ($trans = "m")
+	<cfDescr cfLangCode=$esc.quote$citationDescr.language.code$esc.quote cfTrans=$esc.quote$citationDescr.translation$esc.quote>$cerif.xml($citationDescr.description)</cfDescr>
 #end
-	<cfDescr cfLangCode=$esc.quote$citationDescr.language.code$esc.quote cfTrans=$esc.quote$trans$esc.quote>$cerif.xml($citationDescr.description)</cfDescr>
-#end
-
 #foreach( $resPublCite in $citation.resultPublications_citations )
 	<cfResPubl_Cite>
 		<cfResPublId>$resPublCite.resultPublication.id</cfResPublId>		
@@ -5558,7 +4923,6 @@
 		<cfCount>$resPublCite.count</cfCount>
 #end
 	</cfResPubl_Cite>
-	
 #end
 #foreach( $citationClass in $citation.citations_classes )
 	<cfCite_Class>
@@ -5570,7 +4934,6 @@
 		<cfFraction>$citationClass.fraction</cfFraction>
 #end
 	</cfCite_Class>
-	
 #end
 #foreach( $citationMed in $citation.citations_mediums )
 	<cfCite_Medium>
@@ -5583,11 +4946,12 @@
 		<cfFraction>$citationMed.fraction</cfFraction>
 #end
 	</cfCite_Medium>
-	
 #end
 #foreach( $citationFederatedIdentifiers in $citation.federatedIdentifiers )
 	<cfFedId>
+#if ($citationFederatedIdentifiers.id)
 		<cfFedIdId>$citationFederatedIdentifiers.id</cfFedIdId>
+#end
 #if ($citationFederatedIdentifiers.fedId && $citationFederatedIdentifiers.fedId != "")
 		<cfFedId>$cerif.xml($citationFederatedIdentifiers.fedId)</cfFedId>
 #end
@@ -5603,18 +4967,20 @@
 #if ($citationFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$citationFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$citationFederatedIdentifiers.endDate)</cfEndDate>
 #end
-	
 #foreach( $federatedIdentifierClass in $citationFederatedIdentifiers.fedIds_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
 			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
 			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
 #if ($federatedIdentifierClass.fraction)
 			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
 #end
 		</cfFedId_Class>
-		
 #end
 #foreach( $federatedIdentifierService in $citationFederatedIdentifiers.services_fedIds )
 		<cfFedId_Srv>
@@ -5627,13 +4993,613 @@
 			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
 #end
 		</cfFedId_Srv>
-		
 #end
 	</cfFedId>
-	
 #end
-
 </cfCite>
-
+#end
+#foreach( $cv in $curriculaVitae )
+## <!-- A CV record -->
+<cfCV>
+#if ($cv.id)
+	<cfCVId>$cv.id</cfCVId>
+#end
+#if ($cv.doc)
+	<cfCVDoc>$cv.doc</cfCVDoc>
+#end
+#if ($cv.uri && $cv.uri != '')
+	<cfURI>$cv.uri</cfURI>
+#end
+#foreach( $personCV in $cv.persons_cvs )
+	<cfPers_CV>
+		<cfPersId>$personCV.person.id</cfPersId>		
+		<cfClassId>$personCV.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$personCV.theClass.scheme.uuid</cfClassSchemeId>
+		<cfStartDate>$date.format('yyyy-MM-dd',$personCV.startDate)T$date.format('HH:mm:ss',$personCV.startDate)</cfStartDate>
+		<cfEndDate>$date.format('yyyy-MM-dd',$personCV.endDate)T$date.format('HH:mm:ss',$personCV.endDate)</cfEndDate>
+#if ($personCV.fraction)
+		<cfFraction>$personCV.fraction</cfFraction>
+#end
+	</cfPers_CV>
+#end
+#foreach( $cvClass in $cv.cvs_classes )
+	<cfCV_Class>
+		<cfClassId>$cvClass.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$cvClass.theClass.scheme.uuid</cfClassSchemeId>
+		<cfStartDate>$date.format('yyyy-MM-dd',$cvClass.startDate)T$date.format('HH:mm:ss',$cvClass.startDate)</cfStartDate>
+		<cfEndDate>$date.format('yyyy-MM-dd',$cvClass.endDate)T$date.format('HH:mm:ss',$cvClass.endDate)</cfEndDate>
+#if ($cvClass.fraction)
+		<cfFraction>$cvClass.fraction</cfFraction>
+#end
+	</cfCV_Class>
+#end
+#foreach( $federatedIdentifier in $cv.federatedIdentifiers )
+	<cfFedId>
+#if ($federatedIdentifier.id)
+		<cfFedIdId>$federatedIdentifier.id</cfFedIdId>
+#end
+#if ($federatedIdentifier.fedId && $serviceFederatedIdentifiers.fedId != "")
+		<cfFedId>$cerif.xml($federatedIdentifier.fedId)</cfFedId>
+#end
+#if ($federatedIdentifier.theClass)
+		<cfClassId>$federatedIdentifier.theClass.uuid</cfClassId>
+#end
+#if ($federatedIdentifier.scheme)
+		<cfClassSchemeId>$federatedIdentifier.scheme.uuid</cfClassSchemeId>
+#end
+#if ($federatedIdentifier.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifier.startDate)T$date.format('HH:mm:ss',$federatedIdentifier.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifier.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
+#end
+#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+#end
+#foreach( $federatedIdentifierService in $federatedIdentifier.services_fedIds )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.uuid</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+#end
+	</cfFedId>
+#end
+</cfCV>	
+#end
+#foreach( $qual in $qualifications )
+## <!-- A Qualification record -->
+<cfQual>
+#if ($qual.id)
+	<cfQualId>$qual.id</cfQualId>
+#end
+#if ($qual.uri && $qual.uri != '')
+	<cfURI>$qual.uri</cfURI>
+#end
+#foreach( $qualDescr in $qual.qualificationDescriptions )
+	<cfDescr cfLangCode=$esc.quote$qualDescr.language.code$esc.quote cfTrans=$esc.quote$qualDescr.translation$esc.quote>$cerif.xml($qualDescr.description)</cfDescr>
+#end
+#foreach( $qualKeyword in $qual.qualificationKeywords )
+	<cfKeyw cfLangCode=$esc.quote$qualKeyword.language.code$esc.quote cfTrans=$esc.quote$qualKeyword.translation$esc.quote>$cerif.xml($qualKeyword.keyword)</cfKeyw>
+#end
+#foreach( $qualTitle in $qual.qualificationTitles )
+	<cfTitle cfLangCode=$esc.quote$qualTitle.language.code$esc.quote cfTrans=$esc.quote$qualTitle.translation$esc.quote>$cerif.xml($qualTitle.title)</cfTitle>
+#end
+#foreach( $personQual in $cv.persons_qualifications )
+	<cfPers_Qual>
+		<cfPersId>$personQual.person.id</cfPersId>		
+		<cfClassId>$personQual.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$personQual.theClass.scheme.uuid</cfClassSchemeId>
+		<cfStartDate>$date.format('yyyy-MM-dd',$personQual.startDate)T$date.format('HH:mm:ss',$personQual.startDate)</cfStartDate>
+		<cfEndDate>$date.format('yyyy-MM-dd',$personQual.endDate)T$date.format('HH:mm:ss',$personQual.endDate)</cfEndDate>
+#if ($personQual.fraction)
+		<cfFraction>$personQual.fraction</cfFraction>
+#end
+	</cfPers_Qual>
+#end
+#foreach( $qualClass in $qual.qualifications_classes )
+	<cfQual_Class>
+		<cfClassId>$qualClass.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$qualClass.theClass.scheme.uuid</cfClassSchemeId>
+		<cfStartDate>$date.format('yyyy-MM-dd',$qualClass.startDate)T$date.format('HH:mm:ss',$qualClass.startDate)</cfStartDate>
+		<cfEndDate>$date.format('yyyy-MM-dd',$qualClass.endDate)T$date.format('HH:mm:ss',$qualClass.endDate)</cfEndDate>
+#if ($qualClass.fraction)
+		<cfFraction>$qualClass.fraction</cfFraction>
+#end
+	</cfQual_Class>
+#end
+#foreach( $federatedIdentifier in $qual.federatedIdentifiers )
+	<cfFedId>
+#if ($federatedIdentifier.id)
+		<cfFedIdId>$federatedIdentifier.id</cfFedIdId>
+#end
+#if ($federatedIdentifier.fedId && $serviceFederatedIdentifiers.fedId != "")
+		<cfFedId>$cerif.xml($federatedIdentifier.fedId)</cfFedId>
+#end
+#if ($federatedIdentifier.theClass)
+		<cfClassId>$federatedIdentifier.theClass.uuid</cfClassId>
+#end
+#if ($federatedIdentifier.scheme)
+		<cfClassSchemeId>$federatedIdentifier.scheme.uuid</cfClassSchemeId>
+#end
+#if ($federatedIdentifier.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifier.startDate)T$date.format('HH:mm:ss',$federatedIdentifier.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifier.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
+#end
+#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+#end
+#foreach( $federatedIdentifierService in $federatedIdentifier.services_fedIds )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.uuid</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+#end
+	</cfFedId>
+#end
+</cfQual>
+#end
+#foreach( $prize in $prizes )
+## <!-- A Prize record -->
+<cfPrize>
+#if ($prize.id)
+	<cfPrizeId>$prize.id</cfPrizeId>
+#end
+#if ($prize.uri && $prize.uri != '')
+	<cfURI>$prize.uri</cfURI>
+#end
+#foreach( $prizeName in $prize.prizeNames )
+	<cfName cfLangCode=$esc.quote$prizeName.language.code$esc.quote cfTrans=$esc.quote$prizeName.translation$esc.quote>$cerif.xml($prizeName.name)</cfName>
+#end
+#foreach( $prizeDescr in $prize.prizeDescriptions )
+	<cfDescr cfLangCode=$esc.quote$prizeDescr.language.code$esc.quote cfTrans=$esc.quote$prizeDescr.translation$esc.quote>$cerif.xml($prizeDescr.description)</cfDescr>
+#end
+#foreach( $prizeKeyword in $prize.prizeKeywords )
+	<cfKeyw cfLangCode=$esc.quote$prizeKeyword.language.code$esc.quote cfTrans=$esc.quote$prizeKeyword.translation$esc.quote>$cerif.xml($prizeKeyword.keyword)</cfKeyw>
+#end
+#foreach( $organisationPrize in $prize.organisationUnits_prizes )
+	<cfOrgUnit_Prize>
+		<cfOrgUnitId>$organisationPrize.organisationUnit.id</cfOrgUnitId>		
+		<cfClassId>$organisationPrize.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$organisationPrize.theClass.scheme.uuid</cfClassSchemeId>
+#if ($organisationPrize.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$organisationPrize.startDate)T$date.format('HH:mm:ss',$organisationPrize.startDate)</cfStartDate>
+#end
+#if ($organisationPrize.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$organisationPrize.endDate)T$date.format('HH:mm:ss',$organisationPrize.endDate)</cfEndDate>
+#end
+#if ($organisationPrize.fraction)
+		<cfFraction>$organisationPrize.fraction</cfFraction>
+#end
+	</cfOrgUnit_Prize>
+#end
+#foreach( $personPrize in $prize.persons_prizes )
+	<cfPers_Prize>
+		<cfPersId>$personPrize.person.id</cfPersId>		
+		<cfClassId>$personPrize.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$personPrize.theClass.scheme.uuid</cfClassSchemeId>
+#if ($personPrize.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$personPrize.startDate)T$date.format('HH:mm:ss',$personPrize.startDate)</cfStartDate>
+#end
+#if ($personPrize.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$personPrize.endDate)T$date.format('HH:mm:ss',$personPrize.endDate)</cfEndDate>
+#end
+#if ($personPrize.fraction)
+		<cfFraction>$personPrize.fraction</cfFraction>
+#end
+	</cfPers_Prize>
+#end
+#foreach( $projectPrize in $prize.projects_prizes )
+	<cfProj_Prize>
+		<cfProjId>$projectPrize.project.id</cfProjId>		
+		<cfClassId>$projectPrize.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$projectPrize.theClass.scheme.uuid</cfClassSchemeId>
+#if ($projectPrize.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$projectPrize.startDate)T$date.format('HH:mm:ss',$projectPrize.startDate)</cfStartDate>
+#end
+#if ($projectPrize.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$projectPrize.endDate)T$date.format('HH:mm:ss',$projectPrize.endDate)</cfEndDate>
+#end
+#if ($projectPrize.fraction)
+		<cfFraction>$projectPrize.fraction</cfFraction>
+#end
+#if ($projectPrize.prizeDate)
+		<cfPrizeDate>$date.format('yyyy-MM-dd',$projectPrize.prizeDate)T$date.format('HH:mm:ss',$projectPrize.prizeDate)</cfPrizeDate>
+#end
+	</cfProj_Prize>
+#end
+#foreach( $prizeClass in $prize.prizes_classes )
+	<cfPrize_Class>
+		<cfClassId>$prizeClass.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$prizeClass.theClass.scheme.uuid</cfClassSchemeId>
+		<cfStartDate>$date.format('yyyy-MM-dd',$prizeClass.startDate)T$date.format('HH:mm:ss',$prizeClass.startDate)</cfStartDate>
+		<cfEndDate>$date.format('yyyy-MM-dd',$prizeClass.endDate)T$date.format('HH:mm:ss',$prizeClass.endDate)</cfEndDate>
+#if ($prizeClass.fraction)
+		<cfFraction>$prizeClass.fraction</cfFraction>
+#end
+	</cfPrize_Class>
+#end
+#foreach( $federatedIdentifier in $prize.federatedIdentifiers )
+	<cfFedId>
+#if ($federatedIdentifier.id)
+		<cfFedIdId>$federatedIdentifier.id</cfFedIdId>
+#end
+#if ($federatedIdentifier.fedId && $serviceFederatedIdentifiers.fedId != "")
+		<cfFedId>$cerif.xml($federatedIdentifier.fedId)</cfFedId>
+#end
+#if ($federatedIdentifier.theClass)
+		<cfClassId>$federatedIdentifier.theClass.uuid</cfClassId>
+#end
+#if ($federatedIdentifier.scheme)
+		<cfClassSchemeId>$federatedIdentifier.scheme.uuid</cfClassSchemeId>
+#end
+#if ($federatedIdentifier.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifier.startDate)T$date.format('HH:mm:ss',$federatedIdentifier.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifier.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
+#end
+#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+#end
+#foreach( $federatedIdentifierService in $federatedIdentifier.services_fedIds )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.uuid</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+#end
+	</cfFedId>
+#end
+</cfPrize>
+#end
+#foreach( $geo in $prizes )
+## <!-- A Geographic Bounding Box record -->
+<cfGeoBBox>
+#if ($geo.id)
+	<cfGeoBBoxId>$geo.id</cfGeoBBoxId>
+#end
+#if ($geo.WBLong)
+	<cfWBLong>$geo.WBLong</cfWBLong>
+#end
+#if ($geo.EBLong)
+	<cfEBLong>$geo.EBLong</cfEBLong>
+#end
+#if ($geo.SBLat)
+	<cfSBLat>$geo.SBLat</cfSBLat>
+#end
+#if ($geo.NBLat)
+	<cfNBLat>$geo.NBLat</cfNBLat>
+#end
+#if ($geo.MinElev)
+	<cfMinElev>$geo.MinElev</cfMinElev>
+#end
+#if ($geo.MaxElev)
+	<cfMaxElev>$geo.MaxElev</cfMaxElev>
+#end
+#if ($geo.uri && $geo.uri != '')
+	<cfURI>$geo.uri</cfURI>
+#end
+#foreach( $geoName in $geo.geographicBoundingBoxNames )
+	<cfName cfLangCode=$esc.quote$geoName.language.code$esc.quote cfTrans=$esc.quote$geoName.translation$esc.quote>$cerif.xml($geoName.name)</cfName>
+#end
+#foreach( $geoDescr in $geo.geographicBoundingBoxDescriptions )
+	<cfDescr cfLangCode=$esc.quote$geoDescr.language.code$esc.quote cfTrans=$esc.quote$geoDescr.translation$esc.quote>$cerif.xml($geoDescr.description)</cfDescr>
+#end
+#foreach( $geoKeyword in $geo.geographicBoundingBoxKeywords )
+	<cfKeyw cfLangCode=$esc.quote$geoKeyword.language.code$esc.quote cfTrans=$esc.quote$geoKeyword.translation$esc.quote>$cerif.xml($geoKeyword.keyword)</cfKeyw>
+#end
+#foreach( $link in $geo.postalAddresses_geographicBoundingBoxes )
+	<cfPAddr_GeoBBox>
+		<cfPAddrId>$link.postalAddress.id</cfPAddrId>		
+		<cfClassId>$link.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$link.theClass.scheme.uuid</cfClassSchemeId>
+#if ($link.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$link.startDate)T$date.format('HH:mm:ss',$link.startDate)</cfStartDate>
+#end
+#if ($link.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$link.endDate)T$date.format('HH:mm:ss',$link.endDate)</cfEndDate>
+#end
+#if ($link.fraction)
+		<cfFraction>$link.fraction</cfFraction>
+#end
+	</cfPAddr_GeoBBox>
+#end
+#foreach( $link in $geo.geographicBoundingBoxes_classes )
+	<cfGeoBBox_Class>
+		<cfClassId>$link.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$link.theClass.scheme.uuid</cfClassSchemeId>
+#if ($link.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$link.startDate)T$date.format('HH:mm:ss',$link.startDate)</cfStartDate>
+#end
+#if ($link.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$link.endDate)T$date.format('HH:mm:ss',$link.endDate)</cfEndDate>
+#end
+#if ($link.fraction)
+		<cfFraction>$link.fraction</cfFraction>
+#end
+	</cfGeoBBox_Class>
+#end
+#foreach( $link in $geo.geographicBoundingBoxes_geographicBoundingBoxes1 )
+	<cfGeoBBox_GeoBBox>
+		<cfGeoBBoxId2>$link.geographicBoundingBox2.id</cfGeoBBoxId2>	
+		<cfGeoBBoxId1>$link.geographicBoundingBox1.id</cfGeoBBoxId1>	
+		<cfClassId>$link.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$link.theClass.scheme.uuid</cfClassSchemeId>
+#if ($link.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$link.startDate)T$date.format('HH:mm:ss',$link.startDate)</cfStartDate>
+#end
+#if ($link.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$link.endDate)T$date.format('HH:mm:ss',$link.endDate)</cfEndDate>
+#end
+#if ($link.fraction)
+		<cfFraction>$link.fraction</cfFraction>
+#end
+	</cfGeoBBox_GeoBBox>
+#end
+#foreach( $link in $geo.resultProducts_geographicBoundingBoxes )
+	<cfResProd_GeoBBox>
+		<cfResProdId>$link.resultProduct.id</cfResProdId>	
+		<cfClassId>$link.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$link.theClass.scheme.uuid</cfClassSchemeId>
+#if ($link.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$link.startDate)T$date.format('HH:mm:ss',$link.startDate)</cfStartDate>
+#end
+#if ($link.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$link.endDate)T$date.format('HH:mm:ss',$link.endDate)</cfEndDate>
+#end
+#if ($link.fraction)
+		<cfFraction>$link.fraction</cfFraction>
+#end
+	</cfResProd_GeoBBox>
+#end
+#foreach( $federatedIdentifier in $geo.federatedIdentifiers )
+	<cfFedId>
+#if ($federatedIdentifier.id)
+		<cfFedIdId>$federatedIdentifier.id</cfFedIdId>
+#end
+#if ($federatedIdentifier.fedId && $serviceFederatedIdentifiers.fedId != "")
+		<cfFedId>$cerif.xml($federatedIdentifier.fedId)</cfFedId>
+#end
+#if ($federatedIdentifier.theClass)
+		<cfClassId>$federatedIdentifier.theClass.uuid</cfClassId>
+#end
+#if ($federatedIdentifier.scheme)
+		<cfClassSchemeId>$federatedIdentifier.scheme.uuid</cfClassSchemeId>
+#end
+#if ($federatedIdentifier.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifier.startDate)T$date.format('HH:mm:ss',$federatedIdentifier.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifier.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
+#end
+#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+#end
+#foreach( $federatedIdentifierService in $federatedIdentifier.services_fedIds )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.uuid</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+#end
+	</cfFedId>
+#end
+</cfGeoBBox>
+#end
+#foreach( $skill in $expertiseAndSkills )
+## <!-- An Expertise and Skills record -->
+<cfExpSkills>
+#if ($skill.id)
+	<cfExpSkillsId>$skill.id</cfExpSkillsId>
+#end
+#if ($skill.uri)
+	<cfURI>$skill.uri</cfURI>
+#end
+#foreach( $skillName in $skill.expertiseAndSkillsNames )
+	<cfName cfLangCode=$esc.quote$skillName.language.code$esc.quote cfTrans=$esc.quote$skillName.translation$esc.quote>$cerif.xml($skillName.name)</cfName>
+#end
+#foreach( $skillKeyword in $skill.expertiseAndSkillsKeywords )
+	<cfKeyw cfLangCode=$esc.quote$skillKeyword.language.code$esc.quote cfTrans=$esc.quote$skillKeyword.translation$esc.quote>$cerif.xml($skillKeyword.keyword)</cfKeyw>
+#end
+#foreach( $skillDescr in $skill.expertiseAndSkillsDescriptions )
+	<cfDescr cfLangCode=$esc.quote$skillDescr.language.code$esc.quote cfTrans=$esc.quote$skillDescr.translation$esc.quote>$cerif.xml($skillDescr.description)</cfDescr>
+#end
+#foreach( $link in $skill.organisationUnits_expertiseAndSkills )
+	<cfOrgUnit_ExpSkills>
+		<cfOrgUnitId>$link.organisationUnit.id</cfOrgUnitId>		
+		<cfClassId>$link.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$link.theClass.scheme.uuid</cfClassSchemeId>
+#if ($link.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$link.startDate)T$date.format('HH:mm:ss',$link.startDate)</cfStartDate>
+#end
+#if ($link.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$link.endDate)T$date.format('HH:mm:ss',$link.endDate)</cfEndDate>
+#end
+#if ($link.fraction)
+		<cfFraction>$link.fraction</cfFraction>
+#end
+#if ($link.availability)
+		<cfAvailability>$link.availability</cfAvailability>
+#end
+#if ($link.conditions)
+		<cfConditions>$link.conditions</cfConditions>
+#end
+#if ($link.price)
+#if (!$link.currency.code)
+#set ($currency = "default")
+#else
+#set ($currency = $link.currency.code)
+#end
+		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$link.price</cfPrice>
+#end
+	</cfOrgUnit_ExpSkills>
+#end
+#foreach( $link in $skill.persons_expertiseAndSkills )
+	<cfPers_ExpSkills>
+		<cfPersId>$link.person.id</cfPersId>		
+		<cfClassId>$link.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$link.theClass.scheme.uuid</cfClassSchemeId>
+#if ($link.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$link.startDate)T$date.format('HH:mm:ss',$link.startDate)</cfStartDate>
+#end
+#if ($link.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$link.endDate)T$date.format('HH:mm:ss',$link.endDate)</cfEndDate>
+#end
+#if ($link.fraction)
+		<cfFraction>$link.fraction</cfFraction>
+#end
+#if ($link.availability)
+		<cfAvailability>$link.availability</cfAvailability>
+#end
+#if ($link.conditions)
+		<cfConditions>$link.conditions</cfConditions>
+#end
+#if ($link.price)
+#if (!$link.currency.code)
+#set ($currency = "default")
+#else
+#set ($currency = $link.currency.code)
+#end
+		<cfPrice cfCurrCode=$esc.quote$currency$esc.quote>$link.price</cfPrice>
+#end
+	</cfPers_ExpSkills>
+#end
+#foreach( $link in $skill.expertiseAndSkills_classes )
+	<cfExpSkills_Class>
+		<cfClassId>$link.theClass.uuid</cfClassId>			
+		<cfClassSchemeId>$link.theClass.scheme.uuid</cfClassSchemeId>
+#if ($link.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$link.startDate)T$date.format('HH:mm:ss',$link.startDate)</cfStartDate>
+#end
+#if ($link.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$link.endDate)T$date.format('HH:mm:ss',$link.endDate)</cfEndDate>
+#end
+#if ($link.fraction)
+		<cfFraction>$link.fraction</cfFraction>
+#end
+	</cfExpSkills_Class>
+#end
+#foreach( $federatedIdentifier in $skill.federatedIdentifiers )
+	<cfFedId>
+#if ($federatedIdentifier.id)
+		<cfFedIdId>$federatedIdentifier.id</cfFedIdId>
+#end
+#if ($federatedIdentifier.fedId && $serviceFederatedIdentifiers.fedId != "")
+		<cfFedId>$cerif.xml($federatedIdentifier.fedId)</cfFedId>
+#end
+#if ($federatedIdentifier.theClass)
+		<cfClassId>$federatedIdentifier.theClass.uuid</cfClassId>
+#end
+#if ($federatedIdentifier.scheme)
+		<cfClassSchemeId>$federatedIdentifier.scheme.uuid</cfClassSchemeId>
+#end
+#if ($federatedIdentifier.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifier.startDate)T$date.format('HH:mm:ss',$federatedIdentifier.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifier.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
+#end
+#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+		<cfFedId_Class>
+			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
+#if ($federatedIdentifierClass.startDate)
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.startDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.startDate)</cfStartDate>
+#end
+#if ($federatedIdentifierClass.endDate)
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierClass.endDate)T$date.format('HH:mm:ss',$federatedIdentifierClass.endDate)</cfEndDate>
+#end
+#if ($federatedIdentifierClass.fraction)
+			<cfFraction>$federatedIdentifierClass.fraction</cfFraction>
+#end
+		</cfFedId_Class>
+#end
+#foreach( $federatedIdentifierService in $federatedIdentifier.services_fedIds )
+		<cfFedId_Srv>
+		 	<cfSrvId>$federatedIdentifierService.service.id</cfSrvId>
+			<cfClassId>$federatedIdentifierService.theClass.uuid</cfClassId>	
+			<cfClassSchemeId>$federatedIdentifierService.theClass.scheme.uuid</cfClassSchemeId>
+			<cfStartDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.startDate)T$date.format('HH:mm:ss',$federatedIdentifierService.startDate)</cfStartDate>
+			<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifierService.endDate)T$date.format('HH:mm:ss',$federatedIdentifierService.endDate)</cfEndDate>
+#if ($federatedIdentifierService.fraction)
+			<cfFraction>$federatedIdentifierService.fraction</cfFraction>
+#end
+		</cfFedId_Srv>
+#end
+	</cfFedId>
+#end
+</cfExpSkills>
 #end
 </CERIF>
