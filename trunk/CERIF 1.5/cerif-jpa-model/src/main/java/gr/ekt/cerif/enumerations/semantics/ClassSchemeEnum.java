@@ -13,6 +13,7 @@ public enum ClassSchemeEnum {
 	INTER_PRODUCT_RELATIONS("f5c75446-de28-4c4b-8739-8f6223a09e88","Inter-Product Relations"),
 	INTER_EVENT_RELATIONS("ac90d633-8ad6-4c23-b45a-cc4f91309843","Inter-Event Relations"),
 	INTER_FACILITY_RELATIONS("da0e5a01-c73e-4489-8cf7-917e9efcdad4","Inter-Facility Relations"),
+	INTER_FUNDING_RELATIONS("abdca247-7514-4620-beb1-9fb919fe76b0","Inter-Funding Relations"),
 	INTER_EQUIPMENT_RELATIONS("623d2471-8d16-40c9-915a-df496da086be","Inter-Equipment Relations"),
 	INTER_SERVICE_RELATIONS("39f413d8-e5ee-409a-95f1-d204b78508b9","Inter-Service Relations"),
 	INTER_OUTPUT_RELATIONS("a7e0dc90-1be4-4fd9-9ff7-bdfb8a95a1eb","Inter-Output Relations"),
