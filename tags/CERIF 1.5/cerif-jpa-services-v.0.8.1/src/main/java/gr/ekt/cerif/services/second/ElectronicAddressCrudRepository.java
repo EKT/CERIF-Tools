@@ -8,6 +8,7 @@ import java.util.List;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
+import gr.ekt.cerif.features.semantics.Class;
 
 import javax.persistence.QueryHint;
 
@@ -48,5 +49,12 @@ public interface ElectronicAddressCrudRepository extends CrudRepository<Electron
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	public ElectronicAddress findByUuid(String uuid);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	@Query("select ea from ElectronicAddress ea " +
+			"left join ea.persons_electronicAddresses eadcl " +
+			"left join eadcl.theClass cl " +
+			"where ea.uri=?1 and cl=?2 ")
+	public List<ElectronicAddress> findByUriAndClass(String uri, Class theClass);
 	
 }

@@ -11,6 +11,7 @@ import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
+import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.services.link.electronicaddress.LinkElectronicAddressClassRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitElectronicAddressRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonElectronicAddressRepository;
@@ -113,6 +114,11 @@ public class ElectronicAddressRepositoryImpl implements ElectronicAddressReposit
 	@Override
 	public List<ElectronicAddress> findByPerson(Person person) {
 		return electronicAddressCrudRepository.findByPerson(person);
+	}
+
+	@Override
+	public List<ElectronicAddress> findByUriAndClass(String uri, Class theClass) {
+		return electronicAddressCrudRepository.findByUriAndClass(uri, theClass);
 	}
 
 }

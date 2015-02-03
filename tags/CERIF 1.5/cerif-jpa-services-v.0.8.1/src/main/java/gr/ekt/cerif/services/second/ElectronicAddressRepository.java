@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
+import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * @author bonisv
@@ -39,5 +40,7 @@ public interface ElectronicAddressRepository {
 	Page<ElectronicAddress> findAll(Pageable page);
 	
 	ElectronicAddress findByUuid(String uuid);
+	
+	List<ElectronicAddress> findByUriAndClass(String uri, Class theClass);
 
 }
