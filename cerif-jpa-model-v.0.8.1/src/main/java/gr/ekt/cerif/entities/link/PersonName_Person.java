@@ -1,0 +1,242 @@
+package gr.ekt.cerif.entities.link;
+
+import java.util.Date;
+
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.features.additional.PersonName;
+import gr.ekt.cerif.features.semantics.Class;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+/**
+ * 
+ */
+@Entity
+@Table(name="cfPersName_Pers", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersNameId", "cfPersId", "cfClassId", "cfStartDate", "cfEndDate"}) )
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+public class PersonName_Person implements CerifLinkEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5297112532583363162L;
+	
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	/**
+	 * The person.
+	 */
+	@ManyToOne(optional=false)
+	@JoinColumn(name="cfPersId")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private Person person;
+	
+	/**
+	 * The person name.
+	 */
+	@ManyToOne(optional=false)
+	@JoinColumn(name="cfPersNameId")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private PersonName personName;
+	
+	/**
+	 * The class.
+	 */
+	@ManyToOne(optional=false)
+	@JoinColumn(name="cfClassId")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	private Class theClass;
+	
+	/**
+	 * The start date.
+	 */
+	@NotNull
+	@Column (name="cfStartDate")
+	private Date startDate;
+		
+	/**
+	 * The end date.
+	 */
+	@NotNull
+	@Column (name="cfEndDate")
+	private Date endDate;
+	
+	/**
+	 * The fraction.
+	 */
+	@Column(name="cfFraction")
+	private Double fraction;
+
+	/**
+	 * Default Constructor
+	 */
+	public PersonName_Person() {
+		super();
+	}
+	
+	/**
+	 * @param person
+	 * @param personName
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 * @param fraction
+	 */
+	public PersonName_Person(Person person, PersonName personName,
+			Class theClass, Date startDate, Date endDate, Double fraction) {
+		super();
+		this.person = person;
+		this.personName = personName;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.fraction = fraction;
+	}
+
+	/**
+	 * @param person
+	 * @param personName
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public PersonName_Person(Person person, PersonName personName,
+			Class theClass, Date startDate, Date endDate) {
+		super();
+		this.person = person;
+		this.personName = personName;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the person
+	 */
+	public Person getPerson() {
+		return person;
+	}
+
+	/**
+	 * @param person the person to set
+	 */
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	/**
+	 * @return the personName
+	 */
+	public PersonName getPersonName() {
+		return personName;
+	}
+
+	/**
+	 * @param personName the personName to set
+	 */
+	public void setPersonName(PersonName personName) {
+		this.personName = personName;
+	}
+
+	/**
+	 * @return the theClass
+	 */
+	public Class getTheClass() {
+		return theClass;
+	}
+
+	/**
+	 * @param theClass the theClass to set
+	 */
+	public void setTheClass(Class theClass) {
+		this.theClass = theClass;
+	}
+
+	/**
+	 * @return the startDate
+	 */
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	/**
+	 * @param startDate the startDate to set
+	 */
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	/**
+	 * @return the endDate
+	 */
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	/**
+	 * @return the fraction
+	 */
+	public Double getFraction() {
+		return fraction;
+	}
+
+	/**
+	 * @param fraction the fraction to set
+	 */
+	public void setFraction(Double fraction) {
+		this.fraction = fraction;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PersonName_Person [id=" + id + ", person=" + person
+				+ ", personName=" + personName + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
+	}
+
+	
+}
