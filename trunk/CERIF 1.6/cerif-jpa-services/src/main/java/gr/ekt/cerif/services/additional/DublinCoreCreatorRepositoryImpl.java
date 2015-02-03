@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.additional.DublinCoreCreator;
 
+@Deprecated
 @Component
 public class DublinCoreCreatorRepositoryImpl implements
 		DublinCoreCreatorRepository {

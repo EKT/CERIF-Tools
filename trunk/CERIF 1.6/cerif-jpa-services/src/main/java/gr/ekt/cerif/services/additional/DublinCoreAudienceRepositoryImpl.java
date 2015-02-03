@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.additional.DublinCoreAudience;
 
+@Deprecated
 @Component
 public class DublinCoreAudienceRepositoryImpl implements
 		DublinCoreAudienceRepository {

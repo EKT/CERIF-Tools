@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gr.ekt</groupId>
 	<artifactId>cerif-jpa-services</artifactId>
-	<version>0.8.1</version>
+	<version>0.9</version>
 	<packaging>jar</packaging>
 	<name>CERIF JPA Data Layer Services</name>
 	<url>http://www.ekt.gr</url>
@@ -22,23 +22,23 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<!-- <profiles>
-		<profile>
+	<profiles>
+		<!-- <profile>
 			<id>example</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				 <target.version>0.1</target.version>
-                		<target.version>0.1</target.version>
-                		<db.driver>org.postgresql.Driver</db.driver>
-                		<db.url>jdbc:postgresql://localhost:5432/example_db?characterEncoding=utf8</db.url>
-                		<db.username>postgres</db.username>
-                       <db.password>pass</db.password>
+                		 <target.version>0.1</target.version>
+                		<db.driver>com.mysql.jdbc.Driver</db.driver>
+                		<db.url>jdbc:mysql://localhost:3306/example_db?characterEncoding=utf8</db.url>
+                		<db.username>root</db.username>
+                		<db.password>pass</db.password> 
                        
                        validate | update | create | create-drop
                        <hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
-                       <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
+                       <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
                        <hibernate.show_sql>true</hibernate.show_sql>
                        <hibernate.indexBase>/usr/local/lucene/example_app</hibernate.indexBase>
                        set to "manual" to disable lucene indexing
@@ -48,8 +48,8 @@
                        <hibernate.cache.use_query_cache>false</hibernate.cache.use_query_cache>
                        <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
 			</properties>
-		</profile>
-	</profiles> -->
+		</profile> -->
+	</profiles>
 
 	<dependencies>
 		<dependency>
@@ -96,9 +96,7 @@
 		<dependency>
 			<groupId>gr.ekt</groupId>
 			<artifactId>cerif-jpa-model</artifactId>
-			<version>0.8.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>0.9</version>
 		</dependency>
 
 		<!-- Choose -->

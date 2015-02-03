@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreLanguage;
  * A repository for dublin core language.
  * 
  */
+@Deprecated
 public interface DublinCoreLanguageRepository {
 
 	public void delete(DublinCoreLanguage entity); 

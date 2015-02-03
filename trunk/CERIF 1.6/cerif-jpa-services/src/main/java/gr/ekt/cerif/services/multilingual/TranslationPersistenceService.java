@@ -66,6 +66,7 @@ import gr.ekt.cerif.features.multilingual.ResultPatentAbstract;
 import gr.ekt.cerif.features.multilingual.ResultPatentKeyword;
 import gr.ekt.cerif.features.multilingual.ResultPatentTitle;
 import gr.ekt.cerif.features.multilingual.ResultPatentVersionInfo;
+import gr.ekt.cerif.features.multilingual.ResultProductAlternateName;
 import gr.ekt.cerif.features.multilingual.ResultProductDescription;
 import gr.ekt.cerif.features.multilingual.ResultProductKeyword;
 import gr.ekt.cerif.features.multilingual.ResultProductName;
@@ -136,6 +137,7 @@ import gr.ekt.cerif.services.multilingual.resultpatent.ResultPatentAbstractRepos
 import gr.ekt.cerif.services.multilingual.resultpatent.ResultPatentKeywordRepository;
 import gr.ekt.cerif.services.multilingual.resultpatent.ResultPatentTitleRepository;
 import gr.ekt.cerif.services.multilingual.resultpatent.ResultPatentVersionInfoRepository;
+import gr.ekt.cerif.services.multilingual.resultproduct.ResultProductAlternateNameRepository;
 import gr.ekt.cerif.services.multilingual.resultproduct.ResultProductDescriptionRepository;
 import gr.ekt.cerif.services.multilingual.resultproduct.ResultProductKeywordRepository;
 import gr.ekt.cerif.services.multilingual.resultproduct.ResultProductNameRepository;
@@ -353,6 +355,9 @@ public class TranslationPersistenceService {
 	ResultProductVersionInfoRepository resultProductVersionInfoRepository;
 	
 	@Autowired
+	ResultProductAlternateNameRepository resultProductAlternateNameRepository;
+	
+	@Autowired
 	ResultPublicationSubtitleRepository resultPublicationSubtitleRepository;
 
 	@Autowired
@@ -527,6 +532,8 @@ public class TranslationPersistenceService {
 			resultProductDescriptionRepository.delete( (ResultProductDescription) entity);
 		} else if (entity instanceof ResultProductVersionInfo) {
 			resultProductVersionInfoRepository.delete( (ResultProductVersionInfo) entity);
+		} else if (entity instanceof ResultProductAlternateName) {
+			resultProductAlternateNameRepository.delete( (ResultProductAlternateName) entity);
 		} else if (entity instanceof ResultPublicationSubtitle) {
 			resultPublicationSubtitleRepository.delete( (ResultPublicationSubtitle) entity);
 		} else if (entity instanceof ResultPublicationNameAbbreviation) {
@@ -686,6 +693,8 @@ public class TranslationPersistenceService {
 			resultProductDescriptionRepository.delete( (List<ResultProductDescription>) entityList);
 		} else if (entity instanceof ResultProductVersionInfo) {
 			resultProductVersionInfoRepository.delete( (List<ResultProductVersionInfo>) entityList);
+		} else if (entity instanceof ResultProductAlternateName) {
+			resultProductAlternateNameRepository.delete( (List<ResultProductAlternateName>) entityList);
 		} else if (entity instanceof ResultPublicationSubtitle) {
 			resultPublicationSubtitleRepository.delete( (List<ResultPublicationSubtitle>) entityList);
 		} else if (entity instanceof ResultPublicationNameAbbreviation) {
@@ -841,6 +850,8 @@ public class TranslationPersistenceService {
 			entity = resultProductDescriptionRepository.save( (ResultProductDescription) entity);
 		} else if (entity instanceof ResultProductVersionInfo) {
 			entity = resultProductVersionInfoRepository.save( (ResultProductVersionInfo) entity);
+		} else if (entity instanceof ResultProductAlternateName) {
+			entity = resultProductAlternateNameRepository.save( (ResultProductAlternateName) entity);
 		} else if (entity instanceof ResultPublicationSubtitle) {
 			entity = resultPublicationSubtitleRepository.save( (ResultPublicationSubtitle) entity);
 		} else if (entity instanceof ResultPublicationNameAbbreviation) {
@@ -1000,6 +1011,8 @@ public class TranslationPersistenceService {
 			entityList = resultProductDescriptionRepository.save( (List<ResultProductDescription>) entityList);
 		} else if (entity instanceof ResultProductVersionInfo) {
 			entityList = resultProductVersionInfoRepository.save( (List<ResultProductVersionInfo>) entityList);
+		} else if (entity instanceof ResultProductAlternateName) {
+			entityList = resultProductAlternateNameRepository.save( (List<ResultProductAlternateName>) entityList);
 		} else if (entity instanceof ResultPublicationSubtitle) {
 			entityList = resultPublicationSubtitleRepository.save( (List<ResultPublicationSubtitle>) entityList);
 		} else if (entity instanceof ResultPublicationNameAbbreviation) {
@@ -1509,6 +1522,13 @@ public class TranslationPersistenceService {
 		return resultProductVersionInfoRepository;
 	}
 
+	/**
+	 * Returns the resultProductAlternateNameRepository.
+	 * @return the resultProductAlternateNameRepository.
+	 */
+	public ResultProductAlternateNameRepository getResultProductAlternateNameRepository() {
+		return resultProductAlternateNameRepository;
+	}
 
 	/**
 	 * @return the resultPublicationSubtitleRepository

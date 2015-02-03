@@ -3,20 +3,11 @@
  */
 package gr.ekt.cerif.services.second;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
 import gr.ekt.cerif.entities.link.Equipment_Measurement;
 import gr.ekt.cerif.entities.link.Event_Measurement;
 import gr.ekt.cerif.entities.link.Facility_Measurement;
 import gr.ekt.cerif.entities.link.Funding_Measurement;
+import gr.ekt.cerif.entities.link.GeographicBoundingBox_Measurement;
 import gr.ekt.cerif.entities.link.Indicator_Measurement;
 import gr.ekt.cerif.entities.link.Measurement_Class;
 import gr.ekt.cerif.entities.link.Measurement_Measurement;
@@ -43,6 +34,7 @@ import gr.ekt.cerif.services.link.medium.LinkMediumMeasurementRepository;
 import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitMeasurementRepository;
 import gr.ekt.cerif.services.link.person.LinkPersonMeasurementRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectMeasurementRepository;
+import gr.ekt.cerif.services.link.result.LinkGeographicBoundingBoxMeasurementRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentMeasurementRepository;
 import gr.ekt.cerif.services.link.result.LinkResultProductMeasurementRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPublicationMeasurementRepository;
@@ -50,6 +42,16 @@ import gr.ekt.cerif.services.link.service.LinkServiceMeasurementRepository;
 import gr.ekt.cerif.services.multilingual.measurement.MeasurementDescriptionRepository;
 import gr.ekt.cerif.services.multilingual.measurement.MeasurementKeywordRepository;
 import gr.ekt.cerif.services.multilingual.measurement.MeasurementNameRepository;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author bonisv
@@ -116,6 +118,9 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 	
 	@Autowired
 	private LinkFundingMeasurementRepository linkFundingMeasurementRepository;
+	
+	@Autowired
+	private LinkGeographicBoundingBoxMeasurementRepository linkGeographicBoundingBoxMeasurementRepository;
 	
 	
 
@@ -200,6 +205,10 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 		List<Funding_Measurement> fundMeas = linkFundingMeasurementRepository.findByMeasurement(entity);
 		if (fundMeas != null) linkFundingMeasurementRepository.delete(fundMeas);
 		entity.setFundings_measurement(null);
+		
+		List<GeographicBoundingBox_Measurement> geoMeasurements = linkGeographicBoundingBoxMeasurementRepository.findByMeasurement(entity);
+		if (geoMeasurements != null) linkGeographicBoundingBoxMeasurementRepository.delete(geoMeasurements);
+		entity.setGeographicBoundingBoxes_Measurements(null);
 		
 		entity = measurementCrudRepository.save(entity);
 		measurementCrudRepository.delete(entity);

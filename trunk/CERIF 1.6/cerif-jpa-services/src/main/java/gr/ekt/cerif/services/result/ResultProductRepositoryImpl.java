@@ -19,6 +19,7 @@ import gr.ekt.cerif.entities.link.result.ResultProduct_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
 import gr.ekt.cerif.entities.result.ResultProduct;
+import gr.ekt.cerif.features.multilingual.ResultProductAlternateName;
 import gr.ekt.cerif.features.multilingual.ResultProductDescription;
 import gr.ekt.cerif.features.multilingual.ResultProductKeyword;
 import gr.ekt.cerif.features.multilingual.ResultProductName;
@@ -38,6 +39,7 @@ import gr.ekt.cerif.services.link.result.LinkResultProductMediumRepository;
 import gr.ekt.cerif.services.link.result.LinkResultProductResultProductRepository;
 import gr.ekt.cerif.services.link.result.LinkResultProductServiceRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPublicationResultProductRepository;
+import gr.ekt.cerif.services.multilingual.resultproduct.ResultProductAlternateNameRepository;
 import gr.ekt.cerif.services.multilingual.resultproduct.ResultProductDescriptionRepository;
 import gr.ekt.cerif.services.multilingual.resultproduct.ResultProductKeywordRepository;
 import gr.ekt.cerif.services.multilingual.resultproduct.ResultProductNameRepository;
@@ -70,6 +72,9 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 	
 	@Autowired
 	private ResultProductNameRepository resultProductNameRepository;
+	
+	@Autowired
+	private ResultProductAlternateNameRepository resultProductAlternateNameRepository;
 	
 	@Autowired
 	private ResultProductKeywordRepository resultProductKeywordRepository;
@@ -133,6 +138,10 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 		List<ResultProductName> resprodname = resultProductNameRepository.findByResultProduct(entity);
 		if (resprodname != null) resultProductNameRepository.delete(resprodname);
 		entity.setResultProductNames(null);
+		
+		List<ResultProductAlternateName> prodAlternateNames = resultProductAlternateNameRepository.findByResultProduct(entity);
+		if (prodAlternateNames != null) resultProductAlternateNameRepository.delete(prodAlternateNames);
+		entity.setResultProductAlternateNames(null);
 		
 		List<ResultProductKeyword> resprodkey = resultProductKeywordRepository.findByResultProduct(entity);
 		if (resprodkey != null) resultProductKeywordRepository.delete(resprodkey);

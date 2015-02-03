@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * Represents a DublinCoreCoverageSpatial entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfDCCoverageSpatial", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreCoverageSpatial implements CerifAdditionalFeature {

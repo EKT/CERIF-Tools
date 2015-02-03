@@ -11,7 +11,43 @@ import java.io.Serializable;
  */
 public enum Translation implements Serializable {
 	
-	ORIGINAL, //ORIGINAL
-	HUMAN, //HUMAN
-	MACHINE; //MACHINE
+	/**
+	 * Original.
+	 */
+	o,
+	
+	/**
+	 * Human.
+	 */
+	h,
+	
+	/**
+	 * Machine.
+	 */
+	m;
+	
+	/**
+	 * Returns the original translation.
+	 * @return a translation.
+	 */
+	public Translation getOriginal() {
+		return o;
+	}
+	
+	/**
+	 * Returns the human translation.
+	 * @return a translation.
+	 */
+	public Translation getHuman() {
+		return h;
+	}
+	
+	/**
+	 * Returns the machine translation.
+	 * @return a translation.
+	 */
+	public Translation getMachine() {
+		return m;
+	}
+
 }

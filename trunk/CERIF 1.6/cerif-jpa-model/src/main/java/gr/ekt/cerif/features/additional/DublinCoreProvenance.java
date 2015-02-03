@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * Represents a DublinCoreProvenance entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfDCProvenance", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreProvenance implements CerifAdditionalFeature {

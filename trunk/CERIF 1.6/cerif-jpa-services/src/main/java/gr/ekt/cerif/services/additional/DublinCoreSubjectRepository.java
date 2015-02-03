@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreSubject;
  * A repository for dublin core subject.
  * 
  */
+@Deprecated
 public interface DublinCoreSubjectRepository {
 
 	public void delete(DublinCoreSubject entity); 

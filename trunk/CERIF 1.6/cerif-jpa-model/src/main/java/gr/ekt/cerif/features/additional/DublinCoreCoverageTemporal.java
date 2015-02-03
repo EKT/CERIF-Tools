@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
  * Represents a DublinCoreCoverageTemporal entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfDCCoverageTemporal", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreCoverageTemporal implements CerifAdditionalFeature {

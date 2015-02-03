@@ -8,7 +8,43 @@ import java.io.Serializable;
  */
 public enum Gender implements Serializable {
 
-	MALE, //Male
-	FEMALE, //Female
-	UNKNOWN; //Unknown
+	/**
+	 * Male.
+	 */
+	m,
+	
+	/**
+	 * Female.
+	 */
+	f,
+	
+	/**
+	 * Unknown
+	 */
+	u;
+	
+	/**
+	 * Returns the male gender.
+	 * @return a gender.
+	 */
+	public Gender getMale() {
+		return m;
+	}
+	
+	/**
+	 * Returns the female gender.
+	 * @return a gender.
+	 */
+	public Gender getFemale() {
+		return f;
+	}
+	
+	/**
+	 * Returns the unknown gender.
+	 * @return a gender.
+	 */
+	public Gender getUnknown() {
+		return u;
+	}
+	
 }

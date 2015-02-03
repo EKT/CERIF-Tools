@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.additional.DublinCoreRightsManagementAccessRights;
 
+@Deprecated
 @Component
 public class DublinCoreRightsManagementAccessRightsRepositoryImpl implements
 		DublinCoreRightsManagementAccessRightsRepository {

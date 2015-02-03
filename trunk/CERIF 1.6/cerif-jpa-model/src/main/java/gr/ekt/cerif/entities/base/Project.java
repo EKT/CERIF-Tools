@@ -71,12 +71,14 @@ public class Project implements CerifBaseEntity {
 	/**
 	 * The start date.
 	 */
+	@Deprecated
 	@Column(name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
+	@Deprecated
 	@Column(name="cfEndDate")
 	private Date endDate;
 	

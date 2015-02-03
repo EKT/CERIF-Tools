@@ -41,6 +41,7 @@ public class PersonName implements CerifAdditionalFeature {
 	private static final long serialVersionUID = -445651440143730694L;
 	
 	@Id
+	@Column(name="cfPersNameId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
@@ -61,6 +62,7 @@ public class PersonName implements CerifAdditionalFeature {
 	/**
 	 * The person other names
 	 */
+	@Deprecated
 	@Column(name="cfOtherNames")
 	@Field(name="personOtherNames", index=Index.YES, store=Store.YES)
 	private String otherNames;

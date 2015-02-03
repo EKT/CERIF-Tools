@@ -63,6 +63,7 @@ import gr.ekt.cerif.features.multilingual.QualificationTitle;
 import gr.ekt.cerif.features.multilingual.ResultPatentAbstract;
 import gr.ekt.cerif.features.multilingual.ResultPatentKeyword;
 import gr.ekt.cerif.features.multilingual.ResultPatentTitle;
+import gr.ekt.cerif.features.multilingual.ResultProductAlternateName;
 import gr.ekt.cerif.features.multilingual.ResultProductDescription;
 import gr.ekt.cerif.features.multilingual.ResultProductKeyword;
 import gr.ekt.cerif.features.multilingual.ResultProductName;
@@ -334,6 +335,9 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	
 	@OneToMany(mappedBy="language")
 	private Set<ResultProductName> resultProductNames;
+	
+	@OneToMany(mappedBy="language")
+	private Set<ResultProductAlternateName> resultProductAlternateNames;
 	
 	@OneToMany(mappedBy="language")
 	private Set<ResultProductKeyword> resultProductKeywords;
@@ -1200,6 +1204,14 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 
 	public void setResultProductNames(Set<ResultProductName> resultProductNames) {
 		this.resultProductNames = resultProductNames;
+	}
+	
+	public Set<ResultProductAlternateName> getResultProductAlternateNames() {
+		return resultProductAlternateNames;
+	}
+	
+	public void setResultProductAlternateNames(Set<ResultProductAlternateName> resultProductAlternateNames) {
+		this.resultProductAlternateNames = resultProductAlternateNames;
 	}
 
 	public Set<ResultProductKeyword> getResultProductKeywords() {

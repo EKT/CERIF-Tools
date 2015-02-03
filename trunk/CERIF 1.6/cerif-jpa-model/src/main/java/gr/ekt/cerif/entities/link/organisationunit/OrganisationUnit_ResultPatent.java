@@ -88,6 +88,12 @@ public class OrganisationUnit_ResultPatent implements CerifLinkEntity {
 	private Double fraction;
 
 	/**
+	 * The relative order between creators and/or contributors.
+	 */
+	@Column(name="cfOrder")
+	private Integer order;
+	
+	/**
 	 * Default Constructor
 	 */
 	public OrganisationUnit_ResultPatent() {
@@ -210,6 +216,22 @@ public class OrganisationUnit_ResultPatent implements CerifLinkEntity {
 		this.id = id;
 	}
 
+	/**
+	 * Returns the order.
+	 * @return a number.
+	 */
+	public Integer getOrder() {
+		return order;
+	}
+	
+	/**
+	 * Sets the order.
+	 * @param order a number.
+	 */
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+		
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

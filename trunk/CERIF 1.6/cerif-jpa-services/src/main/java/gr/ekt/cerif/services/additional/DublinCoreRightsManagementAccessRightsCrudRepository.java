@@ -4,6 +4,7 @@ import gr.ekt.cerif.features.additional.DublinCoreRightsManagementAccessRights;
 
 import org.springframework.data.repository.CrudRepository;
 
+@Deprecated
 public interface DublinCoreRightsManagementAccessRightsCrudRepository extends CrudRepository<DublinCoreRightsManagementAccessRights, Long> {
 
 }

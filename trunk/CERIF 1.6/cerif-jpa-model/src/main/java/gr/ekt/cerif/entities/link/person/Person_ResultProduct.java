@@ -121,6 +121,12 @@ public class Person_ResultProduct implements CerifLinkEntity {
 	private String ipr;
 
 	/**
+	 * The relative order between creators and/or contributors.
+	 */
+	@Column(name="cfOrder")
+	private Integer order;
+	
+	/**
 	 * Default Constructor
 	 */
 	public Person_ResultProduct() {
@@ -324,6 +330,22 @@ public class Person_ResultProduct implements CerifLinkEntity {
 	 */
 	public void setIpr(String ipr) {
 		this.ipr = ipr;
+	}
+	
+	/**
+	 * Returns the order.
+	 * @return a number.
+	 */
+	public Integer getOrder() {
+		return order;
+	}
+	
+	/**
+	 * Sets the order.
+	 * @param order a number.
+	 */
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 
 	/* (non-Javadoc)

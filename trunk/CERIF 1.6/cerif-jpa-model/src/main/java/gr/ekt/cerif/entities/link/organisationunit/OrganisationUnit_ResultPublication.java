@@ -98,6 +98,12 @@ public class OrganisationUnit_ResultPublication implements CerifLinkEntity {
 	private String copyright;
 
 	/**
+	 * The relative order between creators and/or contributors.
+	 */
+	@Column(name="cfOrder")
+	private Integer order;
+	
+	/**
 	 * Default Constructor
 	 */
 	public OrganisationUnit_ResultPublication() {
@@ -291,6 +297,22 @@ public class OrganisationUnit_ResultPublication implements CerifLinkEntity {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	/**
+	 * Returns the order.
+	 * @return a number.
+	 */
+	public Integer getOrder() {
+		return order;
+	}
+	
+	/**
+	 * Sets the order.
+	 * @param order a number.
+	 */
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 
 	/* (non-Javadoc)

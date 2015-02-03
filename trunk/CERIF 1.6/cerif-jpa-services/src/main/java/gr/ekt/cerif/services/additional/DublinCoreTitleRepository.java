@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreTitle;
  * A repository for dublin core title.
  * 
  */
+@Deprecated
 public interface DublinCoreTitleRepository {
 
 	public void delete(DublinCoreTitle entity); 

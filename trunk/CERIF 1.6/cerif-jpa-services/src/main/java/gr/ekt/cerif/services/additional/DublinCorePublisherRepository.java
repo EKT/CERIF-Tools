@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCorePublisher;
  * A repository for dublin core publisher.
  * 
  */
+@Deprecated
 public interface DublinCorePublisherRepository {
 
 	public void delete(DublinCorePublisher entity); 

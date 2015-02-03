@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * Represents a DublinCoreResourceType entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfDCResourceType", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreResourceType implements CerifAdditionalFeature {

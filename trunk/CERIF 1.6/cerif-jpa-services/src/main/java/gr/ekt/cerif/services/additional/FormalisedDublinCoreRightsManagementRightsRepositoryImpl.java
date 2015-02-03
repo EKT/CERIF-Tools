@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementRights;
 
+@Deprecated
 @Component
 public class FormalisedDublinCoreRightsManagementRightsRepositoryImpl implements
 		FormalisedDublinCoreRightsManagementRightsRepository {

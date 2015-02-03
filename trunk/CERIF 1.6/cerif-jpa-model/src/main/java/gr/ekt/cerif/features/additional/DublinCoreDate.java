@@ -6,6 +6,7 @@ package gr.ekt.cerif.features.additional;
 import java.util.Date;
 
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotNull;
  * Represents a DublinCoreDate entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfDCDate", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreDate implements CerifAdditionalFeature {

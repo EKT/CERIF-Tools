@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * Represents a FormalisedDublinCoreRightsManagementPricing entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfFDCRightsMmPricing", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class FormalisedDublinCoreRightsManagementPricing implements CerifAdditionalFeature {

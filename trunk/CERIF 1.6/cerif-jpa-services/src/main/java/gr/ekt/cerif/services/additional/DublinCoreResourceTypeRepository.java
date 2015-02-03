@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreResourceType;
  * A repository for dublin core resource type.
  * 
  */
+@Deprecated
 public interface DublinCoreResourceTypeRepository {
 
 	public void delete(DublinCoreResourceType entity); 
