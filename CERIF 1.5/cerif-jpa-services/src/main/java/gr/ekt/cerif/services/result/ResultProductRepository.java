@@ -30,7 +30,7 @@ public interface ResultProductRepository {
 	
 	Page<ResultProduct> findAll(Pageable page);
 	
-	ResultProduct findByUUID(String uuid);
+	ResultProduct findByUuid(String uuid);
 	
 	List<ResultProduct> findByUri(String uri);
 	

@@ -252,7 +252,7 @@ public class FacilityRepositoryImpl implements FacilityRepository {
 	}
 
 	@Override
-	public Facility findByUUID(String uuid) {
+	public Facility findByUuid(String uuid) {
 		return facilityCrudRepository.findByUuid(uuid);
 	}
 

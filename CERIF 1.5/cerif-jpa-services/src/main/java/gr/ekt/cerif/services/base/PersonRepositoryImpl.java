@@ -27,6 +27,8 @@ import gr.ekt.cerif.entities.link.person.Person_Service;
 import gr.ekt.cerif.entities.link.project.Project_Person;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.PostalAddress;
+import gr.ekt.cerif.enumerations.semantics.ClassEnum;
+import gr.ekt.cerif.features.additional.PersonName;
 import gr.ekt.cerif.features.multilingual.PersonKeyword;
 import gr.ekt.cerif.features.multilingual.PersonResearchInterest;
 import gr.ekt.cerif.services.additional.PersonNameRepository;
@@ -58,6 +60,7 @@ import gr.ekt.cerif.services.multilingual.person.PersonKeywordRepository;
 import gr.ekt.cerif.services.multilingual.person.PersonResearchInterestRepository;
 import gr.ekt.cerif.services.second.ElectronicAddressRepository;
 import gr.ekt.cerif.services.second.PostalAddressRepository;
+import gr.ekt.cerif.services.second.SecondPersistenceService;
 import gr.ekt.cerif.services.semantics.ClassRepository;
 import gr.ekt.cerif.services.semantics.ClassSchemeRepository;
 
@@ -175,6 +178,11 @@ public class PersonRepositoryImpl implements PersonRepository {
 	@Autowired
 	private LinkPersonNamePersonRepository linkPersonNamePersonRepository;
 	
+	/**
+	 * Service for second level entities.
+	 */
+	@Autowired
+	private SecondPersistenceService secondService;
 
 	@Override
 	@Transactional
@@ -288,6 +296,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 		entity.setPersons_services(null);
 		
 		List<PersonName_Person> pnp = linkPersonNamePersonRepository.findByPerson(entity);
+		List<PersonName> pn = personNameRepository.findByPerson(entity);
 		if (pnp != null) linkPersonNamePersonRepository.delete(pnp);
 		entity.setPersonNames_persons(null);
 		
@@ -297,6 +306,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 		
 		if (ea != null) electronicAddressRepository.delete(ea);
 		if (lpa != null) postalAddressRepository.delete(lpa);
+		if (pn != null) personNameRepository.delete(pn);
 	}
 
 	@Transactional
@@ -330,7 +340,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 	}
 
 	@Override
-	public Person findByUUID(String uuid) {
+	public Person findByUuid(String uuid) {
 		return personCrudRepository.findByUuid(uuid);
 	}
 
@@ -339,5 +349,26 @@ public class PersonRepositoryImpl implements PersonRepository {
 		return personCrudRepository.findByUri(uri);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see gr.ekt.cerif.services.base.PersonRepository#findByUuidFetchMultilingual(java.lang.String)
+	 */
+	@Override
+	public Person findByUuidFetchMultilingual(String uuid) {
+		return personCrudRepository.findByUuidFetchMultilingual(uuid);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see gr.ekt.cerif.services.base.PersonRepository#findByUuidFetchMultilingualAndFederatedIds(java.lang.String)
+	 */
+	@Override
+	public Person findByUuidFetchMultilingualAndFederatedIds(String uuid) {
+		Person person = findByUuidFetchMultilingual(uuid);
+		if (person != null) {
+			person.setFederatedIdentifiers(secondService.getFederatedIdentifiersForEntity(ClassEnum.PERSON.getUuid(), person.getId()));
+		}
+		return person;
+	}
 	
 }

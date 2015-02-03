@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.features.additional.PersonName;
 
 public interface PersonNameRepository {
@@ -24,5 +25,7 @@ public interface PersonNameRepository {
 	PersonName findById(Long id);
 	
 	List<PersonName> findAllNamesByPersonId(Long id);
+	
+	List<PersonName> findByPerson(Person person);
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.QueryHint;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
@@ -29,4 +30,13 @@ public Project findByAcronym(String acronym);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	public Project findByUuid(String uuid);
+	
+	@Query(
+		"select p " +
+		"  from Project p " +
+		"  left join fetch p.projectTitles    " +
+		"  left join fetch p.projectAbstracts " + 
+		"  left join fetch p.projectKeywords  " +
+		" where p.uuid = ?1 ")
+	Project findByUuidFetchMultilingual(String uuid);
 }

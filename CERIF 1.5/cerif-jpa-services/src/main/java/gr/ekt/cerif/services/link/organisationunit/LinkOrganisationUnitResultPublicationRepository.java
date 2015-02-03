@@ -3,6 +3,7 @@ package gr.ekt.cerif.services.link.organisationunit;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
@@ -20,12 +21,16 @@ public interface LinkOrganisationUnitResultPublicationRepository {
 	
 	void delete(Iterable<OrganisationUnit_ResultPublication> entityList);
 	
-	public OrganisationUnit_ResultPublication findById(Long orgunitrespubId);
+	OrganisationUnit_ResultPublication findById(Long orgunitrespubId);
 	
 	List<OrganisationUnit_ResultPublication> findByOrganisationUnit(OrganisationUnit orgUnit);
 	
 	List<OrganisationUnit_ResultPublication> findByResultPublication(ResultPublication resultPublication);
 	
-	public OrganisationUnit_ResultPublication findByOrganisationUnitIdAndResultPublicationId(Long ouId, Long resId);	
+	OrganisationUnit_ResultPublication findByOrganisationUnitIdAndResultPublicationId(Long ouId, Long resId);	
+	
+	List<OrganisationUnit_ResultPublication> findByOrganisationUnitAndResultPublicationAndTheClass(OrganisationUnit orgUnit, ResultPublication resultPublication, Class theClass);
+	
+	List<OrganisationUnit_ResultPublication> findByResultPublicationAndTheClass(ResultPublication resultPublication, Class theClass);
 
 }

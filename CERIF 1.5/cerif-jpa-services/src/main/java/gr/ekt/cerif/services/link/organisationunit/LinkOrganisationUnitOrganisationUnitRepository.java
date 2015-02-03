@@ -4,6 +4,7 @@ import java.util.List;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_OrganisationUnit;
+import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * A repository for links between organisations.
@@ -11,16 +12,19 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Organisation
  */
 public interface LinkOrganisationUnitOrganisationUnitRepository {
 	
-	public void delete(OrganisationUnit_OrganisationUnit entity); 
+	void delete(OrganisationUnit_OrganisationUnit entity); 
 	
-	public void delete(Iterable<OrganisationUnit_OrganisationUnit> entities); 
+	void delete(Iterable<OrganisationUnit_OrganisationUnit> entities); 
 
-	public Iterable<OrganisationUnit_OrganisationUnit> save(Iterable<OrganisationUnit_OrganisationUnit> entities); 
+	Iterable<OrganisationUnit_OrganisationUnit> save(Iterable<OrganisationUnit_OrganisationUnit> entities); 
 	
-	public OrganisationUnit_OrganisationUnit save(OrganisationUnit_OrganisationUnit entity);
+	OrganisationUnit_OrganisationUnit save(OrganisationUnit_OrganisationUnit entity);
 	
 	List<OrganisationUnit_OrganisationUnit> findByOrganisationUnit1(OrganisationUnit organisationUnit);
 	
 	List<OrganisationUnit_OrganisationUnit> findByOrganisationUnit2(OrganisationUnit organisationUnit);
+	
+	List<OrganisationUnit_OrganisationUnit> findByOrganisationUnit1AndOrganisationUnit2AndTheClass(OrganisationUnit organisationUnit1, 
+			OrganisationUnit organisationUnit2, Class theClass);
 
 }

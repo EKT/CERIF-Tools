@@ -241,7 +241,7 @@ public class ResultProductRepositoryImpl implements ResultProductRepository {
 	}
 
 	@Override
-	public ResultProduct findByUUID(String uuid) {
+	public ResultProduct findByUuid(String uuid) {
 		return resultProductCrudRepository.findByUuid(uuid);
 	}
 

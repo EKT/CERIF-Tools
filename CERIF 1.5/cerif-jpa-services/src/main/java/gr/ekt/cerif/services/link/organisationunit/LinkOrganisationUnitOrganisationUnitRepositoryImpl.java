@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_OrganisationUnit;
+import gr.ekt.cerif.features.semantics.Class;
 
 @Component
 public class LinkOrganisationUnitOrganisationUnitRepositoryImpl implements
@@ -51,6 +52,13 @@ public class LinkOrganisationUnitOrganisationUnitRepositoryImpl implements
 	public List<OrganisationUnit_OrganisationUnit> findByOrganisationUnit2(
 			OrganisationUnit organisationUnit) {
 		return linkOrganisationUnitOrganisationUnitCrudRepository.findByOrganisationUnit2(organisationUnit);
+	}
+
+	@Override
+	public List<OrganisationUnit_OrganisationUnit> findByOrganisationUnit1AndOrganisationUnit2AndTheClass(
+			OrganisationUnit organisationUnit1,
+			OrganisationUnit organisationUnit2, Class theClass) {
+		return linkOrganisationUnitOrganisationUnitCrudRepository.findByOrganisationUnit1AndOrganisationUnit2AndTheClass(organisationUnit1, organisationUnit2, theClass);
 	}
 
 }

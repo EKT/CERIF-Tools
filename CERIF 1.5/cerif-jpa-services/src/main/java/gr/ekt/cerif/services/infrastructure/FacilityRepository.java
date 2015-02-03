@@ -25,6 +25,6 @@ public interface FacilityRepository {
 	
 	Page<Facility> findAll(Pageable page);
 	
-	Facility findByUUID(String uuid);
+	Facility findByUuid(String uuid);
 	
 }

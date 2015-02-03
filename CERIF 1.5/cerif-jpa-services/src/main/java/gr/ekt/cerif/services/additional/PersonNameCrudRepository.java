@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.QueryHint;
 
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.features.additional.PersonName;
 
 import org.springframework.data.domain.Page;
@@ -41,5 +42,9 @@ public interface PersonNameCrudRepository extends CrudRepository<PersonName, Lon
 				   "  where per.id = ?1	" +
 				   "  order by name.familyNames               ")
 	public List<PersonName> findAllNamesByPersonId(Long id);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	@Query("select pn from PersonName pn join pn.personNames_persons pnp join pnp.person per where per=?1")
+	public List<PersonName> findByPerson(Person person);
 
 }

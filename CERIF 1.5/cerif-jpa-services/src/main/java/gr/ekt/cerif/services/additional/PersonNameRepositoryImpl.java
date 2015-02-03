@@ -1,6 +1,11 @@
 package gr.ekt.cerif.services.additional;
 
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.link.PersonName_Class;
+import gr.ekt.cerif.entities.link.PersonName_Person;
 import gr.ekt.cerif.features.additional.PersonName;
+import gr.ekt.cerif.services.link.personname.LinkPersonNameClassRepository;
+import gr.ekt.cerif.services.link.personname.LinkPersonNamePersonRepository;
 
 import java.util.List;
 
@@ -18,9 +23,24 @@ public class PersonNameRepositoryImpl implements PersonNameRepository {
 	
 	@Autowired
 	private PersonNameCrudRepository personNameCrudRepository;
+	
+	@Autowired
+	private LinkPersonNamePersonRepository linkPersonNamePersonRepository;
+	
+	@Autowired
+	private LinkPersonNameClassRepository linkPersonNameClassRepository;
 
+	
 	@Override
 	public void delete(PersonName entity) {
+		List<PersonName_Person> pnp = linkPersonNamePersonRepository.findByPersonName(entity);
+		if (pnp != null) linkPersonNamePersonRepository.delete(pnp);
+		entity.setPersonNames_persons(null);
+		
+		List<PersonName_Class> pnc = linkPersonNameClassRepository.findByPersonName(entity);
+		if (pnc != null) linkPersonNameClassRepository.delete(pnc);
+		entity.setPersonNames_classes(null);
+		
 		personNameCrudRepository.delete(entity);
 	}
 
@@ -57,6 +77,11 @@ public class PersonNameRepositoryImpl implements PersonNameRepository {
 	@Override
 	public List<PersonName> findAllNamesByPersonId(Long id) {
 		return personNameCrudRepository.findAllNamesByPersonId(id);
+	}
+
+	@Override
+	public List<PersonName> findByPerson(Person person) {
+		return personNameCrudRepository.findByPerson(person);
 	}
 
 }

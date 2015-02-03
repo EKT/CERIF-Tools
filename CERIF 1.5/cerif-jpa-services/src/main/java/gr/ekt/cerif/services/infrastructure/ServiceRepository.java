@@ -23,7 +23,7 @@ public interface ServiceRepository {
 	
 	Page<Service> findAll(Pageable page);
 	
-	Service findByUUID(String uuid);
+	Service findByUuid(String uuid);
 	
 	List<Service> findByUri(String uri);
 

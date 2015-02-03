@@ -3,6 +3,7 @@ package gr.ekt.cerif.services.link.organisationunit;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
@@ -58,5 +59,18 @@ public class LinkOrganisationUnitResultPublicationRepositoryImpl implements Link
 	@Override
 	public OrganisationUnit_ResultPublication findByOrganisationUnitIdAndResultPublicationId(Long ouId, Long resId) {
 		return linkOrganisationUnitResultPublicationCrudRepository.findByOrganisationUnitIdAndResultPublicationId(ouId, resId);
+	}
+
+	@Override
+	public List<OrganisationUnit_ResultPublication> findByOrganisationUnitAndResultPublicationAndTheClass(
+			OrganisationUnit orgUnit, ResultPublication resultPublication,
+			Class theClass) {
+		return linkOrganisationUnitResultPublicationCrudRepository.findByOrganisationUnitAndResultPublicationAndTheClass(orgUnit, resultPublication, theClass);
+	}
+
+	@Override
+	public List<OrganisationUnit_ResultPublication> findByResultPublicationAndTheClass(
+			ResultPublication resultPublication, Class theClass) {
+		return linkOrganisationUnitResultPublicationCrudRepository.findByResultPublicationAndTheClass(resultPublication, theClass);
 	}
 }

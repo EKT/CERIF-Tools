@@ -106,7 +106,7 @@ public class ElectronicAddressRepositoryImpl implements ElectronicAddressReposit
 	}
 
 	@Override
-	public ElectronicAddress findByUUID(String uuid) {
+	public ElectronicAddress findByUuid(String uuid) {
 		return electronicAddressCrudRepository.findByUuid(uuid);
 	}
 

@@ -265,7 +265,7 @@ public class FundingRepositoryImpl implements FundingRepository {
 	}
 
 	@Override
-	public Funding findByUUID(String uuid) {
+	public Funding findByUuid(String uuid) {
 		return fundingCrudRepository.findByUuid(uuid);
 	}
 
