@@ -29,8 +29,22 @@ public interface PersonRepository {
 	
 	Page<Person> findAll(Pageable page);
 
-	Person findByUUID(String uuid);
+	Person findByUuid(String uuid);
 	
 	Person findByUri(String uri);
+	
+	/**
+	 * Retrieves a person, based on its UUID, along with its multi-lingual fields.
+	 * @param uuid The UUID.
+	 * @return a person.
+	 */
+	Person findByUuidFetchMultilingual(String uuid);
+
+	/**
+	 * Retrieves a person, based on its UUID, along with its multi-lingual fields and its federated identifiers.
+	 * @param uuid The UUID.
+	 * @return a project.
+	 */
+	Person findByUuidFetchMultilingualAndFederatedIds(String uuid);
 	
 }

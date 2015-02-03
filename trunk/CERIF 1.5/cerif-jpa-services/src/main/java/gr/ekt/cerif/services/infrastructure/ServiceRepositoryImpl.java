@@ -255,7 +255,7 @@ public class ServiceRepositoryImpl implements ServiceRepository {
 	}
 
 	@Override
-	public Service findByUUID(String uuid) {
+	public Service findByUuid(String uuid) {
 		return serviceCrudRepository.findByUuid(uuid);
 	}
 

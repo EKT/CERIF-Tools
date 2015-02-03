@@ -33,6 +33,21 @@ public interface ProjectRepository {
 	Iterable<Project> findAll();
 
 	Project findByUuid(String uuid);	
+	
+	/**
+	 * Retrieves a project, based on its UUID, along with its multi-lingual fields.
+	 * @param uuid The UUID.
+	 * @return a project.
+	 */
+	Project findByUuidFetchMultilingual(String uuid);
+
+	/**
+	 * Retrieves a project, based on its UUID, along with its multi-lingual fields and its federated identifiers.
+	 * @param uuid The UUID.
+	 * @return a project.
+	 */
+	Project findByUuidFetchMultilingualAndFederatedIds(String uuid);
+	
 }
 
 	

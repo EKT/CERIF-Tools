@@ -285,7 +285,7 @@ public class ResultPublicationRepositoryImpl implements ResultPublicationReposit
 	}
 
 	@Override
-	public ResultPublication findByUUID(String uuid) {
+	public ResultPublication findByUuid(String uuid) {
 		return resultPublicationCrudRepository.findByUuid(uuid);
 	}
 

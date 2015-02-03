@@ -38,6 +38,6 @@ public interface ElectronicAddressRepository {
 	
 	Page<ElectronicAddress> findAll(Pageable page);
 	
-	ElectronicAddress findByUUID(String uuid);
+	ElectronicAddress findByUuid(String uuid);
 
 }

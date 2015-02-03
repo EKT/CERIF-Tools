@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.second;
 
+import gr.ekt.cerif.entities.link.FederatedIdentifier_Class;
+import gr.ekt.cerif.entities.link.Service_FederatedIdentifier;
 import gr.ekt.cerif.entities.second.CV;
 import gr.ekt.cerif.entities.second.CerifSecondLevelEntity;
 import gr.ekt.cerif.entities.second.Citation;
@@ -22,8 +24,12 @@ import gr.ekt.cerif.entities.second.PostalAddress;
 import gr.ekt.cerif.entities.second.GeographicBoundingBox;
 import gr.ekt.cerif.entities.second.Prize;
 import gr.ekt.cerif.entities.second.Qualification;
+import gr.ekt.cerif.services.link.federatedidentifier.LinkFederatedIdentifierClassRepository;
+import gr.ekt.cerif.services.link.service.LinkServiceFederatedIdentifierRepository;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -143,6 +149,18 @@ public class SecondPersistenceService {
 	 */
 	@Autowired
 	private QualificationRepository qualificationRepository;	
+	
+	/**
+	 * Service for links between federated identifiers and services.
+	 */
+	@Autowired
+	private LinkServiceFederatedIdentifierRepository serviceFederatedIdentifierRepository;
+	
+	/**
+	 * Service for links between federated identifiers and classes.
+	 */
+	@Autowired
+	private LinkFederatedIdentifierClassRepository federatedIdentifierClassRepository;
 	
 	/**
 	 * Delete the provided 2nd level entity.
@@ -338,6 +356,28 @@ public class SecondPersistenceService {
 			throw new IllegalArgumentException(String.format("Invalid 2nd level entity provided. %s", entity));
 		}
 		
+	}
+	
+	/**
+	 * Retrieves the federated identifiers of an entity, including the class and service links.
+	 * @param uuidType The entity type UUID.
+	 * @param instanceId The entity id.
+	 * @return a list of federated identifiers.
+	 */
+	public List<FederatedIdentifier> getFederatedIdentifiersForEntity(String uuidType, Long instanceId) {
+		List<FederatedIdentifier> fedIds = getFederatedIdentifierRepository().findFedIdByClassUuidAndInstId(uuidType, instanceId);
+		for (FederatedIdentifier fedId: fedIds) {
+			//classes
+			List<FederatedIdentifier_Class> federatedIdentifierClasses = federatedIdentifierClassRepository.findByFedId(fedId);
+			Set<FederatedIdentifier_Class> fedClasses = new HashSet<FederatedIdentifier_Class>(federatedIdentifierClasses);
+			fedId.setFedIds_classes(fedClasses);
+				
+			//services
+			List<Service_FederatedIdentifier> federatedIdentifierServices = serviceFederatedIdentifierRepository.findByFedId(fedId);
+			Set<Service_FederatedIdentifier> fedServices = new HashSet<Service_FederatedIdentifier>(federatedIdentifierServices);
+			fedId.setServices_fedIds(fedServices);
+		}
+		return fedIds;
 	}
 
 	/**

@@ -17,6 +17,7 @@ import gr.ekt.cerif.entities.link.project.Project_ResultPatent;
 import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultPublication;
 import gr.ekt.cerif.entities.link.project.Project_Service;
+import gr.ekt.cerif.enumerations.semantics.ClassEnum;
 import gr.ekt.cerif.features.multilingual.ProjectAbstract;
 import gr.ekt.cerif.features.multilingual.ProjectKeyword;
 import gr.ekt.cerif.features.multilingual.ProjectTitle;
@@ -40,6 +41,7 @@ import gr.ekt.cerif.services.multilingual.project.ProjectAbstractRepository;
 import gr.ekt.cerif.services.multilingual.project.ProjectKeywordRepository;
 import gr.ekt.cerif.services.multilingual.project.ProjectTitleRepository;
 import gr.ekt.cerif.services.second.FundingRepository;
+import gr.ekt.cerif.services.second.SecondPersistenceService;
 import gr.ekt.cerif.services.semantics.ClassRepository;
 
 import java.util.List;
@@ -126,7 +128,12 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	@Autowired
 	private LinkProjectResultProductRepository linkProjectResultProductRepository;
 	
-
+	/**
+	 * Service for second level entities.
+	 */
+	@Autowired
+	private SecondPersistenceService secondService;
+	
 	@Override
 	@Transactional
 	public void delete(Project entity) {		
@@ -253,6 +260,27 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	public Project findByUuid(String uuid) {
 		return projectCrudRepository.findByUuid(uuid);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see gr.ekt.cerif.services.base.ProjectRepository#findByUuidFetchMultilingual(java.lang.String)
+	 */
+	@Override
+	public Project findByUuidFetchMultilingual(String uuid) {
+		return projectCrudRepository.findByUuidFetchMultilingual(uuid);
+	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see gr.ekt.cerif.services.base.ProjectRepository#findByUuidFetchMultilingualAndFederatedIds(java.lang.String)
+	 */
+	@Override
+	public Project findByUuidFetchMultilingualAndFederatedIds(String uuid) {
+		Project project = findByUuidFetchMultilingual(uuid);
+		if (project != null) {
+			project.setFederatedIdentifiers(secondService.getFederatedIdentifiersForEntity(ClassEnum.PROJECT.getUuid(), project.getId()));
+		}
+		return project;
+	}
 	
 }

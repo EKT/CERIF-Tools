@@ -9,6 +9,7 @@ import javax.persistence.QueryHint;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
@@ -36,5 +37,14 @@ public interface OrganisationUnitCrudRepository extends CrudRepository<Organisat
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	public OrganisationUnit findByUuid(String uuid);
+	
+	@Query(
+		"select o " +
+		"  from OrganisationUnit o " +
+		"  left join fetch o.organisationUnitNames " +
+		"  left join fetch o.organisationUnitKeywords " +
+		"  left join fetch o.organisationUnitResearchActivities " +
+		" where o.uuid = ?1 ")
+	OrganisationUnit findByUuidFetchMultilingual(String uuid);
 
 }

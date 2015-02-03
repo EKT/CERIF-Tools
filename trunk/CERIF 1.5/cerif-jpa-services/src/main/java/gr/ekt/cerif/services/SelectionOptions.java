@@ -31,6 +31,11 @@ public class SelectionOptions {
 	private List<ClassEnum> embeddedEntities = new ArrayList<ClassEnum>();
 	
 	/**
+	 * Link entities.
+	 */
+	private List<ClassEnum> linkEntities = new ArrayList<ClassEnum>();
+	
+	/**
 	 * Window size.
 	 */
 	private Integer windowSize = 0;
@@ -41,24 +46,29 @@ public class SelectionOptions {
 	private Integer windowOffset = 0;
 	
 	/**
-	 * Whether to include linked information.
+	 * Whether to include linked fields.
 	 */
-	private boolean links = true;
+	private boolean linksIncluded = false;
 	
 	/**
 	 * Whether to include federated identifiers.
 	 */
-	private boolean showFedIds = false;
+	private boolean federatedIncluded = false;
 	
 	/**
-	 * Debug.
+	 * Whether to include multilingual fields
 	 */
-	private boolean debug;
+	private boolean multilingualIncluded = true;
 	
 	/**
 	 * Identifier of a single object.
 	 */
 	private Object id;
+	
+	/**
+	 * How to select identifiers.
+	 */
+	private SelectionIdentifiersType identifiersMode = SelectionIdentifiersType.IDS_ONLY;
 	
 	/**
 	 * @return the entities
@@ -86,20 +96,6 @@ public class SelectionOptions {
 	 */
 	public void setEmbeddedEntities(List<ClassEnum> embeddedEntities) {
 		this.embeddedEntities = embeddedEntities;
-	}
-
-	/**
-	 * @return the debug
-	 */
-	public boolean isDebug() {
-		return debug;
-	}
-
-	/**
-	 * @param debug the debug to set
-	 */
-	public void setDebug(boolean debug) {
-		this.debug = debug;
 	}
 
 	/**
@@ -175,29 +171,45 @@ public class SelectionOptions {
 	/**
 	 * @return the links
 	 */
-	public boolean isLinks() {
-		return links;
+	public boolean isLinksIncluded() {
+		return linksIncluded;
 	}
 
 	/**
 	 * @return the showFedIds
 	 */
-	public boolean isShowFedIds() {
-		return showFedIds;
+	public boolean isFederatedIncluded() {
+		return federatedIncluded;
 	}
 
 	/**
 	 * @param showFedIds the showFedIds to set
 	 */
-	public void setShowFedIds(boolean showFedIds) {
-		this.showFedIds = showFedIds;
+	public void setFederatedIncluded(boolean showFedIds) {
+		this.federatedIncluded = showFedIds;
+	}
+	
+	/**
+	 * Returns whether multilingual fields are included.
+	 * @return false/true
+	 */
+	public boolean isMultilingualIncluded() {
+		return multilingualIncluded;
+	}
+	
+	/**
+	 * Sets whether to include multilingual fields.
+	 * @param includeMultiLingualFields false/true
+	 */
+	public void setMultilingualIncluded(boolean includeMultiLingualFields) {
+		this.multilingualIncluded = includeMultiLingualFields;
 	}
 
 	/**
 	 * @param links the links to set
 	 */
-	public void setLinks(boolean links) {
-		this.links = links;
+	public void setLinksIncluded(boolean links) {
+		this.linksIncluded = links;
 	}
 	
 	public boolean isSingleEntity() {
@@ -211,20 +223,24 @@ public class SelectionOptions {
 	public boolean isFindByUUID() {
 		return isSingleEntity() && !isFindById();
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "SelectionOptions [listOfEntitiesIncluded="
-				+ listOfEntitiesIncluded + ", listOfEntitiesExcluded="
-				+ listOfEntitiesExcluded + ", entities=" + entities
-				+ ", embeddedEntities=" + embeddedEntities + ", windowSize="
-				+ windowSize + ", windowOffset=" + windowOffset + ", links="
-				+ links + ", showFedIds=" + showFedIds + ", debug=" + debug
-				+ ", id=" + id + "]";
+	
+	public List<ClassEnum> getLinkEntities() {
+		return linkEntities;
 	}
+	
+	public void setLinkEntities(List<ClassEnum> parallelLinkEntities) {
+		this.linkEntities = parallelLinkEntities;
+	}
+	
+	public SelectionIdentifiersType getIdentifiersMode() {
+		return identifiersMode;
+	}
+	
+	public void setIdentifiersMode(SelectionIdentifiersType selectionIdentifiersType) {
+		this.identifiersMode = selectionIdentifiersType;
+	}
+
+
 
 	
 }

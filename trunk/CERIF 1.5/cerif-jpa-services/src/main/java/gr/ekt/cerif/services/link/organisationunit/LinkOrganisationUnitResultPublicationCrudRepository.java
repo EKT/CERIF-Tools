@@ -3,6 +3,7 @@ package gr.ekt.cerif.services.link.organisationunit;
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublication;
 import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
@@ -31,5 +32,11 @@ public interface LinkOrganisationUnitResultPublicationCrudRepository extends Cru
 			"  join ourp.organisationUnit ou "+
 			"  where ou.id = ?1 and rp.id=?2 ")
 	OrganisationUnit_ResultPublication findByOrganisationUnitIdAndResultPublicationId(Long ouId, Long resId);	
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<OrganisationUnit_ResultPublication> findByOrganisationUnitAndResultPublicationAndTheClass(OrganisationUnit orgUnit, ResultPublication resultPublication, Class theClass);
+	
+	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
+	List<OrganisationUnit_ResultPublication> findByResultPublicationAndTheClass(ResultPublication resultPublication, Class theClass);
 
 }

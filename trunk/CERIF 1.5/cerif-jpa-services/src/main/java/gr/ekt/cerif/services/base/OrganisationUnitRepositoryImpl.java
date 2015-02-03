@@ -26,6 +26,7 @@ import gr.ekt.cerif.entities.link.person.Person_OrganisationUnit;
 import gr.ekt.cerif.entities.link.project.Project_OrganisationUnit;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.entities.second.PostalAddress;
+import gr.ekt.cerif.enumerations.semantics.ClassEnum;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitKeyword;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitName;
 import gr.ekt.cerif.features.multilingual.OrganisationUnitResearchActivity;
@@ -317,9 +318,30 @@ public class OrganisationUnitRepositoryImpl implements OrganisationUnitRepositor
 	}
 
 	@Override
-	public OrganisationUnit findByUUID(String uuid) {
+	public OrganisationUnit findByUuid(String uuid) {
 		return organisationUnitCrudRepository.findByUuid(uuid);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see gr.ekt.cerif.services.base.OrganisationUnitRepository#findByUuidFetchMultilingual(java.lang.String)
+	 */
+	@Override
+	public OrganisationUnit findByUuidFetchMultilingual(String uuid) {
+		return organisationUnitCrudRepository.findByUuidFetchMultilingual(uuid);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see gr.ekt.cerif.services.base.OrganisationUnitRepository#findByUuidFetchMultilingualAndFederatedIds(java.lang.String)
+	 */
+	@Override
+	public OrganisationUnit findByUuidFetchMultilingualAndFederatedIds(String uuid) {
+		OrganisationUnit organisation = findByUuidFetchMultilingual(uuid);
+		if (organisation != null) {
+			organisation.setFederatedIdentifiers(secondService.getFederatedIdentifiersForEntity(ClassEnum.ORGANISATION.getUuid(), organisation.getId()));
+		}
+		return organisation;
+	}
 
 }
