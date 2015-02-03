@@ -6,11 +6,13 @@ package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.link.GeographicBoundingBox_Class;
 import gr.ekt.cerif.entities.link.GeographicBoundingBox_GeographicBoundingBox;
+import gr.ekt.cerif.entities.link.GeographicBoundingBox_Measurement;
 import gr.ekt.cerif.entities.link.PostalAddress_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
 import gr.ekt.cerif.features.multilingual.GeographicBoundingBoxDescription;
 import gr.ekt.cerif.features.multilingual.GeographicBoundingBoxKeyword;
 import gr.ekt.cerif.features.multilingual.GeographicBoundingBoxName;
+
 
 
 import java.util.List;
@@ -125,6 +127,9 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="geographicBoundingBox2")
 	private Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes2;
+	
+	@OneToMany(mappedBy="geographicBoundingBox")
+	private Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_measurements;
 
 	
 	/**
@@ -424,6 +429,22 @@ public class GeographicBoundingBox implements CerifSecondLevelEntity {
 	public void setGeographicBoundingBoxes_geographicBoundingBoxes2(
 			Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes2) {
 		this.geographicBoundingBoxes_geographicBoundingBoxes2 = geographicBoundingBoxes_geographicBoundingBoxes2;
+	}
+	
+	/**
+	 * Returns the geographicBoundingBoxes_measurements.
+	 * @return the geographicBoundingBoxes_measurements.
+	 */
+	public Set<GeographicBoundingBox_Measurement> getGeographicBoundingBoxes_measurements() {
+		return geographicBoundingBoxes_measurements;
+	}
+
+	/**
+	 * Sets the geographicBoundingBoxes_measurements.
+	 * @param geographicBoundingBoxes_measurements the geographicBoundingBoxes_measurements.
+	 */
+	public void setGeographicBoundingBoxes_measurements(Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_measurements) {
+		this.geographicBoundingBoxes_measurements = geographicBoundingBoxes_measurements;
 	}
 
 	/**

@@ -77,12 +77,14 @@ public class Funding implements CerifSecondLevelEntity {
 	/**
 	 * The start date.
 	 */
+	@Deprecated
 	@Column (name="cfStartDate")
 	private Date startDate;
 	
 	/**
 	 * The end date.
 	 */
+	@Deprecated
 	@Column (name="cfEndDate")
 	private Date endDate;
 	

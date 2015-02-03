@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementPric
  * A repository for dublin core contributor.
  * 
  */
+@Deprecated
 public interface FormalisedDublinCoreRightsManagementPricingRepository {
 
 	public void delete(FormalisedDublinCoreRightsManagementPricing entity); 

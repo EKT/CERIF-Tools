@@ -116,6 +116,12 @@ public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 	private String conditions;
 
 	/**
+	 * The relative order between creators and/or contributors.
+	 */
+	@Column(name="cfOrder")
+	private Integer order;
+	
+	/**
 	 * Default Constructor
 	 */
 	public OrganisationUnit_ResultProduct() {
@@ -321,6 +327,22 @@ public class OrganisationUnit_ResultProduct implements CerifLinkEntity {
 	 */
 	public void setTheClass(Class theClass) {
 		this.theClass = theClass;
+	}
+	
+	/**
+	 * Returns the order.
+	 * @return a number.
+	 */
+	public Integer getOrder() {
+		return order;
+	}
+	
+	/**
+	 * Sets the order.
+	 * @param order a number.
+	 */
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 	
 	/* (non-Javadoc)

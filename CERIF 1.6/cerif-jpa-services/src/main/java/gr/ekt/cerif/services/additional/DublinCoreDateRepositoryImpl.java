@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.additional.DublinCoreDate;
 
+@Deprecated
 @Component
 public class DublinCoreDateRepositoryImpl implements DublinCoreDateRepository {
 	

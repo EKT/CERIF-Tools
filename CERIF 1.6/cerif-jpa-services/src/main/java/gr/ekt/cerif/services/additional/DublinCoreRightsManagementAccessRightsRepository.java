@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreRightsManagementAccessRights;
  * A repository for dublin core rights management access rights.
  * 
  */
+@Deprecated
 public interface DublinCoreRightsManagementAccessRightsRepository {
 
 	public void delete(DublinCoreRightsManagementAccessRights entity); 

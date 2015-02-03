@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
  * Represents a DublinCoreRightsManagement entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfDCRightsMm", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreRightsManagement implements CerifAdditionalFeature {

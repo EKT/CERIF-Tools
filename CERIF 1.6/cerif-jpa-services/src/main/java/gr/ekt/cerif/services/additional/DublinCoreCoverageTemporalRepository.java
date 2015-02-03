@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreCoverageTemporal;
  * A repository for dublin core coverage temporal.
  * 
  */
+@Deprecated
 public interface DublinCoreCoverageTemporalRepository {
 
 	public void delete(DublinCoreCoverageTemporal entity); 

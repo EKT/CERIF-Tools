@@ -4,6 +4,7 @@ import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementPriv
 
 import org.springframework.data.repository.CrudRepository;
 
+@Deprecated
 public interface FormalisedDublinCoreRightsManagementPrivacyCrudRepository extends CrudRepository<FormalisedDublinCoreRightsManagementPrivacy, Long> {
 
 }

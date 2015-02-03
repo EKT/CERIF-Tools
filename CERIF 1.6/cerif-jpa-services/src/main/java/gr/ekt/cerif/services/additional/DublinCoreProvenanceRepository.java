@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreProvenance;
  * A repository for dublin core contributor.
  * 
  */
+@Deprecated
 public interface DublinCoreProvenanceRepository {
 
 	public void delete(DublinCoreProvenance entity); 

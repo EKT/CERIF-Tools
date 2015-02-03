@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.additional.DublinCoreRelation;
 
+@Deprecated
 @Component
 public class DublinCoreRelationRepositoryImpl implements
 		DublinCoreRelationRepository {

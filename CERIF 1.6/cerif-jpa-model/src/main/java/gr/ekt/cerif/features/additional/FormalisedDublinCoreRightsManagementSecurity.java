@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * Represents a FormalisedDublinCoreSecurityManagementSecurity entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfFDCSecurityMmSecurity", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class FormalisedDublinCoreRightsManagementSecurity implements CerifAdditionalFeature {

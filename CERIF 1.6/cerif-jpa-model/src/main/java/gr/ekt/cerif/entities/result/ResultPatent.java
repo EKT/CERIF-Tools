@@ -15,6 +15,7 @@ import gr.ekt.cerif.entities.link.result.ResultPatent_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Medium;
 import gr.ekt.cerif.entities.link.result.ResultPatent_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPatent_Service;
+import gr.ekt.cerif.entities.link.result.ResultProduct_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultPatent;
 import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
@@ -69,18 +70,21 @@ public class ResultPatent implements CerifResultEntity {
 	/**
 	 * The date of patent registration.
 	 */
+	@Deprecated
 	@Column(name="cfRegistrDate")
 	private Date registrationDate;
 
 	/**
 	 * The date of patent approval.
 	 */
+	@Deprecated
 	@Column(name="cfApprovDate")
 	private Date approvalDate;
 
 	/**
 	 * The patent number.
 	 */
+	@Deprecated
 	@Column(name="cfPatentNum")
 	private String number;
 	
@@ -157,6 +161,9 @@ public class ResultPatent implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultPatent")
 	private Set<ResultPatent_Medium> resultPatents_mediums;
+	
+	@OneToMany(mappedBy="resultPatent")
+	private Set<ResultProduct_ResultPatent> resultProducts_resultPatents;
 	
 	
 	/**
@@ -553,6 +560,23 @@ public class ResultPatent implements CerifResultEntity {
 			Set<ResultPatent_Medium> resultPatents_mediums) {
 		this.resultPatents_mediums = resultPatents_mediums;
 	}
+	
+	/**
+	 * Returns the resultProducts_resultPatents.
+	 * @return the resultProducts_resultPatents.
+	 */
+	public Set<ResultProduct_ResultPatent> getResultProducts_resultPatents() {
+		return resultProducts_resultPatents;
+	}
+
+	/**
+	 * Sets the resultProducts_resultPatents.
+	 * @param resultProducts_resultPatents the resultProducts_resultPatents.
+	 */
+	public void setResultProducts_resultPatents(
+			Set<ResultProduct_ResultPatent> resultProducts_resultPatents) {
+		this.resultProducts_resultPatents = resultProducts_resultPatents;
+	}
 
 	/**
 	 * @return the federatedIdentifiers
@@ -564,8 +588,7 @@ public class ResultPatent implements CerifResultEntity {
 	/**
 	 * @param federatedIdentifiers the federatedIdentifiers to set
 	 */
-	public void setFederatedIdentifiers(
-			List<FederatedIdentifier> federatedIdentifiers) {
+	public void setFederatedIdentifiers(List<FederatedIdentifier> federatedIdentifiers) {
 		this.federatedIdentifiers = federatedIdentifiers;
 	}
 

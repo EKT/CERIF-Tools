@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
  * Represents a DublinCore entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfDC", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme"}))
 public class DublinCore implements CerifAdditionalFeature {

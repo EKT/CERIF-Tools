@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.FormalisedDublinCoreRightsManagementSecu
  * A repository for FormalisedDublinCoreRightsManagementSecurity.
  * 
  */
+@Deprecated
 public interface FormalisedDublinCoreRightsManagementSecurityRepository {
 
 	public void delete(FormalisedDublinCoreRightsManagementSecurity entity); 

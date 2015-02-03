@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreDate;
  * A repository for dublin core date.
  * 
  */
+@Deprecated
 public interface DublinCoreDateRepository {
 
 	public void delete(DublinCoreDate entity); 

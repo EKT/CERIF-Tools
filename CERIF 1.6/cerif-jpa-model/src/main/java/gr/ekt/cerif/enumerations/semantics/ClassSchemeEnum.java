@@ -70,8 +70,9 @@ public enum ClassSchemeEnum {
 	PEER_REVIEWS("4bdfc4ac-7c74-456d-9d3b-b1e4267b90a9","Peer Reviews"),
 	OUTPUT_QUALITY_LEVELS("1332d166-4c65-481b-adde-aac0bdc475a3","Output Quality Levels"),
 	OPEN_SCIENCE_COSTS("e87469e5-d6bd-458c-b7ef-90e314749c51","Open Science Costs"),
-	VERIFICATION_STATUSES("2ad984e8-33ae-4f0b-927e-d292c28750e3","Verification Statuses");
-
+	VERIFICATION_STATUSES("2ad984e8-33ae-4f0b-927e-d292c28750e3","Verification Statuses"),
+	USAGE("46fa3468-e5c6-4f71-8d6e-c5998d0efcb0", "Usage"),
+	CLASSSCHEME_CLASSIFICATIONS("bcc9792b-d8f9-4e70-af7c-f3889e2228e0", "ClassScheme Classifications");
 	
 	private final String uuid;
 
@@ -106,6 +107,15 @@ public enum ClassSchemeEnum {
 		for (ClassSchemeEnum c : ClassSchemeEnum.values()) {
 			if (c.uuid.equals(uuid)) {
 				return c;
+			}
+		}
+		return null;
+	}
+	
+	public static ClassSchemeEnum fromName(String name) {
+		for (ClassSchemeEnum enumeration : ClassSchemeEnum.values()) {
+			if (enumeration.name.equals(name)) {
+				return enumeration;
 			}
 		}
 		return null;

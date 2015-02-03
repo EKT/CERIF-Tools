@@ -2,6 +2,7 @@ package gr.ekt.cerif.services.additional;
 
 import gr.ekt.cerif.features.additional.DublinCoreRightsHolder;
 
+@Deprecated
 public interface DublinCoreRightsHolderRepository {
 	
 	public void delete(DublinCoreRightsHolder entity); 

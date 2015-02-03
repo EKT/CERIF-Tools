@@ -7,6 +7,7 @@ import gr.ekt.cerif.entities.link.Equipment_Measurement;
 import gr.ekt.cerif.entities.link.Event_Measurement;
 import gr.ekt.cerif.entities.link.Facility_Measurement;
 import gr.ekt.cerif.entities.link.Funding_Measurement;
+import gr.ekt.cerif.entities.link.GeographicBoundingBox_Measurement;
 import gr.ekt.cerif.entities.link.Indicator_Measurement;
 import gr.ekt.cerif.entities.link.Measurement_Class;
 import gr.ekt.cerif.entities.link.Measurement_Measurement;
@@ -22,6 +23,7 @@ import gr.ekt.cerif.features.multilingual.MeasurementDescription;
 import gr.ekt.cerif.features.multilingual.MeasurementKeyword;
 import gr.ekt.cerif.features.multilingual.MeasurementName;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +34,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 
@@ -111,6 +115,13 @@ public class Measurement implements CerifSecondLevelEntity {
 	private String uri;
 	
 	/**
+	 * The time stamp.
+	 */
+	@Column(name="cfDateTime")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateTime;
+	
+	/**
 	 * The UUID.
 	 */
 	@Column(name="cfUUID")
@@ -180,6 +191,9 @@ public class Measurement implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="measurement")
 	private Set<Funding_Measurement> fundings_measurement;
+	
+	@OneToMany(mappedBy="measurement")
+	private Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_Measurements;
 
 	
 	/**
@@ -339,6 +353,22 @@ public class Measurement implements CerifSecondLevelEntity {
 		this.uri = uri;
 	}
 
+	/**
+	 * Returns the time stamp.
+	 * @return a date.
+	 */
+	public Date getDateTime() {
+		return dateTime;
+	}
+	
+	/**
+	 * Sets the time stamp.
+	 * @param dateTime a date.
+	 */
+	public void setDateTime(Date dateTime) {
+		this.dateTime = dateTime;
+	}
+	
 	/**
 	 * @return the uuid
 	 */
@@ -627,9 +657,24 @@ public class Measurement implements CerifSecondLevelEntity {
 	/**
 	 * @param fundings_measurement the fundings_measurement to set
 	 */
-	public void setFundings_measurement(
-			Set<Funding_Measurement> fundings_measurement) {
+	public void setFundings_measurement(Set<Funding_Measurement> fundings_measurement) {
 		this.fundings_measurement = fundings_measurement;
+	}
+	
+	/**
+	 * Returns the geographicBoundingBoxes_Measurements.
+	 * @return the geographicBoundingBoxes_Measurements.
+	 */
+	public Set<GeographicBoundingBox_Measurement> getGeographicBoundingBoxes_Measurements() {
+		return geographicBoundingBoxes_Measurements;
+	}
+
+	/**
+	 * Sets the geographicBoundingBoxes_Measurements.
+	 * @param geographicBoundingBoxes_Measurements the geographicBoundingBoxes_Measurements.
+	 */
+	public void setGeographicBoundingBoxes_Measurements(Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_Measurements) {
+		this.geographicBoundingBoxes_Measurements = geographicBoundingBoxes_Measurements;
 	}
 
 	/**

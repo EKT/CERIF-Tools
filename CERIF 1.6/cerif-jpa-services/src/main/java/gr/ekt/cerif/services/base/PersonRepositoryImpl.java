@@ -336,7 +336,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
 	@Override
 	public Person findById(Long id) {
-		return personCrudRepository.findOne(id);
+		return personCrudRepository.findById(id);
 	}
 
 	@Override

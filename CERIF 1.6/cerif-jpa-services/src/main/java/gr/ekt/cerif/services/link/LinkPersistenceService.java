@@ -47,6 +47,7 @@ import gr.ekt.cerif.entities.link.Funding_Indicator;
 import gr.ekt.cerif.entities.link.Funding_Measurement;
 import gr.ekt.cerif.entities.link.GeographicBoundingBox_Class;
 import gr.ekt.cerif.entities.link.GeographicBoundingBox_GeographicBoundingBox;
+import gr.ekt.cerif.entities.link.GeographicBoundingBox_Measurement;
 import gr.ekt.cerif.entities.link.Indicator_Class;
 import gr.ekt.cerif.entities.link.Indicator_Indicator;
 import gr.ekt.cerif.entities.link.Indicator_Measurement;
@@ -285,6 +286,7 @@ import gr.ekt.cerif.services.link.project.LinkProjectResultProductRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectResultPublicationRepository;
 import gr.ekt.cerif.services.link.project.LinkProjectServiceRepository;
 import gr.ekt.cerif.services.link.qualification.LinkQualificationClassRepository;
+import gr.ekt.cerif.services.link.result.LinkGeographicBoundingBoxMeasurementRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentClassRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentEquipmentRepository;
 import gr.ekt.cerif.services.link.result.LinkResultPatentFacilityRepository;
@@ -330,7 +332,6 @@ import gr.ekt.cerif.services.link.service.LinkServiceMediumRepository;
 import gr.ekt.cerif.services.link.service.LinkServicePostalAddressRepository;
 import gr.ekt.cerif.services.link.service.LinkServiceServiceRepository;
 import gr.ekt.cerif.services.link.theclass.LinkClassClassRepository;
-
 
 import java.util.List;
 
@@ -473,6 +474,9 @@ public class LinkPersistenceService {
 	@Autowired
 	private LinkGeographicBoundingBoxGeographicBoundingBoxRepository geographicBoundingBoxGeographicBoundingBoxRepository;
 
+	@Autowired
+	private LinkGeographicBoundingBoxMeasurementRepository geographicBoundingBoxMeasurementRepository;
+	
 	@Autowired
 	private LinkIndicatorClassRepository indicatorClassRepository;
 
@@ -926,6 +930,8 @@ public class LinkPersistenceService {
 		    geographicBoundingBoxClassRepository.delete((GeographicBoundingBox_Class) entity);
 		} else if (entity instanceof GeographicBoundingBox_GeographicBoundingBox) {
 		    geographicBoundingBoxGeographicBoundingBoxRepository.delete((GeographicBoundingBox_GeographicBoundingBox) entity);
+		} else if (entity instanceof GeographicBoundingBox_Measurement) {
+			geographicBoundingBoxMeasurementRepository.delete((GeographicBoundingBox_Measurement) entity);
 		} else if (entity instanceof Indicator_Class) {
 		    indicatorClassRepository.delete((Indicator_Class) entity);
 		} else if (entity instanceof Indicator_Indicator) {
@@ -1262,6 +1268,8 @@ public class LinkPersistenceService {
 		    entity = geographicBoundingBoxClassRepository.save((GeographicBoundingBox_Class) entity);
 		} else if (entity instanceof GeographicBoundingBox_GeographicBoundingBox) {
 		    entity = geographicBoundingBoxGeographicBoundingBoxRepository.save((GeographicBoundingBox_GeographicBoundingBox) entity);
+		} else if (entity instanceof GeographicBoundingBox_Measurement) {
+			entity = geographicBoundingBoxMeasurementRepository.save((GeographicBoundingBox_Measurement) entity);
 		} else if (entity instanceof Indicator_Class) {
 		    entity = indicatorClassRepository.save((Indicator_Class) entity);
 		} else if (entity instanceof Indicator_Indicator) {
@@ -1605,6 +1613,8 @@ public class LinkPersistenceService {
 		    geographicBoundingBoxClassRepository.delete((List<GeographicBoundingBox_Class>) entityList);
 		} else if (entity instanceof GeographicBoundingBox_GeographicBoundingBox) {
 		    geographicBoundingBoxGeographicBoundingBoxRepository.delete((List<GeographicBoundingBox_GeographicBoundingBox>) entityList);
+		} else if (entity instanceof GeographicBoundingBox_Measurement) {
+			geographicBoundingBoxMeasurementRepository.delete((List<GeographicBoundingBox_Measurement>) entityList);
 		} else if (entity instanceof Indicator_Class) {
 		    indicatorClassRepository.delete((List<Indicator_Class>) entityList);
 		} else if (entity instanceof Indicator_Indicator) {
@@ -1946,6 +1956,8 @@ public class LinkPersistenceService {
 		    entityList = geographicBoundingBoxClassRepository.save((List<GeographicBoundingBox_Class>) entityList);
 		} else if (entity instanceof GeographicBoundingBox_GeographicBoundingBox) {
 		    entityList = geographicBoundingBoxGeographicBoundingBoxRepository.save((List<GeographicBoundingBox_GeographicBoundingBox>) entityList);
+		} else if (entity instanceof GeographicBoundingBox_Measurement) {
+			entityList = geographicBoundingBoxMeasurementRepository.save((List<GeographicBoundingBox_Measurement>) entityList);
 		} else if (entity instanceof Indicator_Class) {
 		    entityList = indicatorClassRepository.save((List<Indicator_Class>) entityList);
 		} else if (entity instanceof Indicator_Indicator) {
@@ -2491,6 +2503,14 @@ public class LinkPersistenceService {
 	 */
 	public LinkGeographicBoundingBoxGeographicBoundingBoxRepository getGeographicBoundingBoxGeographicBoundingBoxRepository() {
 		return geographicBoundingBoxGeographicBoundingBoxRepository;
+	}
+
+	/**
+	 * Returns the geographicBoundingBoxMeasurementRepository.
+	 * @return the geographicBoundingBoxMeasurementRepository.
+	 */
+	public LinkGeographicBoundingBoxMeasurementRepository getGeographicBoundingBoxMeasurementRepository() {
+		return geographicBoundingBoxMeasurementRepository;
 	}
 
 	/**

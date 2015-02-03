@@ -127,12 +127,14 @@ public class ResultPublication implements CerifResultEntity {
 	/**
 	 * The ISBN.
 	 */
+	@Deprecated
 	@Column(name="cfISBN")
 	private String isbn;
 	
 	/**
 	 * The ISSN.
 	 */
+	@Deprecated
 	@Column(name="cfISSN")
 	private String issn;
 	

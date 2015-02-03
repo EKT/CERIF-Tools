@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.features.additional.DublinCoreCoverage;
 
+@Deprecated
 @Component
 public class DublinCoreCoverageRepositoryImpl implements
 		DublinCoreCoverageRepository {

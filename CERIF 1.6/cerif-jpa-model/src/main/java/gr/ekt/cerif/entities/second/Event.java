@@ -73,6 +73,7 @@ public class Event implements CerifSecondLevelEntity {
 	/**
 	 * The city/town.
 	 */
+	@Deprecated
 	@Column(name="cfFeeOrFree", nullable=false)
 	private String feeOrFree;
 	

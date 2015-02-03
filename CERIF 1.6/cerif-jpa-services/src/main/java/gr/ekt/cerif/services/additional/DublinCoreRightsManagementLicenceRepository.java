@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreRightsManagementLicence;
  * A repository for dublin core rights management licence.
  * 
  */
+@Deprecated
 public interface DublinCoreRightsManagementLicenceRepository {
 
 	public void delete(DublinCoreRightsManagementLicence entity); 

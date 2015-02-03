@@ -45,6 +45,7 @@ import gr.ekt.cerif.entities.link.Funding_Indicator;
 import gr.ekt.cerif.entities.link.Funding_Measurement;
 import gr.ekt.cerif.entities.link.GeographicBoundingBox_Class;
 import gr.ekt.cerif.entities.link.GeographicBoundingBox_GeographicBoundingBox;
+import gr.ekt.cerif.entities.link.GeographicBoundingBox_Measurement;
 import gr.ekt.cerif.entities.link.Indicator_Class;
 import gr.ekt.cerif.entities.link.Indicator_Indicator;
 import gr.ekt.cerif.entities.link.Indicator_Measurement;
@@ -144,6 +145,7 @@ import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Medium;
+import gr.ekt.cerif.entities.link.result.ResultProduct_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultProduct_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_Citation;
@@ -476,6 +478,9 @@ public class Class implements CerifSemanticFeature {
 	private Set<ResultProduct_ResultProduct> resultProducts_resultProducts;
 	
 	@OneToMany(mappedBy="theClass")
+	private Set<ResultProduct_ResultPatent> resultProducts_resultPatents;
+	
+	@OneToMany(mappedBy="theClass")
 	private Set<ElectronicAddress_Class> electronicAddresses_classes;
 	
 	@OneToMany(mappedBy="theClass")
@@ -623,6 +628,9 @@ public class Class implements CerifSemanticFeature {
 	private Set<GeographicBoundingBox_GeographicBoundingBox> geographicBoundingBoxes_geographicBoundingBoxes;
 	
 	@OneToMany(mappedBy="theClass")
+	private Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_measurements;
+	
+	@OneToMany(mappedBy="theClass")
 	private Set<Indicator_Class> indicators_classes;
 	
 	@OneToMany(mappedBy="theClass")
@@ -723,6 +731,7 @@ public class Class implements CerifSemanticFeature {
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<PersonName_Class> personNames_classes;
+	
 	
 	
 	/**
@@ -2544,6 +2553,40 @@ public class Class implements CerifSemanticFeature {
 	public void setResultProducts_resultProducts(
 			Set<ResultProduct_ResultProduct> resultProducts_resultProducts) {
 		this.resultProducts_resultProducts = resultProducts_resultProducts;
+	}
+	
+	/**
+	 * Returns the resultProducts_resultPatents.
+	 * @return the resultProducts_resultPatents.
+	 */
+	public Set<ResultProduct_ResultPatent> getResultProducts_resultPatents() {
+		return resultProducts_resultPatents;
+	}
+
+	/**
+	 * Sets the resultProducts_resultPatents.
+	 * @param resultProducts_resultPatents the resultProducts_resultPatents.
+	 */
+	public void setResultProducts_resultPatents(
+			Set<ResultProduct_ResultPatent> resultProducts_resultPatents) {
+		this.resultProducts_resultPatents = resultProducts_resultPatents;
+	}
+
+	/**
+	 * Returns the geographicBoundingBoxes_measurements.
+	 * @return the geographicBoundingBoxes_measurements.
+	 */
+	public Set<GeographicBoundingBox_Measurement> getGeographicBoundingBoxes_measurements() {
+		return geographicBoundingBoxes_measurements;
+	}
+
+	/**
+	 * Sets the geographicBoundingBoxes_measurements.
+	 * @param geographicBoundingBoxes_measurements the geographicBoundingBoxes_measurements.
+	 */
+	public void setGeographicBoundingBoxes_measurements(
+			Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_measurements) {
+		this.geographicBoundingBoxes_measurements = geographicBoundingBoxes_measurements;
 	}
 
 	/**

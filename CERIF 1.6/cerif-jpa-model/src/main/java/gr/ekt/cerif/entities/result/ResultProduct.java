@@ -15,10 +15,12 @@ import gr.ekt.cerif.entities.link.result.ResultProduct_GeographicBoundingBox;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Indicator;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Measurement;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Medium;
+import gr.ekt.cerif.entities.link.result.ResultProduct_ResultPatent;
 import gr.ekt.cerif.entities.link.result.ResultProduct_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Service;
 import gr.ekt.cerif.entities.link.result.ResultPublication_ResultProduct;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
+import gr.ekt.cerif.features.multilingual.ResultProductAlternateName;
 import gr.ekt.cerif.features.multilingual.ResultProductDescription;
 import gr.ekt.cerif.features.multilingual.ResultProductKeyword;
 import gr.ekt.cerif.features.multilingual.ResultProductName;
@@ -81,6 +83,9 @@ public class ResultProduct implements CerifResultEntity {
 	private Set<ResultProductName> resultProductNames;
 	
 	@OneToMany(mappedBy="resultProduct")
+	private Set<ResultProductAlternateName> resultProductAlternateNames;
+	
+	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProductKeyword> resultProductKeywords;
 	
 	@OneToMany(mappedBy="resultProduct")
@@ -137,6 +142,9 @@ public class ResultProduct implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_Medium> resultProducts_mediums;
+	
+	@OneToMany(mappedBy="resultProduct")
+	private Set<ResultProduct_ResultPatent> resultProducts_resultPatents;
 	
 	
 	/**
@@ -237,6 +245,22 @@ public class ResultProduct implements CerifResultEntity {
 
 	public void setResultProductNames(Set<ResultProductName> resultProductNames) {
 		this.resultProductNames = resultProductNames;
+	}
+	
+	/**
+	 * Returns the resultProductAlternateNames.
+	 * @return the resultProductAlternateNames.
+	 */
+	public Set<ResultProductAlternateName> getResultProductAlternateNames() {
+		return resultProductAlternateNames;
+	}
+
+	/**
+	 * Sets the resultProductAlternateNames.
+	 * @param resultProductAlternateNames the resultProductAlternateNames.
+	 */
+	public void setResultProductAlternateNames(Set<ResultProductAlternateName> resultProductAlternateNames) {
+		this.resultProductAlternateNames = resultProductAlternateNames;
 	}
 
 	public Set<ResultProductKeyword> getResultProductKeywords() {
@@ -479,6 +503,22 @@ public class ResultProduct implements CerifResultEntity {
 	public void setResultProducts_mediums(
 			Set<ResultProduct_Medium> resultProducts_mediums) {
 		this.resultProducts_mediums = resultProducts_mediums;
+	}
+	
+	/**
+	 * Returns the resultProducts_resultPatents.
+	 * @return the resultProducts_resultPatents.
+	 */
+	public Set<ResultProduct_ResultPatent> getResultProducts_resultPatents() {
+		return resultProducts_resultPatents;
+	}
+
+	/**
+	 * Sets the resultProducts_resultPatents.
+	 * @param resultProducts_resultPatents the resultProducts_resultPatents.
+	 */
+	public void setResultProducts_resultPatents(Set<ResultProduct_ResultPatent> resultProducts_resultPatents) {
+		this.resultProducts_resultPatents = resultProducts_resultPatents;
 	}
 
 	/**

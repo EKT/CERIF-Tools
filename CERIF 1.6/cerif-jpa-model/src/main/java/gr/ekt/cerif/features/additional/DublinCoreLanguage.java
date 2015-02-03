@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * Represents a DublinCoreLanguage entity.
  * 
  */
+@Deprecated
 @Entity
 @Table(name="cfDCLanguage", uniqueConstraints=@UniqueConstraint(columnNames={"cfDCId","cfDCScheme","cfDCLangTag","cfDCTrans"}))
 public class DublinCoreLanguage implements CerifAdditionalFeature {

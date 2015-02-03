@@ -1,35 +1,66 @@
 package gr.ekt.cerif.enumerations.semantics;
 
+import gr.ekt.cerif.CerifEntity;
+import gr.ekt.cerif.entities.base.OrganisationUnit;
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.base.Project;
+import gr.ekt.cerif.entities.infrastructure.Equipment;
+import gr.ekt.cerif.entities.infrastructure.Facility;
+import gr.ekt.cerif.entities.infrastructure.Service;
+import gr.ekt.cerif.entities.result.ResultPatent;
+import gr.ekt.cerif.entities.result.ResultProduct;
+import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.entities.second.CV;
+import gr.ekt.cerif.entities.second.Citation;
+import gr.ekt.cerif.entities.second.Country;
+import gr.ekt.cerif.entities.second.Currency;
+import gr.ekt.cerif.entities.second.ElectronicAddress;
+import gr.ekt.cerif.entities.second.Event;
+import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
+import gr.ekt.cerif.entities.second.FederatedIdentifier;
+import gr.ekt.cerif.entities.second.Funding;
+import gr.ekt.cerif.entities.second.GeographicBoundingBox;
+import gr.ekt.cerif.entities.second.Indicator;
+import gr.ekt.cerif.entities.second.Language;
+import gr.ekt.cerif.entities.second.Measurement;
+import gr.ekt.cerif.entities.second.Medium;
+import gr.ekt.cerif.entities.second.Metrics;
+import gr.ekt.cerif.entities.second.PostalAddress;
+import gr.ekt.cerif.entities.second.Prize;
+import gr.ekt.cerif.entities.second.Qualification;
+import gr.ekt.cerif.features.semantics.ClassScheme;
+
 public enum ClassEnum {
 
-	PERSON("cf7799e0-3477-11e1-b86c-0800200c9a66","Person"),
-	PROJECT("cf7799e1-3477-11e1-b86c-0800200c9a66","Project"),
-	ORGANISATION("cf7799e2-3477-11e1-b86c-0800200c9a66","Organisation"),
-	PATENT("cf7799e3-3477-11e1-b86c-0800200c9a66","Patent"),
-	PRODUCT("cf7799e4-3477-11e1-b86c-0800200c9a66","Product"),
-	PUBLICATION("cf7799e5-3477-11e1-b86c-0800200c9a66","Publication"),
-	FUNDING("cf7799e6-3477-11e1-b86c-0800200c9a66","Funding"),
-	FACILITY("cf7799e7-3477-11e1-b86c-0800200c9a66","Facility"),
-	EQUIPMENT("cf7799e8-3477-11e1-b86c-0800200c9a66","Equipment"),
-	SERVICE("cf7799e9-3477-11e1-b86c-0800200c9a66","Service"),
-	CITATION("68aa07f0-34c9-11e1-b86c-0800200c9a66","Citation"),
-	CURRICULUM_VITAE("68aa07f1-34c9-11e1-b86c-0800200c9a66","Curriculum Vitae"),
-	ELECTRONIC_ADDRESS("68aa07f2-34c9-11e1-b86c-0800200c9a66","Electronic Address"),
-	POSTAL_ADDRESS("68aa07f3-34c9-11e1-b86c-0800200c9a66","Postal Address"),
-	EVENT("68aa07f4-34c9-11e1-b86c-0800200c9a66","Event"),
-	MEDIUM("a9332fbf-e5a9-430f-8e78-26bc3610dfe3","Medium"),
-	METRICS("36890f4f-6f60-4f52-9853-b294afb41637","Metrics"),
-	COUNTRY("b6ebf4db-55f0-49d6-8868-37c1ff3a951e","Country"),
-	CURRENCY("ec809f55-7124-4b5e-ba8b-db189d8422e2","Currency"),
-	EXPERTISE_AND_SKILLS("ae5f5b3f-4868-4534-94fd-7482cb460b6f","Expertise and Skills"),
-	LANGUAGE("717eb2b5-279b-4de3-a4be-4a96ffe73b29","Language"),
-	PRIZE("53dbf914-6219-4846-9ef6-e1d02d6a5597","Prize"),
-	QUALIFICATION("68aa07f5-34c9-11e1-b86c-0800200c9a66","Qualification"),
-	FEDERATED_IDENTIFIER("a1e51365-b7c4-4bdb-bbd1-0530840148be","Federated Identifier"),
-	MEASUREMENT("1cc0fbd8-a160-41df-9af8-d436e6a5296f","Measurement"),
-	INDICATOR("ed96ef79-f77d-4aaf-8c19-f727bbb49937","Indicator"),
-	CLASSIFICATION("613b117e-980e-4051-8876-8524cd498caf","Classification"),
-	CLASSIFICATION_SCHEME("4c93b3b2-d5ff-442c-9b28-4a028305bcf1","Classification Scheme"),
+	PERSON("cf7799e0-3477-11e1-b86c-0800200c9a66","Person", Person.class),
+	PROJECT("cf7799e1-3477-11e1-b86c-0800200c9a66","Project", Project.class),
+	ORGANISATION("cf7799e2-3477-11e1-b86c-0800200c9a66","Organisation", OrganisationUnit.class),
+	PATENT("cf7799e3-3477-11e1-b86c-0800200c9a66","Patent", ResultPatent.class),
+	PRODUCT("cf7799e4-3477-11e1-b86c-0800200c9a66","Product", ResultProduct.class),
+	PUBLICATION("cf7799e5-3477-11e1-b86c-0800200c9a66","Publication", ResultPublication.class),
+	FUNDING("cf7799e6-3477-11e1-b86c-0800200c9a66","Funding", Funding.class),
+	FACILITY("cf7799e7-3477-11e1-b86c-0800200c9a66","Facility", Facility.class),
+	EQUIPMENT("cf7799e8-3477-11e1-b86c-0800200c9a66","Equipment", Equipment.class),
+	SERVICE("cf7799e9-3477-11e1-b86c-0800200c9a66","Service", Service.class),
+	CITATION("68aa07f0-34c9-11e1-b86c-0800200c9a66","Citation", Citation.class),
+	CURRICULUM_VITAE("68aa07f1-34c9-11e1-b86c-0800200c9a66","Curriculum Vitae", CV.class),
+	ELECTRONIC_ADDRESS("68aa07f2-34c9-11e1-b86c-0800200c9a66","Electronic Address", ElectronicAddress.class),
+	POSTAL_ADDRESS("68aa07f3-34c9-11e1-b86c-0800200c9a66","Postal Address", PostalAddress.class),
+	EVENT("68aa07f4-34c9-11e1-b86c-0800200c9a66","Event", Event.class),
+	MEDIUM("a9332fbf-e5a9-430f-8e78-26bc3610dfe3","Medium", Medium.class),
+	METRICS("36890f4f-6f60-4f52-9853-b294afb41637","Metrics", Metrics.class),
+	COUNTRY("b6ebf4db-55f0-49d6-8868-37c1ff3a951e","Country", Country.class),
+	CURRENCY("ec809f55-7124-4b5e-ba8b-db189d8422e2","Currency", Currency.class),
+	EXPERTISE_AND_SKILLS("ae5f5b3f-4868-4534-94fd-7482cb460b6f","Expertise and Skills", ExpertiseAndSkills.class),
+	LANGUAGE("717eb2b5-279b-4de3-a4be-4a96ffe73b29","Language", Language.class),
+	PRIZE("53dbf914-6219-4846-9ef6-e1d02d6a5597","Prize", Prize.class),
+	GEOGRAPHIC_BOUNDING_BOX("1fa40282-876d-11e4-b116-123b93f75cba", "Geographic Bounding Box", GeographicBoundingBox.class),
+	QUALIFICATION("68aa07f5-34c9-11e1-b86c-0800200c9a66","Qualification", Qualification.class),
+	FEDERATED_IDENTIFIER("a1e51365-b7c4-4bdb-bbd1-0530840148be","Federated Identifier", FederatedIdentifier.class),
+	MEASUREMENT("1cc0fbd8-a160-41df-9af8-d436e6a5296f","Measurement", Measurement.class),
+	INDICATOR("ed96ef79-f77d-4aaf-8c19-f727bbb49937","Indicator", Indicator.class),
+	CLASSIFICATION("613b117e-980e-4051-8876-8524cd498caf","Classification", gr.ekt.cerif.features.semantics.Class.class),
+	CLASSIFICATION_SCHEME("4c93b3b2-d5ff-442c-9b28-4a028305bcf1","Classification Scheme", ClassScheme.class),
 	RESEARCH_INFRASTRUCTURE("cf7799ea-3477-11e1-b86c-0800200c9a66","Research Infrastructure"),
 	RESEARCH_OUTPUT("627e286f-a8ae-46c6-891e-0218e6b2f1a8","Research Output"),
 	DR("8f558c1a-be74-4d3c-8f19-fdd645b61c0a","Dr"),
@@ -438,20 +469,45 @@ public enum ClassEnum {
 	GREEN_OPEN_ACCESS("7cfe736a-73bb-4324-b3dd-34228e5dbe7d","Green Open Access"),
 	DATA_STORAGE("59c67182-270e-4ade-8edb-9cdf16d2e1b1","Data Storage"),
 	CHECKED("c3c8c96f-cc0f-47e6-9c6d-4f86949ab984","Checked"),
-	UNCHECKED("9b5e9d79-c332-40cb-b888-8a37bdef9f1f","Unchecked");
-	
-	private final String uuid;
-
-	private final String name;
-	
+	UNCHECKED("9b5e9d79-c332-40cb-b888-8a37bdef9f1f","Unchecked"),
+	USAGE("48d9e3c5-4c9f-48a4-a585-c27b9f75d61b", "Usage"),
+	DEFAULT("bcc9792b-d8f9-4e70-af7c-f3889e2228e0", "Default");
 	
 	/**
-	 * @param uuid
-	 * @param name
+	 * Universally unique identifier (UUID) of type 4.
+	 */
+	private String uuid;
+
+	/**
+	 * The name.
+	 */
+	private String name;
+	
+	/**
+	 * The entity class.
+	 */
+	private Class<? extends CerifEntity> entityClass;
+	
+	/**
+	 * Constructor.
+	 * @param uuid Universally unique identifier (UUID) of type 4.
+	 * @param name The name.
 	 */
 	private ClassEnum(String uuid, String name) {
 		this.uuid = uuid;
 		this.name = name;
+	}
+	
+	/**
+	 * Constructor.
+	 * @param uuid Universally unique identifier (UUID) of type 4.
+	 * @param name The name.
+	 * @param entityClass The entity class.
+	 */
+	private ClassEnum(String uuid, String name, Class<? extends CerifEntity> entityClass) {
+		this.uuid = uuid;
+		this.name = name;
+		this.entityClass = entityClass;
 	}
 
 	/**
@@ -466,6 +522,14 @@ public enum ClassEnum {
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	/**
+	 * Returns the entity class.
+	 * @return a class.
+	 */
+	public Class<? extends CerifEntity> getEntityClass() {
+		return entityClass;
 	}
 	
 	

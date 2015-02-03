@@ -6,6 +6,7 @@ import gr.ekt.cerif.features.additional.DublinCoreCoverageSpatial;
  * A repository for dublin core coverage spatial.
  * 
  */
+@Deprecated
 public interface DublinCoreCoverageSpatialRepository {
 
 	public void delete(DublinCoreCoverageSpatial entity); 
