@@ -30,7 +30,7 @@ This module provides ready-to-use functionality for common persistence needs. It
 
 It defines a common object-oriented structure for every entity of the model, as depicted in the following image.
 
-http://cerif-jpa-persistence.googlecode.com/svn/trunk/CERIF%201.5/diagram.png
+http://cerif-jpa-persistence.googlecode.com/svn/trunk/CERIF%201.6/diagram.png
 
 Let us consider the entity Person:
  * PersonRepository is the service interface. 
