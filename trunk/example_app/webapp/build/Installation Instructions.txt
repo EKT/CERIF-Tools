@@ -1,14 +1,24 @@
 Installation instructions
 
-Step 1) Run example_db.sql in your local MySQL installation. This script will create the database and populate it with some dummy data.
+Step 1) Create a new database schema named "example_db" in your local MySQL installation.
 
-Step 2) Install exampleapp.war in Tomcat.
+Step 2) Shut down Tomcat.
 
-Step 3) After deploy edit file {Apache Tomcat installation directory}\webapps\exampleapp\WEB-INF\spring\appServlet\servlet-context.xml and change entries username, password and url to the ones required by your local MySQL installation. NOTE: Do not change the name of the database in url. It should be example_db.
+Step 3) Extract the contents of exampleapp.war in a new folder named "exampleapp" under {Apache Tomcat installation directory}\webapps folder.
 
-Step 4) Restart the application.
+Step 4) Edit file {Apache Tomcat installation directory}\webapps\exampleapp\WEB-INF\spring\appServlet\servlet-context.xml and change entries username, password and url to the ones required by your local MySQL installation. NOTE: Do not change the name of the database in url. It should be example_db.
 
-Step 5) Use http://localhost:{Tomcat port}/exampleapp
+Step 5) Restart Tomcat. The process will create all database tables.
+
+Step 6) Run example_db.sql in example_db. This script will populate the database with some dummy data.
+
+Step 7) Shut down Tomcat.
+
+Step 8) Edit file {Apache Tomcat installation directory}\webapps\exampleapp\WEB-INF\spring\appServlet\servlet-context.xml and change entry <prop key="hibernate.hbm2ddl.auto">create</prop> to <prop key="hibernate.hbm2ddl.auto">validate</prop>.
+
+Step 9) Restart Tomcat.
+
+Step 10) Use http://localhost:{Tomcat port}/exampleapp
 
 
 NOTES: 
