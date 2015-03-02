@@ -24,7 +24,7 @@
                 		<db.password>pass</db.password> 
                        
                        <!-- validate | update | create | create-drop -->
-                       <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
+                       <hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
                        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
                        <hibernate.show_sql>false</hibernate.show_sql>
                        <hibernate.indexBase>/usr/local/lucene/example_app</hibernate.indexBase>
