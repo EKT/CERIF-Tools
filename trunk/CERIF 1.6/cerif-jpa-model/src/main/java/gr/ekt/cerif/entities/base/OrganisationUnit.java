@@ -6,6 +6,7 @@ package gr.ekt.cerif.entities.base;
 
 import gr.ekt.cerif.entities.link.ClassScheme_OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Class;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_DublinCore;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Equipment;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Event;
@@ -34,7 +35,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -79,7 +79,7 @@ public class OrganisationUnit implements CerifBaseEntity {
 	/**
 	 * The currency code.
 	 */
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="cfCurrCode")
 	private Currency currency;
 	
@@ -197,6 +197,9 @@ public class OrganisationUnit implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="organisationUnit")
 	private Set<OrganisationUnit_Event> organisationUnits_events;
+	
+	@OneToMany(mappedBy="organisationUnit")
+	private Set<OrganisationUnit_DublinCore> organisationUnits_DublinCores;
 
 	
 	/**
@@ -706,6 +709,21 @@ public class OrganisationUnit implements CerifBaseEntity {
 	public void setOrganisationUnits_classes(
 			Set<OrganisationUnit_Class> organisationUnits_classes) {
 		this.organisationUnits_classes = organisationUnits_classes;
+	}
+
+	/**
+	 * @return the organisationUnits_DublinCores
+	 */
+	public Set<OrganisationUnit_DublinCore> getOrganisationUnits_DublinCores() {
+		return organisationUnits_DublinCores;
+	}
+
+	/**
+	 * @param organisationUnits_DublinCores the organisationUnits_DublinCores to set
+	 */
+	public void setOrganisationUnits_DublinCores(
+			Set<OrganisationUnit_DublinCore> organisationUnits_DublinCores) {
+		this.organisationUnits_DublinCores = organisationUnits_DublinCores;
 	}
 
 	/**

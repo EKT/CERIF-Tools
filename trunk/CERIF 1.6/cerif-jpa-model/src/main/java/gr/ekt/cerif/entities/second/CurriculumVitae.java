@@ -3,8 +3,8 @@
  */
 package gr.ekt.cerif.entities.second;
 
-import gr.ekt.cerif.entities.link.Cv_Class;
-import gr.ekt.cerif.entities.link.person.Person_Cv;
+import gr.ekt.cerif.entities.link.CurriculumVitae_Class;
+import gr.ekt.cerif.entities.link.person.Person_CurriculumVitae;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,12 +22,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- * Represents a cv second level entity.
+ * Represents a Curriculum Vitae second level entity.
  * 
  */
 @Entity
 @Table(name="cfCV")
-public class CV implements CerifSecondLevelEntity {
+public class CurriculumVitae implements CerifSecondLevelEntity {
 	
 	/**
 	 * Serialization version.
@@ -65,11 +65,11 @@ public class CV implements CerifSecondLevelEntity {
 	/**
 	 * Links.
 	 */
-	@OneToMany(mappedBy="cv")
-	private Set<Person_Cv> persons_cvs;
+	@OneToMany(mappedBy="curriculumVitae")
+	private Set<Person_CurriculumVitae> persons_curriculumVitaes;
 	
-	@OneToMany(mappedBy="cv")
-	private Set<Cv_Class> cvs_classes;
+	@OneToMany(mappedBy="curriculumVitae")
+	private Set<CurriculumVitae_Class> curriculumVitaes_classes;
 	
 	
 	/**
@@ -83,7 +83,7 @@ public class CV implements CerifSecondLevelEntity {
 	/**
 	 * Default Constructor
 	 */
-	public CV() {
+	public CurriculumVitae() {
 		
 	}
 	
@@ -92,7 +92,7 @@ public class CV implements CerifSecondLevelEntity {
 	 * @param doc
 	 * @param uri
 	 */
-	public CV(byte[] doc, String uri) {
+	public CurriculumVitae(byte[] doc, String uri) {
 		this.doc = doc;
 		this.uri = uri;
 	}
@@ -101,7 +101,7 @@ public class CV implements CerifSecondLevelEntity {
 	 * 
 	 * @param doc
 	 */
-	public CV(byte[] doc) {
+	public CurriculumVitae(byte[] doc) {
 		this.doc = doc;
 	}
 
@@ -164,31 +164,33 @@ public class CV implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the persons_cvs
+	 * @return the persons_curriculumVitaes
 	 */
-	public Set<Person_Cv> getPersons_cvs() {
-		return persons_cvs;
-	}
-	
-	/**
-	 * @param persons_cvs the persons_cvs to set
-	 */
-	public void setPersons_cvs(Set<Person_Cv> persons_cvs) {
-		this.persons_cvs = persons_cvs;
+	public Set<Person_CurriculumVitae> getPersons_curriculumVitaes() {
+		return persons_curriculumVitaes;
 	}
 
 	/**
-	 * @return the cvs_classes
+	 * @param persons_curriculumVitaes the persons_curriculumVitaes to set
 	 */
-	public Set<Cv_Class> getCvs_classes() {
-		return cvs_classes;
+	public void setPersons_curriculumVitaes(
+			Set<Person_CurriculumVitae> persons_curriculumVitaes) {
+		this.persons_curriculumVitaes = persons_curriculumVitaes;
 	}
 
 	/**
-	 * @param cvs_classes the cvs_classes to set
+	 * @return the curriculumVitaes_classes
 	 */
-	public void setCvs_classes(Set<Cv_Class> cvs_classes) {
-		this.cvs_classes = cvs_classes;
+	public Set<CurriculumVitae_Class> getCurriculumVitaes_classes() {
+		return curriculumVitaes_classes;
+	}
+
+	/**
+	 * @param curriculumVitaes_classes the curriculumVitaes_classes to set
+	 */
+	public void setCurriculumVitaes_classes(
+			Set<CurriculumVitae_Class> curriculumVitaes_classes) {
+		this.curriculumVitaes_classes = curriculumVitaes_classes;
 	}
 
 	/**
@@ -229,7 +231,7 @@ public class CV implements CerifSecondLevelEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CV other = (CV) obj;
+		CurriculumVitae other = (CurriculumVitae) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

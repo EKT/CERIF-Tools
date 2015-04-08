@@ -13,7 +13,6 @@ import gr.ekt.cerif.entities.link.project.Project_Service;
 import gr.ekt.cerif.features.multilingual.CurrencyEntityName;
 import gr.ekt.cerif.features.multilingual.CurrencyName;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -22,7 +21,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -100,12 +98,7 @@ public class Currency implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="currency")
 	private Set<Currency_Class> currencies_classes;
-	
-	/**
-	 * FederatedIdentifier entities related to Currency instance.
-	 */
-	@Transient
-	private List<FederatedIdentifier> federatedIdentifiers;
+
 	
 	//----------------------------------------------------------------------------------------------//
 	
@@ -315,21 +308,6 @@ public class Currency implements CerifSecondLevelEntity {
 	 */
 	public void setCurrencies_classes(Set<Currency_Class> currencies_classes) {
 		this.currencies_classes = currencies_classes;
-	}
-
-	/**
-	 * @return the federatedIdentifiers
-	 */
-	public List<FederatedIdentifier> getFederatedIdentifiers() {
-		return federatedIdentifiers;
-	}
-
-	/**
-	 * @param federatedIdentifiers the federatedIdentifiers to set
-	 */
-	public void setFederatedIdentifiers(
-			List<FederatedIdentifier> federatedIdentifiers) {
-		this.federatedIdentifiers = federatedIdentifiers;
 	}
 
 	

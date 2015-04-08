@@ -7,7 +7,6 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduc
 import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
 import gr.ekt.cerif.entities.link.project.Project_ResultProduct;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Class;
-import gr.ekt.cerif.entities.link.result.ResultProduct_Country;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Equipment;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Facility;
 import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
@@ -115,9 +114,6 @@ public class ResultProduct implements CerifResultEntity {
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<Project_ResultProduct> projects_resultProducts;	
-	
-	@OneToMany(mappedBy="resultProduct")
-	private Set<ResultProduct_Country> resultProducts_countries;
 	
 	@OneToMany(mappedBy="resultProduct")
 	private Set<ResultProduct_GeographicBoundingBox> resultProducts_geographicBoundingBoxes;
@@ -428,21 +424,6 @@ public class ResultProduct implements CerifResultEntity {
 	public void setProjects_resultProducts(
 			Set<Project_ResultProduct> projects_resultProducts) {
 		this.projects_resultProducts = projects_resultProducts;
-	}
-
-	/**
-	 * @return the resultProducts_countries
-	 */
-	public Set<ResultProduct_Country> getResultProducts_countries() {
-		return resultProducts_countries;
-	}
-
-	/**
-	 * @param resultProducts_countries the resultProducts_countries to set
-	 */
-	public void setResultProducts_countries(
-			Set<ResultProduct_Country> resultProducts_countries) {
-		this.resultProducts_countries = resultProducts_countries;
 	}
 
 	/**

@@ -102,6 +102,20 @@ public class ExpertiseAndSkills_Class implements CerifLinkEntity {
 	}
 
 	/**
+	 * @param expertiseAndSkills
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public ExpertiseAndSkills_Class(ExpertiseAndSkills expertiseAndSkills,
+			Class theClass, Date startDate, Date endDate) {
+		this.expertiseAndSkills = expertiseAndSkills;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	/**
 	 * @return the expertiseAndSkills
 	 */
 	public ExpertiseAndSkills getExpertiseAndSkills() {

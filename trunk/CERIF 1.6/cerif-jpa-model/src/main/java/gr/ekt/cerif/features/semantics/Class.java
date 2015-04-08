@@ -10,7 +10,7 @@ import gr.ekt.cerif.entities.link.ClassScheme_ClassScheme;
 import gr.ekt.cerif.entities.link.Class_Class;
 import gr.ekt.cerif.entities.link.Country_Class;
 import gr.ekt.cerif.entities.link.Currency_Class;
-import gr.ekt.cerif.entities.link.Cv_Class;
+import gr.ekt.cerif.entities.link.CurriculumVitae_Class;
 import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
 import gr.ekt.cerif.entities.link.Equipment_Class;
 import gr.ekt.cerif.entities.link.Equipment_Equipment;
@@ -92,7 +92,7 @@ import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultPublic
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Service;
 import gr.ekt.cerif.entities.link.person.Person_Class;
 import gr.ekt.cerif.entities.link.person.Person_Country;
-import gr.ekt.cerif.entities.link.person.Person_Cv;
+import gr.ekt.cerif.entities.link.person.Person_CurriculumVitae;
 import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
 import gr.ekt.cerif.entities.link.person.Person_Equipment;
 import gr.ekt.cerif.entities.link.person.Person_Event;
@@ -277,7 +277,7 @@ public class Class implements CerifSemanticFeature {
 	private Set<Person_Country> persons_countries;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Person_Cv> persons_cvs;
+	private Set<Person_CurriculumVitae> persons_curriculumVitaes;
 	
 	@OneToMany(mappedBy="theClass")
 	private Set<Person_ExpertiseAndSkills> person_expertiseAndSkills;
@@ -640,7 +640,7 @@ public class Class implements CerifSemanticFeature {
 	private Set<Indicator_Measurement> indicators_measurements;
 	
 	@OneToMany(mappedBy="theClass")
-	private Set<Cv_Class> cvs_classes;
+	private Set<CurriculumVitae_Class> curriculumVitaes_classes;
 	
 	@OneToMany(mappedBy="theClass1")
 	private Set<Class_Class> class_class1;
@@ -1617,20 +1617,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the cvs_classes
-	 */
-	public Set<Cv_Class> getCvs_classes() {
-		return cvs_classes;
-	}
-
-	/**
-	 * @param cvs_classes the cvs_classes to set
-	 */
-	public void setCvs_classes(Set<Cv_Class> cvs_classes) {
-		this.cvs_classes = cvs_classes;
-	}
-
-	/**
 	 * @return the metrics_classes
 	 */
 	public Set<Metrics_Class> getMetrics_classes() {
@@ -1905,17 +1891,33 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the persons_cvs
+	 * @return the persons_curriculumVitaes
 	 */
-	public Set<Person_Cv> getPersons_cvs() {
-		return persons_cvs;
+	public Set<Person_CurriculumVitae> getPersons_curriculumVitaes() {
+		return persons_curriculumVitaes;
 	}
 
 	/**
-	 * @param persons_cvs the persons_cvs to set
+	 * @param persons_curriculumVitaes the persons_curriculumVitaes to set
 	 */
-	public void setPersons_cvs(Set<Person_Cv> persons_cvs) {
-		this.persons_cvs = persons_cvs;
+	public void setPersons_curriculumVitaes(
+			Set<Person_CurriculumVitae> persons_curriculumVitaes) {
+		this.persons_curriculumVitaes = persons_curriculumVitaes;
+	}
+
+	/**
+	 * @return the curriculumVitaes_classes
+	 */
+	public Set<CurriculumVitae_Class> getCurriculumVitaes_classes() {
+		return curriculumVitaes_classes;
+	}
+
+	/**
+	 * @param curriculumVitaes_classes the curriculumVitaes_classes to set
+	 */
+	public void setCurriculumVitaes_classes(
+			Set<CurriculumVitae_Class> curriculumVitaes_classes) {
+		this.curriculumVitaes_classes = curriculumVitaes_classes;
 	}
 
 	/**

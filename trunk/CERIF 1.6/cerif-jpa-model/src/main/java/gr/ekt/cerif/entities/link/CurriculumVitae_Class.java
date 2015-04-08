@@ -1,7 +1,10 @@
 /**
  * 
  */
-package gr.ekt.cerif.entities.link.person;
+package gr.ekt.cerif.entities.link;
+
+import gr.ekt.cerif.entities.second.CurriculumVitae;
+import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
 
@@ -19,22 +22,17 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.second.CV;
-import gr.ekt.cerif.features.semantics.Class;
-
 /**
  * 
  */
 @Entity
-@Table(name="cfPers_CV", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfCVId","cfClassId","cfStartDate","cfEndDate"}))
-public class Person_Cv implements CerifLinkEntity {
-	
+@Table(name="cfCV_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfCVId", "cfClassId", "cfStartDate", "cfEndDate"}))
+public class CurriculumVitae_Class implements CerifLinkEntity {
+
 	/**
-	 * Serialization version.
+	 * 
 	 */
-	private static final long serialVersionUID = -178905743289456L;
+	private static final long serialVersionUID = 9131289991723282407L;
 	
 	/**
 	 * 
@@ -44,25 +42,17 @@ public class Person_Cv implements CerifLinkEntity {
 	private Long id;
 	
 	/**
-	 * The person.
-	 */
-	@ManyToOne(optional=false)
-	@JoinColumn(name="cfPersId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Person person;
-	
-	/**
 	 * The CV.
 	 */
-	@ManyToOne(optional=false)
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfCVId")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private CV cv;
+	private CurriculumVitae curriculumVitae;
 	
 	/**
-	 * The class.
+	 * The Class.
 	 */
-	@ManyToOne(optional=false)
+	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
@@ -90,72 +80,39 @@ public class Person_Cv implements CerifLinkEntity {
 	/**
 	 * Default Constructor
 	 */
-	public Person_Cv() {
+	public CurriculumVitae_Class() {
 		
 	}
 	
 	/**
 	 * 
-	 * @param person
-	 * @param cv
+	 * @param curriculumVitae
 	 * @param theClass
 	 * @param startDate
 	 * @param endDate
 	 * @param fraction
 	 */
-	public Person_Cv(Person person, CV cv, Class theClass, Date startDate,
-			Date endDate, Double fraction) {
-		this.person = person;
-		this.cv = cv;
+	public CurriculumVitae_Class(CurriculumVitae curriculumVitae, Class theClass, Date startDate, Date endDate,
+			Double fraction) {
+		this.curriculumVitae = curriculumVitae;
 		this.theClass = theClass;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.fraction = fraction;
 	}
-	
+
 	/**
-	 * 
-	 * @param person
-	 * @param cv
-	 * @param theClass
-	 * @param startDate
-	 * @param endDate
+	 * @return the curriculumVitae
 	 */
-	public Person_Cv(Person person, CV cv, Class theClass, Date startDate,
-			Date endDate) {
-		this.person = person;
-		this.cv = cv;
-		this.theClass = theClass;
-		this.startDate = startDate;
-		this.endDate = endDate;
+	public CurriculumVitae getCurriculumVitae() {
+		return curriculumVitae;
 	}
 
 	/**
-	 * @return the person
+	 * @param curriculumVitae the curriculumVitae to set
 	 */
-	public Person getPerson() {
-		return person;
-	}
-
-	/**
-	 * @param person the person to set
-	 */
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
-	/**
-	 * @return the cv
-	 */
-	public CV getCv() {
-		return cv;
-	}
-
-	/**
-	 * @param cv the cv to set
-	 */
-	public void setCv(CV cv) {
-		this.cv = cv;
+	public void setCurriculumVitae(CurriculumVitae curriculumVitae) {
+		this.curriculumVitae = curriculumVitae;
 	}
 
 	/**
@@ -233,9 +190,9 @@ public class Person_Cv implements CerifLinkEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Person_Cv [id=" + id + ", person=" + person + ", cv=" + cv
-				+ ", theClass=" + theClass + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", fraction=" + fraction + "]";
+		return "Cv_Class [id=" + id + ", curriculumVitae=" + curriculumVitae + ", theClass=" + theClass
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", fraction=" + fraction + "]";
 	}
 	
 	

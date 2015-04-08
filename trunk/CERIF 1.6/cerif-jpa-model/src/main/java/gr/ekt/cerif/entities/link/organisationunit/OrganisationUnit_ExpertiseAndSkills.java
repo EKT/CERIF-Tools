@@ -150,6 +150,24 @@ public class OrganisationUnit_ExpertiseAndSkills implements CerifLinkEntity {
 	}
 
 	/**
+	 * @param organisationUnit
+	 * @param expertiseAndSkills
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
+	 */
+	public OrganisationUnit_ExpertiseAndSkills(
+			OrganisationUnit organisationUnit,
+			ExpertiseAndSkills expertiseAndSkills, Class theClass,
+			Date startDate, Date endDate) {
+		this.organisationUnit = organisationUnit;
+		this.expertiseAndSkills = expertiseAndSkills;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	/**
 	 * @return the organisationUnit
 	 */
 	public OrganisationUnit getOrganisationUnit() {
@@ -287,6 +305,20 @@ public class OrganisationUnit_ExpertiseAndSkills implements CerifLinkEntity {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the theClass
+	 */
+	public Class getTheClass() {
+		return theClass;
+	}
+
+	/**
+	 * @param theClass the theClass to set
+	 */
+	public void setTheClass(Class theClass) {
+		this.theClass = theClass;
 	}
 
 	/* (non-Javadoc)

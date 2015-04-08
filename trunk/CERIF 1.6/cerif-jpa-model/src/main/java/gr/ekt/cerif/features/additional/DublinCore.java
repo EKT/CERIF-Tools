@@ -3,7 +3,10 @@
  */
 package gr.ekt.cerif.features.additional;
 
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_DublinCore;
 import gr.ekt.cerif.entities.link.person.Person_DublinCore;
+import gr.ekt.cerif.entities.link.project.Project_DublinCore;
+
 import java.util.Set;
 
 import gr.ekt.cerif.entities.link.result.ResultPublication_DublinCore;
@@ -58,6 +61,12 @@ public class DublinCore implements CerifAdditionalFeature {
 	
 	@OneToMany(mappedBy="dublinCore")
 	private Set<ResultPublication_DublinCore> resultPublications_dublinCores;
+	
+	@OneToMany(mappedBy="dublinCore")
+	private Set<OrganisationUnit_DublinCore> organisationUnits_DublinCores;
+	
+	@OneToMany(mappedBy="dublinCore")
+	private Set<Project_DublinCore> projects_DublinCores;
 
 	/**
 	 * Default Constructor
@@ -126,20 +135,6 @@ public class DublinCore implements CerifAdditionalFeature {
 		this.persons_dublinCores = persons_dublinCores;
 	}	
 
-//	/**
-//	 * @return the persons_dublinCores
-//	 */
-//	public Set<Person_DublinCore> getPersons_dublinCores() {
-//		return persons_dublinCores;
-//	}
-//
-//	/**
-//	 * @param persons_dublinCores the persons_dublinCores to set
-//	 */
-//	public void setPersons_dublinCores(Set<Person_DublinCore> persons_dublinCores) {
-//		this.persons_dublinCores = persons_dublinCores;
-//	}
-
 	/**
 	 * @return the resultPublications_dublinCores
 	 */
@@ -153,6 +148,35 @@ public class DublinCore implements CerifAdditionalFeature {
 	public void setResultPublications_dublinCores(
 			Set<ResultPublication_DublinCore> resultPublications_dublinCores) {
 		this.resultPublications_dublinCores = resultPublications_dublinCores;
+	}
+
+	/**
+	 * @return the organisationUnits_DublinCores
+	 */
+	public Set<OrganisationUnit_DublinCore> getOrganisationUnits_DublinCores() {
+		return organisationUnits_DublinCores;
+	}
+
+	/**
+	 * @param organisationUnits_DublinCores the organisationUnits_DublinCores to set
+	 */
+	public void setOrganisationUnits_DublinCores(
+			Set<OrganisationUnit_DublinCore> organisationUnits_DublinCores) {
+		this.organisationUnits_DublinCores = organisationUnits_DublinCores;
+	}
+
+	/**
+	 * @return the projects_DublinCores
+	 */
+	public Set<Project_DublinCore> getProjects_DublinCores() {
+		return projects_DublinCores;
+	}
+
+	/**
+	 * @param projects_DublinCores the projects_DublinCores to set
+	 */
+	public void setProjects_DublinCores(Set<Project_DublinCore> projects_DublinCores) {
+		this.projects_DublinCores = projects_DublinCores;
 	}
 	
 }
