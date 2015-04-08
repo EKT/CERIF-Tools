@@ -2,6 +2,7 @@ package gr.ekt.cerif.services;
 
 import gr.ekt.cerif.CerifEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,9 @@ public class SelectionResult {
 	 * The identifiers.
 	 */
 	private List<Object> identifiers;
-		
+	
+	private List<String> uuids;
+	
 	/**
 	 * Offset index.
 	 */
@@ -127,6 +130,28 @@ public class SelectionResult {
 	
 	public void setIdentifiers(List<Object> identifiers) {
 		this.identifiers = identifiers;
+	}
+	
+	public List<String> getUuids() {
+		return uuids;
+	}
+	
+	public void setUuids(List<String> uuids) {
+		this.uuids = uuids;
+	}
+	
+	public void addIdentifier(Object identifier) {
+		if (identifiers == null) {
+			identifiers = new ArrayList<Object>();
+		}
+		identifiers.add(identifier);
+	}
+	
+	public void addUUID(String uuid) {
+		if (uuids == null) {
+			uuids = new ArrayList<String>();
+		}
+		uuids.add(uuid);
 	}
 	
 }

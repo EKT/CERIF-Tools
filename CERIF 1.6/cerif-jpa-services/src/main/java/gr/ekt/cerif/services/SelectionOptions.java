@@ -217,11 +217,15 @@ public class SelectionOptions {
 	}
 	
 	public boolean isFindById() {
-		return isSingleEntity() && org.apache.commons.lang.math.NumberUtils.isDigits(id.toString());
+		return isSingleEntity() && Utilities.isValidIdentifier(id.toString());
 	}
 	
 	public boolean isFindByUUID() {
-		return isSingleEntity() && !isFindById();
+		return isSingleEntity() && Utilities.isValidUUID(id.toString());
+	}
+	
+	public boolean isFindByCode() {
+		return isSingleEntity() && !isFindById() && !isFindByUUID();
 	}
 	
 	public List<ClassEnum> getLinkEntities() {

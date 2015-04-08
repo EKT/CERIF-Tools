@@ -42,9 +42,9 @@ public class LinkServiceFederatedIdentifierRepositoryImpl implements
 	}
 
 	@Override
-	public List<Service_FederatedIdentifier> findByFedId(
+	public List<Service_FederatedIdentifier> findByFederatedIdentifier(
 			FederatedIdentifier federatedIdentifier) {
-		return linkServiceFederatedIdentifierCrudRepository.findByFedId(federatedIdentifier);
+		return linkServiceFederatedIdentifierCrudRepository.findByFederatedIdentifier(federatedIdentifier);
 	}
 
 	@Override

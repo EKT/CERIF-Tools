@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.link.person;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_DublinCore;
 
 /**
@@ -15,5 +18,7 @@ public interface LinkPersonDublinCoreRepository {
 	public Iterable<Person_DublinCore> save(Iterable<Person_DublinCore> entities); 
 	
 	public Person_DublinCore save(Person_DublinCore entity);
+	
+	List<Person_DublinCore> findByPerson(Person person);
 	
 }

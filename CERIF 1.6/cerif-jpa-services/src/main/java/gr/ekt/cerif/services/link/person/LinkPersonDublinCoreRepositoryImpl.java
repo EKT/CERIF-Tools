@@ -1,10 +1,13 @@
 package gr.ekt.cerif.services.link.person;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_DublinCore;
 
 @Component
@@ -34,6 +37,11 @@ public class LinkPersonDublinCoreRepositoryImpl implements
 	@Override
 	public Person_DublinCore save(Person_DublinCore entity) {
 		return linkPersonDublinCoreCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<Person_DublinCore> findByPerson(Person person) {
+		return linkPersonDublinCoreCrudRepository.findByPerson(person);
 	}
 
 }

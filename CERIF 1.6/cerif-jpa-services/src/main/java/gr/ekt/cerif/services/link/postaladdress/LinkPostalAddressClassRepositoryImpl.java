@@ -48,8 +48,8 @@ public class LinkPostalAddressClassRepositoryImpl implements
 	}
 
 	@Override
-	public List<PostalAddress_Class> findBytheClass(Class theClass) {
-		return linkPostalAddressClassCrudRepository.findBytheClass(theClass);
+	public List<PostalAddress_Class> findByTheClass(Class theClass) {
+		return linkPostalAddressClassCrudRepository.findByTheClass(theClass);
 	}
 
 }

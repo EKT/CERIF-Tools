@@ -14,7 +14,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface LinkFederatedIdentifierClassCrudRepository extends CrudRepository<FederatedIdentifier_Class, Long> {
 
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<FederatedIdentifier_Class> findByFedId(FederatedIdentifier federatedIdentifier);
+	List<FederatedIdentifier_Class> findByFederatedIdentifier(FederatedIdentifier federatedIdentifier);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<FederatedIdentifier_Class> findBytheClass(Class theClass);

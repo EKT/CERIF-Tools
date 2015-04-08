@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.expertiseandskills;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 import gr.ekt.cerif.features.multilingual.ExpertiseAndSkillsName;
 
 /**
@@ -40,6 +43,12 @@ public class ExpertiseAndSkillsNameRepositoryImpl implements ExpertiseAndSkillsN
 	@Override
 	public ExpertiseAndSkillsName save(ExpertiseAndSkillsName entity) {
 		return expertiseAndSkillsNameCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<ExpertiseAndSkillsName> findByExpertiseAndSkills(
+			ExpertiseAndSkills expertiseAndSkills) {
+		return expertiseAndSkillsNameCrudRepository.findByExpertiseAndSkills(expertiseAndSkills);
 	}
 
 }

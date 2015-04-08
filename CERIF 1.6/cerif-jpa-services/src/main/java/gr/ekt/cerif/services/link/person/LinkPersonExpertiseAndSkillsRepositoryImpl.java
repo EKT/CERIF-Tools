@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.entities.link.person.Person_ExpertiseAndSkills;
+import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 
 @Component
 public class LinkPersonExpertiseAndSkillsRepositoryImpl implements
@@ -43,6 +44,12 @@ public class LinkPersonExpertiseAndSkillsRepositoryImpl implements
 	@Override
 	public List<Person_ExpertiseAndSkills> findByPerson(Person person) {
 		return linkPersonExpertiseAndSkillsCrudRepository.findByPerson(person);
+	}
+
+	@Override
+	public List<Person_ExpertiseAndSkills> findByExpertiseAndSkills(
+			ExpertiseAndSkills expertiseAndSkills) {
+		return linkPersonExpertiseAndSkillsCrudRepository.findByExpertiseAndSkills(expertiseAndSkills);
 	}
 
 

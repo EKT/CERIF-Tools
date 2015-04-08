@@ -1,10 +1,13 @@
 package gr.ekt.cerif.services.link.organisationunit;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_DublinCore;
 
 @Component
@@ -35,6 +38,12 @@ public class LinkOrganisationUnitDublinCoreRepositoryImpl implements
 	@Override
 	public OrganisationUnit_DublinCore save(OrganisationUnit_DublinCore entity) {
 		return linkOrganisationUnitDublinCoreCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<OrganisationUnit_DublinCore> findByOrganisationUnit(
+			OrganisationUnit organisationUnit) {
+		return linkOrganisationUnitDublinCoreCrudRepository.findByOrganisationUnit(organisationUnit);
 	}
 
 }

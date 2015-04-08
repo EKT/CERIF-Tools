@@ -16,7 +16,7 @@ public interface LinkFederatedIdentifierClassRepository {
 	
 	public FederatedIdentifier_Class save(FederatedIdentifier_Class entity);
 	
-	List<FederatedIdentifier_Class> findByFedId(FederatedIdentifier federatedIdentifier);
+	List<FederatedIdentifier_Class> findByFederatedIdentifier(FederatedIdentifier federatedIdentifier);
 	
 	List<FederatedIdentifier_Class> findBytheClass(Class theClass);
 }

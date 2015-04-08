@@ -16,7 +16,7 @@ public interface LinkServiceFederatedIdentifierRepository {
 	
 	public Service_FederatedIdentifier save(Service_FederatedIdentifier entity);
 	
-	List<Service_FederatedIdentifier> findByFedId(FederatedIdentifier federatedIdentifier);
+	List<Service_FederatedIdentifier> findByFederatedIdentifier(FederatedIdentifier federatedIdentifier);
 	
 	List<Service_FederatedIdentifier> findByService(Service service);
 

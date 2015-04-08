@@ -43,4 +43,6 @@ public interface ClassRepository {
 	
 	List<Class> findByUuidAndScheme(String uuid, ClassScheme scheme);
 	
+	Class findByUuidAndSchemeUuid(String uuid, String schemeUuid);
+	
 }
