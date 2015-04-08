@@ -12,8 +12,6 @@
 	<bean id="cerifToXmlTransformationEngine" class="gr.ekt.transformationengine.core.TransformationEngine" scope="prototype">
 		<property name="dataLoader" ref="cerifToXmlDataLoader" />
 		<property name="workflow" ref="cerifToXmlConjunctionTransformationWorkflow" />
-		<!-- Not needed -->
-		<!-- <property name="outputGenerator" ref="cerifToXmlOutputGenerator" /> -->
 	</bean>
 	
 	<bean id="cerifToXmlDataLoader" class="gr.ekt.cerif.xml.loader.CerifToXmlDataLoader" scope="prototype">
@@ -29,7 +27,6 @@
 	<bean id="cerifToXmlOutputGenerator" class="gr.ekt.cerif.xml.output.CerifToXmlOutputGenerator" scope="prototype">
 		<property name="velocityEngine" ref="cerifToXmlVelocityEngine" />
 		<property name="template" value="/META-INF/cerif2xmlTemplate-uuids.xml" />
-		<!-- <property name="xmlSourceDatabase" value="${xml.xmlSourceDatabase}" /> -->
 	</bean>
 	
 	<bean id="cerifToXmlVelocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">

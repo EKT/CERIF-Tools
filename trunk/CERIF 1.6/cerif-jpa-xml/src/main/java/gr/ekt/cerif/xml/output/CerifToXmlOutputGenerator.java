@@ -1,57 +1,9 @@
 package gr.ekt.cerif.xml.output;
 
-import gr.ekt.cerif.entities.base.OrganisationUnit;
-import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.base.Project;
-import gr.ekt.cerif.entities.infrastructure.Equipment;
-import gr.ekt.cerif.entities.infrastructure.Facility;
-import gr.ekt.cerif.entities.infrastructure.Service;
-import gr.ekt.cerif.entities.result.ResultPatent;
-import gr.ekt.cerif.entities.result.ResultProduct;
-import gr.ekt.cerif.entities.result.ResultPublication;
-import gr.ekt.cerif.entities.second.CV;
-import gr.ekt.cerif.entities.second.Citation;
-import gr.ekt.cerif.entities.second.ElectronicAddress;
-import gr.ekt.cerif.entities.second.Event;
-import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
-import gr.ekt.cerif.entities.second.FederatedIdentifier;
-import gr.ekt.cerif.entities.second.Funding;
-import gr.ekt.cerif.entities.second.GeographicBoundingBox;
-import gr.ekt.cerif.entities.second.Indicator;
-import gr.ekt.cerif.entities.second.Measurement;
-import gr.ekt.cerif.entities.second.Medium;
-import gr.ekt.cerif.entities.second.Metrics;
-import gr.ekt.cerif.entities.second.PostalAddress;
-import gr.ekt.cerif.entities.second.Prize;
-import gr.ekt.cerif.entities.second.Qualification;
-import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.features.semantics.ClassScheme;
+import gr.ekt.cerif.CerifEntity;
 import gr.ekt.cerif.xml.loader.CerifEscapeTool;
-import gr.ekt.cerif.xml.records.base.CerifOrganisationUnitRecord;
-import gr.ekt.cerif.xml.records.base.CerifPersonRecord;
-import gr.ekt.cerif.xml.records.base.CerifProjectRecord;
-import gr.ekt.cerif.xml.records.infrastructure.CerifEquipmentRecord;
-import gr.ekt.cerif.xml.records.infrastructure.CerifFacilityRecord;
-import gr.ekt.cerif.xml.records.infrastructure.CerifServiceRecord;
-import gr.ekt.cerif.xml.records.result.CerifResultPatentRecord;
-import gr.ekt.cerif.xml.records.result.CerifResultProductRecord;
-import gr.ekt.cerif.xml.records.result.CerifResultPublicationRecord;
-import gr.ekt.cerif.xml.records.second.CerifCitationRecord;
-import gr.ekt.cerif.xml.records.second.CerifCurriculumVitaeRecord;
-import gr.ekt.cerif.xml.records.second.CerifElectronicAddressRecord;
-import gr.ekt.cerif.xml.records.second.CerifEventRecord;
-import gr.ekt.cerif.xml.records.second.CerifExpertiseAndSkillsRecord;
-import gr.ekt.cerif.xml.records.second.CerifFederatedIdentifierRecord;
-import gr.ekt.cerif.xml.records.second.CerifFundingRecord;
-import gr.ekt.cerif.xml.records.second.CerifGeographicBoundingBoxRecord;
-import gr.ekt.cerif.xml.records.second.CerifIndicatorRecord;
-import gr.ekt.cerif.xml.records.second.CerifMeasurementRecord;
-import gr.ekt.cerif.xml.records.second.CerifMediumRecord;
-import gr.ekt.cerif.xml.records.second.CerifPostalAddressRecord;
-import gr.ekt.cerif.xml.records.second.CerifPrizeRecord;
-import gr.ekt.cerif.xml.records.second.CerifQualificationRecord;
-import gr.ekt.cerif.xml.records.semantics.CerifClassRecord;
-import gr.ekt.cerif.xml.records.semantics.CerifClassSchemeRecord;
+import gr.ekt.cerif.xml.records.CerifRecord;
+import gr.ekt.cerif.xml.service.SupportedEntities;
 import gr.ekt.transformationengine.core.OutputGenerator;
 import gr.ekt.transformationengine.core.Record;
 import gr.ekt.transformationengine.core.RecordSet;
@@ -61,9 +13,10 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
@@ -133,122 +86,15 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		List<Project> projects = new ArrayList<Project>();
-		List<OrganisationUnit> organisations = new ArrayList<OrganisationUnit>();
-		List<Person> persons = new ArrayList<Person>();
-		List<ElectronicAddress> electronicAddresses = new ArrayList<ElectronicAddress>();
-		List<PostalAddress> postalAddresses = new ArrayList<PostalAddress>();
-		List<Funding> fundings = new ArrayList<Funding>();
-		List<Class> classes = new ArrayList<Class>();
-		List<ClassScheme> classesSchemes = new ArrayList<ClassScheme>();
-		List<ResultPublication> resultPublications = new ArrayList<ResultPublication>();
-		List<Facility> facilities = new ArrayList<Facility>();
-		List<ResultProduct> resultProducts = new ArrayList<ResultProduct>();
-		List<ResultPatent> resultPatents = new ArrayList<ResultPatent>();
-		List<Service> services = new ArrayList<Service>();
-		List<Equipment> equipments = new ArrayList<Equipment>();
-		List<FederatedIdentifier> federatedIdentifiers = new ArrayList<FederatedIdentifier>();
-		List<Measurement> measurements = new ArrayList<Measurement>();
-		List<Indicator> indicators = new ArrayList<Indicator>();
-		List<Medium> mediums = new ArrayList<Medium>();
-		List<Event> events = new ArrayList<Event>();
-		List<Metrics> metrics = new ArrayList<Metrics>();
-		List<Citation> citations = new ArrayList<Citation>();
-		List<CV> curriculaVitae = new ArrayList<CV>();
-		List<Qualification> qualifications = new ArrayList<Qualification>();
-		List<Prize> prizes = new ArrayList<Prize>();
-		List<GeographicBoundingBox> geographicBoundingBoxes = new ArrayList<GeographicBoundingBox>();
-		List<ExpertiseAndSkills> expertiseAndSkills = new ArrayList<ExpertiseAndSkills>();
-		
-		Iterator<Record> it = recordSet.getRecords().iterator();
-		while (it.hasNext()) {
-			Record tmpRecord = it.next();
-		    if (tmpRecord instanceof CerifProjectRecord) {
-		    	projects.add(((CerifProjectRecord)tmpRecord).getProject());
-		    } else if (tmpRecord instanceof CerifOrganisationUnitRecord) {
-		    	organisations.add(((CerifOrganisationUnitRecord)tmpRecord).getOrganisationUnit());
-		    } else if (tmpRecord instanceof CerifPersonRecord) {
-		    	persons.add(((CerifPersonRecord)tmpRecord).getPerson());
-		    } else if (tmpRecord instanceof CerifElectronicAddressRecord) {
-		    	electronicAddresses.add(((CerifElectronicAddressRecord)tmpRecord).getElectronicAddress());
-		    } else if (tmpRecord instanceof CerifPostalAddressRecord) {
-		    	postalAddresses.add(((CerifPostalAddressRecord)tmpRecord).getPostalAddress());
-		    } else if (tmpRecord instanceof CerifFundingRecord) {
-		    	fundings.add(((CerifFundingRecord)tmpRecord).getFunding());
-		    } else if (tmpRecord instanceof CerifClassRecord) {
-		    	classes.add(((CerifClassRecord)tmpRecord).getTheClass());
-		    } else if (tmpRecord instanceof CerifClassSchemeRecord) {
-		    	classesSchemes.add(((CerifClassSchemeRecord)tmpRecord).getClassScheme());
-		    } else if (tmpRecord instanceof CerifResultPublicationRecord) {
-		    	resultPublications.add(((CerifResultPublicationRecord)tmpRecord).getResultPublication());
-		    } else if (tmpRecord instanceof CerifResultProductRecord) {
-		    	resultProducts.add(((CerifResultProductRecord)tmpRecord).getResultProduct());
-		    } else if (tmpRecord instanceof CerifResultPatentRecord) {
-		    	resultPatents.add(((CerifResultPatentRecord)tmpRecord).getResultPatent());
-		    } else if (tmpRecord instanceof CerifFacilityRecord) {
-		    	facilities.add(((CerifFacilityRecord)tmpRecord).getFacility());
-		    } else if (tmpRecord instanceof CerifServiceRecord) {
-		    	services.add(((CerifServiceRecord)tmpRecord).getService());
-		    } else if (tmpRecord instanceof CerifEquipmentRecord) {
-		    	equipments.add(((CerifEquipmentRecord)tmpRecord).getEquipment());
-		    } else if (tmpRecord instanceof CerifFederatedIdentifierRecord) {
-		    	federatedIdentifiers.add(((CerifFederatedIdentifierRecord)tmpRecord).getFederatedIdentifier());
-		    } else if (tmpRecord instanceof CerifMeasurementRecord) {
-		    	measurements.add(((CerifMeasurementRecord)tmpRecord).getMeasurement());
-		    } else if (tmpRecord instanceof CerifIndicatorRecord) {
-		    	indicators.add(((CerifIndicatorRecord)tmpRecord).getIndicator());
-		    } else if (tmpRecord instanceof CerifMediumRecord) {
-		    	mediums.add(((CerifMediumRecord)tmpRecord).getMedium());
-		    } else if (tmpRecord instanceof CerifEventRecord) {
-		    	events.add(((CerifEventRecord)tmpRecord).getEvent());
-		    } else if (tmpRecord instanceof CerifEventRecord) {
-		    	events.add(((CerifEventRecord)tmpRecord).getEvent());
-		    } else if (tmpRecord instanceof CerifCitationRecord) {
-		    	citations.add(((CerifCitationRecord)tmpRecord).getCitation());
-		    } else if (tmpRecord instanceof CerifCurriculumVitaeRecord) {
-		    	curriculaVitae.add(((CerifCurriculumVitaeRecord)tmpRecord).getCurriculumVitae());
-		    } else if (tmpRecord instanceof CerifQualificationRecord) {
-		    	qualifications.add(((CerifQualificationRecord)tmpRecord).getQualification());
-		    } else if (tmpRecord instanceof CerifPrizeRecord) {
-		    	prizes.add(((CerifPrizeRecord)tmpRecord).getPrize());
-		    } else if (tmpRecord instanceof CerifGeographicBoundingBoxRecord) {
-		    	geographicBoundingBoxes.add(((CerifGeographicBoundingBoxRecord)tmpRecord).getGeographicBoundingBox());
-		    } else if (tmpRecord instanceof CerifExpertiseAndSkillsRecord) {
-		    	expertiseAndSkills.add(((CerifExpertiseAndSkillsRecord)tmpRecord).getExpertiseAndSkills());
-		    }
-		}
-
 		CerifEscapeTool tool = new CerifEscapeTool();
 		map.put(tool.getKey(), tool);
 		map.put("esc", new EscapeTool());
 		map.put("date", new DateTool());
 		
-		map.put("projects", projects);
-		map.put("organisations", organisations);
-		map.put("persons", persons);
-		map.put("electronicAddresses", electronicAddresses);
-		map.put("postalAddresses", postalAddresses);
-		map.put("fundings", fundings);
-		map.put("classes", classes);
-		map.put("classesSchemes", classesSchemes);
-		map.put("resultPublications", resultPublications);
-		map.put("resultProducts", resultProducts);
-		map.put("resultPatents", resultPatents);
-		map.put("facilities", facilities);
-		map.put("services", services);
-		map.put("equipments", equipments);
-		map.put("federatedIdentifiers", federatedIdentifiers);
-		map.put("measurements", measurements);
-		map.put("indicators", indicators);
-		map.put("mediums", mediums);
-		map.put("events", events);
-		map.put("metrics", metrics);
-		map.put("citations", citations);
-		map.put("curriculaVitae", curriculaVitae);
-		map.put("qualifications", qualifications);
-		map.put("prizes", prizes);
-		map.put("geographicBoundingBoxes", geographicBoundingBoxes);
-		map.put("expertiseAndSkills", expertiseAndSkills);
+		Map<String, List<CerifEntity>> data = prepareData(recordSet.getRecords());
+		for (Entry<String, List<CerifEntity>> entry : data.entrySet()) {
+			map.put(entry.getKey(), entry.getValue());
+		}
 		
 		map.put("xmlDate", new Date());
 		map.put("xmlSourceDatabase", xmlSourceDatabase);
@@ -271,6 +117,23 @@ public class CerifToXmlOutputGenerator extends OutputGenerator {
 			logger.error("Could not produce XML from velocity template.", e);
 		}
 		return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Map<String, List<CerifEntity>> prepareData(List<Record> list) {
+		Map<String, List<CerifEntity>> map = new LinkedHashMap<String, List<CerifEntity>>();
+		
+		for (Record record : list) {
+			CerifRecord<CerifEntity> cerifRecord = (CerifRecord<CerifEntity>)record;
+			CerifEntity entity = cerifRecord.getEntity();
+			String label = SupportedEntities.getLabel(entity.getClass());
+			if (!map.containsKey(label)) {
+				map.put(label, new ArrayList<CerifEntity>());
+			}
+			map.get(label).add(entity);
+		}
+				
+		return map;
 	}
 
 	public VelocityEngine getVelocityEngine() {

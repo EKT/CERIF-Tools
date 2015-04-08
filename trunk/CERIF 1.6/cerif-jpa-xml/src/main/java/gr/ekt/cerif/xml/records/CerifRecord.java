@@ -1,46 +1,29 @@
-package gr.ekt.cerif.xml.records.second;
+package gr.ekt.cerif.xml.records;
 
-import gr.ekt.cerif.entities.second.Prize;
+import gr.ekt.cerif.CerifEntity;
 import gr.ekt.transformationengine.core.Record;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Record for a prize.
+ * Record for CERIF entities.
  *
  * @author Nikos Pougounias <pougounias@ekt.gr>
  */
-public class CerifPrizeRecord extends Record {
+public class CerifRecord<T extends CerifEntity> extends Record {
+
+	/**
+	 * The CERIF entity.
+	 */
+	private T entity;
 	
 	/**
-	 * The prize.
-	 */
-	private Prize prize;
-
-	/**
 	 * Constructor.
-	 * @param prize The prize.
+	 * @param entity The CERIF entity.
 	 */
-	public CerifPrizeRecord(Prize prize) {
-		super();
-		this.prize = prize;
-	}
-
-	/**
-	 * Returns the prize.
-	 * @return the prize.
-	 */
-	public Prize getPrize() {
-		return prize;
-	}
-
-	/**
-	 * Sets the prize.
-	 * @param prize the prize.
-	 */
-	public void setPrize(Prize prize) {
-		this.prize = prize;
+	public CerifRecord(T entity) {
+		this.entity = entity;
 	}
 	
 	/*
@@ -58,7 +41,7 @@ public class CerifPrizeRecord extends Record {
 	 */
 	@Override
 	public void printByName(String fieldName) {
-		// nothing to implement here.
+		// nothing to implement here
 	}
 
 	/*
@@ -67,8 +50,7 @@ public class CerifPrizeRecord extends Record {
 	 */
 	@Override
 	public void removeField(String fieldName) {
-		// nothing to implement here.
-		
+		// nothing to implement here
 	}
 
 	/*
@@ -77,7 +59,7 @@ public class CerifPrizeRecord extends Record {
 	 */
 	@Override
 	public void removeValueFromField(String fieldName, Object value) {
-		// nothing to implement here.
+		// nothing to implement here
 	}
 
 	/*
@@ -86,7 +68,7 @@ public class CerifPrizeRecord extends Record {
 	 */
 	@Override
 	public void addField(String fieldName, ArrayList<Object> fieldValues) {
-		// nothing to implement here.
+		// nothing to implement here
 	}
 
 	/*
@@ -95,7 +77,24 @@ public class CerifPrizeRecord extends Record {
 	 */
 	@Override
 	public void addValueToField(String fieldName, Object fieldValue) {
-		// nothing to implement here.
+		// nothing to implement here
+	}
+	
+	/**
+	 * Returns the CERIF entity.
+	 * @return a CERIF entity.
+	 */
+	public T getEntity() {
+		return entity;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return entity.toString();
 	}
 
 }
