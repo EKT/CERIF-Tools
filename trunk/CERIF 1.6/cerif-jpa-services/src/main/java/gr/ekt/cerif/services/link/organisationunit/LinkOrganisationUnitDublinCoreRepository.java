@@ -1,5 +1,8 @@
 package gr.ekt.cerif.services.link.organisationunit;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_DublinCore;
 
 /**
@@ -15,5 +18,7 @@ public interface LinkOrganisationUnitDublinCoreRepository {
 	public Iterable<OrganisationUnit_DublinCore> save(Iterable<OrganisationUnit_DublinCore> entities); 
 	
 	public OrganisationUnit_DublinCore save(OrganisationUnit_DublinCore entity);
+	
+	List<OrganisationUnit_DublinCore> findByOrganisationUnit(OrganisationUnit organisationUnit);
 
 }

@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services;
 
+import java.util.Collection;
+
 import gr.ekt.cerif.CerifEntity;
 import gr.ekt.cerif.services.additional.AdditionalPersistenceService;
 import gr.ekt.cerif.services.base.BasePersistenceService;
@@ -23,17 +25,17 @@ public interface PersistenceService {
 	 * Saves the provided CERIF entity.
 	 * @param entity The CERIF entity.
 	 */
-	<T> T save(T entity);	
+	<T extends CerifEntity> T save(T entity);	
 	
 	/**
 	 * Saves the provided CERIF entities.
 	 * @param entities The CERIF components.
 	 */
-	Iterable<? extends CerifEntity> save(Iterable<? extends CerifEntity> entities);
+	Collection<? extends CerifEntity> save(Collection<? extends CerifEntity> entities);
 	
 	void delete(CerifEntity entity);
 	
-	void delete(Iterable<? extends CerifEntity> entities);
+	void delete(Collection<? extends CerifEntity> entities);
 	
 	BasePersistenceService getBaseService();
 	

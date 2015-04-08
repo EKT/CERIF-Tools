@@ -4,6 +4,7 @@ import java.util.List;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ExpertiseAndSkills;
+import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 
 /**
  * A repository for links between organisations and expertiseAndSkillss.
@@ -20,5 +21,7 @@ public interface LinkOrganisationUnitExpertiseAndSkillsRepository {
 	public OrganisationUnit_ExpertiseAndSkills save(OrganisationUnit_ExpertiseAndSkills entity);
 	
 	List<OrganisationUnit_ExpertiseAndSkills> findByOrganisationUnit(OrganisationUnit organisationUnit);
+	
+	List<OrganisationUnit_ExpertiseAndSkills> findByExpertiseAndSkills(ExpertiseAndSkills expertiseAndSkills);
 
 }

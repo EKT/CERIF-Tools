@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gr.ekt</groupId>
 	<artifactId>cerif-jpa-services</artifactId>
-	<version>0.9</version>
+	<version>0.9.1</version>
 	<packaging>jar</packaging>
 	<name>CERIF JPA Data Layer Services</name>
 	<url>http://www.ekt.gr</url>
@@ -38,8 +38,15 @@
                        
                        validate | update | create | create-drop
                        <hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
+                       
                        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+                       http://docs.jboss.org/hibernate/orm/4.3/javadocs/org/hibernate/dialect/package-summary.html
+                       
                        <hibernate.show_sql>true</hibernate.show_sql>
+                       
+                       <hibernate.database_type>MYSQL</hibernate.database_type> 
+                       http://docs.spring.io/autorep/docs/spring/3.2.8.RELEASE/javadoc-api/org/springframework/orm/jpa/vendor/Database.html
+                       
                        <hibernate.indexBase>/usr/local/lucene/example_app</hibernate.indexBase>
                        set to "manual" to disable lucene indexing
                        <hibernate.search.indexing_strategy>manual</hibernate.search.indexing_strategy>
@@ -68,7 +75,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>${org.springframework-version}</version> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -96,7 +103,7 @@
 		<dependency>
 			<groupId>gr.ekt</groupId>
 			<artifactId>cerif-jpa-model</artifactId>
-			<version>0.9</version>
+			<version>0.9.1</version>
 		</dependency>
 
 		<!-- Choose -->

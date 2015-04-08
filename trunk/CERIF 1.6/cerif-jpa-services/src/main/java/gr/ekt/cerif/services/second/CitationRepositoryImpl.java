@@ -3,6 +3,8 @@
  */
 package gr.ekt.cerif.services.second;
 
+import gr.ekt.cerif.entities.second.Citation;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,18 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import gr.ekt.cerif.entities.link.Citation_Class;
-import gr.ekt.cerif.entities.link.Citation_Medium;
-import gr.ekt.cerif.entities.link.result.ResultPublication_Citation;
-import gr.ekt.cerif.entities.second.Citation;
-import gr.ekt.cerif.features.multilingual.CitationDescription;
-import gr.ekt.cerif.features.multilingual.CitationTitle;
-import gr.ekt.cerif.services.link.citation.LinkCitationClassRepository;
-import gr.ekt.cerif.services.link.citation.LinkCitationMediumRepository;
-import gr.ekt.cerif.services.link.result.LinkResultPublicationCitationRepository;
-import gr.ekt.cerif.services.multilingual.citation.CitationDescriptionRepository;
-import gr.ekt.cerif.services.multilingual.citation.CitationTitleRepository;
 
 /**
  * @author bonisv
@@ -37,47 +27,10 @@ public class CitationRepositoryImpl implements CitationRepository {
 	@Autowired
 	private CitationCrudRepository citationCrudRepository;
 	
-	@Autowired
-	private CitationDescriptionRepository citationDescriptionRepository;
-	
-	@Autowired
-	private CitationTitleRepository citationTitleRepository;
-	
-	@Autowired
-	private LinkResultPublicationCitationRepository linkResultPublicationCitationRepository;
-	
-	@Autowired
-	private LinkCitationClassRepository linkCitationClassRepository;
-	
-	@Autowired
-	private LinkCitationMediumRepository linkCitationMediumRepository;
-	
-	
 	
 	@Override
 	@Transactional
 	public void delete(Citation entity) {		
-		List<CitationDescription> citdescr = citationDescriptionRepository.findByCitation(entity);
-		if (citdescr != null) citationDescriptionRepository.delete(citdescr);
-		entity.setCitationDescriptions(null);
-		
-		List<CitationTitle> cittitle = citationTitleRepository.findByCitation(entity);
-		if (cittitle != null) citationTitleRepository.delete(cittitle);
-		entity.setCitationTitles(null);
-		
-		List<ResultPublication_Citation> respublcite = linkResultPublicationCitationRepository.findByCitation(entity);
-		if (respublcite != null) linkResultPublicationCitationRepository.delete(respublcite);
-		entity.setResultPublications_citations(null);
-		
-		List<Citation_Class> citcl = linkCitationClassRepository.findByCitation(entity);
-		if (citcl != null) linkCitationClassRepository.delete(citcl);
-		entity.setCitations_classes(null);
-		
-		List<Citation_Medium> citmed = linkCitationMediumRepository.findByCitation(entity);
-		if (citmed != null) linkCitationMediumRepository.delete(citmed);
-		entity.setCitations_mediums(null);
-		
-		entity = citationCrudRepository.save(entity);
 		citationCrudRepository.delete(entity);		
 	}
 

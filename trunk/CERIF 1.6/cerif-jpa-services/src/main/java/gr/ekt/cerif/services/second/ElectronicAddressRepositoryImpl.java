@@ -3,18 +3,12 @@
  */
 package gr.ekt.cerif.services.second;
 
-import java.util.List;
-
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.link.ElectronicAddress_Class;
-import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ElectronicAddress;
-import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
 import gr.ekt.cerif.entities.second.ElectronicAddress;
 import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.services.link.electronicaddress.LinkElectronicAddressClassRepository;
-import gr.ekt.cerif.services.link.organisationunit.LinkOrganisationUnitElectronicAddressRepository;
-import gr.ekt.cerif.services.link.person.LinkPersonElectronicAddressRepository;
+
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,33 +29,11 @@ public class ElectronicAddressRepositoryImpl implements ElectronicAddressReposit
 	
 	@Autowired
 	private ElectronicAddressCrudRepository electronicAddressCrudRepository;
-
-	@Autowired
-	private LinkOrganisationUnitElectronicAddressRepository linkOrganisationUnitElectronicAddressRepository;
-	
-	@Autowired
-	private LinkPersonElectronicAddressRepository linkPersonElectronicAddressRepository;
-	
-	@Autowired
-	private LinkElectronicAddressClassRepository linkElectronicAddressClassRepository;
 	
 
 	@Override
 	@Transactional
 	public void delete(ElectronicAddress entity) {
-		List<OrganisationUnit_ElectronicAddress> oue = linkOrganisationUnitElectronicAddressRepository.findByElectronicAddress(entity);
-		if (oue != null) linkOrganisationUnitElectronicAddressRepository.delete(oue);
-		entity.setOrganisationUnits_electronicAddresses(null);	
-		
-		List<Person_ElectronicAddress> pe = linkPersonElectronicAddressRepository.findByElectronicAddress(entity);
-		if (pe != null) linkPersonElectronicAddressRepository.delete(pe);
-		entity.setPersons_electronicAddresses(null);	
-		
-		List<ElectronicAddress_Class> eaddrcl = linkElectronicAddressClassRepository.findByElectronicAddress(entity);
-		if (eaddrcl != null) linkElectronicAddressClassRepository.delete(eaddrcl);
-		entity.setPersons_electronicAddresses(null);
-		
-		entity = electronicAddressCrudRepository.save(entity);
 		electronicAddressCrudRepository.delete(entity);		
 	}
 

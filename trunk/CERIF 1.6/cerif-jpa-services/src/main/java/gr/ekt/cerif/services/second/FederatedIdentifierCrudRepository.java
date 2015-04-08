@@ -49,7 +49,7 @@ public interface FederatedIdentifierCrudRepository extends CrudRepository<Federa
 			+ "  from FederatedIdentifier fedId          	"
 			+ "  left join fedId.theClass cl            	"
 			+ "  left join fedId.scheme clsch           	"
-			+ "  left join fedId.fedIds_classes fedcls      "
+			+ "  left join fedId.federatedIdentifiers_classes fedcls      "
 			+ "  left join fedcls.theClass fedcl      "
 			+ "  where cl = ?1 and clsch = ?2 and fedId.fedId = ?3 and fedcl = ?4 ")
 	public List<FederatedIdentifier> findFedIdByClassClassSchemeAndFedId(Class theClass, ClassScheme classScheme, String fedId, Class fedType);

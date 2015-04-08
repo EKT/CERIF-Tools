@@ -3,11 +3,14 @@
  */
 package gr.ekt.cerif.services.multilingual.geographicboundingbox;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gr.ekt.cerif.entities.second.GeographicBoundingBox;
 import gr.ekt.cerif.features.multilingual.GeographicBoundingBoxDescription;
 
 /**
@@ -40,6 +43,12 @@ public class GeographicBoundingBoxDescriptionRepositoryImpl implements Geographi
 	@Override
 	public GeographicBoundingBoxDescription save(GeographicBoundingBoxDescription entity) {
 		return geographicBoundingBoxDescriptionCrudRepository.save(entity);
+	}
+
+	@Override
+	public List<GeographicBoundingBoxDescription> findByGeographicBoundingBox(
+			GeographicBoundingBox geographicBoundingBox) {
+		return geographicBoundingBoxDescriptionCrudRepository.findByGeographicBoundingBox(geographicBoundingBox);
 	}
 
 }

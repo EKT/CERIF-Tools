@@ -84,4 +84,9 @@ public class ClassRepositoryImpl implements ClassRepository {
 		return classCrudRepository.findByUuidAndScheme(uuid, scheme);
 	}
 
+	@Override
+	public Class findByUuidAndSchemeUuid(String uuid, String schemeUuid) {
+		return classCrudRepository.findByUuidAndSchemeUuid(uuid, schemeUuid);
+	}
+
 }

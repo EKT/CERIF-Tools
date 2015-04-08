@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.geographicboundingbox;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.GeographicBoundingBox;
 import gr.ekt.cerif.features.multilingual.GeographicBoundingBoxDescription;
 
 /**
@@ -18,5 +21,7 @@ public interface GeographicBoundingBoxDescriptionRepository {
 	public Iterable<GeographicBoundingBoxDescription> save(Iterable<GeographicBoundingBoxDescription> entities); 
 	
 	public GeographicBoundingBoxDescription save(GeographicBoundingBoxDescription entity);
+	
+	List<GeographicBoundingBoxDescription> findByGeographicBoundingBox(GeographicBoundingBox geographicBoundingBox);
 
 }

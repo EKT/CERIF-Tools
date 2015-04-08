@@ -17,6 +17,6 @@ public interface LinkPostalAddressClassCrudRepository extends CrudRepository<Pos
 	List<PostalAddress_Class> findByPostalAddress(PostalAddress postalAddress);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	List<PostalAddress_Class> findBytheClass(Class theClass);
+	List<PostalAddress_Class> findByTheClass(Class theClass);
 
 }

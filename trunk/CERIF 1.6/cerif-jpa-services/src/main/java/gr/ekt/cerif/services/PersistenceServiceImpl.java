@@ -4,12 +4,10 @@
 package gr.ekt.cerif.services;
 
 import gr.ekt.cerif.CerifEntity;
-import gr.ekt.cerif.entities.base.CerifBaseEntity;
-import gr.ekt.cerif.entities.infrastructure.CerifInfrastructureEntity;
 import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.result.CerifResultEntity;
-import gr.ekt.cerif.entities.second.CerifSecondLevelEntity;
-import gr.ekt.cerif.features.additional.CerifAdditionalFeature;
+import gr.ekt.cerif.entities.second.Country;
+import gr.ekt.cerif.entities.second.Currency;
+import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.features.multilingual.CerifMultipleLanguageFeature;
 import gr.ekt.cerif.features.semantics.CerifSemanticFeature;
 import gr.ekt.cerif.services.additional.AdditionalPersistenceService;
@@ -21,9 +19,16 @@ import gr.ekt.cerif.services.result.ResultPersistenceService;
 import gr.ekt.cerif.services.second.SecondPersistenceService;
 import gr.ekt.cerif.services.semantics.SemanticsPersistenceService;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,147 +93,160 @@ public class PersistenceServiceImpl implements PersistenceService {
 	@Autowired
 	private SelectionService selectionService;
 	
+	@Autowired
+	private ApplicationContext context;
+	
 	/**
-	 * Deletes the provided CERIF component.
-	 * @param component The CERIF component.
+	 * Logging facility.
 	 */
+	private static final Logger logger = Logger.getLogger(PersistenceServiceImpl.class);
+
+	
+	/**
+	 * Deletes the provided CERIF record.
+	 * @param component The CERIF record.
+	 */
+	@Override
 	@Transactional
 	public void delete(CerifEntity entity){
 		if (entity == null) {
 			throw new IllegalArgumentException("Empty entity provided. Save will not proceed.");
 		}
 		
-		if (entity instanceof CerifBaseEntity) {
-			baseService.delete((CerifBaseEntity) entity);
-		} 
-		else if (entity instanceof CerifResultEntity) {
-			resultService.delete((CerifResultEntity) entity);
-		}
-		else if (entity instanceof CerifLinkEntity) {
-			linkService.delete((CerifLinkEntity) entity);
-		} 
-		else if (entity instanceof CerifSecondLevelEntity) {
-			secondService.delete((CerifSecondLevelEntity) entity);
-		} 
-		else if (entity instanceof CerifInfrastructureEntity) {
-			infrastructureService.delete((CerifInfrastructureEntity) entity);
-		} 
-		else if (entity instanceof CerifMultipleLanguageFeature) {
-			translationService.delete( (CerifMultipleLanguageFeature) entity);
-		} 
-		else if (entity instanceof CerifSemanticFeature) {
-			semanticService.delete((CerifSemanticFeature) entity);
-		} 
-		else if (entity instanceof CerifAdditionalFeature) {
-			additionalService.delete((CerifAdditionalFeature) entity);
+		Object ob;
+		
+		if (entity instanceof CerifLinkEntity || entity instanceof CerifMultipleLanguageFeature 
+				|| entity instanceof Country || entity instanceof Currency || entity instanceof Language 
+				|| entity instanceof CerifSemanticFeature) {
+			String className = null;
+			className = entity.getClass().getSimpleName();
+			String beanName = "";
+		
+			if (entity instanceof CerifLinkEntity) {
+				beanName = "link" + className.replaceAll("_", "") + "RepositoryImpl";
+			} else {
+				beanName = className.substring(0, 1).toLowerCase() + className.substring(1) + "RepositoryImpl";
+			}
+			
+			Object genericRepository = context.getBean(beanName);
+		
+			ob = executeGenericMethod("delete", genericRepository, entity);			
+		} else {
+			String findByEntityMethodName;
+			String beanName;
+			String className;
+			Object genericRepository;
+			
+			final Field[] fields = entity.getClass().getDeclaredFields();
+			for (Field field : fields) {
+				if (field.getName().indexOf("1") != -1) {
+					findByEntityMethodName = "findBy" + entity.getClass().getSimpleName()+"1";
+				} else if (field.getName().indexOf("2") != -1) {
+					findByEntityMethodName = "findBy" + entity.getClass().getSimpleName()+"2";
+				} else {
+					findByEntityMethodName = "findBy" + entity.getClass().getSimpleName();
+				}
+				
+				Type type = field.getGenericType();
+				if (type instanceof ParameterizedType) {
+					String typeName = ((ParameterizedType)type).getActualTypeArguments()[0].toString();
+					className = typeName.substring(typeName.lastIndexOf(".")+1);
+					
+					if (className.indexOf("_") != -1) {
+						beanName = "link" + className.replaceAll("_", "") + "RepositoryImpl";
+					} else {
+						beanName = className.substring(0, 1).toLowerCase() + className.substring(1) + "RepositoryImpl";
+					}
+				
+					genericRepository = context.getBean(beanName);
+				
+					ob = executeGenericMethod(findByEntityMethodName, genericRepository, entity);
+					List<CerifEntity> result = (List<CerifEntity>)ob;
+					
+					if (!result.isEmpty()) {
+						for (CerifEntity cf: result) {
+							delete(cf);
+						}
+					}
+				}
+			}
+			
+			className = entity.getClass().getSimpleName();
+			beanName = className.substring(0, 1).toLowerCase() + className.substring(1) + "RepositoryImpl";
+			genericRepository = context.getBean(beanName);
+		
+			ob = executeGenericMethod("delete", genericRepository, entity);			
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	
+	/**
+	 * Saves a CERIF record.
+	 * @param entity The CERIF record.
+	 * @return entity The CERIF record.
+	 */
 	@Override
 	@Transactional
-	public <T> T save(T entity) {
-		
+	public <T extends CerifEntity> T save(T entity) {
 		if (entity == null) {
 			throw new IllegalArgumentException("Empty component provided. Save will not proceed.");
 		}
 		
-		if (entity instanceof CerifBaseEntity) {
-			entity = (T) baseService.save((CerifBaseEntity) entity);
-		} else if (entity instanceof CerifResultEntity) {
-			entity = (T) resultService.save((CerifResultEntity) entity);
-		} else if (entity instanceof CerifLinkEntity) {
-			entity = (T) linkService.save((CerifLinkEntity) entity);
-		} else if (entity instanceof CerifSecondLevelEntity) {
-			entity = (T) secondService.save((CerifSecondLevelEntity) entity);
-		} else if (entity instanceof CerifInfrastructureEntity) {
-			entity = (T) infrastructureService.save((CerifInfrastructureEntity) entity);
-		} else if (entity instanceof CerifMultipleLanguageFeature) {
-			entity = (T) translationService.save((CerifMultipleLanguageFeature) entity);
-		} else if (entity instanceof CerifSemanticFeature) {
-			entity = (T) semanticService.save((CerifSemanticFeature) entity);
-		} else if (entity instanceof CerifAdditionalFeature) {
-			entity = (T) additionalService.save((CerifAdditionalFeature) entity);
+		String className = entity.getClass().getSimpleName();
+		String beanName = "";
+		
+		if (entity instanceof CerifLinkEntity) {
+			beanName = "link" + className.replaceAll("_", "") + "RepositoryImpl";
+		} else {
+			beanName = className.substring(0, 1).toLowerCase() + className.substring(1) + "RepositoryImpl";
 		}
+		
+		Object genericRepository = context.getBean(beanName);
+		
+		Object ob = executeGenericMethod("save", genericRepository, entity);
+		entity = (T)ob;
 		
 		return entity;
 	}
 	
+	
 	/**
-	 * Deletes the provided CERIF components.
-	 * @param components The CERIF components.
+	 * Deletes the provided CERIF records.
+	 * @param components The CERIF records.
 	 */
-	@SuppressWarnings("unchecked")
+	@Override
 	@Transactional
-	public void delete(Iterable<? extends CerifEntity> entities) {
+	public void delete(Collection<? extends CerifEntity> entities) {
 		
 		if (entities == null || !entities.iterator().hasNext()) {
-			throw new IllegalArgumentException("Empty collection provided. Save will not proceed.");
+			throw new IllegalArgumentException("Empty collection provided. Delete will not proceed.");
 		}
 		
-		final CerifEntity type = entities.iterator().next();
-		
-		if (type instanceof CerifBaseEntity) {
-			baseService.delete((List<CerifBaseEntity>) entities);
-		} 
-		else if (type instanceof CerifResultEntity) {
-			resultService.delete((List<CerifResultEntity>) entities);
-		}
-		else if (type instanceof CerifLinkEntity) {
-			linkService.delete((List<CerifLinkEntity>) entities);
-		} 
-		else if (type instanceof CerifSecondLevelEntity) {
-			secondService.delete((List<CerifSecondLevelEntity>) entities);
-		} 
-		else if (type instanceof CerifInfrastructureEntity) {
-			infrastructureService.delete((List<CerifInfrastructureEntity>) entities);
-		} 
-		else if (type instanceof CerifMultipleLanguageFeature) {
-			translationService.delete( (List<CerifMultipleLanguageFeature>) entities);
-		} 
-		else if (type instanceof CerifSemanticFeature) {
-			semanticService.delete((List<CerifSemanticFeature>) entities);
-		} 
-		else if (type instanceof CerifAdditionalFeature) {
-			additionalService.delete((List<CerifAdditionalFeature>) entities);
+		for (CerifEntity cf: entities) {
+			delete(cf);
 		}
 	}
 
+	
 	/**
-	 * Saves the provided CERIF entities.
-	 * @param entities The CERIF entities.
+	 * Saves the provided CERIF records.
+	 * @param entities The CERIF records.
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public Iterable<? extends CerifEntity> save(Iterable<? extends CerifEntity> entities) {
+	public Collection<? extends CerifEntity> save(Collection<? extends CerifEntity> entities) {
 		
 		if (entities == null || !entities.iterator().hasNext()) {
 			throw new IllegalArgumentException("Empty collection provided. Save will not proceed.");
 		}
 		
-		final CerifEntity type = entities.iterator().next();
-		
-		if (type instanceof CerifBaseEntity) {
-			entities = baseService.save((Iterable<CerifBaseEntity>) entities);
-		} else if (type instanceof CerifResultEntity) {
-			entities = resultService.save((Iterable<CerifResultEntity>) entities);
-		} else if (type instanceof CerifLinkEntity) {
-			entities = linkService.save((Iterable<CerifLinkEntity>) entities);
-		} else if (type instanceof CerifSecondLevelEntity) {
-			entities = secondService.save((Iterable<CerifSecondLevelEntity>) entities);
-		} else if (type instanceof CerifInfrastructureEntity) {
-			entities = infrastructureService.save((Iterable<CerifInfrastructureEntity>) entities);
-		} else if (type instanceof CerifMultipleLanguageFeature) {
-			entities = translationService.save((Iterable<CerifMultipleLanguageFeature>) entities);
-		} else if (type instanceof CerifSemanticFeature) {
-			entities = semanticService.save((Iterable<CerifSemanticFeature>) entities);
-		} else if (type instanceof CerifAdditionalFeature) {
-			entities = additionalService.save((Iterable<CerifAdditionalFeature>) entities);
+		for (CerifEntity cf: entities) {
+			save(cf);
 		}
+
 		return entities;
-	
 	}
+	
 	
 	/**
 	 * @return the baseService
@@ -301,4 +319,37 @@ public class PersistenceServiceImpl implements PersistenceService {
 	}
 	
 	
+	/**
+	 * Calls a method.
+	 * @param methodName The methos's name.
+	 * @param genericRepository The Repository object that holds the method.
+	 * @param entity The CERIF record that is used as parameter in the method.
+	 * @return ob.
+	 */
+	private <T> Object executeGenericMethod(String methodName, Object genericRepository, T entity) {
+		Object ob = null;
+		try {
+			ob = genericRepository.getClass()
+					.getMethod(methodName, entity.getClass())
+					.invoke(genericRepository, entity);
+			
+		} catch (IllegalArgumentException e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return ob;
+	}
 }

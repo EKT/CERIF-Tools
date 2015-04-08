@@ -6,13 +6,12 @@ import gr.ekt.cerif.entities.link.Class_Class;
 import gr.ekt.cerif.entities.link.FederatedIdentifier_Class;
 import gr.ekt.cerif.entities.link.Service_FederatedIdentifier;
 import gr.ekt.cerif.entities.second.FederatedIdentifier;
+import gr.ekt.cerif.entities.second.Language;
 import gr.ekt.cerif.enumerations.semantics.ClassEnum;
 import gr.ekt.cerif.features.multilingual.CerifMultipleLanguageFeature;
 import gr.ekt.cerif.features.multilingual.ClassDefinition;
 import gr.ekt.cerif.features.multilingual.ClassDescription;
 import gr.ekt.cerif.features.multilingual.ClassEx;
-import gr.ekt.cerif.features.multilingual.ClassSchemeDescription;
-import gr.ekt.cerif.features.multilingual.ClassSchemeName;
 import gr.ekt.cerif.features.multilingual.ClassTerm;
 import gr.ekt.cerif.features.semantics.Class;
 import gr.ekt.cerif.features.semantics.ClassScheme;
@@ -110,7 +109,9 @@ public class SelectionServiceImpl implements SelectionService {
 		
 		for (Entry<ClassEnum, java.lang.Class<? extends CerifEntity>> entry : supportedEntities.entrySet()) {
 			ClassEnum enumeration = entry.getKey();
-			if (hasEntities(enumeration, options)) {
+			if (!ClassEnum.CLASSIFICATION_SCHEME.equals(enumeration) && 
+				!ClassEnum.CLASSIFICATION.equals(enumeration) &&
+				hasEntities(enumeration, options)) {
 				result.addAll(retrieveEntities(entry.getValue(), options, enumeration));
 			}
 		}
@@ -153,22 +154,6 @@ public class SelectionServiceImpl implements SelectionService {
 			if (schemeList != null && !schemeList.isEmpty()) {
 				boolean embedClasses = hasEmbeddedEntities(ClassEnum.CLASSIFICATION, options);
 				for (ClassScheme classScheme : schemeList) {
-					
-					//Description
-					List<ClassSchemeDescription> classSchemeDescriptions = service.getTranslationService().getClassSchemeDescriptionRepository().findByScheme(classScheme);
-					Set<ClassSchemeDescription> descriptions = new HashSet<ClassSchemeDescription>(classSchemeDescriptions);
-					classScheme.setClassSchemeDescriptions(descriptions);
-					
-					//Name
-					List<ClassSchemeName> classSchemeNames = service.getTranslationService().getClassSchemeNameRepository().findByScheme(classScheme);
-					Set<ClassSchemeName> names = new HashSet<ClassSchemeName>(classSchemeNames);
-					classScheme.setClassSchemeNames(names);
-					
-					//FederatedIdentifiers
-					if (showFedIds) {
-						classScheme.setFederatedIdentifiers(service.getSecondService().getFederatedIdentifiersForEntity(ClassEnum.CLASSIFICATION_SCHEME.getUuid(), classScheme.getId()));
-					}	
-					
 					if (embedClasses) {
 						Set<Class> classes = new HashSet<Class>(service.getSemanticService().getClassRepository().findByScheme(classScheme));
 						if (classes != null && !classes.isEmpty()) {
@@ -195,18 +180,18 @@ public class SelectionServiceImpl implements SelectionService {
 					List<Service_FederatedIdentifier> federatedIdentifierServices = new ArrayList<Service_FederatedIdentifier>();
 					if (links) {
 						//classes
-						federatedIdentifierClasses = service.getLinkService().getFederatedIdentifierClassRepository().findByFedId(federatedIdentifier);
+						federatedIdentifierClasses = service.getLinkService().getFederatedIdentifierClassRepository().findByFederatedIdentifier(federatedIdentifier);
 						
 						//services
-						federatedIdentifierServices = service.getLinkService().getServiceFederatedIdentifierRepository().findByFedId(federatedIdentifier);
+						federatedIdentifierServices = service.getLinkService().getServiceFederatedIdentifierRepository().findByFederatedIdentifier(federatedIdentifier);
 					}
 					//classes
 					Set<FederatedIdentifier_Class> classes = new HashSet<FederatedIdentifier_Class>(federatedIdentifierClasses);
-					federatedIdentifier.setFedIds_classes(classes);
+					federatedIdentifier.setFederatedIdentifiers_classes(classes);
 					
 					//services
 					Set<Service_FederatedIdentifier> services = new HashSet<Service_FederatedIdentifier>(federatedIdentifierServices);
-					federatedIdentifier.setServices_fedIds(services);
+					federatedIdentifier.setServices_federatedIdentifiers(services);
 					
 					result.add(federatedIdentifier);
 				}
@@ -348,15 +333,25 @@ public class SelectionServiceImpl implements SelectionService {
 		
 		final Field[] fields = entityClass.getDeclaredFields();
 		logger.debug("entity: " + entityClass.getSimpleName());
-		for (Field field : fields) {
-			final String fieldName = field.getName();
-			if (options.isMultilingualIncluded() && isMultilingualField(field)) {
-				logger.debug("multi: " + fieldName);
-				root.fetch(fieldName, JoinType.LEFT);
+		if (options.isMultilingualIncluded()) {
+			if (entityClass.equals(Language.class)) {
+				root.fetch("languageNames", JoinType.LEFT);
+			} else {
+				for (Field field : fields) {
+					final String fieldName = field.getName();
+					if (isMultilingualField(field)) {
+						logger.debug("multi: " + fieldName);
+						root.fetch(fieldName, JoinType.LEFT);
+					}
+				}
 			}
 		}
 		
-		if (options.isFindByUUID()) {
+		if (options.isFindByCode()) {
+			String code = (String)options.getId();
+			query.select(root).where(builder.equal(root.get("code"), code)).distinct(true);
+			
+		} else if (options.isFindByUUID()) {
 			String uuid = (String)options.getId();
 			query.select(root).where(builder.equal(root.get("uuid"), uuid)).distinct(true);
 			
@@ -399,8 +394,9 @@ public class SelectionServiceImpl implements SelectionService {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery query = builder.createQuery(fieldClass);
 		Root root = query.from(fieldClass);
-		Long id = (Long)entity.getClass().getMethod("getId").invoke(entity);
-		query.select(root).where(builder.equal(root.get(theField.getName()).get("id"), id));
+		
+		Long id = (Long)entity.getClass().getMethod(Utilities.getPrimaryKeyReadMethodName(entityClass)).invoke(entity);
+		query.select(root).where(builder.equal(root.get(theField.getName()).get(Utilities.getPrimaryKeyFieldName(entityClass)), id));
 		
 		TypedQuery typedQuery = manager.createQuery(query);
 		List resultSet = typedQuery.getResultList();
@@ -509,63 +505,6 @@ public class SelectionServiceImpl implements SelectionService {
 			logger.error("Error during handling entities from the other side of a link", e);
 			throw new SelectionException(e.getMessage());
 		}
-	}
-
-	/**
-	 * (non-Javadoc)
-	 * @see gr.ekt.cerif.services.SelectionService#selectIdentifiers(gr.ekt.cerif.services.SelectionOptions)
-	 */
-	@Override
-	public SelectionResult selectIdentifiers(SelectionOptions options) throws SelectionException {
-		SelectionResult result = new SelectionResult();
-		
-		if (options.getEntities() == null || options.getEntities().isEmpty()) {
-			throw new IllegalArgumentException(String.format("Please specify which CERIF entity to select identifiers for, in %s.entities", SelectionOptions.class.getName()));
-		}
-		
-		ClassEnum enumeration = options.getEntities().get(0);
-		java.lang.Class<? extends CerifEntity> entityClass = enumeration.getEntityClass();
-		
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Object> query = builder.createQuery(Object.class);
-		Root<? extends CerifEntity> root = query.from(entityClass);
-		
-		switch (options.getIdentifiersMode()) {
-		case UUIDS_AND_IDS:
-			query.select(builder.coalesce().value(root.get("uuid")).value(root.get("id")));
-			break;
-		
-		case UUIDS_ONLY:
-			query.select(root.get("uuid"));
-			break;
-
-		case IDS_ONLY:
-		default:
-			query.select(root.get("id"));
-			break;
-		}
-		
-		TypedQuery<Object> typedQuery = manager.createQuery(query);
-		if (options.getWindowSize() > 0) {
-			typedQuery.setFirstResult(options.getWindowOffset());
-			typedQuery.setMaxResults(options.getWindowSize());
-		}
-		List<Object> identifiers = typedQuery.getResultList();
-		result.setIdentifiers(identifiers);
-		result.setPageSize(options.getWindowSize());
-		result.setOffset(options.getWindowOffset());
-		result.setNumberOfElements(identifiers.size());
-		result.setTotalNumberOfElements(countEntity(entityClass));
-				
-		return result;
-	}
-	
-	private Long countEntity(java.lang.Class<? extends CerifEntity> entityClass) {
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<? extends CerifEntity> root = query.from(entityClass);
-		query.select(builder.count(root));
-		return manager.createQuery(query).getSingleResult();
 	}
 
 }

@@ -22,6 +22,6 @@ public interface LinkPostalAddressClassRepository {
 	
 	List<PostalAddress_Class> findByPostalAddress(PostalAddress postalAddress);
 	
-	List<PostalAddress_Class> findBytheClass(Class theClass);
+	List<PostalAddress_Class> findByTheClass(Class theClass);
 	
 }

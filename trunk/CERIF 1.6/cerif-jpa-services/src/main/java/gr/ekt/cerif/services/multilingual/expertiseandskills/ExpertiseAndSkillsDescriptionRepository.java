@@ -3,6 +3,9 @@
  */
 package gr.ekt.cerif.services.multilingual.expertiseandskills;
 
+import java.util.List;
+
+import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 import gr.ekt.cerif.features.multilingual.ExpertiseAndSkillsDescription;
 
 /**
@@ -18,5 +21,7 @@ public interface ExpertiseAndSkillsDescriptionRepository {
 	public Iterable<ExpertiseAndSkillsDescription> save(Iterable<ExpertiseAndSkillsDescription> entities); 
 	
 	public ExpertiseAndSkillsDescription save(ExpertiseAndSkillsDescription entity);
+	
+	List<ExpertiseAndSkillsDescription> findByExpertiseAndSkills(ExpertiseAndSkills expertiseAndSkills);
 
 }
