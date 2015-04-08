@@ -4,6 +4,7 @@
 package gr.ekt.cerif.entities.base;
 
 import gr.ekt.cerif.entities.link.project.Project_Class;
+import gr.ekt.cerif.entities.link.project.Project_DublinCore;
 import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Event;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
@@ -175,6 +176,9 @@ public class Project implements CerifBaseEntity {
 	
 	@OneToMany(mappedBy="project")
 	private Set<Project_Medium> projects_mediums;
+	
+	@OneToMany(mappedBy="project")
+	private Set<Project_DublinCore> projects_DublinCores;
 	
 	
 	/**
@@ -599,6 +603,20 @@ public class Project implements CerifBaseEntity {
 	 */
 	public void setProjects_persons(Set<Project_Person> projects_persons) {
 		this.projects_persons = projects_persons;
+	}
+
+	/**
+	 * @return the projects_DublinCores
+	 */
+	public Set<Project_DublinCore> getProjects_DublinCores() {
+		return projects_DublinCores;
+	}
+
+	/**
+	 * @param projects_DublinCores the projects_DublinCores to set
+	 */
+	public void setProjects_DublinCores(Set<Project_DublinCore> projects_DublinCores) {
+		this.projects_DublinCores = projects_DublinCores;
 	}
 
 	/**

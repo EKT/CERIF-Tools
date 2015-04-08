@@ -78,7 +78,6 @@ import gr.ekt.cerif.features.multilingual.ServiceDescription;
 import gr.ekt.cerif.features.multilingual.ServiceKeyword;
 import gr.ekt.cerif.features.multilingual.ServiceName;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -87,7 +86,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -384,12 +382,6 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	@OneToMany(mappedBy="language")
 	private Set<Language_Class> languages_classes;
 
-	
-	/**
-	 * FederatedIdentifier entities related to OrganisationUnit instance.
-	 */
-	@Transient
-	private List<FederatedIdentifier> federatedIdentifiers;
 	
 	//----------------------------------------------------------------------------------------------//
 	
@@ -1330,23 +1322,6 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	 */
 	public void setLanguages_classes(Set<Language_Class> languages_classes) {
 		this.languages_classes = languages_classes;
-	}
-
-
-	/**
-	 * @return the federatedIdentifiers
-	 */
-	public List<FederatedIdentifier> getFederatedIdentifiers() {
-		return federatedIdentifiers;
-	}
-
-
-	/**
-	 * @param federatedIdentifiers the federatedIdentifiers to set
-	 */
-	public void setFederatedIdentifiers(
-			List<FederatedIdentifier> federatedIdentifiers) {
-		this.federatedIdentifiers = federatedIdentifiers;
 	}
 
 

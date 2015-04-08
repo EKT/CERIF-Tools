@@ -190,10 +190,10 @@ public class Measurement implements CerifSecondLevelEntity {
 	private Set<Measurement_Measurement> measurements_measurements2;
 	
 	@OneToMany(mappedBy="measurement")
-	private Set<Funding_Measurement> fundings_measurement;
+	private Set<Funding_Measurement> fundings_measurements;
 	
 	@OneToMany(mappedBy="measurement")
-	private Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_Measurements;
+	private Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_measurements;
 
 	
 	/**
@@ -648,33 +648,33 @@ public class Measurement implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the fundings_measurement
+	 * @return the fundings_measurements
 	 */
-	public Set<Funding_Measurement> getFundings_measurement() {
-		return fundings_measurement;
+	public Set<Funding_Measurement> getFundings_measurements() {
+		return fundings_measurements;
 	}
 
 	/**
-	 * @param fundings_measurement the fundings_measurement to set
+	 * @param fundings_measurements the fundings_measurements to set
 	 */
-	public void setFundings_measurement(Set<Funding_Measurement> fundings_measurement) {
-		this.fundings_measurement = fundings_measurement;
-	}
-	
-	/**
-	 * Returns the geographicBoundingBoxes_Measurements.
-	 * @return the geographicBoundingBoxes_Measurements.
-	 */
-	public Set<GeographicBoundingBox_Measurement> getGeographicBoundingBoxes_Measurements() {
-		return geographicBoundingBoxes_Measurements;
+	public void setFundings_measurements(
+			Set<Funding_Measurement> fundings_measurements) {
+		this.fundings_measurements = fundings_measurements;
 	}
 
 	/**
-	 * Sets the geographicBoundingBoxes_Measurements.
-	 * @param geographicBoundingBoxes_Measurements the geographicBoundingBoxes_Measurements.
+	 * @return the geographicBoundingBoxes_measurements
 	 */
-	public void setGeographicBoundingBoxes_Measurements(Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_Measurements) {
-		this.geographicBoundingBoxes_Measurements = geographicBoundingBoxes_Measurements;
+	public Set<GeographicBoundingBox_Measurement> getGeographicBoundingBoxes_measurements() {
+		return geographicBoundingBoxes_measurements;
+	}
+
+	/**
+	 * @param geographicBoundingBoxes_measurements the geographicBoundingBoxes_measurements to set
+	 */
+	public void setGeographicBoundingBoxes_measurements(
+			Set<GeographicBoundingBox_Measurement> geographicBoundingBoxes_measurements) {
+		this.geographicBoundingBoxes_measurements = geographicBoundingBoxes_measurements;
 	}
 
 	/**

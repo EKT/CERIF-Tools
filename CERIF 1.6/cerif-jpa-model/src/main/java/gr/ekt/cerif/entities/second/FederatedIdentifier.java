@@ -95,11 +95,11 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 	/**
 	 * Links.
 	 */
-	@OneToMany(mappedBy="fedId")
-	private Set<FederatedIdentifier_Class> fedIds_classes;	
+	@OneToMany(mappedBy="federatedIdentifier")
+	private Set<FederatedIdentifier_Class> federatedIdentifiers_classes;	
 	
-	@OneToMany(mappedBy="fedId")
-	private Set<Service_FederatedIdentifier> services_fedIds;
+	@OneToMany(mappedBy="federatedIdentifier")
+	private Set<Service_FederatedIdentifier> services_federatedIdentifiers;
 	
 	
 	
@@ -227,26 +227,34 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 		this.uuid = uuid;
 	}
 
-	public Set<FederatedIdentifier_Class> getFedIds_classes() {
-		return fedIds_classes;
-	}
-	
-	public void setFedIds_classes(Set<FederatedIdentifier_Class> fedIds_classes) {
-		this.fedIds_classes = fedIds_classes;
-	}
-	
 	/**
-	 * @return the services_fedIds
+	 * @return the federatedIdentifiers_classes
 	 */
-	public Set<Service_FederatedIdentifier> getServices_fedIds() {
-		return services_fedIds;
+	public Set<FederatedIdentifier_Class> getFederatedIdentifiers_classes() {
+		return federatedIdentifiers_classes;
 	}
 
 	/**
-	 * @param services_fedIds the services_fedIds to set
+	 * @param federatedIdentifiers_classes the federatedIdentifiers_classes to set
 	 */
-	public void setServices_fedIds(Set<Service_FederatedIdentifier> services_fedIds) {
-		this.services_fedIds = services_fedIds;
+	public void setFederatedIdentifiers_classes(
+			Set<FederatedIdentifier_Class> federatedIdentifiers_classes) {
+		this.federatedIdentifiers_classes = federatedIdentifiers_classes;
+	}
+
+	/**
+	 * @return the services_federatedIdentifiers
+	 */
+	public Set<Service_FederatedIdentifier> getServices_federatedIdentifiers() {
+		return services_federatedIdentifiers;
+	}
+
+	/**
+	 * @param services_federatedIdentifiers the services_federatedIdentifiers to set
+	 */
+	public void setServices_federatedIdentifiers(
+			Set<Service_FederatedIdentifier> services_federatedIdentifiers) {
+		this.services_federatedIdentifiers = services_federatedIdentifiers;
 	}
 
 	public Class getTheClass() {

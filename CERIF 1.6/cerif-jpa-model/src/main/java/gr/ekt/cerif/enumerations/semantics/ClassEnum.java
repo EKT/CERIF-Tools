@@ -10,7 +10,7 @@ import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.entities.result.ResultPublication;
-import gr.ekt.cerif.entities.second.CV;
+import gr.ekt.cerif.entities.second.CurriculumVitae;
 import gr.ekt.cerif.entities.second.Citation;
 import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.entities.second.Currency;
@@ -43,7 +43,7 @@ public enum ClassEnum {
 	EQUIPMENT("cf7799e8-3477-11e1-b86c-0800200c9a66","Equipment", Equipment.class),
 	SERVICE("cf7799e9-3477-11e1-b86c-0800200c9a66","Service", Service.class),
 	CITATION("68aa07f0-34c9-11e1-b86c-0800200c9a66","Citation", Citation.class),
-	CURRICULUM_VITAE("68aa07f1-34c9-11e1-b86c-0800200c9a66","Curriculum Vitae", CV.class),
+	CURRICULUM_VITAE("68aa07f1-34c9-11e1-b86c-0800200c9a66","Curriculum Vitae", CurriculumVitae.class),
 	ELECTRONIC_ADDRESS("68aa07f2-34c9-11e1-b86c-0800200c9a66","Electronic Address", ElectronicAddress.class),
 	POSTAL_ADDRESS("68aa07f3-34c9-11e1-b86c-0800200c9a66","Postal Address", PostalAddress.class),
 	EVENT("68aa07f4-34c9-11e1-b86c-0800200c9a66","Event", Event.class),

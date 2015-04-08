@@ -53,12 +53,12 @@ public class Service_FederatedIdentifier implements CerifLinkEntity {
 	 * @param fraction
 	 */
 	public Service_FederatedIdentifier(Long id, Service service,
-			FederatedIdentifier fedId, Class theClass, Date startDate,
+			FederatedIdentifier federatedIdentifier, Class theClass, Date startDate,
 			Date endDate, Double fraction) {
 		super();
 		this.id = id;
 		this.service = service;
-		this.fedId = fedId;
+		this.federatedIdentifier = federatedIdentifier;
 		this.theClass = theClass;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -86,7 +86,7 @@ public class Service_FederatedIdentifier implements CerifLinkEntity {
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfFedId")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private FederatedIdentifier fedId;
+	private FederatedIdentifier federatedIdentifier;
 	
 	/**
 	 * The Class.
@@ -145,17 +145,17 @@ public class Service_FederatedIdentifier implements CerifLinkEntity {
 	}
 
 	/**
-	 * @return the fedId
+	 * @return the federatedIdentifier
 	 */
-	public FederatedIdentifier getFedId() {
-		return fedId;
+	public FederatedIdentifier getFederatedIdentifier() {
+		return federatedIdentifier;
 	}
 
 	/**
-	 * @param fedId the fedId to set
+	 * @param federatedIdentifier the federatedIdentifier to set
 	 */
-	public void setFedId(FederatedIdentifier fedId) {
-		this.fedId = fedId;
+	public void setFederatedIdentifier(FederatedIdentifier federatedIdentifier) {
+		this.federatedIdentifier = federatedIdentifier;
 	}
 
 	/**
@@ -220,7 +220,7 @@ public class Service_FederatedIdentifier implements CerifLinkEntity {
 	@Override
 	public String toString() {
 		return "Service_FederatedIdentifier [id=" + id + ", service=" + service
-				+ ", fedId=" + fedId + ", theClass=" + theClass
+				+ ", federatedIdentifier=" + federatedIdentifier + ", theClass=" + theClass
 				+ ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", fraction=" + fraction + "]";
 	}	

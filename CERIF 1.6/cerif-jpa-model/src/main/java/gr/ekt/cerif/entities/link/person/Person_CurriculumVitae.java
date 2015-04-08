@@ -1,12 +1,7 @@
 /**
  * 
  */
-package gr.ekt.cerif.entities.link.result;
-
-import gr.ekt.cerif.features.semantics.Class;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.result.ResultProduct;
-import gr.ekt.cerif.entities.second.Country;
+package gr.ekt.cerif.entities.link.person;
 
 import java.util.Date;
 
@@ -24,18 +19,22 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.second.CurriculumVitae;
+import gr.ekt.cerif.features.semantics.Class;
+
 /**
- * Links an organization unit with a postal address.
  * 
  */
 @Entity
-@Table(name="cfResProd_Country", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId","cfCountryId","cfClassId","cfStartDate","cfEndDate"}))
-public class ResultProduct_Country implements CerifLinkEntity {
+@Table(name="cfPers_CV", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfCVId","cfClassId","cfStartDate","cfEndDate"}))
+public class Person_CurriculumVitae implements CerifLinkEntity {
 	
 	/**
 	 * Serialization version.
 	 */
-	private static final long serialVersionUID = -389578121645571064L;
+	private static final long serialVersionUID = -178905743289456L;
 	
 	/**
 	 * 
@@ -45,21 +44,21 @@ public class ResultProduct_Country implements CerifLinkEntity {
 	private Long id;
 	
 	/**
-	 * The result product.
+	 * The person.
 	 */
 	@ManyToOne(optional=false)
-	@JoinColumn(name="cfResProdId")
+	@JoinColumn(name="cfPersId")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private ResultProduct resultProduct;
-
+	private Person person;
+	
 	/**
-	 * The country.
+	 * The CV.
 	 */
 	@ManyToOne(optional=false)
-	@JoinColumn(name="cfCountryId")
+	@JoinColumn(name="cfCVId")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-	private Country country;
-
+	private CurriculumVitae curriculumVitae;
+	
 	/**
 	 * The class.
 	 */
@@ -87,59 +86,76 @@ public class ResultProduct_Country implements CerifLinkEntity {
 	 */
 	@Column(name="cfFraction")
 	private Double fraction;
-	
+
 	/**
 	 * Default Constructor
 	 */
-	public ResultProduct_Country() {
+	public Person_CurriculumVitae() {
 		
 	}
 	
 	/**
 	 * 
-	 * @param resultProduct
-	 * @param country
+	 * @param person
+	 * @param curriculumVitae
 	 * @param theClass
 	 * @param startDate
 	 * @param endDate
 	 * @param fraction
 	 */
-	public ResultProduct_Country(ResultProduct resultProduct, Country country,
-			Class theClass, Date startDate, Date endDate, Double fraction) {
-		this.resultProduct = resultProduct;
-		this.country = country;
+	public Person_CurriculumVitae(Person person, CurriculumVitae curriculumVitae, Class theClass, Date startDate,
+			Date endDate, Double fraction) {
+		this.person = person;
+		this.curriculumVitae = curriculumVitae;
 		this.theClass = theClass;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.fraction = fraction;
 	}
-
+	
 	/**
-	 * @return the resultProduct
+	 * 
+	 * @param person
+	 * @param curriculumVitae
+	 * @param theClass
+	 * @param startDate
+	 * @param endDate
 	 */
-	public ResultProduct getResultProduct() {
-		return resultProduct;
+	public Person_CurriculumVitae(Person person, CurriculumVitae curriculumVitae, Class theClass, Date startDate,
+			Date endDate) {
+		this.person = person;
+		this.curriculumVitae = curriculumVitae;
+		this.theClass = theClass;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 	/**
-	 * @param resultProduct the resultProduct to set
+	 * @return the person
 	 */
-	public void setResultProduct(ResultProduct resultProduct) {
-		this.resultProduct = resultProduct;
+	public Person getPerson() {
+		return person;
 	}
 
 	/**
-	 * @return the country
+	 * @param person the person to set
 	 */
-	public Country getCountry() {
-		return country;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	/**
-	 * @param country the country to set
+	 * @return the curriculumVitae
 	 */
-	public void setCountry(Country country) {
-		this.country = country;
+	public CurriculumVitae getCurriculumVitae() {
+		return curriculumVitae;
+	}
+
+	/**
+	 * @param curriculumVitae the curriculumVitae to set
+	 */
+	public void setCurriculumVitae(CurriculumVitae curriculumVitae) {
+		this.curriculumVitae = curriculumVitae;
 	}
 
 	/**
@@ -155,50 +171,44 @@ public class ResultProduct_Country implements CerifLinkEntity {
 	public void setTheClass(Class theClass) {
 		this.theClass = theClass;
 	}
-	
+
 	/**
-	 * Returns the start date.
-	 * @return the start date.
+	 * @return the startDate
 	 */
 	public Date getStartDate() {
 		return startDate;
 	}
 
 	/**
-	 * Sets the start date.
-	 * @param startDate the start date.
+	 * @param startDate the startDate to set
 	 */
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
 	/**
-	 * Returns the end date.
-	 * @return the end date.
+	 * @return the endDate
 	 */
 	public Date getEndDate() {
 		return endDate;
 	}
 
 	/**
-	 * Sets the end date.
-	 * @param endDate the end date.
+	 * @param endDate the endDate to set
 	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
 	/**
-	 * Returns the fraction.
-	 * @return the fraction.
+	 * @return the fraction
 	 */
 	public Double getFraction() {
 		return fraction;
 	}
 
 	/**
-	 * Sets the fraction.
-	 * @param fraction the fraction.
+	 * @param fraction the fraction to set
 	 */
 	public void setFraction(Double fraction) {
 		this.fraction = fraction;
@@ -218,5 +228,15 @@ public class ResultProduct_Country implements CerifLinkEntity {
 		this.id = id;
 	}
 
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Person_Cv [id=" + id + ", person=" + person + ", curriculumVitae=" + curriculumVitae
+				+ ", theClass=" + theClass + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", fraction=" + fraction + "]";
+	}
+	
+	
 }

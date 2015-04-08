@@ -6,7 +6,7 @@ package gr.ekt.cerif.entities.base;
 import gr.ekt.cerif.entities.link.PersonName_Person;
 import gr.ekt.cerif.entities.link.person.Person_Class;
 import gr.ekt.cerif.entities.link.person.Person_Country;
-import gr.ekt.cerif.entities.link.person.Person_Cv;
+import gr.ekt.cerif.entities.link.person.Person_CurriculumVitae;
 import gr.ekt.cerif.entities.link.person.Person_DublinCore;
 import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
 import gr.ekt.cerif.entities.link.person.Person_Equipment;
@@ -128,7 +128,7 @@ public class Person implements CerifBaseEntity {
 	private Set<Person_Country> persons_countries;
 	
 	@OneToMany(mappedBy="person")
-	private Set<Person_Cv> persons_cvs;
+	private Set<Person_CurriculumVitae> persons_curriculumVitaes;
 
 	@OneToMany(mappedBy="person")
 	private Set<Person_DublinCore> persons_dublinCores;
@@ -367,19 +367,20 @@ public class Person implements CerifBaseEntity {
 	}
 	
 	/**
-	 * @return the persons_cvs
+	 * @return the persons_curriculumVitaes
 	 */
-	public Set<Person_Cv> getPersons_cvs() {
-		return persons_cvs;
+	public Set<Person_CurriculumVitae> getPersons_curriculumVitaes() {
+		return persons_curriculumVitaes;
 	}
-	
+
 	/**
-	 * @param persons_cvs the persons_cvs to set
+	 * @param persons_curriculumVitaes the persons_curriculumVitaes to set
 	 */
-	public void setPersons_cvs(Set<Person_Cv> persons_cvs) {
-		this.persons_cvs = persons_cvs;
+	public void setPersons_curriculumVitaes(
+			Set<Person_CurriculumVitae> persons_curriculumVitaes) {
+		this.persons_curriculumVitaes = persons_curriculumVitaes;
 	}
-	
+
 	/**
 	 * @return the persons_dublinCores
 	 */

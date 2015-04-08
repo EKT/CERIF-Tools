@@ -29,7 +29,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * 
  */
 @Entity
-@Table(name="cfResProd_GeoBBox", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId","cfGeographicBoundingBoxId","cfClassId","cfStartDate","cfEndDate"}))
+@Table(name="cfResProd_GeoBBox", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId","cfGeoBBoxId","cfClassId","cfStartDate","cfEndDate"}))
 public class ResultProduct_GeographicBoundingBox implements CerifLinkEntity {
 	
 	/**
@@ -56,7 +56,7 @@ public class ResultProduct_GeographicBoundingBox implements CerifLinkEntity {
 	 * The geographic bounding box.
 	 */
 	@ManyToOne(optional=false)
-	@JoinColumn(name="cfGeographicBoundingBoxId")
+	@JoinColumn(name="cfGeoBBoxId")
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private GeographicBoundingBox geographicBoundingBox;
 

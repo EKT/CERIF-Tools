@@ -5,11 +5,9 @@ package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.link.Country_Class;
 import gr.ekt.cerif.entities.link.person.Person_Country;
-import gr.ekt.cerif.entities.link.result.ResultProduct_Country;
 import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.features.multilingual.CountryName;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -18,7 +16,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -70,9 +67,6 @@ public class Country implements CerifSecondLevelEntity {
 	 * Links.
 	 */
 	@OneToMany(mappedBy="country")
-	private Set<ResultProduct_Country> resultProducts_countries;
-	
-	@OneToMany(mappedBy="country")
 	private Set<Event> events;
 	
 	@OneToMany(mappedBy="country")
@@ -88,13 +82,7 @@ public class Country implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="country")
 	private Set<Country_Class> countries_classes;
-	
-	
-	/**
-	 * FederatedIdentifier entities related to Country instance.
-	 */
-	@Transient
-	private List<FederatedIdentifier> federatedIdentifiers;
+
 	
 	//----------------------------------------------------------------------------------------------//
 	
@@ -179,21 +167,6 @@ public class Country implements CerifSecondLevelEntity {
 	}
 
 	/**
-	 * @return the resultProducts_countries
-	 */
-	public Set<ResultProduct_Country> getResultProducts_countries() {
-		return resultProducts_countries;
-	}
-
-	/**
-	 * @param resultProducts_countries the resultProducts_countries to set
-	 */
-	public void setResultProducts_countries(
-			Set<ResultProduct_Country> resultProducts_countries) {
-		this.resultProducts_countries = resultProducts_countries;
-	}
-
-	/**
 	 * @return the patents
 	 */
 	public Set<ResultPatent> getPatents() {
@@ -249,20 +222,6 @@ public class Country implements CerifSecondLevelEntity {
 		this.countries_classes = countries_classes;
 	}
 
-	/**
-	 * @return the federatedIdentifiers
-	 */
-	public List<FederatedIdentifier> getFederatedIdentifiers() {
-		return federatedIdentifiers;
-	}
-
-	/**
-	 * @param federatedIdentifiers the federatedIdentifiers to set
-	 */
-	public void setFederatedIdentifiers(
-			List<FederatedIdentifier> federatedIdentifiers) {
-		this.federatedIdentifiers = federatedIdentifiers;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
