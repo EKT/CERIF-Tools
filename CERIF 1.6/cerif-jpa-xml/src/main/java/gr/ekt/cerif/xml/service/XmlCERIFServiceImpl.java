@@ -45,7 +45,6 @@ public class XmlCERIFServiceImpl implements XmlCERIFService {
 	 * (non-Javadoc)
 	 * @see gr.ekt.cerif.xml.service.XmlCERIFService#makeXMLString(java.util.List)
 	 */
-	@Override
 	public String makeXMLString(List<CerifEntity> entities) {
 		return makeXMLString(entities, null);
 	}
@@ -54,7 +53,6 @@ public class XmlCERIFServiceImpl implements XmlCERIFService {
 	 * (non-Javadoc)
 	 * @see gr.ekt.cerif.xml.service.XmlCERIFService#makeXML(java.util.List)
 	 */
-	@Override
 	public byte[] makeXML(List<CerifEntity> entities) {
 		return makeXML(entities, null);
 	}
@@ -63,7 +61,6 @@ public class XmlCERIFServiceImpl implements XmlCERIFService {
 	 * (non-Javadoc)
 	 * @see gr.ekt.cerif.xml.service.XmlCERIFService#makeXMLString(java.util.List, gr.ekt.cerif.xml.service.XmlCERIFOptions)
 	 */
-	@Override
 	public String makeXMLString(List<CerifEntity> entities, XmlCERIFOptions options) {
 
 		TransformationEngine cerifToXmlTransformationEngine = transformationEngineFactory.getObject();
@@ -93,7 +90,6 @@ public class XmlCERIFServiceImpl implements XmlCERIFService {
 	 * (non-Javadoc)
 	 * @see gr.ekt.cerif.xml.service.XmlCERIFService#makeXML(java.util.List, gr.ekt.cerif.xml.service.XmlCERIFOptions)
 	 */
-	@Override
 	public byte[] makeXML(List<CerifEntity> entities, XmlCERIFOptions options) {
 		
 		TransformationEngine cerifToXmlTransformationEngine = transformationEngineFactory.getObject();
