@@ -15,11 +15,12 @@ This work is implemented by the Hellenic [National Documentation Centre](http://
 Besides having been incorporated in various systems and services of [NISRT](http://www.epset.gr), the cerif-jpa-persistence library is utilised in other production applications like the [EuroRIs-Net+ Observatory](http://observatory.euroris-net.eu) and the [PAERIP Inventory of Research Infrastructures](http://inventory.paerip.org).
 
 
-#Features
+#Modules
 
 * CERIF Model
   * All 293 CERIF entities as POJOs.
   * 100% compliant to the latest CERIF version.
+  
 * CERIF Services
   * JPA data repositories for all entities.
   * Common persistence and selection services.
