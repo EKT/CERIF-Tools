@@ -8,7 +8,7 @@ Besides having been incorporated in various systems and services of [NISRT](http
 #Features
 
 * CERIF Model
-  * All 293 CERIF entities as POJOs.
+  * All CERIF entities are available as POJOs.
   * 100% compliant to the latest CERIF version.
 * CERIF Services
   * [JPA](http://en.wikipedia.org/wiki/Java_Persistence_API) data repositories for all entities.
