@@ -1,0 +1,28 @@
+## Installation instructions ##
+
+The application files are located in trunk/example\_app/webapp/build.
+
+Step 1) Create a new database schema named "example\_db" in your local MySQL installation.
+
+Step 2) Shut down Tomcat.
+
+Step 3) Extract the contents of exampleapp.war in a new folder named "exampleapp" under {Apache Tomcat installation directory}\webapps folder.
+
+Step 4) Edit file {Apache Tomcat installation directory}\webapps\exampleapp\WEB-INF\spring\appServlet\servlet-context.xml and change entries username, password and url to the ones required by your local MySQL installation. NOTE: Do not change the name of the database in url. It should be example\_db.
+
+Step 5) Restart Tomcat. The process will create all database tables.
+
+Step 6) Run example\_db.sql in example\_db. This script will populate the database with some dummy data.
+
+Step 7) Shut down Tomcat.
+
+Step 8) Edit file {Apache Tomcat installation directory}\webapps\exampleapp\WEB-INF\spring\appServlet\servlet-context.xml and change entry `<prop key="hibernate.hbm2ddl.auto">create</prop>` to `<prop key="hibernate.hbm2ddl.auto">validate</prop>`.
+
+Step 9) Restart Tomcat.
+
+Step 10) Use http://localhost:{Tomcat port}/exampleapp
+
+
+NOTES:
+1) The application needs Tomcat version 7 and above to run properly.
+2) If the MySQL connector is not included in Tomcat then copy/paste file mysql-connector-java-5.1.29.jar to {Apache Tomcat installation directory}\lib folder.
