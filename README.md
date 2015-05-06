@@ -32,7 +32,7 @@ Besides having been incorporated in various systems and services of [NISRT](http
 
 #Quick Start
 
-The recommended way to get started using CERIF Java Components in your project is with a dependency management system. Specifically, CERIF Java Components uses [Apache Maven](http://maven.apache.org/) for project management.
+The recommended way to get started using CERIF Components in your project is with a dependency management system. Specifically, CERIF Components uses [Apache Maven](http://maven.apache.org/) for project management.
 
 Include the appropriate dependency in pom.xml of your project, according to your needs.
 
@@ -41,7 +41,7 @@ For playing around with the CERIF entities only, you should only include the *ce
 <dependency>
   <groupId>gr.ekt</groupId>
   <artifactId>cerif-model</artifactId>
-  <version>0.9.2</version>
+  <version>0.9.1</version>
 </dependency>
 ```
 For exporting CERIF-XML from an existing non-CERIF application, you should only include the *cerif-xml* module.
@@ -49,7 +49,7 @@ For exporting CERIF-XML from an existing non-CERIF application, you should only 
 <dependency>
   <groupId>gr.ekt</groupId>
   <artifactId>cerif-xml</artifactId>
-  <version>0.9.2</version>
+  <version>0.9.1</version>
 </dependency>
 ```
 For building an application that is based on a relational database, you should only include the *cerif-service* module.
@@ -57,7 +57,7 @@ For building an application that is based on a relational database, you should o
 <dependency>
   <groupId>gr.ekt</groupId>
   <artifactId>cerif-service</artifactId>
-  <version>0.9.2</version>
+  <version>0.9.1</version>
 </dependency>
 ```
 Lastly, for building a 3-tier application, e.g. a web application, that will have CERIF-XML capabilities, you should include both the *cerif-service* and the *cerif-xml* modules.
