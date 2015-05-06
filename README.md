@@ -31,6 +31,7 @@ Besides having been incorporated in various systems and services of [NISRT](http
   * OAI-PMH implementation.
 
 Here's a package diagram:
+
 ![Package diagram of the CERIF modules](https://cloud.githubusercontent.com/assets/5664469/7493597/058f11e2-f40b-11e4-81ea-40f4bc70ea7e.png)
 
 #Quick Start
