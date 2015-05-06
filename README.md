@@ -30,6 +30,8 @@ Besides having been incorporated in various systems and services of [NISRT](http
 * CERIF OAI *(not available in GitHub yet)*
   * OAI-PMH implementation.
 
+![Package diagram of the CERIF modules](https://cloud.githubusercontent.com/assets/5664469/7493597/058f11e2-f40b-11e4-81ea-40f4bc70ea7e.png)
+
 #Quick Start
 
 The recommended way to get started using CERIF Components in your project is with a dependency management system. Specifically, CERIF Components uses [Apache Maven](http://maven.apache.org/) for project management.
