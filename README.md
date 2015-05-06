@@ -30,7 +30,7 @@ The recommended way to get started using CERIF Components in your project is wit
 
 Include the appropriate dependency in pom.xml of your project, according to your needs.
 
-For playing around with the CERIF entities only, you should only include the *cerif-model* module.
+For utilising the CERIF entities only:
 ```xml
 <dependency>
   <groupId>gr.ekt</groupId>
@@ -38,7 +38,7 @@ For playing around with the CERIF entities only, you should only include the *ce
   <version>0.9.1</version>
 </dependency>
 ```
-For exporting CERIF-XML from an existing non-CERIF application, you should only include the *cerif-xml* module.
+For exporting CERIF-XML from an existing application:
 ```xml
 <dependency>
   <groupId>gr.ekt</groupId>
@@ -46,7 +46,7 @@ For exporting CERIF-XML from an existing non-CERIF application, you should only 
   <version>0.9.1</version>
 </dependency>
 ```
-For building an application that is based on a relational database, you should only include the *cerif-service* module.
+For building an application that is based on a relational database:
 ```xml
 <dependency>
   <groupId>gr.ekt</groupId>
