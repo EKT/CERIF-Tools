@@ -1,6 +1,3 @@
-#CERIF Tools
-Java components for building CERIF applications.
-
 #Introduction
 This toolbox provides Java components for building [CERIF](http://www.eurocris.org/Index.php?page=CERIFintroduction&t=1) applications. It has been tested with data covering the entire CERIF standard, using [MySQL](http://www.mysql.com), [PostgreSQL](http://www.postgresql.org/) and [SQL Server](http://www.microsoft.com/en-us/server-cloud/products/sql-server/).
 
