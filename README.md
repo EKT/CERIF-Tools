@@ -26,7 +26,7 @@ Here's a package diagram:
 
 #Quick Start
 
-The recommended way to get started using CERIF Components in your project is with a dependency management system. Specifically, CERIF Components uses [Apache Maven](http://maven.apache.org/) for project management.
+The recommended way to get started using CERIF Tools in your project is with a dependency management system. Specifically, CERIF Tools uses [Apache Maven](http://maven.apache.org/) for project management.
 
 Include the appropriate dependency in pom.xml of your project, according to your needs.
 
