@@ -27,7 +27,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfLang_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfLangCode", "cfClassId", "cfStartDate", "cfEndDate"}))
-public class Language_Class implements CerifLinkEntity {
+public class Language_Class implements ICerifClassEntity {
 
 	/**
 	 * 

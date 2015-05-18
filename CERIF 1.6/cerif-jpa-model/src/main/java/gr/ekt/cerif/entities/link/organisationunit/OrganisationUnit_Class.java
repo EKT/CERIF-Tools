@@ -4,7 +4,7 @@
 package gr.ekt.cerif.entities.link.organisationunit;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.link.ICerifClassEntity;
 import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
@@ -31,7 +31,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name="cfOrgUnit_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId", "cfClassId", "cfStartDate", "cfEndDate"}) )
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class OrganisationUnit_Class implements CerifLinkEntity {
+public class OrganisationUnit_Class implements ICerifClassEntity {
 
 	/**
 	 * 

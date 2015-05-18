@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.link.ICerifClassEntity;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.features.semantics.Class;
 
@@ -31,7 +31,7 @@ import gr.ekt.cerif.features.semantics.Class;
 @Table(name="cfResPubl_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfClassId","cfStartDate","cfEndDate"}))
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class ResultPublication_Class implements CerifLinkEntity {
+public class ResultPublication_Class implements ICerifClassEntity {
 
 	/**
 	 * 

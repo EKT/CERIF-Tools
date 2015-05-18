@@ -27,7 +27,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfEAddr_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfEAddrId", "cfClassId", "cfStartDate", "cfEndDate"}))
-public class ElectronicAddress_Class implements CerifLinkEntity {
+public class ElectronicAddress_Class implements ICerifClassEntity {
 
 	/**
 	 * 

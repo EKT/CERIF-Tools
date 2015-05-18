@@ -27,7 +27,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfMeas_Class" , uniqueConstraints=@UniqueConstraint(columnNames={"cfMeasId", "cfClassId", "cfStartDate", "cfEndDate"}))
-public class Measurement_Class implements CerifLinkEntity {
+public class Measurement_Class implements ICerifClassEntity {
 
 	/**
 	 * 

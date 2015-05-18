@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="cfPersName_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersNameId", "cfClassId", "cfStartDate", "cfEndDate"}) )
-public class PersonName_Class implements CerifLinkEntity {
+public class PersonName_Class implements ICerifClassEntity {
 
 	/**
 	 * 
