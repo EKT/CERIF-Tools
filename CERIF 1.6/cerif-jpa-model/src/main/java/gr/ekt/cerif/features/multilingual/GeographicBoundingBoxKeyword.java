@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfGeoBBoxKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfGeoBBoxId","cfLangCode","cfTrans"}))
-public class GeographicBoundingBoxKeyword implements CerifMultipleLanguageFeature {
+public class GeographicBoundingBoxKeyword implements ICerifKeyword {
 
 	/**
 	 * Serialization version.

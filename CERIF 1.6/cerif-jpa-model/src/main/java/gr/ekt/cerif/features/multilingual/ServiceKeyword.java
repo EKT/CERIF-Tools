@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfSrvKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfSrvId","cfLangCode","cfTrans"}))
-public class ServiceKeyword implements CerifMultipleLanguageFeature {
+public class ServiceKeyword implements ICerifKeyword {
 	
 	/**
 	 * Serialization version.

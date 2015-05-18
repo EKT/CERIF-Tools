@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="cfResProdKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId","cfLangCode","cfTrans"}))
-public class ResultProductKeyword implements CerifMultipleLanguageFeature, Comparable<ResultProductKeyword> {
+public class ResultProductKeyword implements ICerifKeyword, Comparable<ResultProductKeyword> {
 
 	/**
 	 * Serialization version.

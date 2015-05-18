@@ -36,7 +36,7 @@ import org.hibernate.search.annotations.Store;
 @Indexed(index="indexes/resultPublications/keywords")
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class ResultPublicationKeyword implements CerifMultipleLanguageFeature {
+public class ResultPublicationKeyword implements ICerifKeyword {
 
 	/**
 	 * Serialization version.
