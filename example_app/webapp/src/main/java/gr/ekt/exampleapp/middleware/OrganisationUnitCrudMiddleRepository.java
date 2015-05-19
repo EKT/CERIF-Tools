@@ -34,7 +34,7 @@ public interface OrganisationUnitCrudMiddleRepository extends CrudRepository<Org
 				   "  left join oupa.postalAddress pa 	" +
 				   "  left join pa.country co 	" +
 				   "  left join co.countryNames con 	" +	
-				   "  where con.language = 'en'	" +
+				   "  where con.language = 'en'	or con.language is null " +
 				   "  order by ona.name               ")
 	List<OrganisationView> findAllOrganisations();
 	
@@ -51,7 +51,7 @@ public interface OrganisationUnitCrudMiddleRepository extends CrudRepository<Org
 				   "  left join oupa.postalAddress pa 	" +
 				   "  left join pa.country co 	" +
 				   "  left join co.countryNames con 	" +	
-				   "  where ou.id = ?1 and con.language = 'en' " )
+				   "  where ou.id = ?1 and ( con.language = 'en' or con.language is null)" )
 	OrganisationView findOrganisationById(Long Id);
 	
 	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
