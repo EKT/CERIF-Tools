@@ -57,4 +57,4 @@ For building an application that is based on a relational database:
 Lastly, for building a 3-tier application, e.g. a web application, that will have CERIF-XML capabilities, you should include both the *cerif-service* and the *cerif-xml* modules.
 
 #Licensing information
-European Union Public License, [more info](http://cerif-jpa-persistence.googlecode.com/files/LICENCE.txt).
+European Union Public License, [more info](http://joinup.ec.europa.eu/software/page/eupl/licence-eupl).
