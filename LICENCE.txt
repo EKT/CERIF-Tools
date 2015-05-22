@@ -1,1 +1,1 @@
-This application is provided with the European Union Public Licence (EUPL) License, http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+The CERIF-Tools project is provided under the European Union Public Licence (EUPL) License, which is available in 22 official languages of the European Union here: http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
