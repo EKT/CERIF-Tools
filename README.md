@@ -50,7 +50,7 @@ For building an application that is based on a relational database:
 ```xml
 <dependency>
   <groupId>gr.ekt</groupId>
-  <artifactId>cerif-service</artifactId>
+  <artifactId>cerif-services</artifactId>
   <version>0.9.1</version>
 </dependency>
 ```
