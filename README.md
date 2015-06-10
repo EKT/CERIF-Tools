@@ -60,4 +60,4 @@ Lastly, for building a 3-tier application, e.g. a web application, that will hav
 The CERIF-Tools project is provided under the European Union Public Licence (EUPL), which is available in 22 official languages of the European Union, [here](http://joinup.ec.europa.eu/software/page/eupl/licence-eupl).
 
 #Contact Us
-[cerif-tools@ekt.gr|mailto:cerif-tools@ekt.gr]
+[cerif-tools@ekt.gr](mailto:cerif-tools@ekt.gr)
