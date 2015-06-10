@@ -56,8 +56,8 @@ For building an application that is based on a relational database:
 ```
 Lastly, for building a 3-tier application, e.g. a web application, that will have CERIF-XML capabilities, you should include both the *cerif-services* and the *cerif-xml* modules.
 
-#Licensing information
-The CERIF-Tools project is provided under the European Union Public Licence (EUPL), which is available in 22 official languages of the European Union, [here](http://joinup.ec.europa.eu/software/page/eupl/licence-eupl).
-
 #Contact Us
 E-mail: [cerif-tools@ekt.gr](mailto:cerif-tools@ekt.gr)
+
+#Licensing information
+The CERIF-Tools project is provided under the European Union Public Licence (EUPL), which is available in 22 official languages of the European Union, [here](http://joinup.ec.europa.eu/software/page/eupl/licence-eupl).
