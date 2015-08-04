@@ -31,7 +31,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name="cfMediumKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfMediumId","cfLangCode","cfTrans"}))
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class MediumKeyword implements CerifMultipleLanguageFeature {
+public class MediumKeyword implements ICerifKeyword {
 	
 	/**
 	 * Serialization version.

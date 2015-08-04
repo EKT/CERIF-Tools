@@ -12,7 +12,6 @@
 	<artifactId>webapp</artifactId>
 	<name>webapp</name>
 	<packaging>war</packaging>
-	<version>0.9</version>
 
 	<dependencies>
 		<!-- Spring -->

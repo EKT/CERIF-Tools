@@ -3,7 +3,7 @@
  */
 package gr.ekt.cerif.entities.link.result;
 
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.link.ICerifClassEntity;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.features.semantics.Class;
 
@@ -34,7 +34,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @NamedQueries({
 	@NamedQuery(name="ResultProduct_Class.countProductsBySchemeURI", query="SELECT rpc.theClass, count(rpc.resultProduct) FROM ResultProduct_Class rpc WHERE rpc.theClass.scheme.uri = :uri group by rpc.theClass")
 })
-public class ResultProduct_Class implements CerifLinkEntity {
+public class ResultProduct_Class implements ICerifClassEntity {
 	
 	/**
 	 * Serialization version.

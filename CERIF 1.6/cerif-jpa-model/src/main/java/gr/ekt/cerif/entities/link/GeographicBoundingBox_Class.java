@@ -27,7 +27,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfGeoBBox_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfGeoBBoxId","cfClassId","cfStartDate", "cfEndDate"}))
-public class GeographicBoundingBox_Class implements CerifLinkEntity {
+public class GeographicBoundingBox_Class implements ICerifClassEntity {
 
 	/**
 	 * 

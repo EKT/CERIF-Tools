@@ -3,7 +3,7 @@
  */
 package gr.ekt.cerif.entities.link.result;
 
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.link.ICerifClassEntity;
 import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.features.semantics.Class;
 
@@ -28,7 +28,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfResPat_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPatId", "cfClassId", "cfStartDate", "cfEndDate"}) )
-public class ResultPatent_Class implements CerifLinkEntity {
+public class ResultPatent_Class implements ICerifClassEntity {
 
 	/**
 	 * 

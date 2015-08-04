@@ -28,7 +28,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfPersKeyw", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfLangCode","cfTrans"}))
-public class PersonKeyword implements CerifMultipleLanguageFeature {
+public class PersonKeyword implements ICerifKeyword {
 	
 	/**
 	 * Serialization version.
