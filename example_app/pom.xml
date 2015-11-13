@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>gr.ekt</groupId>
   <artifactId>example_app</artifactId>
-  <version>0.9</version>
+  <version>0.9.2</version>
   <packaging>pom</packaging>
   <name>Example App</name>
   
@@ -21,7 +21,7 @@
                 		<db.driver>com.mysql.jdbc.Driver</db.driver>
                 		<db.url>jdbc:mysql://localhost:3306/example_db?characterEncoding=utf8</db.url>
                 		<db.username>root</db.username>
-                		<db.password>pass</db.password> 
+                		<db.password>pass</db.password>
                        
                        <!-- validate | update | create | create-drop -->
                        <hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
@@ -34,6 +34,7 @@
                        <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
                        <hibernate.cache.use_query_cache>false</hibernate.cache.use_query_cache>
                        <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
+                       <hibernate.database_type>MYSQL</hibernate.database_type> 
                        
                        <log4j.appender.file.File>/usr/local/tomcat/logs/example_app.log</log4j.appender.file.File>
                        <log4j.propertiesfile.rootLogger>DEBUG, file</log4j.propertiesfile.rootLogger>
@@ -68,6 +69,7 @@
                        <hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
                        <hibernate.cache.use_query_cache>false</hibernate.cache.use_query_cache>
                        <hibernate.cache.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</hibernate.cache.region.factory_class>
+                       <hibernate.database_type>POSTGRESQL</hibernate.database_type>
                        
                        <log4j.appender.file.File>/usr/local/tomcat/logs/example_app.log</log4j.appender.file.File>
                        <log4j.propertiesfile.rootLogger>DEBUG, file</log4j.propertiesfile.rootLogger>

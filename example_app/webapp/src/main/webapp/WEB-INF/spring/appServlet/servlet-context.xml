@@ -52,7 +52,7 @@
 	<bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 	    <property name="showSql" value="false"/>
 	    <property name="generateDdl" value="false" />
-        <property name="databasePlatform" value="${hibernate.dialect}" />
+        <property name="databasePlatform" value="${hibernate.database_type}" />
 	</bean>
 		
 	<bean id="ServicesExceptionTranslator" class="org.springframework.orm.hibernate4.HibernateExceptionTranslator"/>

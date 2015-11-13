@@ -4,11 +4,10 @@
 		<wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/WEB-INF/spring"/>
-        <dependent-module archiveName="cerif-jpa-services-0.9.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cerif-jpa-services-0.9/cerif-jpa-services-0.9">
+        <dependent-module archiveName="cerif-jpa-services-0.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cerif-jpa-services-0.9.2/cerif-jpa-services-0.9.2">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="cerif-jpa-model-0.9.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cerif-jpa-model-0.9/cerif-jpa-model-0.9">
+        <dependent-module archiveName="cerif-jpa-model-0.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cerif-jpa-model-0.9.2/cerif-jpa-model-0.9.2">
             <dependency-type>uses</dependency-type>
         </dependent-module>
 		<property name="java-output-path" value="target/classes"/>
