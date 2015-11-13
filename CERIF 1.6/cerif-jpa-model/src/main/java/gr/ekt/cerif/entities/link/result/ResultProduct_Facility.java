@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.entities.link.result;
 
+import gr.ekt.cerif.entities.infrastructure.Facility;
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.result.ResultProduct;
+import gr.ekt.cerif.features.semantics.Class;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,14 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import gr.ekt.cerif.entities.infrastructure.Facility;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.result.ResultProduct;
-import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * 
@@ -48,7 +45,6 @@ public class ResultProduct_Facility implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResProdId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ResultProduct resultProduct;
 
 	/**
@@ -56,7 +52,6 @@ public class ResultProduct_Facility implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFacilId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Facility facility;	
 	
 	/**
@@ -64,7 +59,6 @@ public class ResultProduct_Facility implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

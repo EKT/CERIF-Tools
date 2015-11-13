@@ -34,7 +34,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,17 +43,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Represents a result publication entity.
  * 
  */
 @Entity
 @Table(name="cfResPubl")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class ResultPublication implements CerifResultEntity {
 	
 	/**
@@ -155,18 +149,15 @@ public class ResultPublication implements CerifResultEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="resultPublication")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ResultPublicationTitle> resultPublicationTitles;
 	
 	@OneToMany(mappedBy="resultPublication")
 	private Set<ResultPublicationSubtitle> resultPublicationSubtitles;
 	
 	@OneToMany(mappedBy="resultPublication")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ResultPublicationAbstract> resultPublicationAbstracts;
 	
 	@OneToMany(mappedBy="resultPublication")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ResultPublicationKeyword> resultPublicationKeywords;
 	
 	@OneToMany(mappedBy="resultPublication")
@@ -186,15 +177,12 @@ public class ResultPublication implements CerifResultEntity {
 	private Set<ResultPublication_ResultProduct> resultPublications_resultProducts;
 	
 	@OneToMany(mappedBy="resultPublication")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Project_ResultPublication> projects_resultPublications;
 	
 	@OneToMany(mappedBy="resultPublication")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Person_ResultPublication> persons_resultPublications;
 	
 	@OneToMany(mappedBy="resultPublication")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnit_ResultPublication> organisationUnits_resultPublications;
 	
 	@OneToMany(mappedBy="resultPublication")

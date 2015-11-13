@@ -1,10 +1,10 @@
 package gr.ekt.cerif.entities.link.result;
 
-import java.util.Date;
-
 import gr.ekt.cerif.entities.result.ResultPatent;
 import gr.ekt.cerif.entities.result.ResultProduct;
 import gr.ekt.cerif.features.semantics.Class;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name="cfResProd_ResPat", uniqueConstraints=@UniqueConstraint(columnNames={"cfResProdId", "cfResPatId", "cfClassId", "cfEndDate", "cfStartDate"}))
@@ -36,7 +33,6 @@ public class ResultProduct_ResultPatent {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfResProdId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ResultProduct resultProduct;
 	
 	/**
@@ -44,7 +40,6 @@ public class ResultProduct_ResultPatent {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPatId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ResultPatent resultPatent;
 	
 	/**
@@ -52,7 +47,6 @@ public class ResultProduct_ResultPatent {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

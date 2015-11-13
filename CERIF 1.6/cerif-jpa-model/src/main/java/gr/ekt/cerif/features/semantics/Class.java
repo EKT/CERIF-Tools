@@ -172,7 +172,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -184,17 +183,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Represents a classification semantic.
  * 
  */
 @Entity
 @Table(name="cfClass")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Class implements CerifSemanticFeature {
 
 	/**
@@ -239,7 +233,6 @@ public class Class implements CerifSemanticFeature {
 	 */
 	@ManyToOne
 	@JoinColumn (name = "cfClassSchemeId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ClassScheme scheme;
 
 	
@@ -1992,20 +1985,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @return the persons_measuremenst
-	 */
-	public Set<Person_Measurement> getPersons_measurements() {
-		return persons_measurements;
-	}
-
-	/**
-	 * @param persons_measuremenst the persons_measuremenst to set
-	 */
-	public void setPersons_measuremenst(Set<Person_Measurement> persons_measurements) {
-		this.persons_measurements = persons_measurements;
-	}
-
-	/**
 	 * @return the persons_prizes
 	 */
 	public Set<Person_Prize> getPersons_prizes() {
@@ -3160,13 +3139,6 @@ public class Class implements CerifSemanticFeature {
 	}
 
 	/**
-	 * @param persons_measurements the persons_measurements to set
-	 */
-	public void setPersons_measurements(Set<Person_Measurement> persons_measurements) {
-		this.persons_measurements = persons_measurements;
-	}
-
-	/**
 	 * @return the mediums_fundings
 	 */
 	public Set<Medium_Funding> getMediums_fundings() {
@@ -3178,6 +3150,20 @@ public class Class implements CerifSemanticFeature {
 	 */
 	public void setMediums_fundings(Set<Medium_Funding> mediums_fundings) {
 		this.mediums_fundings = mediums_fundings;
+	}
+
+	/**
+	 * @return the persons_measurements
+	 */
+	public Set<Person_Measurement> getPersons_measurements() {
+		return persons_measurements;
+	}
+
+	/**
+	 * @param persons_measurements the persons_measurements to set
+	 */
+	public void setPersons_measurements(Set<Person_Measurement> persons_measurements) {
+		this.persons_measurements = persons_measurements;
 	}
 
 	/**

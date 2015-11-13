@@ -21,9 +21,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * 
  */
@@ -48,7 +45,6 @@ public class ResultPatent_Facility implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPatId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ResultPatent resultPatent;
 
 	/**
@@ -56,7 +52,6 @@ public class ResultPatent_Facility implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFacilId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Facility facility;	
 	
 	/**
@@ -64,7 +59,6 @@ public class ResultPatent_Facility implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

@@ -21,9 +21,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Links a person with an electronic address.
  * 
@@ -49,7 +46,6 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person;
 
 	/**
@@ -57,7 +53,6 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfEAddrId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ElectronicAddress electronicAddress;
 
 	/**
@@ -65,7 +60,6 @@ public class Person_ElectronicAddress implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

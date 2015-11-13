@@ -27,7 +27,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,17 +38,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Represents an funding second level entity.
  * 
  */
 @Entity
 @Table(name="cfFund")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Funding implements CerifSecondLevelEntity {
 	
 	/**
@@ -71,7 +65,6 @@ public class Funding implements CerifSecondLevelEntity {
 	 */
 	@ManyToOne
 	@JoinColumn(name="cfCurrCode")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Currency currency;
 	
 	/**

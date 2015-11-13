@@ -3,9 +3,6 @@
  */
 package gr.ekt.cerif.entities.infrastructure;
 
-import java.util.List;
-import java.util.Set;
-
 import gr.ekt.cerif.entities.link.Facility_Class;
 import gr.ekt.cerif.entities.link.Facility_Equipment;
 import gr.ekt.cerif.entities.link.Facility_Event;
@@ -27,7 +24,9 @@ import gr.ekt.cerif.features.multilingual.FacilityDescription;
 import gr.ekt.cerif.features.multilingual.FacilityKeyword;
 import gr.ekt.cerif.features.multilingual.FacilityName;
 
-import javax.persistence.Cacheable;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,22 +36,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
-
 
 /**
  * Represents a facility second level entity.
  */
 @Entity
 @Table(name="cfFacil")
-@Indexed(index="indexes/facilities")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Facility implements CerifInfrastructureEntity {
 	
 	/**
@@ -72,7 +61,6 @@ public class Facility implements CerifInfrastructureEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
-	@Field(name="facilityAcronym", index=Index.YES, store=Store.YES)
 	private String acronym;
 	
 	/**
@@ -92,7 +80,6 @@ public class Facility implements CerifInfrastructureEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="facility")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<FacilityName> facilityNames;
 	
 	@OneToMany(mappedBy="facility")

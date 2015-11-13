@@ -22,9 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * 
  */
@@ -49,7 +46,6 @@ public class Person_Funding implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person;
 	
 	/**
@@ -57,7 +53,6 @@ public class Person_Funding implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFundId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Funding funding;
 	
 	/**
@@ -65,7 +60,6 @@ public class Person_Funding implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**
@@ -93,7 +87,6 @@ public class Person_Funding implements CerifLinkEntity {
 	 */
 	@ManyToOne
 	@JoinColumn(name="cfCurrCode")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Currency currency;
 	
 	/**

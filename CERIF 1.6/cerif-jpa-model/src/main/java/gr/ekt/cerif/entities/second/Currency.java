@@ -5,25 +5,42 @@ package gr.ekt.cerif.entities.second;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 import gr.ekt.cerif.entities.link.Currency_Class;
+import gr.ekt.cerif.entities.link.Equipment_Funding;
+import gr.ekt.cerif.entities.link.Event_Funding;
+import gr.ekt.cerif.entities.link.Facility_Funding;
+import gr.ekt.cerif.entities.link.Funding_Indicator;
+import gr.ekt.cerif.entities.link.Funding_Measurement;
+import gr.ekt.cerif.entities.link.Medium_Funding;
+import gr.ekt.cerif.entities.link.Service_Funding;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Equipment;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ExpertiseAndSkills;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Facility;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Funding;
 import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_ResultProduct;
+import gr.ekt.cerif.entities.link.organisationunit.OrganisationUnit_Service;
+import gr.ekt.cerif.entities.link.person.Person_Equipment;
+import gr.ekt.cerif.entities.link.person.Person_ExpertiseAndSkills;
+import gr.ekt.cerif.entities.link.person.Person_Facility;
+import gr.ekt.cerif.entities.link.person.Person_Funding;
+import gr.ekt.cerif.entities.link.person.Person_ResultProduct;
+import gr.ekt.cerif.entities.link.person.Person_Service;
 import gr.ekt.cerif.entities.link.project.Project_Equipment;
 import gr.ekt.cerif.entities.link.project.Project_Facility;
 import gr.ekt.cerif.entities.link.project.Project_Funding;
 import gr.ekt.cerif.entities.link.project.Project_Service;
+import gr.ekt.cerif.entities.link.result.ResultPatent_Funding;
+import gr.ekt.cerif.entities.link.result.ResultProduct_Funding;
+import gr.ekt.cerif.entities.link.result.ResultPublication_Funding;
 import gr.ekt.cerif.features.multilingual.CurrencyEntityName;
 import gr.ekt.cerif.features.multilingual.CurrencyName;
 
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Represents a currency second level entity.
@@ -31,8 +48,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfCurrency")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Currency implements CerifSecondLevelEntity {
 	/**
 	 * Serialization version.
@@ -98,6 +113,72 @@ public class Currency implements CerifSecondLevelEntity {
 	
 	@OneToMany(mappedBy="currency")
 	private Set<Currency_Class> currencies_classes;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<OrganisationUnit_Equipment> organisationUnits_equipments;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<OrganisationUnit_ExpertiseAndSkills> organisationUnits_expertiseAndSkills;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<OrganisationUnit_Facility> organisationUnits_facilities;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<OrganisationUnit_Funding> organisationUnits_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<OrganisationUnit_Service> organisationUnits_services;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Person_Equipment> persons_equipments;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Person_ExpertiseAndSkills> persons_expertiseAndSkills;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Person_Facility> persons_facilities;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Person_Funding> persons_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Person_ResultProduct> persons_resultProducts;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Person_Service> persons_services;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<ResultPatent_Funding> resultPatents_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<ResultProduct_Funding> resultProducts_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<ResultPublication_Funding> resultPublications_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Equipment_Funding> equipments_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Event_Funding> events_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Facility_Funding> facilities_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Funding_Indicator> fundings_indicators;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Funding_Measurement> fundings_measurements;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Medium_Funding> mediums_fundings;
+	
+	@OneToMany(mappedBy="currency")
+	private Set<Service_Funding> services_fundings;
 
 	
 	//----------------------------------------------------------------------------------------------//
@@ -311,6 +392,326 @@ public class Currency implements CerifSecondLevelEntity {
 	}
 
 	
+	/**
+	 * @return the organisationUnits_equipments
+	 */
+	public Set<OrganisationUnit_Equipment> getOrganisationUnits_equipments() {
+		return organisationUnits_equipments;
+	}
+
+	/**
+	 * @param organisationUnits_equipments the organisationUnits_equipments to set
+	 */
+	public void setOrganisationUnits_equipments(
+			Set<OrganisationUnit_Equipment> organisationUnits_equipments) {
+		this.organisationUnits_equipments = organisationUnits_equipments;
+	}
+
+	/**
+	 * @return the organisationUnits_expertiseAndSkills
+	 */
+	public Set<OrganisationUnit_ExpertiseAndSkills> getOrganisationUnits_expertiseAndSkills() {
+		return organisationUnits_expertiseAndSkills;
+	}
+
+	/**
+	 * @param organisationUnits_expertiseAndSkills the organisationUnits_expertiseAndSkills to set
+	 */
+	public void setOrganisationUnits_expertiseAndSkills(
+			Set<OrganisationUnit_ExpertiseAndSkills> organisationUnits_expertiseAndSkills) {
+		this.organisationUnits_expertiseAndSkills = organisationUnits_expertiseAndSkills;
+	}
+
+	/**
+	 * @return the organisationUnits_facilities
+	 */
+	public Set<OrganisationUnit_Facility> getOrganisationUnits_facilities() {
+		return organisationUnits_facilities;
+	}
+
+	/**
+	 * @param organisationUnits_facilities the organisationUnits_facilities to set
+	 */
+	public void setOrganisationUnits_facilities(
+			Set<OrganisationUnit_Facility> organisationUnits_facilities) {
+		this.organisationUnits_facilities = organisationUnits_facilities;
+	}
+
+	/**
+	 * @return the organisationUnits_fundings
+	 */
+	public Set<OrganisationUnit_Funding> getOrganisationUnits_fundings() {
+		return organisationUnits_fundings;
+	}
+
+	/**
+	 * @param organisationUnits_fundings the organisationUnits_fundings to set
+	 */
+	public void setOrganisationUnits_fundings(
+			Set<OrganisationUnit_Funding> organisationUnits_fundings) {
+		this.organisationUnits_fundings = organisationUnits_fundings;
+	}
+
+	/**
+	 * @return the organisationUnits_resultProducts
+	 */
+	public Set<OrganisationUnit_ResultProduct> getOrganisationUnits_resultProducts() {
+		return organisationUnits_resultProducts;
+	}
+
+	/**
+	 * @param organisationUnits_resultProducts the organisationUnits_resultProducts to set
+	 */
+	public void setOrganisationUnits_resultProducts(
+			Set<OrganisationUnit_ResultProduct> organisationUnits_resultProducts) {
+		this.organisationUnits_resultProducts = organisationUnits_resultProducts;
+	}
+
+	/**
+	 * @return the organisationUnits_services
+	 */
+	public Set<OrganisationUnit_Service> getOrganisationUnits_services() {
+		return organisationUnits_services;
+	}
+
+	/**
+	 * @param organisationUnits_services the organisationUnits_services to set
+	 */
+	public void setOrganisationUnits_services(
+			Set<OrganisationUnit_Service> organisationUnits_services) {
+		this.organisationUnits_services = organisationUnits_services;
+	}
+
+	/**
+	 * @return the persons_equipments
+	 */
+	public Set<Person_Equipment> getPersons_equipments() {
+		return persons_equipments;
+	}
+
+	/**
+	 * @param persons_equipments the persons_equipments to set
+	 */
+	public void setPersons_equipments(Set<Person_Equipment> persons_equipments) {
+		this.persons_equipments = persons_equipments;
+	}
+
+	/**
+	 * @return the persons_expertiseAndSkills
+	 */
+	public Set<Person_ExpertiseAndSkills> getPersons_expertiseAndSkills() {
+		return persons_expertiseAndSkills;
+	}
+
+	/**
+	 * @param persons_expertiseAndSkills the persons_expertiseAndSkills to set
+	 */
+	public void setPersons_expertiseAndSkills(
+			Set<Person_ExpertiseAndSkills> persons_expertiseAndSkills) {
+		this.persons_expertiseAndSkills = persons_expertiseAndSkills;
+	}
+
+	/**
+	 * @return the persons_facilities
+	 */
+	public Set<Person_Facility> getPersons_facilities() {
+		return persons_facilities;
+	}
+
+	/**
+	 * @param persons_facilities the persons_facilities to set
+	 */
+	public void setPersons_facilities(Set<Person_Facility> persons_facilities) {
+		this.persons_facilities = persons_facilities;
+	}
+
+	/**
+	 * @return the persons_fundings
+	 */
+	public Set<Person_Funding> getPersons_fundings() {
+		return persons_fundings;
+	}
+
+	/**
+	 * @param persons_fundings the persons_fundings to set
+	 */
+	public void setPersons_fundings(Set<Person_Funding> persons_fundings) {
+		this.persons_fundings = persons_fundings;
+	}
+
+	/**
+	 * @return the persons_resultProducts
+	 */
+	public Set<Person_ResultProduct> getPersons_resultProducts() {
+		return persons_resultProducts;
+	}
+
+	/**
+	 * @param persons_resultProducts the persons_resultProducts to set
+	 */
+	public void setPersons_resultProducts(
+			Set<Person_ResultProduct> persons_resultProducts) {
+		this.persons_resultProducts = persons_resultProducts;
+	}
+
+	/**
+	 * @return the persons_services
+	 */
+	public Set<Person_Service> getPersons_services() {
+		return persons_services;
+	}
+
+	/**
+	 * @param persons_services the persons_services to set
+	 */
+	public void setPersons_services(Set<Person_Service> persons_services) {
+		this.persons_services = persons_services;
+	}
+
+	/**
+	 * @return the resultPatents_fundings
+	 */
+	public Set<ResultPatent_Funding> getResultPatents_fundings() {
+		return resultPatents_fundings;
+	}
+
+	/**
+	 * @param resultPatents_fundings the resultPatents_fundings to set
+	 */
+	public void setResultPatents_fundings(
+			Set<ResultPatent_Funding> resultPatents_fundings) {
+		this.resultPatents_fundings = resultPatents_fundings;
+	}
+
+	/**
+	 * @return the resultProducts_fundings
+	 */
+	public Set<ResultProduct_Funding> getResultProducts_fundings() {
+		return resultProducts_fundings;
+	}
+
+	/**
+	 * @param resultProducts_fundings the resultProducts_fundings to set
+	 */
+	public void setResultProducts_fundings(
+			Set<ResultProduct_Funding> resultProducts_fundings) {
+		this.resultProducts_fundings = resultProducts_fundings;
+	}
+
+	/**
+	 * @return the resultPublications_fundings
+	 */
+	public Set<ResultPublication_Funding> getResultPublications_fundings() {
+		return resultPublications_fundings;
+	}
+
+	/**
+	 * @param resultPublications_fundings the resultPublications_fundings to set
+	 */
+	public void setResultPublications_fundings(
+			Set<ResultPublication_Funding> resultPublications_fundings) {
+		this.resultPublications_fundings = resultPublications_fundings;
+	}
+
+	/**
+	 * @return the equipments_fundings
+	 */
+	public Set<Equipment_Funding> getEquipments_fundings() {
+		return equipments_fundings;
+	}
+
+	/**
+	 * @param equipments_fundings the equipments_fundings to set
+	 */
+	public void setEquipments_fundings(Set<Equipment_Funding> equipments_fundings) {
+		this.equipments_fundings = equipments_fundings;
+	}
+
+	/**
+	 * @return the events_fundings
+	 */
+	public Set<Event_Funding> getEvents_fundings() {
+		return events_fundings;
+	}
+
+	/**
+	 * @param events_fundings the events_fundings to set
+	 */
+	public void setEvents_fundings(Set<Event_Funding> events_fundings) {
+		this.events_fundings = events_fundings;
+	}
+
+	/**
+	 * @return the facilities_fundings
+	 */
+	public Set<Facility_Funding> getFacilities_fundings() {
+		return facilities_fundings;
+	}
+
+	/**
+	 * @param facilities_fundings the facilities_fundings to set
+	 */
+	public void setFacilities_fundings(Set<Facility_Funding> facilities_fundings) {
+		this.facilities_fundings = facilities_fundings;
+	}
+
+	/**
+	 * @return the fundings_indicators
+	 */
+	public Set<Funding_Indicator> getFundings_indicators() {
+		return fundings_indicators;
+	}
+
+	/**
+	 * @param fundings_indicators the fundings_indicators to set
+	 */
+	public void setFundings_indicators(Set<Funding_Indicator> fundings_indicators) {
+		this.fundings_indicators = fundings_indicators;
+	}
+
+	/**
+	 * @return the fundings_measurements
+	 */
+	public Set<Funding_Measurement> getFundings_measurements() {
+		return fundings_measurements;
+	}
+
+	/**
+	 * @param fundings_measurements the fundings_measurements to set
+	 */
+	public void setFundings_measurements(
+			Set<Funding_Measurement> fundings_measurements) {
+		this.fundings_measurements = fundings_measurements;
+	}
+
+	/**
+	 * @return the mediums_fundings
+	 */
+	public Set<Medium_Funding> getMediums_fundings() {
+		return mediums_fundings;
+	}
+
+	/**
+	 * @param mediums_fundings the mediums_fundings to set
+	 */
+	public void setMediums_fundings(Set<Medium_Funding> mediums_fundings) {
+		this.mediums_fundings = mediums_fundings;
+	}
+
+	/**
+	 * @return the services_fundings
+	 */
+	public Set<Service_Funding> getServices_fundings() {
+		return services_fundings;
+	}
+
+	/**
+	 * @param services_fundings the services_fundings to set
+	 */
+	public void setServices_fundings(Set<Service_Funding> services_fundings) {
+		this.services_fundings = services_fundings;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

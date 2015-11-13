@@ -3,6 +3,12 @@
  */
 package gr.ekt.cerif.entities.link.person;
 
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.infrastructure.Service;
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.second.Currency;
+import gr.ekt.cerif.features.semantics.Class;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,15 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.infrastructure.Service;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.second.Currency;
-import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * 
@@ -49,7 +46,6 @@ public class Person_Service implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person;
 	
 	/**
@@ -57,7 +53,6 @@ public class Person_Service implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfSrvId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Service service;
 	
 	/**
@@ -65,7 +60,6 @@ public class Person_Service implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**
@@ -99,7 +93,6 @@ public class Person_Service implements CerifLinkEntity {
 	 */
 	@ManyToOne
 	@JoinColumn(name="cfCurrCode")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Currency currency;
 
 	/**

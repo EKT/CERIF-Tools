@@ -21,9 +21,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Links a project with a result product.
  * 
@@ -48,7 +45,6 @@ public class Project_ResultProduct implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Project project;
 	
 	/**
@@ -56,7 +52,6 @@ public class Project_ResultProduct implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResProdId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ResultProduct resultProduct;
 	
 	/**
@@ -64,7 +59,6 @@ public class Project_ResultProduct implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

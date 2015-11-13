@@ -12,44 +12,6 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	<description>Cerif JPA Configuration</description>
-	
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${db.driver}" />
-		<property name="url" value="${db.url}" />
-		<property name="username" value="${db.username}" />
-		<property name="password" value="${db.password}" />
-	</bean>
-	
-	
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="jpaProperties">
-        	<props>
-        		<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-        		<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-        		<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-        		<prop key="hibernate.search.default.indexBase">${hibernate.indexBase}</prop>
-        		<prop key="hibernate.search.indexing_strategy">${hibernate.search.indexing_strategy}</prop>
-        		
-        		<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
-        		<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
-        		<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
-        	</props>
-        </property>
-        <property name="jpaVendorAdapter" ref="vendorAdapter" />
-    </bean>
-
-	<bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-	    <property name="showSql" value="false"/>
-	    <property name="generateDdl" value="false" />
-        <property name="databasePlatform" value="${hibernate.dialect}" />
-	</bean>
-		
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
-	<context:component-scan base-package="gr.ekt.cerif" />
-
-	<jpa:repositories base-package="gr.ekt.cerif" /> -->
+	<description>CERIF Model</description>
 
 </beans>

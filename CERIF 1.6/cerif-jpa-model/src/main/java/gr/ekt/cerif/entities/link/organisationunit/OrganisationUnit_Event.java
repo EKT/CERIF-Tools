@@ -21,9 +21,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * 
  */
@@ -48,7 +45,6 @@ public class OrganisationUnit_Event implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfOrgUnitId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private OrganisationUnit organisationUnit;
 	
 	/**
@@ -56,7 +52,6 @@ public class OrganisationUnit_Event implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfEventId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Event event;
 	
 	/**
@@ -64,7 +59,6 @@ public class OrganisationUnit_Event implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

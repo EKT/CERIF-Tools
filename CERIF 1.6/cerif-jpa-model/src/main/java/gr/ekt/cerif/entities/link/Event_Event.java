@@ -19,9 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * 
  */
@@ -47,7 +44,6 @@ public class Event_Event implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEventId1")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Event event1;
 	
 	/**
@@ -55,7 +51,6 @@ public class Event_Event implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfEventId2")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Event event2;
 	
 	/**
@@ -63,7 +58,6 @@ public class Event_Event implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**
@@ -79,6 +73,12 @@ public class Event_Event implements CerifLinkEntity {
 	@NotNull
 	@Column (name="cfEndDate")
 	private Date endDate;
+	
+	/**
+	 * The fraction.
+	 */
+	@Column(name="cfFraction")
+	private Double fraction;
 
 	/**
 	 * Default Constructor
@@ -186,6 +186,20 @@ public class Event_Event implements CerifLinkEntity {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the fraction
+	 */
+	public Double getFraction() {
+		return fraction;
+	}
+
+	/**
+	 * @param fraction the fraction to set
+	 */
+	public void setFraction(Double fraction) {
+		this.fraction = fraction;
 	}
 
 	/* (non-Javadoc)

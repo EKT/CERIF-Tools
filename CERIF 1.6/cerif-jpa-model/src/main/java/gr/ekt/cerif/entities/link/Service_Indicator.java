@@ -20,9 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * 
  */
@@ -47,7 +44,6 @@ public class Service_Indicator implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfSrvId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Service service;
 	
 	/**
@@ -55,7 +51,6 @@ public class Service_Indicator implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfIndicId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Indicator indicator;
 	
 	/**
@@ -63,7 +58,6 @@ public class Service_Indicator implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

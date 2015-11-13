@@ -6,7 +6,6 @@ package gr.ekt.cerif.features.multilingual;
 import gr.ekt.cerif.entities.second.Country;
 import gr.ekt.cerif.entities.second.Language;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,17 +19,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Holds the multi-lingual name of a country entity.
  * 
  */
 @Entity
 @Table(name="cfCountryName", uniqueConstraints=@UniqueConstraint(columnNames={"cfCountryCode","cfLangCode","cfTrans"}))
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class CountryName implements CerifMultipleLanguageFeature {
 	
 	/**
@@ -50,7 +44,6 @@ public class CountryName implements CerifMultipleLanguageFeature {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfCountryCode")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Country country;
 	
 	/**
@@ -58,7 +51,6 @@ public class CountryName implements CerifMultipleLanguageFeature {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Language language;
 	
 	/**

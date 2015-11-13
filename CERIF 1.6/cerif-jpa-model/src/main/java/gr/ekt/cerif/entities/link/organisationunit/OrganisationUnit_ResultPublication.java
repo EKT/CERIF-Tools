@@ -10,7 +10,6 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,17 +21,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Links a project with an organization unit.
  * 
  */
 @Entity
 @Table(name="cfOrgUnit_ResPubl", uniqueConstraints=@UniqueConstraint(columnNames={"cfOrgUnitId","cfResPublId","cfClassId","cfStartDate","cfEndDate"}))
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class OrganisationUnit_ResultPublication implements CerifLinkEntity {
 
 	/**
@@ -52,7 +46,6 @@ public class OrganisationUnit_ResultPublication implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfOrgUnitId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private OrganisationUnit organisationUnit;
 	
 	/**
@@ -60,7 +53,6 @@ public class OrganisationUnit_ResultPublication implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ResultPublication resultPublication;
 	
 	/**
@@ -68,7 +60,6 @@ public class OrganisationUnit_ResultPublication implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

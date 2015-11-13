@@ -20,9 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Links a organisationUnit with an organization unit.
  * 
@@ -48,7 +45,6 @@ public class OrganisationUnit_OrganisationUnit implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfOrgUnitId1")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private OrganisationUnit organisationUnit1;
 	
 	/**
@@ -56,7 +52,6 @@ public class OrganisationUnit_OrganisationUnit implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfOrgUnitId2")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private OrganisationUnit organisationUnit2;
 	
 	/**
@@ -64,7 +59,6 @@ public class OrganisationUnit_OrganisationUnit implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

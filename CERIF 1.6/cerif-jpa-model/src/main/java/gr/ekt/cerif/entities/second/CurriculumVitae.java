@@ -245,7 +245,7 @@ public class CurriculumVitae implements CerifSecondLevelEntity {
 	 */
 	@Override
 	public String toString() {
-		return "CV [id=" + id + ", doc=" + Arrays.toString(doc) + ", uri="
+		return "CurriculumVitae [id=" + id + ", doc=" + Arrays.toString(doc) + ", uri="
 				+ uri + ", uuid=" + uuid + "]";
 	}
 

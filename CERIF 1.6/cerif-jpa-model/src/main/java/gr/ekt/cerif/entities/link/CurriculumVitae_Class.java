@@ -19,9 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * 
  */
@@ -46,7 +43,6 @@ public class CurriculumVitae_Class implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfCVId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private CurriculumVitae curriculumVitae;
 	
 	/**
@@ -54,7 +50,6 @@ public class CurriculumVitae_Class implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**
@@ -190,7 +185,7 @@ public class CurriculumVitae_Class implements CerifLinkEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Cv_Class [id=" + id + ", curriculumVitae=" + curriculumVitae + ", theClass=" + theClass
+		return "CurriculumVitae_Class [id=" + id + ", curriculumVitae=" + curriculumVitae + ", theClass=" + theClass
 				+ ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", fraction=" + fraction + "]";
 	}

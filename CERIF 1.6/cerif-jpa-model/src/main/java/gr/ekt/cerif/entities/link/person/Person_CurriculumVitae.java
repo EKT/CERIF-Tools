@@ -3,6 +3,11 @@
  */
 package gr.ekt.cerif.entities.link.person;
 
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.second.CurriculumVitae;
+import gr.ekt.cerif.features.semantics.Class;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,14 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.second.CurriculumVitae;
-import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * 
@@ -48,7 +45,6 @@ public class Person_CurriculumVitae implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person;
 	
 	/**
@@ -56,7 +52,6 @@ public class Person_CurriculumVitae implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfCVId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private CurriculumVitae curriculumVitae;
 	
 	/**
@@ -64,7 +59,6 @@ public class Person_CurriculumVitae implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**
@@ -233,7 +227,7 @@ public class Person_CurriculumVitae implements CerifLinkEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Person_Cv [id=" + id + ", person=" + person + ", curriculumVitae=" + curriculumVitae
+		return "Person_CurriculumVitae [id=" + id + ", person=" + person + ", curriculumVitae=" + curriculumVitae
 				+ ", theClass=" + theClass + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", fraction=" + fraction + "]";
 	}

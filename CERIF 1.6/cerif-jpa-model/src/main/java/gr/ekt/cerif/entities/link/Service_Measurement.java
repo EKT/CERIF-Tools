@@ -7,7 +7,6 @@ import gr.ekt.cerif.entities.infrastructure.Service;
 import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.features.semantics.Class;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -20,9 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * 
@@ -48,7 +44,6 @@ public class Service_Measurement implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfSrvId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Service service;
 	
 	/**
@@ -56,7 +51,6 @@ public class Service_Measurement implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfMeasId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Measurement measurement;
 	
 	/**
@@ -64,7 +58,6 @@ public class Service_Measurement implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

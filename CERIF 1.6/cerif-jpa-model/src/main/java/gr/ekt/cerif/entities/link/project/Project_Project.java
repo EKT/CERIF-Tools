@@ -20,9 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Links a project with an organization unit.
  * 
@@ -48,7 +45,6 @@ public class Project_Project implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId1")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Project project1;
 	
 	/**
@@ -56,7 +52,6 @@ public class Project_Project implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId2")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Project project2;
 	
 	/**
@@ -64,7 +59,6 @@ public class Project_Project implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

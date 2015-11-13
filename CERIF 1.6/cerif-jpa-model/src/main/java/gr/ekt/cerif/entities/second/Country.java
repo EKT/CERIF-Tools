@@ -10,15 +10,11 @@ import gr.ekt.cerif.features.multilingual.CountryName;
 
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Represents a country second level entity.
@@ -26,8 +22,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfCountry")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Country implements CerifSecondLevelEntity {
 	
 	/**
@@ -59,7 +53,6 @@ public class Country implements CerifSecondLevelEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="country")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<CountryName> countryNames;
 	
 	
@@ -73,11 +66,9 @@ public class Country implements CerifSecondLevelEntity {
 	private Set<ResultPatent> patents;
 	
 	@OneToMany(mappedBy="country")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<PostalAddress> postalAddresses;
 	
 	@OneToMany(mappedBy="country")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Person_Country> persons_countries;
 	
 	@OneToMany(mappedBy="country")

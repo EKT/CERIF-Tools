@@ -3,10 +3,10 @@
  */
 package gr.ekt.cerif.entities.link;
 
-import java.util.Date;
-
 import gr.ekt.cerif.entities.second.Measurement;
 import gr.ekt.cerif.features.semantics.Class;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,9 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * 
@@ -46,7 +43,6 @@ public class Measurement_Measurement implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfMeasId1")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Measurement measurement1;
 
 	/**
@@ -54,7 +50,6 @@ public class Measurement_Measurement implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfMeasId2")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Measurement measurement2;
 	
 	/**
@@ -62,7 +57,6 @@ public class Measurement_Measurement implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

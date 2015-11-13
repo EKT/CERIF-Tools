@@ -3,12 +3,11 @@
  */
 package gr.ekt.cerif.features.additional;
 
-import java.util.Set;
-
 import gr.ekt.cerif.entities.link.PersonName_Class;
 import gr.ekt.cerif.entities.link.PersonName_Person;
 
-import javax.persistence.Cacheable;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,22 +16,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
-
 /**
  * Holds the names of the person entity.
  * 
  */
 @Entity
 @Table(name="cfPersName")
-@Indexed(index="indexes/persons/names")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class PersonName implements CerifAdditionalFeature {
 	
 	/**
@@ -49,14 +38,12 @@ public class PersonName implements CerifAdditionalFeature {
 	 * The person first names
 	 */
 	@Column(name="cfFirstNames")
-	@Field(name="personFirstNames", index=Index.YES, store=Store.YES)
 	private String firstNames;
 	
 	/**
 	 * The person family names
 	 */
 	@Column(name="cfFamilyNames")
-	@Field(name="personFamilyNames", index=Index.YES, store=Store.YES)
 	private String familyNames;
 	
 	/**
@@ -64,7 +51,6 @@ public class PersonName implements CerifAdditionalFeature {
 	 */
 	@Deprecated
 	@Column(name="cfOtherNames")
-	@Field(name="personOtherNames", index=Index.YES, store=Store.YES)
 	private String otherNames;
 	
 	

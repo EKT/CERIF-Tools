@@ -311,8 +311,8 @@ public class FederatedIdentifier implements CerifSecondLevelEntity {
 	public String toString() {
 		return "FederatedIdentifier [id=" + id + ", instanceId=" + instanceId
 				+ ", fedId=" + fedId + ", startDate=" + startDate
-				+ ", endDate=" + endDate + "]";
+				+ ", endDate=" + endDate + ", theClass=" + theClass
+				+ ", scheme=" + scheme + ", uuid=" + uuid + "]";
 	}
-
 
 }

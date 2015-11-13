@@ -3,12 +3,11 @@
  */
 package gr.ekt.cerif.entities.link;
 
-import java.util.Date;
-
 import gr.ekt.cerif.entities.infrastructure.Equipment;
 import gr.ekt.cerif.entities.infrastructure.Facility;
 import gr.ekt.cerif.features.semantics.Class;
 
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,9 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * 
@@ -48,7 +44,6 @@ public class Facility_Equipment implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfFacilId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Facility facility;
 	
 	/**
@@ -56,7 +51,6 @@ public class Facility_Equipment implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfEquipId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Equipment equipment;
 	
 	/**
@@ -64,7 +58,6 @@ public class Facility_Equipment implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

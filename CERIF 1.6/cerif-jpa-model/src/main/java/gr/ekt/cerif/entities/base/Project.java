@@ -29,7 +29,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,21 +38,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
-
 /**
  * Represents a project base entity.
  */
 @Entity
 @Table(name="cfProj")
-@Indexed(index="indexes/projects")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Project implements CerifBaseEntity {
 	
 	/**
@@ -87,7 +76,6 @@ public class Project implements CerifBaseEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
-	@Field(name="projectAcronym", index=Index.YES, store=Store.YES)
 	private String acronym;
 
 	/**
@@ -107,15 +95,12 @@ public class Project implements CerifBaseEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="project")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ProjectTitle> projectTitles;
 	
 	@OneToMany(mappedBy="project")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ProjectAbstract> projectAbstracts;
 	
 	@OneToMany(mappedBy="project")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ProjectKeyword> projectKeywords;
 
 	
@@ -123,7 +108,6 @@ public class Project implements CerifBaseEntity {
 	 * Links.
 	 */
 	@OneToMany(mappedBy="project")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Project_OrganisationUnit> projects_organisationUnits;
 	
 	@OneToMany(mappedBy="project1")
@@ -133,7 +117,6 @@ public class Project implements CerifBaseEntity {
 	private Set<Project_Project> projects_projects2;
 	
 	@OneToMany(mappedBy="project")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Project_Person> projects_persons;
 	
 	@OneToMany(mappedBy="project")
@@ -152,7 +135,6 @@ public class Project implements CerifBaseEntity {
 	private Set<Project_Facility> projects_facilities;
 
 	@OneToMany(mappedBy="project")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Project_Funding> projects_fundings;
 
 	@OneToMany(mappedBy="project")
@@ -162,7 +144,6 @@ public class Project implements CerifBaseEntity {
 	private Set<Project_ResultPatent> projects_resultPatents;
 
 	@OneToMany(mappedBy="project")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Project_ResultPublication> projects_resultPublications;
 
 	@OneToMany(mappedBy="project")

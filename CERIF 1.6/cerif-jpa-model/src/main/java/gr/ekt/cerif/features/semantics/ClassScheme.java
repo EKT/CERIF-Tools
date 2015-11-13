@@ -14,7 +14,6 @@ import gr.ekt.cerif.features.multilingual.ClassSchemeName;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,17 +23,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Represents a classification scheme semantic.
  * 
  */
 @Entity
 @Table (name = "cfClassScheme")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class ClassScheme implements CerifSemanticFeature {
 	
 	/**
@@ -70,7 +64,6 @@ public class ClassScheme implements CerifSemanticFeature {
 	private Set<ClassSchemeDescription> classSchemeDescriptions;
 	
 	@OneToMany(mappedBy="scheme")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ClassSchemeName> classSchemeNames;
 	
 
@@ -78,7 +71,6 @@ public class ClassScheme implements CerifSemanticFeature {
 	 * Links.
 	 */
 	@OneToMany (mappedBy = "scheme")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Class> classes;
 	
 	@OneToMany(mappedBy="scheme")

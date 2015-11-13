@@ -19,9 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Holds the multi-lingual keyword of a person entity.
  * 
@@ -48,7 +45,6 @@ public class PersonKeyword implements CerifMultipleLanguageFeature {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person;
 	
 	/**
@@ -56,7 +52,6 @@ public class PersonKeyword implements CerifMultipleLanguageFeature {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Language language;
 	
 	/**

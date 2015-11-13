@@ -66,6 +66,12 @@ public class ClassScheme_OrganisationUnit implements CerifLinkEntity {
 	@Column (name="cfEndDate")
 	private Date endDate;
 	
+	/**
+	 * The fraction.
+	 */
+	@Column(name="cfFraction")
+	private Double fraction;
+	
 	
 	/**
 	 * 
@@ -174,6 +180,34 @@ public class ClassScheme_OrganisationUnit implements CerifLinkEntity {
 	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	
+	/**
+	 * @return the scheme
+	 */
+	public ClassScheme getScheme() {
+		return scheme;
+	}
+
+	/**
+	 * @param scheme the scheme to set
+	 */
+	public void setScheme(ClassScheme scheme) {
+		this.scheme = scheme;
+	}
+
+	/**
+	 * @return the fraction
+	 */
+	public Double getFraction() {
+		return fraction;
+	}
+
+	/**
+	 * @param fraction the fraction to set
+	 */
+	public void setFraction(Double fraction) {
+		this.fraction = fraction;
 	}
 
 	/* (non-Javadoc)

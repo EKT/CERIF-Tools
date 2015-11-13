@@ -22,9 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Links a project with a service.
  * 
@@ -50,7 +47,6 @@ public class Project_Service implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Project project;
 	
 	/**
@@ -58,7 +54,6 @@ public class Project_Service implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfSrvId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Service service;
 	
 	/**
@@ -66,7 +61,6 @@ public class Project_Service implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**
@@ -100,7 +94,6 @@ public class Project_Service implements CerifLinkEntity {
 	 */
 	@ManyToOne
 	@JoinColumn(name="cfCurrCode")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Currency currency;
 
 	/**

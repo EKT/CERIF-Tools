@@ -3,9 +3,13 @@
  */
 package gr.ekt.cerif.entities.link.person;
 
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.second.PostalAddress;
+import gr.ekt.cerif.features.semantics.Class;
+
 import java.util.Date;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,21 +21,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.second.PostalAddress;
-import gr.ekt.cerif.features.semantics.Class;
-
 /**
  * 
  */
 @Entity
 @Table(name="cfPers_PAddr", uniqueConstraints=@UniqueConstraint(columnNames={"cfPersId","cfPAddrId","cfClassId","cfStartDate","cfEndDate"}))
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Person_PostalAddress implements CerifLinkEntity {
 	
 	/**
@@ -51,7 +45,6 @@ public class Person_PostalAddress implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person;
 	
 	/**
@@ -59,7 +52,6 @@ public class Person_PostalAddress implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPAddrId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private PostalAddress postalAddress;
 	
 	/**
@@ -67,7 +59,6 @@ public class Person_PostalAddress implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

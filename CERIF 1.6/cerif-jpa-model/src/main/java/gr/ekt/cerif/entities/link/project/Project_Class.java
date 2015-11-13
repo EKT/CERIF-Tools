@@ -9,7 +9,6 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.Date;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,17 +20,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Links a project with a class.
  * 
  */
 @Entity
 @Table(name="cfProj_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfProjId","cfClassId","cfStartDate","cfEndDate"}))
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Project_Class implements CerifLinkEntity {
 	
 	/**
@@ -51,7 +45,6 @@ public class Project_Class implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfProjId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Project project;
 	
 	/**
@@ -59,7 +52,6 @@ public class Project_Class implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

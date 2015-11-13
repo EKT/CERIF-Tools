@@ -14,7 +14,6 @@ import gr.ekt.cerif.entities.link.person.Person_PostalAddress;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,17 +25,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Represents a postal address second level entity.
  * 
  */
 @Entity
 @Table(name="cfPAddr")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class PostalAddress implements CerifSecondLevelEntity {
 	
 	/**
@@ -69,7 +63,6 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	 */
 	@ManyToOne
 	@JoinColumn(name="cfCountryCode", nullable=false)
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Country country;
 
 	/**
@@ -125,19 +118,15 @@ public class PostalAddress implements CerifSecondLevelEntity {
 	 * Links.
 	 */
 	@OneToMany(mappedBy="postalAddress")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses;
 	
 	@OneToMany(mappedBy="postalAddress")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Person_PostalAddress> persons_postalAddresses;
 	
 	@OneToMany(mappedBy="postalAddress")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Service_PostalAddress> services_postalAddresses;
 	
 	@OneToMany(mappedBy="postalAddress")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Facility_PostalAddress> facilities_postalAddresses;
 	
 	@OneToMany(mappedBy="postalAddress")

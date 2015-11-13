@@ -3,6 +3,10 @@
  */
 package gr.ekt.cerif.entities.link.person;
 
+import gr.ekt.cerif.entities.base.Person;
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.features.semantics.Class;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,13 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import gr.ekt.cerif.entities.base.Person;
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.features.semantics.Class;
 
 /**
  * 
@@ -47,7 +44,6 @@ public class Person_Person implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId1")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person1;
 
 	/**
@@ -55,7 +51,6 @@ public class Person_Person implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfPersId2")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Person person2;
 
 	
@@ -64,7 +59,6 @@ public class Person_Person implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

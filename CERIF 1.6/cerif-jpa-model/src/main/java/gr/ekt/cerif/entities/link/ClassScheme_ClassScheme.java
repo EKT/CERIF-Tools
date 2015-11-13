@@ -19,9 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * 
  */
@@ -47,7 +44,6 @@ public class ClassScheme_ClassScheme implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassSchemeId1")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ClassScheme classScheme1;
 	
 	/**
@@ -55,7 +51,6 @@ public class ClassScheme_ClassScheme implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassSchemeId2")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ClassScheme classScheme2;
 	
 	/**
@@ -63,7 +58,6 @@ public class ClassScheme_ClassScheme implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

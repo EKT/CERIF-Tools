@@ -6,7 +6,6 @@ package gr.ekt.cerif.features.multilingual;
 import gr.ekt.cerif.entities.result.ResultPublication;
 import gr.ekt.cerif.entities.second.Language;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,17 +19,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Holds the multi-lingual subtitle of a publication result entity.
  * 
  */
 @Entity
 @Table(name="cfResPublSubtitle", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfLangCode","cfTrans"}))
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class ResultPublicationSubtitle implements CerifMultipleLanguageFeature {
 
 	/**
@@ -58,7 +52,6 @@ public class ResultPublicationSubtitle implements CerifMultipleLanguageFeature {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ResultPublication resultPublication;
 	
 	/**
@@ -66,7 +59,6 @@ public class ResultPublicationSubtitle implements CerifMultipleLanguageFeature {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfLangCode")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Language language;
 	
 	/**

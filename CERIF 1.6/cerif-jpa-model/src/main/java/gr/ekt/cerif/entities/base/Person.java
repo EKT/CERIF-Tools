@@ -37,7 +37,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -49,16 +48,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Represents a person base entity.
  */
 @Entity
 @Table(name="cfPers")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Person implements CerifBaseEntity {
 	
 	/**
@@ -152,11 +146,9 @@ public class Person implements CerifBaseEntity {
 	private Set<Person_Funding> persons_fundings;
 	
 	@OneToMany(mappedBy="person")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Person_Language> persons_languages;
 	
 	@OneToMany(mappedBy="person")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Person_OrganisationUnit> persons_organisationUnits;
 	
 	@OneToMany(mappedBy="person1")
@@ -166,7 +158,6 @@ public class Person implements CerifBaseEntity {
 	private Set<Person_Person> persons_persons2;
 
 	@OneToMany(mappedBy="person")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Person_PostalAddress> persons_postalAddresses;
 	
 	@OneToMany(mappedBy="person")
@@ -182,7 +173,6 @@ public class Person implements CerifBaseEntity {
 	private Set<Person_ResultProduct> persons_resultProducts;
 	
 	@OneToMany(mappedBy="person")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Person_ResultPublication> persons_resultPublications;
 	
 	@OneToMany(mappedBy="person")

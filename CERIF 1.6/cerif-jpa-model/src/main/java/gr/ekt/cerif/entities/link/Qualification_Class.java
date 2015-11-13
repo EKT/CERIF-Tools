@@ -3,10 +3,10 @@
  */
 package gr.ekt.cerif.entities.link;
 
-import java.util.Date;
-
 import gr.ekt.cerif.entities.second.Qualification;
 import gr.ekt.cerif.features.semantics.Class;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,14 +19,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * 
  */
 @Entity
-@Table(name="cfQual_class",  uniqueConstraints=@UniqueConstraint(columnNames={"cfQualId","cfClassId","cfStartDate","cfEndDate"}))
+@Table(name="cfQual_Class",  uniqueConstraints=@UniqueConstraint(columnNames={"cfQualId","cfClassId","cfStartDate","cfEndDate"}))
 public class Qualification_Class implements CerifLinkEntity {
 
 	/**
@@ -47,7 +44,6 @@ public class Qualification_Class implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfQualId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Qualification qualification;
 	
 	/**
@@ -55,7 +51,6 @@ public class Qualification_Class implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

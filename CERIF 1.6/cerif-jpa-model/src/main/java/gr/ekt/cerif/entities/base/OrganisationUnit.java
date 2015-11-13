@@ -34,7 +34,6 @@ import gr.ekt.cerif.features.multilingual.OrganisationUnitResearchActivity;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,21 +45,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
-
 /**
  * Represents an organization unit base entity.
  */
 @Entity
 @Table(name="cfOrgUnit")
-@Indexed(index="indexes/organisationUnits")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class OrganisationUnit implements CerifBaseEntity {
 	
 	/**
@@ -87,7 +76,6 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 * The acronym.
 	 */
 	@Column(name="cfAcro")
-	@Field(name="organisationUnitAcronym", index=Index.YES, store=Store.YES)
 	private String acronym;
 
 	/**
@@ -119,15 +107,12 @@ public class OrganisationUnit implements CerifBaseEntity {
 	 * Multilingual.
 	 */
 	@OneToMany(mappedBy="organisationUnit")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnitName> organisationUnitNames;
 	
 	@OneToMany(mappedBy="organisationUnit")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnitResearchActivity> organisationUnitResearchActivities;
 	
 	@OneToMany(mappedBy="organisationUnit")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnitKeyword> organisationUnitKeywords;
 	
 	
@@ -147,7 +132,6 @@ public class OrganisationUnit implements CerifBaseEntity {
 	private Set<Project_OrganisationUnit> projects_organisationUnits;
 	
 	@OneToMany(mappedBy="organisationUnit")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnit_PostalAddress> organisationUnits_postalAddresses;
 	
 	@OneToMany(mappedBy="organisationUnit")

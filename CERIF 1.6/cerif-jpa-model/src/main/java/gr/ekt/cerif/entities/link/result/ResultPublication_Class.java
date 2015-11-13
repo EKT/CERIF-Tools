@@ -3,9 +3,12 @@
  */
 package gr.ekt.cerif.entities.link.result;
 
+import gr.ekt.cerif.entities.link.CerifLinkEntity;
+import gr.ekt.cerif.entities.result.ResultPublication;
+import gr.ekt.cerif.features.semantics.Class;
+
 import java.util.Date;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,20 +20,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import gr.ekt.cerif.entities.link.CerifLinkEntity;
-import gr.ekt.cerif.entities.result.ResultPublication;
-import gr.ekt.cerif.features.semantics.Class;
-
 /**
  * 
  */
 @Entity
 @Table(name="cfResPubl_Class", uniqueConstraints=@UniqueConstraint(columnNames={"cfResPublId","cfClassId","cfStartDate","cfEndDate"}))
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class ResultPublication_Class implements CerifLinkEntity {
 
 	/**
@@ -50,7 +44,6 @@ public class ResultPublication_Class implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfResPublId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private ResultPublication resultPublication;
 	
 	/**
@@ -58,7 +51,6 @@ public class ResultPublication_Class implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cfClassId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**

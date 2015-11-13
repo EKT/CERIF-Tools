@@ -10,7 +10,6 @@ import gr.ekt.cerif.entities.link.person.Person_ElectronicAddress;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,17 +21,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * Represents an electronic address second level entity.
  * 
  */
 @Entity
 @Table(name="cfEAddr")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class ElectronicAddress implements CerifSecondLevelEntity {
 	
 	/**

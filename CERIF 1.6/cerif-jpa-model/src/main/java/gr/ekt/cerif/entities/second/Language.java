@@ -80,15 +80,11 @@ import gr.ekt.cerif.features.multilingual.ServiceName;
 
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Represents a language second level entity.
@@ -96,8 +92,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name="cfLang")
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	
 	/**
@@ -276,14 +270,12 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	private Set<MetricsDescription> metricsDescriptions;
 
 	@OneToMany(mappedBy="language")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnitName> organisationUnitNames;
 	
 	@OneToMany(mappedBy="language")
 	private Set<OrganisationUnitResearchActivity> organisationUnitResearchActivities;
 	
 	@OneToMany(mappedBy="language")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OrganisationUnitKeyword> organisationUnitKeywords;
 	
 	@OneToMany(mappedBy="language")
@@ -296,15 +288,12 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	private Set<PrizeDescription> prizeDescriptions;
 	
 	@OneToMany(mappedBy="language")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ProjectTitle> projectTitles;
 	
 	@OneToMany(mappedBy="language")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ProjectAbstract> projectAbstracts;
 	
 	@OneToMany(mappedBy="language")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ProjectKeyword> projectKeywords;
 	
 	@OneToMany(mappedBy="language")
@@ -344,18 +333,15 @@ public class Language implements CerifSecondLevelEntity, Comparable<Language> {
 	private Set<ResultProductKeyword> resultProductVersionInfos;
 	
 	@OneToMany(mappedBy="language")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ResultPublicationTitle> resultPublicationTitles;
 	
 	@OneToMany(mappedBy="language")
 	private Set<ResultPublicationSubtitle> resultPublicationSubtitles;
 	
 	@OneToMany(mappedBy="language")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ResultPublicationAbstract> resultPublicationAbstracts;
 	
 	@OneToMany(mappedBy="language")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<ResultPublicationKeyword> resultPublicationKeywords;
 	
 	@OneToMany(mappedBy="language")

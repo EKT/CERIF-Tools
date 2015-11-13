@@ -3,11 +3,11 @@
  */
 package gr.ekt.cerif.entities.link;
 
-import java.util.Date;
-
 import gr.ekt.cerif.entities.second.Indicator;
 import gr.ekt.cerif.entities.second.Medium;
 import gr.ekt.cerif.features.semantics.Class;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * 
@@ -47,7 +44,6 @@ public class Medium_Indicator implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfMediumId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Medium medium;
 	
 	/**
@@ -55,7 +51,6 @@ public class Medium_Indicator implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfIndicId")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Indicator indicator;
 	
 	/**
@@ -63,7 +58,6 @@ public class Medium_Indicator implements CerifLinkEntity {
 	 */
 	@ManyToOne(optional=false) 
 	@JoinColumn(name="cfClassId")	
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Class theClass;
 	
 	/**
