@@ -59,7 +59,7 @@ public interface FederatedIdentifierRepository {
 	
 	List<FederatedIdentifier> findFedIdByClassClassSchemeInstIdAndFedId(Class theClass, ClassScheme classScheme, Long instanceId, String fedId);
 	
-	List<FederatedIdentifier> findFedIdByClassClassSchemeAndFedId(Class theClass, ClassScheme classScheme, String fedId, Class fedType);
+	List<FederatedIdentifier> findFedIdByClassClassSchemeAndFedId(Class theClass, String fedId, Class fedType);
 	
 	FederatedIdentifier findByUuid(String uuid);
 	

@@ -12,10 +12,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LinkServiceServiceCrudRepository extends CrudRepository<Service_Service, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_Service> findByService1(Service service);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_Service> findByService2(Service service);
 
 }

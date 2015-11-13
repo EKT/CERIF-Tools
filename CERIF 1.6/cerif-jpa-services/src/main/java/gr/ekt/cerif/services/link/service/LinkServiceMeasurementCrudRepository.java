@@ -13,10 +13,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LinkServiceMeasurementCrudRepository extends CrudRepository<Service_Measurement, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_Measurement> findByMeasurement(Measurement measurement);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_Measurement> findByService(Service service);
 
 }

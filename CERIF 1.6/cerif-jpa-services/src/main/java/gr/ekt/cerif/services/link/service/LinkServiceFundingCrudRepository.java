@@ -13,10 +13,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LinkServiceFundingCrudRepository extends CrudRepository<Service_Funding, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_Funding> findByFunding(Funding funding);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_Funding> findByService(Service service);
 
 }

@@ -13,10 +13,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LinkServiceFederatedIdentifierCrudRepository extends CrudRepository<Service_FederatedIdentifier, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_FederatedIdentifier> findByFederatedIdentifier(FederatedIdentifier federatedIdentifier);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_FederatedIdentifier> findByService(Service service);
 
 }

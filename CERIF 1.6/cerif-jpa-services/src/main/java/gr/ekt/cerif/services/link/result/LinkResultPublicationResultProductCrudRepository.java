@@ -13,10 +13,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LinkResultPublicationResultProductCrudRepository extends CrudRepository<ResultPublication_ResultProduct, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ResultPublication_ResultProduct> findByResultPublication(ResultPublication resultPublication);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ResultPublication_ResultProduct> findByResultProduct(ResultProduct resultProduct);
 
 }

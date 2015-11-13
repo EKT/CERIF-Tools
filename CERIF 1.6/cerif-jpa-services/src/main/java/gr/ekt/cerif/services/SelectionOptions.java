@@ -31,9 +31,14 @@ public class SelectionOptions {
 	private List<ClassEnum> embeddedEntities = new ArrayList<ClassEnum>();
 	
 	/**
-	 * Link entities.
+	 * Linked objects: Entities from the other side of a link.
 	 */
-	private List<ClassEnum> linkEntities = new ArrayList<ClassEnum>();
+	private List<ClassEnum> links = new ArrayList<ClassEnum>();
+	
+	/**
+	 * Linked objects: Entities from the other side of a link.
+	 */
+	private List<ClassEnum> linkedObjects = new ArrayList<ClassEnum>();
 	
 	/**
 	 * Window size.
@@ -50,6 +55,8 @@ public class SelectionOptions {
 	 */
 	private boolean linksIncluded = false;
 	
+	private boolean classificationsIncluded = false;
+	
 	/**
 	 * Whether to include federated identifiers.
 	 */
@@ -60,10 +67,14 @@ public class SelectionOptions {
 	 */
 	private boolean multilingualIncluded = true;
 	
+	private boolean classificationRecordsIncluded = false;
+	
 	/**
 	 * Identifier of a single object.
 	 */
 	private Object id;
+	
+	private List<Object> identifierList;
 	
 	/**
 	 * How to select identifiers.
@@ -228,12 +239,12 @@ public class SelectionOptions {
 		return isSingleEntity() && !isFindById() && !isFindByUUID();
 	}
 	
-	public List<ClassEnum> getLinkEntities() {
-		return linkEntities;
+	public List<ClassEnum> getLinkedObjects() {
+		return linkedObjects;
 	}
 	
-	public void setLinkEntities(List<ClassEnum> parallelLinkEntities) {
-		this.linkEntities = parallelLinkEntities;
+	public void setLinkedObjects(List<ClassEnum> parallelLinkEntities) {
+		this.linkedObjects = parallelLinkEntities;
 	}
 	
 	public SelectionIdentifiersType getIdentifiersMode() {
@@ -243,8 +254,63 @@ public class SelectionOptions {
 	public void setIdentifiersMode(SelectionIdentifiersType selectionIdentifiersType) {
 		this.identifiersMode = selectionIdentifiersType;
 	}
+	
+	public List<ClassEnum> getLinks() {
+		return links;
+	}
+	
+	public void setLinks(List<ClassEnum> links) {
+		this.links = links;
+	}
+	
+	public boolean isClassificationsIncluded() {
+		return classificationsIncluded;
+	}
+	
+	public void setClassificationsIncluded(boolean classificationsIncluded) {
+		this.classificationsIncluded = classificationsIncluded;
+	}
+	
+	public List<Object> getIdentifierList() {
+		return identifierList;
+	}
+	
+	public void setIdentifierList(List<Object> identifierList) {
+		this.identifierList = identifierList;
+	}
+	
+	public boolean isFindByMultipleIds() {
+		return identifierList != null && identifierList.size() > 0;
+	}
+	
+	public boolean isClassificationRecordsIncluded() {
+		return classificationRecordsIncluded;
+	}
+	
+	public void setClassificationRecordsIncluded(boolean classificationRecordsIncluded) {
+		this.classificationRecordsIncluded = classificationRecordsIncluded;
+	}
+	
 
-
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SelectionOptions [listOfEntitiesIncluded="
+				+ listOfEntitiesIncluded + ", listOfEntitiesExcluded="
+				+ listOfEntitiesExcluded + ", entities=" + entities
+				+ ", embeddedEntities=" + embeddedEntities + ", links=" + links
+				+ ", linkedObjects=" + linkedObjects + ", windowSize="
+				+ windowSize + ", windowOffset=" + windowOffset
+				+ ", linksIncluded=" + linksIncluded
+				+ ", classificationsIncluded=" + classificationsIncluded
+				+ ", federatedIncluded=" + federatedIncluded
+				+ ", multilingualIncluded=" + multilingualIncluded
+				+ ", classificationRecordsIncluded="
+				+ classificationRecordsIncluded + ", id=" + id
+				+ ", identifierList=" + identifierList + ", identifiersMode="
+				+ identifiersMode + "]";
+	}
 	
 }

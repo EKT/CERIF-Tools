@@ -13,10 +13,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LinkLanguageClassCrudRepository extends CrudRepository<Language_Class, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Language_Class> findByLanguage(Language language);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Language_Class> findBytheClass(Class theClass);
 
 }

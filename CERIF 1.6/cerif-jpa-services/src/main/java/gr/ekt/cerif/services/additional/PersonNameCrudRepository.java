@@ -3,17 +3,14 @@
  */
 package gr.ekt.cerif.services.additional;
 
-import java.util.List;
-
-import javax.persistence.QueryHint;
-
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.features.additional.PersonName;
+
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -22,16 +19,12 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface PersonNameCrudRepository extends CrudRepository<PersonName, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	public List<PersonName> findAll();
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	public Page<PersonName> findAll(Pageable page);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	public PersonName findById(Long id);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select new gr.ekt.cerif.features.additional.PersonName(" +
 				   "       name.firstNames,				" +
 				   "       name.familyNames,			" +
@@ -43,7 +36,6 @@ public interface PersonNameCrudRepository extends CrudRepository<PersonName, Lon
 				   "  order by name.familyNames               ")
 	public List<PersonName> findAllNamesByPersonId(Long id);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query("select pn from PersonName pn join pn.personNames_persons pnp join pnp.person per where per=?1")
 	public List<PersonName> findByPerson(Person person);
 

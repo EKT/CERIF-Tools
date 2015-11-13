@@ -1,8 +1,5 @@
 package gr.ekt.cerif.services;
 
-import gr.ekt.cerif.CerifEntity;
-
-import java.util.List;
 
 /**
  * Selection service.
@@ -15,6 +12,6 @@ public interface SelectionService {
 	 * @return a list of entities.
 	 * @throws SelectionException
 	 */
-	List<CerifEntity> select(SelectionOptions options) throws SelectionException;
+	SelectionResult select(SelectionOptions options) throws SelectionException;
 
 }

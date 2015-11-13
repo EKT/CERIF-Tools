@@ -13,10 +13,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LinkServicePostalAddressCrudRepository extends CrudRepository<Service_PostalAddress, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_PostalAddress> findByPostalAddress(PostalAddress postalAddress);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Service_PostalAddress> findByService(Service service);
 
 }

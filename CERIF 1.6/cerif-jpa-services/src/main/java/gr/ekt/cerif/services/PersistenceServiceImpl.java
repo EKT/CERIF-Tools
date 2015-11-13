@@ -321,7 +321,7 @@ public class PersistenceServiceImpl implements PersistenceService {
 	
 	/**
 	 * Calls a method.
-	 * @param methodName The methos's name.
+	 * @param methodName The method's name.
 	 * @param genericRepository The Repository object that holds the method.
 	 * @param entity The CERIF record that is used as parameter in the method.
 	 * @return ob.

@@ -6,18 +6,13 @@ import gr.ekt.cerif.entities.second.ExpertiseAndSkills;
 
 import java.util.List;
 
-import javax.persistence.QueryHint;
-
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
 public interface LinkPersonExpertiseAndSkillsCrudRepository extends CrudRepository<Person_ExpertiseAndSkills, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Person_ExpertiseAndSkills> findByPerson(Person person);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select persexsk "
 			+ "  from Person_ExpertiseAndSkills persexsk         	"
 			+ "  join persexsk.expertiseAndSkills exsk            	"

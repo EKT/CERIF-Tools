@@ -123,8 +123,8 @@ public class FederatedIdentifierRepositoryImpl implements FederatedIdentifierRep
 
 	@Override
 	public List<FederatedIdentifier> findFedIdByClassClassSchemeAndFedId(
-			Class theClass, ClassScheme classScheme, String fedId, Class fedType) {
-		return federatedIdentifierCrudRepository.findFedIdByClassClassSchemeAndFedId(theClass, classScheme, fedId, fedType);
+			Class theClass, String fedId, Class fedType) {
+		return federatedIdentifierCrudRepository.findFedIdByClassClassSchemeAndFedId(theClass, fedId, fedType);
 	}
 
 	@Override

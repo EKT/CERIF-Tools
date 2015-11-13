@@ -10,9 +10,6 @@ import gr.ekt.cerif.features.semantics.Class;
 
 import java.util.List;
 
-import javax.persistence.QueryHint;
-
-import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -22,16 +19,12 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LinkPersonElectronicAddressCrudRepository extends CrudRepository<Person_ElectronicAddress, Long>{
 
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List <Person_ElectronicAddress> findByPerson(Person person);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<Person_ElectronicAddress> findByElectronicAddress(ElectronicAddress electronicAddress);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List <Person_ElectronicAddress> findByPersonAndElectronicAddress(Person person, ElectronicAddress electronicAddress);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List <Person_ElectronicAddress> findByPersonAndTheClass(Person person, Class theClass);
 	
 }

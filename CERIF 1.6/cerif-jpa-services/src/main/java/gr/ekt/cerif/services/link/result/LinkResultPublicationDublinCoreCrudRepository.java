@@ -12,7 +12,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LinkResultPublicationDublinCoreCrudRepository extends CrudRepository<ResultPublication_DublinCore, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<ResultPublication_DublinCore> findByResultPublication(ResultPublication resultPublication);
 
 }

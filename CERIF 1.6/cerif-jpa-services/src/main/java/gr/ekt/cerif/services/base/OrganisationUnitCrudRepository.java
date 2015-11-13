@@ -5,12 +5,9 @@ package gr.ekt.cerif.services.base;
 
 import gr.ekt.cerif.entities.base.OrganisationUnit;
 
-import javax.persistence.QueryHint;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
 
@@ -20,23 +17,17 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface OrganisationUnitCrudRepository extends CrudRepository<OrganisationUnit, Long> {
 
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	public Iterable<OrganisationUnit> findAll();
+	Iterable<OrganisationUnit> findAll();
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	public Page<OrganisationUnit> findAll(Pageable page);
+	Page<OrganisationUnit> findAll(Pageable page);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	public OrganisationUnit findById(Long id);
+	OrganisationUnit findById(Long id);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	public OrganisationUnit findByUri(String uri);
+	OrganisationUnit findByUri(String uri);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	public OrganisationUnit findByAcronym(String acronym);
+	OrganisationUnit findByUuid(String uuid);
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
-	public OrganisationUnit findByUuid(String uuid);
+	OrganisationUnit findByAcronym(String acronym);
 	
 	@Query(
 		"select o " +
@@ -46,5 +37,7 @@ public interface OrganisationUnitCrudRepository extends CrudRepository<Organisat
 		"  left join fetch o.organisationUnitResearchActivities " +
 		" where o.uuid = ?1 ")
 	OrganisationUnit findByUuidFetchMultilingual(String uuid);
+	
+	
 
 }

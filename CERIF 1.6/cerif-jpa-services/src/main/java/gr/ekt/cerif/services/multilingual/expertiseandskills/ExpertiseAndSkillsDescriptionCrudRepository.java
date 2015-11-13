@@ -8,10 +8,7 @@ import gr.ekt.cerif.features.multilingual.ExpertiseAndSkillsDescription;
 
 import java.util.List;
 
-import javax.persistence.QueryHint;
-
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -20,7 +17,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ExpertiseAndSkillsDescriptionCrudRepository extends CrudRepository<ExpertiseAndSkillsDescription, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	@Query(value = "select exskds "
 			+ "  from ExpertiseAndSkillsDescription exskds          	"
 			+ "  join exskds.expertiseAndSkills exsk            	"

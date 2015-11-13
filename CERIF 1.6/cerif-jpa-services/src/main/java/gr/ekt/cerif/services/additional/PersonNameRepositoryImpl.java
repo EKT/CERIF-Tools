@@ -2,9 +2,6 @@ package gr.ekt.cerif.services.additional;
 
 import gr.ekt.cerif.entities.base.Person;
 import gr.ekt.cerif.features.additional.PersonName;
-import gr.ekt.cerif.services.link.personname.LinkPersonNameClassRepository;
-import gr.ekt.cerif.services.link.personname.LinkPersonNamePersonRepository;
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -21,12 +18,6 @@ public class PersonNameRepositoryImpl implements PersonNameRepository {
 	
 	@Autowired
 	private PersonNameCrudRepository personNameCrudRepository;
-	
-	@Autowired
-	private LinkPersonNamePersonRepository linkPersonNamePersonRepository;
-	
-	@Autowired
-	private LinkPersonNameClassRepository linkPersonNameClassRepository;
 
 	
 	@Override

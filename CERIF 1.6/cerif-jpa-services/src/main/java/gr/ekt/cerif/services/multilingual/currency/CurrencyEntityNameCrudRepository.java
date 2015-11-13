@@ -3,14 +3,11 @@
  */
 package gr.ekt.cerif.services.multilingual.currency;
 
-import java.util.List;
-
-import javax.persistence.QueryHint;
-
 import gr.ekt.cerif.entities.second.Currency;
 import gr.ekt.cerif.features.multilingual.CurrencyEntityName;
 
-import org.springframework.data.jpa.repository.QueryHints;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -19,7 +16,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface CurrencyEntityNameCrudRepository extends CrudRepository<CurrencyEntityName, Long> {
 	
-	@QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })
 	List<CurrencyEntityName> findByCurrency(Currency currency);
 
 }
