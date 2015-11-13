@@ -299,7 +299,7 @@
 #if ($projFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$projFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$projFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $projFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $projFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -712,7 +712,7 @@
 #if ($orgFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$orgFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$orgFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $orgFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $orgFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -1051,7 +1051,13 @@
 		<cfPersNameId>$link.personName.id</cfPersNameId>
 #end
 		<cfClassId>64f0eb00-462d-4737-8033-7efac82decf3</cfClassId>
-		<cfClassSchemeId>7375609d-cfa6-45ce-a803-75de69abe21f</cfClassSchemeId>	
+		<cfClassSchemeId>7375609d-cfa6-45ce-a803-75de69abe21f</cfClassSchemeId>
+#if ($link.startDate)
+		<cfStartDate>$date.format('yyyy-MM-dd',$link.startDate)T$date.format('HH:mm:ss',$link.startDate)</cfStartDate>
+#end
+#if ($link.endDate)
+		<cfEndDate>$date.format('yyyy-MM-dd',$link.endDate)T$date.format('HH:mm:ss',$link.endDate)</cfEndDate>
+#end	
 #if ($link.personName.familyNames && $link.personName.familyNames != "")
 		<cfFamilyNames>$cerif.xml($link.personName.familyNames)</cfFamilyNames>
 #end
@@ -1189,7 +1195,7 @@
 #if ($personFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$personFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$personFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $personFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $personFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -1289,7 +1295,7 @@
 #if ($electronicAddressFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$electronicAddressFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$electronicAddressFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $electronicAddressFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $electronicAddressFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -1465,7 +1471,7 @@
 #if ($postalAddressFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$postalAddressFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$postalAddressFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $postalAddressFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $postalAddressFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -1848,7 +1854,7 @@
 #if ($fundingFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$fundingFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$fundingFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $fundingFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $fundingFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -1897,13 +1903,13 @@
 #if ($theClass.uri && $theClass.uri != "")
 	<cfURI>$cerif.xml($theClass.uri)</cfURI>
 #end
-#foreach( $classDescription in $theClass.descriptions )
+#foreach( $classDescription in $theClass.classDescriptions )
 	<cfDescr cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$classDescription.translation$esc.quote>$cerif.xml($classDescription.description)</cfDescr>
 #if ($classDescription.descriptionSrc && $classDescription.descriptionSrc != "")	
 	<cfDescrSrc cfLangCode=$esc.quote$classDescription.language.code$esc.quote cfTrans=$esc.quote$classDescription.translation$esc.quote>$cerif.xml($classDescription.descriptionSrc)</cfDescrSrc>
 #end
 #end
-#foreach( $classTerm in $theClass.terms )
+#foreach( $classTerm in $theClass.classTerms )
 	<cfTerm cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.term)</cfTerm>
 #if ($classTerm.roleExpr && $classTerm.roleExpr != "")	
 	<cfRoleExpr cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.roleExpr)</cfRoleExpr>
@@ -1915,13 +1921,13 @@
 	<cfTermSrc cfLangCode=$esc.quote$classTerm.language.code$esc.quote cfTrans=$esc.quote$classTerm.translation$esc.quote>$cerif.xml($classTerm.termSrc)</cfTermSrc>
 #end
 #end
-#foreach( $classDefinition in $theClass.definitions )
+#foreach( $classDefinition in $theClass.classDefinitions )
 	<cfDef cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$classDefinition.translation$esc.quote>$cerif.xml($classDefinition.definition)</cfDef>
 #if ($classDefinition.definitionSrc && $classDefinition.definitionSrc != "")	
 	<cfDefSrc cfLangCode=$esc.quote$classDefinition.language.code$esc.quote cfTrans=$esc.quote$classDefinition.translation$esc.quote>$cerif.xml($classDefinition.definitionSrc)</cfDefSrc>
 #end
 #end
-#foreach( $classEx in $theClass.exs )
+#foreach( $classEx in $theClass.classExs )
 	<cfEx cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$classEx.translation$esc.quote>$cerif.xml($classEx.ex)</cfEx>
 #if ($classEx.exSrc && $classEx.exSrc != "")	
 	<cfExSrc cfLangCode=$esc.quote$classEx.language.code$esc.quote cfTrans=$esc.quote$classEx.translation$esc.quote>$cerif.xml($classEx.exSrc)</cfExSrc>
@@ -1973,7 +1979,7 @@
 #if ($classFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$classFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$classFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $classFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $classFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -2045,7 +2051,7 @@
 #if ($classSchemeFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$classSchemeFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$classSchemeFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $classSchemeFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $classSchemeFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -2354,7 +2360,7 @@
 #if ($resPatFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$resPatFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$resPatFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $resPatFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $resPatFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -2650,7 +2656,7 @@
 #if ($resultProductFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultProductFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$resultProductFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $resultProductFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $resultProductFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -3004,7 +3010,7 @@
 #if ($classSchemeFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$resultPublicationFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$resultPublicationFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $resultPublicationFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $resultPublicationFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -3331,7 +3337,7 @@
 #if ($facilityFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$facilityFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$facilityFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $facilityFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $facilityFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -3658,7 +3664,7 @@
 #if ($serviceFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$serviceFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$serviceFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $serviceFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $serviceFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -3985,7 +3991,7 @@
 #if ($equipmentFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$equipmentFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$equipmentFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $equipmentFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $equipmentFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -4042,7 +4048,7 @@
 #if ($federatedIdentifier.endDate)
 	<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 	<cfFedId_Class>
 		<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 		<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -4350,7 +4356,7 @@
 #if ($measurementFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$measurementFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$measurementFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $measurementFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $measurementFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -4620,7 +4626,7 @@
 #if ($indicatorFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$indicatorFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$indicatorFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $indicatorFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $indicatorFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -4911,7 +4917,7 @@
 #if ($mediumFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$mediumFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$mediumFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $mediumFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $mediumFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -5172,7 +5178,7 @@
 #if ($eventFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$eventFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$eventFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $eventFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $eventFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -5281,7 +5287,7 @@
 #if ($citationFederatedIdentifiers.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$citationFederatedIdentifiers.endDate)T$date.format('HH:mm:ss',$citationFederatedIdentifiers.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $citationFederatedIdentifiers.fedIds_classes )
+#foreach( $federatedIdentifierClass in $citationFederatedIdentifiers.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -5369,7 +5375,7 @@
 #if ($federatedIdentifier.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -5463,7 +5469,7 @@
 #if ($federatedIdentifier.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -5596,7 +5602,7 @@
 #if ($federatedIdentifier.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -5780,7 +5786,7 @@
 #if ($federatedIdentifier.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -5926,7 +5932,7 @@
 #if ($federatedIdentifier.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -6030,7 +6036,7 @@
 #if ($federatedIdentifier.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -6122,7 +6128,7 @@
 #if ($federatedIdentifier.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -6223,7 +6229,7 @@
 #if ($federatedIdentifier.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>
@@ -6309,7 +6315,7 @@
 #if ($federatedIdentifier.endDate)
 		<cfEndDate>$date.format('yyyy-MM-dd',$federatedIdentifier.endDate)T$date.format('HH:mm:ss',$federatedIdentifier.endDate)</cfEndDate>
 #end
-#foreach( $federatedIdentifierClass in $federatedIdentifier.fedIds_classes )
+#foreach( $federatedIdentifierClass in $federatedIdentifier.federatedIdentifiers_classes )
 		<cfFedId_Class>
 			<cfClassId>$federatedIdentifierClass.theClass.uuid</cfClassId>	
 			<cfClassSchemeId>$federatedIdentifierClass.theClass.scheme.uuid</cfClassSchemeId>

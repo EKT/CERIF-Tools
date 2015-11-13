@@ -19,7 +19,7 @@ public class XmlCERIFOptions {
 	/**
 	 * The encoding.
 	 */
-	private String encoding;
+	private String encoding = "UTF-8";
 	
 	/**
 	 * Whether to include the default XML declaration.
